@@ -5,7 +5,7 @@ from src.brief.memo import MemoInputs, render_memo_markdown
 from src.data.macro import fetch_regime_signals
 
 st.set_page_config(page_title="Memo Generator", page_icon="📝", layout="wide")
-st.title("📝 Memo Generator (V1)")
+st.title("Memo Generator (V1)")
 
 # Optional macro context toggle
 include_macro = st.checkbox("Include current macro regime context", value=True)

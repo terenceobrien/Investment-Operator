@@ -1,12 +1,13 @@
 import streamlit as st
 
 from src.utils.dates import utc_now_iso
-from src.brief.daily import build_daily_brief, DEFAULT_TICKERS
+from src.brief.daily import build_daily_brief, DEFAULT_TICKERS, INDICATOR_MAP
+from src.data.releases import fetch_release_calendar
 from src.brief.what_matters import generate_what_matters_today, heuristic_what_matters
 
 st.set_page_config(page_title="Daily Brief", page_icon="🗞️", layout="wide")
 
-st.title("🗞️ Daily Brief")
+st.title("Daily Brief")
 st.caption(f"Generated: {utc_now_iso()}")
 
 with st.sidebar:
@@ -18,7 +19,7 @@ with st.sidebar:
     tickers_list = [t.strip() for t in tickers.split(",") if t.strip()]
 
     st.subheader("Controls")
-    gen_summary = st.checkbox("Generate 'What matters today' (uses API)", value=False)
+    gen_summary = st.checkbox("Generate 'What matters today'", value=False)
     run = st.button("Run Daily Brief", type="primary")
 
 if not run:
@@ -28,10 +29,8 @@ if not run:
 with st.spinner("Building brief..."):
     result = build_daily_brief(tickers_list)
 
-# ✅ Everything below is safe because result now exists
-
 # What matters today (optional)
-st.subheader("🧠 What matters today")
+st.subheader("What matters today")
 if gen_summary:
     try:
         movers_df = result["sections"].get("Market Moves (1D)")
@@ -57,7 +56,7 @@ else:
 st.divider()
 
 # Macro panel
-st.subheader("🧭 Macro Regime (V1)")
+st.subheader("Macro Regime (V1)")
 signals = result["macro"]
 cols = st.columns(3)
 for i, b in enumerate(["Growth", "Inflation", "Liquidity"]):
@@ -81,3 +80,8 @@ for title, df in result["sections"].items():
         st.warning("No data returned.")
     else:
         st.dataframe(df, use_container_width=True, hide_index=True)
+
+    with st.expander("📅 Economic Calendar (next 7 days)"):
+        cal = fetch_release_calendar(INDICATOR_MAP, days_ahead=7)
+        st.dataframe(cal, use_container_width=True, hide_index=True)
+

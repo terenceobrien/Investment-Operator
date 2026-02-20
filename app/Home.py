@@ -1,4 +1,7 @@
 import streamlit as st
+from dotenv import load_dotenv
+from pathlib import Path
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 st.set_page_config(
     page_title="AI Financial Operator – V1",

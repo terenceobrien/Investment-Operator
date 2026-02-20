@@ -10,7 +10,7 @@ from src.brief.portfolio import add_regime_aware_flags
 
 st.set_page_config(page_title="Portfolio Snapshot", page_icon="🧩", layout="wide")
 
-st.title("🧩 Portfolio Snapshot (V1)")
+st.title("Portfolio Snapshot (V1)")
 st.caption(f"Generated: {utc_now_iso()}")
 
 st.markdown(
