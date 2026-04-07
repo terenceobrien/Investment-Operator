@@ -16,3 +16,8 @@ data/
 
 # VS Code settings (optional)
 .vscode/
+
+# Environment and secrets
+.env
+.env.save
+.streamlit/secrets.toml
