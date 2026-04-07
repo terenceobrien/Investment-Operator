@@ -167,7 +167,12 @@ class MarketState:
 
     spy_vol: Optional[float] = None               # Volume features (v1)
     spy_vol_vs_20d_pct: Optional[float] = None     # (Vol / Vol_MA20 - 1) * 100
-    spy_vol_z_20d: Optional[float] = None          # (Vol - MA20) / STD20
+    spy_vol_z_20d: Optional[float] = None
+    
+    vix_level: Optional[float] = None
+    vix_z_20d: Optional[float] = None
+    vix_change_pct_1d: Optional[float] = None
+    rsp_minus_spy: Optional[float] = None           # (Vol - MA20) / STD20
 
         # --- Intraday structure (v2.5) ---
     spy_last_price: Optional[float] = None
@@ -229,12 +234,32 @@ def build_market_state(
             if r is not None:
                 sector_rets[t] = r
 
+        # --- VIX metrics ---
+    vix_level = None
+    vix_z_20d = None
+    vix_change_pct_1d = None
+
+    if "^VIX" in cross_prices.columns:
+        vix_series = cross_prices["^VIX"].dropna()
+        if len(vix_series) >= 21:
+            vix_level = _safe_float(float(vix_series.iloc[-1]))
+            vix_prev = _safe_float(float(vix_series.iloc[-2]))
+
+            # 1D % change
+            if vix_level is not None and vix_prev is not None and vix_prev != 0:
+                vix_change_pct_1d = _safe_float((vix_level / vix_prev - 1.0) * 100.0)
+
+            # 20D z-score
+            vix_ma20 = float(vix_series.rolling(20).mean().iloc[-1])
+            vix_sd20 = float(vix_series.rolling(20).std(ddof=0).iloc[-1])
+            if vix_sd20 > 0:
+                vix_z_20d = _safe_float((float(vix_series.iloc[-1]) - vix_ma20) / vix_sd20)
+
                     # --- SPY prev close (from daily series) ---
     spy_prev_close = None
     if "SPY" in cross_prices.columns:
         spy_daily = cross_prices["SPY"].dropna()
         if len(spy_daily) >= 2:
-            # prev close is the prior daily bar close (works even intraday because last is "today so far")
             spy_prev_close = _safe_float(float(spy_daily.iloc[-2]))
 
     # --- Intraday bars for VWAP + last price ---
@@ -247,11 +272,21 @@ def build_market_state(
 
     if not spy_intraday.empty and "Volume" in spy_intraday.columns:
         # last traded price proxy = last bar close
-        spy_last_price = _safe_float(float(spy_intraday["Close"].iloc[-1]))
-
+        close_col = spy_intraday["Close"]
+        if isinstance(close_col, pd.DataFrame):
+            close_col = close_col.iloc[:, 0]
+        spy_last_price = _safe_float(float(close_col.iloc[-1]))
+        
         # VWAP (cumulative, intraday): sum(price*vol)/sum(vol)
-        vol = spy_intraday["Volume"].astype(float)
-        px = spy_intraday["Close"].astype(float)
+        vol_col = spy_intraday["Volume"]
+        if isinstance(vol_col, pd.DataFrame):
+            vol_col = vol_col.iloc[:, 0]
+        vol = vol_col.astype(float)
+
+        px_col = spy_intraday["Close"]
+        if isinstance(px_col, pd.DataFrame):
+            px_col = px_col.iloc[:, 0]
+        px = px_col.astype(float)
 
         vol_sum = float(vol.sum())
         if vol_sum > 0:
@@ -318,9 +353,9 @@ def build_market_state(
 
     if not spy_ohlc.empty:
         last = spy_ohlc.iloc[-1]
-        high = float(last["High"])
-        low = float(last["Low"])
-        close = float(last["Close"])
+        high = float(last["High"]) if not isinstance(last["High"], pd.Series) else float(last["High"].iloc[0])
+        low = float(last["Low"]) if not isinstance(last["Low"], pd.Series) else float(last["Low"].iloc[0])
+        close = float(last["Close"]) if not isinstance(last["Close"], pd.Series) else float(last["Close"].iloc[0])
         spy_clv = _close_location_value(high, low, close)
         if close != 0:
             spy_range_pct = _safe_float(((high - low) / close) * 100.0)
@@ -345,6 +380,9 @@ def build_market_state(
         spy_vwap=spy_vwap,
         spy_above_vwap=spy_above_vwap,
         market_session_date=market_session_date,
+        vix_level=vix_level,
+        vix_z_20d=vix_z_20d,
+        vix_change_pct_1d=vix_change_pct_1d,
     )
 
 
