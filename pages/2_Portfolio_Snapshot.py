@@ -3,12 +3,16 @@ import pandas as pd
 from pathlib import Path
 
 from src.utils.dates import utc_now_iso
+from src.utils.format import fmt_number, fmt_pct_ratio
+from src.utils.style import apply_base_style
 from src.data.portfolio import load_portfolio_csv
 from src.brief.portfolio import compute_portfolio_snapshot
 from src.data.macro import fetch_regime_signals
 from src.brief.portfolio import add_regime_aware_flags
 
 st.set_page_config(page_title="Portfolio Snapshot", page_icon="🧩", layout="wide")
+
+apply_base_style()
 
 st.title("Portfolio Snapshot (V1)")
 st.caption(f"Generated: {utc_now_iso()}")
@@ -67,7 +71,7 @@ snap["flags"] = add_regime_aware_flags(
     top_positions=snap["top_positions"],
 )
 
-st.subheader("🧭 Macro Regime")
+st.subheader("Macro Regime")
 if macro is None:
     st.warning(f"Macro regime unavailable: {macro_error}" if macro_error else "Macro regime unavailable.")
 else:
@@ -78,7 +82,7 @@ else:
             st.metric(
                 label=key,
                 value=sig.trend,
-                delta=f"MoM: {sig.mom:+.2f} | YoY: {sig.yoy:+.2f}",
+                delta=f"MoM: {fmt_number(sig.mom, 2)} | YoY: {fmt_number(sig.yoy, 2)}",
             )
             st.caption(sig.name)
     st.caption("Liquidity uses NFCI (higher = tighter).")
@@ -88,15 +92,15 @@ summary = snap["summary"]
 # Summary metrics
 c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("Positions (ex-cash)", summary["n_positions"])
-c2.metric("Cash", f"{summary['cash_weight']:.1%}")
-c3.metric("Top 1 (invested)", f"{summary['top1_invested']:.1%}")
-c4.metric("Top 3 (invested)", f"{summary['top3_invested']:.1%}")
-c5.metric("Top 5 (invested)", f"{summary['top5_invested']:.1%}")
+c2.metric("Cash", fmt_pct_ratio(summary["cash_weight"], 1))
+c3.metric("Top 1 (invested)", fmt_pct_ratio(summary["top1_invested"], 1))
+c4.metric("Top 3 (invested)", fmt_pct_ratio(summary["top3_invested"], 1))
+c5.metric("Top 5 (invested)", fmt_pct_ratio(summary["top5_invested"], 1))
 
 st.divider()
 
 # Flags
-st.subheader("⚠️ Flags")
+st.subheader("Flags")
 flags = snap["flags"]
 if not flags:
     st.success("No major concentration flags triggered (V1 thresholds).")
@@ -107,15 +111,15 @@ else:
 st.divider()
 
 # Top positions
-st.subheader("📌 Top Positions")
+st.subheader("Top Positions")
 tp = snap["top_positions"].copy()
-tp["weight"] = tp["weight"].map(lambda x: f"{x:.2%}")
-tp["w_norm"] = tp["w_norm"].map(lambda x: f"{x:.1%}")
+tp["weight"] = tp["weight"].map(lambda x: fmt_pct_ratio(x, 2))
+tp["w_norm"] = tp["w_norm"].map(lambda x: fmt_pct_ratio(x, 1))
 tp = tp.rename(columns={"w_norm": "share_of_invested"})
 st.dataframe(tp, use_container_width=True, hide_index=True)
 
 # Theme exposure
-st.subheader("🏷️ Theme Exposure")
+st.subheader("Theme Exposure")
 te = snap["theme_exposure"].copy()
-te["weight"] = te["weight"].map(lambda x: f"{x:.2%}")
+te["weight"] = te["weight"].map(lambda x: fmt_pct_ratio(x, 2))
 st.dataframe(te, use_container_width=True, hide_index=True)

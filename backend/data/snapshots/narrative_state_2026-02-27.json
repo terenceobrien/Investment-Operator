@@ -1,0 +1,112 @@
+{
+  "asof_utc": "2026-02-27T16:44:44.590263+00:00",
+  "dominant_narratives": [
+    {
+      "title": "AI Investment Surge",
+      "stance": "mixed",
+      "confidence": 70,
+      "why_now": "News of OpenAI securing $110 billion in funding from major tech firms including Amazon and Nvidia has injected volatility into the AI sector. The unprecedented size of this funding round is fostering both enthusiasm and skepticism in the tech market today.",
+      "takeaways": [
+        "CHANGE: Major investment from Amazon ($50bn) signals strong belief in AI's future, impacting related stocks.",
+        "CONFIRMATION: Nvidia remains a pivotal player in the AI space yet faces scrutiny due to recent performance drops.",
+        "UNCLEAR: The long-term market reaction to inflated tech valuations stemming from these investments is yet to unfold."
+      ],
+      "key_catalysts": [
+        "OpenAI's $110 billion funding announcement",
+        "Market reactions to Nvidia and related tech earnings"
+      ],
+      "tickers": [
+        "AMZN",
+        "NVDA",
+        "MSFT",
+        "GOOGL"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "OpenAI raises $110 billion",
+          "url": "https://finnhub.io/api/news?id=34475b5aa5f0caf2c488b8870a880b927bb2e00622fc9a2e62c3106d44337552"
+        },
+        {
+          "channel": "ticker_news",
+          "source": "MarketWatch",
+          "title": "Amazon, Nvidia and Softbank pour $110 billion into OpenAI",
+          "url": "https://www.marketwatch.com/story/amazon-nvidia-and-softbank-pour-110-billion-into-openai-raising-the-stakes-for-ai-monetization-f59ee73b"
+        }
+      ],
+      "what_would_change": [
+        "Increased scrutiny on tech valuations due to inflated funding rounds could lead to sell-offs in overvalued stocks."
+      ],
+      "risks_to_watch": [
+        "Continued regulatory scrutiny on high-tech valuations and potential fallout from high borrowing costs."
+      ]
+    },
+    {
+      "title": "Profit-Taking in Tech",
+      "stance": "risk_off",
+      "confidence": 65,
+      "why_now": "The visible trend of profit-taking, particularly in tech stocks like MSFT and NVDA amid the recent funding news and poor market sentiment, signals caution among investors who remain skeptical of inflated valuations.",
+      "takeaways": [
+        "CHANGE: Persistent sell-offs in tech giants, despite positive funding news, indicates a risk-off sentiment prevailing in the market.",
+        "INVALIDATION: The risk-on narrative surrounding AI investments may be in conflict with short-term profit-taking behavior.",
+        "UNCLEAR: How long this risk-off sentiment persists, considering the ongoing hype around AI."
+      ],
+      "key_catalysts": [
+        "Nvidia and Microsoft share price declines after AI funding news",
+        "General tech sector sell-off today"
+      ],
+      "tickers": [
+        "MSFT",
+        "NVDA",
+        "AAPL",
+        "TSLA"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "MarketWatch",
+          "title": "Why the S&P 500 was doomed to fall when Nvidia plunged after its earnings",
+          "url": "https://www.marketwatch.com/story/why-the-s-p-500-was-doomed-to-fall-when-nvidia-plunged-after-its-earnings-0ef3599e"
+        }
+      ],
+      "what_would_change": [
+        "A return to investor confidence in tech could spark a buying wave in oversold stocks."
+      ],
+      "risks_to_watch": [
+        "Heightened inflation concerns continuing to drive selling pressures."
+      ]
+    }
+  ],
+  "one_paragraph_summary": "Today saw a significant shift with the tech sector showing mixed signals, primarily driven by the announcement of OpenAI's colossal $110 billion funding round backed by Amazon and Nvidia. Despite this promising news, the market reacted strongly with a notable profit-taking trend evident in major tech stocks like Microsoft and Nvidia, reflecting investor caution ahead of upcoming earnings and broader economic indicators. Overall, the market exhibited signs of fragility as tech giants faced headwinds.",
+  "raw_takeaways": [
+    "CHANGE: OpenAI's $110 billion funding round fosters excitement, but immediate market response is bearish for tech stocks.",
+    "CONFIRMATION: Market's existing trend of valuation skepticism remains evident in sell-off of high-flying stocks.",
+    "UNCLEAR: The impact of inflation data on tech stock performance in the coming days."
+  ],
+  "counter_narratives": [
+    "The market sell-off may simply be a correction after a prolonged upward trend rather than an indication of deep-seated issues."
+  ],
+  "unknowns": [
+    "What effect will the funding announcement have on Nvidia's next earnings call?",
+    "How will forthcoming inflation data impact investor sentiment towards tech valuations?"
+  ],
+  "market_tone": {
+    "risk_appetite": "low",
+    "fragility": "fragile",
+    "positioning_guess": "crowded",
+    "tone_notes": "While funding news provides a narrative boost for AI stocks, broader sector decline raises concerns over valuations."
+  },
+  "signals": {
+    "headline_intensity": 6,
+    "earnings_intensity": 5,
+    "macro_intensity": 7,
+    "social_intensity": 6
+  },
+  "_meta": {
+    "total_items_in_bundle": 729,
+    "items_selected_for_llm": 80,
+    "lookback_hours": 36,
+    "prior_snapshot_found": false
+  }
+}

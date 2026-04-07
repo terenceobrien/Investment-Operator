@@ -14,6 +14,8 @@ from src.state.scoring import score_market_state
 
 from datetime import datetime
 from src.state.delta import find_previous_snapshot, diff_states, diff_to_bullets, top_movers_from_delta
+from src.utils.format import fmt_number, fmt_pct, format_df_accounting
+from src.utils.style import apply_base_style
 
 def render_card(title: str, value: str):
     st.markdown(
@@ -46,7 +48,9 @@ def render_card(title: str, value: str):
     )
 
 st.set_page_config(page_title="Market State", layout="wide")
+apply_base_style()
 st.title("Market State — Sentiment & Environment")
+st.caption("Sentiment scoring, environment classification, and snapshot deltas.")
 
 # Controls
 colA, colB, colC, colD = st.columns([1.2, 1.2, 1.2, 2.4])
@@ -71,7 +75,7 @@ c1, c2, c3, c4, c5 = st.columns(5)
 with c1:
     render_card(
         "Sentiment Score (0–100)",
-        f"{state.score_total:.2f}" if state.score_total is not None else "—"
+        fmt_number(state.score_total, 2)
     )
 
 with c2:
@@ -82,30 +86,31 @@ with c2:
 
 with c3:
     lead_txt = " | ".join(
-        [f"{name} ({ret:+.2f}%)" for name, ret in state.leadership_top3]
+        [f"{name} ({fmt_pct(ret, 2)})" for name, ret in state.leadership_top3]
     ) if state.leadership_top3 else "—"
     render_card("Leadership (Top 3)", lead_txt)
 
 with c4:
     render_card(
         "Sector Dispersion (σ)",
-        f"{state.dispersion:.2f}" if state.dispersion is not None else "—"
+        fmt_number(state.dispersion, 2)
     )
 with c5:
     render_card(
         "Confidence",
-        f"{state.confidence:.0f}" if state.confidence is not None else "-"
+        fmt_number(state.confidence, 0)
     )
 
 st.divider()
 
 # Component score bars
-st.subheader("Score Components (0–20 each)")
+st.subheader("Score Components (0–10 each)")
 if state.score_components:
     comp_df = pd.DataFrame(
         [{"Component": k, "Score": v} for k, v in state.score_components.items()]
     ).sort_values("Score", ascending=False)
-    st.dataframe(comp_df, use_container_width=True, hide_index=True)
+    styled = format_df_accounting(comp_df, num_cols=["Score"], num_decimals=2)
+    st.dataframe(styled, use_container_width=True, hide_index=True)
 else:
     st.info("No score components available.")
 
@@ -117,25 +122,25 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.metric(
         "SPY CLV",
-        f"{state.spy_clv:+.2f}" if state.spy_clv is not None else "—"
+        fmt_number(state.spy_clv, 2)
     )
 
 with col2:
     st.metric(
         "SPY Range %",
-        f"{state.spy_range_pct:.2f}%" if state.spy_range_pct is not None else "—"
+        fmt_pct(state.spy_range_pct, 2)
     )
 
 with col3:
     st.metric(
         "SPY Vol vs 20D",
-        f"{state.spy_vol_vs_20d_pct:+.1f}%" if state.spy_vol_vs_20d_pct is not None else "—"
+        fmt_pct(state.spy_vol_vs_20d_pct, 1)
     )
 
 with col4:
     st.metric(
         "Volume Confirmation",
-        f"{state.volume_confirmation:+.2f}" if state.volume_confirmation is not None else "—"
+        fmt_number(state.volume_confirmation, 2)
     )
 
 st.divider()
@@ -160,13 +165,13 @@ prev_close_flag = (
 with t1:
     render_card(
         "SPY Last",
-        f"{state.spy_last_price:.2f}" if state.spy_last_price is not None else "—"
+        fmt_number(state.spy_last_price, 2)
     )
 
 with t2:
     render_card(
         "SPY VWAP",
-        f"{state.spy_vwap:.2f}" if state.spy_vwap is not None else "—"
+        fmt_number(state.spy_vwap, 2)
     )
 
 with t3:
@@ -205,16 +210,13 @@ else:
     comp_delta = d.get("components_delta", {})
     if comp_delta:
         comp_df = (
-            pd.DataFrame([{"Component": k, "Δ (0–20)": v} for k, v in comp_delta.items()])
-            .sort_values("Δ (0–20)", ascending=False)
+            pd.DataFrame([{"Component": k, "Δ (0–10)": v} for k, v in comp_delta.items()])
+            .sort_values("Δ (0–10)", ascending=False)
             .reset_index(drop=True)
         )
         st.subheader("Component deltas")
-        st.dataframe(
-            comp_df.style.format({"Δ (0–20)": "{:+.2f}"}),
-            use_container_width=True,
-            hide_index=True,
-        )
+        styled = format_df_accounting(comp_df, num_cols=["Δ (0–10)"], num_decimals=2)
+        st.dataframe(styled, use_container_width=True, hide_index=True)
 
     ca_delta = d.get("cross_asset_delta", {})
     sec_delta = d.get("sector_delta", {})
@@ -233,7 +235,8 @@ else:
             rows.append({"Asset": k, "Δ return (pp)": v})
         if rows:
             df = pd.DataFrame(rows)
-            st.dataframe(df.style.format({"Δ return (pp)": "{:+.2f}"}), use_container_width=True, hide_index=True)
+            styled = format_df_accounting(df, num_cols=["Δ return (pp)"], num_decimals=2)
+            st.dataframe(styled, use_container_width=True, hide_index=True)
         else:
             st.caption("No cross-asset deltas available.")
 
@@ -246,35 +249,10 @@ else:
             rows.append({"Sector ETF": k, "Δ return (pp)": v})
         if rows:
             df = pd.DataFrame(rows)
-            st.dataframe(df.style.format({"Δ return (pp)": "{:+.2f}"}), use_container_width=True, hide_index=True)
+            styled = format_df_accounting(df, num_cols=["Δ return (pp)"], num_decimals=2)
+            st.dataframe(styled, use_container_width=True, hide_index=True)
         else:
             st.caption("No sector deltas available.") 
-
-# Cross-asset table
-st.subheader("Cross-Asset Returns")
-ca_rows = []
-for t, name in CROSS_ASSET.items():
-    r = state.cross_asset_returns.get(t)
-    ca_rows.append({"Ticker": t, "Name": name, f"Return {horizon} (%)": r})
-ca_df = pd.DataFrame(ca_rows).sort_values(f"Return {horizon} (%)", ascending=False)
-st.dataframe(
-    ca_df.style.format({f"Return {horizon} (%)": "{:+.2f}"}),
-    use_container_width=True,
-    hide_index=True,
-)
-
-# Sector table
-st.subheader("Sector Returns (SPDRs)")
-sec_rows = []
-for t, name in SECTOR_ETFS.items():
-    r = state.sector_returns.get(t)
-    sec_rows.append({"Ticker": t, "Sector": name, f"Return {horizon} (%)": r})
-sec_df = pd.DataFrame(sec_rows).sort_values(f"Return {horizon} (%)", ascending=False)
-st.dataframe(
-    sec_df.style.format({f"Return {horizon} (%)": "{:+.2f}"}),
-    use_container_width=True,
-    hide_index=True,
-)
 
 # Snapshot persistence
 st.divider()

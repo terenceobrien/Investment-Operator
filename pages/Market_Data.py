@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List
+
+from pandas.core.arrays import interval
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -12,9 +14,13 @@ from plotly.subplots import make_subplots
 from datetime import datetime , timedelta
 
 from src.data.market import fetch_market_moves
+from src.utils.format import fmt_pct, fmt_number, format_df_accounting
+from src.utils.style import apply_base_style
 
 st.set_page_config(page_title="Market Data", layout="wide")
+apply_base_style()
 st.title("Market Data - Price Action and Technical Indicators")
+st.caption("Cross-asset and sector returns with drill-down charts.")
 
 DEFAULT_TICKERS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "HYG", "GLD", "USO", "BTC-USD"]
 
@@ -157,7 +163,7 @@ for t in CROSS_ASSET_GRID_ORDER:
     if pd.isna(r):
         cross_labels.append(f"{name}<br>n/a")
     else:
-        cross_labels.append(f"{name}<br>{r:.2f}%")
+        cross_labels.append(f"{name}<br>{fmt_pct(r, 2)}")
 
 cross_grid = np.array(cross_grid).reshape(3, 3)
 cross_labels = np.array(cross_labels).reshape(3, 3)
@@ -204,11 +210,14 @@ moves_df = get_default_ticker_moves(DEFAULT_TICKERS)
 if moves_df is None or moves_df.empty:
     st.caption("No data returned.")
 else:
-    st.dataframe(
-        moves_df.style.format({"last": "{:.2f}", "chg_pct_1d": "{:+.2f}%"}),
-        use_container_width=True,
-        hide_index=True
+    styled_moves = format_df_accounting(
+        moves_df,
+        num_cols=["last"],
+        pct_cols=["chg_pct_1d"],
+        num_decimals=2,
+        pct_decimals=2,
     )
+    st.dataframe(styled_moves, use_container_width=True, hide_index=True)
 
 st.divider()
 st.subheader("Sector Returns")
@@ -221,7 +230,7 @@ for t in grid_order:
         labels.append("")
     else:
         grid.append(rets.get(t, np.nan))
-        labels.append(f"{SECTORS[t]}<br>{rets.get(t, np.nan):.2f}%")
+        labels.append(f"{SECTORS[t]}<br>{fmt_pct(rets.get(t, np.nan), 2)}")
 
 grid = np.array(grid).reshape(3, 4)
 labels = np.array(labels).reshape(3, 4)
@@ -257,11 +266,12 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
-st.dataframe(
-    df.style.format({"Return_%": "{:.2f}%"}), 
-    use_container_width=True,
-    hide_index=True
+styled_returns = format_df_accounting(
+    df,
+    pct_cols=["Return_%"],
+    pct_decimals=2,
 )
+st.dataframe(styled_returns, use_container_width=True, hide_index=True)
 
 tickers = ["SPY", "QQQ", "IWM", "TLT", "HYG", "GLD", "USO", "BTC-USD"]
 ticker = st.selectbox("Select Ticker", tickers)
@@ -275,17 +285,30 @@ timeframes = {
 }
 tf_label = st.selectbox("Select Timeframe", list(timeframes.keys()))
 
+tf_to_period_interval = {
+    "1D":  ("1d",  "5m"),
+    "5D":  ("5d",  "15m"),
+    "1M":  ("1mo", "1h"),
+    "3M":  ("3mo", "1d"),
+    "YTD": ("1y",  "1d"),   # filter manually below
+    "1Y":  ("1y",  "1d"),
+}
+
+period, interval = tf_to_period_interval.get(tf_label, ("1mo", "1d"))
+
 # --- Fetch Data ---
-if tf_label == "1D":
-    data = yf.download(ticker, period="1d", interval="5m")
-elif tf_label == "5D":
-    data = yf.download(ticker, period="5d", interval="30m")
-elif tf_label == "1M":
-    data = yf.download(ticker, period="1mo", interval="1d")
-elif tf_label == "3M":
-    data = yf.download(ticker, period="3mo", interval="1d")
-elif tf_label == "YTD":
-    data = yf.download(ticker, period="1y", interval="1d")
+data = yf.download(
+    ticker,
+    period=period,
+    interval=interval,
+    auto_adjust=False,
+    progress=False
+)
+
+if tf_label == "YTD":
+    import pandas as pd
+    start_of_year = pd.Timestamp(pd.Timestamp.today().year, 1, 1)
+    data = data[data.index >= start_of_year]
 
 if isinstance(data.columns, pd.MultiIndex):
     data.columns = [" ".join([str(x) for x in col if x]).strip() for col in data.columns.values]
@@ -305,39 +328,82 @@ if y.dropna().empty:
     st.error("Close series is all NaN after coercion. Data source returned non-numeric values.")
     st.stop()
 
+# ---- Make a clean plotting frame ----
+
 df = data.copy()
-dt_col = df.columns[0]  # first col is Datetime after reset_index()
 
+# If MultiIndex, keep only first level (Open/High/Low/Close/Volume)
 if isinstance(df.columns, pd.MultiIndex):
-    df.columns = [c[0] for c in df.columns]  # keep first level: Open/High/Low/Close/Volume
+    df.columns = df.columns.get_level_values(0)
 
-# Normalize column names (strip, consistent case)
+# Normalize column names (strings)
 df.columns = [str(c).strip() for c in df.columns]
 
-def pick_col(target: str) -> str:
-    # find column regardless of case (e.g., "high" vs "High")
+# --- helper to find OHLCV columns robustly ---
+def find_col(base: str, ticker: str) -> str:
+    """
+    Finds column for base like 'Open' in either:
+      - 'Open'
+      - 'Open SPY'
+      - 'SPY Open' (rare but handle)
+      - case-insensitive
+    """
+    base_l = base.lower()
+    t_l = ticker.lower()
+
+    # exact match (case-insensitive)
     for c in df.columns:
-        if str(c).lower() == target.lower():
+        if c.lower() == base_l:
             return c
-    raise KeyError(f"Missing '{target}'. Columns: {list(df.columns)}")
 
-suffix = f" {ticker}"
-open_col  = f"Open{suffix}"
-high_col  = f"High{suffix}"
-low_col   = f"Low{suffix}"
-close_col = f"Close{suffix}"
-vol_col   = f"Volume{suffix}"
+    # common yfinance flatten: "Open SPY"
+    for c in df.columns:
+        if c.lower() == f"{base_l} {t_l}":
+            return c
 
-missing = [c for c in [open_col, high_col, low_col, close_col, vol_col] if c not in df.columns]
-if missing:
-    st.error(f"Missing columns: {missing}. Found: {list(df.columns)}")
-    st.stop()
+    # alternate: "SPY Open"
+    for c in df.columns:
+        if c.lower() == f"{t_l} {base_l}":
+            return c
 
-#Chart------
-fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.05, row_heights=[0.75, 0.25])
+    # fallback: contains both words
+    for c in df.columns:
+        cl = c.lower()
+        if base_l in cl and t_l in cl:
+            return c
+
+    raise KeyError(f"Could not find column for {base}. Columns: {list(df.columns)}")
+
+open_col  = find_col("Open", ticker)
+high_col  = find_col("High", ticker)
+low_col   = find_col("Low", ticker)
+close_col = find_col("Close", ticker)
+vol_col   = find_col("Volume", ticker)
+
+# --- reset index and normalize datetime column ---
+df = df.reset_index()
+
+# yfinance intraday typically uses "Datetime", otherwise "Date"
+if "Datetime" in df.columns:
+    df = df.rename(columns={"Datetime": "Date"})
+elif "Date" not in df.columns:
+    df = df.rename(columns={df.columns[0]: "Date"})
+
+df["Date"] = pd.to_datetime(df["Date"])
+# Make tz-naive for Plotly stability
+if getattr(df["Date"].dt, "tz", None) is not None:
+    df["Date"] = df["Date"].dt.tz_localize(None)
+
+# --- build chart ---
+fig = make_subplots(
+    rows=2, cols=1,
+    shared_xaxes=True,
+    vertical_spacing=0.05,
+    row_heights=[0.75, 0.25]
+)
 
 fig.add_trace(go.Candlestick(
-    x=df[dt_col],
+    x=df["Date"],
     open=df[open_col],
     high=df[high_col],
     low=df[low_col],
@@ -346,18 +412,28 @@ fig.add_trace(go.Candlestick(
 ), row=1, col=1)
 
 fig.add_trace(go.Bar(
-    x=df[dt_col],
+    x=df["Date"],
     y=df[vol_col],
-    name="Volume"
+    name="Volume",
 ), row=2, col=1)
 
 fig.update_layout(
     template="plotly_dark",
-    height=600,
-    margin=dict(l=10, r=10, t=35, b=10),
-    xaxis_rangeslider_visible=False,
+    height=650,
+    margin=dict(l=10, r=10, t=40, b=10),
     hovermode="x unified",
-    showlegend=False
+    xaxis_rangeslider_visible=False,
+    showlegend=False,
+    bargap=0
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+is_crypto = ticker.endswith("-USD")
+if not is_crypto:
+    fig.update_xaxes(
+        rangebreaks=[
+            dict(bounds=["sat", "mon"]),
+            dict(bounds=[16, 9.5], pattern="hour"),
+        ]
+    )

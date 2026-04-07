@@ -5,12 +5,9 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 import argparse
-from pathlib import Path
-
 import pandas as pd
 
-from src.backtest.features import build_daily_feature_frame, score_history_both_signal_times
-
+from src.backtest.features import build_research_frame
 
 def main() -> None:
     ap = argparse.ArgumentParser(
@@ -27,41 +24,39 @@ def main() -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     # 1) Build raw daily features
-    feats = build_daily_feature_frame(
+    df = build_research_frame(
         start=args.start,
         end=args.end,
         force_download=args.force,
     )
 
-    # 2) Score history for BOTH 'open' and 'close' signal times
-    scored = score_history_both_signal_times(feats)
-
-    # 3) Save outputs
-    scored.to_parquet(out_path)
+    # 2) Save outputs
+    df.to_parquet(out_path, index=False)
 
     if args.csv:
         csv_path = Path(args.csv)
         csv_path.parent.mkdir(parents=True, exist_ok=True)
-        # parquet preserves MultiIndex columns; csv doesn't—flatten them
-        flat = scored.copy()
-        flat.columns = [f"{a}__{b}" for a, b in flat.columns]
-        flat.to_csv(csv_path, index=True)
+        df.to_csv(csv_path, index=False)
 
-    # 4) Print quick sanity checks
     print("✅ Saved:", out_path)
-    print("Rows:", len(scored), "Date range:", str(scored.index.min().date()), "→", str(scored.index.max().date()))
+    print("Rows:", len(df), "Date range:", str(df["date"].min()), "→", str(df["date"].max()))
 
-    # Show a small preview of the key columns
-    preview = scored[[("open", "score_total"), ("open", "confidence"), ("close", "score_total"), ("close", "confidence")]].tail(5)
-    print("\nPreview (last 5 rows):")
-    print(preview)
+    preview_cols = [
+        "date", "signal_time",
+        "score_total", "confidence", "environment",
+        "fwd_ret_cc_1d", "fwd_ret_cc_5d",
+        "fwd_5d_max_drawdown_pct", "fwd_5d_max_upside_pct"
+    ]
+    existing = [c for c in preview_cols if c in df.columns]
+    print("\nPreview (last 10 rows):")
+    print(df[existing].tail(10))
 
-    # Basic missingness
-    miss_open = scored[("open", "score_total")].isna().mean() * 100
-    miss_close = scored[("close", "score_total")].isna().mean() * 100
-    print(f"\nMissing score_total: open={miss_open:.1f}%  close={miss_close:.1f}%")
+    # missingness checks
+    for c in ["score_total", "fwd_ret_cc_5d", "fwd_5d_max_drawdown_pct"]:
+        if c in df.columns:
+            miss = df[c].isna().mean() * 100
+            print(f"Missing {c}: {miss:.1f}%")
     print("Done.")
-
-
+    
 if __name__ == "__main__":
     main()

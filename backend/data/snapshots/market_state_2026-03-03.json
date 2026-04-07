@@ -1,0 +1,72 @@
+{
+  "asof_utc": "2026-03-03T15:08:20.092338+00:00",
+  "horizon": "1D",
+  "cross_asset_returns": {
+    "SPY": -1.9435337219280369,
+    "QQQ": -2.088508550733026,
+    "IWM": -3.4210204237918873,
+    "DIA": -2.11374064612323,
+    "TLH": -0.3854321936634153,
+    "HYG": -0.479574168017749,
+    "GLD": -5.126529615752551,
+    "USO": 6.917880451179936,
+    "BTC-USD": -2.9992585742474764,
+    "^VIX": 22.341412727904352,
+    "RSP": -2.4927860286500403
+  },
+  "sector_returns": {
+    "XLB": -4.000002005850201,
+    "XLE": -1.2096816801039356,
+    "XLF": -1.9883050154643978,
+    "XLI": -2.5992141168964866,
+    "XLK": -2.3720780549318587,
+    "XLP": -1.1723604173831892,
+    "XLU": -2.586021747398748,
+    "XLV": -1.917613896133974,
+    "XLY": -2.3392800130615843,
+    "XLC": -1.2725884152433364,
+    "XLRE": -2.083326819164233
+  },
+  "leadership_top3": [
+    [
+      "Staples",
+      -1.1723604173831892
+    ],
+    [
+      "Energy",
+      -1.2096816801039356
+    ],
+    [
+      "Comm Services",
+      -1.2725884152433364
+    ]
+  ],
+  "sectors_green": 0,
+  "dispersion": 0.7741795296545575,
+  "spy_clv": -0.5502789555902701,
+  "spy_range_pct": 0.8129433793372325,
+  "market_session_date": "2026-03-03",
+  "spy_vol": 23663890.0,
+  "spy_vol_vs_20d_pct": -71.25714017697602,
+  "spy_vol_z_20d": -2.695153693004593,
+  "vix_level": null,
+  "vix_z_20d": null,
+  "vix_change_pct_1d": null,
+  "rsp_minus_spy": null,
+  "spy_last_price": 672.9450073242188,
+  "spy_prev_close": 686.3800048828125,
+  "spy_above_prev_close": false,
+  "spy_vwap": 673.7946125768839,
+  "spy_above_vwap": false,
+  "volume_confirmation": 2.695153693004593,
+  "confidence": 49.8,
+  "score_total": 51.78,
+  "score_components": {
+    "risk_on": 5.0,
+    "trend_strength": 7.75,
+    "vol_mood": 8.88,
+    "participation": 0.0,
+    "leadership_clarity": 4.26
+  },
+  "environment": "Chop / Mean Reversion"
+}

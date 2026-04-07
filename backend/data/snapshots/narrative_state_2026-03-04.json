@@ -1,0 +1,119 @@
+{
+  "asof_utc": "2026-03-04T15:36:28.847759+00:00",
+  "dominant_narratives": [
+    {
+      "title": "AI-Driven Investment Resurgence",
+      "stance": "risk_on",
+      "confidence": 75,
+      "why_now": "Today's surge in stocks like AMZN (+3.75%) and TSLA (+3.67%) is notably driven by new announcements about AI investments, with Amazon pledging an additional $21 billion to expand data centers in Spain. This is seen as a major catalyst for rekindling investor interest in AI-related stocks after a recent period of profit-taking.",
+      "takeaways": [
+        "CHANGE: Major stocks rebound on AI investments, signaling renewed confidence.",
+        "CHANGE: Amazon's $21 billion investment highlights ongoing focus on AI capabilities.",
+        "CHANGE: TXN's stock movement suggests broader market validation for AI plays."
+      ],
+      "key_catalysts": [
+        "Amazon's investment announcement in AI",
+        "NVIDIA stock rebound supported by investor confidence as billionaire buys shares"
+      ],
+      "tickers": [
+        "AMZN",
+        "TSLA",
+        "NVDA"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Amazon invests $21 billion in Spain for AI",
+          "url": "https://finnhub.io/api/news?id=a246e746aea45776d815d82b57d3e072f9317404f436645310b39ee0f86137a2"
+        },
+        {
+          "channel": "ticker_news",
+          "source": "Benzinga",
+          "title": "Nvidia leads chip stock rebound; investors buying back in",
+          "url": "https://finnhub.io/api/news?id=e38dc3591a46f041b73f85daba10c20ce6f3158a3189bd034a001c06671b0812"
+        }
+      ],
+      "what_would_change": [
+        "A material change in AI trends could reverse current enthusiasm.",
+        "Negative regulatory news about AI funding may dampen investment again."
+      ],
+      "risks_to_watch": [
+        "Regulatory backlash against aggressive AI investments",
+        "Global political tensions affecting tech stocks"
+      ]
+    },
+    {
+      "title": "Geopolitical Tensions Continue to Influence Market Sentiment",
+      "stance": "mixed",
+      "confidence": 60,
+      "why_now": "The emergence of geopolitical tensions, particularly around Iran, adds complexity to today's market sentiment, where some investors remain cautious despite gains in tech stocks. The mixed signals from the geopolitical landscape and Federal Reserve communication have led to an unclear risk appetite.",
+      "takeaways": [
+        "UNCLEAR: Geopolitical tensions led to mixed reactions in the market today.",
+        "CONFIRMATION: Oil prices are stabilizing, but uncertainty prevails."
+      ],
+      "key_catalysts": [
+        "Fending off geopolitical risks might weaken investor confidence, validating mixed moves in indices."
+      ],
+      "tickers": [
+        "SPY",
+        "NVDA"
+      ],
+      "evidence": [
+        {
+          "channel": "news",
+          "source": "Reuters",
+          "title": "Iran conflict tensions rise",
+          "url": "https://www.reuters.com/article/iran-attack-idUSKBN2AZ27Q"
+        },
+        {
+          "channel": "news",
+          "source": "CNBC",
+          "title": "Trump announces naval escorts in the Gulf",
+          "url": "https://www.cnbc.com/2026/03/04/crude-oil-prices-today-iran-war.html"
+        }
+      ],
+      "what_would_change": [
+        "A significant escalation in conflict could pressure the markets downward.",
+        "Any stabilization in geopolitical issues may revive growth expectations."
+      ],
+      "risks_to_watch": [
+        "Escalation of Iran tensions leading to broader market impacts",
+        "Responses from Federal Reserve to geopolitical dynamics may shift investor sentiment"
+      ]
+    }
+  ],
+  "one_paragraph_summary": "Today's market reflects a notable rebound, particularly in tech stocks like AMZN and TSLA driven by substantial AI investments announced by Amazon. Concurrently, the geopolitical landscape remains turbulent, influencing investor sentiment and creating a mixed risk environment. This duality can be seen in the market's strong moves upward despite ongoing political tensions, resulting in a nuanced outlook as both opportunities and risks coexist.",
+  "raw_takeaways": [
+    "CHANGE: Major tech stocks rallied sharply on AI news today, indicating strong investor interest in the sector.",
+    "CHANGE: Amazon's investment is a powerful signal of faith in AI, boosting investor sentiment.",
+    "UNCLEAR: Geopolitical issues are contributing to a mixed market mood, preventing clearer directional bias.",
+    "CONFIRMATION: Tech stocks rebounding stem from heavy AI investments despite recent sell-offs."
+  ],
+  "counter_narratives": [
+    "Strong stock performance may be largely reactionary and not sustainable in the long term.",
+    "Investor enthusiasm could fade if geopolitical risks escalate or if earnings fail to meet expectations."
+  ],
+  "unknowns": [
+    "The extent to which geopolitical risks will impact broader market recovery is still uncertain.",
+    "How sustainable will the renewed focus on AI investments be in the face of potential regulation?"
+  ],
+  "market_tone": {
+    "risk_appetite": "medium",
+    "fragility": "fragile",
+    "positioning_guess": "crowded",
+    "tone_notes": "Investor confidence is buoyed by recent AI investments, yet geopolitical tensions present underlying risks."
+  },
+  "signals": {
+    "headline_intensity": 7,
+    "earnings_intensity": 6,
+    "macro_intensity": 5,
+    "social_intensity": 4
+  },
+  "_meta": {
+    "total_items_in_bundle": 754,
+    "items_selected_for_llm": 80,
+    "lookback_hours": 36,
+    "prior_snapshot_found": true
+  }
+}

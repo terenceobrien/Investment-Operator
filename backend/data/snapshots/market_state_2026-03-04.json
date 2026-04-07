@@ -1,0 +1,72 @@
+{
+  "asof_utc": "2026-03-04T15:35:43.216819+00:00",
+  "horizon": "1D",
+  "cross_asset_returns": {
+    "SPY": 0.7070094568469631,
+    "QQQ": 1.4328925283932925,
+    "IWM": 0.9161395191585875,
+    "DIA": 0.44694625902894636,
+    "TLH": -0.1544512388946928,
+    "HYG": 0.2933107866893936,
+    "GLD": 1.3735386908432679,
+    "USO": -0.1884680429012242,
+    "BTC-USD": 6.75823508934934,
+    "^VIX": -11.200676384515019,
+    "RSP": 0.22515925719115426
+  },
+  "sector_returns": {
+    "XLB": 0.21178400704653377,
+    "XLE": -1.0792650484980126,
+    "XLF": 0.3905502177602882,
+    "XLI": 0.3419920407986554,
+    "XLK": 1.5854492187499902,
+    "XLP": -0.6325510812497548,
+    "XLU": 0.2761866772001076,
+    "XLV": -0.012762710067537597,
+    "XLY": 1.608950968931766,
+    "XLC": 0.8223136895825878,
+    "XLRE": -0.3203647304445001
+  },
+  "leadership_top3": [
+    [
+      "Discretionary",
+      1.608950968931766
+    ],
+    [
+      "Technology",
+      1.5854492187499902
+    ],
+    [
+      "Comm Services",
+      0.8223136895825878
+    ]
+  ],
+  "sectors_green": 7,
+  "dispersion": 0.792607745951355,
+  "spy_clv": 0.6502294519610616,
+  "spy_range_pct": 0.9764431062808465,
+  "market_session_date": "2026-03-04",
+  "spy_vol": 18688122.0,
+  "spy_vol_vs_20d_pct": -77.19127580636116,
+  "spy_vol_z_20d": -2.8381158759469938,
+  "vix_level": null,
+  "vix_z_20d": null,
+  "vix_change_pct_1d": null,
+  "rsp_minus_spy": null,
+  "spy_last_price": 685.1400146484375,
+  "spy_prev_close": 680.3300170898438,
+  "spy_above_prev_close": true,
+  "spy_vwap": 682.9786426430022,
+  "spy_above_vwap": true,
+  "volume_confirmation": -2.8381158759469938,
+  "confidence": 71.13,
+  "score_total": 63.18,
+  "score_components": {
+    "risk_on": 5.0,
+    "trend_strength": 8.25,
+    "vol_mood": 8.02,
+    "participation": 6.25,
+    "leadership_clarity": 4.07
+  },
+  "environment": "Mixed / Neutral"
+}

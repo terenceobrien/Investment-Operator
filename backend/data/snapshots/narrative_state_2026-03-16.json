@@ -1,0 +1,113 @@
+{
+  "asof_utc": "2026-03-16T15:41:01.160926+00:00",
+  "dominant_narratives": [
+    {
+      "title": "Tech Stocks Rebound as Investors Absorb Geopolitical Risks",
+      "stance": "risk_on",
+      "confidence": 75,
+      "why_now": "Following a period of market weakness due to geopolitical tensions related to the Iran conflict, today's notable rebound in tech stocks suggests that investors are now finding value in previously penalized sectors.",
+      "takeaways": [
+        "Investor sentiment seems to have shifted back toward risk-on, indicated by strong performance in major tech stocks like NVDA, META, and TSLA."
+      ],
+      "key_catalysts": [
+        "Announcements of significant AI investment partnerships, particularly Meta's $27 billion deal for AI infrastructure with Nebius, likely fueled positive sentiment among tech investors."
+      ],
+      "tickers": [
+        "NVDA",
+        "META",
+        "TSLA"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Nebius, Meta Strike $27 Billion AI Infrastructure Deal",
+          "url": "https://finnhub.io/api/news?id=6d02411484a600012ecfb69de826d475043a955c748b11cc61b7aa5f0fdfe029"
+        },
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Tesla Nears Launch of \u2018Terafab\u2019 Chipmaking Factory. What It Means for the Stock.",
+          "url": "https://finnhub.io/api/news?id=71c696643b702582a9f1b4f33a4498169b30f83b9e64f0504918e24df4ab6543"
+        }
+      ],
+      "what_would_change": [
+        "A significant escalation in Iran conflict resulting in further geopolitical instability could quickly reverse today's gains."
+      ],
+      "risks_to_watch": [
+        "The potential for renewed volatility related to Middle East tensions, especially if oil prices surge or supply chain disruptions occur."
+      ]
+    },
+    {
+      "title": "Market's Positive Reaction to AI Investments",
+      "stance": "risk_on",
+      "confidence": 70,
+      "why_now": "The tech stocks' performance aligns closely with recent announcements of AI infrastructure investments, indicating that the market is favorably reacting to growth in AI technology amidst geopolitical risks.",
+      "takeaways": [
+        "AI investment news appears to have overridden negative sentiments from the geopolitical backdrop.",
+        "Companies like Microsoft, Amazon, and Meta are heavily investing, counterbalancing risk perceptions."
+      ],
+      "key_catalysts": [
+        "Microsoft's partnership details with AI-driven businesses showcase ongoing momentum in tech spending.",
+        "Meta's strategic AI deal has triggered renewed interest in enhancing operational capabilities."
+      ],
+      "tickers": [
+        "MSFT",
+        "AMZN",
+        "META"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Beyond Market Price: Uncovering Amazon.com Inc's Intrinsic Value",
+          "url": "https://finnhub.io/api/news?id=392d98c67fc27506e1a4c0610d1e288911d2fc4582117f0ff09f5a6c6c70d09f"
+        },
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Meta to Spend Up to $27 Billion on Nebius AI Infrastructure",
+          "url": "https://finnhub.io/api/news?id=8edf8a913ef84f6ed43261d5592ed0a6ded2d69f10314286a859761c424ab5b1"
+        }
+      ],
+      "what_would_change": [
+        "Any major setbacks in tech company earnings due to rising costs could alter the currently positive sentiment toward tech stocks."
+      ],
+      "risks_to_watch": [
+        "Delayed acceptance or integration of AI technologies could temper performance forecasts and investor expectations."
+      ]
+    }
+  ],
+  "one_paragraph_summary": "Market sentiment has turned around significantly from the previous session's risk-off stance, notably driven by renewed investor confidence in the tech sector. The rebound across key tech stocks such as NVDA, META, and TSLA reflects positive responses to large-scale AI investments and recovery in risk appetite despite ongoing geopolitical concerns surrounding the Iran conflict. Major tech companies have unveiled significant new AI partnerships that are likely spurring investor optimism, overshadowing previous declines linked to regional tensions.",
+  "raw_takeaways": [
+    "CHANGE: Rebound in tech stocks indicates a shift to risk-on sentiment, with NVDA and META leading the charge.",
+    "CHANGE: Major announcements regarding AI investments, especially from Meta and Tesla, are contributing to renewed confidence among investors in tech stocks.",
+    "CONFIRMATION: Geopolitical volatility remains a backdrop but does not currently deter investor interest in tech sector value."
+  ],
+  "counter_narratives": [
+    "Geopolitical tensions could suddenly flare up again, leading to a rapid withdrawal of risk appetite regardless of today's gains.",
+    "Overindulgence in tech stock valuations and liquidity risks could result in a sharper market correction."
+  ],
+  "unknowns": [
+    "How will the geopolitical landscape evolve in the coming days or weeks?",
+    "Are the recent tech stock rallies sustainable given the ongoing uncertainty in the region?"
+  ],
+  "market_tone": {
+    "risk_appetite": "high",
+    "fragility": "stable",
+    "positioning_guess": "clean",
+    "tone_notes": "Investors are responding favorably to AI-centric developments in tech, suggesting a more positive outlook."
+  },
+  "signals": {
+    "headline_intensity": 6,
+    "earnings_intensity": 5,
+    "macro_intensity": 4,
+    "social_intensity": 4
+  },
+  "_meta": {
+    "total_items_in_bundle": 624,
+    "items_selected_for_llm": 80,
+    "lookback_hours": 36,
+    "prior_snapshot_found": true
+  }
+}

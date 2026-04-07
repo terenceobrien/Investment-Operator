@@ -1,0 +1,118 @@
+{
+  "asof_utc": "2026-02-28T02:36:15.670362+00:00",
+  "dominant_narratives": [
+    {
+      "title": "Profit-Taking in Major Tech Stocks",
+      "stance": "risk_off",
+      "confidence": 75,
+      "why_now": "Today saw continued profit-taking in major tech stocks such as NVDA and AAPL amid a backdrop of mixed signals from the broader market. The absence of strong buying pressure has led to declines in traditionally strong performers, echoing last week's profit-taking trend following OpenAI's massive funding news. This cautious sentiment is mirrored by overall market weakness with SPY and QQQ both closing down.",
+      "takeaways": [
+        "TRANSPARENT concerns about current tech valuations remain as the market digests mixed economic signals.",
+        "TECH stocks, particularly NVDA and MSFT, saw notable declines, indicative of ongoing profit-taking behavior."
+      ],
+      "key_catalysts": [
+        "Solid earnings data from previous reporting period starting to feel stale as competition rises, especially for Nvidia.",
+        "Overall market pressures including sharp increases in inflation causing jitters in investor confidence."
+      ],
+      "tickers": [
+        "AAPL",
+        "NVDA",
+        "MSFT",
+        "SPY",
+        "QQQ"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Nvidia's stock wrapping up tough week as Wall Street focuses more on competition than growth",
+          "url": "https://www.cnbc.com/2026/02/27/nvidia-wraps-tough-week-as-investors-focus-on-competition-over-growth.html"
+        },
+        {
+          "channel": "ticker_news",
+          "source": "MarketWatch",
+          "title": "Software stocks fall as Block\u2019s big job cuts stoke further AI fears",
+          "url": "https://www.marketwatch.com/story/software-stocks-fall-as-blocks-big-job-cuts-stoke-further-ai-fears-c66aef8e"
+        }
+      ],
+      "what_would_change": [
+        "Confirmation of strong earnings from tech giants could re-establish confidence and reverse selling pressure."
+      ],
+      "risks_to_watch": [
+        "Unexpected poor macroeconomic indicators leading to broader market selloffs.",
+        "Further job cuts in tech sectors may exacerbate cashed-out investor sentiment."
+      ]
+    },
+    {
+      "title": "AI Investment Sentiment Shift",
+      "stance": "mixed",
+      "confidence": 65,
+      "why_now": "Despite the massive funding for OpenAI, investor sentiment appears mixed with rising concerns about AI competition affecting key players in the sector. Nvidia\u2019s partnership with Google is offset by increased scrutiny of competition from AMD and other tech firms diverting focus away from traditional tech leaders.",
+      "takeaways": [
+        "CHANGE sentiment around AI-related stock performance as investor caution rises due to increased competition.",
+        "UNCLEAR is the long-term impact of current AI partnerships and their ability to maintain sustainable growth."
+      ],
+      "key_catalysts": [
+        "Announced layoffs in major tech firms against the backdrop of AI advancement raising concern over technological obsolescence.",
+        "Investors adapting strategies as the hype around AI peaks with related reports suggesting volatility could arise from competitive blurring."
+      ],
+      "tickers": [
+        "NVDA",
+        "MSFT",
+        "GOOGL"
+      ],
+      "evidence": [
+        {
+          "channel": "ticker_news",
+          "source": "Yahoo",
+          "title": "Investors will weigh tech and retail earnings from the likes of Broadcom and Target",
+          "url": "https://finnhub.io/api/news?id=117e49b76a9c8931c3520ee67ce4dafb64e1ac349d32438026037b24b6a39a80"
+        },
+        {
+          "channel": "ticker_news",
+          "source": "MarketWatch",
+          "title": "Block says AI will let it cut more than 4,000 jobs",
+          "url": "https://www.marketwatch.com/story/block-says-ai-will-let-it-cut-more-than-4-000-jobs-some-argue-thats-not-the-whole-story-6f85d7b8"
+        }
+      ],
+      "what_would_change": [
+        "The announcement of stable earnings from secondary AI-related firms could restore investor sentiment and confidence."
+      ],
+      "risks_to_watch": [
+        "Regulatory changes in AI usage that could disrupt framework collaborations leading to reduced valuation."
+      ]
+    }
+  ],
+  "one_paragraph_summary": "Overall, today's market activity reflected a continuation of the profit-taking trend seen in major tech stocks like Nvidia and Apple, influenced by rising concerns of competition despite earlier investor excitement over AI funding. Mixed signals from the market have led to a generally risk-off sentiment, with top stocks declining in tandem, creating downward pressure on broader indices like SPY and QQQ.",
+  "raw_takeaways": [
+    "CHANGE profit-taking in tech as prior spikes have led to increased investor hesitance.",
+    "CONFIRMATION of AI-related growth narrative shifting towards caution in tech sector amidst competitive threats.",
+    "UNCLEAR investor sentiment as competitional pressures emerge; reaction to previously bullish sentiment now teetering."
+  ],
+  "counter_narratives": [
+    "Potential for unidentified sector leaders rising as competition strengthens market dynamics.",
+    "Market corrections are not specific to tech but reflect broader economic adjustments, providing opportunities for recovery."
+  ],
+  "unknowns": [
+    "Uncertain how upcoming earnings will influence sector recovery after volatility observed.",
+    "Potential regulatory changes surrounding AI that may impact key player strategies in the coming months."
+  ],
+  "market_tone": {
+    "risk_appetite": "low",
+    "fragility": "fragile",
+    "positioning_guess": "crowded",
+    "tone_notes": "Investor sentiment has shifted towards caution following recent profit-taking and potential competitive market dynamics."
+  },
+  "signals": {
+    "headline_intensity": 8,
+    "earnings_intensity": 6,
+    "macro_intensity": 5,
+    "social_intensity": 7
+  },
+  "_meta": {
+    "total_items_in_bundle": 744,
+    "items_selected_for_llm": 80,
+    "lookback_hours": 36,
+    "prior_snapshot_found": true
+  }
+}

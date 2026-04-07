@@ -1,0 +1,72 @@
+{
+  "asof_utc": "2026-03-12T03:50:46.649039+00:00",
+  "horizon": "1D",
+  "cross_asset_returns": {
+    "SPY": -0.12551693717042234,
+    "QQQ": -0.013165685583749198,
+    "IWM": -0.20129243195743385,
+    "DIA": -0.6049852573972725,
+    "TLH": -1.0055635812048602,
+    "HYG": -0.22488793492861925,
+    "GLD": -0.3390104145245987,
+    "USO": 2.0687723680138603,
+    "BTC-USD": -0.8743614706692715,
+    "^VIX": -2.8078650395929716,
+    "RSP": -0.3295780815643523
+  },
+  "sector_returns": {
+    "XLB": -0.0801942956511148,
+    "XLE": 2.4820163776758886,
+    "XLF": -0.8389971476642111,
+    "XLI": -0.3117273061865933,
+    "XLK": 0.4793919542638081,
+    "XLP": -1.3182511277654796,
+    "XLU": -0.8376357234590404,
+    "XLV": -0.19587842306511005,
+    "XLY": -0.2621487638567732,
+    "XLC": -0.32373254584218136,
+    "XLRE": -1.1882533627464387
+  },
+  "leadership_top3": [
+    [
+      "Energy",
+      2.4820163776758886
+    ],
+    [
+      "Technology",
+      0.4793919542638081
+    ],
+    [
+      "Materials",
+      -0.0801942956511148
+    ]
+  ],
+  "sectors_green": 2,
+  "dispersion": 0.9880820013835983,
+  "spy_clv": -0.11276125620313689,
+  "spy_range_pct": 0.9965534671041606,
+  "market_session_date": "2026-03-11",
+  "spy_vol": 67291756.0,
+  "spy_vol_vs_20d_pct": -21.35072914901005,
+  "spy_vol_z_20d": -1.1167299768960948,
+  "vix_level": null,
+  "vix_z_20d": null,
+  "vix_change_pct_1d": null,
+  "rsp_minus_spy": null,
+  "spy_last_price": 676.3300170898438,
+  "spy_prev_close": 677.1799926757812,
+  "spy_above_prev_close": false,
+  "spy_vwap": 675.9421470157838,
+  "spy_above_vwap": true,
+  "volume_confirmation": 1.1167299768960948,
+  "confidence": 38.78,
+  "score_total": 42.48,
+  "score_components": {
+    "risk_on": 5.65,
+    "trend_strength": 5.56,
+    "vol_mood": 7.91,
+    "participation": 0.0,
+    "leadership_clarity": 2.12
+  },
+  "environment": "Chop / Mean Reversion"
+}

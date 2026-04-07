@@ -1,0 +1,72 @@
+{
+  "asof_utc": "2026-03-25T04:47:22.280661+00:00",
+  "horizon": "1D",
+  "cross_asset_returns": {
+    "SPY": -0.33568497522664664,
+    "QQQ": -0.6836767910289088,
+    "IWM": 0.5374830662587815,
+    "DIA": -0.17316877521372787,
+    "TLH": -0.33946081754565594,
+    "HYG": -0.3398845218567148,
+    "GLD": 0.022274115430986896,
+    "USO": 3.599858397992728,
+    "BTC-USD": -0.2135262994731102,
+    "^VIX": 3.059277843515873,
+    "RSP": 0.11998316271573106
+  },
+  "sector_returns": {
+    "XLB": 1.8927477188631414,
+    "XLE": 2.029178371287421,
+    "XLF": 0.020292919505404683,
+    "XLI": 0.582641478357182,
+    "XLK": -0.5841570424131914,
+    "XLP": -0.08622775875963828,
+    "XLU": 0.6922764219331246,
+    "XLV": 0.013807427700451846,
+    "XLY": -0.39956631895371464,
+    "XLC": -1.4018293353640465,
+    "XLRE": -0.8124028188941868
+  },
+  "leadership_top3": [
+    [
+      "Energy",
+      2.029178371287421
+    ],
+    [
+      "Materials",
+      1.8927477188631414
+    ],
+    [
+      "Utilities",
+      0.6922764219331246
+    ]
+  ],
+  "sectors_green": 6,
+  "dispersion": 1.013916631768488,
+  "spy_clv": -0.07563556786514164,
+  "spy_range_pct": 1.0931159448390495,
+  "market_session_date": "2026-03-24",
+  "spy_vol": 95310078.0,
+  "spy_vol_vs_20d_pct": 0.05157317932196204,
+  "spy_vol_z_20d": 0.0021098046501754728,
+  "vix_level": null,
+  "vix_z_20d": null,
+  "vix_change_pct_1d": null,
+  "rsp_minus_spy": null,
+  "spy_last_price": 653.2000122070312,
+  "spy_prev_close": 655.3800048828125,
+  "spy_above_prev_close": false,
+  "spy_vwap": 653.8707481996424,
+  "spy_above_vwap": false,
+  "volume_confirmation": -0.0021098046501754728,
+  "confidence": 45.54,
+  "score_total": 49.28,
+  "score_components": {
+    "risk_on": 5.0,
+    "trend_strength": 5.38,
+    "vol_mood": 7.4,
+    "participation": 5.0,
+    "leadership_clarity": 1.86
+  },
+  "environment": "Chop / Mean Reversion"
+}

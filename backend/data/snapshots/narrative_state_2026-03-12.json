@@ -1,0 +1,104 @@
+{
+  "asof_utc": "2026-03-12T15:01:34.812572+00:00",
+  "dominant_narratives": [
+    {
+      "title": "Escalation in Iran Conflict Drives Market Weakness",
+      "stance": "risk_off",
+      "confidence": 8,
+      "why_now": "Tensions in the Middle East, especially around the Strait of Hormuz, escalated today following reports of Iranian attacks on Gulf shipping, leading to a significant spike in oil prices. The geopolitical tensions have broadly impacted market sentiment, particularly in energy-reliant sectors and sentiment towards equities.",
+      "takeaways": [
+        "Oil prices surged 7% after the attacks, impacting market sectors heavily reliant on stable energy prices.",
+        "Tech stocks are under pressure as broader market fear leads to risk-off behavior, with heavy losses in major names such as AAPL, NVDA, and TSLA."
+      ],
+      "key_catalysts": [
+        "Iran escalation in Gulf leads to heightened oil prices.",
+        "Broader market fear induced by geopolitical risks results in tech sell-off."
+      ],
+      "tickers": [
+        "SPY",
+        "AAPL",
+        "TSLA",
+        "NVDA",
+        "GOOGL"
+      ],
+      "evidence": [
+        {
+          "channel": "news",
+          "source": "Reuters",
+          "title": "Oil jumps 7% as Iran escalates attacks on Gulf shipping",
+          "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxObUlmTHZTREdweklZWFUzeEp0dzFUbk56bWVQQ3hWY0IzWDlZN0JzUllPUmJyd3U2RVZVUHQ3SE5DcFBSZmVNYlljWEJYTVpRTlVISVFKTWoyR2Z2aEVrQ0dVU3RKc1lhay1QWG5TVlltdHB1YVFRNHFpemRxalFyRk56andqamRBVHBJVmwwZTFkcDh4c1NuNFloakZRX2xHSnlyRTgxbkVycVVTUjBWS0pyV0pmMjVW?oc=5"
+        }
+      ],
+      "what_would_change": [
+        "De-escalation of tensions in the Iran conflict could stabilize oil prices and restore risk appetite."
+      ],
+      "risks_to_watch": [
+        "Further escalation in the Middle East might exacerbate oil price volatility and economic downturn risks."
+      ]
+    },
+    {
+      "title": "Tech Sector Faces Increased Scrutiny Amid Geopolitical Fears",
+      "stance": "risk_off",
+      "confidence": 7,
+      "why_now": "Reports of geopolitical instability coupled with bearish market sentiment have led to increased selling pressure on tech stocks, indicating a potential correction as investors reconsider valuations amidst heightened uncertainty.",
+      "takeaways": [
+        "Tech stocks like AAPL and NVDA are down significantly on the back of geopolitical instability influencing growth narratives.",
+        "Investor sentiment is shifting from growth-centric to defensive positioning due to fears of ongoing global instability."
+      ],
+      "key_catalysts": [
+        "Market-wide sell-off in tech triggered by rising geopolitical risks.",
+        "Investors reassessing tech valuations due to fear of potential economic repercussions from rising oil prices."
+      ],
+      "tickers": [
+        "AAPL",
+        "NVDA",
+        "META"
+      ],
+      "evidence": [
+        {
+          "channel": "news",
+          "source": "Reuters",
+          "title": "Concerns About Huge Capital Expenditure on Data Centers Weighed on Microsoft\u0019s (MSFT) Performance",
+          "url": "https://finnhub.io/api/news?id=54522eaa92fda6168f388182118f12ebf3e60851d4457d40645fff864fb05e3f"
+        }
+      ],
+      "what_would_change": [
+        "Positive earnings results in tech could mitigate fears and stabilize share prices in a risk-on environment."
+      ],
+      "risks_to_watch": [
+        "Further declines in tech stocks if geopolitical risks amplify investor anxiety."
+      ]
+    }
+  ],
+  "one_paragraph_summary": "Today\u2019s market exhibits marked weakness, particularly in tech stocks, as escalating tensions in the Iran conflict significantly impact investor sentiment. With oil prices spiking due to Iranian attacks on Gulf shipping, the broader market has responded with a risk-off approach, resulting in substantial declines in major tech equities, while energy stocks may see upward pressure. Investors are refocusing on geopolitical headwinds, marking a shift from previous resilience observed in the tech sector.",
+  "raw_takeaways": [
+    "CHANGE: Oil prices jumped 7% following Iranian escalation, increasing market uncertainty.",
+    "CHANGE: significant declines in tech stocks as fear of geopolitical instability rises.",
+    "CONFIRMATION: Tech stocks under pressure, highlighting investor anxiety over growth amid risk aversion."
+  ],
+  "counter_narratives": [
+    "The market reaction could primarily reflect profit-taking rather than genuine sentiment shifts regarding tech fundamentals.",
+    "Investors might be overreacting to geopolitical news without substantial changes to the macroeconomic outlook."
+  ],
+  "unknowns": [
+    "Future developments in the Iran conflict could drastically change market exposure and risk levels."
+  ],
+  "market_tone": {
+    "risk_appetite": "low",
+    "fragility": "fragile",
+    "positioning_guess": "crowded",
+    "tone_notes": "Market sentiment is heavily influenced by geopolitical tensions, leading to defensive positioning."
+  },
+  "signals": {
+    "headline_intensity": 8,
+    "earnings_intensity": 4,
+    "macro_intensity": 7,
+    "social_intensity": 5
+  },
+  "_meta": {
+    "total_items_in_bundle": 689,
+    "items_selected_for_llm": 80,
+    "lookback_hours": 36,
+    "prior_snapshot_found": true
+  }
+}
