@@ -1,7 +1,15 @@
 import streamlit as st
+import os
 from dotenv import load_dotenv
 from pathlib import Path
+
+from src.utils.style import apply_base_style
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+
+# Sync Streamlit secrets into os.environ so all existing os.getenv() calls still work
+if hasattr(st, "secrets"):
+    for key, value in st.secrets.items():
+        os.environ.setdefault(key, str(value))
 
 st.set_page_config(
     page_title="AI Financial Operator – V1",
@@ -9,8 +17,10 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("📈 AI Financial Operator – V1")
-st.caption("Human-in-the-loop daily brief + portfolio snapshot + memo generator.")
+apply_base_style()
+
+st.title("AI Financial Operator – V1")
+st.caption("Human-in-the-loop daily brief, portfolio snapshot, and memo generator.")
 
 st.markdown(
     """
@@ -22,4 +32,3 @@ st.markdown(
 )
 
 st.info("Go to **Daily Brief** in the left sidebar to start.")
-
