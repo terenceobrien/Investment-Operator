@@ -36,7 +36,11 @@ app = FastAPI(title="Market Intelligence API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://your-vercel-app.vercel.app"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://ai-financial-operator.vercel.app",
+        "https://ai-financial-operator-*.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
