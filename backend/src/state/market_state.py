@@ -30,7 +30,7 @@ CROSS_ASSET: Dict[str, str] = {
     "QQQ": "Nasdaq 100",
     "IWM": "Russell 2000",
     "DIA": "Dow",
-    "TLH": "10-20Y Treasuries",
+    "TLT": "10-20Y Treasuries",
     "HYG": "High Yield Credit",
     "GLD": "Gold",
     "USO": "Oil",
@@ -101,25 +101,46 @@ def _close_location_value(high: float, low: float, close: float) -> Optional[flo
 
 def _download_closes(tickers: List[str], period: str = "2y", auto_adjust: bool = True) -> pd.DataFrame:
     import yfinance as yf
-    data = yf.download(
-        tickers,
-        period=period,
-        interval="1d",
-        group_by="ticker",
-        auto_adjust=auto_adjust,
-        progress=False,
-        threads=True,
-    )
-    if data is None or len(data) == 0:
-        return pd.DataFrame()
-
-    if isinstance(data.columns, pd.MultiIndex):
-        closes = pd.DataFrame({t: data[t]["Close"] for t in tickers if t in data.columns.get_level_values(0)})
-    else:
-        # single ticker case
-        closes = data[["Close"]].rename(columns={"Close": tickers[0]})
-
-    return closes.dropna(how="all")
+    import time
+    
+    for attempt in range(3):
+        try:
+            data = yf.download(
+                tickers,
+                period=period,
+                interval="1d",
+                group_by="ticker",
+                auto_adjust=auto_adjust,
+                progress=False,
+                threads=False,  # Change to False — threading causes issues on some servers
+            )
+            if data is None or len(data) == 0:
+                time.sleep(2)
+                continue
+                
+            if isinstance(data.columns, pd.MultiIndex):
+                closes = pd.DataFrame({
+                    t: data[t]["Close"] 
+                    for t in tickers 
+                    if t in data.columns.get_level_values(0)
+                })
+            else:
+                closes = data[["Close"]].rename(columns={"Close": tickers[0]})
+                
+            closes = closes.dropna(how="all")
+            
+            # If we got less than half the tickers, retry
+            if len(closes.columns) < len(tickers) / 2:
+                time.sleep(2)
+                continue
+                
+            return closes
+            
+        except Exception as e:
+            print(f"yfinance download attempt {attempt + 1} failed: {e}")
+            time.sleep(2)
+    
+    return pd.DataFrame()
 
 
 def _download_ohlc(ticker: str, period: str = "10d", auto_adjust: bool = True) -> pd.DataFrame:
