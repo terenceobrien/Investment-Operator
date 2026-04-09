@@ -136,7 +136,7 @@ def score_market_state(state: MarketState) -> MarketState:
     Components (0-10 each), combined using weights from CSV.
       1) risk_on
       2) trend_strength
-      3) vol_mood (proxy via range% as a stand-in until VIX is added)
+      3) vol_mood
       4) participation
       5) leadership_clarity
     """
@@ -148,20 +148,18 @@ def score_market_state(state: MarketState) -> MarketState:
 
     # --- Component 1: Risk-on vs Risk-off ---
     hyg = ca.get("HYG")
-    tlh = ca.get("TLH")
+    tlt = ca.get("TLT")
 
     # Build a simple composite:
 
-    if hyg is not None and tlh is not None and np.isfinite(float(hyg)) and np.isfinite(float(tlh)):
-        raw = float(hyg - tlh)
+    if hyg is not None and tlt is not None and np.isfinite(float(hyg)) and np.isfinite(float(tlt)):
+        raw = float(hyg - tlt)  # positive = risk-on, negative = risk-off
         # bounds for blended 5d/21d relative performance (in % points)
         # tune later using quantiles
         lo, hi = thresholds["risk_on_raw"]
         risk_on = _scale_to_0_10(raw, lo, hi)
     else:
         risk_on = 5.0
-
-    print(hyg, tlh, risk_on)
 
     # --- Component 2: Trend strength ---
     clv = state.spy_clv
@@ -286,7 +284,7 @@ def classify_environment(total_score: float, components: Dict[str, float]) -> st
     # Simple rules (you’ll refine after a few weeks of snapshots)
     if total_score >= 70 and trend >= 7 and vol >= 5:
         return "Trend Day (Directional)"
-    if 60 <= total_score < 75 and part >= 6 and lead >= 5:
+    if 60 <= total_score < 70 and part >= 6 and lead >= 5:
         return "Risk-On Rotation Day"
     if total_score <= 35 or vol <= 3:
         return "Risk-Off / Headline Risk"
