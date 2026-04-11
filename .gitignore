@@ -13,6 +13,7 @@ __pycache__/
 /data/
 *.parquet
 *.csv
+!backend/data/operator_research_v1.csv
 
 # VS Code settings (optional)
 .vscode/
