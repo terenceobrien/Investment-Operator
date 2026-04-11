@@ -64,7 +64,61 @@ async def get_market_state(horizon: str = Query("1D")):
     await asyncio.to_thread(save_snapshot, state, SNAPSHOT_DIR)
     return MarketStateOut(**state.to_dict())
 
+# ── Add this to backend/api/main.py ──────────────────────────────────────────
+# Place alongside your other endpoints
 
+@app.get("/api/market/analogues")
+@cache("market_state")  # 5 min cache — same as market state
+async def get_historical_analogues(
+    top_n: int = Query(15, ge=5, le=30),
+):
+    """
+    Find the most similar historical market states to today's conditions.
+    Returns enriched per-date detail and aggregate statistics.
+    """
+    # Get current market state
+    state = await asyncio.to_thread(build_market_state)
+    state = await asyncio.to_thread(score_market_state, state)
+
+    # Get score delta from yesterday's snapshot
+    score_delta = None
+    try:
+        session_date = state.market_session_date
+        prev_date, prev_state = await asyncio.to_thread(
+            find_previous_snapshot, SNAPSHOT_DIR, session_date
+        )
+        if prev_state and prev_state.score_total and state.score_total:
+            score_delta = state.score_total - prev_state.score_total
+    except Exception:
+        pass
+
+    # Import here to avoid startup cost
+    from src.analysis.analogues import get_historical_analogues as _get_analogues
+
+    result = await asyncio.to_thread(
+        _get_analogues,
+        environment=state.environment or "Mixed / Neutral",
+        score_total=state.score_total or 50.0,
+        vix_level=state.vix_level,
+        sectors_green=state.sectors_green,
+        score_delta=score_delta,
+        confidence=state.confidence,
+        top_n=top_n,
+    )
+
+    # Add today's state for context
+    result["current_state"] = {
+        "score_total": state.score_total,
+        "confidence": state.confidence,
+        "environment": state.environment,
+        "vix_level": state.vix_level,
+        "sectors_green": state.sectors_green,
+        "score_delta": score_delta,
+        "asof_utc": state.asof_utc,
+    }
+
+    return result
+    
 @app.get("/api/market/delta", response_model=DeltaOut)
 @cache("market_state")
 async def get_market_delta(horizon: str = Query("1D")):
@@ -333,3 +387,17 @@ async def get_latest_narrative():
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+@app.get("/api/market/conditional")
+async def get_conditional():
+    state = await asyncio.to_thread(build_market_state)
+    state = await asyncio.to_thread(score_market_state, state)
+    from src.analysis.conditional_probability import get_conditional_stats
+    result = get_conditional_stats(
+        environment=state.environment,
+        score_total=state.score_total,
+        vix_level=state.vix_level,
+        sectors_green=state.sectors_green,
+        confidence=state.confidence,
+    )
+    return result

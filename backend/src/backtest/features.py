@@ -6,13 +6,13 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
-from src.backtest.data import (
+from backend.src.backtest.data import (
     DEFAULT_CROSS_ASSET,
     DEFAULT_SECTOR_TICKERS,
     fetch_yf_panel,
 )
-from src.state.market_state import MarketState
-from src.state.scoring import score_market_state
+from backend.src.state.market_state import MarketState
+from backend.src.state.scoring import score_market_state
 
 FEATURE_VERSION = "v1_02_22_2026"
 

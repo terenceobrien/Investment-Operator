@@ -7,7 +7,7 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 import argparse
 import pandas as pd
 
-from src.backtest.features import build_research_frame
+from backend.src.backtest.features import build_research_frame
 
 def main() -> None:
     ap = argparse.ArgumentParser(

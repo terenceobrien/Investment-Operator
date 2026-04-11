@@ -11,6 +11,7 @@ const links = [
   { href: '/narrative', label: 'Narrative' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/about', label: 'About' },
+  { href: '/history', label: 'Market Memory' },
 ];
 
 export default function NavBar() {
