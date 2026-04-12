@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
+import NarrativeTab from '../../components/NarrativeTab';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -28,6 +29,7 @@ interface Analogue {
   forward_returns: ForwardReturns;
   risk_profile: { max_drawdown_5d: number | null; max_upside_5d: number | null };
   forward_path: { date: string; ret_pct: number }[];
+  has_narrative?: boolean;
 }
 
 interface HorizonStats {
@@ -252,6 +254,8 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
                 );
               })() : <p style={{ fontSize: '0.75rem', color: '#4b5563' }}>No path data (recent date)</p>}
             </div>
+            {/* Narrative tab */}
+            <NarrativeTab date={a.date} hasSnapshot={a.has_narrative || false} />
           </div>
         </div>
       )}

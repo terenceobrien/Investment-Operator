@@ -22,3 +22,5 @@ __pycache__/
 .env
 .env.save
 .streamlit/secrets.toml
+.vercel
+.env*.local

@@ -401,3 +401,26 @@ async def get_conditional():
         confidence=state.confidence,
     )
     return result
+
+# ── Add this to backend/api/main.py ──────────────────────────────────────────
+# Place alongside your other endpoints
+
+@app.get("/api/narrative/historical/{date_str}")
+async def get_historical_narrative(date_str: str):
+    """
+    Generate a retrospective market narrative for a historical date
+    using only quantitative market structure data.
+    Results are cached in memory after first generation.
+    """
+    import re
+    if not re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
+        raise HTTPException(400, "Date must be in YYYY-MM-DD format")
+
+    try:
+        from src.analysis.historical_narrative import generate_historical_narrative
+        result = await asyncio.to_thread(generate_historical_narrative, date_str)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"Failed to generate narrative: {e}")
