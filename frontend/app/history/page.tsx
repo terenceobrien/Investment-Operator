@@ -34,6 +34,7 @@ interface HorizonStats {
   n: number;
   median?: number;
   pct_positive?: number;
+  insufficient_data?: boolean;
   p25?: number;
   p75?: number;
   worst?: number;
