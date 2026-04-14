@@ -2,125 +2,189 @@
 
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
+import { T, sx, pct, signColor } from '@/lib/tokens';
 
 export default function DailyBrief() {
-  const { data: macro, isLoading: macroLoading } = useSWR('/api/brief/macro', fetcher, { refreshInterval: 900000 });
-  const { data: moves, isLoading: movesLoading } = useSWR('/api/brief/moves', fetcher, { refreshInterval: 300000 });
+  const { data: macro,   isLoading: macroLoading }   = useSWR('/api/brief/macro',   fetcher, { refreshInterval: 900000 });
+  const { data: moves,   isLoading: movesLoading }   = useSWR('/api/brief/moves',   fetcher, { refreshInterval: 300000 });
   const { data: summary, isLoading: summaryLoading } = useSWR('/api/brief/summary', fetcher, { refreshInterval: 86400000 });
 
+  const today = new Date().toISOString().slice(0, 10);
+
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif', color: '#fff', background: '#0a0a0a', minHeight: '100vh' }}>
+    <main style={sx.main}>
 
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.25rem' }}>Daily Brief</h1>
-      <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '2rem' }}>
-        {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-      </p>
+      {/* ── Section header ───────────────────────────────────────────────── */}
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={sx.sectionHd}>
+          <span style={sx.sectionLabel}>Daily brief</span>
+          <span style={sx.sectionMeta}>{today}</span>
+        </div>
+      </div>
 
-      {/* LLM Summary */}
-      <section style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1rem' }}>What matters today</h2>
-        <div style={{ background: '#111', border: '1px solid #222', borderRadius: '12px', padding: '1.25rem' }}>
-          {summaryLoading ? (
-            <p style={{ color: '#6b7280', margin: 0 }}>Generating summary...</p>
-          ) : summary?.summary ? (
-            <div style={{ lineHeight: 1.7, fontSize: '0.9375rem' }}>
-                {summary.summary.split('\n').filter((line: string) => line.trim()).map((line: string, i: number) => (
-                    <p key={i} style={{ margin: '0 0 0.5rem' }}>{line.trim()}</p>
-            ))}
-            </div>
-          ) : (
-            <p style={{ color: '#6b7280', margin: 0 }}>Summary unavailable.</p>
-          )}
+      {/* ── What matters today ───────────────────────────────────────────── */}
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={sx.sectionHd}>
+          <span style={sx.sectionLabel}>What matters today</span>
           {summary?.fallback && (
-            <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: '0.75rem 0 0' }}>Heuristic summary — LLM unavailable</p>
+            <span style={{ ...sx.sectionMeta, color: T.wa }}>Heuristic — LLM unavailable</span>
           )}
         </div>
-      </section>
-
-      {/* Macro regime */}
-      <section style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1rem' }}>Macro regime</h2>
-        {macroLoading ? (
-          <p style={{ color: '#6b7280' }}>Loading macro data...</p>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-            {macro && Object.entries(macro).map(([key, signal]: [string, any]) => {
-              const trendColor = signal.trend === 'UP' ? '#4ade80' : signal.trend === 'DOWN' ? '#f87171' : '#facc15';
-              return (
-                <div key={key} style={{ background: '#111', border: '1px solid #222', borderRadius: '12px', padding: '1rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>{key}</p>
-                    <span style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 500,
-                      padding: '2px 8px',
-                      borderRadius: '999px',
-                      background: `${trendColor}22`,
-                      color: trendColor,
+        <div style={{ padding: '20px 24px' }}>
+          {summaryLoading ? (
+            <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Generating summary...</span>
+          ) : summary?.summary ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+              {summary.summary
+                .split('\n')
+                .filter((line: string) => line.trim())
+                .map((line: string, i: number) => (
+                  <div key={i} style={{
+                    display: 'flex',
+                    gap: '12px',
+                    padding: '10px 0',
+                    borderBottom: `0.5px solid ${T.borderSub}`,
+                  }}>
+                    <div style={{
+                      width: '3px',
+                      height: '3px',
+                      borderRadius: '50%',
+                      background: T.textMuted,
+                      marginTop: '7px',
+                      flexShrink: 0,
+                    }} />
+                    <p style={{
+                      fontFamily: T.sans,
+                      fontSize: '12.5px',
+                      color: 'rgba(255,255,255,0.55)',
+                      lineHeight: 1.6,
+                      margin: 0,
                     }}>
-                      {signal.trend}
-                    </span>
+                      {line.trim()}
+                    </p>
                   </div>
-                  <p style={{ fontSize: '1.5rem', fontWeight: 600, margin: '0 0 0.25rem' }}>
-                    {signal.latest?.toFixed(2)}σ
-                  </p>
-                  <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: '0 0 0.75rem' }}>{signal.name}</p>
-                  <div style={{ display: 'flex', gap: '1rem' }}>
-                    <div>
-                      <p style={{ fontSize: '0.7rem', color: '#6b7280', margin: '0 0 2px' }}>MoM</p>
-                      <p style={{ fontSize: '0.8125rem', fontWeight: 500, margin: 0, color: signal.mom >= 0 ? '#4ade80' : '#f87171' }}>
-                        {signal.mom >= 0 ? '+' : ''}{signal.mom?.toFixed(2)}
-                      </p>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: '0.7rem', color: '#6b7280', margin: '0 0 2px' }}>YoY</p>
-                      <p style={{ fontSize: '0.8125rem', fontWeight: 500, margin: 0, color: signal.yoy >= 0 ? '#4ade80' : '#f87171' }}>
-                        {signal.yoy >= 0 ? '+' : ''}{signal.yoy?.toFixed(2)}
-                      </p>
-                    </div>
+                ))}
+            </div>
+          ) : (
+            <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Summary unavailable.</span>
+          )}
+        </div>
+      </div>
+
+      {/* ── Macro regime ─────────────────────────────────────────────────── */}
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={sx.sectionHd}>
+          <span style={sx.sectionLabel}>Macro regime</span>
+          <span style={sx.sectionMeta}>Growth · Inflation · Liquidity</span>
+        </div>
+        {macroLoading ? (
+          <div style={{ padding: '20px 24px' }}>
+            <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Loading...</span>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))' }}>
+            {macro && Object.entries(macro).map(([key, signal]: [string, any], i: number) => {
+              const trend  = signal.trend ?? '';
+              const isDown = trend === 'DOWN';
+              const isUp   = trend === 'UP';
+              const badgeColor = isUp ? T.up : isDown ? T.dn : T.wa;
+              const valColor   = isUp ? T.up : isDown ? T.dn : T.wa;
+              return (
+                <div key={key} style={{
+                  padding: '14px 24px',
+                  borderRight: i < Object.keys(macro).length - 1 ? `0.5px solid ${T.border}` : 'none',
+                }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '6px' }}>
+                    {key}
+                  </div>
+                  <span style={{
+                    display: 'inline-block',
+                    fontFamily: T.sans,
+                    fontSize: '8.5px',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    padding: '2px 7px',
+                    marginBottom: '8px',
+                    fontWeight: 500,
+                    color: badgeColor,
+                    background: `${badgeColor}10`,
+                    border: `0.5px solid ${badgeColor}40`,
+                  }}>
+                    {trend || '—'}
+                  </span>
+                  <div style={{ fontFamily: T.mono, fontSize: '20px', fontWeight: 300, letterSpacing: '-0.5px', color: valColor, marginBottom: '5px' }}>
+                    {signal.latest !== undefined
+                      ? `${signal.latest >= 0 ? '+' : ''}${signal.latest.toFixed(2)}σ`
+                      : '—'}
+                  </div>
+                  <div style={{ fontFamily: T.mono, fontSize: '9px', fontWeight: 300, color: T.textMuted, letterSpacing: '0.3px' }}>
+                    MoM {signal.mom !== undefined ? (signal.mom >= 0 ? '+' : '') + signal.mom.toFixed(2) : '—'}
+                    {' · '}
+                    YoY {signal.yoy !== undefined ? (signal.yoy >= 0 ? '+' : '') + signal.yoy.toFixed(2) : '—'}
                   </div>
                 </div>
               );
             })}
           </div>
         )}
-      </section>
+      </div>
 
-      {/* Market moves */}
-      <section style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1rem' }}>Market moves</h2>
+      {/* ── Market moves ─────────────────────────────────────────────────── */}
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
+          <span style={sx.sectionLabel}>Market moves</span>
+          <span style={sx.sectionMeta}>Ticker · Last · 1D chg</span>
+        </div>
         {movesLoading ? (
-          <p style={{ color: '#6b7280' }}>Loading market data...</p>
+          <div style={{ padding: '20px 24px' }}>
+            <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Loading...</span>
+          </div>
         ) : (
-          <div style={{ background: '#111', border: '1px solid #222', borderRadius: '12px', overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid #222' }}>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'left', color: '#6b7280', fontWeight: 500 }}>Ticker</th>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'right', color: '#6b7280', fontWeight: 500 }}>Last</th>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'right', color: '#6b7280', fontWeight: 500 }}>1D Change</th>
-                </tr>
-              </thead>
-              <tbody>
-                {moves && moves.map((row: any, i: number) => {
-                  const isPos = row.chg_pct_1d >= 0;
-                  return (
-                    <tr key={row.ticker} style={{ borderTop: i === 0 ? 'none' : '1px solid #1a1a1a' }}>
-                      <td style={{ padding: '0.75rem 1rem', fontWeight: 500 }}>{row.ticker}</td>
-                      <td style={{ padding: '0.75rem 1rem', textAlign: 'right', color: '#9ca3af' }}>
-                        {row.last?.toFixed(2)}
-                      </td>
-                      <td style={{ padding: '0.75rem 1rem', textAlign: 'right', color: isPos ? '#4ade80' : '#f87171', fontWeight: 500 }}>
-                        {isPos ? '+' : ''}{row.chg_pct_1d?.toFixed(2)}%
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div>
+            {/* Column headers */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 1fr',
+              padding: '6px 24px',
+              borderBottom: `0.5px solid ${T.borderSub}`,
+            }}>
+              {['Ticker', 'Last', '1D Change'].map((h, i) => (
+                <span key={h} style={{
+                  fontFamily: T.sans,
+                  fontSize: '9px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  color: T.textMuted,
+                  textAlign: i > 0 ? 'right' : 'left',
+                }}>{h}</span>
+              ))}
+            </div>
+            {moves && moves.map((row: any) => {
+              const isPos = row.chg_pct_1d >= 0;
+              const c     = isPos ? T.up : T.dn;
+              return (
+                <div key={row.ticker} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr 1fr',
+                  padding: '8px 24px',
+                  borderBottom: `0.5px solid ${T.borderSub}`,
+                  alignItems: 'center',
+                }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 400, color: 'rgba(255,255,255,0.72)', letterSpacing: '0.3px' }}>
+                    {row.ticker}
+                  </span>
+                  <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.textMuted, textAlign: 'right' }}>
+                    {row.last?.toFixed(2)}
+                  </span>
+                  <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: c, textAlign: 'right' }}>
+                    {pct(row.chg_pct_1d)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
-      </section>
+      </div>
 
     </main>
   );

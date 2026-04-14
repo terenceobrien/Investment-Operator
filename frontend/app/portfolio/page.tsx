@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { T, sx } from '@/lib/tokens';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
 
 export default function PortfolioPage() {
-  const [result, setResult] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [result,   setResult]   = useState<any>(null);
+  const [loading,  setLoading]  = useState(false);
+  const [error,    setError]    = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -17,13 +18,9 @@ export default function PortfolioPage() {
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch(`${API_URL}/api/portfolio/analyze`, {
-        method: 'POST',
-        body: form,
-      });
+      const res = await fetch(`${API_URL}/api/portfolio/analyze`, { method: 'POST', body: form });
       if (!res.ok) throw new Error(`Error ${res.status}`);
-      const data = await res.json();
-      setResult(data);
+      setResult(await res.json());
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -44,130 +41,219 @@ export default function PortfolioPage() {
   };
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif', color: '#fff', background: '#0a0a0a', minHeight: '100vh' }}>
+    <main style={sx.main}>
 
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '0.25rem' }}>Portfolio Snapshot</h1>
-      <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '2rem' }}>
-        Upload a CSV with columns: ticker, weight, theme
-      </p>
-
-      {/* Upload zone */}
-      <div
-        onClick={() => fileRef.current?.click()}
-        onDragOver={e => { e.preventDefault(); setDragOver(true); }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={onDrop}
-        style={{
-          border: `2px dashed ${dragOver ? '#fff' : '#333'}`,
-          borderRadius: '12px',
-          padding: '3rem',
-          textAlign: 'center',
-          cursor: 'pointer',
-          marginBottom: '2rem',
-          transition: 'border-color 0.15s',
-          background: dragOver ? '#111' : 'transparent',
-        }}
-      >
-        <p style={{ fontSize: '0.9375rem', margin: '0 0 0.5rem', color: dragOver ? '#fff' : '#9ca3af' }}>
-          {loading ? 'Analyzing...' : 'Drop your CSV here or click to upload'}
-        </p>
-        <p style={{ fontSize: '0.8125rem', color: '#4b5563', margin: 0 }}>
-          CSV format: ticker, weight, theme
-        </p>
-        <input ref={fileRef} type="file" accept=".csv" onChange={onFile} style={{ display: 'none' }} />
+      {/* ── Page header ──────────────────────────────────────────────────── */}
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
+          <span style={sx.sectionLabel}>Portfolio snapshot</span>
+          <span style={sx.sectionMeta}>CSV format: ticker, weight, theme</span>
+        </div>
       </div>
 
-      {error && (
-        <div style={{ background: '#1c0a0a', border: '1px solid #7f1d1d', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1.5rem' }}>
-          <p style={{ color: '#f87171', margin: 0, fontSize: '0.875rem' }}>{error}</p>
+      {/* ── Upload zone ──────────────────────────────────────────────────── */}
+      {!result && (
+        <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+          <div
+            onClick={() => fileRef.current?.click()}
+            onDragOver={e => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={onDrop}
+            style={{
+              margin: '32px 24px',
+              border: `0.5px dashed ${dragOver ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}`,
+              padding: '48px 24px',
+              textAlign: 'center',
+              cursor: loading ? 'default' : 'pointer',
+              background: dragOver ? 'rgba(255,255,255,0.02)' : 'transparent',
+              transition: 'border-color 0.12s, background 0.12s',
+            }}
+          >
+            <div style={{
+              fontFamily: T.mono,
+              fontSize: '11px',
+              fontWeight: 300,
+              letterSpacing: '0.5px',
+              color: dragOver ? 'rgba(255,255,255,0.6)' : T.textMuted,
+              marginBottom: '6px',
+            }}>
+              {loading ? 'Analyzing portfolio...' : 'Drop CSV here or click to upload'}
+            </div>
+            <div style={{ fontFamily: T.sans, fontSize: '10px', color: 'rgba(255,255,255,0.15)', letterSpacing: '0.3px' }}>
+              ticker · weight · theme
+            </div>
+            <input ref={fileRef} type="file" accept=".csv" onChange={onFile} style={{ display: 'none' }} />
+          </div>
+
+          {error && (
+            <div style={{ margin: '0 24px 24px', padding: '10px 14px', border: `0.5px solid ${T.dn}40`, background: `${T.dn}08` }}>
+              <span style={{ fontFamily: T.mono, fontSize: '10px', fontWeight: 300, color: T.dn }}>{error}</span>
+            </div>
+          )}
         </div>
       )}
 
+      {/* ── Results ──────────────────────────────────────────────────────── */}
       {result && (
         <>
           {/* Summary metrics */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem', marginBottom: '2rem' }}>
-            {[
-              { label: 'Positions', value: result.summary.n_positions },
-              { label: 'Cash', value: `${(result.summary.cash_weight * 100).toFixed(1)}%` },
-              { label: 'Top 1', value: `${(result.summary.top1_invested * 100).toFixed(1)}%` },
-              { label: 'Top 3', value: `${(result.summary.top3_invested * 100).toFixed(1)}%` },
-              { label: 'Top 5', value: `${(result.summary.top5_invested * 100).toFixed(1)}%` },
-            ].map(({ label, value }) => (
-              <div key={label} style={{ background: '#111', border: '1px solid #222', borderRadius: '12px', padding: '0.875rem 1rem' }}>
-                <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: '0 0 0.25rem' }}>{label}</p>
-                <p style={{ fontSize: '1.25rem', fontWeight: 600, margin: 0 }}>{value}</p>
-              </div>
-            ))}
+          <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+            <div style={sx.sectionHd}>
+              <span style={sx.sectionLabel}>Summary</span>
+              <button
+                onClick={() => { setResult(null); setError(null); }}
+                style={{
+                  fontFamily: T.sans,
+                  fontSize: '9px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  color: T.textMuted,
+                  background: 'transparent',
+                  border: `0.5px solid ${T.border}`,
+                  padding: '3px 10px',
+                  cursor: 'pointer',
+                }}
+              >
+                Upload new
+              </button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0,1fr))' }}>
+              {[
+                { label: 'Positions',      value: result.summary.n_positions },
+                { label: 'Cash weight',    value: `${(result.summary.cash_weight * 100).toFixed(1)}%` },
+                { label: 'Top 1 conc.',    value: `${(result.summary.top1_invested * 100).toFixed(1)}%` },
+                { label: 'Top 3 conc.',    value: `${(result.summary.top3_invested * 100).toFixed(1)}%` },
+                { label: 'Top 5 conc.',    value: `${(result.summary.top5_invested * 100).toFixed(1)}%` },
+              ].map(({ label, value }, i) => (
+                <div key={label} style={{
+                  padding: '14px 24px',
+                  borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none',
+                }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
+                    {label}
+                  </div>
+                  <div style={{ fontFamily: T.mono, fontSize: '22px', fontWeight: 300, letterSpacing: '-0.5px', color: T.text }}>
+                    {value}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Flags */}
           {result.flags?.length > 0 && (
-            <section style={{ marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Flags</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                {result.flags.map((flag: string, i: number) => (
-                  <div key={i} style={{ background: '#1c1200', border: '1px solid #854d0e', borderRadius: '8px', padding: '0.75rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                    <span style={{ color: '#fbbf24', fontSize: '0.875rem', flexShrink: 0 }}>⚠</span>
-                    <p style={{ margin: 0, fontSize: '0.875rem', color: '#fde68a', lineHeight: 1.5 }}>{flag}</p>
-                  </div>
-                ))}
+            <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+              <div style={sx.sectionHd}>
+                <span style={sx.sectionLabel}>Flags</span>
+                <span style={{ ...sx.sectionMeta, color: T.wa }}>{result.flags.length} warning{result.flags.length > 1 ? 's' : ''}</span>
               </div>
-            </section>
+              {result.flags.map((flag: string, i: number) => (
+                <div key={i} style={{
+                  display: 'flex',
+                  gap: '14px',
+                  alignItems: 'flex-start',
+                  padding: '10px 24px',
+                  borderBottom: `0.5px solid ${T.borderSub}`,
+                  background: `${T.wa}06`,
+                }}>
+                  <span style={{
+                    fontFamily: T.sans, fontSize: '8px', letterSpacing: '1px',
+                    textTransform: 'uppercase', fontWeight: 500,
+                    color: T.wa, background: `${T.wa}15`,
+                    border: `0.5px solid ${T.wa}40`, padding: '2px 7px',
+                    flexShrink: 0, marginTop: '1px',
+                  }}>
+                    Warn
+                  </span>
+                  <p style={{ fontFamily: T.sans, fontSize: '12px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, margin: 0 }}>
+                    {flag}
+                  </p>
+                </div>
+              ))}
+            </div>
           )}
 
-          {/* Top positions */}
-          <section style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Top positions</h2>
-            <div style={{ background: '#111', border: '1px solid #222', borderRadius: '12px', overflow: 'hidden' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid #222' }}>
-                    <th style={{ padding: '0.75rem 1rem', textAlign: 'left', color: '#6b7280', fontWeight: 500 }}>Ticker</th>
-                    <th style={{ padding: '0.75rem 1rem', textAlign: 'left', color: '#6b7280', fontWeight: 500 }}>Theme</th>
-                    <th style={{ padding: '0.75rem 1rem', textAlign: 'right', color: '#6b7280', fontWeight: 500 }}>Weight</th>
-                    <th style={{ padding: '0.75rem 1rem', textAlign: 'right', color: '#6b7280', fontWeight: 500 }}>Share of invested</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.top_positions.map((pos: any, i: number) => (
-                    <tr key={pos.ticker} style={{ borderTop: i === 0 ? 'none' : '1px solid #1a1a1a' }}>
-                      <td style={{ padding: '0.75rem 1rem', fontWeight: 500 }}>{pos.ticker}</td>
-                      <td style={{ padding: '0.75rem 1rem', color: '#9ca3af' }}>{pos.theme || '—'}</td>
-                      <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>{(pos.weight * 100).toFixed(1)}%</td>
-                      <td style={{ padding: '0.75rem 1rem', textAlign: 'right', color: '#9ca3af' }}>{(pos.w_norm * 100).toFixed(1)}%</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
+          {/* Top positions + Theme exposure — side by side */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', borderBottom: `0.5px solid ${T.border}` }}>
 
-          {/* Theme exposure */}
-          <section style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Theme exposure</h2>
-            <div style={{ background: '#111', border: '1px solid #222', borderRadius: '12px', padding: '1rem 1.25rem' }}>
-              {result.theme_exposure.map((t: any, i: number) => (
-                <div key={t.theme} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.5rem 0', borderTop: i === 0 ? 'none' : '1px solid #1a1a1a' }}>
-                  <span style={{ fontSize: '0.875rem', color: '#d1d5db', width: '160px', flexShrink: 0 }}>{t.theme}</span>
-                  <div style={{ flex: 1, height: '6px', background: '#222', borderRadius: '3px' }}>
-                    <div style={{ width: `${t.weight * 100}%`, height: '6px', background: '#60a5fa', borderRadius: '3px' }} />
-                  </div>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 500, width: '48px', textAlign: 'right' }}>
-                    {(t.weight * 100).toFixed(1)}%
+            {/* Top positions */}
+            <div style={{ borderRight: `0.5px solid ${T.border}` }}>
+              <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
+                <span style={sx.sectionLabel}>Top positions</span>
+                <span style={sx.sectionMeta}>Weight · Share of invested</span>
+              </div>
+
+              {/* Column headers */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '80px 1fr 80px 100px',
+                padding: '6px 24px',
+                borderBottom: `0.5px solid ${T.borderSub}`,
+                background: T.sectionBg,
+              }}>
+                {['Ticker', 'Theme', 'Weight', 'Of invested'].map((h, i) => (
+                  <span key={h} style={{
+                    fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px',
+                    textTransform: 'uppercase', color: T.textMuted,
+                    textAlign: i >= 2 ? 'right' : 'left',
+                  }}>{h}</span>
+                ))}
+              </div>
+
+              {result.top_positions.map((pos: any, i: number) => (
+                <div key={pos.ticker} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '80px 1fr 80px 100px',
+                  padding: '8px 24px',
+                  borderBottom: `0.5px solid ${T.borderSub}`,
+                  alignItems: 'center',
+                }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 400, color: 'rgba(255,255,255,0.72)', letterSpacing: '0.3px' }}>
+                    {pos.ticker}
+                  </span>
+                  <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textSub, paddingRight: '12px' }}>
+                    {pos.theme || '—'}
+                  </span>
+                  <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.text, textAlign: 'right' }}>
+                    {(pos.weight * 100).toFixed(1)}%
+                  </span>
+                  <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.textMuted, textAlign: 'right' }}>
+                    {(pos.w_norm * 100).toFixed(1)}%
                   </span>
                 </div>
               ))}
             </div>
-          </section>
 
-          {/* Upload another */}
-          <button
-            onClick={() => { setResult(null); setError(null); }}
-            style={{ background: 'transparent', border: '1px solid #333', borderRadius: '8px', padding: '0.5rem 1rem', color: '#9ca3af', fontSize: '0.875rem', cursor: 'pointer' }}
-          >
-            Upload another portfolio
-          </button>
+            {/* Theme exposure */}
+            <div>
+              <div style={sx.sectionHd}>
+                <span style={sx.sectionLabel}>Theme exposure</span>
+              </div>
+              {result.theme_exposure.map((t: any, i: number) => (
+                <div key={t.theme} style={{
+                  padding: '9px 24px',
+                  borderBottom: `0.5px solid ${T.borderSub}`,
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textSub, letterSpacing: '0.2px' }}>
+                      {t.theme}
+                    </span>
+                    <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.text }}>
+                      {(t.weight * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)' }}>
+                    <div style={{
+                      width: `${t.weight * 100}%`,
+                      height: '100%',
+                      background: T.accent,
+                    }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </>
       )}
 
