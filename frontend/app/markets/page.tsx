@@ -3,7 +3,17 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
-import { T, sx, pct } from '@/lib/tokens';
+import { SkeletonBlock } from '@/components/Skeleton';
+import { T, sx, pct, formatCurrency } from '@/lib/tokens';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from 'recharts';
 
 const HORIZONS = ['1D', '1W', '1M', '3M', '6M', '1Y', 'YTD'];
 const TICKERS  = ['SPY', 'QQQ', 'IWM', 'TLT', 'HYG', 'GLD', 'USO', 'BTC-USD'];
@@ -50,6 +60,8 @@ export default function MarketsPage() {
         borderBottom: `0.5px solid ${T.border}`,
         height: '40px',
         gap: '0',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
       }}>
         {HORIZONS.map((h, i) => {
           const active = horizon === h;
@@ -59,10 +71,10 @@ export default function MarketsPage() {
               onClick={() => setHorizon(h)}
               style={{
                 fontFamily: T.sans,
-                fontSize: '10px',
+                fontSize: '12px',
                 letterSpacing: '1px',
                 textTransform: 'uppercase',
-                color: active ? 'rgba(255,255,255,0.8)' : T.textMuted,
+                color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
                 background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
                 border: 'none',
                 borderRight: `0.5px solid ${T.border}`,
@@ -86,11 +98,18 @@ export default function MarketsPage() {
           <span style={sx.sectionMeta}>{horizon}</span>
         </div>
         {heatmapLoading ? (
-          <div style={{ padding: '20px 24px' }}>
-            <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Loading...</span>
+          <div style={{ padding: '16px 24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))', gap: '1px' }}>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)' }}>
+                  <SkeletonBlock width="58%" height={10} style={{ marginBottom: '8px' }} />
+                  <SkeletonBlock width="44%" height={15} />
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0,1fr))' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))' }}>
             {heatmap?.cross?.map((item: any, i: number) => {
               const { bg, text } = heatColor(item.return);
               return (
@@ -102,10 +121,10 @@ export default function MarketsPage() {
                   flexDirection: 'column',
                   gap: '4px',
                 }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
                     {item.name || item.ticker}
                   </span>
-                  <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
                     {item.return !== null ? pct(item.return) : '—'}
                   </span>
                 </div>
@@ -122,11 +141,18 @@ export default function MarketsPage() {
           <span style={sx.sectionMeta}>{horizon}</span>
         </div>
         {heatmapLoading ? (
-          <div style={{ padding: '20px 24px' }}>
-            <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Loading...</span>
+          <div style={{ padding: '16px 24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px,1fr))', gap: '1px' }}>
+              {Array.from({ length: 11 }).map((_, i) => (
+                <div key={i} style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.02)' }}>
+                  <SkeletonBlock width="64%" height={10} style={{ marginBottom: '8px' }} />
+                  <SkeletonBlock width="42%" height={15} />
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0,1fr))' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px,1fr))' }}>
             {heatmap?.sectors?.map((item: any, i: number) => {
               const { bg, text } = heatColor(item.return);
               const total = heatmap.sectors.length;
@@ -140,10 +166,10 @@ export default function MarketsPage() {
                   flexDirection: 'column',
                   gap: '4px',
                 }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
                     {item.name || item.ticker}
                   </span>
-                  <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
                     {item.return !== null ? pct(item.return) : '—'}
                   </span>
                 </div>
@@ -158,15 +184,15 @@ export default function MarketsPage() {
         <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
           <span style={sx.sectionLabel}>Price chart</span>
           {/* Ticker + timeframe controls inline */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             <select
               value={ticker}
               onChange={e => setTicker(e.target.value)}
               style={{
                 fontFamily: T.mono,
-                fontSize: '10px',
+                fontSize: '12px',
                 letterSpacing: '0.5px',
-                color: 'rgba(255,255,255,0.6)',
+                color: 'rgba(255,255,255,0.75)',
                 background: 'transparent',
                 border: `0.5px solid ${T.border}`,
                 padding: '3px 8px',
@@ -185,10 +211,10 @@ export default function MarketsPage() {
                   onClick={() => setTf(t)}
                   style={{
                     fontFamily: T.sans,
-                    fontSize: '9px',
+                    fontSize: '11px',
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
-                    color: active ? 'rgba(255,255,255,0.8)' : T.textMuted,
+                    color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
                     background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
                     border: 'none',
                     borderRight: `0.5px solid ${T.border}`,
@@ -207,72 +233,121 @@ export default function MarketsPage() {
 
         <div style={{ padding: '0' }}>
           {chartLoading ? (
-            <div style={{ padding: '40px 24px' }}>
-              <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Loading chart...</span>
+            <div style={{ padding: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} style={{ padding: '14px 24px', borderRight: i < 3 ? `0.5px solid ${T.border}` : 'none' }}>
+                    <SkeletonBlock width="46%" height={10} style={{ marginBottom: '10px' }} />
+                    <SkeletonBlock width="58%" height={22} />
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: '32px 8px 24px' }}>
+                <SkeletonBlock width="100%" height={420} />
+              </div>
             </div>
           ) : chart?.ohlcv?.length > 0 ? (() => {
-            const closes  = chart.ohlcv.map((d: any) => d.Close);
-            const first   = closes[0];
-            const last    = closes[closes.length - 1];
-            const change  = last - first;
-            const chgPct  = (change / first) * 100;
-            const isPos   = change >= 0;
-            const lineCol = isPos ? T.up : T.dn;
-            const min     = Math.min(...closes);
-            const max     = Math.max(...closes);
-            const range   = max - min || 1;
-            const W = 1000, H = 160;
-            const points  = closes.map((c: number, i: number) => {
-              const x = (i / (closes.length - 1)) * W;
-              const y = H - ((c - min) / range) * H * 0.85 - H * 0.075;
-              return `${x},${y}`;
-            }).join(' ');
+            const closes   = chart.ohlcv.map((d: any) => d.Close);
+            const first    = closes[0];
+            const last     = closes[closes.length - 1];
+            const change   = last - first;
+            const chgPct   = (change / first) * 100;
+            const isPos    = change >= 0;
+            const lineCol  = isPos ? T.up : T.dn;
+            const priceMin = Math.min(...closes);
+            const priceMax = Math.max(...closes);
+            const padding  = (priceMax - priceMin) * 0.08 || 1;
+
+            const chartData = chart.ohlcv.map((d: any) => ({
+              date:  (d.Date || d.Datetime || '').toString().slice(0, 10),
+              price: d.Close,
+            }));
 
             return (
               <div>
                 {/* Chart stats row */}
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(4, minmax(0,1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))',
                   borderBottom: `0.5px solid ${T.border}`,
                 }}>
                   {[
-                    { label: `${ticker} last`, val: `$${last?.toFixed(2)}`, color: T.text },
+                    { label: `${ticker} last`, val: formatCurrency(last), color: T.text },
                     { label: `Change (${tf})`,  val: pct(chgPct),           color: isPos ? T.up : T.dn },
-                    { label: 'High',            val: `$${Math.max(...closes).toFixed(2)}`, color: T.text },
-                    { label: 'Low',             val: `$${Math.min(...closes).toFixed(2)}`, color: T.text },
+                    { label: 'High',            val: formatCurrency(priceMax), color: T.text },
+                    { label: 'Low',             val: formatCurrency(priceMin), color: T.text },
                   ].map(({ label, val, color }, i) => (
                     <div key={label} style={{
-                      padding: '12px 24px',
+                      padding: '14px 24px',
                       borderRight: i < 3 ? `0.5px solid ${T.border}` : 'none',
                     }}>
-                      <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
+                      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
                         {label}
                       </div>
-                      <div style={{ fontFamily: T.mono, fontSize: '18px', fontWeight: 300, letterSpacing: '-0.5px', color }}>
+                      <div style={{ fontFamily: T.mono, fontSize: '20px', fontWeight: 300, letterSpacing: '-0.5px', color }}>
                         {val}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                {/* SVG chart */}
-                <div style={{ padding: '24px 24px 20px' }}>
-                  <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: '180px', display: 'block' }}>
-                    <polyline
-                      points={points}
-                      fill="none"
-                      stroke={lineCol}
-                      strokeWidth="1"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                {/* Recharts line chart */}
+                <div style={{ padding: '32px 8px 24px' }}>
+                  <ResponsiveContainer width="100%" height={420}>
+                    <LineChart data={chartData} margin={{ top: 8, right: 32, left: 0, bottom: 24 }}>
+                      <CartesianGrid
+                        stroke="rgba(255,255,255,0.04)"
+                        strokeDasharray="0"
+                        vertical={false}
+                      />
+                      <XAxis
+                        dataKey="date"
+                        tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, fill: 'rgba(255,255,255,0.35)', fontWeight: 300 }}
+                        tickLine={false}
+                        axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
+                        interval="preserveStartEnd"
+                        tickFormatter={(v: string) => v?.slice(5) ?? ''}
+                        dy={8}
+                      />
+                      <YAxis
+                        domain={[priceMin - padding, priceMax + padding]}
+                        tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, fill: 'rgba(255,255,255,0.35)', fontWeight: 300 }}
+                        tickLine={false}
+                        axisLine={false}
+                        tickFormatter={(v: number) => formatCurrency(v, 0)}
+                        width={58}
+                        tickCount={6}
+                      />
+                      <Tooltip
+                        contentStyle={{
+                          background: '#0c0c0f',
+                          border: '0.5px solid rgba(255,255,255,0.1)',
+                          borderRadius: 0,
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: 11,
+                          padding: '8px 12px',
+                        }}
+                        labelStyle={{ color: 'rgba(255,255,255,0.45)', marginBottom: 4, fontSize: 10 }}
+                        itemStyle={{ color: lineCol, fontWeight: 300 }}
+                        formatter={(value: any) => [formatCurrency(Number(value)), ticker]}
+                        cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="price"
+                        stroke={lineCol}
+                        strokeWidth={1.5}
+                        dot={false}
+                        activeDot={{ r: 3, fill: lineCol, strokeWidth: 0 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
             );
           })() : (
             <div style={{ padding: '40px 24px' }}>
-              <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>No chart data available</span>
+              <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
             </div>
           )}
         </div>

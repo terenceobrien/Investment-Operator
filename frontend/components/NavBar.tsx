@@ -11,6 +11,7 @@ const links = [
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/narrative', label: 'Narrative' },
   { href: '/history',   label: 'Memory' },
+  { href: '/how-it-works', label: 'How it works' },
 ];
 
 export default function NavBar() {
@@ -23,10 +24,13 @@ export default function NavBar() {
       zIndex: 100,
       background: T.bg,
       borderBottom: `0.5px solid ${T.border}`,
-      padding: '0 24px',
+      padding: '0 16px',
       display: 'flex',
       alignItems: 'center',
-      height: '44px',
+      gap: '12px',
+      minHeight: '44px',
+      overflowX: 'auto',
+      scrollbarWidth: 'none',
     }}>
 
       {/* Logo */}
@@ -50,20 +54,20 @@ export default function NavBar() {
         }}>
           <span style={{
             fontFamily: T.mono,
-            fontSize: '11px',
+            fontSize: '13px',
             fontWeight: 400,
-            color: 'rgba(255,255,255,0.8)',
+            color: 'rgba(255,255,255,0.9)',
             lineHeight: 1,
           }}>T</span>
         </div>
         {/* Wordmark */}
         <span style={{
           fontFamily: T.sans,
-          fontSize: '12px',
+          fontSize: '14px',
           fontWeight: 500,
           letterSpacing: '3px',
           textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.7)',
+          color: 'rgba(255,255,255,0.82)',
         }}>
           Temper
         </span>
@@ -76,6 +80,9 @@ export default function NavBar() {
         flex: 1,
         justifyContent: 'center',
         height: '100%',
+        minWidth: 0,
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
       }}>
         {links.map(({ href, label }, i) => {
           const active = pathname === href;
@@ -85,10 +92,10 @@ export default function NavBar() {
               href={href}
               style={{
                 fontFamily: T.sans,
-                fontSize: '10px',
+                fontSize: '12px',
                 letterSpacing: '1.2px',
                 textTransform: 'uppercase',
-                color: active ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.22)',
+                color: active ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.50)',
                 textDecoration: 'none',
                 padding: '0 13px',
                 display: 'flex',
@@ -99,6 +106,7 @@ export default function NavBar() {
                 whiteSpace: 'nowrap',
                 fontWeight: active ? 500 : 400,
                 transition: 'color 0.12s',
+                flexShrink: 0,
               }}
             >
               {label}
@@ -111,7 +119,7 @@ export default function NavBar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
         <span style={{
           fontFamily: T.mono,
-          fontSize: '10px',
+          fontSize: '12px',
           fontWeight: 300,
           letterSpacing: '0.5px',
           color: T.textMuted,
@@ -123,10 +131,10 @@ export default function NavBar() {
           alignItems: 'center',
           gap: '5px',
           fontFamily: T.sans,
-          fontSize: '9px',
+          fontSize: '11px',
           letterSpacing: '1.2px',
           textTransform: 'uppercase',
-          color: 'rgba(100,185,120,0.65)',
+          color: 'rgba(100,185,120,0.8)',
           fontWeight: 400,
         }}>
           <span style={{

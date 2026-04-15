@@ -4,7 +4,8 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
 import NarrativeTab from '../../components/NarrativeTab';
-import { T, sx, pct } from '@/lib/tokens';
+import { SkeletonBlock, SkeletonRows } from '@/components/Skeleton';
+import { T, sx, formatAccountingPct, formatCurrency, formatNumber } from '@/lib/tokens';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -57,7 +58,7 @@ const ENV_COLOR: Record<string, string> = {
 
 const fmtRet = (v: number | null) => {
   if (v === null || v === undefined) return '—';
-  return `${v >= 0 ? '+' : ''}${v.toFixed(2)}%`;
+  return formatAccountingPct(v);
 };
 
 const retColor = (v: number | null) => {
@@ -69,7 +70,7 @@ const retColor = (v: number | null) => {
 
 function Sparkline({ path }: { path: { date: string; ret_pct: number }[] }) {
   if (!path || path.length < 2) {
-    return <span style={{ fontFamily: T.mono, fontSize: '9px', color: T.textMuted }}>—</span>;
+    return <span style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>—</span>;
   }
   const vals  = path.map(p => p.ret_pct);
   const min   = Math.min(...vals, 0);
@@ -124,23 +125,23 @@ function FwdCard({ horizon, stats }: { horizon: string; stats: HorizonStats }) {
   const c     = isPos ? T.up : T.dn;
   return (
     <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-      <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
         {horizon} forward
       </div>
-      <div style={{ fontFamily: T.mono, fontSize: '20px', fontWeight: 300, letterSpacing: '-0.5px', color: c, marginBottom: '4px' }}>
+      <div style={{ fontFamily: T.mono, fontSize: '22px', fontWeight: 300, letterSpacing: '-0.5px', color: c, marginBottom: '4px' }}>
         {stats.median !== undefined ? fmtRet(stats.median) : '—'}
       </div>
-      <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, marginBottom: '10px' }}>
+      <div style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, marginBottom: '10px' }}>
         {stats.pct_positive?.toFixed(0)}% positive · n={stats.n}
       </div>
       <div style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
-        <span style={{ fontFamily: T.mono, fontSize: '9.5px', fontWeight: 300, color: T.dn }}>p25: {stats.p25?.toFixed(2)}%</span>
-        <span style={{ fontFamily: T.mono, fontSize: '9.5px', fontWeight: 300, color: T.up }}>p75: {stats.p75?.toFixed(2)}%</span>
+        <span style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.dn }}>p25: {stats.p25?.toFixed(2)}%</span>
+        <span style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.up }}>p75: {stats.p75?.toFixed(2)}%</span>
       </div>
       <DistributionChart stats={stats} />
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px' }}>
-        <span style={{ fontFamily: T.mono, fontSize: '9px', fontWeight: 300, color: T.textMuted }}>{Math.min(...(stats.distribution ?? [0])).toFixed(1)}%</span>
-        <span style={{ fontFamily: T.mono, fontSize: '9px', fontWeight: 300, color: T.textMuted }}>{Math.max(...(stats.distribution ?? [0])).toFixed(1)}%</span>
+        <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color: T.textMuted }}>{Math.min(...(stats.distribution ?? [0])).toFixed(1)}%</span>
+        <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color: T.textMuted }}>{Math.max(...(stats.distribution ?? [0])).toFixed(1)}%</span>
       </div>
     </div>
   );
@@ -171,25 +172,25 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
           background: isExpanded ? 'rgba(255,255,255,0.025)' : 'transparent',
         }}
       >
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: 'rgba(255,255,255,0.65)', letterSpacing: '0.2px' }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: 'rgba(255,255,255,0.78)', letterSpacing: '0.2px' }}>
           {a.date}
         </span>
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.textSub }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: T.textSub }}>
           {a.score_total?.toFixed(0)}
         </span>
-        <span style={{ fontFamily: T.sans, fontSize: '10px', color: envColor, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <span style={{ fontFamily: T.sans, fontSize: '12px', color: envColor, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {a.environment?.split(' / ')[0] ?? a.environment}
         </span>
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.textSub }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: T.textSub }}>
           {a.vix_level?.toFixed(1) ?? '—'}
         </span>
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: retColor(fwd['1d']) }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: retColor(fwd['1d']) }}>
           {fmtRet(fwd['1d'])}
         </span>
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: retColor(fwd['5d']) }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: retColor(fwd['5d']) }}>
           {fmtRet(fwd['5d'])}
         </span>
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: retColor(fwd['21d']) }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: retColor(fwd['21d']) }}>
           {fmtRet(fwd['21d'])}
         </span>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -199,12 +200,12 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
 
       {/* Expanded detail */}
       {isExpanded && (
-        <div style={{ background: 'rgba(255,255,255,0.012)', borderTop: `0.5px solid ${T.border}` }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))' }}>
+          <div style={{ background: 'rgba(255,255,255,0.012)', borderTop: `0.5px solid ${T.border}` }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))' }}>
 
             {/* State */}
             <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
                 State
               </div>
               {[
@@ -213,31 +214,31 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
                 ['Score Δ',    a.score_delta != null ? (a.score_delta >= 0 ? '+' : '') + a.score_delta.toFixed(1) : '—'],
                 ['VIX',        a.vix_level?.toFixed(1) ?? '—'],
                 ['Breadth',    a.sectors_green != null ? `${a.sectors_green}/11` : '—'],
-                ['SPY close',  a.spy_close != null ? `$${a.spy_close.toFixed(2)}` : '—'],
+                ['SPY close',  a.spy_close != null ? formatCurrency(a.spy_close) : '—'],
               ].map(([label, val]) => (
                 <div key={label as string} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted }}>{label}</span>
-                  <span style={{ fontFamily: T.mono, fontSize: '10px', fontWeight: 300, color: 'rgba(255,255,255,0.6)' }}>{val}</span>
+                  <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>{label}</span>
+                  <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.75)' }}>{val}</span>
                 </div>
               ))}
             </div>
 
             {/* Score components */}
             <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
                 Score components
               </div>
               {Object.entries(a.score_components ?? {}).map(([k, v]) => {
                 const fill = v >= 6 ? T.up : v >= 4 ? T.wa : T.dn;
                 return (
                   <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
-                    <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, width: '110px', flexShrink: 0 }}>
+                    <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, width: '110px', flexShrink: 0 }}>
                       {k.replace(/_/g, ' ')}
                     </span>
                     <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.05)' }}>
                       <div style={{ width: `${(v / 10) * 100}%`, height: '100%', background: fill }} />
                     </div>
-                    <span style={{ fontFamily: T.mono, fontSize: '10px', fontWeight: 300, color: fill, width: '24px', textAlign: 'right' }}>
+                    <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: fill, width: '24px', textAlign: 'right' }}>
                       {v?.toFixed(1)}
                     </span>
                   </div>
@@ -247,15 +248,15 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
 
             {/* Sector returns */}
             <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
                 Sector returns
               </div>
               {Object.entries(a.sector_returns ?? {})
                 .sort((x, y) => (y[1] as number) - (x[1] as number))
                 .map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
-                    <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted }}>{k}</span>
-                    <span style={{ fontFamily: T.mono, fontSize: '10px', fontWeight: 300, color: (v as number) >= 0 ? T.up : T.dn }}>
+                    <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>{k}</span>
+                    <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: (v as number) >= 0 ? T.up : T.dn }}>
                       {fmtRet(v as number)}
                     </span>
                   </div>
@@ -264,7 +265,7 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
 
             {/* Forward path */}
             <div style={{ padding: '14px 20px' }}>
-              <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
                 21-day forward path
               </div>
               {a.forward_path && a.forward_path.length >= 2 ? (() => {
@@ -288,24 +289,24 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
                       <polyline points={pts} fill="none" stroke={color} strokeWidth="1" />
                     </svg>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
-                      <span style={{ fontFamily: T.mono, fontSize: '9px', fontWeight: 300, color: T.textMuted }}>Day 1</span>
-                      <span style={{ fontFamily: T.mono, fontSize: '9px', fontWeight: 300, color }}>Day {vals.length}: {fmtRet(last)}</span>
+                      <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color: T.textMuted }}>Day 1</span>
+                      <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color }}>Day {vals.length}: {fmtRet(last)}</span>
                     </div>
                     {/* Risk profile */}
                     <div style={{ display: 'flex', gap: '16px', marginTop: '12px', paddingTop: '10px', borderTop: `0.5px solid ${T.borderSub}` }}>
                       <div>
-                        <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>Max DD</div>
-                        <div style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.dn }}>{fmtRet(a.risk_profile?.max_drawdown_5d)}</div>
+                        <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>Max DD</div>
+                        <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: T.dn }}>{fmtRet(a.risk_profile?.max_drawdown_5d)}</div>
                       </div>
                       <div>
-                        <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>Max up</div>
-                        <div style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.up }}>{fmtRet(a.risk_profile?.max_upside_5d)}</div>
+                        <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>Max up</div>
+                        <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: T.up }}>{fmtRet(a.risk_profile?.max_upside_5d)}</div>
                       </div>
                     </div>
                   </div>
                 );
               })() : (
-                <span style={{ fontFamily: T.mono, fontSize: '9.5px', color: T.textMuted }}>No path data</span>
+                <span style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.textMuted }}>No path data</span>
               )}
 
               {/* Narrative tab */}
@@ -349,13 +350,26 @@ export default function HistoryPage() {
       </div>
 
       {isLoading && (
-        <div style={{ padding: '40px 24px' }}>
-          <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted }}>Finding historical analogues...</span>
+        <div style={{ padding: '24px 0' }}>
+          <div style={{ padding: '0 24px 18px' }}>
+            <SkeletonBlock width="34%" height={12} style={{ marginBottom: '10px' }} />
+            <SkeletonBlock width="52%" height={12} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', borderTop: `0.5px solid ${T.border}` }}>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
+                <SkeletonBlock width="42%" height={10} style={{ marginBottom: '10px' }} />
+                <SkeletonBlock width="58%" height={20} style={{ marginBottom: '10px' }} />
+                <SkeletonBlock width="72%" height={10} />
+              </div>
+            ))}
+          </div>
+          <SkeletonRows rows={8} columns={4} />
         </div>
       )}
       {error && (
         <div style={{ padding: '40px 24px' }}>
-          <span style={{ fontFamily: T.mono, fontSize: '10px', color: T.dn }}>Error loading analogues.</span>
+          <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>Error loading analogues.</span>
         </div>
       )}
 
@@ -365,17 +379,17 @@ export default function HistoryPage() {
           <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
             <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Current conditions</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
                 {[10, 15, 20].map(n => (
                   <button
                     key={n}
                     onClick={() => setTopN(n)}
                     style={{
                       fontFamily: T.mono,
-                      fontSize: '10px',
+                      fontSize: '12px',
                       fontWeight: 300,
-                      color: topN === n ? 'rgba(255,255,255,0.8)' : T.textMuted,
+                      color: topN === n ? 'rgba(255,255,255,0.9)' : T.textMuted,
                       background: topN === n ? 'rgba(255,255,255,0.06)' : 'transparent',
                       border: `0.5px solid ${topN === n ? 'rgba(255,255,255,0.15)' : T.border}`,
                       padding: '2px 9px',
@@ -386,11 +400,11 @@ export default function HistoryPage() {
               </div>
             </div>
             <div style={{ padding: '12px 24px' }}>
-              <div style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.3px', marginBottom: '4px' }}>
+              <div style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
                 {data.conditions_matched}
               </div>
-              <div style={{ fontFamily: T.mono, fontSize: '9.5px', fontWeight: 300, color: T.textMuted }}>
-                {current?.asof_utc?.slice(0, 10)} · score {current?.score_total?.toFixed(1)} · VIX {current?.vix_level?.toFixed(1)} · {current?.sectors_green}/11 sectors green
+              <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>
+                {current?.asof_utc?.slice(0, 10)} · score {formatNumber(current?.score_total, 1)} · VIX {formatNumber(current?.vix_level, 1)} · {current?.sectors_green}/11 sectors green
               </div>
             </div>
           </div>
@@ -402,7 +416,7 @@ export default function HistoryPage() {
                 <span style={sx.sectionLabel}>Aggregate outlook</span>
                 <span style={sx.sectionMeta}>{agg.n_analogues} comparable episodes</span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
                 {(['1d', '5d', '10d', '21d'] as const).map(h => (
                   <FwdCard key={h} horizon={h} stats={agg.forward_returns[h]} />
                 ))}
@@ -410,20 +424,20 @@ export default function HistoryPage() {
 
               {/* Risk profile */}
               {agg.risk_profile && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0,1fr))' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
                   {[
                     { label: '5D risk profile', val: null },
                     { label: 'Median max DD',     val: agg.risk_profile.median_max_drawdown_5d,  color: T.dn, fmt: fmtRet },
-                    { label: 'Median max upside', val: agg.risk_profile.median_max_upside_5d,    color: T.up, fmt: (v: number) => `+${v.toFixed(2)}%` },
+                    { label: 'Median max upside', val: agg.risk_profile.median_max_upside_5d,    color: T.up, fmt: (v: number) => formatAccountingPct(v) },
                     { label: 'Reward / risk',     val: agg.risk_profile.reward_risk_ratio,        color: T.mid, fmt: (v: number) => `${v.toFixed(1)}×` },
                     { label: 'Worst 5D',          val: agg.risk_profile.worst_drawdown_5d,        color: T.dn, fmt: fmtRet },
                   ].map(({ label, val, color, fmt }, i) => (
                     <div key={label} style={{ padding: '12px 20px', borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none' }}>
-                      <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
+                      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
                         {label}
                       </div>
                       {val !== null && val !== undefined && fmt && (
-                        <div style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: color ?? T.text }}>
+                        <div style={{ fontFamily: T.mono, fontSize: '17px', fontWeight: 300, color: color ?? T.text }}>
                           {fmt(val)}
                         </div>
                       )}
@@ -442,31 +456,35 @@ export default function HistoryPage() {
             </div>
 
             {/* Table header */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px 90px',
-              padding: '6px 24px',
-              borderBottom: `0.5px solid ${T.border}`,
-              background: T.sectionBg,
-            }}>
-              {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd', '21D path'].map(h => (
-                <span key={h} style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
-                  {h}
-                </span>
-              ))}
+            <div style={{ overflowX: 'auto' }}>
+              <div style={{ minWidth: '640px' }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px 90px',
+                  padding: '6px 24px',
+                  borderBottom: `0.5px solid ${T.border}`,
+                  background: T.sectionBg,
+                }}>
+                  {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd', '21D path'].map(h => (
+                    <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
+                      {h}
+                    </span>
+                  ))}
+                </div>
+
+                {data.analogues?.map((a: Analogue) => (
+                  <AnalogueRow
+                    key={a.date}
+                    a={a}
+                    isExpanded={expanded === a.date}
+                    onToggle={() => toggle(a.date)}
+                  />
+                ))}
+              </div>
             </div>
 
-            {data.analogues?.map((a: Analogue) => (
-              <AnalogueRow
-                key={a.date}
-                a={a}
-                isExpanded={expanded === a.date}
-                onToggle={() => toggle(a.date)}
-              />
-            ))}
-
             <div style={{ padding: '12px 24px', borderTop: `0.5px solid ${T.borderSub}` }}>
-              <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, lineHeight: 1.5 }}>
+              <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, lineHeight: 1.5 }}>
                 Analogues ranked by similarity to current conditions (environment + score range + VIX regime + breadth + score momentum).
               </span>
             </div>

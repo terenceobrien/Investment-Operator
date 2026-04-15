@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Temper</title>
+  <desc id="desc">Quantitative market intelligence for active investors</desc>
+  <rect width="1200" height="630" fill="#07070a"/>
+  <rect x="108" y="108" width="132" height="132" fill="none" stroke="#9580d4" stroke-width="2"/>
+  <text
+    x="174"
+    y="193"
+    text-anchor="middle"
+    font-family="'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace"
+    font-size="84"
+    font-weight="400"
+    fill="#9580d4"
+  >T</text>
+  <text
+    x="286"
+    y="194"
+    font-family="Inter, Arial, sans-serif"
+    font-size="86"
+    letter-spacing="14"
+    text-transform="uppercase"
+    fill="rgba(255,255,255,0.92)"
+  >TEMPER</text>
+  <text
+    x="112"
+    y="328"
+    font-family="'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace"
+    font-size="28"
+    font-weight="300"
+    fill="rgba(255,255,255,0.58)"
+  >Quantitative market intelligence for active investors</text>
+  <line x1="112" y1="374" x2="1088" y2="374" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text
+    x="112"
+    y="456"
+    font-family="Inter, Arial, sans-serif"
+    font-size="24"
+    fill="rgba(255,255,255,0.72)"
+  >Sentiment scoring · environment classification · analogue-based market memory · narrative synthesis</text>
+</svg>

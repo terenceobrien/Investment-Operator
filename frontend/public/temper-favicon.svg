@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Temper</title>
+  <rect width="64" height="64" fill="#07070a"/>
+  <rect x="7.5" y="7.5" width="49" height="49" fill="none" stroke="#9580d4" stroke-width="1.5"/>
+  <text
+    x="32"
+    y="41"
+    text-anchor="middle"
+    font-family="'JetBrains Mono', 'SFMono-Regular', ui-monospace, monospace"
+    font-size="30"
+    font-weight="400"
+    fill="#9580d4"
+  >T</text>
+</svg>

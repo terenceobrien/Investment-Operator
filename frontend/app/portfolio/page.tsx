@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx } from '@/lib/tokens';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
@@ -71,23 +72,29 @@ export default function PortfolioPage() {
           >
             <div style={{
               fontFamily: T.mono,
-              fontSize: '11px',
+              fontSize: '13px',
               fontWeight: 300,
               letterSpacing: '0.5px',
-              color: dragOver ? 'rgba(255,255,255,0.6)' : T.textMuted,
+              color: dragOver ? 'rgba(255,255,255,0.75)' : T.textMuted,
               marginBottom: '6px',
             }}>
-              {loading ? 'Analyzing portfolio...' : 'Drop CSV here or click to upload'}
+              {loading ? 'Preparing snapshot' : 'Drop CSV here or click to upload'}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: '10px', color: 'rgba(255,255,255,0.15)', letterSpacing: '0.3px' }}>
+            <div style={{ fontFamily: T.sans, fontSize: '12px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.3px' }}>
               ticker · weight · theme
             </div>
+            {loading && (
+              <div style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
+                <SkeletonBlock width="58%" height={12} />
+                <SkeletonBlock width="72%" height={12} />
+              </div>
+            )}
             <input ref={fileRef} type="file" accept=".csv" onChange={onFile} style={{ display: 'none' }} />
           </div>
 
           {error && (
             <div style={{ margin: '0 24px 24px', padding: '10px 14px', border: `0.5px solid ${T.dn}40`, background: `${T.dn}08` }}>
-              <span style={{ fontFamily: T.mono, fontSize: '10px', fontWeight: 300, color: T.dn }}>{error}</span>
+              <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.dn }}>{error}</span>
             </div>
           )}
         </div>
@@ -104,7 +111,7 @@ export default function PortfolioPage() {
                 onClick={() => { setResult(null); setError(null); }}
                 style={{
                   fontFamily: T.sans,
-                  fontSize: '9px',
+                  fontSize: '11px',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
                   color: T.textMuted,
@@ -117,7 +124,7 @@ export default function PortfolioPage() {
                 Upload new
               </button>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0,1fr))' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
               {[
                 { label: 'Positions',      value: result.summary.n_positions },
                 { label: 'Cash weight',    value: `${(result.summary.cash_weight * 100).toFixed(1)}%` },
@@ -129,10 +136,10 @@ export default function PortfolioPage() {
                   padding: '14px 24px',
                   borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none',
                 }}>
-                  <div style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
                     {label}
                   </div>
-                  <div style={{ fontFamily: T.mono, fontSize: '22px', fontWeight: 300, letterSpacing: '-0.5px', color: T.text }}>
+                  <div style={{ fontFamily: T.mono, fontSize: '24px', fontWeight: 300, letterSpacing: '-0.5px', color: T.text }}>
                     {value}
                   </div>
                 </div>
@@ -157,7 +164,7 @@ export default function PortfolioPage() {
                   background: `${T.wa}06`,
                 }}>
                   <span style={{
-                    fontFamily: T.sans, fontSize: '8px', letterSpacing: '1px',
+                    fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px',
                     textTransform: 'uppercase', fontWeight: 500,
                     color: T.wa, background: `${T.wa}15`,
                     border: `0.5px solid ${T.wa}40`, padding: '2px 7px',
@@ -165,7 +172,7 @@ export default function PortfolioPage() {
                   }}>
                     Warn
                   </span>
-                  <p style={{ fontFamily: T.sans, fontSize: '12px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontFamily: T.sans, fontSize: '14px', color: 'rgba(255,255,255,0.68)', lineHeight: 1.6, margin: 0 }}>
                     {flag}
                   </p>
                 </div>
@@ -174,7 +181,7 @@ export default function PortfolioPage() {
           )}
 
           {/* Top positions + Theme exposure — side by side */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', borderBottom: `0.5px solid ${T.border}` }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
 
             {/* Top positions */}
             <div style={{ borderRight: `0.5px solid ${T.border}` }}>
@@ -186,38 +193,38 @@ export default function PortfolioPage() {
               {/* Column headers */}
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: '80px 1fr 80px 100px',
+                gridTemplateColumns: '80px minmax(0,1fr) 80px 100px',
                 padding: '6px 24px',
                 borderBottom: `0.5px solid ${T.borderSub}`,
                 background: T.sectionBg,
               }}>
                 {['Ticker', 'Theme', 'Weight', 'Of invested'].map((h, i) => (
                   <span key={h} style={{
-                    fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px',
+                    fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px',
                     textTransform: 'uppercase', color: T.textMuted,
                     textAlign: i >= 2 ? 'right' : 'left',
                   }}>{h}</span>
                 ))}
               </div>
 
-              {result.top_positions.map((pos: any, i: number) => (
+              {result.top_positions.map((pos: any) => (
                 <div key={pos.ticker} style={{
                   display: 'grid',
-                  gridTemplateColumns: '80px 1fr 80px 100px',
+                  gridTemplateColumns: '80px minmax(0,1fr) 80px 100px',
                   padding: '8px 24px',
                   borderBottom: `0.5px solid ${T.borderSub}`,
                   alignItems: 'center',
                 }}>
-                  <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 400, color: 'rgba(255,255,255,0.72)', letterSpacing: '0.3px' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 400, color: 'rgba(255,255,255,0.82)', letterSpacing: '0.3px' }}>
                     {pos.ticker}
                   </span>
-                  <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textSub, paddingRight: '12px' }}>
+                  <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textSub, paddingRight: '12px' }}>
                     {pos.theme || '—'}
                   </span>
-                  <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.text, textAlign: 'right' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: T.text, textAlign: 'right' }}>
                     {(pos.weight * 100).toFixed(1)}%
                   </span>
-                  <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.textMuted, textAlign: 'right' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: T.textMuted, textAlign: 'right' }}>
                     {(pos.w_norm * 100).toFixed(1)}%
                   </span>
                 </div>
@@ -235,10 +242,10 @@ export default function PortfolioPage() {
                   borderBottom: `0.5px solid ${T.borderSub}`,
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textSub, letterSpacing: '0.2px' }}>
+                    <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textSub, letterSpacing: '0.2px' }}>
                       {t.theme}
                     </span>
-                    <span style={{ fontFamily: T.mono, fontSize: '10.5px', fontWeight: 300, color: T.text }}>
+                    <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: T.text }}>
                       {(t.weight * 100).toFixed(1)}%
                     </span>
                   </div>
