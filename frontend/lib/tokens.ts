@@ -2,14 +2,14 @@
 // Import this in every page: import { T, sx } from '@/lib/tokens'
 
 export const T = {
-  bg:        '#07070a',
-  border:    'rgba(255,255,255,0.06)',
-  borderSub: 'rgba(255,255,255,0.03)',
-  sectionBg: 'rgba(255,255,255,0.018)',
-  text:      'rgba(255,255,255,0.95)',
-  textSub:   'rgba(255,255,255,0.55)',
-  textMuted: 'rgba(255,255,255,0.40)',
-  label:     'rgba(255,255,255,0.50)',
+  bg:        '#08080c',
+  border:    'rgba(255,255,255,0.07)',
+  borderSub: 'rgba(255,255,255,0.04)',
+  sectionBg: 'rgba(255,255,255,0.024)',
+  text:      'rgba(255,255,255,0.92)',
+  textSub:   'rgba(255,255,255,0.52)',
+  textMuted: 'rgba(255,255,255,0.36)',
+  label:     'rgba(255,255,255,0.44)',
   up:        '#57a06a',
   dn:        '#b85555',
   wa:        '#9e7e35',
@@ -17,6 +17,12 @@ export const T = {
   accent:    '#9580d4',
   mono:      "'JetBrains Mono', monospace" as const,
   sans:      "'Inter', sans-serif" as const,
+
+  // ── new spacing tokens ──
+  cardBg:    'rgba(255,255,255,0.028)',
+  cardBdr:   'rgba(255,255,255,0.07)',
+  radius:    '10px',
+  gap:       '16px',
 };
 
 export const MOBILE = 768;
@@ -27,15 +33,15 @@ export const sx = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '8px 24px',
+    padding: '12px 28px',           // was 8px 24px — more vertical breathing room
     background: T.sectionBg,
-    borderBottom: `0.5px solid ${T.border}`,
+    borderBottom: `1px solid ${T.border}`,  // was 0.5px — slightly more visible
   } as React.CSSProperties,
 
   sectionLabel: {
     fontFamily: T.sans,
     fontSize: '11px',
-    letterSpacing: '1.8px',
+    letterSpacing: '1.6px',
     textTransform: 'uppercase',
     color: T.label,
     fontWeight: 500,
@@ -58,15 +64,30 @@ export const sx = {
   main: {
     background: T.bg,
     minHeight: '100vh',
+    maxWidth: '1600px',
+    margin: '0 auto',               // center content on wide screens
   } as React.CSSProperties,
 
   skeleton: {
     background: 'rgba(255,255,255,0.06)',
     animation: 'temperPulse 1.8s ease-in-out infinite',
   } as React.CSSProperties,
+
+  // ── new card style for grouped content ──
+  card: {
+    background: T.cardBg,
+    border: `1px solid ${T.cardBdr}`,
+    borderRadius: T.radius,
+    overflow: 'hidden',
+  } as React.CSSProperties,
+
+  // ── new divider — softer than a full border ──
+  divider: {
+    borderBottom: `1px solid ${T.borderSub}`,
+  } as React.CSSProperties,
 };
 
-// Helpers
+// Helpers — unchanged
 export function pct(val: number | undefined, decimals = 2): string {
   if (val === undefined || val === null) return '—';
   return formatAccountingPct(val, decimals);

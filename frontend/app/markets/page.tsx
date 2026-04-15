@@ -5,15 +5,6 @@ import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
 import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx, pct, formatCurrency } from '@/lib/tokens';
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from 'recharts';
 
 const HORIZONS = ['1D', '1W', '1M', '3M', '6M', '1Y', 'YTD'];
 const TICKERS  = ['SPY', 'QQQ', 'IWM', 'TLT', 'HYG', 'GLD', 'USO', 'BTC-USD'];
@@ -27,6 +18,42 @@ function heatColor(ret: number | null): { bg: string; text: string } {
   if (ret > -0.3) return { bg: 'rgba(160,70,70,0.12)',  text: '#b85555' };
   if (ret > -1)   return { bg: 'rgba(160,70,70,0.22)',  text: '#c46060' };
   return                  { bg: 'rgba(160,70,70,0.35)',  text: '#d07070' };
+}
+
+function getTimestamp(row: any): string {
+  return row.time || row.Time || row.Date || row.datetime || row.Datetime || row.index || '';
+}
+
+function formatTimeLabel(value: Date, tf: string): string {
+  if (Number.isNaN(value.getTime())) return '';
+  if (tf === '1D') {
+    return new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(value);
+  }
+  if (tf === '5D') {
+    const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(value);
+    const time = new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(value);
+    return `${day} ${time}`;
+  }
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+  }).format(value);
+}
+
+function getEvenlySpacedIndices(length: number, target = 7): number[] {
+  if (length <= 0) return [];
+  const count = Math.min(target, length);
+  if (count === 1) return [0];
+  const step = (length - 1) / (count - 1);
+  return Array.from(new Set(Array.from({ length: count }, (_, idx) => Math.round(idx * step))));
 }
 
 export default function MarketsPage() {
@@ -257,11 +284,50 @@ export default function MarketsPage() {
             const priceMin = Math.min(...closes);
             const priceMax = Math.max(...closes);
             const padding  = (priceMax - priceMin) * 0.08 || 1;
+            const domainMin = priceMin - padding;
+            const domainMax = priceMax + padding;
+            const svgWidth = 1000;
+            const svgHeight = 360;
+            const padLeft = 10;
+            const padRight = 76;
+            const padTop = 14;
+            const padBottom = 14;
+            const plotWidth = svgWidth - padLeft - padRight;
+            const plotHeight = svgHeight - padTop - padBottom;
 
-            const chartData = chart.ohlcv.map((d: any) => ({
-              date:  (d.Date || d.Datetime || '').toString().slice(0, 10),
-              price: d.Close,
-            }));
+            const chartData = chart.ohlcv.map((d: any, idx: number) => {
+              const rawTime = getTimestamp(d);
+              return {
+                idx,
+                rawTime,
+                timestamp: new Date(rawTime),
+                price: Number(d.Close),
+              };
+            });
+
+            const points = chartData.map((point: any, idx: number) => {
+              const x = padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
+              const y = padTop + ((domainMax - point.price) / (domainMax - domainMin || 1)) * plotHeight;
+              return `${x.toFixed(2)},${y.toFixed(2)}`;
+            }).join(' ');
+
+            const xLabelIndices = getEvenlySpacedIndices(chartData.length, 7);
+            const xLabels = xLabelIndices.map((idx) => {
+              const point = chartData[idx];
+              const x = padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
+              return {
+                key: `${point.rawTime}-${idx}`,
+                x,
+                label: formatTimeLabel(point.timestamp, tf),
+              };
+            });
+
+            const yHairlines = Array.from({ length: 4 }, (_, idx) => {
+              const ratio = idx / 3;
+              const value = domainMax - ratio * (domainMax - domainMin);
+              const y = padTop + ratio * plotHeight;
+              return { y, value };
+            });
 
             return (
               <div>
@@ -291,57 +357,75 @@ export default function MarketsPage() {
                   ))}
                 </div>
 
-                {/* Recharts line chart */}
                 <div style={{ padding: '32px 8px 24px' }}>
-                  <ResponsiveContainer width="100%" height={420}>
-                    <LineChart data={chartData} margin={{ top: 8, right: 32, left: 0, bottom: 24 }}>
-                      <CartesianGrid
-                        stroke="rgba(255,255,255,0.04)"
-                        strokeDasharray="0"
-                        vertical={false}
-                      />
-                      <XAxis
-                        dataKey="date"
-                        tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, fill: 'rgba(255,255,255,0.35)', fontWeight: 300 }}
-                        tickLine={false}
-                        axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
-                        interval="preserveStartEnd"
-                        tickFormatter={(v: string) => v?.slice(5) ?? ''}
-                        dy={8}
-                      />
-                      <YAxis
-                        domain={[priceMin - padding, priceMax + padding]}
-                        tick={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, fill: 'rgba(255,255,255,0.35)', fontWeight: 300 }}
-                        tickLine={false}
-                        axisLine={false}
-                        tickFormatter={(v: number) => formatCurrency(v, 0)}
-                        width={58}
-                        tickCount={6}
-                      />
-                      <Tooltip
-                        contentStyle={{
-                          background: '#0c0c0f',
-                          border: '0.5px solid rgba(255,255,255,0.1)',
-                          borderRadius: 0,
-                          fontFamily: "'JetBrains Mono', monospace",
-                          fontSize: 11,
-                          padding: '8px 12px',
+                  <svg
+                    viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                    width="100%"
+                    height="360"
+                    role="img"
+                    aria-label={`${ticker} price chart`}
+                  >
+                    {yHairlines.map((line) => (
+                      <g key={line.y}>
+                        <line
+                          x1={padLeft}
+                          x2={svgWidth - padRight}
+                          y1={line.y}
+                          y2={line.y}
+                          stroke="rgba(255,255,255,0.04)"
+                          strokeWidth="0.5"
+                          shapeRendering="crispEdges"
+                        />
+                        <text
+                          x={svgWidth - 6}
+                          y={line.y - 2}
+                          textAnchor="end"
+                          style={{
+                            fontFamily: T.mono,
+                            fontSize: '9px',
+                            fill: T.textMuted,
+                          }}
+                        >
+                          {formatCurrency(line.value)}
+                        </text>
+                      </g>
+                    ))}
+                    <polyline
+                      fill="none"
+                      stroke={lineCol}
+                      strokeWidth="1.25"
+                      strokeLinejoin="miter"
+                      strokeLinecap="square"
+                      points={points}
+                    />
+                  </svg>
+
+                  <div
+                    style={{
+                      borderTop: '0.5px solid rgba(255,255,255,0.06)',
+                      marginTop: '2px',
+                      paddingTop: '8px',
+                      position: 'relative',
+                      height: '20px',
+                    }}
+                  >
+                    {xLabels.map((label) => (
+                      <span
+                        key={label.key}
+                        style={{
+                          position: 'absolute',
+                          left: `${(label.x / svgWidth) * 100}%`,
+                          transform: 'translateX(-50%)',
+                          fontFamily: T.mono,
+                          fontSize: '9px',
+                          color: T.textMuted,
+                          whiteSpace: 'nowrap',
                         }}
-                        labelStyle={{ color: 'rgba(255,255,255,0.45)', marginBottom: 4, fontSize: 10 }}
-                        itemStyle={{ color: lineCol, fontWeight: 300 }}
-                        formatter={(value: any) => [formatCurrency(Number(value)), ticker]}
-                        cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="price"
-                        stroke={lineCol}
-                        strokeWidth={1.5}
-                        dot={false}
-                        activeDot={{ r: 3, fill: lineCol, strokeWidth: 0 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
+                      >
+                        {label.label}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             );

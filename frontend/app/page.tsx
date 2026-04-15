@@ -14,11 +14,6 @@ import {
   freshnessColor,
 } from '@/lib/tokens';
 
-function fmtSigma(val: number | undefined) {
-  if (val === undefined || val === null) return '—';
-  return `${val >= 0 ? '+' : ''}${val.toFixed(2)}σ`;
-}
-
 function barColor(val: number) {
   if (val >= 6) return T.up;
   if (val >= 4) return T.wa;
@@ -35,38 +30,32 @@ function KpiBlock({
   meta?: React.ReactNode;
 }) {
   return (
-    <div
-      style={{
-        padding: '16px 24px',
-        borderRight: `0.5px solid ${T.border}`,
-        borderBottom: `0.5px solid ${T.borderSub}`,
-        minHeight: '108px',
-      }}
-    >
-      <div
-        style={{
-          fontFamily: T.sans,
-          fontSize: '11px',
-          letterSpacing: '1.2px',
-          textTransform: 'uppercase',
-          color: T.label,
-          marginBottom: '10px',
-          fontWeight: 400,
-        }}
-      >
+    <div style={{
+      padding: '20px 28px',
+      borderRight: `1px solid ${T.border}`,
+      borderBottom: `1px solid ${T.borderSub}`,
+      minHeight: '116px',
+    }}>
+      <div style={{
+        fontFamily: T.sans,
+        fontSize: '11px',
+        letterSpacing: '1.4px',
+        textTransform: 'uppercase',
+        color: T.label,
+        marginBottom: '12px',
+        fontWeight: 400,
+      }}>
         {label}
       </div>
       {children}
       {meta && (
-        <div
-          style={{
-            fontFamily: T.sans,
-            fontSize: '12px',
-            color: T.textMuted,
-            marginTop: '5px',
-            letterSpacing: '0.2px',
-          }}
-        >
+        <div style={{
+          fontFamily: T.sans,
+          fontSize: '12px',
+          color: T.textMuted,
+          marginTop: '6px',
+          letterSpacing: '0.2px',
+        }}>
           {meta}
         </div>
       )}
@@ -76,119 +65,74 @@ function KpiBlock({
 
 function KpiValue({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      style={{
-        fontFamily: T.mono,
-        fontSize: '30px',
-        fontWeight: 300,
-        letterSpacing: '-1px',
-        color: T.text,
-        lineHeight: 1,
-      }}
-    >
+    <div style={{
+      fontFamily: T.mono,
+      fontSize: '30px',
+      fontWeight: 300,
+      letterSpacing: '-1px',
+      color: T.text,
+      lineHeight: 1,
+    }}>
       {children}
     </div>
-  );
-}
-
-function MacroBadge({ regime }: { regime: string }) {
-  const isDown = regime?.toLowerCase() === 'down';
-  const color = isDown ? T.dn : T.wa;
-  return (
-    <span
-      style={{
-        display: 'inline-block',
-        fontFamily: T.sans,
-        fontSize: '10.5px',
-        letterSpacing: '1px',
-        textTransform: 'uppercase',
-        padding: '2px 7px',
-        marginBottom: '8px',
-        fontWeight: 500,
-        color,
-        background: `${color}10`,
-        border: `0.5px solid ${color}40`,
-      }}
-    >
-      {regime || '—'}
-    </span>
   );
 }
 
 function ScoreBar({ label, value }: { label: string; value: number }) {
   const fill = barColor(value);
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        padding: '8px 24px',
-        borderBottom: `0.5px solid ${T.borderSub}`,
-      }}
-    >
-      <span
-        style={{
-          fontFamily: T.sans,
-          fontSize: '12px',
-          letterSpacing: '0.3px',
-          color: T.textSub,
-          width: '130px',
-          flexShrink: 0,
-        }}
-      >
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      padding: '10px 28px',
+      borderBottom: `1px solid ${T.borderSub}`,
+    }}>
+      <span style={{
+        fontFamily: T.sans,
+        fontSize: '12px',
+        letterSpacing: '0.3px',
+        color: T.textSub,
+        width: '130px',
+        flexShrink: 0,
+        textTransform: 'capitalize',
+      }}>
         {label.replace(/_/g, ' ')}
       </span>
-      <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.05)' }}>
-        <div style={{ width: `${Math.min((value / 10) * 100, 100)}%`, height: '100%', background: fill }} />
+      <div style={{ flex: 1, height: '2px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px' }}>
+        <div style={{ width: `${Math.min((value / 10) * 100, 100)}%`, height: '100%', background: fill, borderRadius: '2px' }} />
       </div>
-      <span
-        style={{
-          fontFamily: T.mono,
-          fontSize: '12.5px',
-          fontWeight: 300,
-          width: '28px',
-          textAlign: 'right',
-          color: fill,
-        }}
-      >
+      <span style={{
+        fontFamily: T.mono,
+        fontSize: '12.5px',
+        fontWeight: 300,
+        width: '28px',
+        textAlign: 'right',
+        color: fill,
+      }}>
         {formatNumber(value, 1)}
       </span>
     </div>
   );
 }
 
-function MoverRow({
-  ticker,
-  price,
-  change,
-}: {
+function MoverRow({ ticker, price, change }: {
   ticker: string;
   price: number | undefined;
   change: number | undefined;
 }) {
   const c = (change ?? 0) >= 0 ? T.up : T.dn;
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '12px',
-        padding: '8px 24px',
-        borderBottom: `0.5px solid ${T.borderSub}`,
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', minWidth: 0 }}>
-        <span
-          style={{
-            fontFamily: T.mono,
-            fontSize: '13px',
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.82)',
-            letterSpacing: '0.3px',
-          }}
-        >
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: '12px',
+      padding: '10px 28px',
+      borderBottom: `1px solid ${T.borderSub}`,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
+        <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 400, color: 'rgba(255,255,255,0.82)', letterSpacing: '0.3px' }}>
           {ticker}
         </span>
         <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.textMuted }}>
@@ -202,67 +146,39 @@ function MoverRow({
   );
 }
 
-function FwdCard({
-  horizon,
-  ret,
-  posPct,
-}: {
+function FwdCard({ horizon, ret, posPct }: {
   horizon: string;
   ret: number;
   posPct: number;
 }) {
   const c = ret >= 0 ? T.up : T.dn;
   return (
-    <div
-      style={{
-        padding: '12px 24px',
-        borderBottom: `0.5px solid ${T.borderSub}`,
-        borderRight: `0.5px solid ${T.borderSub}`,
-      }}
-    >
-      <div
-        style={{
-          fontFamily: T.sans,
-          fontSize: '11px',
-          letterSpacing: '1.2px',
-          textTransform: 'uppercase',
-          color: T.textMuted,
-          marginBottom: '6px',
-        }}
-      >
+    <div style={{
+      padding: '14px 28px',
+      borderBottom: `1px solid ${T.borderSub}`,
+      borderRight: `1px solid ${T.borderSub}`,
+    }}>
+      <div style={{
+        fontFamily: T.sans,
+        fontSize: '11px',
+        letterSpacing: '1.2px',
+        textTransform: 'uppercase',
+        color: T.textMuted,
+        marginBottom: '8px',
+      }}>
         {horizon}
       </div>
-      <div
-        style={{
-          fontFamily: T.mono,
-          fontSize: '19px',
-          fontWeight: 300,
-          letterSpacing: '-0.3px',
-          color: c,
-        }}
-      >
+      <div style={{ fontFamily: T.mono, fontSize: '19px', fontWeight: 300, letterSpacing: '-0.3px', color: c }}>
         {formatAccountingPct(ret)}
       </div>
-      <div
-        style={{
-          fontFamily: T.sans,
-          fontSize: '11px',
-          color: T.textMuted,
-          marginTop: '3px',
-          letterSpacing: '0.3px',
-        }}
-      >
+      <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted, marginTop: '4px', letterSpacing: '0.3px' }}>
         {formatNumber(posPct, 0)}% positive
       </div>
     </div>
   );
 }
 
-function AnalogueRow({
-  date,
-  fwd5d,
-  maxFwd,
-}: {
+function AnalogueRow({ date, fwd5d, maxFwd }: {
   date: string;
   fwd5d: number;
   maxFwd: number;
@@ -270,41 +186,35 @@ function AnalogueRow({
   const c = fwd5d >= 0 ? T.up : T.dn;
   const widthPct = Math.abs((fwd5d ?? 0) / maxFwd) * 100;
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        padding: '7px 24px',
-        borderBottom: `0.5px solid ${T.borderSub}`,
-      }}
-    >
-      <span
-        style={{
-          fontFamily: T.mono,
-          fontSize: '11.5px',
-          fontWeight: 300,
-          color: T.textMuted,
-          width: '68px',
-          flexShrink: 0,
-          letterSpacing: '0.3px',
-        }}
-      >
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      padding: '9px 28px',
+      borderBottom: `1px solid ${T.borderSub}`,
+    }}>
+      <span style={{
+        fontFamily: T.mono,
+        fontSize: '11.5px',
+        fontWeight: 300,
+        color: T.textMuted,
+        width: '72px',
+        flexShrink: 0,
+        letterSpacing: '0.3px',
+      }}>
         {date}
       </span>
-      <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.05)' }}>
-        <div style={{ width: `${widthPct}%`, height: '100%', background: c }} />
+      <div style={{ flex: 1, height: '2px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px' }}>
+        <div style={{ width: `${widthPct}%`, height: '100%', background: c, borderRadius: '2px' }} />
       </div>
-      <span
-        style={{
-          fontFamily: T.mono,
-          fontSize: '12px',
-          fontWeight: 300,
-          color: c,
-          width: '62px',
-          textAlign: 'right',
-        }}
-      >
+      <span style={{
+        fontFamily: T.mono,
+        fontSize: '12px',
+        fontWeight: 300,
+        color: c,
+        width: '62px',
+        textAlign: 'right',
+      }}>
         {formatAccountingPct(fwd5d)}
       </span>
     </div>
@@ -317,20 +227,11 @@ function MarketStateSkeleton() {
       <SkeletonPanel titleWidth="20%" metaWidth="40%">
         <SkeletonMetricGrid columns={5} items={5} />
       </SkeletonPanel>
-      <SkeletonPanel titleWidth="18%" metaWidth="26%">
-        <SkeletonMetricGrid columns={3} items={3} />
-      </SkeletonPanel>
       <SkeletonPanel titleWidth="16%" metaWidth="32%">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))' }}>
-          <div style={{ borderRight: `0.5px solid ${T.border}` }}>
-            <SkeletonRows rows={7} columns={2} />
-          </div>
-          <div style={{ borderRight: `0.5px solid ${T.border}` }}>
-            <SkeletonRows rows={8} columns={2} />
-          </div>
-          <div>
-            <SkeletonRows rows={6} columns={2} />
-          </div>
+          <div style={{ borderRight: `1px solid ${T.border}` }}><SkeletonRows rows={7} columns={2} /></div>
+          <div style={{ borderRight: `1px solid ${T.border}` }}><SkeletonRows rows={8} columns={2} /></div>
+          <div><SkeletonRows rows={6} columns={2} /></div>
         </div>
       </SkeletonPanel>
     </main>
@@ -338,64 +239,74 @@ function MarketStateSkeleton() {
 }
 
 export default function Dashboard() {
-  const { data, error, isLoading } = useSWR('/api/market/dashboard', fetcher, {
-    refreshInterval: 300000,
-  });
+  const { data, error, isLoading } = useSWR('/api/market/dashboard', fetcher, { refreshInterval: 300000 });
+  const { data: heatmap }      = useSWR('/api/prices/heatmap?horizon=1D', fetcher, { refreshInterval: 300000 });
+  const { data: moversData }   = useSWR('/api/brief/moves', fetcher, { refreshInterval: 300000 });
+  const { data: analoguesData } = useSWR('/api/market/analogues?top_n=10', fetcher, { refreshInterval: 300000 });
 
   const envColor: Record<string, string> = {
-    'Risk-On Rotation Day': T.up,
-    'Trend Day (Directional)': '#60a5fa',
-    'Risk-Off / Headline Risk': T.dn,
-    'Chop / Mean Reversion': T.wa,
-    'Mixed / Neutral': T.accent,
+    'Risk-On Rotation Day':      T.up,
+    'Trend Day (Directional)':   '#60a5fa',
+    'Risk-Off / Headline Risk':  T.dn,
+    'Chop / Mean Reversion':     T.wa,
+    'Mixed / Neutral':           T.accent,
   };
 
   if (isLoading) return <MarketStateSkeleton />;
-
   if (error) {
     return (
-      <div style={{ padding: '48px 24px', fontFamily: T.mono, fontSize: '13px', color: T.dn, letterSpacing: '0.5px' }}>
+      <div style={{ padding: '48px 28px', fontFamily: T.mono, fontSize: '13px', color: T.dn, letterSpacing: '0.5px' }}>
         Error: {error.message}
       </div>
     );
   }
 
   const regime = data?.regime ?? data ?? {};
-  const tape = data?.tape ?? {};
-  const asof = regime?.asof_date ?? data?.asof_utc?.slice(0, 10) ?? '—';
-  const horizon = regime?.horizon ?? '1D';
-  const score = regime?.score_total;
-  const env = regime?.environment ?? '—';
+  const tape   = data?.tape   ?? {};
+
+  const asof      = regime?.asof_date ?? data?.asof_utc?.slice(0, 10) ?? '—';
+  const horizon   = regime?.horizon   ?? '1D';
+  const score     = regime?.score_total;
+  const env       = regime?.environment ?? '—';
   const confidence = regime?.confidence;
-  const secGreen = tape?.sectors_green_now ?? regime?.layer_breadth;
-  const vix = regime?.vix_level ?? tape?.vix_now;
-  const vixChg = tape?.vix_vs_close;
-  const components = regime?.layer_statuses
-    ? {
-        monetary:    regime.layer_monetary,
-        credit:      regime.layer_credit,
-        volatility:  regime.layer_volatility,
-        breadth:     regime.layer_breadth,
-        positioning: regime.layer_positioning,
-      }
-    : {};
-  const movers = data?.movers ?? [];
-  const memory = data?.memory ?? {};
-  const macro = data?.macro_regime ?? {};
-  const sectorReturns: [string, number][] = regime?.sector_returns
-    ? Object.entries(regime.sector_returns).sort((a: any, b: any) => b[1] - a[1])
-    : (regime?.leadership_top3 ?? []);
-  const analogues = memory?.comparable_episodes ?? [];
-  const maxFwd = Math.max(...analogues.map((e: any) => Math.abs(e.fwd_5d ?? 0)), 1);
+  const secGreen  = tape?.sectors_green_now ?? regime?.layer_breadth;
+  const vix       = regime?.vix_level ?? tape?.vix_now;
+  const vixChg    = tape?.vix_vs_close;
+
+  const components = regime?.layer_monetary != null
+    ? { monetary: regime.layer_monetary, credit: regime.layer_credit, volatility: regime.layer_volatility, breadth: regime.layer_breadth, positioning: regime.layer_positioning }
+    : (regime?.score_components ?? {});
+
+  const sectorReturns: [string, number][] = heatmap?.sectors
+    ? heatmap.sectors.map((s: any) => [s.name, s.return] as [string, number]).filter(([, r]: [string, number]) => r != null).sort((a: [string, number], b: [string, number]) => b[1] - a[1])
+    : [];
+
+  const movers: any[] = moversData ?? [];
+
+  const agg         = analoguesData?.aggregate_stats ?? {};
+  const fwdReturns  = agg?.forward_returns ?? {};
+  const riskProfile = agg?.risk_profile ?? {};
+  const analoguesList = analoguesData?.analogues ?? [];
+  const maxFwd = Math.max(...analoguesList.map((e: any) => Math.abs(e.forward_returns?.['5d'] ?? 0)), 1);
+
+  // Section wrapper style
+  const section = {
+    borderBottom: `1px solid ${T.border}`,
+    margin: '0 0',
+  };
+
+  const colDivider = { borderRight: `1px solid ${T.border}` };
 
   return (
     <main style={sx.main}>
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+
+      {/* ── Market State KPIs ── */}
+      <div style={section}>
         <div style={sx.sectionHd}>
           <span style={sx.sectionLabel}>Market state</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             <span style={sx.sectionMeta}>
-              {asof} · {horizon} horizon · score {formatNumber(score, 1)} · {env}
+              {asof} · {horizon} · score {formatNumber(score, 1)} · {env}
             </span>
             <span style={{ ...sx.sectionMeta, color: freshnessColor(data?.asof_utc) }}>
               {formatRelativeAge(data?.asof_utc)}
@@ -407,17 +318,15 @@ export default function Dashboard() {
             <KpiValue>{formatNumber(score, 1)}</KpiValue>
           </KpiBlock>
           <KpiBlock label="Environment">
-            <div
-              style={{
-                fontFamily: T.sans,
-                fontSize: '13px',
-                fontWeight: 400,
-                color: envColor[env] ?? T.accent,
-                letterSpacing: '0.8px',
-                lineHeight: 1.5,
-                textTransform: 'uppercase',
-              }}
-            >
+            <div style={{
+              fontFamily: T.sans,
+              fontSize: '13px',
+              fontWeight: 400,
+              color: envColor[env] ?? T.accent,
+              letterSpacing: '0.8px',
+              lineHeight: 1.6,
+              textTransform: 'uppercase',
+            }}>
               {env}
             </div>
           </KpiBlock>
@@ -430,160 +339,115 @@ export default function Dashboard() {
               <span style={{ fontSize: '15px', color: T.textMuted, fontWeight: 300 }}> /11</span>
             </KpiValue>
           </KpiBlock>
-          <KpiBlock label="VIX" meta={vixChg === undefined ? '—' : `${formatAccountingPct(vixChg)} today`}>
+          <KpiBlock label="VIX" meta={vixChg == null ? '—' : `${formatAccountingPct(vixChg)} today`}>
             <KpiValue>{formatNumber(vix, 1)}</KpiValue>
           </KpiBlock>
         </div>
       </div>
-      <IntradayTape />
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-        <div style={sx.sectionHd}>
-          <span style={sx.sectionLabel}>Macro regime</span>
-          <span style={sx.sectionMeta}>Growth · Inflation · Liquidity</span>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))' }}>
-          {(['growth', 'inflation', 'liquidity'] as const).map((key) => {
-            const m = macro[key] ?? {};
-            const val = m.zscore ?? m.value;
-            const c = val >= 0 ? T.up : val < -0.2 ? T.dn : T.wa;
-            return (
-              <div
-                key={key}
-                style={{
-                  padding: '14px 24px',
-                  borderRight: `0.5px solid ${T.border}`,
-                  borderBottom: `0.5px solid ${T.borderSub}`,
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: T.sans,
-                    fontSize: '11px',
-                    letterSpacing: '1.2px',
-                    textTransform: 'uppercase',
-                    color: T.label,
-                    marginBottom: '6px',
-                  }}
-                >
-                  {key}
-                </div>
-                <MacroBadge regime={m.regime ?? m.trend ?? '—'} />
-                <div
-                  style={{
-                    fontFamily: T.mono,
-                    fontSize: '22px',
-                    fontWeight: 300,
-                    letterSpacing: '-0.5px',
-                    color: c,
-                    marginBottom: '5px',
-                  }}
-                >
-                  {val !== undefined ? fmtSigma(val) : '—'}
-                </div>
-                <div style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color: T.textMuted, letterSpacing: '0.3px' }}>
-                  MoM {m.mom !== undefined ? formatNumber(m.mom, 2) : '—'} · YoY {m.yoy !== undefined ? formatNumber(m.yoy, 2) : '—'}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
 
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+      {/* ── Intraday Tape ── */}
+      <IntradayTape />
+
+      {/* ── Signal Detail ── */}
+      <div style={section}>
         <div style={sx.sectionHd}>
           <span style={sx.sectionLabel}>Signal detail</span>
           <span style={sx.sectionMeta}>Components · Sectors · Movers · Memory</span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))' }}>
-          <div style={{ borderRight: `0.5px solid ${T.border}` }}>
-            <div style={{ ...sx.sectionHd, padding: '8px 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))' }}>
+
+          {/* Score components + Sector returns */}
+          <div style={colDivider}>
+            <div style={{ ...sx.sectionHd, padding: '10px 28px' }}>
               <span style={sx.sectionLabel}>Score components</span>
             </div>
             {Object.entries(components).map(([key, val]: [string, any]) => (
               <ScoreBar key={key} label={key} value={val} />
             ))}
 
-            <div style={{ ...sx.sectionHd, padding: '8px 24px', borderTop: `0.5px solid ${T.border}` }}>
+            <div style={{ ...sx.sectionHd, padding: '10px 28px', borderTop: `1px solid ${T.border}`, marginTop: '4px' }}>
               <span style={sx.sectionLabel}>Sector returns · 1D</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
-              {sectorReturns.map(([name, ret]) => (
-                <div
-                  key={name}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '8px 24px',
-                    borderBottom: `0.5px solid ${T.borderSub}`,
-                    borderRight: `0.5px solid ${T.borderSub}`,
-                  }}
-                >
+              {sectorReturns.length > 0 ? sectorReturns.map(([name, ret]) => (
+                <div key={name} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '9px 28px',
+                  borderBottom: `1px solid ${T.borderSub}`,
+                  borderRight: `1px solid ${T.borderSub}`,
+                }}>
                   <span style={{ fontFamily: T.sans, fontSize: '11.5px', letterSpacing: '0.3px', color: T.textSub }}>{name}</span>
                   <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: ret >= 0 ? T.up : T.dn }}>
                     {formatAccountingPct(ret)}
                   </span>
                 </div>
-              ))}
+              )) : (
+                <div style={{ padding: '16px 28px', color: T.textMuted, fontSize: '12px' }}>Loading sectors...</div>
+              )}
             </div>
           </div>
 
-          <div style={{ borderRight: `0.5px solid ${T.border}` }}>
-            <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
+          {/* Market movers */}
+          <div style={colDivider}>
+            <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Market moves</span>
               <span style={sx.sectionMeta}>Last · 1D chg</span>
             </div>
-            {(movers.length > 0 ? movers : [{ ticker: 'SPY', last: data?.spy_last_price, change_pct_1d: data?.spy_change_pct }]).map((m: any) => (
-              <MoverRow key={m.ticker} ticker={m.ticker} price={m.last} change={m.change_pct_1d} />
-            ))}
+            {movers.length > 0 ? movers.map((m: any) => (
+              <MoverRow key={m.ticker} ticker={m.ticker} price={m.last} change={m.chg_pct_1d ?? m.change_pct_1d} />
+            )) : (
+              <div style={{ padding: '16px 28px', color: T.textMuted, fontSize: '12px' }}>Loading movers...</div>
+            )}
           </div>
 
+          {/* Memory */}
           <div>
-            <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
+            <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Memory · fwd outlook</span>
-              <span style={sx.sectionMeta}>n={memory?.n ?? '—'}</span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))' }}>
-              <FwdCard horizon="1D fwd" ret={memory?.fwd_1d ?? 0} posPct={memory?.pct_positive_1d ?? 0} />
-              <FwdCard horizon="5D fwd" ret={memory?.fwd_5d ?? 0} posPct={memory?.pct_positive_5d ?? 0} />
-              <FwdCard horizon="10D fwd" ret={memory?.fwd_10d ?? 0} posPct={memory?.pct_positive_10d ?? 0} />
-              <FwdCard horizon="21D fwd" ret={memory?.fwd_21d ?? 0} posPct={memory?.pct_positive_21d ?? 0} />
+              <span style={sx.sectionMeta}>n={agg?.n_analogues ?? '—'}</span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', borderBottom: `0.5px solid ${T.borderSub}` }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))' }}>
+              {(['1d', '5d', '10d', '21d'] as const).map(h => {
+                const s = fwdReturns[h] ?? {};
+                return <FwdCard key={h} horizon={`${h.toUpperCase()} fwd`} ret={s.median ?? 0} posPct={s.pct_positive ?? 0} />;
+              })}
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', borderBottom: `1px solid ${T.borderSub}` }}>
               {[
-                { label: 'Max DD', val: memory?.risk_max_dd, color: T.dn, suffix: '' },
-                { label: 'Max upside', val: memory?.risk_max_up, color: T.up, suffix: '' },
-                { label: 'Rwd / risk', val: memory?.reward_risk, color: T.mid, suffix: '×' },
+                { label: 'Max DD',     val: riskProfile?.median_max_drawdown_5d, color: T.dn },
+                { label: 'Max upside', val: riskProfile?.median_max_upside_5d,   color: T.up },
+                { label: 'Rwd / risk', val: riskProfile?.reward_risk_ratio,       color: T.mid, suffix: '×' },
               ].map(({ label, val, color, suffix }, idx) => (
-                <div
-                  key={label}
-                  style={{
-                    padding: '10px 24px',
-                    borderRight: idx < 2 ? `0.5px solid ${T.borderSub}` : 'none',
-                    borderBottom: `0.5px solid ${T.border}`,
-                  }}
-                >
-                  <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '4px' }}>
+                <div key={label} style={{
+                  padding: '12px 28px',
+                  borderRight: idx < 2 ? `1px solid ${T.borderSub}` : 'none',
+                  borderBottom: `1px solid ${T.border}`,
+                }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
                     {label}
                   </div>
                   <div style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color }}>
-                    {val !== undefined && val !== null ? (suffix ? `${formatNumber(val, 1)}${suffix}` : formatAccountingPct(val)) : '—'}
+                    {val != null ? (suffix ? `${formatNumber(val, 1)}${suffix}` : formatAccountingPct(val)) : '—'}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
+            <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Comparable episodes</span>
               <span style={sx.sectionMeta}>5D fwd</span>
             </div>
-            {analogues.slice(0, 8).map((ep: any) => (
-              <AnalogueRow key={ep.date} date={ep.date} fwd5d={ep.fwd_5d} maxFwd={maxFwd} />
+            {analoguesList.slice(0, 8).map((ep: any) => (
+              <AnalogueRow key={ep.date} date={ep.date} fwd5d={ep.forward_returns?.['5d'] ?? 0} maxFwd={maxFwd} />
             ))}
           </div>
+
         </div>
       </div>
     </main>
