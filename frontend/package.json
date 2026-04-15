@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "fresh": "kill $(lsof -ti:3000) 2>/dev/null; rm -rf .next && next dev"
   },
   "dependencies": {
     "lightweight-charts": "^5.1.0",

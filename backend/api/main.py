@@ -6,6 +6,7 @@ import sys
 import uuid
 from pathlib import Path
 from typing import Optional
+from datetime import date, datetime, timedelta, timezone
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query, UploadFile, File, BackgroundTasks
@@ -54,15 +55,120 @@ _jobs: dict[str, dict] = {}
 
 # ── Market State ──────────────────────────────────────────────────────────────
 
-@app.get("/api/market/state", response_model=MarketStateOut)
-@cache("market_state")
-async def get_market_state(horizon: str = Query("1D")):
-    if horizon not in HORIZONS:
-        raise HTTPException(400, f"Invalid horizon. Choose from {list(HORIZONS.keys())}")
-    state = await asyncio.to_thread(build_market_state, horizon=horizon)
-    state = await asyncio.to_thread(score_market_state, state)
-    await asyncio.to_thread(save_snapshot, state, SNAPSHOT_DIR)
-    return MarketStateOut(**state.to_dict())
+@app.get("/api/market/regime")
+@cache("regime_state")           # long cache — regime doesn't change intraday
+async def get_regime_state(
+    horizon: str = Query("default", enum=["default", "swing", "investor"]),
+    refresh: bool = Query(False),
+):
+    """
+    Returns the current daily regime state.
+    Computed once at close — stable throughout the day.
+    If today's snapshot exists on disk, loads it (fast).
+    If not, computes it fresh (slow — ~30s on first call).
+    """
+    from src.state.regime_state import RegimeState, build_regime_state
+ 
+    today = date.today().isoformat()
+ 
+    # Try loading today's saved snapshot first
+    if not refresh:
+        snapshot = RegimeState.load_snapshot(today)
+        if snapshot:
+            return snapshot.to_dict()
+ 
+    # Build fresh (runs at close or on first request of the day)
+    state = await asyncio.to_thread(build_regime_state, horizon=horizon, save=True)
+    return state.to_dict()
+ 
+ 
+# ── Intraday tape endpoint (live, 5min refresh) ───────────────────────────────
+ 
+@app.get("/api/market/tape")
+@cache("intraday_tape")          # short cache — updates every 5 min
+async def get_intraday_tape():
+    """
+    Returns live intraday tape metrics.
+    Updates every 5 minutes during market hours.
+    Never modifies the regime score.
+    """
+    from src.state.regime_state import RegimeState, build_intraday_tape
+ 
+    # Load today's regime state for consistency check
+    today = date.today().isoformat()
+    regime = RegimeState.load_snapshot(today)
+ 
+    tape = await asyncio.to_thread(build_intraday_tape, regime_state=regime)
+    return tape.to_dict()
+ 
+ 
+# ── Combined endpoint (for the main dashboard) ────────────────────────────────
+ 
+@app.get("/api/market/dashboard")
+async def get_dashboard(
+    horizon: str = Query("default", enum=["default", "swing", "investor"]),
+):
+    """
+    Returns both regime state and intraday tape in one call.
+    Use this for the main market state page.
+    """
+    from src.state.regime_state import RegimeState, build_regime_state, build_intraday_tape
+ 
+    today = date.today().isoformat()
+ 
+    # Regime — load from snapshot or build
+    regime = RegimeState.load_snapshot(today)
+    if not regime:
+        regime = await asyncio.to_thread(build_regime_state, horizon=horizon, save=True)
+ 
+    # Tape — always fresh
+    tape = await asyncio.to_thread(build_intraday_tape, regime_state=regime)
+ 
+    return {
+        "regime": regime.to_dict(),
+        "tape": tape.to_dict(),
+        "asof_utc": datetime.now(timezone.utc).isoformat(),
+    }
+ 
+ 
+# ── Historical regime snapshots ───────────────────────────────────────────────
+ 
+@app.get("/api/market/regime/history")
+async def get_regime_history(days: int = Query(30, ge=1, le=252)):
+    """
+    Returns the last N days of regime snapshots for trend analysis.
+    """
+    from src.state.regime_state import RegimeState
+    from pathlib import Path
+ 
+    snapshot_dir = Path("data/snapshots")
+    snapshots = []
+ 
+    for i in range(days):
+        d = (date.today() - timedelta(days=i)).isoformat()
+        snap = RegimeState.load_snapshot(d)
+        if snap:
+            snapshots.append({
+                "date": snap.asof_date,
+                "score_total": snap.score_total,
+                "environment": snap.environment,
+                "layer_monetary":    snap.layer_monetary,
+                "layer_credit":      snap.layer_credit,
+                "layer_volatility":  snap.layer_volatility,
+                "layer_breadth":     snap.layer_breadth,
+                "layer_positioning": snap.layer_positioning,
+                "layer_agreement":   snap.layer_agreement,
+                "confidence":        snap.confidence,
+            })
+ 
+    return {"snapshots": snapshots, "n": len(snapshots)}
+ 
+ 
+# ── Cache TTL additions for cache.py ─────────────────────────────────────────
+# Add these entries to your TTL_SECONDS dict in api/cache.py:
+#
+#   "regime_state":  3600 * 6,   # 6 hours — regime stable all day
+#   "intraday_tape": 300,        # 5 minutes — live tape
 
 # ── Add this to backend/api/main.py ──────────────────────────────────────────
 # Place alongside your other endpoints
@@ -197,7 +303,6 @@ async def get_brief_summary():
 async def get_heatmap(horizon: str = Query("1D")):
     import yfinance as yf
     import numpy as np
-    from datetime import datetime
 
     SECTORS = {
         "XLB":"Materials","XLE":"Energy","XLF":"Financials",

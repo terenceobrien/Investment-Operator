@@ -3,15 +3,16 @@ from cachetools import TTLCache
 from functools import wraps
 import hashlib, json
 
-# TTL caches matching your old st.cache_data TTLs
 _caches = {
-    "market_state":  TTLCache(maxsize=20,  ttl=300),    # 5 min
-    "macro":         TTLCache(maxsize=5,   ttl=14400),  # 4 hr
-    "brief_moves":   TTLCache(maxsize=10,  ttl=900),    # 15 min
-    "brief_summary": TTLCache(maxsize=5,   ttl=86400),  # 24 hr
-    "prices":        TTLCache(maxsize=50,  ttl=300),    # 5 min
-    "narrative":     TTLCache(maxsize=5,   ttl=900),    # 15 min
-    "calendar":      TTLCache(maxsize=5,   ttl=3600),   # 1 hr
+    "market_state":  TTLCache(maxsize=20,  ttl=300),
+    "macro":         TTLCache(maxsize=5,   ttl=14400),
+    "brief_moves":   TTLCache(maxsize=10,  ttl=900),
+    "brief_summary": TTLCache(maxsize=5,   ttl=86400),
+    "prices":        TTLCache(maxsize=50,  ttl=300),
+    "narrative":     TTLCache(maxsize=5,   ttl=900),
+    "calendar":      TTLCache(maxsize=5,   ttl=3600),
+    "regime_state":  TTLCache(maxsize=5,   ttl=3600 * 6),  # 6 hours
+    "intraday_tape": TTLCache(maxsize=10,  ttl=300),        # 5 minutes
 }
 
 def cache(bucket: str):
@@ -31,3 +32,12 @@ def cache(bucket: str):
             return result
         return wrapper
     return decorator
+
+def clear_regime_cache():
+    """Call this after market close to force fresh computation."""
+    cleared = 0
+    for bucket in ["regime_state", "intraday_tape"]:
+        if bucket in _caches:
+            _caches[bucket].clear()
+            cleared += 1
+    return cleared
