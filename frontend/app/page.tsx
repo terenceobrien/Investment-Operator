@@ -337,7 +337,7 @@ function MarketStateSkeleton() {
 }
 
 export default function Dashboard() {
-  const { data, error, isLoading } = useSWR('/api/market/state', fetcher, {
+  const { data, error, isLoading } = useSWR('/api/market/dashboard', fetcher, {
     refreshInterval: 300000,
   });
 
@@ -359,24 +359,34 @@ export default function Dashboard() {
     );
   }
 
-  const asof = data?.asof_utc?.slice(0, 10) ?? '—';
-  const horizon = data?.horizon ?? '1D';
-  const score = data?.score_total;
-  const env = data?.environment ?? '—';
-  const confidence = data?.confidence;
-  const secGreen = data?.sectors_green;
-  const vix = data?.vix_level;
-  const vixChg = data?.vix_change_pct_1d;
-  const components = data?.score_components ?? {};
-  const macro = data?.macro_regime ?? {};
+  const regime = data?.regime ?? data ?? {};
+  const tape = data?.tape ?? {};
+  const asof = regime?.asof_date ?? data?.asof_utc?.slice(0, 10) ?? '—';
+  const horizon = regime?.horizon ?? '1D';
+  const score = regime?.score_total;
+  const env = regime?.environment ?? '—';
+  const confidence = regime?.confidence;
+  const secGreen = tape?.sectors_green_now ?? regime?.layer_breadth;
+  const vix = regime?.vix_level ?? tape?.vix_now;
+  const vixChg = tape?.vix_vs_close;
+  const components = regime?.layer_statuses
+    ? {
+        monetary:    regime.layer_monetary,
+        credit:      regime.layer_credit,
+        volatility:  regime.layer_volatility,
+        breadth:     regime.layer_breadth,
+        positioning: regime.layer_positioning,
+      }
+    : {};
   const movers = data?.movers ?? [];
   const memory = data?.memory ?? {};
+  const macro = data?.macro_regime ?? {};
+  const sectorReturns: [string, number][] = regime?.sector_returns
+    ? Object.entries(regime.sector_returns).sort((a: any, b: any) => b[1] - a[1])
+    : (regime?.leadership_top3 ?? []);
   const analogues = memory?.comparable_episodes ?? [];
   const maxFwd = Math.max(...analogues.map((e: any) => Math.abs(e.fwd_5d ?? 0)), 1);
-  const sectorReturns: [string, number][] = data?.sector_returns
-    ? Object.entries(data.sector_returns).sort((a: any, b: any) => b[1] - a[1])
-    : (data?.leadership_top3 ?? []);
-
+  
   return (
     <main style={sx.main}>
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>

@@ -9,6 +9,8 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
+import yfinance as yf
+yf.set_tz_cache_location("/tmp/yfinance_tz")
 
 # --- Universes ---
 SECTOR_ETFS: Dict[str, str] = {
@@ -113,6 +115,7 @@ def _download_closes(tickers: List[str], period: str = "2y", auto_adjust: bool =
                 auto_adjust=auto_adjust,
                 progress=False,
                 threads=False,  # Change to False — threading causes issues on some servers
+                timeout=15,
             )
             if data is None or len(data) == 0:
                 time.sleep(2)
