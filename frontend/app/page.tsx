@@ -2,6 +2,7 @@
 
 import useSWR from 'swr';
 import { fetcher } from '../lib/api';
+import IntradayTape from '@/components/IntradayTape';
 import { SkeletonMetricGrid, SkeletonPanel, SkeletonRows } from '@/components/Skeleton';
 import {
   T,
@@ -386,7 +387,7 @@ export default function Dashboard() {
     : (regime?.leadership_top3 ?? []);
   const analogues = memory?.comparable_episodes ?? [];
   const maxFwd = Math.max(...analogues.map((e: any) => Math.abs(e.fwd_5d ?? 0)), 1);
-  
+
   return (
     <main style={sx.main}>
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
@@ -434,7 +435,7 @@ export default function Dashboard() {
           </KpiBlock>
         </div>
       </div>
-
+      <IntradayTape />
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
         <div style={sx.sectionHd}>
           <span style={sx.sectionLabel}>Macro regime</span>
