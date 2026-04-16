@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '../lib/api';
+import { fetcher } from '@/lib/api';
 import IntradayTape from '@/components/IntradayTape';
 import { SkeletonMetricGrid, SkeletonPanel, SkeletonRows } from '@/components/Skeleton';
 import {
