@@ -44,14 +44,14 @@ export default function HowItWorksPage() {
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
         <div style={sx.sectionHd}>
           <span style={sx.sectionLabel}>How it works</span>
-          <span style={sx.sectionMeta}>Temper framework</span>
+          <span style={sx.sectionMeta}>Helix framework</span>
         </div>
       </div>
 
       <Section title="Sentiment score" meta="0–100 composite">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: '18px' }}>
           <Copy>
-            The sentiment score is a structured read of the tape, not a generic market opinion. Temper takes five component signals from the live market state engine and scores each one on a 0–10 scale before applying configurable weights.
+            The sentiment score is a structured read of the tape, not a generic market opinion. Helix takes five component signals from the live market state engine and scores each one on a 0–10 scale before applying configurable weights.
           </Copy>
           <Copy>
             Those components measure whether risk appetite is improving, whether price trends are persistent, whether volatility is supportive or hostile, whether participation is broad enough to trust, and whether leadership is coherent across sectors and assets.
@@ -68,7 +68,7 @@ export default function HowItWorksPage() {
             Environment labels translate the raw signal stack into an actionable regime, such as trend day, risk-off headline risk, chop, or mixed conditions. This is intended to answer the practical question a PM would ask first: what kind of market is this?
           </Copy>
           <Copy>
-            Classification is based on the interaction between score level, confidence, breadth, volatility conditions, and cross-asset confirmation. A strong number by itself is not enough. Temper is looking for alignment between the internals and the headline score.
+            Classification is based on the interaction between score level, confidence, breadth, volatility conditions, and cross-asset confirmation. A strong number by itself is not enough. Helix is looking for alignment between the internals and the headline score.
           </Copy>
         </div>
       </Section>
@@ -79,7 +79,7 @@ export default function HowItWorksPage() {
             Market Memory finds historical days that most closely resemble the current state. Analogues are ranked by similarity using the current environment, total score, volatility regime, breadth, and score momentum rather than by simple date-based comparisons.
           </Copy>
           <Copy>
-            For each comparable episode, Temper stores what happened next: forward returns, drawdowns, upside capture, and the path over the following sessions. The goal is not to predict a single outcome, but to surface the distribution of what usually followed when the market looked like this.
+            For each comparable episode, Helix stores what happened next: forward returns, drawdowns, upside capture, and the path over the following sessions. The goal is not to predict a single outcome, but to surface the distribution of what usually followed when the market looked like this.
           </Copy>
           <Copy>
             This lets you treat history as conditional evidence. If today matches prior risk-off breaks, failed rallies, or rotation squeezes, the app can show how those setups tended to resolve and where the tail-risk profile was most asymmetric.

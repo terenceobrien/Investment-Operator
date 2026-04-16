@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../lib/api';
 import IntradayTape from '@/components/IntradayTape';
@@ -13,6 +14,34 @@ import {
   formatRelativeAge,
   freshnessColor,
 } from '@/lib/tokens';
+
+function useCountUp(target: number | undefined | null, duration = 800) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (target === undefined || target === null || Number.isNaN(target)) return;
+
+    let frame = 0;
+    let start = 0;
+
+    setValue(0);
+
+    const tick = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(target * eased);
+      if (progress < 1) {
+        frame = window.requestAnimationFrame(tick);
+      }
+    };
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [target, duration]);
+
+  return target === undefined || target === null || Number.isNaN(target) ? null : value;
+}
 
 function barColor(val: number) {
   if (val >= 6) return T.up;
@@ -123,14 +152,17 @@ function MoverRow({ ticker, price, change }: {
 }) {
   const c = (change ?? 0) >= 0 ? T.up : T.dn;
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: '12px',
-      padding: '10px 28px',
-      borderBottom: `1px solid ${T.borderSub}`,
-    }}>
+    <div
+      className="temper-interactive-row"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '12px',
+        padding: '10px 28px',
+        borderBottom: `1px solid ${T.borderSub}`,
+      }}
+    >
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
         <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 400, color: 'rgba(255,255,255,0.82)', letterSpacing: '0.3px' }}>
           {ticker}
@@ -277,6 +309,11 @@ export default function Dashboard() {
     ? { monetary: regime.layer_monetary, credit: regime.layer_credit, volatility: regime.layer_volatility, breadth: regime.layer_breadth, positioning: regime.layer_positioning }
     : (regime?.score_components ?? {});
 
+  const animatedScore = useCountUp(score, 800);
+  const animatedConfidence = useCountUp(confidence, 800);
+  const animatedVix = useCountUp(vix, 800);
+  const animatedBreadth = useCountUp(secGreen, 800);
+
   const sectorReturns: [string, number][] = heatmap?.sectors
     ? heatmap.sectors.map((s: any) => [s.name, s.return] as [string, number]).filter(([, r]: [string, number]) => r != null).sort((a: [string, number], b: [string, number]) => b[1] - a[1])
     : [];
@@ -315,7 +352,7 @@ export default function Dashboard() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
           <KpiBlock label="Sentiment" meta="out of 100">
-            <KpiValue>{formatNumber(score, 1)}</KpiValue>
+            <KpiValue>{formatNumber(animatedScore ?? score, 1)}</KpiValue>
           </KpiBlock>
           <KpiBlock label="Environment">
             <div style={{
@@ -331,16 +368,16 @@ export default function Dashboard() {
             </div>
           </KpiBlock>
           <KpiBlock label="Confidence" meta="out of 100">
-            <KpiValue>{formatNumber(confidence, 0)}</KpiValue>
+            <KpiValue>{formatNumber(animatedConfidence ?? confidence, 0)}</KpiValue>
           </KpiBlock>
           <KpiBlock label="Breadth" meta="sectors green">
             <KpiValue>
-              {secGreen ?? '—'}
+              {animatedBreadth != null ? Math.round(animatedBreadth) : (secGreen ?? '—')}
               <span style={{ fontSize: '15px', color: T.textMuted, fontWeight: 300 }}> /11</span>
             </KpiValue>
           </KpiBlock>
           <KpiBlock label="VIX" meta={vixChg == null ? '—' : `${formatAccountingPct(vixChg)} today`}>
-            <KpiValue>{formatNumber(vix, 1)}</KpiValue>
+            <KpiValue>{formatNumber(animatedVix ?? vix, 1)}</KpiValue>
           </KpiBlock>
         </div>
       </div>

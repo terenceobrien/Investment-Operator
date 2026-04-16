@@ -162,6 +162,7 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
 
       {/* Summary row */}
       <div
+        className="temper-interactive-row"
         onClick={onToggle}
         style={{
           display: 'grid',

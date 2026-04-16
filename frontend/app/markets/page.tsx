@@ -359,6 +359,7 @@ export default function MarketsPage() {
 
                 <div style={{ padding: '32px 8px 24px' }}>
                   <svg
+                    key={`${ticker}-${tf}`}
                     viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                     width="100%"
                     height="360"
@@ -391,6 +392,8 @@ export default function MarketsPage() {
                       </g>
                     ))}
                     <polyline
+                      className="temper-chart-line"
+                      pathLength={1000}
                       fill="none"
                       stroke={lineCol}
                       strokeWidth="1.25"

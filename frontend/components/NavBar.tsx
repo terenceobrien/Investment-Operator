@@ -35,6 +35,7 @@ export default function NavBar() {
 
       {/* Logo */}
       <Link href="/" style={{
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         gap: '9px',
@@ -42,8 +43,21 @@ export default function NavBar() {
         flexShrink: 0,
         marginRight: '0',
       }}>
-        {/* Logo mark — T in a box */}
         <div style={{
+          position: 'absolute',
+          left: '-48px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '120px',
+          height: '120px',
+          background: 'radial-gradient(circle, rgba(149,128,212,0.12) 0%, rgba(149,128,212,0.04) 42%, transparent 72%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} />
+        {/* Logo mark — H in a box */}
+        <div style={{
+          position: 'relative',
+          zIndex: 1,
           width: '22px',
           height: '22px',
           border: `0.5px solid rgba(255,255,255,0.2)`,
@@ -58,10 +72,12 @@ export default function NavBar() {
             fontWeight: 400,
             color: 'rgba(255,255,255,0.9)',
             lineHeight: 1,
-          }}>T</span>
+          }}>H</span>
         </div>
         {/* Wordmark */}
         <span style={{
+          position: 'relative',
+          zIndex: 1,
           fontFamily: T.sans,
           fontSize: '14px',
           fontWeight: 500,
@@ -69,7 +85,7 @@ export default function NavBar() {
           textTransform: 'uppercase',
           color: 'rgba(255,255,255,0.82)',
         }}>
-          Temper
+          Helix
         </span>
       </Link>
 
@@ -95,12 +111,13 @@ export default function NavBar() {
                 fontSize: '12px',
                 letterSpacing: '1.2px',
                 textTransform: 'uppercase',
-                color: active ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.50)',
+                color: active ? 'rgba(149,128,212,0.9)' : 'rgba(255,255,255,0.50)',
                 textDecoration: 'none',
                 padding: '0 13px',
                 display: 'flex',
                 alignItems: 'center',
                 background: active ? 'rgba(255,255,255,0.04)' : 'transparent',
+                boxShadow: active ? 'inset 0 -1px 0 rgba(149,128,212,0.5)' : 'none',
                 borderRight: `0.5px solid ${T.border}`,
                 borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
                 whiteSpace: 'nowrap',

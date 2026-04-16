@@ -1,4 +1,4 @@
-// Temper — shared design tokens
+// Helix — shared design tokens
 // Import this in every page: import { T, sx } from '@/lib/tokens'
 
 export const T = {
@@ -35,6 +35,7 @@ export const sx = {
     justifyContent: 'space-between',
     padding: '12px 28px',           // was 8px 24px — more vertical breathing room
     background: T.sectionBg,
+    borderLeft: `2px solid rgba(149,128,212,0.4)`,
     borderBottom: `1px solid ${T.border}`,  // was 0.5px — slightly more visible
   } as React.CSSProperties,
 
