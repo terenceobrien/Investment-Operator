@@ -140,10 +140,16 @@ def _enrich_row(row: pd.Series, df: pd.DataFrame, similarity: float) -> Dict[str
 
     # Score components
     components = {}
-    for comp in ["risk_on", "trend_strength", "vol_mood", "participation", "leadership_clarity"]:
-        val = row.get(f"comp__{comp}")
+    for layer in ["monetary", "credit", "volatility", "breadth", "positioning"]:
+        val = row.get(f"layer_{layer}")
         if pd.notna(val):
-            components[comp] = round(float(val), 2)
+            components[layer] = round(float(val), 2)
+    # Fallback to v1 components if v2 not present
+    if not components:
+        for comp in ["risk_on", "trend_strength", "vol_mood", "participation", "leadership_clarity"]:
+            val = row.get(f"comp__{comp}")
+            if pd.notna(val):
+                components[comp] = round(float(val), 2)
 
     def _pct(val):
         return round(float(val) * 100, 2) if pd.notna(val) else None
@@ -176,6 +182,8 @@ def _enrich_row(row: pd.Series, df: pd.DataFrame, similarity: float) -> Dict[str
             "max_upside_5d":   _pct(row.get("fwd_5d_max_upside_pct")),
         },
         "forward_path": fwd_path,
+        "layer_agreement": _f(row.get("layer_agreement"), 2),
+        "environment_drivers": [],  # not stored per-row in CSV
     }
 
 

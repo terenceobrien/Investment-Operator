@@ -6,11 +6,11 @@ import { T } from '@/lib/tokens';
 
 const links = [
   { href: '/',          label: 'State' },
-  { href: '/brief',     label: 'Brief' },
-  { href: '/markets',   label: 'Markets' },
-  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/brief',     label: 'Macro' },
+  { href: '/markets',   label: 'Prices' },
   { href: '/narrative', label: 'Narrative' },
   { href: '/history',   label: 'Memory' },
+  { href: '/portfolio', label: 'Portfolio' },
   { href: '/how-it-works', label: 'How it works' },
 ];
 

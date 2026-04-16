@@ -26,7 +26,7 @@ export default function DailyBrief() {
       {/* ── Section header ───────────────────────────────────────────────── */}
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
         <div style={sx.sectionHd}>
-          <span style={sx.sectionLabel}>Daily brief</span>
+          <span style={sx.sectionLabel}>Macro Brief</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             <span style={sx.sectionMeta}>{today}</span>
             <span style={{ ...sx.sectionMeta, color: freshnessColor(updatedAt) }}>{formatRelativeAge(updatedAt)}</span>

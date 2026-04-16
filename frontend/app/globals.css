@@ -59,6 +59,15 @@ textarea {
   }
 }
 
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
 .temper-page-shell {
   animation: fadeIn 0.2s ease-out;
 }
@@ -77,4 +86,22 @@ textarea {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
   animation: temperDrawLine 600ms ease-out forwards;
+}
+
+.helix-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #07070a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 400ms ease-out;
+}
+
+.helix-loading-screen--loaded {
+  opacity: 0;
+  pointer-events: none;
 }
