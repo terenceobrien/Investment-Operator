@@ -16,7 +16,7 @@ import pandas as pd
 
 DATA_PATH = Path(os.environ.get(
     "RESEARCH_DATA_PATH",
-    str(Path(__file__).resolve().parents[3] / "data" / "operator_research_v1.csv")
+    str(Path(__file__).resolve().parents[3] / "data" / "operator_research_v2.csv")
 ))
 
 SECTOR_MAP = {

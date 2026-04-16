@@ -5,7 +5,7 @@ Historical analogue engine — finds the closest past market states
 to today's conditions and returns enriched detail for each.
 
 Drop into: backend/src/analysis/analogues.py
-Data file: backend/data/operator_research_v1.csv
+Data file: backend/data/operator_research_v2.csv
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ import pandas as pd
 # ── Config ────────────────────────────────────────────────────────────────────
 
 import os
-DATA_PATH = Path(os.environ.get("RESEARCH_DATA_PATH", str(Path(__file__).resolve().parents[3] / "data" / "operator_research_v1.csv")))
+DATA_PATH = Path(os.environ.get("RESEARCH_DATA_PATH", str(Path(__file__).resolve().parents[3] / "data" / "operator_research_v2.csv")))
 
 SCORE_BINS   = [0, 35, 45, 55, 65, 75, 101]
 SCORE_LABELS = ["<35", "35-45", "45-55", "55-65", "65-75", ">75"]
@@ -384,4 +384,4 @@ if __name__ == "__main__":
           f"p25={s5['p25']:+.2f}%  p75={s5['p75']:+.2f}%")
 
 # Note: set RESEARCH_DATA_PATH env var if running outside the backend folder:
-# export RESEARCH_DATA_PATH=/path/to/backend/data/operator_research_v1.csv
+# export RESEARCH_DATA_PATH=/path/to/backend/data/operator_research_v2.csv

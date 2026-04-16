@@ -24,7 +24,7 @@ import pandas as pd
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-DATA_PATH = Path(__file__).resolve().parents[3] / "data" / "operator_research_v1.csv"
+DATA_PATH = Path(__file__).resolve().parents[3] / "data" / "operator_research_v2.csv"
 
 # Override at runtime if needed:
 # import os; DATA_PATH = Path(os.getenv("RESEARCH_DATA_PATH", str(DATA_PATH)))
