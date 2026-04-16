@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { T } from '@/lib/tokens';
 
 const links = [
-  { href: '/',          label: 'State' },
+  { href: '/',          label: 'Home' },
+  { href: '/state',     label: 'State' },
   { href: '/brief',     label: 'Macro' },
   { href: '/markets',   label: 'Prices' },
   { href: '/narrative', label: 'Narrative' },
