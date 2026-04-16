@@ -35,6 +35,23 @@ from src.narrative.synth import synthesize_narrative_state, load_latest_narrativ
 
 app = FastAPI(title="Market Intelligence API", version="1.0.0")
 
+@app.on_event("startup")
+async def startup_prewarm():
+    """Build today's regime snapshot in background at startup."""
+    import asyncio
+    async def _build():
+        try:
+            from src.state.regime_state import RegimeState, build_regime_state
+            today = date.today().isoformat()
+            existing = RegimeState.load_snapshot(today)
+            if not existing:
+                print("Prewarming regime state...")
+                await asyncio.to_thread(build_regime_state, save=True)
+                print("Regime state ready.")
+        except Exception as e:
+            print(f"Prewarm failed: {e}")
+    asyncio.create_task(_build())
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -529,3 +546,4 @@ async def get_historical_narrative(date_str: str):
         raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"Failed to generate narrative: {e}")
+
