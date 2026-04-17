@@ -141,14 +141,28 @@ interface TapeData {
   consistency_note: string;
 }
 
-export default function IntradayTape() {
-  const { data, isLoading, error } = useSWR<TapeData>(
-    '/api/market/tape',
+export default function IntradayTape({
+  data: initialData,
+  fetch = true,
+  loading = false,
+  hasError = false,
+}: {
+  data?: TapeData | null;
+  fetch?: boolean;
+  loading?: boolean;
+  hasError?: boolean;
+}) {
+  const shouldFetch = fetch && !initialData;
+  const { data: fetchedData, isLoading, error } = useSWR<TapeData>(
+    shouldFetch ? '/api/market/tape' : null,
     fetcher,
     { refreshInterval: 300000 } // 5 min
   );
+  const data = initialData ?? fetchedData;
+  const isPending = shouldFetch ? isLoading : loading;
+  const isErrored = shouldFetch ? !!error : hasError;
 
-  if (isLoading) {
+  if (!data && isPending) {
     return (
       <div style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: '12px', padding: '1rem', color: MUTE, fontSize: '0.8125rem' }}>
         Loading tape...
@@ -156,7 +170,7 @@ export default function IntradayTape() {
     );
   }
 
-  if (error || !data) {
+  if (isErrored || !data) {
     return (
       <div style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: '12px', padding: '1rem', color: DN, fontSize: '0.8125rem' }}>
         Tape unavailable

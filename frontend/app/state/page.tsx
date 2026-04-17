@@ -178,81 +178,6 @@ function MoverRow({ ticker, price, change }: {
   );
 }
 
-function FwdCard({ horizon, ret, posPct }: {
-  horizon: string;
-  ret: number;
-  posPct: number;
-}) {
-  const c = ret >= 0 ? T.up : T.dn;
-  return (
-    <div style={{
-      padding: '14px 28px',
-      borderBottom: `1px solid ${T.borderSub}`,
-      borderRight: `1px solid ${T.borderSub}`,
-    }}>
-      <div style={{
-        fontFamily: T.sans,
-        fontSize: '11px',
-        letterSpacing: '1.2px',
-        textTransform: 'uppercase',
-        color: T.textMuted,
-        marginBottom: '8px',
-      }}>
-        {horizon}
-      </div>
-      <div style={{ fontFamily: T.mono, fontSize: '19px', fontWeight: 300, letterSpacing: '-0.3px', color: c }}>
-        {formatAccountingPct(ret)}
-      </div>
-      <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted, marginTop: '4px', letterSpacing: '0.3px' }}>
-        {formatNumber(posPct, 0)}% positive
-      </div>
-    </div>
-  );
-}
-
-function AnalogueRow({ date, fwd5d, maxFwd }: {
-  date: string;
-  fwd5d: number;
-  maxFwd: number;
-}) {
-  const c = fwd5d >= 0 ? T.up : T.dn;
-  const widthPct = Math.abs((fwd5d ?? 0) / maxFwd) * 100;
-  return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '10px',
-      padding: '9px 28px',
-      borderBottom: `1px solid ${T.borderSub}`,
-    }}>
-      <span style={{
-        fontFamily: T.mono,
-        fontSize: '11.5px',
-        fontWeight: 300,
-        color: T.textMuted,
-        width: '72px',
-        flexShrink: 0,
-        letterSpacing: '0.3px',
-      }}>
-        {date}
-      </span>
-      <div style={{ flex: 1, height: '2px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px' }}>
-        <div style={{ width: `${widthPct}%`, height: '100%', background: c, borderRadius: '2px' }} />
-      </div>
-      <span style={{
-        fontFamily: T.mono,
-        fontSize: '12px',
-        fontWeight: 300,
-        color: c,
-        width: '62px',
-        textAlign: 'right',
-      }}>
-        {formatAccountingPct(fwd5d)}
-      </span>
-    </div>
-  );
-}
-
 function MarketStateSkeleton() {
   return (
     <main style={sx.main}>
@@ -271,10 +196,18 @@ function MarketStateSkeleton() {
 }
 
 export default function Dashboard() {
-  const { data, error, isLoading } = useSWR('/api/market/dashboard', fetcher, { refreshInterval: 300000 });
-  const { data: heatmap }      = useSWR('/api/prices/heatmap?horizon=1D', fetcher, { refreshInterval: 300000 });
-  const { data: moversData }   = useSWR('/api/brief/moves', fetcher, { refreshInterval: 300000 });
-  const { data: analoguesData } = useSWR('/api/market/analogues?top_n=10', fetcher, { refreshInterval: 300000 });
+  const { data: regimeData, error, isLoading } = useSWR('/api/market/regime', fetcher, {
+    refreshInterval: 300000,
+    revalidateOnFocus: false,
+  });
+  const { data: tapeData, isLoading: tapeLoading, error: tapeError } = useSWR('/api/market/tape', fetcher, {
+    refreshInterval: 300000,
+    revalidateOnFocus: false,
+  });
+  const { data: contextData, error: contextError } = useSWR('/api/market/context', fetcher, {
+    refreshInterval: 300000,
+    revalidateOnFocus: false,
+  });
 
   const envColor: Record<string, string> = {
     'Risk-On Rotation Day':      T.up,
@@ -284,7 +217,7 @@ export default function Dashboard() {
     'Mixed / Neutral':           T.accent,
   };
 
-  if (isLoading) return <MarketStateSkeleton />;
+  if (isLoading && !regimeData) return <MarketStateSkeleton />;
   if (error) {
     return (
       <div style={{ padding: '48px 28px', fontFamily: T.mono, fontSize: '13px', color: T.dn, letterSpacing: '0.5px' }}>
@@ -293,10 +226,10 @@ export default function Dashboard() {
     );
   }
 
-  const regime = data?.regime ?? data ?? {};
-  const tape   = data?.tape   ?? {};
+  const regime = regimeData ?? {};
+  const tape = tapeData ?? {};
 
-  const asof      = regime?.asof_date ?? data?.asof_utc?.slice(0, 10) ?? '—';
+  const asof = regime?.asof_date ?? tape?.asof_utc?.slice(0, 10) ?? '—';
   const horizon   = regime?.horizon   ?? '1D';
   const score     = regime?.score_total;
   const env       = regime?.environment ?? '—';
@@ -314,17 +247,11 @@ export default function Dashboard() {
   const animatedVix = useCountUp(vix, 800);
   const animatedBreadth = useCountUp(secGreen, 800);
 
-  const sectorReturns: [string, number][] = heatmap?.sectors
-    ? heatmap.sectors.map((s: any) => [s.name, s.return] as [string, number]).filter(([, r]: [string, number]) => r != null).sort((a: [string, number], b: [string, number]) => b[1] - a[1])
+  const sectorReturns: [string, number][] = contextData?.sectors
+    ? contextData.sectors.map((s: any) => [s.name, s.return] as [string, number]).filter(([, r]: [string, number]) => r != null).sort((a: [string, number], b: [string, number]) => b[1] - a[1])
     : [];
 
-  const movers: any[] = moversData ?? [];
-
-  const agg         = analoguesData?.aggregate_stats ?? {};
-  const fwdReturns  = agg?.forward_returns ?? {};
-  const riskProfile = agg?.risk_profile ?? {};
-  const analoguesList = analoguesData?.analogues ?? [];
-  const maxFwd = Math.max(...analoguesList.map((e: any) => Math.abs(e.forward_returns?.['5d'] ?? 0)), 1);
+  const movers: any[] = contextData?.movers ?? [];
 
   // Section wrapper style
   const section = {
@@ -345,8 +272,8 @@ export default function Dashboard() {
             <span style={sx.sectionMeta}>
               {asof} · {horizon} · score {formatNumber(score, 1)} · {env}
             </span>
-            <span style={{ ...sx.sectionMeta, color: freshnessColor(data?.asof_utc) }}>
-              {formatRelativeAge(data?.asof_utc)}
+            <span style={{ ...sx.sectionMeta, color: freshnessColor(tapeData?.asof_utc ?? regimeData?.asof_utc) }}>
+              {formatRelativeAge(tapeData?.asof_utc ?? regimeData?.asof_utc)}
             </span>
           </div>
         </div>
@@ -383,13 +310,13 @@ export default function Dashboard() {
       </div>
 
       {/* ── Intraday Tape ── */}
-      <IntradayTape />
+      <IntradayTape data={tapeData} fetch={false} loading={tapeLoading} hasError={!!tapeError} />
 
       {/* ── Signal Detail ── */}
       <div style={section}>
         <div style={sx.sectionHd}>
           <span style={sx.sectionLabel}>Signal detail</span>
-          <span style={sx.sectionMeta}>Components · Sectors · Movers · Memory</span>
+          <span style={sx.sectionMeta}>Components · Sectors · Movers</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))' }}>
@@ -422,67 +349,27 @@ export default function Dashboard() {
                     {formatAccountingPct(ret)}
                   </span>
                 </div>
-              )) : (
+              )) : contextError ? (
+                <div style={{ padding: '16px 28px', color: T.dn, fontSize: '12px' }}>Sector data unavailable.</div>
+              ) : (
                 <div style={{ padding: '16px 28px', color: T.textMuted, fontSize: '12px' }}>Loading sectors...</div>
               )}
             </div>
           </div>
 
           {/* Market movers */}
-          <div style={colDivider}>
+          <div>
             <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Market moves</span>
               <span style={sx.sectionMeta}>Last · 1D chg</span>
             </div>
             {movers.length > 0 ? movers.map((m: any) => (
               <MoverRow key={m.ticker} ticker={m.ticker} price={m.last} change={m.chg_pct_1d ?? m.change_pct_1d} />
-            )) : (
+            )) : contextError ? (
+              <div style={{ padding: '16px 28px', color: T.dn, fontSize: '12px' }}>Market moves unavailable.</div>
+            ) : (
               <div style={{ padding: '16px 28px', color: T.textMuted, fontSize: '12px' }}>Loading movers...</div>
             )}
-          </div>
-
-          {/* Memory */}
-          <div>
-            <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
-              <span style={sx.sectionLabel}>Memory · fwd outlook</span>
-              <span style={sx.sectionMeta}>n={agg?.n_analogues ?? '—'}</span>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))' }}>
-              {(['1d', '5d', '10d', '21d'] as const).map(h => {
-                const s = fwdReturns[h] ?? {};
-                return <FwdCard key={h} horizon={`${h.toUpperCase()} fwd`} ret={s.median ?? 0} posPct={s.pct_positive ?? 0} />;
-              })}
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', borderBottom: `1px solid ${T.borderSub}` }}>
-              {[
-                { label: 'Max DD',     val: riskProfile?.median_max_drawdown_5d, color: T.dn },
-                { label: 'Max upside', val: riskProfile?.median_max_upside_5d,   color: T.up },
-                { label: 'Rwd / risk', val: riskProfile?.reward_risk_ratio,       color: T.mid, suffix: '×' },
-              ].map(({ label, val, color, suffix }, idx) => (
-                <div key={label} style={{
-                  padding: '12px 28px',
-                  borderRight: idx < 2 ? `1px solid ${T.borderSub}` : 'none',
-                  borderBottom: `1px solid ${T.border}`,
-                }}>
-                  <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
-                    {label}
-                  </div>
-                  <div style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color }}>
-                    {val != null ? (suffix ? `${formatNumber(val, 1)}${suffix}` : formatAccountingPct(val)) : '—'}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
-              <span style={sx.sectionLabel}>Comparable episodes</span>
-              <span style={sx.sectionMeta}>5D fwd</span>
-            </div>
-            {analoguesList.slice(0, 8).map((ep: any) => (
-              <AnalogueRow key={ep.date} date={ep.date} fwd5d={ep.forward_returns?.['5d'] ?? 0} maxFwd={maxFwd} />
-            ))}
           </div>
 
         </div>

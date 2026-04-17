@@ -5,6 +5,8 @@ import hashlib, json
 
 _caches = {
     "market_state":  TTLCache(maxsize=20,  ttl=300),
+    "dashboard":     TTLCache(maxsize=10,  ttl=300),
+    "state_context": TTLCache(maxsize=10,  ttl=300),
     "macro":         TTLCache(maxsize=5,   ttl=14400),
     "brief_moves":   TTLCache(maxsize=10,  ttl=900),
     "brief_summary": TTLCache(maxsize=5,   ttl=86400),
@@ -28,7 +30,8 @@ def cache(bucket: str):
             if key in store:
                 return store[key]
             result = await fn(*args, **kwargs)
-            store[key] = result
+            if not (isinstance(result, dict) and result.get("stale") is True):
+                store[key] = result
             return result
         return wrapper
     return decorator
@@ -36,7 +39,7 @@ def cache(bucket: str):
 def clear_regime_cache():
     """Call this after market close to force fresh computation."""
     cleared = 0
-    for bucket in ["regime_state", "intraday_tape"]:
+    for bucket in ["regime_state", "intraday_tape", "dashboard"]:
         if bucket in _caches:
             _caches[bucket].clear()
             cleared += 1

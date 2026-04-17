@@ -16,16 +16,43 @@ def fetch_market_moves(tickers: List[str]) -> pd.DataFrame:
     ticker, last, chg_pct_1d
     """
     import yfinance as yf
+
+    if not tickers:
+        return pd.DataFrame(columns=["ticker", "last", "chg_pct_1d"])
+
+    data = yf.download(
+        tickers,
+        period="5d",
+        interval="1d",
+        progress=False,
+        auto_adjust=False,
+        threads=True,
+        group_by="ticker",
+    )
+
     rows = []
+    is_multi = isinstance(getattr(data, "columns", None), pd.MultiIndex)
+
     for t in tickers:
-        tk = yf.Ticker(t)
-        hist = tk.history(period="5d", interval="1d")
-        if hist is None or hist.empty or len(hist) < 2:
+        try:
+            if is_multi:
+                hist = data[t]
+            else:
+                hist = data
+
+            if hist is None or hist.empty or "Close" not in hist:
+                continue
+
+            closes = hist["Close"].dropna()
+            if len(closes) < 2:
+                continue
+
+            last = float(closes.iloc[-1])
+            prev = float(closes.iloc[-2])
+            chg_pct = (last / prev - 1.0) * 100.0
+            rows.append({"ticker": t, "last": last, "chg_pct_1d": chg_pct})
+        except Exception:
             continue
-        last = float(hist["Close"].iloc[-1])
-        prev = float(hist["Close"].iloc[-2])
-        chg_pct = (last / prev - 1.0) * 100.0
-        rows.append({"ticker": t, "last": last, "chg_pct_1d": chg_pct})
 
     df = pd.DataFrame(rows)
     if df.empty:

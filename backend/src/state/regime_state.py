@@ -83,6 +83,19 @@ class RegimeState:
         data = json.loads(path.read_text())
         return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
 
+    @classmethod
+    def load_latest_snapshot(cls, directory: Path = SNAPSHOT_DIR) -> Optional["RegimeState"]:
+        if not directory.exists():
+            return None
+        snapshots = sorted(directory.glob("regime_state_*.json"), reverse=True)
+        for path in snapshots:
+            try:
+                data = json.loads(path.read_text())
+                return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
+            except Exception:
+                continue
+        return None
+
 
 # ── Intraday Tape dataclass ───────────────────────────────────────────────────
 
@@ -125,6 +138,23 @@ class IntradayTape:
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+    def save_snapshot(self, directory: Path = SNAPSHOT_DIR) -> Path:
+        directory.mkdir(parents=True, exist_ok=True)
+        path = directory / "intraday_tape_latest.json"
+        path.write_text(json.dumps(self.to_dict(), indent=2))
+        return path
+
+    @classmethod
+    def load_latest_snapshot(cls, directory: Path = SNAPSHOT_DIR) -> Optional["IntradayTape"]:
+        path = directory / "intraday_tape_latest.json"
+        if not path.exists():
+            return None
+        try:
+            data = json.loads(path.read_text())
+        except Exception:
+            return None
+        return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
 
 
 # ── Build regime state (close only) ──────────────────────────────────────────

@@ -68,6 +68,93 @@ SNAPSHOT_DIR = "data/snapshots"
 
 # In-memory job store for long-running narrative synthesis
 _jobs: dict[str, dict] = {}
+_regime_build_tasks: dict[str, asyncio.Task] = {}
+
+
+def _queue_regime_build(horizon: str = "default") -> None:
+    existing = _regime_build_tasks.get(horizon)
+    if existing and not existing.done():
+        return
+
+    async def _build() -> None:
+        try:
+            from src.state.regime_state import build_regime_state
+            await asyncio.to_thread(build_regime_state, horizon=horizon, save=True)
+        except Exception as e:
+            print(f"Background regime build failed: {e}")
+
+    _regime_build_tasks[horizon] = asyncio.create_task(_build())
+
+
+def _has_usable_tape(tape) -> bool:
+    return (
+        getattr(tape, "spy_last", None) is not None
+        or bool(getattr(tape, "cross_asset_now", {}))
+        or getattr(tape, "sectors_green_now", None) is not None
+    )
+
+
+async def _resolve_regime_state(
+    horizon: str = "default",
+    refresh: bool = False,
+) -> dict:
+    from src.state.regime_state import RegimeState, build_regime_state
+
+    today = date.today().isoformat()
+
+    if refresh:
+        state = await asyncio.to_thread(build_regime_state, horizon=horizon, save=True)
+        return state.to_dict()
+
+    snapshot = RegimeState.load_snapshot(today)
+    if snapshot:
+        return snapshot.to_dict()
+
+    latest = RegimeState.load_latest_snapshot()
+    if latest:
+        _queue_regime_build(horizon)
+        payload = latest.to_dict()
+        payload["stale"] = latest.asof_date != today
+        return payload
+
+    _queue_regime_build(horizon)
+    return {
+        "asof_date": today,
+        "asof_utc": datetime.now(timezone.utc).isoformat(),
+        "horizon": horizon,
+        "environment": "Warming / Pending Snapshot",
+        "score_total": None,
+        "confidence": None,
+        "layer_monetary": None,
+        "layer_credit": None,
+        "layer_volatility": None,
+        "layer_breadth": None,
+        "layer_positioning": None,
+        "stale": True,
+    }
+
+
+async def _resolve_intraday_tape() -> dict:
+    from src.state.regime_state import RegimeState, IntradayTape, build_intraday_tape
+
+    today = date.today().isoformat()
+    regime = RegimeState.load_snapshot(today) or RegimeState.load_latest_snapshot()
+
+    tape = await asyncio.to_thread(build_intraday_tape, regime_state=regime)
+    if _has_usable_tape(tape):
+        try:
+            tape.save_snapshot()
+        except Exception as e:
+            print(f"Could not save tape snapshot: {e}")
+        return tape.to_dict()
+
+    fallback = IntradayTape.load_latest_snapshot()
+    if fallback:
+        payload = fallback.to_dict()
+        payload["stale"] = True
+        return payload
+
+    return tape.to_dict()
 
 
 # ── Market State ──────────────────────────────────────────────────────────────
@@ -84,19 +171,7 @@ async def get_regime_state(
     If today's snapshot exists on disk, loads it (fast).
     If not, computes it fresh (slow — ~30s on first call).
     """
-    from src.state.regime_state import RegimeState, build_regime_state
- 
-    today = date.today().isoformat()
- 
-    # Try loading today's saved snapshot first
-    if not refresh:
-        snapshot = RegimeState.load_snapshot(today)
-        if snapshot:
-            return snapshot.to_dict()
- 
-    # Build fresh (runs at close or on first request of the day)
-    state = await asyncio.to_thread(build_regime_state, horizon=horizon, save=True)
-    return state.to_dict()
+    return await _resolve_regime_state(horizon=horizon, refresh=refresh)
  
  
 # ── Intraday tape endpoint (live, 5min refresh) ───────────────────────────────
@@ -109,19 +184,13 @@ async def get_intraday_tape():
     Updates every 5 minutes during market hours.
     Never modifies the regime score.
     """
-    from src.state.regime_state import RegimeState, build_intraday_tape
- 
-    # Load today's regime state for consistency check
-    today = date.today().isoformat()
-    regime = RegimeState.load_snapshot(today)
- 
-    tape = await asyncio.to_thread(build_intraday_tape, regime_state=regime)
-    return tape.to_dict()
+    return await _resolve_intraday_tape()
  
  
 # ── Combined endpoint (for the main dashboard) ────────────────────────────────
  
 @app.get("/api/market/dashboard")
+@cache("dashboard")
 async def get_dashboard(
     horizon: str = Query("default", enum=["default", "swing", "investor"]),
 ):
@@ -129,22 +198,14 @@ async def get_dashboard(
     Returns both regime state and intraday tape in one call.
     Use this for the main market state page.
     """
-    from src.state.regime_state import RegimeState, build_regime_state, build_intraday_tape
- 
-    today = date.today().isoformat()
- 
-    # Regime — load from snapshot or build
-    regime = RegimeState.load_snapshot(today)
-    if not regime:
-        regime = await asyncio.to_thread(build_regime_state, horizon=horizon, save=True)
- 
-    # Tape — always fresh
-    tape = await asyncio.to_thread(build_intraday_tape, regime_state=regime)
- 
+    regime = await _resolve_regime_state(horizon=horizon, refresh=False)
+    tape = await _resolve_intraday_tape()
+
     return {
-        "regime": regime.to_dict(),
-        "tape": tape.to_dict(),
+        "regime": regime,
+        "tape": tape,
         "asof_utc": datetime.now(timezone.utc).isoformat(),
+        "stale": bool(regime.get("stale")) or bool(tape.get("stale")),
     }
  
  
@@ -298,6 +359,20 @@ async def get_brief_summary():
         moves_df = await asyncio.to_thread(fetch_market_moves, ["SPY","QQQ","IWM"])
         text = heuristic_what_matters(signals, moves_df, [])
         return {"summary": text, "fallback": True}
+
+
+@app.get("/api/market/context")
+@cache("state_context")
+async def get_market_context():
+    heatmap = await get_heatmap(horizon="1D")
+    movers = await get_market_moves(
+        tickers="SPY,QQQ,IWM,DIA,TLT,HYG,GLD,USO,BTC-USD"
+    )
+    return {
+        "sectors": heatmap.get("sectors", []),
+        "movers": movers,
+        "asof_utc": datetime.now(timezone.utc).isoformat(),
+    }
 
 
 # ── Prices ────────────────────────────────────────────────────────────────────
@@ -533,4 +608,3 @@ async def get_historical_narrative(date_str: str):
         raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"Failed to generate narrative: {e}")
-
