@@ -170,6 +170,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
   const hoveredX = hoveredIndex !== null ? xForDay(hoveredIndex + 1) : null;
   const hoveredY = hoveredIndex !== null ? yForValue(hoveredValue) : null;
   const hoveredColor = retColor(hoveredValue);
+  const hoveredDay = hoveredIndex !== null ? hoveredIndex + 1 : null;
   const hoverDateLabel = hoveredPoint
     ? new Intl.DateTimeFormat('en-US', {
         month: '2-digit',
@@ -298,7 +299,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
                 boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
               }}
             >
-              {`D${hoveredIndex + 1} · ${hoverDateLabel}`}
+              {`D${hoveredDay ?? 1} · ${hoverDateLabel}`}
             </div>
             <div
               style={{
