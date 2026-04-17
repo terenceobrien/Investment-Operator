@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
 import { SkeletonBlock, SkeletonRows, SkeletonText } from '@/components/Skeleton';
@@ -141,6 +141,7 @@ function FwdCard({ horizon, stats }: { horizon: string; stats: HorizonStats }) {
 
 function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
   const path = analogue.forward_path ?? [];
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   if (path.length < 2) {
     return <span style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.textMuted }}>No path data</span>;
   }
@@ -164,67 +165,163 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
   const points = vals.map((value, idx) => `${xForDay(idx + 1)},${yForValue(value)}`).join(' ');
   const yTicks = [-yBound, -yBound / 2, 0, yBound / 2, yBound];
   const xTicks = getEvenTicks(21, 6);
+  const hoveredPoint = hoveredIndex !== null ? path[hoveredIndex] : null;
+  const hoveredValue = hoveredPoint?.ret_pct ?? 0;
+  const hoveredX = hoveredIndex !== null ? xForDay(hoveredIndex + 1) : null;
+  const hoveredY = hoveredIndex !== null ? yForValue(hoveredValue) : null;
+  const hoveredColor = retColor(hoveredValue);
+  const hoverDateLabel = hoveredPoint
+    ? new Intl.DateTimeFormat('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: '2-digit',
+      }).format(new Date(hoveredPoint.date))
+    : '';
+
+  const onMouseMove = (event: MouseEvent<SVGSVGElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const relativeX = ((event.clientX - rect.left) / rect.width) * W;
+    const clampedX = Math.min(W - padR, Math.max(padL, relativeX));
+    const ratio = (clampedX - padL) / Math.max(innerW, 1);
+    const nextIndex = Math.round(ratio * Math.max(path.length - 1, 1));
+    setHoveredIndex(Math.max(0, Math.min(path.length - 1, nextIndex)));
+  };
 
   return (
     <div>
       <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '12px' }}>
         21-day SPY path
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', maxWidth: '100%', height: '238px', display: 'block' }}>
-        {yTicks.map((tick) => (
-          <g key={tick}>
-            <line
-              x1={padL}
-              y1={yForValue(tick)}
-              x2={W - padR}
-              y2={yForValue(tick)}
-              stroke="rgba(255,255,255,0.04)"
-              strokeWidth="0.5"
-            />
-            <text
-              x={W - padR + 8}
-              y={yForValue(tick) + 3}
-              fill={T.textMuted}
-              style={{ fontFamily: T.mono, fontSize: '9px' }}
+      <div style={{ position: 'relative', overflow: 'visible' }}>
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          style={{ width: '100%', maxWidth: '100%', height: '238px', display: 'block', overflow: 'visible' }}
+          onMouseMove={onMouseMove}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          {yTicks.map((tick) => (
+            <g key={tick}>
+              <line
+                x1={padL}
+                y1={yForValue(tick)}
+                x2={W - padR}
+                y2={yForValue(tick)}
+                stroke="rgba(255,255,255,0.04)"
+                strokeWidth="0.5"
+              />
+              <text
+                x={padL - 6}
+                y={yForValue(tick) + 3}
+                textAnchor="end"
+                fill={T.textMuted}
+                style={{ fontFamily: T.mono, fontSize: '9px' }}
+              >
+                {formatAccountingPct(tick)}
+              </text>
+            </g>
+          ))}
+
+          <polyline
+            points={points}
+            fill="none"
+            stroke={lineColor}
+            strokeWidth="1.25"
+            strokeLinejoin="miter"
+            strokeLinecap="square"
+          />
+
+          {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+            <g pointerEvents="none">
+              <line
+                x1={hoveredX}
+                y1={padT}
+                x2={hoveredX}
+                y2={H - padB}
+                stroke="rgba(255,255,255,0.24)"
+                strokeWidth="0.75"
+                strokeDasharray="3 4"
+              />
+              <line
+                x1={padL}
+                y1={hoveredY}
+                x2={W - padR}
+                y2={hoveredY}
+                stroke="rgba(255,255,255,0.18)"
+                strokeWidth="0.75"
+                strokeDasharray="3 4"
+              />
+              <circle cx={hoveredX} cy={hoveredY} r="3.2" fill={T.bg} stroke={lineColor} strokeWidth="1.5" />
+            </g>
+          )}
+
+          <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+
+          {xTicks.map((tick) => (
+            <g key={tick}>
+              <line
+                x1={xForDay(tick)}
+                y1={H - padB}
+                x2={xForDay(tick)}
+                y2={H - padB + 4}
+                stroke="rgba(255,255,255,0.06)"
+                strokeWidth="0.5"
+              />
+              <text
+                x={xForDay(tick)}
+                y={H - 8}
+                textAnchor="middle"
+                fill={T.textMuted}
+                style={{ fontFamily: T.mono, fontSize: '9px' }}
+              >
+                {formatDayNumber(tick)}
+              </text>
+            </g>
+          ))}
+        </svg>
+
+        {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+          <>
+            <div
+              style={{
+                position: 'absolute',
+                left: `${(hoveredX / W) * 100}%`,
+                top: `${((H - padB) / H) * 100}%`,
+                transform: 'translate(-50%, 10px)',
+                padding: '5px 8px',
+                background: 'rgba(7,7,10,0.94)',
+                border: `0.5px solid ${T.border}`,
+                color: 'rgba(255,255,255,0.82)',
+                fontFamily: T.mono,
+                fontSize: '10px',
+                whiteSpace: 'nowrap',
+                pointerEvents: 'none',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+              }}
             >
-              {formatAccountingPct(tick)}
-            </text>
-          </g>
-        ))}
-
-        <polyline
-          points={points}
-          fill="none"
-          stroke={lineColor}
-          strokeWidth="1.25"
-          strokeLinejoin="miter"
-          strokeLinecap="square"
-        />
-
-        <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-
-        {xTicks.map((tick) => (
-          <g key={tick}>
-            <line
-              x1={xForDay(tick)}
-              y1={H - padB}
-              x2={xForDay(tick)}
-              y2={H - padB + 4}
-              stroke="rgba(255,255,255,0.06)"
-              strokeWidth="0.5"
-            />
-            <text
-              x={xForDay(tick)}
-              y={H - 8}
-              textAnchor="middle"
-              fill={T.textMuted}
-              style={{ fontFamily: T.mono, fontSize: '9px' }}
+              {`D${hoveredIndex + 1} · ${hoverDateLabel}`}
+            </div>
+            <div
+              style={{
+                position: 'absolute',
+                right: '2px',
+                top: `${(hoveredY / H) * 100}%`,
+                transform: 'translateY(-50%)',
+                padding: '5px 8px',
+                background: 'rgba(7,7,10,0.94)',
+                border: `0.5px solid ${T.border}`,
+                color: hoveredColor,
+                fontFamily: T.mono,
+                fontSize: '10px',
+                whiteSpace: 'nowrap',
+                pointerEvents: 'none',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+              }}
             >
-              {formatDayNumber(tick)}
-            </text>
-          </g>
-        ))}
-      </svg>
+              {fmtRet(hoveredValue)}
+            </div>
+          </>
+        )}
+      </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginTop: '12px', paddingTop: '10px', borderTop: `0.5px solid ${T.borderSub}` }}>
         <div>
           <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>

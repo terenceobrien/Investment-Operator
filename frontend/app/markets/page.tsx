@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
 import { SkeletonBlock } from '@/components/Skeleton';
@@ -54,6 +54,285 @@ function getEvenlySpacedIndices(length: number, target = 7): number[] {
   if (count === 1) return [0];
   const step = (length - 1) / (count - 1);
   return Array.from(new Set(Array.from({ length: count }, (_, idx) => Math.round(idx * step))));
+}
+
+function formatHoverTimeLabel(value: Date, tf: string): string {
+  if (Number.isNaN(value.getTime())) return '';
+  if (tf === '1D') {
+    const date = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(value);
+    const time = new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(value);
+    return `${date} · ${time}`;
+  }
+  if (tf === '5D') {
+    const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(value);
+    const date = new Intl.DateTimeFormat('en-US', { month: 'numeric', day: 'numeric' }).format(value);
+    const time = new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(value);
+    return `${day} ${date} · ${time}`;
+  }
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: '2-digit',
+  }).format(value);
+}
+
+function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: string }) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const closes = chart.ohlcv.map((d: any) => d.Close);
+  const first = closes[0];
+  const last = closes[closes.length - 1];
+  const change = last - first;
+  const chgPct = (change / first) * 100;
+  const isPos = change >= 0;
+  const lineCol = isPos ? T.up : T.dn;
+  const priceMin = Math.min(...closes);
+  const priceMax = Math.max(...closes);
+  const padding = (priceMax - priceMin) * 0.08 || 1;
+  const domainMin = priceMin - padding;
+  const domainMax = priceMax + padding;
+  const svgWidth = 1000;
+  const svgHeight = 360;
+  const padLeft = 72;
+  const padRight = 24;
+  const padTop = 14;
+  const padBottom = 16;
+  const plotWidth = svgWidth - padLeft - padRight;
+  const plotHeight = svgHeight - padTop - padBottom;
+
+  const chartData = chart.ohlcv.map((d: any, idx: number) => {
+    const rawTime = getTimestamp(d);
+    return {
+      idx,
+      rawTime,
+      timestamp: new Date(rawTime),
+      price: Number(d.Close),
+    };
+  });
+
+  const xForIndex = (idx: number) => padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
+  const yForPrice = (price: number) => padTop + ((domainMax - price) / (domainMax - domainMin || 1)) * plotHeight;
+
+  const points = chartData.map((point: any, idx: number) => {
+    const x = xForIndex(idx);
+    const y = yForPrice(point.price);
+    return `${x.toFixed(2)},${y.toFixed(2)}`;
+  }).join(' ');
+
+  const xLabelIndices = getEvenlySpacedIndices(chartData.length, 7);
+  const xLabels = xLabelIndices.map((idx) => {
+    const point = chartData[idx];
+    const x = xForIndex(idx);
+    return {
+      key: `${point.rawTime}-${idx}`,
+      x,
+      label: formatTimeLabel(point.timestamp, tf),
+    };
+  });
+
+  const yHairlines = Array.from({ length: 4 }, (_, idx) => {
+    const ratio = idx / 3;
+    const value = domainMax - ratio * (domainMax - domainMin);
+    const y = padTop + ratio * plotHeight;
+    return { y, value };
+  });
+
+  const hoveredPoint = hoveredIndex !== null ? chartData[hoveredIndex] : null;
+  const hoveredX = hoveredIndex !== null ? xForIndex(hoveredIndex) : null;
+  const hoveredY = hoveredPoint ? yForPrice(hoveredPoint.price) : null;
+
+  const onMouseMove = (event: MouseEvent<SVGSVGElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const relativeX = ((event.clientX - rect.left) / rect.width) * svgWidth;
+    const clampedX = Math.min(svgWidth - padRight, Math.max(padLeft, relativeX));
+    const ratio = (clampedX - padLeft) / Math.max(plotWidth, 1);
+    const idx = Math.round(ratio * Math.max(chartData.length - 1, 1));
+    setHoveredIndex(Math.max(0, Math.min(chartData.length - 1, idx)));
+  };
+
+  return (
+    <div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))',
+        borderBottom: `0.5px solid ${T.border}`,
+      }}>
+        {[
+          { label: `${ticker} last`, val: formatCurrency(last), color: T.text },
+          { label: `Change (${tf})`, val: pct(chgPct), color: isPos ? T.up : T.dn },
+          { label: 'High', val: formatCurrency(priceMax), color: T.text },
+          { label: 'Low', val: formatCurrency(priceMin), color: T.text },
+        ].map(({ label, val, color }, i) => (
+          <div key={label} style={{
+            padding: '14px 24px',
+            borderRight: i < 3 ? `0.5px solid ${T.border}` : 'none',
+          }}>
+            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+              {label}
+            </div>
+            <div style={{ fontFamily: T.mono, fontSize: '20px', fontWeight: 300, letterSpacing: '-0.5px', color }}>
+              {val}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: '32px 8px 24px' }}>
+        <div style={{ position: 'relative', overflow: 'visible' }}>
+          <svg
+            key={`${ticker}-${tf}`}
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            width="100%"
+            height="360"
+            role="img"
+            aria-label={`${ticker} price chart`}
+            style={{ overflow: 'visible', display: 'block' }}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {yHairlines.map((line) => (
+              <g key={line.y}>
+                <line
+                  x1={padLeft}
+                  x2={svgWidth - padRight}
+                  y1={line.y}
+                  y2={line.y}
+                  stroke="rgba(255,255,255,0.04)"
+                  strokeWidth="0.5"
+                  shapeRendering="crispEdges"
+                />
+                <text
+                  x={padLeft - 8}
+                  y={line.y - 2}
+                  textAnchor="end"
+                  style={{
+                    fontFamily: T.mono,
+                    fontSize: '9px',
+                    fill: T.textMuted,
+                  }}
+                >
+                  {formatCurrency(line.value)}
+                </text>
+              </g>
+            ))}
+
+            <polyline
+              className="temper-chart-line"
+              pathLength={1000}
+              fill="none"
+              stroke={lineCol}
+              strokeWidth="1.25"
+              strokeLinejoin="miter"
+              strokeLinecap="square"
+              points={points}
+            />
+
+            {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+              <g pointerEvents="none">
+                <line
+                  x1={hoveredX}
+                  y1={padTop}
+                  x2={hoveredX}
+                  y2={svgHeight - padBottom}
+                  stroke="rgba(255,255,255,0.24)"
+                  strokeWidth="0.75"
+                  strokeDasharray="3 4"
+                />
+                <line
+                  x1={padLeft}
+                  y1={hoveredY}
+                  x2={svgWidth - padRight}
+                  y2={hoveredY}
+                  stroke="rgba(255,255,255,0.18)"
+                  strokeWidth="0.75"
+                  strokeDasharray="3 4"
+                />
+                <circle cx={hoveredX} cy={hoveredY} r="3.2" fill={T.bg} stroke={lineCol} strokeWidth="1.5" />
+              </g>
+            )}
+          </svg>
+
+          {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+            <>
+              <div
+                style={{
+                  position: 'absolute',
+                  right: '0px',
+                  top: `${(hoveredY / svgHeight) * 100}%`,
+                  transform: 'translateY(-50%)',
+                  padding: '5px 8px',
+                  background: 'rgba(7,7,10,0.94)',
+                  border: `0.5px solid ${T.border}`,
+                  color: lineCol,
+                  fontFamily: T.mono,
+                  fontSize: '10px',
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+                }}
+              >
+                {formatCurrency(hoveredPoint.price)}
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  left: `${(hoveredX / svgWidth) * 100}%`,
+                  top: `${svgHeight - 10}px`,
+                  transform: 'translate(-50%, 0)',
+                  padding: '5px 8px',
+                  background: 'rgba(7,7,10,0.94)',
+                  border: `0.5px solid ${T.border}`,
+                  color: 'rgba(255,255,255,0.82)',
+                  fontFamily: T.mono,
+                  fontSize: '10px',
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+                }}
+              >
+                {formatHoverTimeLabel(hoveredPoint.timestamp, tf)}
+              </div>
+            </>
+          )}
+
+          <div
+            style={{
+              borderTop: '0.5px solid rgba(255,255,255,0.06)',
+              marginTop: '2px',
+              paddingTop: '8px',
+              position: 'relative',
+              height: '24px',
+            }}
+          >
+            {xLabels.map((label) => (
+              <span
+                key={label.key}
+                style={{
+                  position: 'absolute',
+                  left: `${(label.x / svgWidth) * 100}%`,
+                  transform: 'translateX(-50%)',
+                  fontFamily: T.mono,
+                  fontSize: '9px',
+                  color: T.textMuted,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {label.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function MarketsPage() {
@@ -273,166 +552,9 @@ export default function MarketsPage() {
                 <SkeletonBlock width="100%" height={420} />
               </div>
             </div>
-          ) : chart?.ohlcv?.length > 0 ? (() => {
-            const closes   = chart.ohlcv.map((d: any) => d.Close);
-            const first    = closes[0];
-            const last     = closes[closes.length - 1];
-            const change   = last - first;
-            const chgPct   = (change / first) * 100;
-            const isPos    = change >= 0;
-            const lineCol  = isPos ? T.up : T.dn;
-            const priceMin = Math.min(...closes);
-            const priceMax = Math.max(...closes);
-            const padding  = (priceMax - priceMin) * 0.08 || 1;
-            const domainMin = priceMin - padding;
-            const domainMax = priceMax + padding;
-            const svgWidth = 1000;
-            const svgHeight = 360;
-            const padLeft = 10;
-            const padRight = 76;
-            const padTop = 14;
-            const padBottom = 14;
-            const plotWidth = svgWidth - padLeft - padRight;
-            const plotHeight = svgHeight - padTop - padBottom;
-
-            const chartData = chart.ohlcv.map((d: any, idx: number) => {
-              const rawTime = getTimestamp(d);
-              return {
-                idx,
-                rawTime,
-                timestamp: new Date(rawTime),
-                price: Number(d.Close),
-              };
-            });
-
-            const points = chartData.map((point: any, idx: number) => {
-              const x = padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
-              const y = padTop + ((domainMax - point.price) / (domainMax - domainMin || 1)) * plotHeight;
-              return `${x.toFixed(2)},${y.toFixed(2)}`;
-            }).join(' ');
-
-            const xLabelIndices = getEvenlySpacedIndices(chartData.length, 7);
-            const xLabels = xLabelIndices.map((idx) => {
-              const point = chartData[idx];
-              const x = padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
-              return {
-                key: `${point.rawTime}-${idx}`,
-                x,
-                label: formatTimeLabel(point.timestamp, tf),
-              };
-            });
-
-            const yHairlines = Array.from({ length: 4 }, (_, idx) => {
-              const ratio = idx / 3;
-              const value = domainMax - ratio * (domainMax - domainMin);
-              const y = padTop + ratio * plotHeight;
-              return { y, value };
-            });
-
-            return (
-              <div>
-                {/* Chart stats row */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))',
-                  borderBottom: `0.5px solid ${T.border}`,
-                }}>
-                  {[
-                    { label: `${ticker} last`, val: formatCurrency(last), color: T.text },
-                    { label: `Change (${tf})`,  val: pct(chgPct),           color: isPos ? T.up : T.dn },
-                    { label: 'High',            val: formatCurrency(priceMax), color: T.text },
-                    { label: 'Low',             val: formatCurrency(priceMin), color: T.text },
-                  ].map(({ label, val, color }, i) => (
-                    <div key={label} style={{
-                      padding: '14px 24px',
-                      borderRight: i < 3 ? `0.5px solid ${T.border}` : 'none',
-                    }}>
-                      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
-                        {label}
-                      </div>
-                      <div style={{ fontFamily: T.mono, fontSize: '20px', fontWeight: 300, letterSpacing: '-0.5px', color }}>
-                        {val}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div style={{ padding: '32px 8px 24px' }}>
-                  <svg
-                    key={`${ticker}-${tf}`}
-                    viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-                    width="100%"
-                    height="360"
-                    role="img"
-                    aria-label={`${ticker} price chart`}
-                  >
-                    {yHairlines.map((line) => (
-                      <g key={line.y}>
-                        <line
-                          x1={padLeft}
-                          x2={svgWidth - padRight}
-                          y1={line.y}
-                          y2={line.y}
-                          stroke="rgba(255,255,255,0.04)"
-                          strokeWidth="0.5"
-                          shapeRendering="crispEdges"
-                        />
-                        <text
-                          x={svgWidth - 6}
-                          y={line.y - 2}
-                          textAnchor="end"
-                          style={{
-                            fontFamily: T.mono,
-                            fontSize: '9px',
-                            fill: T.textMuted,
-                          }}
-                        >
-                          {formatCurrency(line.value)}
-                        </text>
-                      </g>
-                    ))}
-                    <polyline
-                      className="temper-chart-line"
-                      pathLength={1000}
-                      fill="none"
-                      stroke={lineCol}
-                      strokeWidth="1.25"
-                      strokeLinejoin="miter"
-                      strokeLinecap="square"
-                      points={points}
-                    />
-                  </svg>
-
-                  <div
-                    style={{
-                      borderTop: '0.5px solid rgba(255,255,255,0.06)',
-                      marginTop: '2px',
-                      paddingTop: '8px',
-                      position: 'relative',
-                      height: '20px',
-                    }}
-                  >
-                    {xLabels.map((label) => (
-                      <span
-                        key={label.key}
-                        style={{
-                          position: 'absolute',
-                          left: `${(label.x / svgWidth) * 100}%`,
-                          transform: 'translateX(-50%)',
-                          fontFamily: T.mono,
-                          fontSize: '9px',
-                          color: T.textMuted,
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {label.label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })() : (
+          ) : chart?.ohlcv?.length > 0 ? (
+            <PriceChart chart={chart} ticker={ticker} tf={tf} />
+          ) : (
             <div style={{ padding: '40px 24px' }}>
               <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
             </div>
