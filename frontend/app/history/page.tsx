@@ -430,9 +430,9 @@ export default function HistoryPage() {
                     { label: '5D risk profile', val: null },
                     { label: 'Median max DD',     val: agg.risk_profile.median_max_drawdown_5d,  color: T.dn, fmt: fmtRet },
                     { label: 'Median max upside', val: agg.risk_profile.median_max_upside_5d,    color: T.up, fmt: (v: number) => formatAccountingPct(v) },
-                    { label: 'EV (5d)', val: riskProfile?.expected_value_5d, color: riskProfile?.expected_value_5d >= 0 ? T.up : T.dn },
-                    { label: 'Win rate', val: riskProfile?.win_rate_5d, color: T.mid, suffix: '%' },
-                    { label: 'Wtd R/R', val: riskProfile?.weighted_reward_risk, color: T.mid, suffix: '×' },                    
+                    { label: 'EV (5d)', val: agg.risk_profile.expected_value_5d, color: agg.risk_profile.expected_value_5d >= 0 ? T.up : T.dn },
+                    { label: 'Win rate', val: agg.risk_profile.win_rate_5d, color: T.mid, suffix: '%' },
+                    { label: 'Wtd R/R', val: agg.risk_profile.weighted_reward_risk, color: T.mid, suffix: '×' },                    
                     { label: 'Worst 5D',          val: agg.risk_profile.worst_drawdown_5d,        color: T.dn, fmt: fmtRet },
                   ].map(({ label, val, color, fmt }, i) => (
                     <div key={label} style={{ padding: '12px 20px', borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none' }}>
