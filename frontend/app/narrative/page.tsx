@@ -5,8 +5,6 @@ import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
 import { T, sx } from '@/lib/tokens';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
-
 const STANCE_COLOR: Record<string, string> = {
   bullish: T.up,
   bearish: T.dn,
@@ -46,7 +44,7 @@ export default function NarrativePage() {
     setIsTriggering(true);
     try {
       const params = new URLSearchParams({ tickers, news_category: 'general', earnings_days: '7', lookback_hours: '36' });
-      const res  = await fetch(`${API_URL}/api/narrative/synthesize?${params}`, { method: 'POST' });
+      const res  = await fetch(`/api/narrative/synthesize?${params}`, { method: 'POST' });
       const data = await res.json();
       setJobId(data.job_id);
       setStartedAt(Date.now());

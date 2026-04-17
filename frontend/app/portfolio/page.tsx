@@ -4,8 +4,6 @@ import { useState, useRef } from 'react';
 import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx } from '@/lib/tokens';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
-
 export default function PortfolioPage() {
   const [result,   setResult]   = useState<any>(null);
   const [loading,  setLoading]  = useState(false);
@@ -19,7 +17,7 @@ export default function PortfolioPage() {
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch(`${API_URL}/api/portfolio/analyze`, { method: 'POST', body: form });
+      const res = await fetch('/api/portfolio/analyze', { method: 'POST', body: form });
       if (!res.ok) throw new Error(`Error ${res.status}`);
       setResult(await res.json());
     } catch (e: any) {

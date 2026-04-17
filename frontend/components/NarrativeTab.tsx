@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { SkeletonBlock, SkeletonText } from '@/components/Skeleton';
 import { T } from '@/lib/tokens';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
-
 interface NarrativeData {
   date: string;
   narrative: {
@@ -62,7 +60,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
     setError(null);
     try {
       if (hasSnapshot) {
-        const snap = await fetch(`${API_URL}/api/narrative/snapshot/${date}`);
+        const snap = await fetch(`/api/narrative/snapshot/${date}`);
         if (snap.ok) {
           const snapData = await snap.json();
           setData({
@@ -86,7 +84,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
         }
       }
 
-      const res = await fetch(`${API_URL}/api/narrative/historical/${date}`);
+      const res = await fetch(`/api/narrative/historical/${date}`);
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.detail || `Error ${res.status}`);
