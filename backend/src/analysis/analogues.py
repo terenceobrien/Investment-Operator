@@ -225,41 +225,37 @@ def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
     ]
 
     risk = {}
-    if drawdowns:
-        risk["median_max_drawdown_5d"] = round(float(np.median(drawdowns)), 2)
-        risk["worst_drawdown_5d"] = round(float(min(drawdowns)), 2)
-    if upsides:
-        risk["median_max_upside_5d"] = round(float(np.median(upsides)), 2)
-        risk["best_upside_5d"] = round(float(max(upsides)), 2)
     if drawdowns and upsides:
         med_dd = abs(np.median(drawdowns))
         med_up = np.median(upsides)
 
-        # Raw reward/risk (unweighted)
+        # Raw reward/risk (unweighted, based on 5d max range)
         risk["reward_risk_ratio"] = round(float(med_up / med_dd), 2) if med_dd > 0 else None
 
-        # Win rate from 5d forward returns
-        fwd_5d_vals = [
-            a["forward_returns"]["5d"]
+        # Win rate from 21d forward returns
+        fwd_21d_vals = [
+            a["forward_returns"]["21d"]
             for a in analogues
-            if a["forward_returns"].get("5d") is not None
+            if a["forward_returns"].get("21d") is not None
         ]
-        if fwd_5d_vals:
-            win_rate = float(sum(1 for v in fwd_5d_vals if v > 0) / len(fwd_5d_vals))
+        if fwd_21d_vals:
+            win_rate = float(sum(1 for v in fwd_21d_vals if v > 0) / len(fwd_21d_vals))
             loss_rate = 1.0 - win_rate
 
-            # Expected value: probability-weighted upside + downside
-            ev = (win_rate * med_up) + (loss_rate * (-med_dd))
-            risk["expected_value_5d"] = round(float(ev), 2)
-            risk["win_rate_5d"] = round(win_rate * 100, 1)
+            # Expected value using 21d forward return magnitude
+            med_fwd_21d_up = float(np.median([v for v in fwd_21d_vals if v > 0])) if any(v > 0 for v in fwd_21d_vals) else 0.0
+            med_fwd_21d_dn = float(np.median([v for v in fwd_21d_vals if v <= 0])) if any(v <= 0 for v in fwd_21d_vals) else 0.0
 
-            # Probability-weighted reward/risk
-            # Scales raw ratio by win rate vs loss rate
-            if loss_rate > 0 and med_dd > 0:
-                weighted_rr = (win_rate * med_up) / (loss_rate * med_dd)
-                risk["weighted_reward_risk"] = round(float(weighted_rr), 2)
+            ev = (win_rate * med_fwd_21d_up) + (loss_rate * med_fwd_21d_dn)
+            risk["expected_value_21d"] = round(float(ev), 2)
+            risk["win_rate_21d"] = round(win_rate * 100, 1)
+
+            # Probability-weighted reward/risk using 21d realized returns
+            if loss_rate > 0 and med_fwd_21d_dn != 0:
+                weighted_rr = (win_rate * med_fwd_21d_up) / (loss_rate * abs(med_fwd_21d_dn))
+                risk["weighted_reward_risk_21d"] = round(float(weighted_rr), 2)
             else:
-                risk["weighted_reward_risk"] = None
+                risk["weighted_reward_risk_21d"] = None
                 
     # Environment transition counts
     env_counts = {}
