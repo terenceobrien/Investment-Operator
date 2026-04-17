@@ -234,8 +234,33 @@ def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
     if drawdowns and upsides:
         med_dd = abs(np.median(drawdowns))
         med_up = np.median(upsides)
+
+        # Raw reward/risk (unweighted)
         risk["reward_risk_ratio"] = round(float(med_up / med_dd), 2) if med_dd > 0 else None
 
+        # Win rate from 5d forward returns
+        fwd_5d_vals = [
+            a["forward_returns"]["5d"]
+            for a in analogues
+            if a["forward_returns"].get("5d") is not None
+        ]
+        if fwd_5d_vals:
+            win_rate = float(sum(1 for v in fwd_5d_vals if v > 0) / len(fwd_5d_vals))
+            loss_rate = 1.0 - win_rate
+
+            # Expected value: probability-weighted upside + downside
+            ev = (win_rate * med_up) + (loss_rate * (-med_dd))
+            risk["expected_value_5d"] = round(float(ev), 2)
+            risk["win_rate_5d"] = round(win_rate * 100, 1)
+
+            # Probability-weighted reward/risk
+            # Scales raw ratio by win rate vs loss rate
+            if loss_rate > 0 and med_dd > 0:
+                weighted_rr = (win_rate * med_up) / (loss_rate * med_dd)
+                risk["weighted_reward_risk"] = round(float(weighted_rr), 2)
+            else:
+                risk["weighted_reward_risk"] = None
+                
     # Environment transition counts
     env_counts = {}
     for a in analogues:
