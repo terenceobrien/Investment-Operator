@@ -3,11 +3,8 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
-import NarrativeTab from '../../components/NarrativeTab';
-import { SkeletonBlock, SkeletonRows } from '@/components/Skeleton';
+import { SkeletonBlock, SkeletonRows, SkeletonText } from '@/components/Skeleton';
 import { T, sx, formatAccountingPct, formatCurrency, formatNumber } from '@/lib/tokens';
-
-// ── Types ─────────────────────────────────────────────────────────────────────
 
 interface ForwardReturns {
   '1d': number | null;
@@ -46,14 +43,25 @@ interface HorizonStats {
   distribution?: number[];
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+interface NarrativeData {
+  date: string;
+  narrative: {
+    summary: string;
+    key_signals: string[];
+    risks_and_uncertainties: string[];
+    regime_verdict: string;
+    outcome_note: string;
+  };
+  generated: boolean;
+  model: string;
+}
 
 const ENV_COLOR: Record<string, string> = {
-  'Risk-On Rotation Day':     T.up,
-  'Trend Day (Directional)':  '#60a5fa',
+  'Risk-On Rotation Day': T.up,
+  'Trend Day (Directional)': '#60a5fa',
   'Risk-Off / Headline Risk': T.dn,
-  'Chop / Mean Reversion':    T.wa,
-  'Mixed / Neutral':          T.accent,
+  'Chop / Mean Reversion': T.wa,
+  'Mixed / Neutral': T.accent,
 };
 
 const fmtRet = (v: number | null) => {
@@ -66,49 +74,35 @@ const retColor = (v: number | null) => {
   return v >= 0 ? T.up : T.dn;
 };
 
-// ── Sparkline ─────────────────────────────────────────────────────────────────
+const formatDayNumber = (day: number) => String(day);
 
-function Sparkline({ path }: { path: { date: string; ret_pct: number }[] }) {
-  if (!path || path.length < 2) {
-    return <span style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>—</span>;
+function getEvenTicks(totalDays: number, count: number) {
+  if (totalDays <= 1) return [1];
+  const ticks = new Set<number>();
+  for (let i = 0; i < count; i += 1) {
+    const day = 1 + Math.round((i * (totalDays - 1)) / Math.max(1, count - 1));
+    ticks.add(day);
   }
-  const vals  = path.map(p => p.ret_pct);
-  const min   = Math.min(...vals, 0);
-  const max   = Math.max(...vals, 0);
-  const range = max - min || 1;
-  const W = 80; const H = 28;
-  const pts   = vals.map((v, i) => {
-    const x = (i / (vals.length - 1)) * W;
-    const y = H - ((v - min) / range) * H;
-    return `${x},${y}`;
-  }).join(' ');
-  const last  = vals[vals.length - 1];
-  const color = last >= 0 ? T.up : T.dn;
-  const zeroY = H - ((0 - min) / range) * H;
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '80px', height: '28px' }}>
-      <line x1="0" y1={zeroY} x2={W} y2={zeroY} stroke={T.borderSub} strokeWidth="0.5" strokeDasharray="2,2" />
-      <polyline points={pts} fill="none" stroke={color} strokeWidth="1" />
-    </svg>
-  );
+  ticks.add(1);
+  ticks.add(totalDays);
+  return Array.from(ticks).sort((a, b) => a - b);
 }
-
-// ── Distribution mini-chart ───────────────────────────────────────────────────
 
 function DistributionChart({ stats }: { stats: HorizonStats }) {
   if (!stats?.distribution || stats.distribution.length < 3) return null;
-  const vals  = stats.distribution;
-  const min   = Math.min(...vals);
-  const max   = Math.max(...vals);
+  const vals = stats.distribution;
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
   const range = max - min || 1;
-  const W = 160; const H = 32;
-  const barW  = W / vals.length;
+  const W = 160;
+  const H = 32;
+  const barW = W / vals.length;
   const zeroY = H - ((0 - min) / range) * H;
   return (
     <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: '32px' }}>
       {vals.map((v, i) => {
-        const barH = Math.max(1, ((Math.abs(v - min)) / range) * H);
-        const y    = H - barH;
+        const barH = Math.max(1, (Math.abs(v - min) / range) * H);
+        const y = H - barH;
         const fill = v >= 0 ? 'rgba(87,160,106,0.5)' : 'rgba(184,85,85,0.5)';
         return <rect key={i} x={i * barW} y={y} width={barW - 0.5} height={barH} fill={fill} />;
       })}
@@ -117,12 +111,10 @@ function DistributionChart({ stats }: { stats: HorizonStats }) {
   );
 }
 
-// ── Aggregate forward card ────────────────────────────────────────────────────
-
 function FwdCard({ horizon, stats }: { horizon: string; stats: HorizonStats }) {
   if (!stats || stats.insufficient_data) return null;
   const isPos = (stats.median ?? 0) >= 0;
-  const c     = isPos ? T.up : T.dn;
+  const c = isPos ? T.up : T.dn;
   return (
     <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
       <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
@@ -147,26 +139,243 @@ function FwdCard({ horizon, stats }: { horizon: string; stats: HorizonStats }) {
   );
 }
 
-// ── Analogue row ──────────────────────────────────────────────────────────────
+function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
+  const path = analogue.forward_path ?? [];
+  if (path.length < 2) {
+    return <span style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.textMuted }}>No path data</span>;
+  }
+
+  const vals = path.map((p) => p.ret_pct ?? 0);
+  const totalDays = Math.max(21, path.length);
+  const maxAbsObserved = Math.max(...vals.map((v) => Math.abs(v)), 0);
+  const yBound = Math.max(10, Math.ceil(maxAbsObserved));
+  const W = 520;
+  const H = 238;
+  const padL = 18;
+  const padR = 58;
+  const padT = 14;
+  const padB = 34;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const lineColor = vals[vals.length - 1] >= 0 ? T.up : T.dn;
+
+  const xForDay = (day: number) => padL + ((day - 1) / Math.max(1, totalDays - 1)) * innerW;
+  const yForValue = (value: number) => padT + ((yBound - value) / (2 * yBound)) * innerH;
+  const points = vals.map((value, idx) => `${xForDay(idx + 1)},${yForValue(value)}`).join(' ');
+  const yTicks = [-yBound, -yBound / 2, 0, yBound / 2, yBound];
+  const xTicks = getEvenTicks(21, 6);
+
+  return (
+    <div>
+      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '12px' }}>
+        21-day SPY path
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', maxWidth: '100%', height: '238px', display: 'block' }}>
+        {yTicks.map((tick) => (
+          <g key={tick}>
+            <line
+              x1={padL}
+              y1={yForValue(tick)}
+              x2={W - padR}
+              y2={yForValue(tick)}
+              stroke="rgba(255,255,255,0.04)"
+              strokeWidth="0.5"
+            />
+            <text
+              x={W - padR + 8}
+              y={yForValue(tick) + 3}
+              fill={T.textMuted}
+              style={{ fontFamily: T.mono, fontSize: '9px' }}
+            >
+              {formatAccountingPct(tick)}
+            </text>
+          </g>
+        ))}
+
+        <polyline
+          points={points}
+          fill="none"
+          stroke={lineColor}
+          strokeWidth="1.25"
+          strokeLinejoin="miter"
+          strokeLinecap="square"
+        />
+
+        <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+
+        {xTicks.map((tick) => (
+          <g key={tick}>
+            <line
+              x1={xForDay(tick)}
+              y1={H - padB}
+              x2={xForDay(tick)}
+              y2={H - padB + 4}
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="0.5"
+            />
+            <text
+              x={xForDay(tick)}
+              y={H - 8}
+              textAnchor="middle"
+              fill={T.textMuted}
+              style={{ fontFamily: T.mono, fontSize: '9px' }}
+            >
+              {formatDayNumber(tick)}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginTop: '12px', paddingTop: '10px', borderTop: `0.5px solid ${T.borderSub}` }}>
+        <div>
+          <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>
+            21D return
+          </div>
+          <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: lineColor }}>
+            {fmtRet(analogue.forward_returns?.['21d'])}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>
+            Max DD
+          </div>
+          <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: T.dn }}>
+            {fmtRet(analogue.risk_profile?.max_drawdown_5d)}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>
+            Max up
+          </div>
+          <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: T.up }}>
+            {fmtRet(analogue.risk_profile?.max_upside_5d)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NarrativePanel({ date }: { date: string }) {
+  const { data, isLoading, error } = useSWR<NarrativeData>(
+    `/api/narrative/historical/${date}`,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 300000,
+    }
+  );
+
+  return (
+    <div>
+      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '12px' }}>
+        Narrative
+      </div>
+
+      {isLoading && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <SkeletonBlock width="24%" height={10} />
+          <SkeletonText lines={3} widths={['100%', '94%', '72%']} lineHeight={11} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))', gap: '12px' }}>
+            <SkeletonBlock height={86} />
+            <SkeletonBlock height={86} />
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.dn }}>
+          Unable to load historical narrative.
+        </div>
+      )}
+
+      {data && !isLoading && !error && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {data.narrative.regime_verdict && (
+            <div style={{ background: 'rgba(255,255,255,0.02)', border: `0.5px solid ${T.border}`, padding: '10px 12px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '4px' }}>
+                Regime verdict
+              </div>
+              <div style={{ fontFamily: T.sans, fontSize: '13px', color: T.text }}>
+                {data.narrative.regime_verdict}
+              </div>
+            </div>
+          )}
+
+          {data.narrative.summary && (
+            <div>
+              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
+                Summary
+              </div>
+              <div style={{ fontFamily: T.sans, fontSize: '13.5px', lineHeight: 1.7, color: 'rgba(255,255,255,0.72)' }}>
+                {data.narrative.summary}
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))', gap: '14px' }}>
+            <div>
+              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
+                Key signals
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {(data.narrative.key_signals ?? []).length > 0 ? data.narrative.key_signals.map((signal, idx) => (
+                  <div key={idx} style={{ background: `${T.up}10`, border: `0.5px solid ${T.up}30`, padding: '8px 10px', fontFamily: T.sans, fontSize: '12.5px', lineHeight: 1.55, color: T.up }}>
+                    {signal}
+                  </div>
+                )) : (
+                  <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>No key signals returned.</div>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
+                Risks and uncertainties
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {(data.narrative.risks_and_uncertainties ?? []).length > 0 ? data.narrative.risks_and_uncertainties.map((risk, idx) => (
+                  <div key={idx} style={{ background: `${T.dn}10`, border: `0.5px solid ${T.dn}30`, padding: '8px 10px', fontFamily: T.sans, fontSize: '12.5px', lineHeight: 1.55, color: T.dn }}>
+                    {risk}
+                  </div>
+                )) : (
+                  <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>No explicit risks returned.</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {data.narrative.outcome_note && (
+            <div style={{ background: `${T.accent}10`, border: `0.5px solid ${T.accent}40`, padding: '10px 12px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.accent, marginBottom: '4px' }}>
+                Outcome note
+              </div>
+              <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6 }}>
+                {data.narrative.outcome_note}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function AnalogueRow({ a, isExpanded, onToggle }: {
   a: Analogue;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
-  const fwd      = a.forward_returns;
+  const fwd = a.forward_returns;
   const envColor = ENV_COLOR[a.environment] || T.mid;
 
   return (
     <div style={{ borderBottom: `0.5px solid ${T.borderSub}` }}>
-
-      {/* Summary row */}
       <div
         className="temper-interactive-row"
         onClick={onToggle}
         style={{
           display: 'grid',
-          gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px 90px',
+          gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px',
           alignItems: 'center',
           padding: '8px 24px',
           cursor: 'pointer',
@@ -194,128 +403,62 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
         <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: retColor(fwd['21d']) }}>
           {fmtRet(fwd['21d'])}
         </span>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Sparkline path={a.forward_path} />
-        </div>
       </div>
 
-      {/* Expanded detail */}
       {isExpanded && (
-          <div style={{ background: 'rgba(255,255,255,0.012)', borderTop: `0.5px solid ${T.border}` }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))' }}>
-
-            {/* State */}
-            <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
-                State
-              </div>
-              {[
-                ['Score',      a.score_total?.toFixed(1)],
-                ['Confidence', a.confidence?.toFixed(1)],
-                ['Score Δ',    a.score_delta != null ? (a.score_delta >= 0 ? '+' : '') + a.score_delta.toFixed(1) : '—'],
-                ['VIX',        a.vix_level?.toFixed(1) ?? '—'],
-                ['Breadth',    a.sectors_green != null ? `${a.sectors_green}/11` : '—'],
-                ['SPY close',  a.spy_close != null ? formatCurrency(a.spy_close) : '—'],
-              ].map(([label, val]) => (
-                <div key={label as string} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>{label}</span>
-                  <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.75)' }}>{val}</span>
-                </div>
-              ))}
+        <div style={{ background: 'rgba(255,255,255,0.012)', borderTop: `0.5px solid ${T.border}` }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(280px, 0.9fr)' }}>
+            <div style={{ padding: '16px 20px', borderRight: `0.5px solid ${T.border}` }}>
+              <HistoricalPathChart analogue={a} />
             </div>
 
-            {/* Score components */}
-            <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
+            <div style={{ padding: '16px 20px' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '12px' }}>
                 Score components
               </div>
-              {Object.entries(a.score_components ?? {}).map(([k, v]) => {
-                const fill = v >= 6 ? T.up : v >= 4 ? T.wa : T.dn;
-                return (
-                  <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
-                    <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, width: '110px', flexShrink: 0 }}>
-                      {k.replace(/_/g, ' ')}
-                    </span>
-                    <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.05)' }}>
-                      <div style={{ width: `${(v / 10) * 100}%`, height: '100%', background: fill }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {Object.entries(a.score_components ?? {}).map(([k, v]) => {
+                  const fill = v >= 6 ? T.up : v >= 4 ? T.wa : T.dn;
+                  return (
+                    <div key={k} style={{ display: 'grid', gridTemplateColumns: '120px 1fr 28px', alignItems: 'center', gap: '10px', padding: '6px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
+                      <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
+                        {k.replace(/_/g, ' ')}
+                      </span>
+                      <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)' }}>
+                        <div style={{ width: `${(v / 10) * 100}%`, height: '100%', background: fill }} />
+                      </div>
+                      <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: fill, textAlign: 'right' }}>
+                        {v?.toFixed(1)}
+                      </span>
                     </div>
-                    <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: fill, width: '24px', textAlign: 'right' }}>
-                      {v?.toFixed(1)}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Sector returns */}
-            <div style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
-                Sector returns
+                  );
+                })}
               </div>
-              {Object.entries(a.sector_returns ?? {})
-                .sort((x, y) => (y[1] as number) - (x[1] as number))
-                .map(([k, v]) => (
-                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: `0.5px solid ${T.borderSub}` }}>
-                    <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>{k}</span>
-                    <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: (v as number) >= 0 ? T.up : T.dn }}>
-                      {fmtRet(v as number)}
-                    </span>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: '10px', marginTop: '16px', paddingTop: '12px', borderTop: `0.5px solid ${T.borderSub}` }}>
+                {[
+                  ['Score', a.score_total?.toFixed(1)],
+                  ['Confidence', a.confidence?.toFixed(1)],
+                  ['Score Δ', a.score_delta != null ? `${a.score_delta >= 0 ? '+' : ''}${a.score_delta.toFixed(1)}` : '—'],
+                  ['VIX', a.vix_level?.toFixed(1) ?? '—'],
+                  ['Breadth', a.sectors_green != null ? `${a.sectors_green}/11` : '—'],
+                  ['SPY close', a.spy_close != null ? formatCurrency(a.spy_close) : '—'],
+                ].map(([label, value]) => (
+                  <div key={label}>
+                    <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '4px' }}>
+                      {label}
+                    </div>
+                    <div style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.78)' }}>
+                      {value}
+                    </div>
                   </div>
                 ))}
-            </div>
-
-            {/* Forward path */}
-            <div style={{ padding: '14px 20px' }}>
-              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
-                21-day forward path
-              </div>
-              {a.forward_path && a.forward_path.length >= 2 ? (() => {
-                const vals  = a.forward_path.map(p => p.ret_pct);
-                const min   = Math.min(...vals, 0);
-                const max   = Math.max(...vals, 0);
-                const range = max - min || 1;
-                const W = 200; const H = 80;
-                const pts   = vals.map((v, i) => {
-                  const x = (i / (vals.length - 1)) * W;
-                  const y = H - ((v - min) / range) * H * 0.85 - H * 0.075;
-                  return `${x},${y}`;
-                }).join(' ');
-                const last  = vals[vals.length - 1];
-                const color = last >= 0 ? T.up : T.dn;
-                const zeroY = H - ((0 - min) / range) * H * 0.85 - H * 0.075;
-                return (
-                  <div>
-                    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: '80px' }}>
-                      <line x1="0" y1={zeroY} x2={W} y2={zeroY} stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" strokeDasharray="3,3" />
-                      <polyline points={pts} fill="none" stroke={color} strokeWidth="1" />
-                    </svg>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
-                      <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color: T.textMuted }}>Day 1</span>
-                      <span style={{ fontFamily: T.mono, fontSize: '11px', fontWeight: 300, color }}>Day {vals.length}: {fmtRet(last)}</span>
-                    </div>
-                    {/* Risk profile */}
-                    <div style={{ display: 'flex', gap: '16px', marginTop: '12px', paddingTop: '10px', borderTop: `0.5px solid ${T.borderSub}` }}>
-                      <div>
-                        <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>Max DD</div>
-                        <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: T.dn }}>{fmtRet(a.risk_profile?.max_drawdown_5d)}</div>
-                      </div>
-                      <div>
-                        <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '3px' }}>Max up</div>
-                        <div style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: T.up }}>{fmtRet(a.risk_profile?.max_upside_5d)}</div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })() : (
-                <span style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.textMuted }}>No path data</span>
-              )}
-
-              {/* Narrative tab */}
-              <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: `0.5px solid ${T.borderSub}` }}>
-                <NarrativeTab date={a.date} hasSnapshot={a.has_narrative || false} />
               </div>
             </div>
+          </div>
 
+          <div style={{ padding: '16px 20px', borderTop: `0.5px solid ${T.border}` }}>
+            <NarrativePanel date={a.date} />
           </div>
         </div>
       )}
@@ -323,11 +466,9 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────────────────────
-
 export default function HistoryPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [topN,     setTopN]     = useState(15);
+  const [topN, setTopN] = useState(15);
 
   const { data, isLoading, error } = useSWR(
     `/api/market/analogues?top_n=${topN}`,
@@ -335,14 +476,12 @@ export default function HistoryPage() {
     { refreshInterval: 300000 }
   );
 
-  const toggle  = (date: string) => setExpanded(prev => prev === date ? null : date);
-  const agg     = data?.aggregate_stats;
+  const toggle = (date: string) => setExpanded((prev) => (prev === date ? null : date));
+  const agg = data?.aggregate_stats;
   const current = data?.current_state;
 
   return (
     <main style={sx.main}>
-
-      {/* ── Page header ──────────────────────────────────────────────────── */}
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
         <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
           <span style={sx.sectionLabel}>Market memory</span>
@@ -368,6 +507,7 @@ export default function HistoryPage() {
           <SkeletonRows rows={8} columns={4} />
         </div>
       )}
+
       {error && (
         <div style={{ padding: '40px 24px' }}>
           <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>Error loading analogues.</span>
@@ -376,13 +516,12 @@ export default function HistoryPage() {
 
       {data && (
         <>
-          {/* ── Current conditions ─────────────────────────────────────── */}
           <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
             <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Current conditions</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                 <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
-                {[10, 15, 20].map(n => (
+                {[10, 15, 20].map((n) => (
                   <button
                     key={n}
                     onClick={() => setTopN(n)}
@@ -396,7 +535,9 @@ export default function HistoryPage() {
                       padding: '2px 9px',
                       cursor: 'pointer',
                     }}
-                  >{n}</button>
+                  >
+                    {n}
+                  </button>
                 ))}
               </div>
             </div>
@@ -410,7 +551,6 @@ export default function HistoryPage() {
             </div>
           </div>
 
-          {/* ── Aggregate outlook ──────────────────────────────────────── */}
           {agg && (
             <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
               <div style={sx.sectionHd}>
@@ -418,22 +558,21 @@ export default function HistoryPage() {
                 <span style={sx.sectionMeta}>{agg.n_analogues} comparable episodes</span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
-                {(['1d', '5d', '10d', '21d'] as const).map(h => (
+                {(['1d', '5d', '10d', '21d'] as const).map((h) => (
                   <FwdCard key={h} horizon={h} stats={agg.forward_returns[h]} />
                 ))}
               </div>
 
-              {/* Risk profile */}
               {agg.risk_profile && (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
                   {[
                     { label: '21D risk profile', val: null },
-                    { label: 'Median max DD',     val: agg.risk_profile.median_max_drawdown_21d,  color: T.dn,  fmt: fmtRet },
-                    { label: 'Median max upside', val: agg.risk_profile.median_max_upside_21d,    color: T.up,  fmt: fmtRet },
-                    { label: 'EV (21d)',           val: agg.risk_profile.expected_value_21d,        color: (agg.risk_profile.expected_value_21d ?? 0) >= 0 ? T.up : T.dn, fmt: fmtRet },
-                    { label: 'Win rate',          val: agg.risk_profile.win_rate_21d,              color: T.mid, fmt: (v: number) => `${formatNumber(v, 1)}%` },
-                    { label: 'Wtd R/R',          val: agg.risk_profile.weighted_reward_risk_21d,      color: T.mid, fmt: (v: number) => `${formatNumber(v, 2)}×` },
-                    { label: 'Worst 21D',         val: agg.risk_profile.worst_drawdown_21d,         color: T.dn,  fmt: fmtRet },
+                    { label: 'Median max DD', val: agg.risk_profile.median_max_drawdown_21d, color: T.dn, fmt: fmtRet },
+                    { label: 'Median max upside', val: agg.risk_profile.median_max_upside_21d, color: T.up, fmt: fmtRet },
+                    { label: 'EV (21d)', val: agg.risk_profile.expected_value_21d, color: (agg.risk_profile.expected_value_21d ?? 0) >= 0 ? T.up : T.dn, fmt: fmtRet },
+                    { label: 'Win rate', val: agg.risk_profile.win_rate_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 1)}%` },
+                    { label: 'Wtd R/R', val: agg.risk_profile.weighted_reward_risk_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 2)}×` },
+                    { label: 'Worst 21D', val: agg.risk_profile.worst_drawdown_21d, color: T.dn, fmt: fmtRet },
                   ].map(({ label, val, color, fmt }, i) => (
                     <div key={label} style={{ padding: '12px 20px', borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none' }}>
                       <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
@@ -451,24 +590,24 @@ export default function HistoryPage() {
             </div>
           )}
 
-          {/* ── Analogues table ────────────────────────────────────────── */}
           <div>
             <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
               <span style={sx.sectionLabel}>Comparable episodes</span>
               <span style={sx.sectionMeta}>Click any row to expand</span>
             </div>
 
-            {/* Table header */}
             <div style={{ overflowX: 'auto' }}>
-              <div style={{ minWidth: '640px' }}>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px 90px',
-                  padding: '6px 24px',
-                  borderBottom: `0.5px solid ${T.border}`,
-                  background: T.sectionBg,
-                }}>
-                  {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd', '21D path'].map(h => (
+              <div style={{ minWidth: '610px' }}>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px',
+                    padding: '6px 24px',
+                    borderBottom: `0.5px solid ${T.border}`,
+                    background: T.sectionBg,
+                  }}
+                >
+                  {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd'].map((h) => (
                     <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
                       {h}
                     </span>
@@ -476,12 +615,7 @@ export default function HistoryPage() {
                 </div>
 
                 {data.analogues?.map((a: Analogue) => (
-                  <AnalogueRow
-                    key={a.date}
-                    a={a}
-                    isExpanded={expanded === a.date}
-                    onToggle={() => toggle(a.date)}
-                  />
+                  <AnalogueRow key={a.date} a={a} isExpanded={expanded === a.date} onToggle={() => toggle(a.date)} />
                 ))}
               </div>
             </div>
@@ -494,7 +628,6 @@ export default function HistoryPage() {
           </div>
         </>
       )}
-
     </main>
   );
 }
