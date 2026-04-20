@@ -131,17 +131,31 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
   const lows = chartData.map((d: ChartPoint) => d.low);
   const closes = chartData.map((d: ChartPoint) => d.price);
   const volumes = chartData.map((d: ChartPoint) => d.volume);
+  
+  if (!chartData.length) return null;
+
   const first = closes[0];
   const last = closes[closes.length - 1];
   const change = last - first;
-  const chgPct = (change / first) * 100;
+  const chgPct = first ? (change / first) * 100 : 0;
   const isPos = change >= 0;
   const lineCol = isPos ? T.up : T.dn;
-  const priceMin = Math.min(...lows);
-  const priceMax = Math.max(...highs);
+
+  let priceMin = Infinity;
+  let priceMax = -Infinity;
+
+  for (const d of chartData) {
+    if (!Number.isFinite(d.low) || !Number.isFinite(d.high)) continue;
+    if (d.low < priceMin) priceMin = d.low;
+    if (d.high > priceMax) priceMax = d.high;
+  }
+
+  if (!Number.isFinite(priceMin) || !Number.isFinite(priceMax)) return null;
+
   const padding = (priceMax - priceMin) * 0.08 || 1;
   const domainMin = priceMin - padding;
   const domainMax = priceMax + padding;
+
   const svgWidth = 1000;
   const svgHeight = 360;
   const padLeft = 72;
