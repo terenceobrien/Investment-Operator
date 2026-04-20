@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/api';
 import IntradayTape from '@/components/IntradayTape';
@@ -31,9 +32,7 @@ function useCountUp(target: number | undefined | null, duration = 800) {
       const progress = Math.min((timestamp - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(target * eased);
-      if (progress < 1) {
-        frame = window.requestAnimationFrame(tick);
-      }
+      if (progress < 1) frame = window.requestAnimationFrame(tick);
     };
 
     frame = window.requestAnimationFrame(tick);
@@ -49,22 +48,121 @@ function barColor(val: number) {
   return T.dn;
 }
 
-function KpiBlock({
+function prettyKey(input: string) {
+  return input.replace(/_/g, ' ');
+}
+
+function prettyTapeCharacter(input?: string | null) {
+  if (!input) return '—';
+  return input
+    .split('_')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+const pageShell: CSSProperties = {
+  padding: '28px 24px 56px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+};
+
+const panelShell: CSSProperties = {
+  background: 'rgba(255,255,255,0.022)',
+  border: `1px solid ${T.border}`,
+  borderRadius: '10px',
+  overflow: 'hidden',
+};
+
+const panelHeader: CSSProperties = {
+  ...sx.sectionHd,
+  padding: '14px 18px',
+  background: 'rgba(255,255,255,0.016)',
+  borderBottom: `1px solid ${T.borderSub}`,
+};
+
+const panelBody: CSSProperties = {
+  padding: '18px',
+};
+
+const subPanel: CSSProperties = {
+  background: 'rgba(255,255,255,0.015)',
+  border: `1px solid ${T.borderSub}`,
+  borderRadius: '10px',
+  overflow: 'hidden',
+};
+
+function PagePanel({
+  title,
+  meta,
+  children,
+}: {
+  title: string;
+  meta?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <section style={panelShell}>
+      <div style={panelHeader}>
+        <span style={sx.sectionLabel}>{title}</span>
+        {meta ? <span style={sx.sectionMeta}>{meta}</span> : null}
+      </div>
+      <div style={panelBody}>{children}</div>
+    </section>
+  );
+}
+
+function InsetPanel({
+  title,
+  meta,
+  children,
+}: {
+  title: string;
+  meta?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div style={subPanel}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '12px',
+          padding: '12px 16px',
+          borderBottom: `1px solid ${T.borderSub}`,
+          background: 'rgba(255,255,255,0.012)',
+        }}
+      >
+        <span style={sx.sectionLabel}>{title}</span>
+        {meta ? <span style={sx.sectionMeta}>{meta}</span> : null}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function HeroMetric({
   label,
   children,
   meta,
+  prominent = false,
 }: {
   label: string;
-  children: React.ReactNode;
-  meta?: React.ReactNode;
+  children: ReactNode;
+  meta?: ReactNode;
+  prominent?: boolean;
 }) {
   return (
     <div
       style={{
-        padding: '20px 28px',
-        borderRight: `1px solid ${T.border}`,
-        borderBottom: `1px solid ${T.borderSub}`,
-        minHeight: '116px',
+        flex: prominent ? '1.8 1 360px' : '1 1 180px',
+        minWidth: prominent ? '320px' : '180px',
+        padding: prominent ? '24px 24px 22px' : '20px 22px 18px',
+        border: `1px solid ${T.borderSub}`,
+        borderRadius: '10px',
+        background: prominent ? 'rgba(255,255,255,0.028)' : 'rgba(255,255,255,0.014)',
+        minHeight: prominent ? '132px' : '120px',
       }}
     >
       <div
@@ -74,31 +172,31 @@ function KpiBlock({
           letterSpacing: '1.4px',
           textTransform: 'uppercase',
           color: T.label,
-          marginBottom: '12px',
-          fontWeight: 400,
+          marginBottom: prominent ? '16px' : '12px',
+          fontWeight: 500,
         }}
       >
         {label}
       </div>
       {children}
-      {meta && (
+      {meta ? (
         <div
           style={{
             fontFamily: T.sans,
             fontSize: '12px',
             color: T.textMuted,
-            marginTop: '6px',
+            marginTop: '8px',
             letterSpacing: '0.2px',
           }}
         >
           {meta}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
 
-function KpiValue({ children }: { children: React.ReactNode }) {
+function KpiValue({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
@@ -123,7 +221,7 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
-        padding: '10px 28px',
+        padding: '12px 16px',
         borderBottom: `1px solid ${T.borderSub}`,
       }}
     >
@@ -133,12 +231,12 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
           fontSize: '12px',
           letterSpacing: '0.3px',
           color: T.textSub,
-          width: '130px',
+          width: '132px',
           flexShrink: 0,
           textTransform: 'capitalize',
         }}
       >
-        {label.replace(/_/g, ' ')}
+        {prettyKey(label)}
       </span>
       <div style={{ flex: 1, height: '2px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px' }}>
         <div
@@ -155,7 +253,7 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
           fontFamily: T.mono,
           fontSize: '12.5px',
           fontWeight: 300,
-          width: '28px',
+          width: '30px',
           textAlign: 'right',
           color: fill,
         }}
@@ -184,7 +282,7 @@ function MoverRow({
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '12px',
-        padding: '10px 28px',
+        padding: '12px 16px',
         borderBottom: `1px solid ${T.borderSub}`,
       }}
     >
@@ -225,25 +323,48 @@ function MoverRow({
   );
 }
 
+function DetailMessage({ children, tone = 'muted' }: { children: ReactNode; tone?: 'muted' | 'danger' }) {
+  return (
+    <div
+      style={{
+        padding: '16px',
+        color: tone === 'danger' ? T.dn : T.textMuted,
+        fontSize: '12px',
+        fontFamily: T.sans,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function MarketStateSkeleton() {
   return (
     <main style={sx.main}>
-      <SkeletonPanel titleWidth="20%" metaWidth="40%">
-        <SkeletonMetricGrid columns={5} items={5} />
-      </SkeletonPanel>
-      <SkeletonPanel titleWidth="16%" metaWidth="32%">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))' }}>
-          <div style={{ borderRight: `1px solid ${T.border}` }}>
+      <div style={pageShell}>
+        <SkeletonPanel titleWidth="20%" metaWidth="40%">
+          <SkeletonMetricGrid columns={5} items={5} />
+        </SkeletonPanel>
+        <SkeletonPanel titleWidth="18%" metaWidth="30%">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: '16px' }}>
             <SkeletonRows rows={7} columns={2} />
-          </div>
-          <div style={{ borderRight: `1px solid ${T.border}` }}>
             <SkeletonRows rows={8} columns={2} />
-          </div>
-          <div>
             <SkeletonRows rows={6} columns={2} />
           </div>
-        </div>
-      </SkeletonPanel>
+        </SkeletonPanel>
+        <SkeletonPanel titleWidth="18%" metaWidth="30%">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '16px' }}>
+            <SkeletonRows rows={6} columns={2} />
+            <SkeletonRows rows={6} columns={2} />
+          </div>
+        </SkeletonPanel>
+        <SkeletonPanel titleWidth="16%" metaWidth="24%">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '16px' }}>
+            <SkeletonRows rows={8} columns={2} />
+            <SkeletonRows rows={8} columns={2} />
+          </div>
+        </SkeletonPanel>
+      </div>
     </main>
   );
 }
@@ -295,6 +416,8 @@ export default function Dashboard() {
         }
       : (regime?.score_components ?? {});
 
+  const componentEntries = Object.entries(components).filter(([, val]) => val != null) as [string, number][];
+
   const animatedScore = useCountUp(score, 800);
   const animatedConfidence = useCountUp(confidence, 800);
   const animatedVix = useCountUp(vix, 800);
@@ -308,13 +431,20 @@ export default function Dashboard() {
     : [];
 
   const movers: any[] = Array.isArray(contextData?.movers) ? contextData.movers : [];
-
-  const section = {
-    borderBottom: `1px solid ${T.border}`,
-    margin: '0 0',
-  };
-
-  const colDivider = { borderRight: `1px solid ${T.border}` };
+  const topSector = sectorReturns[0];
+  const weakestSector = sectorReturns[sectorReturns.length - 1];
+  const diagnostics = [
+    { label: 'Environment', value: env, color: envColor[env] ?? T.text },
+    { label: 'Horizon', value: horizon, color: T.text },
+    { label: 'As of', value: asof, color: T.text },
+    { label: 'Confidence', value: confidence != null ? formatNumber(confidence, 0) : '—', color: T.text },
+    { label: 'Breadth', value: secGreen != null ? `${secGreen}/11` : '—', color: T.text },
+    { label: 'VIX', value: vix != null ? formatNumber(vix, 1) : '—', color: T.text },
+    { label: 'VIX vs close', value: vixChg != null ? formatAccountingPct(vixChg) : '—', color: (vixChg ?? 0) >= 0 ? T.dn : T.up },
+    { label: 'Tape character', value: prettyTapeCharacter(tape?.tape_character), color: T.text },
+    { label: 'Top sector', value: topSector ? `${topSector[0]} · ${formatAccountingPct(topSector[1])}` : '—', color: topSector ? (topSector[1] >= 0 ? T.up : T.dn) : T.textMuted },
+    { label: 'Weakest sector', value: weakestSector ? `${weakestSector[0]} · ${formatAccountingPct(weakestSector[1])}` : '—', color: weakestSector ? (weakestSector[1] >= 0 ? T.up : T.dn) : T.textMuted },
+  ];
 
   if (isLoading && !regimeData) return <MarketStateSkeleton />;
 
@@ -336,156 +466,176 @@ export default function Dashboard() {
 
   return (
     <main style={sx.main}>
-      <div style={section}>
-        <div style={sx.sectionHd}>
-          <span style={sx.sectionLabel}>Market state</span>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              flexWrap: 'wrap',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <span style={sx.sectionMeta}>
-              {asof} · {horizon} · score {score != null ? formatNumber(score, 1) : '—'} · {env}
+      <div style={pageShell}>
+        <PagePanel
+          title="Market state"
+          meta={
+            <span style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              <span>
+                {asof} · {horizon} · score {score != null ? formatNumber(score, 1) : '—'}
+              </span>
+              <span style={{ color: freshnessColor(tapeData?.asof_utc ?? regimeData?.asof_utc) }}>
+                {formatRelativeAge(tapeData?.asof_utc ?? regimeData?.asof_utc)}
+              </span>
             </span>
-            <span style={{ ...sx.sectionMeta, color: freshnessColor(tapeData?.asof_utc ?? regimeData?.asof_utc) }}>
-              {formatRelativeAge(tapeData?.asof_utc ?? regimeData?.asof_utc)}
-            </span>
+          }
+        >
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+            <HeroMetric label="Environment" meta="Current market state" prominent>
+              <div
+                style={{
+                  fontFamily: T.sans,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  color: envColor[env] ?? T.accent,
+                  letterSpacing: '0.9px',
+                  lineHeight: 1.35,
+                  textTransform: 'uppercase',
+                  maxWidth: '420px',
+                }}
+              >
+                {env}
+              </div>
+            </HeroMetric>
+
+            <HeroMetric label="Sentiment" meta="out of 100">
+              <KpiValue>{score != null ? formatNumber(animatedScore ?? score, 1) : '—'}</KpiValue>
+            </HeroMetric>
+
+            <HeroMetric label="Confidence" meta="out of 100">
+              <KpiValue>{confidence != null ? formatNumber(animatedConfidence ?? confidence, 0) : '—'}</KpiValue>
+            </HeroMetric>
+
+            <HeroMetric label="Breadth" meta="sectors green">
+              <KpiValue>
+                {animatedBreadth != null ? Math.round(animatedBreadth) : (secGreen ?? '—')}
+                <span style={{ fontSize: '15px', color: T.textMuted, fontWeight: 300 }}> /11</span>
+              </KpiValue>
+            </HeroMetric>
+
+            <HeroMetric label="VIX" meta={vixChg == null ? '—' : `${formatAccountingPct(vixChg)} today`}>
+              <KpiValue>{vix != null ? formatNumber(animatedVix ?? vix, 1) : '—'}</KpiValue>
+            </HeroMetric>
           </div>
-        </div>
+        </PagePanel>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
-          <KpiBlock label="Sentiment" meta="out of 100">
-            <KpiValue>{score != null ? formatNumber(animatedScore ?? score, 1) : '—'}</KpiValue>
-          </KpiBlock>
+        <PagePanel title="Primary market read" meta="Tape · Cross-asset context · Sector leadership">
+          <IntradayTape data={tapeData} fetch={false} loading={tapeLoading} hasError={!!tapeError} />
+        </PagePanel>
 
-          <KpiBlock label="Environment">
-            <div
-              style={{
-                fontFamily: T.sans,
-                fontSize: '13px',
-                fontWeight: 400,
-                color: envColor[env] ?? T.accent,
-                letterSpacing: '0.8px',
-                lineHeight: 1.6,
-                textTransform: 'uppercase',
-              }}
-            >
-              {env}
-            </div>
-          </KpiBlock>
+        <PagePanel title="Secondary diagnostics" meta="Scoring framework · Regime diagnostics">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '16px' }}>
+            <InsetPanel title="Score components" meta={`${componentEntries.length} active`}>
+              <div>
+                {componentEntries.map(([key, val]) => (
+                  <ScoreBar key={key} label={key} value={val} />
+                ))}
+              </div>
+            </InsetPanel>
 
-          <KpiBlock label="Confidence" meta="out of 100">
-            <KpiValue>{confidence != null ? formatNumber(animatedConfidence ?? confidence, 0) : '—'}</KpiValue>
-          </KpiBlock>
-
-          <KpiBlock label="Breadth" meta="sectors green">
-            <KpiValue>
-              {animatedBreadth != null ? Math.round(animatedBreadth) : (secGreen ?? '—')}
-              <span style={{ fontSize: '15px', color: T.textMuted, fontWeight: 300 }}> /11</span>
-            </KpiValue>
-          </KpiBlock>
-
-          <KpiBlock label="VIX" meta={vixChg == null ? '—' : `${formatAccountingPct(vixChg)} today`}>
-            <KpiValue>{vix != null ? formatNumber(animatedVix ?? vix, 1) : '—'}</KpiValue>
-          </KpiBlock>
-        </div>
-      </div>
-
-      <IntradayTape data={tapeData} fetch={false} loading={tapeLoading} hasError={!!tapeError} />
-
-      <div style={section}>
-        <div style={sx.sectionHd}>
-          <span style={sx.sectionLabel}>Signal detail</span>
-          <span style={sx.sectionMeta}>Components · Sectors · Movers</span>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))' }}>
-          <div style={colDivider}>
-            <div style={{ ...sx.sectionHd, padding: '10px 28px' }}>
-              <span style={sx.sectionLabel}>Score components</span>
-            </div>
-
-            {Object.entries(components).map(([key, val]: [string, any]) => (
-              <ScoreBar key={key} label={key} value={val} />
-            ))}
-
-            <div
-              style={{
-                ...sx.sectionHd,
-                padding: '10px 28px',
-                borderTop: `1px solid ${T.border}`,
-                marginTop: '4px',
-              }}
-            >
-              <span style={sx.sectionLabel}>Sector returns · 1D</span>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
-              {sectorReturns.length > 0 ? (
-                sectorReturns.map(([name, ret]) => (
+            <InsetPanel title="Current diagnostics" meta={`${env} · ${horizon}`}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
+                {diagnostics.map((item, idx) => (
                   <div
-                    key={name}
+                    key={item.label}
                     style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '9px 28px',
+                      padding: '14px 16px',
                       borderBottom: `1px solid ${T.borderSub}`,
-                      borderRight: `1px solid ${T.borderSub}`,
+                      borderRight: idx % 2 === 0 ? `1px solid ${T.borderSub}` : 'none',
+                      minHeight: '74px',
                     }}
                   >
-                    <span
+                    <div
                       style={{
                         fontFamily: T.sans,
-                        fontSize: '11.5px',
-                        letterSpacing: '0.3px',
-                        color: T.textSub,
+                        fontSize: '10px',
+                        letterSpacing: '1px',
+                        textTransform: 'uppercase',
+                        color: T.textMuted,
+                        marginBottom: '9px',
                       }}
                     >
-                      {name}
-                    </span>
-                    <span
+                      {item.label}
+                    </div>
+                    <div
                       style={{
                         fontFamily: T.mono,
-                        fontSize: '12.5px',
-                        fontWeight: 300,
-                        color: ret >= 0 ? T.up : T.dn,
+                        fontSize: '13px',
+                        lineHeight: 1.45,
+                        color: item.color,
                       }}
                     >
-                      {formatAccountingPct(ret)}
-                    </span>
+                      {item.value}
+                    </div>
                   </div>
-                ))
-              ) : contextError ? (
-                <div style={{ padding: '16px 28px', color: T.dn, fontSize: '12px' }}>Sector data unavailable.</div>
-              ) : (
-                <div style={{ padding: '16px 28px', color: T.textMuted, fontSize: '12px' }}>Loading sectors...</div>
-              )}
-            </div>
+                ))}
+              </div>
+            </InsetPanel>
           </div>
+        </PagePanel>
 
-          <div>
-            <div style={{ ...sx.sectionHd, padding: '10px 28px', justifyContent: 'space-between' }}>
-              <span style={sx.sectionLabel}>Market moves</span>
-              <span style={sx.sectionMeta}>Last · 1D chg</span>
-            </div>
+        <PagePanel title="Signal detail" meta="Decision layer above · Drill-down tables below">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px,1fr))', gap: '16px' }}>
+            <InsetPanel title="Sector returns" meta="1D leadership table">
+              <div>
+                {sectorReturns.length > 0 ? (
+                  sectorReturns.map(([name, ret]) => (
+                    <div
+                      key={name}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '12px 16px',
+                        borderBottom: `1px solid ${T.borderSub}`,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: T.sans,
+                          fontSize: '11.5px',
+                          letterSpacing: '0.3px',
+                          color: T.textSub,
+                        }}
+                      >
+                        {name}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: T.mono,
+                          fontSize: '12.5px',
+                          fontWeight: 300,
+                          color: ret >= 0 ? T.up : T.dn,
+                        }}
+                      >
+                        {formatAccountingPct(ret)}
+                      </span>
+                    </div>
+                  ))
+                ) : contextError ? (
+                  <DetailMessage tone="danger">Sector data unavailable.</DetailMessage>
+                ) : (
+                  <DetailMessage>Loading sectors...</DetailMessage>
+                )}
+              </div>
+            </InsetPanel>
 
-            {movers.length > 0 ? (
-              movers.map((m: any) => (
-                <MoverRow key={m.ticker} ticker={m.ticker} price={m.last} change={m.chg_pct_1d ?? m.change_pct_1d} />
-              ))
-            ) : contextError ? (
-              <div style={{ padding: '16px 28px', color: T.dn, fontSize: '12px' }}>Market moves unavailable.</div>
-            ) : (
-              <div style={{ padding: '16px 28px', color: T.textMuted, fontSize: '12px' }}>Loading movers...</div>
-            )}
+            <InsetPanel title="Market moves" meta="Last · 1D change">
+              <div>
+                {movers.length > 0 ? (
+                  movers.map((m: any) => (
+                    <MoverRow key={m.ticker} ticker={m.ticker} price={m.last} change={m.chg_pct_1d ?? m.change_pct_1d} />
+                  ))
+                ) : contextError ? (
+                  <DetailMessage tone="danger">Market moves unavailable.</DetailMessage>
+                ) : (
+                  <DetailMessage>Loading movers...</DetailMessage>
+                )}
+              </div>
+            </InsetPanel>
           </div>
-        </div>
+        </PagePanel>
       </div>
     </main>
   );

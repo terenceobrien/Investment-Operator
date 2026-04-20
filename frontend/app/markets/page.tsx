@@ -1,10 +1,10 @@
 'use client';
 
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/api';
 import { SkeletonBlock } from '@/components/Skeleton';
-import { T, sx, pct, formatCurrency } from '@/lib/tokens';
+import { T, sx, pct, formatCurrency, formatNumber } from '@/lib/tokens';
 
 const HORIZONS = ['1D', '1W', '1M', '3M', '6M', '1Y', 'YTD'];
 const TICKERS  = ['SPY', 'QQQ', 'IWM', 'TLT', 'HYG', 'GLD', 'USO', 'BTC-USD'];
@@ -84,18 +84,46 @@ function formatHoverTimeLabel(value: Date, tf: string): string {
   }).format(value);
 }
 
+function formatCompactVolume(value: number | null | undefined): string {
+  if (value == null || Number.isNaN(value)) return '—';
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000_000) return `${formatNumber(value / 1_000_000_000, 2)}B`;
+  if (abs >= 1_000_000) return `${formatNumber(value / 1_000_000, 2)}M`;
+  if (abs >= 1_000) return `${formatNumber(value / 1_000, 1)}K`;
+  return formatNumber(value, 0);
+}
+
 function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: string }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const closes = chart.ohlcv.map((d: any) => d.Close);
+  const chartData = useMemo(() => chart.ohlcv.map((d: any, idx: number) => {
+    const rawTime = getTimestamp(d);
+    return {
+      idx,
+      rawTime,
+      timestamp: new Date(rawTime),
+      open: Number(d.Open),
+      high: Number(d.High),
+      low: Number(d.Low),
+      price: Number(d.Close),
+      volume: Number(d.Volume ?? 0),
+    };
+  }), [chart.ohlcv]);
+
+  const opens = chartData.map((d) => d.open);
+  const highs = chartData.map((d) => d.high);
+  const lows = chartData.map((d) => d.low);
+  const closes = chartData.map((d) => d.price);
+  const volumes = chartData.map((d) => d.volume);
   const first = closes[0];
   const last = closes[closes.length - 1];
   const change = last - first;
   const chgPct = (change / first) * 100;
   const isPos = change >= 0;
   const lineCol = isPos ? T.up : T.dn;
-  const priceMin = Math.min(...closes);
-  const priceMax = Math.max(...closes);
+  const priceMin = Math.min(...lows);
+  const priceMax = Math.max(...highs);
   const padding = (priceMax - priceMin) * 0.08 || 1;
   const domainMin = priceMin - padding;
   const domainMax = priceMax + padding;
@@ -108,20 +136,10 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
   const plotWidth = svgWidth - padLeft - padRight;
   const plotHeight = svgHeight - padTop - padBottom;
 
-  const chartData = chart.ohlcv.map((d: any, idx: number) => {
-    const rawTime = getTimestamp(d);
-    return {
-      idx,
-      rawTime,
-      timestamp: new Date(rawTime),
-      price: Number(d.Close),
-    };
-  });
-
   const xForIndex = (idx: number) => padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
   const yForPrice = (price: number) => padTop + ((domainMax - price) / (domainMax - domainMin || 1)) * plotHeight;
 
-  const points = chartData.map((point: any, idx: number) => {
+  const points = chartData.map((point, idx) => {
     const x = xForIndex(idx);
     const y = yForPrice(point.price);
     return `${x.toFixed(2)},${y.toFixed(2)}`;
@@ -149,186 +167,246 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
   const hoveredX = hoveredIndex !== null ? xForIndex(hoveredIndex) : null;
   const hoveredY = hoveredPoint ? yForPrice(hoveredPoint.price) : null;
 
-  const onMouseMove = (event: MouseEvent<SVGSVGElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const relativeX = ((event.clientX - rect.left) / rect.width) * svgWidth;
-    const clampedX = Math.min(svgWidth - padRight, Math.max(padLeft, relativeX));
-    const ratio = (clampedX - padLeft) / Math.max(plotWidth, 1);
+  const rangeValue = priceMax - priceMin;
+  const rangePct = priceMin > 0 ? (rangeValue / priceMin) * 100 : null;
+  const totalVolume = volumes.reduce((sum: number, value: number) => sum + value, 0);
+  const distanceFromHigh = priceMax > 0 ? ((last / priceMax) - 1) * 100 : null;
+  const distanceFromLow = priceMin > 0 ? ((last / priceMin) - 1) * 100 : null;
+
+  const stats = [
+    { label: `${ticker} last`, value: formatCurrency(last), color: T.text },
+    { label: 'Abs change', value: formatCurrency(change), color: isPos ? T.up : T.dn },
+    { label: `Return (${tf})`, value: pct(chgPct), color: isPos ? T.up : T.dn },
+    { label: 'Open', value: formatCurrency(opens[0]), color: T.text },
+    { label: 'High', value: formatCurrency(priceMax), color: T.text },
+    { label: 'Low', value: formatCurrency(priceMin), color: T.text },
+    { label: 'Range', value: formatCurrency(rangeValue), color: T.text, sub: rangePct != null ? pct(rangePct) : undefined },
+    { label: 'Volume', value: formatCompactVolume(totalVolume), color: T.text },
+    { label: 'Off high', value: distanceFromHigh != null ? pct(distanceFromHigh) : '—', color: (distanceFromHigh ?? 0) >= 0 ? T.up : T.dn },
+    { label: 'Off low', value: distanceFromLow != null ? pct(distanceFromLow) : '—', color: (distanceFromLow ?? 0) >= 0 ? T.up : T.dn },
+  ];
+
+  const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    const svgRect = svgRef.current?.getBoundingClientRect();
+    if (!svgRect) return;
+
+    const plotLeft = svgRect.left + (padLeft / svgWidth) * svgRect.width;
+    const plotRight = svgRect.left + ((svgWidth - padRight) / svgWidth) * svgRect.width;
+    const plotPixelWidth = Math.max(plotRight - plotLeft, 1);
+    const clampedX = Math.min(plotRight, Math.max(plotLeft, event.clientX));
+    const ratio = (clampedX - plotLeft) / plotPixelWidth;
     const idx = Math.round(ratio * Math.max(chartData.length - 1, 1));
     setHoveredIndex(Math.max(0, Math.min(chartData.length - 1, idx)));
   };
 
   return (
-    <div>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))',
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'stretch',
         borderBottom: `0.5px solid ${T.border}`,
-      }}>
-        {[
-          { label: `${ticker} last`, val: formatCurrency(last), color: T.text },
-          { label: `Change (${tf})`, val: pct(chgPct), color: isPos ? T.up : T.dn },
-          { label: 'High', val: formatCurrency(priceMax), color: T.text },
-          { label: 'Low', val: formatCurrency(priceMin), color: T.text },
-        ].map(({ label, val, color }, i) => (
-          <div key={label} style={{
-            padding: '14px 24px',
-            borderRight: i < 3 ? `0.5px solid ${T.border}` : 'none',
-          }}>
-            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
-              {label}
-            </div>
-            <div style={{ fontFamily: T.mono, fontSize: '20px', fontWeight: 300, letterSpacing: '-0.5px', color }}>
-              {val}
-            </div>
-          </div>
-        ))}
-      </div>
+      }}
+    >
+      <div
+        style={{
+          flex: '1 1 720px',
+          minWidth: 0,
+          borderRight: `0.5px solid ${T.border}`,
+        }}
+      >
+        <div style={{ padding: '28px 12px 24px 8px' }}>
+          <div style={{ position: 'relative', overflow: 'visible' }}>
+            <svg
+              ref={svgRef}
+              key={`${ticker}-${tf}`}
+              viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+              width="100%"
+              height="360"
+              role="img"
+              aria-label={`${ticker} price chart`}
+              style={{ overflow: 'visible', display: 'block' }}
+            >
+              {yHairlines.map((line) => (
+                <g key={line.y}>
+                  <line
+                    x1={padLeft}
+                    x2={svgWidth - padRight}
+                    y1={line.y}
+                    y2={line.y}
+                    stroke="rgba(255,255,255,0.04)"
+                    strokeWidth="0.5"
+                    shapeRendering="crispEdges"
+                  />
+                  <text
+                    x={padLeft - 8}
+                    y={line.y - 2}
+                    textAnchor="end"
+                    style={{
+                      fontFamily: T.mono,
+                      fontSize: '9px',
+                      fill: T.textMuted,
+                    }}
+                  >
+                    {formatCurrency(line.value)}
+                  </text>
+                </g>
+              ))}
 
-      <div style={{ padding: '32px 8px 24px' }}>
-        <div style={{ position: 'relative', overflow: 'visible' }}>
-          <svg
-            key={`${ticker}-${tf}`}
-            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-            width="100%"
-            height="360"
-            role="img"
-            aria-label={`${ticker} price chart`}
-            style={{ overflow: 'visible', display: 'block' }}
-            onMouseMove={onMouseMove}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            {yHairlines.map((line) => (
-              <g key={line.y}>
-                <line
-                  x1={padLeft}
-                  x2={svgWidth - padRight}
-                  y1={line.y}
-                  y2={line.y}
-                  stroke="rgba(255,255,255,0.04)"
-                  strokeWidth="0.5"
-                  shapeRendering="crispEdges"
-                />
-                <text
-                  x={padLeft - 8}
-                  y={line.y - 2}
-                  textAnchor="end"
-                  style={{
-                    fontFamily: T.mono,
-                    fontSize: '9px',
-                    fill: T.textMuted,
-                  }}
-                >
-                  {formatCurrency(line.value)}
-                </text>
-              </g>
-            ))}
+              <polyline
+                className="temper-chart-line"
+                pathLength={1000}
+                fill="none"
+                stroke={lineCol}
+                strokeWidth="1.25"
+                strokeLinejoin="miter"
+                strokeLinecap="square"
+                points={points}
+              />
 
-            <polyline
-              className="temper-chart-line"
-              pathLength={1000}
-              fill="none"
-              stroke={lineCol}
-              strokeWidth="1.25"
-              strokeLinejoin="miter"
-              strokeLinecap="square"
-              points={points}
+              {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+                <g pointerEvents="none">
+                  <line
+                    x1={hoveredX}
+                    y1={padTop}
+                    x2={hoveredX}
+                    y2={svgHeight - padBottom}
+                    stroke="rgba(255,255,255,0.24)"
+                    strokeWidth="0.75"
+                    strokeDasharray="3 4"
+                  />
+                  <line
+                    x1={padLeft}
+                    y1={hoveredY}
+                    x2={svgWidth - padRight}
+                    y2={hoveredY}
+                    stroke="rgba(255,255,255,0.18)"
+                    strokeWidth="0.75"
+                    strokeDasharray="3 4"
+                  />
+                  <circle cx={hoveredX} cy={hoveredY} r="3.2" fill={T.bg} stroke={lineCol} strokeWidth="1.5" />
+                </g>
+              )}
+            </svg>
+
+            <div
+              onMouseMove={onMouseMove}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                cursor: 'crosshair',
+              }}
             />
 
             {hoveredPoint && hoveredX !== null && hoveredY !== null && (
-              <g pointerEvents="none">
-                <line
-                  x1={hoveredX}
-                  y1={padTop}
-                  x2={hoveredX}
-                  y2={svgHeight - padBottom}
-                  stroke="rgba(255,255,255,0.24)"
-                  strokeWidth="0.75"
-                  strokeDasharray="3 4"
-                />
-                <line
-                  x1={padLeft}
-                  y1={hoveredY}
-                  x2={svgWidth - padRight}
-                  y2={hoveredY}
-                  stroke="rgba(255,255,255,0.18)"
-                  strokeWidth="0.75"
-                  strokeDasharray="3 4"
-                />
-                <circle cx={hoveredX} cy={hoveredY} r="3.2" fill={T.bg} stroke={lineCol} strokeWidth="1.5" />
-              </g>
+              <>
+                <div
+                  style={{
+                    position: 'absolute',
+                    right: '0px',
+                    top: `${(hoveredY / svgHeight) * 100}%`,
+                    transform: 'translateY(-50%)',
+                    padding: '5px 8px',
+                    background: 'rgba(7,7,10,0.94)',
+                    border: `0.5px solid ${T.border}`,
+                    color: lineCol,
+                    fontFamily: T.mono,
+                    fontSize: '10px',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+                  }}
+                >
+                  {formatCurrency(hoveredPoint.price)}
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: `${(hoveredX / svgWidth) * 100}%`,
+                    top: `${svgHeight - 10}px`,
+                    transform: 'translate(-50%, 0)',
+                    padding: '5px 8px',
+                    background: 'rgba(7,7,10,0.94)',
+                    border: `0.5px solid ${T.border}`,
+                    color: 'rgba(255,255,255,0.82)',
+                    fontFamily: T.mono,
+                    fontSize: '10px',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
+                  }}
+                >
+                  {formatHoverTimeLabel(hoveredPoint.timestamp, tf)}
+                </div>
+              </>
             )}
-          </svg>
 
-          {hoveredPoint && hoveredX !== null && hoveredY !== null && (
-            <>
-              <div
-                style={{
-                  position: 'absolute',
-                  right: '0px',
-                  top: `${(hoveredY / svgHeight) * 100}%`,
-                  transform: 'translateY(-50%)',
-                  padding: '5px 8px',
-                  background: 'rgba(7,7,10,0.94)',
-                  border: `0.5px solid ${T.border}`,
-                  color: lineCol,
-                  fontFamily: T.mono,
-                  fontSize: '10px',
-                  whiteSpace: 'nowrap',
-                  pointerEvents: 'none',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
-                }}
-              >
-                {formatCurrency(hoveredPoint.price)}
-              </div>
-              <div
-                style={{
-                  position: 'absolute',
-                  left: `${(hoveredX / svgWidth) * 100}%`,
-                  top: `${svgHeight - 10}px`,
-                  transform: 'translate(-50%, 0)',
-                  padding: '5px 8px',
-                  background: 'rgba(7,7,10,0.94)',
-                  border: `0.5px solid ${T.border}`,
-                  color: 'rgba(255,255,255,0.82)',
-                  fontFamily: T.mono,
-                  fontSize: '10px',
-                  whiteSpace: 'nowrap',
-                  pointerEvents: 'none',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
-                }}
-              >
-                {formatHoverTimeLabel(hoveredPoint.timestamp, tf)}
-              </div>
-            </>
-          )}
-
-          <div
-            style={{
-              borderTop: '0.5px solid rgba(255,255,255,0.06)',
-              marginTop: '2px',
-              paddingTop: '8px',
-              position: 'relative',
-              height: '24px',
-            }}
-          >
-            {xLabels.map((label) => (
-              <span
-                key={label.key}
-                style={{
-                  position: 'absolute',
-                  left: `${(label.x / svgWidth) * 100}%`,
-                  transform: 'translateX(-50%)',
-                  fontFamily: T.mono,
-                  fontSize: '9px',
-                  color: T.textMuted,
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {label.label}
-              </span>
-            ))}
+            <div
+              style={{
+                borderTop: '0.5px solid rgba(255,255,255,0.06)',
+                marginTop: '2px',
+                paddingTop: '8px',
+                position: 'relative',
+                height: '24px',
+              }}
+            >
+              {xLabels.map((label) => (
+                <span
+                  key={label.key}
+                  style={{
+                    position: 'absolute',
+                    left: `${(label.x / svgWidth) * 100}%`,
+                    transform: 'translateX(-50%)',
+                    fontFamily: T.mono,
+                    fontSize: '9px',
+                    color: T.textMuted,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {label.label}
+                </span>
+              ))}
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          flex: '0 1 320px',
+          width: '320px',
+          minWidth: '280px',
+          background: 'rgba(255,255,255,0.014)',
+        }}
+      >
+        <div style={{ ...sx.sectionHd, padding: '10px 20px', borderLeft: 'none' }}>
+          <span style={sx.sectionLabel}>Price action</span>
+          <span style={sx.sectionMeta}>{ticker} · {tf}</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))' }}>
+          {stats.map((stat, idx) => (
+            <div
+              key={stat.label}
+              style={{
+                padding: '14px 20px',
+                borderBottom: `0.5px solid ${T.borderSub}`,
+                borderRight: idx % 2 === 0 ? `0.5px solid ${T.borderSub}` : 'none',
+              }}
+            >
+              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+                {stat.label}
+              </div>
+              <div style={{ fontFamily: T.mono, fontSize: '18px', fontWeight: 300, letterSpacing: '-0.4px', color: stat.color }}>
+                {stat.value}
+              </div>
+              {stat.sub && (
+                <div style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted, marginTop: '4px' }}>
+                  {stat.sub}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
