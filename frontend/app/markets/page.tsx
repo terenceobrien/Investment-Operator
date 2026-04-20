@@ -98,35 +98,39 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   type ChartPoint = {
-    idx: number;
-    rawTime: string | number;
-    timestamp: Date;
-    open: number;
-    high: number;
-    low: number;
-    price: number;
-    volume: number;
+  idx: number;
+  rawTime: string | number;
+  timestamp: Date;
+  open: number;
+  high: number;
+  low: number;
+  price: number;
+  volume: number;
   };
 
-  const chartData: ChartPoint[] = useMemo(() => chart.ohlcv.map((d: any, idx: number) => {
-    const rawTime = getTimestamp(d);
-    return {
-      idx,
-      rawTime,
-      timestamp: new Date(rawTime),
-      open: Number(d.Open),
-      high: Number(d.High),
-      low: Number(d.Low),
-      price: Number(d.Close),
-      volume: Number(d.Volume ?? 0),
-    };
-  }), [chart.ohlcv]);
+  const chartData = useMemo<ChartPoint[]>(
+    () =>
+      (chart?.ohlcv ?? []).map((d: any, idx: number) => {
+        const rawTime = getTimestamp(d);
+        return {
+          idx,
+          rawTime,
+          timestamp: new Date(rawTime),
+          open: Number(d.Open),
+          high: Number(d.High),
+          low: Number(d.Low),
+          price: Number(d.Close),
+          volume: Number(d.Volume ?? 0),
+        };
+      }),
+    [chart?.ohlcv]
+  );
 
-  const opens = chartData.map((d) => d.open);
-  const highs = chartData.map((d) => d.high);
-  const lows = chartData.map((d) => d.low);
-  const closes = chartData.map((d) => d.price);
-  const volumes = chartData.map((d) => d.volume);
+  const opens = chartData.map((d: ChartPoint) => d.open);
+  const highs = chartData.map((d: ChartPoint) => d.high);
+  const lows = chartData.map((d: ChartPoint) => d.low);
+  const closes = chartData.map((d: ChartPoint) => d.price);
+  const volumes = chartData.map((d: ChartPoint) => d.volume);
   const first = closes[0];
   const last = closes[closes.length - 1];
   const change = last - first;
