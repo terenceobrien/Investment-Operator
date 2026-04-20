@@ -178,8 +178,13 @@ def _fetch_monetary(inputs: RegimeInputs) -> None:
     # M2 growth YoY
     m2 = _fred("M2SL")
     if not m2.empty:
-        inputs.m2_growth_yoy = _pct_change_yoy(m2)
-        print(f"    m2_growth_yoy={inputs.m2_growth_yoy}")
+        try:
+            s = m2.dropna()
+            if len(s) >= 13:
+                inputs.m2_growth_yoy = round(float((s.iloc[-1] / s.iloc[-13] - 1) * 100), 2)
+                print(f"    m2_growth_yoy={inputs.m2_growth_yoy:.1f}%")
+        except Exception:
+            pass
 
 
 # ── Layer 2: Credit ───────────────────────────────────────────────────────────
@@ -258,7 +263,7 @@ def _fetch_volatility(inputs: RegimeInputs) -> None:
         print(f"    skew={inputs.skew_index}")
 
     # CBOE equity put/call ratio
-    pcr = _yf_close("^PCCE", period="6mo")
+    pcr = _yf_close("^CPC", period="6mo")
     if not pcr.empty:
         s = pcr.dropna()
         if len(s) >= 5:

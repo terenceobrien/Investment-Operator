@@ -368,11 +368,11 @@ def score_breadth(
 
     # % above 200-day MA — most important breadth signal
     if inputs["pct_above_200d"] is not None:
-        s = _scale(inputs["pct_above_200d"], 20.0, 80.0)
+        s = _scale(inputs["pct_above_200d"], 45.0, 100.0)
         components.append(s)
-        if inputs["pct_above_200d"] > 70:
+        if inputs["pct_above_200d"] >= 100:
             signals.append(f"{inputs['pct_above_200d']:.0f}% of stocks above 200d MA — broad participation")
-        elif inputs["pct_above_200d"] < 40:
+        elif inputs["pct_above_200d"] < 50:
             signals.append(f"Only {inputs['pct_above_200d']:.0f}% above 200d MA — narrow market, deteriorating internals")
 
     # New highs minus new lows z-score

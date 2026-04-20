@@ -7,7 +7,6 @@ import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx, pct, formatCurrency, formatNumber } from '@/lib/tokens';
 
 const HORIZONS = ['1D', '1W', '1M', '3M', '6M', '1Y', 'YTD'];
-const TICKERS  = ['SPY', 'QQQ', 'IWM', 'TLT', 'HYG', 'GLD', 'USO', 'BTC-USD'];
 const TFS      = ['1D', '5D', '1M', '3M', 'YTD'];
 
 function heatColor(ret: number | null): { bg: string; text: string } {
@@ -593,24 +592,48 @@ export default function MarketsPage() {
           <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
             <span style={sx.sectionLabel}>Price chart</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              <select
-                value={ticker}
-                onChange={(e) => setTicker(e.target.value)}
-                style={{
-                  fontFamily: T.mono,
-                  fontSize: '12px',
-                  letterSpacing: '0.5px',
-                  color: 'rgba(255,255,255,0.75)',
-                  background: 'transparent',
-                  border: `0.5px solid ${T.border}`,
-                  padding: '5px 8px',
-                  marginRight: '8px',
-                  cursor: 'pointer',
-                  outline: 'none',
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  const val = (e.currentTarget.elements.namedItem('ticker') as HTMLInputElement).value.trim().toUpperCase();
+                  if (val) setTicker(val);
                 }}
+                style={{ display: 'flex', alignItems: 'center', gap: '4px', marginRight: '8px' }}
               >
-                {TICKERS.map((t) => <option key={t} value={t} style={{ background: '#111' }}>{t}</option>)}
-              </select>
+                <input
+                  name="ticker"
+                  defaultValue={ticker}
+                  placeholder="Ticker..."
+                  style={{
+                    fontFamily: T.mono,
+                    fontSize: '12px',
+                    letterSpacing: '0.5px',
+                    color: 'rgba(255,255,255,0.75)',
+                    background: 'transparent',
+                    border: `0.5px solid ${T.border}`,
+                    padding: '5px 8px',
+                    outline: 'none',
+                    width: '80px',
+                    textTransform: 'uppercase',
+                  }}
+                />
+                <button
+                  type="submit"
+                  style={{
+                    fontFamily: T.sans,
+                    fontSize: '11px',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    color: T.textMuted,
+                    background: 'transparent',
+                    border: `0.5px solid ${T.border}`,
+                    padding: '5px 10px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Go
+                </button>
+              </form>
               {TFS.map((t, i) => {
                 const active = tf === t;
                 return (
