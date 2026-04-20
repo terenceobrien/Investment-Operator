@@ -41,7 +41,7 @@ export const sx = {
 
   sectionLabel: {
     fontFamily: T.sans,
-    fontSize: '11px',
+    fontSize: '13px',
     letterSpacing: '1.6px',
     textTransform: 'uppercase',
     color: T.label,
@@ -67,6 +67,52 @@ export const sx = {
     minHeight: '100vh',
     maxWidth: '1600px',
     margin: '0 auto',               // center content on wide screens
+  } as React.CSSProperties,
+
+  pageShell: {
+    padding: '28px 24px 56px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+  } as React.CSSProperties,
+
+  panel: {
+    background: 'rgba(255,255,255,0.022)',
+    border: `1px solid ${T.border}`,
+    borderRadius: T.radius,
+    overflow: 'hidden',
+  } as React.CSSProperties,
+
+  panelHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '12px',
+    padding: '14px 18px',
+    background: 'rgba(255,255,255,0.016)',
+    borderLeft: `2px solid rgba(149,128,212,0.4)`,
+    borderBottom: `1px solid ${T.borderSub}`,
+  } as React.CSSProperties,
+
+  panelBody: {
+    padding: '18px',
+  } as React.CSSProperties,
+
+  subPanel: {
+    background: 'rgba(255,255,255,0.015)',
+    border: `1px solid ${T.borderSub}`,
+    borderRadius: T.radius,
+    overflow: 'hidden',
+  } as React.CSSProperties,
+
+  subPanelHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '12px',
+    padding: '12px 16px',
+    background: 'rgba(255,255,255,0.012)',
+    borderBottom: `1px solid ${T.borderSub}`,
   } as React.CSSProperties,
 
   skeleton: {

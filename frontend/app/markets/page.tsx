@@ -438,219 +438,207 @@ export default function MarketsPage() {
 
   return (
     <main style={sx.main}>
-
-      {/* ── Page header ──────────────────────────────────────────────────── */}
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-        <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
-          <span style={sx.sectionLabel}>Market data</span>
-          <span style={sx.sectionMeta}>Price action · Sector returns · Charts</span>
-        </div>
-      </div>
-
-      {/* ── Horizon selector ─────────────────────────────────────────────── */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 24px',
-        borderBottom: `0.5px solid ${T.border}`,
-        height: '40px',
-        gap: '0',
-        overflowX: 'auto',
-        scrollbarWidth: 'none',
-      }}>
-        {HORIZONS.map((h, i) => {
-          const active = horizon === h;
-          return (
-            <button
-              key={h}
-              onClick={() => setHorizon(h)}
+      <div style={sx.pageShell}>
+        <section style={sx.panel}>
+          <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+            <span style={sx.sectionLabel}>Market data</span>
+            <span style={sx.sectionMeta}>Price action · Sector returns · Charts</span>
+          </div>
+          <div style={{ ...sx.panelBody, paddingTop: '14px' }}>
+            <div
               style={{
-                fontFamily: T.sans,
-                fontSize: '12px',
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
-                color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
-                background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
-                border: 'none',
-                borderRight: `0.5px solid ${T.border}`,
-                borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
-                padding: '0 14px',
-                height: '100%',
-                cursor: 'pointer',
-                fontWeight: active ? 500 : 400,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0',
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
               }}
             >
-              {h}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── Broad market returns ─────────────────────────────────────────── */}
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-        <div style={sx.sectionHd}>
-          <span style={sx.sectionLabel}>Broad market returns</span>
-          <span style={sx.sectionMeta}>{horizon}</span>
-        </div>
-        {heatmapLoading ? (
-          <div style={{ padding: '16px 24px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))', gap: '1px' }}>
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)' }}>
-                  <SkeletonBlock width="58%" height={10} style={{ marginBottom: '8px' }} />
-                  <SkeletonBlock width="44%" height={15} />
-                </div>
-              ))}
+              {HORIZONS.map((h, i) => {
+                const active = horizon === h;
+                return (
+                  <button
+                    key={h}
+                    onClick={() => setHorizon(h)}
+                    style={{
+                      fontFamily: T.sans,
+                      fontSize: '12px',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase',
+                      color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
+                      background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
+                      border: 'none',
+                      borderRight: `0.5px solid ${T.border}`,
+                      borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
+                      padding: '8px 14px',
+                      cursor: 'pointer',
+                      fontWeight: active ? 500 : 400,
+                    }}
+                  >
+                    {h}
+                  </button>
+                );
+              })}
             </div>
           </div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))' }}>
-            {heatmap?.cross?.map((item: any, i: number) => {
-              const { bg, text } = heatColor(item.return);
-              return (
-                <div key={item.ticker} style={{
-                  background: bg,
-                  padding: '14px 16px',
-                  borderRight: i < (heatmap.cross.length - 1) ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '4px',
-                }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
-                    {item.name || item.ticker}
-                  </span>
-                  <span style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
-                    {item.return !== null ? pct(item.return) : '—'}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+        </section>
 
-      {/* ── Sector returns ───────────────────────────────────────────────── */}
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-        <div style={sx.sectionHd}>
-          <span style={sx.sectionLabel}>Sector returns</span>
-          <span style={sx.sectionMeta}>{horizon}</span>
-        </div>
-        {heatmapLoading ? (
-          <div style={{ padding: '16px 24px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px,1fr))', gap: '1px' }}>
-              {Array.from({ length: 11 }).map((_, i) => (
-                <div key={i} style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.02)' }}>
-                  <SkeletonBlock width="64%" height={10} style={{ marginBottom: '8px' }} />
-                  <SkeletonBlock width="42%" height={15} />
-                </div>
-              ))}
-            </div>
+        <section style={sx.panel}>
+          <div style={sx.panelHeader}>
+            <span style={sx.sectionLabel}>Broad market returns</span>
+            <span style={sx.sectionMeta}>{horizon}</span>
           </div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px,1fr))' }}>
-            {heatmap?.sectors?.map((item: any, i: number) => {
-              const { bg, text } = heatColor(item.return);
-              const total = heatmap.sectors.length;
-              return (
-                <div key={item.ticker} style={{
-                  background: bg,
-                  padding: '12px 16px',
-                  borderRight: (i + 1) % 6 !== 0 ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
-                  borderBottom: i < total - 6 ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '4px',
-                }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
-                    {item.name || item.ticker}
-                  </span>
-                  <span style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
-                    {item.return !== null ? pct(item.return) : '—'}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* ── Price chart ──────────────────────────────────────────────────── */}
-      <div>
-        <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
-          <span style={sx.sectionLabel}>Price chart</span>
-          {/* Ticker + timeframe controls inline */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-            <select
-              value={ticker}
-              onChange={e => setTicker(e.target.value)}
-              style={{
-                fontFamily: T.mono,
-                fontSize: '12px',
-                letterSpacing: '0.5px',
-                color: 'rgba(255,255,255,0.75)',
-                background: 'transparent',
-                border: `0.5px solid ${T.border}`,
-                padding: '3px 8px',
-                marginRight: '8px',
-                cursor: 'pointer',
-                outline: 'none',
-              }}
-            >
-              {TICKERS.map(t => <option key={t} value={t} style={{ background: '#111' }}>{t}</option>)}
-            </select>
-            {TFS.map((t, i) => {
-              const active = tf === t;
-              return (
-                <button
-                  key={t}
-                  onClick={() => setTf(t)}
-                  style={{
-                    fontFamily: T.sans,
-                    fontSize: '11px',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
-                    background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
-                    border: 'none',
-                    borderRight: `0.5px solid ${T.border}`,
-                    borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
-                    padding: '3px 10px',
-                    cursor: 'pointer',
-                    fontWeight: active ? 500 : 400,
-                  }}
-                >
-                  {t}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div style={{ padding: '0' }}>
-          {chartLoading ? (
-            <div style={{ padding: '24px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} style={{ padding: '14px 24px', borderRight: i < 3 ? `0.5px solid ${T.border}` : 'none' }}>
-                    <SkeletonBlock width="46%" height={10} style={{ marginBottom: '10px' }} />
-                    <SkeletonBlock width="58%" height={22} />
+          {heatmapLoading ? (
+            <div style={sx.panelBody}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))', gap: '1px' }}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)' }}>
+                    <SkeletonBlock width="58%" height={10} style={{ marginBottom: '8px' }} />
+                    <SkeletonBlock width="44%" height={15} />
                   </div>
                 ))}
               </div>
-              <div style={{ padding: '32px 8px 24px' }}>
-                <SkeletonBlock width="100%" height={420} />
+            </div>
+          ) : (
+            <div style={{ ...sx.panelBody, paddingTop: '0' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))', gap: '12px' }}>
+                {heatmap?.cross?.map((item: any) => {
+                  const { bg, text } = heatColor(item.return);
+                  return (
+                    <div key={item.ticker} style={{ ...sx.subPanel, background: bg }}>
+                      <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
+                          {item.name || item.ticker}
+                        </span>
+                        <span style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
+                          {item.return !== null ? pct(item.return) : '—'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          ) : chart?.ohlcv?.length > 0 ? (
-            <PriceChart chart={chart} ticker={ticker} tf={tf} />
+          )}
+        </section>
+
+        <section style={sx.panel}>
+          <div style={sx.panelHeader}>
+            <span style={sx.sectionLabel}>Sector returns</span>
+            <span style={sx.sectionMeta}>{horizon}</span>
+          </div>
+          {heatmapLoading ? (
+            <div style={sx.panelBody}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(11, minmax(0,1fr))', gap: '1px' }}>
+                {Array.from({ length: 11 }).map((_, i) => (
+                  <div key={i} style={{ padding: '12px 12px', background: 'rgba(255,255,255,0.02)' }}>
+                    <SkeletonBlock width="64%" height={10} style={{ marginBottom: '8px' }} />
+                    <SkeletonBlock width="42%" height={15} />
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
-            <div style={{ padding: '40px 24px' }}>
-              <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
+            <div style={{ ...sx.panelBody, paddingTop: '0' }}>
+              <div style={sx.subPanel}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(11, minmax(0,1fr))' }}>
+                  {heatmap?.sectors?.map((item: any, i: number) => {
+                    const { bg, text } = heatColor(item.return);
+                    return (
+                      <div
+                        key={item.ticker}
+                        style={{
+                          background: bg,
+                          padding: '12px 10px',
+                          borderRight: i < heatmap.sectors.length - 1 ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '4px',
+                        }}
+                      >
+                        <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.4px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
+                          {item.name || item.ticker}
+                        </span>
+                        <span style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
+                          {item.return !== null ? pct(item.return) : '—'}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           )}
-        </div>
-      </div>
+        </section>
 
+        <section style={sx.panel}>
+          <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+            <span style={sx.sectionLabel}>Price chart</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              <select
+                value={ticker}
+                onChange={(e) => setTicker(e.target.value)}
+                style={{
+                  fontFamily: T.mono,
+                  fontSize: '12px',
+                  letterSpacing: '0.5px',
+                  color: 'rgba(255,255,255,0.75)',
+                  background: 'transparent',
+                  border: `0.5px solid ${T.border}`,
+                  padding: '5px 8px',
+                  marginRight: '8px',
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+              >
+                {TICKERS.map((t) => <option key={t} value={t} style={{ background: '#111' }}>{t}</option>)}
+              </select>
+              {TFS.map((t, i) => {
+                const active = tf === t;
+                return (
+                  <button
+                    key={t}
+                    onClick={() => setTf(t)}
+                    style={{
+                      fontFamily: T.sans,
+                      fontSize: '11px',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase',
+                      color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
+                      background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
+                      border: 'none',
+                      borderRight: `0.5px solid ${T.border}`,
+                      borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
+                      padding: '5px 10px',
+                      cursor: 'pointer',
+                      fontWeight: active ? 500 : 400,
+                    }}
+                  >
+                    {t}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div>
+            {chartLoading ? (
+              <div style={sx.panelBody}>
+                <div style={{ padding: '16px 8px 8px' }}>
+                  <SkeletonBlock width="100%" height={420} />
+                </div>
+              </div>
+            ) : chart?.ohlcv?.length > 0 ? (
+              <PriceChart chart={chart} ticker={ticker} tf={tf} />
+            ) : (
+              <div style={{ ...sx.panelBody, padding: '40px 24px' }}>
+                <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
     </main>
   );
 }

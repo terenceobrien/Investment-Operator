@@ -580,152 +580,165 @@ export default function HistoryPage() {
 
   return (
     <main style={sx.main}>
-      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-        <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
-          <span style={sx.sectionLabel}>Market memory</span>
-          <span style={sx.sectionMeta}>Historical analogues · when has the market been here before</span>
-        </div>
-      </div>
-
-      {isLoading && (
-        <div style={{ padding: '24px 0' }}>
-          <div style={{ padding: '0 24px 18px' }}>
-            <SkeletonBlock width="34%" height={12} style={{ marginBottom: '10px' }} />
-            <SkeletonBlock width="52%" height={12} />
+      <div style={sx.pageShell}>
+        <section style={sx.panel}>
+          <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+            <span style={sx.sectionLabel}>Market memory</span>
+            <span style={sx.sectionMeta}>Historical analogues · when has the market been here before</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', borderTop: `0.5px solid ${T.border}` }}>
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} style={{ padding: '14px 20px', borderRight: `0.5px solid ${T.border}` }}>
-                <SkeletonBlock width="42%" height={10} style={{ marginBottom: '10px' }} />
-                <SkeletonBlock width="58%" height={20} style={{ marginBottom: '10px' }} />
-                <SkeletonBlock width="72%" height={10} />
+        </section>
+
+        {isLoading ? (
+          <section style={sx.panel}>
+            <div style={sx.panelBody}>
+              <div style={{ padding: '0 0 18px' }}>
+                <SkeletonBlock width="34%" height={12} style={{ marginBottom: '10px' }} />
+                <SkeletonBlock width="52%" height={12} />
               </div>
-            ))}
-          </div>
-          <SkeletonRows rows={8} columns={4} />
-        </div>
-      )}
-
-      {error && (
-        <div style={{ padding: '40px 24px' }}>
-          <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>Error loading analogues.</span>
-        </div>
-      )}
-
-      {data && (
-        <>
-          <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-            <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
-              <span style={sx.sectionLabel}>Current conditions</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
-                {[10, 15, 20].map((n) => (
-                  <button
-                    key={n}
-                    onClick={() => setTopN(n)}
-                    style={{
-                      fontFamily: T.mono,
-                      fontSize: '12px',
-                      fontWeight: 300,
-                      color: topN === n ? 'rgba(255,255,255,0.9)' : T.textMuted,
-                      background: topN === n ? 'rgba(255,255,255,0.06)' : 'transparent',
-                      border: `0.5px solid ${topN === n ? 'rgba(255,255,255,0.15)' : T.border}`,
-                      padding: '2px 9px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {n}
-                  </button>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', gap: '12px', marginBottom: '12px' }}>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} style={{ ...sx.subPanel, padding: '14px 20px' }}>
+                    <SkeletonBlock width="42%" height={10} style={{ marginBottom: '10px' }} />
+                    <SkeletonBlock width="58%" height={20} style={{ marginBottom: '10px' }} />
+                    <SkeletonBlock width="72%" height={10} />
+                  </div>
                 ))}
               </div>
+              <SkeletonRows rows={8} columns={4} />
             </div>
-            <div style={{ padding: '12px 24px' }}>
-              <div style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
-                {data.conditions_matched}
-              </div>
-              <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>
-                {current?.asof_utc?.slice(0, 10)} · score {formatNumber(current?.score_total, 1)} · VIX {formatNumber(current?.vix_level, 1)} · {current?.sectors_green}/11 sectors green
-              </div>
+          </section>
+        ) : null}
+
+        {error ? (
+          <section style={sx.panel}>
+            <div style={{ ...sx.panelBody, padding: '40px 24px' }}>
+              <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>Error loading analogues.</span>
             </div>
-          </div>
+          </section>
+        ) : null}
 
-          {agg && (
-            <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
-              <div style={sx.sectionHd}>
-                <span style={sx.sectionLabel}>Aggregate outlook</span>
-                <span style={sx.sectionMeta}>{agg.n_analogues} comparable episodes</span>
+        {data ? (
+          <>
+            <section style={sx.panel}>
+              <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+                <span style={sx.sectionLabel}>Current conditions</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
+                  {[10, 15, 20].map((n) => (
+                    <button
+                      key={n}
+                      onClick={() => setTopN(n)}
+                      style={{
+                        fontFamily: T.mono,
+                        fontSize: '12px',
+                        fontWeight: 300,
+                        color: topN === n ? 'rgba(255,255,255,0.9)' : T.textMuted,
+                        background: topN === n ? 'rgba(255,255,255,0.06)' : 'transparent',
+                        border: `0.5px solid ${topN === n ? 'rgba(255,255,255,0.15)' : T.border}`,
+                        padding: '2px 9px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {n}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
-                {(['1d', '5d', '10d', '21d'] as const).map((h) => (
-                  <FwdCard key={h} horizon={h} stats={agg.forward_returns[h]} />
-                ))}
+              <div style={sx.panelBody}>
+                <div style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
+                  {data.conditions_matched}
+                </div>
+                <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>
+                  {current?.asof_utc?.slice(0, 10)} · score {formatNumber(current?.score_total, 1)} · VIX {formatNumber(current?.vix_level, 1)} · {current?.sectors_green}/11 sectors green
+                </div>
               </div>
+            </section>
 
-              {agg.risk_profile && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
-                  {[
-                    { label: '21D risk profile', val: null },
-                    { label: 'Median max DD', val: agg.risk_profile.median_max_drawdown_21d, color: T.dn, fmt: fmtRet },
-                    { label: 'Median max upside', val: agg.risk_profile.median_max_upside_21d, color: T.up, fmt: fmtRet },
-                    { label: 'EV (21d)', val: agg.risk_profile.expected_value_21d, color: (agg.risk_profile.expected_value_21d ?? 0) >= 0 ? T.up : T.dn, fmt: fmtRet },
-                    { label: 'Win rate', val: agg.risk_profile.win_rate_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 1)}%` },
-                    { label: 'Wtd R/R', val: agg.risk_profile.weighted_reward_risk_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 2)}×` },
-                    { label: 'Worst 21D', val: agg.risk_profile.worst_drawdown_21d, color: T.dn, fmt: fmtRet },
-                  ].map(({ label, val, color, fmt }, i) => (
-                    <div key={label} style={{ padding: '12px 20px', borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none' }}>
-                      <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
-                        {label}
+            {agg ? (
+              <section style={sx.panel}>
+                <div style={sx.panelHeader}>
+                  <span style={sx.sectionLabel}>Aggregate outlook</span>
+                  <span style={sx.sectionMeta}>{agg.n_analogues} comparable episodes</span>
+                </div>
+                <div style={{ ...sx.panelBody, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', gap: '12px' }}>
+                    {(['1d', '5d', '10d', '21d'] as const).map((h) => (
+                      <div key={h} style={sx.subPanel}>
+                        <FwdCard horizon={h} stats={agg.forward_returns[h]} />
                       </div>
-                      {val !== null && val !== undefined && fmt && (
-                        <div style={{ fontFamily: T.mono, fontSize: '17px', fontWeight: 300, color: color ?? T.text }}>
-                          {fmt(val)}
-                        </div>
-                      )}
+                    ))}
+                  </div>
+
+                  {agg.risk_profile ? (
+                    <div style={sx.subPanel}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
+                        {[
+                          { label: '21D risk profile', val: null },
+                          { label: 'Median max DD', val: agg.risk_profile.median_max_drawdown_21d, color: T.dn, fmt: fmtRet },
+                          { label: 'Median max upside', val: agg.risk_profile.median_max_upside_21d, color: T.up, fmt: fmtRet },
+                          { label: 'EV (21d)', val: agg.risk_profile.expected_value_21d, color: (agg.risk_profile.expected_value_21d ?? 0) >= 0 ? T.up : T.dn, fmt: fmtRet },
+                          { label: 'Win rate', val: agg.risk_profile.win_rate_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 1)}%` },
+                          { label: 'Wtd R/R', val: agg.risk_profile.weighted_reward_risk_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 2)}×` },
+                          { label: 'Worst 21D', val: agg.risk_profile.worst_drawdown_21d, color: T.dn, fmt: fmtRet },
+                        ].map(({ label, val, color, fmt }, i) => (
+                          <div key={label} style={{ padding: '12px 20px', borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none' }}>
+                            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
+                              {label}
+                            </div>
+                            {val !== null && val !== undefined && fmt ? (
+                              <div style={{ fontFamily: T.mono, fontSize: '17px', fontWeight: 300, color: color ?? T.text }}>
+                                {fmt(val)}
+                              </div>
+                            ) : null}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
+                  ) : null}
                 </div>
-              )}
-            </div>
-          )}
+              </section>
+            ) : null}
 
-          <div>
-            <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
-              <span style={sx.sectionLabel}>Comparable episodes</span>
-              <span style={sx.sectionMeta}>Click any row to expand</span>
-            </div>
-
-            <div style={{ overflowX: 'auto' }}>
-              <div style={{ minWidth: '610px' }}>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px',
-                    padding: '6px 24px',
-                    borderBottom: `0.5px solid ${T.border}`,
-                    background: T.sectionBg,
-                  }}
-                >
-                  {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd'].map((h) => (
-                    <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
-                      {h}
-                    </span>
-                  ))}
-                </div>
-
-                {data.analogues?.map((a: Analogue) => (
-                  <AnalogueRow key={a.date} a={a} isExpanded={expanded === a.date} onToggle={() => toggle(a.date)} />
-                ))}
+            <section style={sx.panel}>
+              <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+                <span style={sx.sectionLabel}>Comparable episodes</span>
+                <span style={sx.sectionMeta}>Click any row to expand</span>
               </div>
-            </div>
+              <div style={sx.panelBody}>
+                <div style={{ overflowX: 'auto' }}>
+                  <div style={{ minWidth: '610px' }}>
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px',
+                        padding: '10px 18px',
+                        borderBottom: `0.5px solid ${T.border}`,
+                        background: T.sectionBg,
+                      }}
+                    >
+                      {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd'].map((h) => (
+                        <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
+                          {h}
+                        </span>
+                      ))}
+                    </div>
 
-            <div style={{ padding: '12px 24px', borderTop: `0.5px solid ${T.borderSub}` }}>
-              <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, lineHeight: 1.5 }}>
-                Analogues ranked by similarity to current conditions (environment + score range + VIX regime + breadth + score momentum).
-              </span>
-            </div>
-          </div>
-        </>
-      )}
+                    {data.analogues?.map((a: Analogue) => (
+                      <AnalogueRow key={a.date} a={a} isExpanded={expanded === a.date} onToggle={() => toggle(a.date)} />
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ padding: '16px 6px 0' }}>
+                  <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, lineHeight: 1.5 }}>
+                    Analogues ranked by similarity to current conditions (environment + score range + VIX regime + breadth + score momentum).
+                  </span>
+                </div>
+              </div>
+            </section>
+          </>
+        ) : null}
+      </div>
     </main>
   );
 }
