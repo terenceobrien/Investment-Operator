@@ -657,6 +657,4 @@ export default function MarketsPage() {
       </div>
     </main>
   );
-    </main>
-  );
 }
