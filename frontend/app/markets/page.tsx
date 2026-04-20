@@ -97,7 +97,18 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const chartData = useMemo(() => chart.ohlcv.map((d: any, idx: number) => {
+  type ChartPoint = {
+    idx: number;
+    rawTime: string | number;
+    timestamp: Date;
+    open: number;
+    high: number;
+    low: number;
+    price: number;
+    volume: number;
+  };
+
+  const chartData: ChartPoint[] = useMemo(() => chart.ohlcv.map((d: any, idx: number) => {
     const rawTime = getTimestamp(d);
     return {
       idx,
