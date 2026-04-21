@@ -57,7 +57,14 @@ export default function RootLayout({
               textAlign: 'center',
             }}
           >
-            Helix is for informational purposes only and does not constitute financial advice. Not affiliated with any broker or financial institution.
+            Helix is for informational purposes only and does not constitute financial advice. Not affiliated with any broker or financial institution.{' '}
+            <a href="/legal/helix_privacy_policy.docx" target="_blank" rel="noreferrer" style={{ color: T.textMuted, textDecoration: 'underline' }}>
+              Privacy Policy
+            </a>{' '}
+            ·{' '}
+            <a href="/legal/helix_terms_of_service.docx" target="_blank" rel="noreferrer" style={{ color: T.textMuted, textDecoration: 'underline' }}>
+              Terms of Service
+            </a>
           </footer>
         </AppShell>
       </body>
