@@ -12,6 +12,7 @@ const links = [
   { href: '/narrative', label: 'Narrative' },
   { href: '/history',   label: 'Memory' },
   { href: '/portfolio', label: 'Portfolio' },
+  { href: '/strategy', label: 'Custom Strategy' },
   { href: '/how-it-works', label: 'How it works' },
 ];
 

@@ -19,6 +19,7 @@ from api.cache import cache
 from api.models import (
     MarketStateOut, DeltaOut, PortfolioOut, NarrativeOut
 )
+from api.strategy_router import strategy_router
 
 from src.state.market_state import (
     build_market_state, save_snapshot, HORIZONS
@@ -34,6 +35,7 @@ from src.narrative.bundle import build_narrative_bundle, top_n_by_channel
 from src.narrative.synth import synthesize_narrative_state, load_latest_narrative_snapshot, save_narrative_snapshot
 
 app = FastAPI(title="Market Intelligence API", version="1.0.0")
+app.include_router(strategy_router)
 
 @app.on_event("startup")
 async def startup_prewarm():

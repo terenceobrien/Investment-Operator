@@ -15,6 +15,7 @@ _caches = {
     "calendar":      TTLCache(maxsize=5,   ttl=3600),
     "regime_state":  TTLCache(maxsize=5,   ttl=3600 * 6),  # 6 hours
     "intraday_tape": TTLCache(maxsize=10,  ttl=300),        # 5 minutes
+    "strategy":      TTLCache(maxsize=20, ttl=600),        # 10 minutes
 }
 
 def cache(bucket: str):
@@ -44,3 +45,4 @@ def clear_regime_cache():
             _caches[bucket].clear()
             cleared += 1
     return cleared
+
