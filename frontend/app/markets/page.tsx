@@ -93,7 +93,7 @@ function formatCompactVolume(value: number | null | undefined): string {
 }
 
 function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: string }) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoverState, setHoverState] = useState<{ x: number; value: number; timestamp: Date } | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   type ChartPoint = {
@@ -191,9 +191,8 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
     return { y, value };
   });
 
-  const hoveredPoint = hoveredIndex !== null ? chartData[hoveredIndex] : null;
-  const hoveredX = hoveredIndex !== null ? xForIndex(hoveredIndex) : null;
-  const hoveredY = hoveredPoint ? yForPrice(hoveredPoint.price) : null;
+  const hoveredX = hoverState?.x ?? null;
+  const hoveredY = hoverState ? yForPrice(hoverState.value) : null;
 
   const rangeValue = priceMax - priceMin;
   const rangePct = priceMin > 0 ? (rangeValue / priceMin) * 100 : null;
@@ -216,15 +215,28 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
 
   const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     const svgRect = svgRef.current?.getBoundingClientRect();
-    if (!svgRect) return;
+    if (!svgRect || chartData.length === 0) return;
 
     const plotLeft = svgRect.left + (padLeft / svgWidth) * svgRect.width;
     const plotRight = svgRect.left + ((svgWidth - padRight) / svgWidth) * svgRect.width;
     const plotPixelWidth = Math.max(plotRight - plotLeft, 1);
-    const clampedX = Math.min(plotRight, Math.max(plotLeft, event.clientX));
-    const ratio = (clampedX - plotLeft) / plotPixelWidth;
-    const idx = Math.round(ratio * Math.max(chartData.length - 1, 1));
-    setHoveredIndex(Math.max(0, Math.min(chartData.length - 1, idx)));
+    const clampedClientX = Math.min(plotRight, Math.max(plotLeft, event.clientX));
+    const ratio = (clampedClientX - plotLeft) / plotPixelWidth;
+    const floatIndex = ratio * Math.max(chartData.length - 1, 1);
+    const leftIndex = Math.floor(floatIndex);
+    const rightIndex = Math.min(chartData.length - 1, Math.ceil(floatIndex));
+    const mix = floatIndex - leftIndex;
+    const leftPoint = chartData[leftIndex];
+    const rightPoint = chartData[rightIndex] ?? leftPoint;
+    const value = leftPoint.price + (rightPoint.price - leftPoint.price) * mix;
+    const leftMs = leftPoint.timestamp.getTime();
+    const rightMs = rightPoint.timestamp.getTime();
+    const timestamp = Number.isFinite(leftMs) && Number.isFinite(rightMs)
+      ? new Date(leftMs + (rightMs - leftMs) * mix)
+      : leftPoint.timestamp;
+    const x = padLeft + ratio * plotWidth;
+
+    setHoverState({ x, value, timestamp });
   };
 
   return (
@@ -292,7 +304,7 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
                 points={points}
               />
 
-              {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+              {hoverState && hoveredX !== null && hoveredY !== null && (
                 <g pointerEvents="none">
                   <line
                     x1={hoveredX}
@@ -319,7 +331,7 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
 
             <div
               onMouseMove={onMouseMove}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseLeave={() => setHoverState(null)}
               style={{
                 position: 'absolute',
                 inset: 0,
@@ -327,7 +339,7 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
               }}
             />
 
-            {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+            {hoverState && hoveredX !== null && hoveredY !== null && (
               <>
                 <div
                   style={{
@@ -346,7 +358,7 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
                     boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
                   }}
                 >
-                  {formatCurrency(hoveredPoint.price)}
+                  {formatCurrency(hoverState.value)}
                 </div>
                 <div
                   style={{
@@ -365,7 +377,7 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
                     boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
                   }}
                 >
-                  {formatHoverTimeLabel(hoveredPoint.timestamp, tf)}
+                  {formatHoverTimeLabel(hoverState.timestamp, tf)}
                 </div>
               </>
             )}

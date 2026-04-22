@@ -621,537 +621,436 @@ export default function StrategyPage() {
 
   return (
     <main style={sx.main}>
-
-      {/* ── Header ── */}
-      <div style={{ borderBottom: `1px solid ${T.border}` }}>
-        <div style={{ ...sx.sectionHd, justifyContent: 'space-between' }}>
-          <span style={sx.sectionLabel}>Custom strategy</span>
-          <span style={sx.sectionMeta}>Tune layer weights + thresholds · backtest against 2021–2026</span>
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 380px) 1fr', minHeight: '80vh' }}>
-
-        {/* ── Left panel: controls ── */}
-        <div style={{ borderRight: `1px solid ${T.border}`, overflowY: 'auto' }}>
-
-          {/* Date range */}
-          <div style={{ padding: '16px 24px', borderBottom: `1px solid ${T.border}` }}>
-            <SectionLabel>Date range</SectionLabel>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}
-                style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
-              <span style={{ color: T.textMuted, fontSize: '12px' }}>→</span>
-              <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
-                placeholder="Today"
-                style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
-            </div>
+      <div style={sx.pageShell}>
+        <section style={sx.panel}>
+          <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+            <span style={sx.sectionLabel}>Custom strategy</span>
+            <span style={sx.sectionMeta}>Tune layer weights + thresholds · backtest against 2021–2026</span>
           </div>
+        </section>
 
-          {/* Layer weights */}
-          <div style={{ padding: '16px 24px', borderBottom: `1px solid ${T.border}` }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <SectionLabel>Layer weights</SectionLabel>
-              {weightWarning && (
-                <span style={{ fontFamily: T.sans, fontSize: '11px', color: T.wa }}>
-                  Sum: {(totalWeight * 100).toFixed(0)}% (auto-normalised)
-                </span>
-              )}
-            </div>
-            {([
-              ['monetary',    'Monetary & liquidity — Fed balance sheet, M2 growth'],
-              ['credit',      'Credit & stress — HY/IG spreads, credit health'],
-              ['volatility',  'Volatility structure — VIX level, term slope, VVIX'],
-              ['breadth',     'Breadth & participation — stocks above 200d MA, sector breadth'],
-              ['positioning', 'Positioning & sentiment — put/call ratio (contrarian)'],
-            ] as [keyof LayerWeights, string][]).map(([key, desc]) => (
-              <WeightSlider key={key} label={key} description={desc}
-                value={weights[key]} onChange={v => setWeight(key, v)} />
-            ))}
-          </div>
-
-          {/* Credit thresholds */}
-          <div style={{ padding: '16px 24px', borderBottom: `1px solid ${T.border}` }}>
-            <SectionLabel>Credit thresholds</SectionLabel>
-            <ThresholdInput label="HY spread tight (bps)" value={thresholds.hy_spread_tight}
-              description="HY spreads below this = maximum credit health"
-              onChange={v => setThreshold('hy_spread_tight', v)} step={10} />
-            <ThresholdInput label="HY spread stressed (bps)" value={thresholds.hy_spread_stressed}
-              description="HY spreads above this = maximum credit stress"
-              onChange={v => setThreshold('hy_spread_stressed', v)} step={10} />
-          </div>
-
-          {/* Volatility thresholds */}
-          <div style={{ padding: '16px 24px', borderBottom: `1px solid ${T.border}` }}>
-            <SectionLabel>Volatility thresholds</SectionLabel>
-            <ThresholdInput label="VIX calm level" value={thresholds.vix_calm}
-              description="VIX below this scores maximum calm"
-              onChange={v => setThreshold('vix_calm', v)} step={0.5} />
-            <ThresholdInput label="VIX stressed level" value={thresholds.vix_stressed}
-              description="VIX above this scores maximum stress"
-              onChange={v => setThreshold('vix_stressed', v)} step={0.5} />
-            <ThresholdInput label="Term backwardation" value={thresholds.vix_term_backwardation}
-              description="VIX3M minus VIX below this = backwardation (crisis signal)"
-              onChange={v => setThreshold('vix_term_backwardation', v)} step={0.5} />
-          </div>
-
-          {/* Breadth thresholds */}
-          <div style={{ padding: '16px 24px', borderBottom: `1px solid ${T.border}` }}>
-            <SectionLabel>Breadth thresholds</SectionLabel>
-            <ThresholdInput label="Breadth strong (%)" value={thresholds.breadth_strong}
-              description="% stocks above 200d MA above this = strong breadth"
-              onChange={v => setThreshold('breadth_strong', v)} />
-            <ThresholdInput label="Breadth weak (%)" value={thresholds.breadth_weak}
-              description="% stocks above 200d MA below this = weak breadth"
-              onChange={v => setThreshold('breadth_weak', v)} />
-            <ThresholdInput label="Sectors strong" value={thresholds.sectors_strong}
-              description="Sectors green above this = strong breadth (0-11)"
-              onChange={v => setThreshold('sectors_strong', v)} />
-          </div>
-
-          {/* Regime classification */}
-          <div style={{ padding: '16px 24px', borderBottom: `1px solid ${T.border}` }}>
-            <SectionLabel>Regime classification</SectionLabel>
-            <ThresholdInput label="Bull score threshold" value={thresholds.bull_score}
-              description="Composite score above this triggers bull classification"
-              onChange={v => setThreshold('bull_score', v)} />
-            <ThresholdInput label="Bear score threshold" value={thresholds.bear_score}
-              description="Composite score below this triggers bear classification"
-              onChange={v => setThreshold('bear_score', v)} />
-            <ThresholdInput label="Chop agreement" value={thresholds.chop_agreement}
-              description="Layer agreement below this triggers Chop (0.0–1.0)"
-              onChange={v => setThreshold('chop_agreement', v)} step={0.05} />
-          </div>
-
-          {/* Actions */}
-          <div style={{ padding: '16px 24px' }}>
-            <button onClick={runBacktest} disabled={loading} style={{
-              width: '100%', padding: '10px', marginBottom: '8px',
-              background: loading ? 'rgba(255,255,255,0.04)' : T.accent,
-              color: loading ? T.textMuted : '#fff', border: 'none',
-              fontFamily: T.sans, fontSize: '13px', fontWeight: 500,
-              letterSpacing: '0.5px', cursor: loading ? 'not-allowed' : 'pointer',
-            }}>
-              {loading ? 'Running backtest...' : 'Run backtest'}
-            </button>
-            <button onClick={resetDefaults} style={{
-              width: '100%', padding: '8px', background: 'transparent',
-              color: T.textMuted, border: `1px solid ${T.border}`,
-              fontFamily: T.sans, fontSize: '12px', cursor: 'pointer',
-            }}>
-              Reset to defaults
-            </button>
-
-            {/* Save config */}
-            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: `1px solid ${T.border}` }}>
-              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
-                Save strategy
+        <section style={sx.panel}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 380px) 1fr', minHeight: '80vh' }}>
+            <div style={{ borderRight: `1px solid ${T.border}`, overflowY: 'auto' }}>
+              <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.border}` }}>
+                <SectionLabel>Date range</SectionLabel>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}
+                    style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
+                  <span style={{ color: T.textMuted, fontSize: '12px' }}>→</span>
+                  <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
+                    placeholder="Today"
+                    style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: '6px' }}>
-                <input value={configName} onChange={e => setConfigName(e.target.value)}
-                  placeholder="Strategy name..."
-                  style={{ flex: 1, fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '6px 8px', outline: 'none' }} />
-                <button onClick={saveConfig} style={{
-                  padding: '6px 12px', background: 'rgba(255,255,255,0.06)', color: T.textSub,
-                  border: `1px solid ${T.border}`, fontFamily: T.sans, fontSize: '12px', cursor: 'pointer',
-                }}>
-                  Save
-                </button>
-              </div>
-              {saved && <p style={{ fontFamily: T.sans, fontSize: '11px', color: T.up, marginTop: '6px' }}>✓ Saved "{saved}"</p>}
-            </div>
-          </div>
-        </div>
 
-        {/* ── Right panel: results ── */}
-        <div style={{ overflowY: 'auto', padding: '24px' }}>
-          {error && (
-            <div style={{ background: 'rgba(184,85,85,0.1)', border: `1px solid ${T.dn}`, padding: '12px 16px', marginBottom: '16px' }}>
-              <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>{error}</span>
-            </div>
-          )}
-
-          {!result && !loading && (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '60vh', textAlign: 'center', gap: '12px' }}>
-              <div style={{ fontFamily: T.sans, fontSize: '15px', color: T.textSub }}>Adjust parameters and run backtest</div>
-              <div style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted, maxWidth: '400px', lineHeight: 1.6 }}>
-                Your custom weights and thresholds will be applied to 2021–2026 market data.
-                Results show how each regime classification performed historically.
-              </div>
-            </div>
-          )}
-
-          {loading && (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>
-              <span style={{ fontFamily: T.mono, fontSize: '13px', color: T.textMuted }}>Running backtest across {(2021 - new Date().getFullYear()) * -252 + 252} trading days...</span>
-            </div>
-          )}
-
-          {result && (
-            <>
-              {/* Summary stats */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px,1fr))', gap: '12px', marginBottom: '24px' }}>
-                {[
-                  { label: 'Trading days', val: result.n_days.toString() },
-                  { label: 'Avg score',    val: formatNumber(result.score_dist.mean, 1) },
-                  { label: 'Bull days',    val: `${result.score_dist.pct_bull.toFixed(1)}%` },
-                  { label: 'Bear days',    val: `${result.score_dist.pct_bear.toFixed(1)}%` },
-                  { label: 'Date range',   val: `${result.date_range.start} → ${result.date_range.end}` },
-                ].map(({ label, val }) => (
-                  <div key={label} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}` }}>
-                    <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>{label}</div>
-                    <div style={{ fontFamily: T.mono, fontSize: '16px', fontWeight: 300, color: T.text }}>{val}</div>
-                  </div>
+              <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.border}` }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <SectionLabel>Layer weights</SectionLabel>
+                  {weightWarning ? (
+                    <span style={{ fontFamily: T.sans, fontSize: '11px', color: T.wa }}>
+                      Sum: {(totalWeight * 100).toFixed(0)}% (auto-normalised)
+                    </span>
+                  ) : null}
+                </div>
+                {([
+                  ['monetary', 'Monetary & liquidity — Fed balance sheet, M2 growth'],
+                  ['credit', 'Credit & stress — HY/IG spreads, credit health'],
+                  ['volatility', 'Volatility structure — VIX level, term slope, VVIX'],
+                  ['breadth', 'Breadth & participation — stocks above 200d MA, sector breadth'],
+                  ['positioning', 'Positioning & sentiment — put/call ratio (contrarian)'],
+                ] as [keyof LayerWeights, string][]).map(([key, desc]) => (
+                  <WeightSlider key={key} label={key} description={desc} value={weights[key]} onChange={v => setWeight(key, v)} />
                 ))}
               </div>
 
-              {/* Score chart (small, inline) */}
-              <ScoreChart series={result.score_series} />
-
-              {/* Environment distribution */}
-              <div style={{ margin: '24px 0 12px' }}>
-                <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.4px', textTransform: 'uppercase', color: T.label, marginBottom: '4px' }}>
-                  Regime classification results
-                </div>
-                <div style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, marginBottom: '16px' }}>
-                  Forward return statistics for each regime under your custom parameters
-                </div>
-                {envOrder
-                  .filter(env => result.env_stats[env])
-                  .map(env => (
-                    <EnvResultCard key={env} env={env} stat={result.env_stats[env]} />
-                  ))}
-                {Object.keys(result.env_stats)
-                  .filter(env => !envOrder.includes(env))
-                  .map(env => (
-                    <EnvResultCard key={env} env={env} stat={result.env_stats[env]} />
-                  ))}
+              <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.border}` }}>
+                <SectionLabel>Credit thresholds</SectionLabel>
+                <ThresholdInput label="HY spread tight (bps)" value={thresholds.hy_spread_tight}
+                  description="HY spreads below this = maximum credit health"
+                  onChange={v => setThreshold('hy_spread_tight', v)} step={10} />
+                <ThresholdInput label="HY spread stressed (bps)" value={thresholds.hy_spread_stressed}
+                  description="HY spreads above this = maximum credit stress"
+                  onChange={v => setThreshold('hy_spread_stressed', v)} step={10} />
               </div>
-            </>
-          )}
-        </div>
-      </div>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          Score Analysis — full-width sections below the backtest grid
-      ══════════════════════════════════════════════════════════════════════ */}
+              <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.border}` }}>
+                <SectionLabel>Volatility thresholds</SectionLabel>
+                <ThresholdInput label="VIX calm level" value={thresholds.vix_calm}
+                  description="VIX below this scores maximum calm"
+                  onChange={v => setThreshold('vix_calm', v)} step={0.5} />
+                <ThresholdInput label="VIX stressed level" value={thresholds.vix_stressed}
+                  description="VIX above this scores maximum stress"
+                  onChange={v => setThreshold('vix_stressed', v)} step={0.5} />
+                <ThresholdInput label="Term backwardation" value={thresholds.vix_term_backwardation}
+                  description="VIX3M minus VIX below this = backwardation (crisis signal)"
+                  onChange={v => setThreshold('vix_term_backwardation', v)} step={0.5} />
+              </div>
 
-      {/* ── Section 1: Score History Chart ── */}
-      <div style={{ borderTop: `1px solid ${T.border}`, padding: '28px 32px 20px' }}>
-        {scoreHistoryLoading && !chartSeries.length ? (
-          <div style={{ ...sx.skeleton, height: '300px', borderRadius: '4px' }} />
-        ) : (
-          <ScoreHistoryChart
-            series={chartSeries}
-            thresholdVal={thresholdVal}
-            isCustom={isCustomScore}
-          />
-        )}
+              <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.border}` }}>
+                <SectionLabel>Breadth thresholds</SectionLabel>
+                <ThresholdInput label="Breadth strong (%)" value={thresholds.breadth_strong}
+                  description="% stocks above 200d MA above this = strong breadth"
+                  onChange={v => setThreshold('breadth_strong', v)} />
+                <ThresholdInput label="Breadth weak (%)" value={thresholds.breadth_weak}
+                  description="% stocks above 200d MA below this = weak breadth"
+                  onChange={v => setThreshold('breadth_weak', v)} />
+                <ThresholdInput label="Sectors strong" value={thresholds.sectors_strong}
+                  description="Sectors green above this = strong breadth (0-11)"
+                  onChange={v => setThreshold('sectors_strong', v)} />
+              </div>
 
-        {/* Regime legend */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '14px' }}>
-          {Object.entries(ENV_COLOR).map(([env, color]) => (
-            <div key={env} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: color, flexShrink: 0 }} />
-              <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.3px' }}>
-                {env}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+              <div style={{ padding: '18px 20px', borderBottom: `1px solid ${T.border}` }}>
+                <SectionLabel>Regime classification</SectionLabel>
+                <ThresholdInput label="Bull score threshold" value={thresholds.bull_score}
+                  description="Composite score above this triggers bull classification"
+                  onChange={v => setThreshold('bull_score', v)} />
+                <ThresholdInput label="Bear score threshold" value={thresholds.bear_score}
+                  description="Composite score below this triggers bear classification"
+                  onChange={v => setThreshold('bear_score', v)} />
+                <ThresholdInput label="Chop agreement" value={thresholds.chop_agreement}
+                  description="Layer agreement below this triggers Chop (0.0–1.0)"
+                  onChange={v => setThreshold('chop_agreement', v)} step={0.05} />
+              </div>
 
-      {/* ── Section 2: Threshold Finder Controls ── */}
-      <div style={{ borderTop: `1px solid ${T.border}`, padding: '20px 32px' }}>
-        <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.4px', textTransform: 'uppercase', color: T.label, marginBottom: '16px' }}>
-          Threshold Finder
-        </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'flex-end' }}>
-
-          {/* Score threshold */}
-          <div>
-            <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>
-              Score
-            </div>
-            <input
-              type="number" min={0} max={100} step={1}
-              value={thresholdVal}
-              onChange={e => setThresholdVal(Math.max(0, Math.min(100, parseFloat(e.target.value) || 0)))}
-              style={numInputStyle}
-            />
-          </div>
-
-          {/* Direction toggle */}
-          <div>
-            <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>
-              Direction
-            </div>
-            <div style={{ display: 'flex' }}>
-              {(['above', 'below'] as const).map(dir => (
-                <button
-                  key={dir}
-                  onClick={() => setThresholdDir(dir)}
-                  style={{
-                    padding: '5px 16px',
-                    fontFamily: T.mono, fontSize: '12px',
-                    color: thresholdDir === dir ? T.accent : T.textMuted,
-                    background: thresholdDir === dir ? `${T.accent}18` : 'rgba(255,255,255,0.03)',
-                    border: `1px solid ${thresholdDir === dir ? `${T.accent}50` : T.border}`,
-                    marginRight: '-1px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {dir}
+              <div style={{ padding: '18px 20px' }}>
+                <button onClick={runBacktest} disabled={loading} style={{
+                  width: '100%', padding: '10px', marginBottom: '8px',
+                  background: loading ? 'rgba(255,255,255,0.04)' : T.accent,
+                  color: loading ? T.textMuted : '#fff', border: 'none',
+                  fontFamily: T.sans, fontSize: '13px', fontWeight: 500,
+                  letterSpacing: '0.5px', cursor: loading ? 'not-allowed' : 'pointer',
+                }}>
+                  {loading ? 'Running backtest...' : 'Run backtest'}
                 </button>
+                <button onClick={resetDefaults} style={{
+                  width: '100%', padding: '8px', background: 'transparent',
+                  color: T.textMuted, border: `1px solid ${T.border}`,
+                  fontFamily: T.sans, fontSize: '12px', cursor: 'pointer',
+                }}>
+                  Reset to defaults
+                </button>
+
+                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: `1px solid ${T.border}` }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+                    Save strategy
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <input value={configName} onChange={e => setConfigName(e.target.value)}
+                      placeholder="Strategy name..."
+                      style={{ flex: 1, fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '6px 8px', outline: 'none' }} />
+                    <button onClick={saveConfig} style={{
+                      padding: '6px 12px', background: 'rgba(255,255,255,0.06)', color: T.textSub,
+                      border: `1px solid ${T.border}`, fontFamily: T.sans, fontSize: '12px', cursor: 'pointer',
+                    }}>
+                      Save
+                    </button>
+                  </div>
+                  {saved ? <p style={{ fontFamily: T.sans, fontSize: '11px', color: T.up, marginTop: '6px' }}>✓ Saved "{saved}"</p> : null}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ overflowY: 'auto', padding: '24px' }}>
+              {error ? (
+                <div style={{ background: 'rgba(184,85,85,0.1)', border: `1px solid ${T.dn}`, padding: '12px 16px', marginBottom: '16px' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>{error}</span>
+                </div>
+              ) : null}
+
+              {!result && !loading ? (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '60vh', textAlign: 'center', gap: '12px' }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '15px', color: T.textSub }}>Adjust parameters and run backtest</div>
+                  <div style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted, maxWidth: '400px', lineHeight: 1.6 }}>
+                    Your custom weights and thresholds will be applied to 2021–2026 market data.
+                    Results show how each regime classification performed historically.
+                  </div>
+                </div>
+              ) : null}
+
+              {loading ? (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '13px', color: T.textMuted }}>Running backtest across {(2021 - new Date().getFullYear()) * -252 + 252} trading days...</span>
+                </div>
+              ) : null}
+
+              {result ? (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px,1fr))', gap: '12px', marginBottom: '24px' }}>
+                    {[
+                      { label: 'Trading days', val: result.n_days.toString() },
+                      { label: 'Avg score', val: formatNumber(result.score_dist.mean, 1) },
+                      { label: 'Bull days', val: `${result.score_dist.pct_bull.toFixed(1)}%` },
+                      { label: 'Bear days', val: `${result.score_dist.pct_bear.toFixed(1)}%` },
+                      { label: 'Date range', val: `${result.date_range.start} → ${result.date_range.end}` },
+                    ].map(({ label, val }) => (
+                      <div key={label} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}` }}>
+                        <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>{label}</div>
+                        <div style={{ fontFamily: T.mono, fontSize: '16px', fontWeight: 300, color: T.text }}>{val}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <ScoreChart series={result.score_series} />
+
+                  <div style={{ margin: '24px 0 12px' }}>
+                    <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.4px', textTransform: 'uppercase', color: T.label, marginBottom: '4px' }}>
+                      Regime classification results
+                    </div>
+                    <div style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, marginBottom: '16px' }}>
+                      Forward return statistics for each regime under your custom parameters
+                    </div>
+                    {envOrder.filter(env => result.env_stats[env]).map(env => (
+                      <EnvResultCard key={env} env={env} stat={result.env_stats[env]} />
+                    ))}
+                    {Object.keys(result.env_stats).filter(env => !envOrder.includes(env)).map(env => (
+                      <EnvResultCard key={env} env={env} stat={result.env_stats[env]} />
+                    ))}
+                  </div>
+                </>
+              ) : null}
+            </div>
+          </div>
+        </section>
+
+        <section style={sx.panel}>
+          <div style={sx.panelHeader}>
+            <span style={sx.sectionLabel}>Score history</span>
+            <span style={sx.sectionMeta}>Regime legend · full history chart</span>
+          </div>
+          <div style={sx.panelBody}>
+            {scoreHistoryLoading && !chartSeries.length ? (
+              <div style={{ ...sx.skeleton, height: '300px', borderRadius: '4px' }} />
+            ) : (
+              <ScoreHistoryChart series={chartSeries} thresholdVal={thresholdVal} isCustom={isCustomScore} />
+            )}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '14px' }}>
+              {Object.entries(ENV_COLOR).map(([env, color]) => (
+                <div key={env} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: color, flexShrink: 0 }} />
+                  <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.3px' }}>{env}</span>
+                </div>
               ))}
             </div>
           </div>
+        </section>
 
-          {/* Secondary condition toggle */}
-          <div>
-            <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>
-              Filter
-            </div>
-            <button
-              onClick={() => setSecEnabled(p => !p)}
-              style={{
-                padding: '5px 14px',
-                fontFamily: T.mono, fontSize: '12px',
-                color: secEnabled ? T.accent : T.textMuted,
-                background: secEnabled ? `${T.accent}18` : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${secEnabled ? `${T.accent}50` : T.border}`,
-                cursor: 'pointer',
-              }}
-            >
-              {secEnabled ? '+ condition on' : '+ condition'}
-            </button>
+        <section style={sx.panel}>
+          <div style={sx.panelHeader}>
+            <span style={sx.sectionLabel}>Threshold finder</span>
+            <span style={sx.sectionMeta}>Filter score conditions and inspect forward paths</span>
           </div>
-
-          {/* Secondary condition inputs */}
-          {secEnabled && (
-            <>
+          <div style={sx.panelBody}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'flex-end' }}>
               <div>
-                <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>
-                  Field
-                </div>
-                <select value={secField} onChange={e => setSecField(e.target.value)} style={selectStyle}>
-                  <option value="vix_level">VIX Level</option>
-                  <option value="hy_spread_level">HY Spreads</option>
-                  <option value="layer_credit">Credit Layer</option>
-                  <option value="layer_volatility">Volatility Layer</option>
-                  <option value="layer_breadth">Breadth Layer</option>
-                </select>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Score</div>
+                <input type="number" min={0} max={100} step={1} value={thresholdVal} onChange={e => setThresholdVal(Math.max(0, Math.min(100, parseFloat(e.target.value) || 0)))} style={numInputStyle} />
               </div>
-              <div>
-                <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>
-                  Operator
-                </div>
-                <select value={secOp} onChange={e => setSecOp(e.target.value)} style={selectStyle}>
-                  <option value="lt">&lt;</option>
-                  <option value="lte">≤</option>
-                  <option value="gt">&gt;</option>
-                  <option value="gte">≥</option>
-                </select>
-              </div>
-              <div>
-                <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>
-                  Value
-                </div>
-                <input
-                  type="number" step="any"
-                  value={secVal}
-                  onChange={e => setSecVal(parseFloat(e.target.value) || 0)}
-                  style={numInputStyle}
-                />
-              </div>
-            </>
-          )}
 
-          {/* Find button */}
-          <button
-            onClick={findInstances}
-            disabled={thresholdLoading}
-            style={{
-              padding: '6px 20px',
-              background: thresholdLoading ? 'rgba(255,255,255,0.04)' : T.accent,
-              color: thresholdLoading ? T.textMuted : '#fff',
-              border: 'none', fontFamily: T.sans, fontSize: '12px', fontWeight: 500,
-              letterSpacing: '0.5px', cursor: thresholdLoading ? 'not-allowed' : 'pointer',
-            }}
-          >
-            {thresholdLoading ? 'Searching...' : 'Find instances'}
-          </button>
+              <div>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Direction</div>
+                <div style={{ display: 'flex' }}>
+                  {(['above', 'below'] as const).map(dir => (
+                    <button key={dir} onClick={() => setThresholdDir(dir)} style={{
+                      padding: '5px 16px', fontFamily: T.mono, fontSize: '12px',
+                      color: thresholdDir === dir ? T.accent : T.textMuted,
+                      background: thresholdDir === dir ? `${T.accent}18` : 'rgba(255,255,255,0.03)',
+                      border: `1px solid ${thresholdDir === dir ? `${T.accent}50` : T.border}`,
+                      marginRight: '-1px', cursor: 'pointer',
+                    }}>
+                      {dir}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-          {/* Instance count badge */}
-          {thresholdResult && !thresholdLoading && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{
-                fontFamily: T.mono, fontSize: '18px', fontWeight: 300,
-                color: thresholdResult.summary.n < 15 ? T.wa : T.text,
-              }}>
-                {thresholdResult.summary.n}
-              </span>
-              <span style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted }}>instances</span>
-              {thresholdResult.summary.n < 15 && (
-                <span style={{
-                  fontFamily: T.sans, fontSize: '10px', color: T.wa,
-                  background: `${T.wa}15`, border: `1px solid ${T.wa}40`,
-                  padding: '2px 8px', letterSpacing: '0.5px',
+              <div>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Filter</div>
+                <button onClick={() => setSecEnabled(p => !p)} style={{
+                  padding: '5px 14px', fontFamily: T.mono, fontSize: '12px',
+                  color: secEnabled ? T.accent : T.textMuted,
+                  background: secEnabled ? `${T.accent}18` : 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${secEnabled ? `${T.accent}50` : T.border}`,
+                  cursor: 'pointer',
                 }}>
-                  Low sample — interpret with caution
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ── Section 3: Fan Chart + Summary + Instance Table ── */}
-      {thresholdResult && !thresholdLoading && (
-        <div style={{ borderTop: `1px solid ${T.border}`, padding: '24px 32px' }}>
-
-          {/* Fan chart + summary side-by-side */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr minmax(260px, 340px)', gap: '24px', marginBottom: '24px' }}>
-
-            {/* Fan chart */}
-            <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
-              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
-                21-Day forward path — {thresholdResult.summary.n} instances
+                  {secEnabled ? '+ condition on' : '+ condition'}
+                </button>
               </div>
-              <FanChart instances={thresholdResult.instances} />
-              <div style={{ display: 'flex', gap: '16px', marginTop: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <div style={{ width: '20px', height: '1px', background: T.accent, opacity: 0.25 }} />
-                  <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted }}>Individual</span>
+
+              {secEnabled ? (
+                <>
+                  <div>
+                    <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Field</div>
+                    <select value={secField} onChange={e => setSecField(e.target.value)} style={selectStyle}>
+                      <option value="vix_level">VIX Level</option>
+                      <option value="hy_spread_level">HY Spreads</option>
+                      <option value="layer_credit">Credit Layer</option>
+                      <option value="layer_volatility">Volatility Layer</option>
+                      <option value="layer_breadth">Breadth Layer</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Operator</div>
+                    <select value={secOp} onChange={e => setSecOp(e.target.value)} style={selectStyle}>
+                      <option value="lt">&lt;</option>
+                      <option value="lte">≤</option>
+                      <option value="gt">&gt;</option>
+                      <option value="gte">≥</option>
+                    </select>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Value</div>
+                    <input type="number" step="any" value={secVal} onChange={e => setSecVal(parseFloat(e.target.value) || 0)} style={numInputStyle} />
+                  </div>
+                </>
+              ) : null}
+
+              <button onClick={findInstances} disabled={thresholdLoading} style={{
+                padding: '6px 20px', background: thresholdLoading ? 'rgba(255,255,255,0.04)' : T.accent,
+                color: thresholdLoading ? T.textMuted : '#fff', border: 'none', fontFamily: T.sans, fontSize: '12px', fontWeight: 500,
+                letterSpacing: '0.5px', cursor: thresholdLoading ? 'not-allowed' : 'pointer',
+              }}>
+                {thresholdLoading ? 'Searching...' : 'Find instances'}
+              </button>
+
+              {thresholdResult && !thresholdLoading ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '18px', fontWeight: 300, color: thresholdResult.summary.n < 15 ? T.wa : T.text }}>
+                    {thresholdResult.summary.n}
+                  </span>
+                  <span style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted }}>instances</span>
+                  {thresholdResult.summary.n < 15 ? (
+                    <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.wa, background: `${T.wa}15`, border: `1px solid ${T.wa}40`, padding: '2px 8px', letterSpacing: '0.5px' }}>
+                      Low sample — interpret with caution
+                    </span>
+                  ) : null}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <div style={{ width: '20px', height: '2px', background: T.accent }} />
-                  <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted }}>Median</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Summary stats */}
-            <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
-              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '14px' }}>
-                Aggregate statistics
-              </div>
-
-              {/* Stats table */}
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr>
-                    <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'left', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>Horizon</th>
-                    <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'right', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>Median</th>
-                    <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'right', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>% Pos</th>
-                    <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'right', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>P25 / P75</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {([['5D', thresholdResult.summary.fwd_5d], ['21D', thresholdResult.summary.fwd_21d], ['63D', thresholdResult.summary.fwd_63d]] as [string, HorizonStats][]).map(([label, stats]) => {
-                    const medianColor = stats.median == null ? T.textMuted : stats.median >= 0 ? T.up : T.dn;
-                    return (
-                      <tr key={label} style={{ borderBottom: `1px solid ${T.borderSub}` }}>
-                        <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textSub, padding: '9px 0' }}>{label}</td>
-                        <td style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: medianColor, textAlign: 'right', padding: '9px 0' }}>
-                          {stats.median != null ? formatAccountingPct(stats.median / 100) : '—'}
-                        </td>
-                        <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textSub, textAlign: 'right', padding: '9px 0' }}>
-                          {stats.pct_positive != null ? `${stats.pct_positive.toFixed(0)}%` : '—'}
-                        </td>
-                        <td style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted, textAlign: 'right', padding: '9px 0' }}>
-                          {stats.p25 != null && stats.p75 != null
-                            ? <><span style={{ color: T.dn }}>{formatAccountingPct(stats.p25 / 100)}</span>{' / '}<span style={{ color: T.up }}>{formatAccountingPct(stats.p75 / 100)}</span></>
-                            : '—'}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-
-              {/* Condition recap */}
-              <div style={{ marginTop: '16px', padding: '10px 12px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}` }}>
-                <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted, lineHeight: 1.6 }}>
-                  <span style={{ color: T.accent }}>{thresholdResult.summary.n}</span> days where score{' '}
-                  <span style={{ color: T.text }}>{thresholdDir}</span>{' '}
-                  <span style={{ color: T.accent }}>{thresholdVal}</span>
-                  {secEnabled && (
-                    <> &amp; <span style={{ color: T.text }}>{secField}</span>{' '}
-                      <span style={{ color: T.text }}>{secOp}</span>{' '}
-                      <span style={{ color: T.accent }}>{secVal}</span>
-                    </>
-                  )}
-                </div>
-              </div>
+              ) : null}
             </div>
           </div>
+        </section>
 
-          {/* Instance table */}
-          <div style={{ background: 'rgba(255,255,255,0.015)', border: `1px solid ${T.border}` }}>
-            <div style={{ padding: '12px 20px', borderBottom: `1px solid ${T.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted }}>
-                Instance detail · sorted newest first
-              </span>
-              <span style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>
-                {thresholdResult.instances.length} rows
-              </span>
+        {thresholdResult && !thresholdLoading ? (
+          <section style={sx.panel}>
+            <div style={sx.panelHeader}>
+              <span style={sx.sectionLabel}>Threshold results</span>
+              <span style={sx.sectionMeta}>{thresholdResult.summary.n} matching instances</span>
             </div>
+            <div style={sx.panelBody}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr minmax(260px, 340px)', gap: '24px', marginBottom: '24px' }}>
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
+                    21-Day forward path — {thresholdResult.summary.n} instances
+                  </div>
+                  <FanChart instances={thresholdResult.instances} />
+                  <div style={{ display: 'flex', gap: '16px', marginTop: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <div style={{ width: '20px', height: '1px', background: T.accent, opacity: 0.25 }} />
+                      <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted }}>Individual</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <div style={{ width: '20px', height: '2px', background: T.accent }} />
+                      <span style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted }}>Median</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div style={{ overflowY: 'auto', maxHeight: '340px' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead style={{ position: 'sticky', top: 0, background: T.bg, zIndex: 1 }}>
-                  <tr>
-                    {['Date', 'Score', 'Environment', 'VIX', '5D', '21D', '63D'].map(col => (
-                      <th key={col} style={{
-                        fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px',
-                        textTransform: 'uppercase', color: T.textMuted, fontWeight: 400,
-                        textAlign: col === 'Date' || col === 'Environment' ? 'left' : 'right',
-                        padding: '8px 16px', borderBottom: `1px solid ${T.border}`,
-                      }}>{col}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {thresholdResult.instances.map((inst, i) => {
-                    const env_color = ENV_COLOR[inst.environment] ?? T.mid;
-                    return (
-                      <tr key={i} style={{ borderBottom: `1px solid ${T.borderSub}` }}>
-                        <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textSub, padding: '7px 16px' }}>
-                          {inst.date}
-                        </td>
-                        <td style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.text, textAlign: 'right', padding: '7px 16px' }}>
-                          {inst.score != null ? inst.score.toFixed(1) : '—'}
-                        </td>
-                        <td style={{ fontFamily: T.sans, fontSize: '11px', color: env_color, padding: '7px 16px', maxWidth: '200px' }}>
-                          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {inst.environment}
-                          </div>
-                        </td>
-                        <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted, textAlign: 'right', padding: '7px 16px' }}>
-                          {inst.vix != null ? inst.vix.toFixed(1) : '—'}
-                        </td>
-                        {([inst.fwd_5d, inst.fwd_21d, inst.fwd_63d] as (number | null)[]).map((val, j) => (
-                          <td key={j} style={{
-                            fontFamily: T.mono, fontSize: '12px', fontWeight: 300,
-                            color: val == null ? T.textMuted : val >= 0 ? T.up : T.dn,
-                            textAlign: 'right', padding: '7px 16px',
-                          }}>
-                            {val != null ? formatAccountingPct(val / 100) : '—'}
-                          </td>
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
+                  <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '14px' }}>
+                    Aggregate statistics
+                  </div>
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                      <tr>
+                        <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'left', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>Horizon</th>
+                        <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'right', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>Median</th>
+                        <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'right', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>% Pos</th>
+                        <th style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: 'right', paddingBottom: '8px', borderBottom: `1px solid ${T.border}` }}>P25 / P75</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {([['5D', thresholdResult.summary.fwd_5d], ['21D', thresholdResult.summary.fwd_21d], ['63D', thresholdResult.summary.fwd_63d]] as [string, HorizonStats][]).map(([label, stats]) => {
+                        const medianColor = stats.median == null ? T.textMuted : stats.median >= 0 ? T.up : T.dn;
+                        return (
+                          <tr key={label} style={{ borderBottom: `1px solid ${T.borderSub}` }}>
+                            <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textSub, padding: '9px 0' }}>{label}</td>
+                            <td style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: medianColor, textAlign: 'right', padding: '9px 0' }}>
+                              {stats.median != null ? formatAccountingPct(stats.median / 100) : '—'}
+                            </td>
+                            <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textSub, textAlign: 'right', padding: '9px 0' }}>
+                              {stats.pct_positive != null ? `${stats.pct_positive.toFixed(0)}%` : '—'}
+                            </td>
+                            <td style={{ fontFamily: T.mono, fontSize: '10px', color: T.textMuted, textAlign: 'right', padding: '9px 0' }}>
+                              {stats.p25 != null && stats.p75 != null
+                                ? <><span style={{ color: T.dn }}>{formatAccountingPct(stats.p25 / 100)}</span>{' / '}<span style={{ color: T.up }}>{formatAccountingPct(stats.p75 / 100)}</span></>
+                                : '—'}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+
+                  <div style={{ marginTop: '16px', padding: '10px 12px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}` }}>
+                    <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted, lineHeight: 1.6 }}>
+                      <span style={{ color: T.accent }}>{thresholdResult.summary.n}</span> days where score{' '}
+                      <span style={{ color: T.text }}>{thresholdDir}</span>{' '}
+                      <span style={{ color: T.accent }}>{thresholdVal}</span>
+                      {secEnabled ? (
+                        <> &amp; <span style={{ color: T.text }}>{secField}</span>{' '}
+                          <span style={{ color: T.text }}>{secOp}</span>{' '}
+                          <span style={{ color: T.accent }}>{secVal}</span>
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ background: 'rgba(255,255,255,0.015)', border: `1px solid ${T.border}` }}>
+                <div style={{ padding: '12px 20px', borderBottom: `1px solid ${T.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted }}>
+                    Instance detail · sorted newest first
+                  </span>
+                  <span style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>
+                    {thresholdResult.instances.length} rows
+                  </span>
+                </div>
+
+                <div style={{ overflowY: 'auto', maxHeight: '340px' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead style={{ position: 'sticky', top: 0, background: T.bg, zIndex: 1 }}>
+                      <tr>
+                        {['Date', 'Score', 'Environment', 'VIX', '5D', '21D', '63D'].map(col => (
+                          <th key={col} style={{ fontFamily: T.sans, fontSize: '9px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, fontWeight: 400, textAlign: col === 'Date' || col === 'Environment' ? 'left' : 'right', padding: '8px 16px', borderBottom: `1px solid ${T.border}` }}>{col}</th>
                         ))}
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody>
+                      {thresholdResult.instances.map((inst, i) => {
+                        const env_color = ENV_COLOR[inst.environment] ?? T.mid;
+                        return (
+                          <tr key={i} style={{ borderBottom: `1px solid ${T.borderSub}` }}>
+                            <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textSub, padding: '7px 16px' }}>{inst.date}</td>
+                            <td style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.text, textAlign: 'right', padding: '7px 16px' }}>{inst.score != null ? inst.score.toFixed(1) : '—'}</td>
+                            <td style={{ fontFamily: T.sans, fontSize: '11px', color: env_color, padding: '7px 16px', maxWidth: '200px' }}><div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{inst.environment}</div></td>
+                            <td style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted, textAlign: 'right', padding: '7px 16px' }}>{inst.vix != null ? inst.vix.toFixed(1) : '—'}</td>
+                            {([inst.fwd_5d, inst.fwd_21d, inst.fwd_63d] as (number | null)[]).map((val, j) => (
+                              <td key={j} style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: val == null ? T.textMuted : val >= 0 ? T.up : T.dn, textAlign: 'right', padding: '7px 16px' }}>
+                                {val != null ? formatAccountingPct(val / 100) : '—'}
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </div>
-
-        </div>
-      )}
-
+          </section>
+        ) : null}
+      </div>
     </main>
   );
 }

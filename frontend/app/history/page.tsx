@@ -141,7 +141,7 @@ function FwdCard({ horizon, stats }: { horizon: string; stats: HorizonStats }) {
 
 function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
   const path = analogue.forward_path ?? [];
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoverState, setHoverState] = useState<{ x: number; value: number; day: number; date: Date } | null>(null);
   if (path.length < 2) {
     return <span style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.textMuted }}>No path data</span>;
   }
@@ -165,18 +165,18 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
   const points = vals.map((value, idx) => `${xForDay(idx + 1)},${yForValue(value)}`).join(' ');
   const yTicks = [-yBound, -yBound / 2, 0, yBound / 2, yBound];
   const xTicks = getEvenTicks(21, 6);
-  const hoveredPoint = hoveredIndex !== null ? path[hoveredIndex] : null;
-  const hoveredValue = hoveredPoint?.ret_pct ?? 0;
-  const hoveredX = hoveredIndex !== null ? xForDay(hoveredIndex + 1) : null;
-  const hoveredY = hoveredIndex !== null ? yForValue(hoveredValue) : null;
+  const hoveredValue = hoverState?.value ?? 0;
+  const hoveredX = hoverState?.x ?? null;
+  const hoveredY = hoverState ? yForValue(hoverState.value) : null;
   const hoveredColor = retColor(hoveredValue);
-  const hoveredDay = hoveredIndex !== null ? hoveredIndex + 1 : null;
-  const hoverDateLabel = hoveredPoint
+  const hoveredDay = hoverState ? Math.max(1, Math.min(totalDays, Math.round(hoverState.day))) : null;
+  const nearestPoint = hoveredDay ? path[Math.min(path.length - 1, hoveredDay - 1)] : null;
+  const hoverDateLabel = nearestPoint
     ? new Intl.DateTimeFormat('en-US', {
         month: '2-digit',
         day: '2-digit',
         year: '2-digit',
-      }).format(new Date(hoveredPoint.date))
+      }).format(new Date(nearestPoint.date))
     : '';
 
   const onMouseMove = (event: MouseEvent<SVGSVGElement>) => {
@@ -184,8 +184,21 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
     const relativeX = ((event.clientX - rect.left) / rect.width) * W;
     const clampedX = Math.min(W - padR, Math.max(padL, relativeX));
     const ratio = (clampedX - padL) / Math.max(innerW, 1);
-    const nextIndex = Math.round(ratio * Math.max(path.length - 1, 1));
-    setHoveredIndex(Math.max(0, Math.min(path.length - 1, nextIndex)));
+    const floatIndex = ratio * Math.max(path.length - 1, 1);
+    const leftIndex = Math.floor(floatIndex);
+    const rightIndex = Math.min(path.length - 1, Math.ceil(floatIndex));
+    const mix = floatIndex - leftIndex;
+    const leftPoint = path[leftIndex];
+    const rightPoint = path[rightIndex] ?? leftPoint;
+    const value = leftPoint.ret_pct + (rightPoint.ret_pct - leftPoint.ret_pct) * mix;
+    const leftMs = new Date(leftPoint.date).getTime();
+    const rightMs = new Date(rightPoint.date).getTime();
+    const date = Number.isFinite(leftMs) && Number.isFinite(rightMs)
+      ? new Date(leftMs + (rightMs - leftMs) * mix)
+      : new Date(leftPoint.date);
+    const day = 1 + ratio * Math.max(totalDays - 1, 1);
+
+    setHoverState({ x: clampedX, value, day, date });
   };
 
   return (
@@ -198,7 +211,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
           viewBox={`0 0 ${W} ${H}`}
           style={{ width: '100%', maxWidth: '100%', height: '238px', display: 'block', overflow: 'visible' }}
           onMouseMove={onMouseMove}
-          onMouseLeave={() => setHoveredIndex(null)}
+          onMouseLeave={() => setHoverState(null)}
         >
           {yTicks.map((tick) => (
             <g key={tick}>
@@ -231,7 +244,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
             strokeLinecap="square"
           />
 
-          {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+          {hoverState && hoveredX !== null && hoveredY !== null && (
             <g pointerEvents="none">
               <line
                 x1={hoveredX}
@@ -280,7 +293,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
           ))}
         </svg>
 
-        {hoveredPoint && hoveredX !== null && hoveredY !== null && (
+        {hoverState && hoveredX !== null && hoveredY !== null && (
           <>
             <div
               style={{
