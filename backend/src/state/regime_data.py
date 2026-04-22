@@ -10,6 +10,7 @@ Missing data is None — the scoring system handles this gracefully.
 from __future__ import annotations
 
 import os
+import requests
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timedelta
 from typing import Optional
@@ -262,15 +263,6 @@ def _fetch_volatility(inputs: RegimeInputs) -> None:
         inputs.skew_index = _safe_last(skew)
         print(f"    skew={inputs.skew_index}")
 
-    # CBOE equity put/call ratio
-    pcr = _yf_close("^CPC", period="6mo")
-    if not pcr.empty:
-        s = pcr.dropna()
-        if len(s) >= 5:
-            inputs.put_call_ratio = float(s.rolling(5).mean().iloc[-1])
-            inputs.put_call_5d_ma = inputs.put_call_ratio
-        print(f"    put_call_ratio_5dma={inputs.put_call_ratio}")
-
 
 # ── Layer 4: Breadth ──────────────────────────────────────────────────────────
 
@@ -323,22 +315,130 @@ def _fetch_breadth(inputs: RegimeInputs, sectors_green: Optional[int] = None) ->
 
 # ── Layer 5: Positioning ──────────────────────────────────────────────────────
 
+def _fetch_cboe_pcr() -> Optional[float]:
+    """
+    Compute equity put/call ratio from SPY options chain via yfinance.
+    Uses the 3 nearest-dated expirations for liquid volume.
+    CBOE's CDN (cdn.cboe.com) enforces Cloudflare and blocks programmatic access;
+    SPY options data from yfinance is the most reliable free-tier substitute.
+    Returns the current-session put/call ratio, or None on failure.
+    """
+    try:
+        import yfinance as yf
+        spy = yf.Ticker("SPY")
+        expirations = spy.options
+        if not expirations:
+            print("    cboe_pcr: no SPY options expirations available")
+            return None
+
+        total_put_vol  = 0.0
+        total_call_vol = 0.0
+        used = 0
+        for exp in expirations[:3]:
+            try:
+                chain = spy.option_chain(exp)
+                total_call_vol += float(chain.calls["volume"].fillna(0).sum())
+                total_put_vol  += float(chain.puts["volume"].fillna(0).sum())
+                used += 1
+            except Exception:
+                continue
+
+        if total_call_vol == 0 or used == 0:
+            print("    cboe_pcr: zero call volume or no valid chains")
+            return None
+
+        result = total_put_vol / total_call_vol
+        print(f"    cboe_equity_pcr_5dma={result:.3f} (SPY options proxy, {used} expirations)")
+        return result
+    except Exception as e:
+        print(f"    cboe_pcr: failed — {e}")
+        return None
+
+
+def _fetch_cftc_cot() -> Optional[float]:
+    """
+    Fetch CFTC Commitment of Traders — large speculator net position in S&P 500 futures.
+    Source: CFTC public reporting Socrata API, dataset jun7-fc8e (legacy COT).
+    Contract: E-MINI S&P 500 (cftc_contract_market_code = 13874A).
+    Returns z-score vs 2-year rolling window, or None on failure.
+    Updates weekly (released every Friday for prior Tuesday data).
+    """
+    try:
+        url = "https://publicreporting.cftc.gov/resource/jun7-fc8e.json"
+        params = {
+            "$where": "cftc_contract_market_code='13874A'",
+            "$order": "report_date_as_yyyy_mm_dd DESC",
+            "$limit": "120",
+        }
+        resp = requests.get(url, params=params, timeout=20)
+        resp.raise_for_status()
+
+        records = resp.json()
+        if not isinstance(records, list) or not records:
+            print(f"    cftc_cot: unexpected response ({type(records).__name__}, len={len(records) if isinstance(records, list) else '?'})")
+            return None
+
+        rows = []
+        for rec in records:
+            try:
+                date_str  = rec.get("report_date_as_yyyy_mm_dd")
+                long_pos  = rec.get("noncomm_positions_long_all")
+                short_pos = rec.get("noncomm_positions_short_all")
+                if not date_str or long_pos is None or short_pos is None:
+                    continue
+                date = pd.to_datetime(date_str, utc=True)
+                net  = float(long_pos) - float(short_pos)
+                rows.append({"date": date, "net": net})
+            except Exception:
+                continue
+
+        if len(rows) < 20:
+            print(f"    cftc_cot: too few valid rows ({len(rows)})")
+            return None
+
+        df_cot = (
+            pd.DataFrame(rows)
+            .sort_values("date")
+            .reset_index(drop=True)
+        )
+        net_series = df_cot.set_index("date")["net"]
+
+        # z-score vs ~2-year rolling window (weekly COT: 104 observations ≈ 2 years)
+        z = _z_score(net_series, window=104)
+        if z is None:
+            print("    cftc_cot: z-score computation failed (insufficient history)")
+            return None
+
+        print(f"    cftc_cot_large_spec_z={z:.3f} (COT data, weekly)")
+        return z
+    except Exception as e:
+        print(f"    cftc_cot: failed — {e}")
+        return None
+
+
 def _fetch_positioning(inputs: RegimeInputs) -> None:
     print("  Fetching positioning & sentiment data...")
 
-    # Put/call 5d MA already fetched in volatility section
-    # inputs.put_call_5d_ma is set there
+    # Put/call ratio from CBOE
+    cboe_pcr = _fetch_cboe_pcr()
+    if cboe_pcr is not None:
+        inputs.put_call_ratio = cboe_pcr
+        inputs.put_call_5d_ma = cboe_pcr
+    else:
+        print("    cboe_pcr: failed — positioning layer will use COT only")
 
-    # AAII sentiment — not available via free API directly
-    # COT data via FRED (CFTC Large Speculator Net Positions)
-    # Series: DCOILWTICO for oil COT, for equity futures use manual fetch
-    # For now: placeholder — integrate SpotGamma or CFTC download separately
-    # These are set to None and will degrade gracefully in scoring
+    # COT large speculator positioning from CFTC
+    cot_z = _fetch_cftc_cot()
+    if cot_z is not None:
+        inputs.cot_net_large_spec_z = cot_z
+    else:
+        print("    cftc_cot: failed — skipping")
 
     print("    dealer_gamma: requires SpotGamma API — skipping")
     print("    aaii_sentiment: requires AAII feed — skipping")
-    print("    cot_data: requires CFTC download — skipping")
-    print("    Note: positioning layer will use available put/call data only")
+
+    populated = sum(1 for v in [inputs.put_call_ratio, inputs.cot_net_large_spec_z] if v is not None)
+    print(f"    Positioning inputs populated: {populated}/2")
 
 
 # ── Main fetch function ───────────────────────────────────────────────────────
