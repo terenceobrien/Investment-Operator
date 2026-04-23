@@ -5,7 +5,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/api';
 import IntradayTape from '@/components/IntradayTape';
-import { SkeletonMetricGrid, SkeletonPanel, SkeletonRows } from '@/components/Skeleton';
+import { SkeletonMetricGrid, SkeletonPanel, SkeletonRows, SkeletonText } from '@/components/Skeleton';
 import {
   T,
   sx,
@@ -620,6 +620,16 @@ export default function Dashboard() {
     revalidateOnFocus: false,
   });
 
+  const { data: macroData, isLoading: macroLoading } = useSWR('/api/brief/macro', fetcher, {
+    refreshInterval: 900000,
+    revalidateOnFocus: false,
+  });
+
+  const { data: summaryData, isLoading: summaryLoading } = useSWR('/api/brief/summary', fetcher, {
+    refreshInterval: 86400000,
+    revalidateOnFocus: false,
+  });
+
   // Which layer card has its description expanded (click toggles; null = all collapsed)
   const [expandedLayer, setExpandedLayer] = useState<string | null>(null);
 
@@ -845,6 +855,157 @@ export default function Dashboard() {
                 />
               );
             })}
+          </div>
+        </PagePanel>
+
+        {/* ── Macro Read ── */}
+        <PagePanel title="Macro Read" meta="Themes · Growth · Inflation · Liquidity">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+            {/* Themes (formerly "What matters today") */}
+            <InsetPanel
+              title="Themes"
+              meta={summaryData?.fallback ? <span style={{ color: T.wa }}>Heuristic — LLM unavailable</span> : undefined}
+            >
+              <div style={{ padding: '2px 0' }}>
+                {summaryLoading ? (
+                  <div style={{ padding: '16px' }}>
+                    <SkeletonText lines={4} widths={['96%', '92%', '88%', '72%']} lineHeight={12} />
+                  </div>
+                ) : summaryData?.summary ? (
+                  summaryData.summary
+                    .split('\n')
+                    .filter((line: string) => line.trim())
+                    .map((line: string, i: number) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: 'flex',
+                          gap: '12px',
+                          padding: '12px 16px',
+                          borderBottom: `0.5px solid ${T.borderSub}`,
+                          alignItems: 'flex-start',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '3px',
+                            height: '3px',
+                            borderRadius: '50%',
+                            background: T.textMuted,
+                            marginTop: '8px',
+                            flexShrink: 0,
+                          }}
+                        />
+                        <p
+                          style={{
+                            fontFamily: T.sans,
+                            fontSize: '14px',
+                            color: 'rgba(255,255,255,0.70)',
+                            lineHeight: 1.65,
+                            margin: 0,
+                          }}
+                        >
+                          {line.trim()}
+                        </p>
+                      </div>
+                    ))
+                ) : (
+                  <div style={{ padding: '16px' }}>
+                    <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>
+                      Summary unavailable.
+                    </span>
+                  </div>
+                )}
+              </div>
+            </InsetPanel>
+
+            {/* Macro regime */}
+            <InsetPanel title="Macro Regime" meta="Growth · Inflation · Liquidity">
+              <div style={{ padding: '14px 16px' }}>
+                {macroLoading ? (
+                  <SkeletonMetricGrid columns={3} items={3} />
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px,1fr))', gap: '10px' }}>
+                    {macroData && Object.entries(macroData).map(([key, signal]: [string, any]) => {
+                      const trend = signal.trend ?? '';
+                      const isUp = trend === 'UP';
+                      const isDown = trend === 'DOWN';
+                      const badgeColor = isUp ? T.up : isDown ? T.dn : T.wa;
+                      return (
+                        <div
+                          key={key}
+                          style={{
+                            background: 'rgba(255,255,255,0.012)',
+                            border: `1px solid ${T.borderSub}`,
+                            borderRadius: '8px',
+                            padding: '16px 18px',
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontFamily: T.sans,
+                              fontSize: '10.5px',
+                              letterSpacing: '1.2px',
+                              textTransform: 'uppercase',
+                              color: T.label,
+                              marginBottom: '8px',
+                            }}
+                          >
+                            {key}
+                          </div>
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              fontFamily: T.sans,
+                              fontSize: '10px',
+                              letterSpacing: '1px',
+                              textTransform: 'uppercase',
+                              padding: '2px 7px',
+                              marginBottom: '10px',
+                              fontWeight: 500,
+                              color: badgeColor,
+                              background: `${badgeColor}10`,
+                              border: `0.5px solid ${badgeColor}40`,
+                            }}
+                          >
+                            {trend || '—'}
+                          </span>
+                          <div
+                            style={{
+                              fontFamily: T.mono,
+                              fontSize: '22px',
+                              fontWeight: 300,
+                              letterSpacing: '-0.5px',
+                              color: badgeColor,
+                              marginBottom: '6px',
+                            }}
+                          >
+                            {signal.latest !== undefined
+                              ? `${signal.latest >= 0 ? '+' : ''}${signal.latest.toFixed(2)}σ`
+                              : '—'}
+                          </div>
+                          <div
+                            style={{
+                              fontFamily: T.mono,
+                              fontSize: '11px',
+                              fontWeight: 300,
+                              color: T.textMuted,
+                              letterSpacing: '0.3px',
+                            }}
+                          >
+                            MoM {signal.mom !== undefined ? (signal.mom >= 0 ? '+' : '') + signal.mom.toFixed(2) : '—'}
+                            {' · '}
+                            YoY {signal.yoy !== undefined ? (signal.yoy >= 0 ? '+' : '') + signal.yoy.toFixed(2) : '—'}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </InsetPanel>
+
           </div>
         </PagePanel>
 

@@ -25,12 +25,13 @@ export default function NavBar() {
       top: 0,
       zIndex: 100,
       background: T.bg,
-      borderBottom: `0.5px solid ${T.border}`,
-      padding: '0 16px',
+      borderBottom: `1px solid rgba(255,255,255,0.09)`,
+      boxShadow: '0 4px 28px rgba(0,0,0,0.72)',
+      padding: '0 20px',
       display: 'flex',
       alignItems: 'center',
-      gap: '12px',
-      minHeight: '44px',
+      gap: '16px',
+      minHeight: '56px',
       overflowX: 'auto',
       scrollbarWidth: 'none',
     }}>
@@ -40,29 +41,31 @@ export default function NavBar() {
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        gap: '9px',
+        gap: '11px',
         textDecoration: 'none',
         flexShrink: 0,
-        marginRight: '0',
+        marginRight: '4px',
       }}>
+        {/* Glow bloom */}
         <div style={{
           position: 'absolute',
-          left: '-48px',
+          left: '-52px',
           top: '50%',
           transform: 'translateY(-50%)',
-          width: '120px',
-          height: '120px',
-          background: 'radial-gradient(circle, rgba(149,128,212,0.12) 0%, rgba(149,128,212,0.04) 42%, transparent 72%)',
+          width: '140px',
+          height: '140px',
+          background: 'radial-gradient(circle, rgba(149,128,212,0.14) 0%, rgba(149,128,212,0.04) 45%, transparent 72%)',
           pointerEvents: 'none',
           zIndex: 0,
         }} />
-        {/* Logo mark — H in a box */}
+        {/* Logo mark — H monogram */}
         <div style={{
           position: 'relative',
           zIndex: 1,
-          width: '22px',
-          height: '22px',
-          border: `0.5px solid rgba(255,255,255,0.2)`,
+          width: '28px',
+          height: '28px',
+          border: `1px solid rgba(149,128,212,0.38)`,
+          background: 'rgba(149,128,212,0.08)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -70,9 +73,9 @@ export default function NavBar() {
         }}>
           <span style={{
             fontFamily: T.mono,
-            fontSize: '13px',
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.9)',
+            fontSize: '15px',
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.93)',
             lineHeight: 1,
           }}>H</span>
         </div>
@@ -81,11 +84,11 @@ export default function NavBar() {
           position: 'relative',
           zIndex: 1,
           fontFamily: T.sans,
-          fontSize: '14px',
-          fontWeight: 500,
-          letterSpacing: '3px',
+          fontSize: '16px',
+          fontWeight: 600,
+          letterSpacing: '5px',
           textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.82)',
+          color: 'rgba(255,255,255,0.88)',
         }}>
           Helix
         </span>
@@ -110,21 +113,21 @@ export default function NavBar() {
               href={href}
               style={{
                 fontFamily: T.sans,
-                fontSize: '12px',
+                fontSize: '11.5px',
                 letterSpacing: '1.2px',
                 textTransform: 'uppercase',
-                color: active ? 'rgba(149,128,212,0.9)' : 'rgba(255,255,255,0.50)',
+                color: active ? 'rgba(149,128,212,0.95)' : 'rgba(255,255,255,0.46)',
                 textDecoration: 'none',
-                padding: '0 13px',
+                padding: '0 14px',
                 display: 'flex',
                 alignItems: 'center',
-                background: active ? 'rgba(255,255,255,0.04)' : 'transparent',
-                boxShadow: active ? 'inset 0 -1px 0 rgba(149,128,212,0.5)' : 'none',
-                borderRight: `0.5px solid ${T.border}`,
-                borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
+                background: active ? 'rgba(149,128,212,0.06)' : 'transparent',
+                boxShadow: active ? 'inset 0 -2px 0 rgba(149,128,212,0.55)' : 'none',
+                borderRight: `0.5px solid rgba(255,255,255,0.06)`,
+                borderLeft: i === 0 ? `0.5px solid rgba(255,255,255,0.06)` : 'none',
                 whiteSpace: 'nowrap',
                 fontWeight: active ? 500 : 400,
-                transition: 'color 0.12s',
+                transition: 'color 0.12s, background 0.12s',
                 flexShrink: 0,
               }}
             >

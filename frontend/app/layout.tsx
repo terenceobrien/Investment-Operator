@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        style={{ margin: 0, background: T.bg, color: T.text }}
+        style={{ margin: 0, background: T.pageBg, color: T.text }}
       >
         <AppShell>
           <div className="temper-page-shell" style={{ minHeight: 'calc(100vh - 88px)' }}>

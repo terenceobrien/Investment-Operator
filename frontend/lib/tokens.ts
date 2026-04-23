@@ -3,6 +3,7 @@
 
 export const T = {
   bg:        '#08080c',
+  pageBg:    '#0e0e14',
   border:    'rgba(255,255,255,0.07)',
   borderSub: 'rgba(255,255,255,0.04)',
   sectionBg: 'rgba(255,255,255,0.024)',
