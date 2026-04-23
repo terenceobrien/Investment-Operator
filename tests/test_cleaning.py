@@ -33,6 +33,27 @@ def test_non_price_sentences_remain():
     assert "Another informative sentence" in out
 
 
+def test_price_action_sentence_is_stripped():
+    text = "AAPL fell 3% today after earnings. Macro backdrop remained unchanged."
+    out = strip_price_move_sentences(text)
+    assert "AAPL fell 3% today after earnings" not in out
+    assert "Macro backdrop remained unchanged" in out
+
+
+def test_macro_rallied_sentence_is_kept():
+    text = "Credit spreads rallied on dovish Fed signals. Liquidity conditions improved."
+    out = strip_price_move_sentences(text)
+    assert "Credit spreads rallied on dovish Fed signals" in out
+    assert "Liquidity conditions improved" in out
+
+
+def test_index_percentage_move_sentence_is_stripped():
+    text = "The index rose 2% after the CPI release. Fed expectations shifted lower."
+    out = strip_price_move_sentences(text)
+    assert "The index rose 2% after the CPI release" not in out
+    assert "Fed expectations shifted lower" in out
+
+
 def test_normalize_whitespace():
     s = "This   has \n multiple\tspaces. "
     assert normalize_whitespace(s) == "This has multiple spaces."

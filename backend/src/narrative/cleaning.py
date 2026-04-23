@@ -7,16 +7,11 @@ from narrative.sources.base import RawTextItem
 # Patterns to detect price / market-move sentences. Edit this list to adjust behavior.
 _PRICE_PATTERNS = [
     r"\b(shares|stock|stocks|index|futures)\b.*\b\d+(\.\d+)?%\b",                    # percentage symbol
+    r"\b(?:[A-Z]{1,5}|shares|stock|stocks|index|futures|yields?)\b[^.!?]{0,40}\b(?:rose|fell|rallied|surged|slipped|moved|gained|lost)\b[^.!?]{0,40}\b\d+(\.\d+)?%\b",
     r"\bpoints\b",
-    r"b(up|down)\b.*\b(shares|stocks|index|futures|yields)\b",  # e.g. "up 5% on the S&P 500"
-    r"\brallied\b",
-    r"\bfell\b",
-    r"\bsurged\b",
-    r"\bslipped\b",
+    r"\b(up|down)\b.*\b(shares|stocks|index|futures|yields)\b",  # e.g. "up 5% on the S&P 500"
     r"rose to",              # phrases with context
     r"fell to",
-    r"\b moved\b",           # e.g. "AAPL moved"
-    r"\b(?:gained|lost)\b",  # index gained/lost
 ]
 
 # compile regexes once for performance / determinism
@@ -53,7 +48,7 @@ def normalize_whitespace(text: str) -> str:
     Collapse consecutive whitespace (including newlines, tabs) into single spaces and trim.
     """
     if text is None:
-        return text
+        return ""
     return re.sub(r"\s+", " ", text).strip()
 
 

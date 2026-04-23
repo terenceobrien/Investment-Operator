@@ -61,7 +61,7 @@ def test_llmscorer_invalid_json_retries_then_fails(monkeypatch):
     monkeypatch.setattr(LLMClient, "complete", fake_complete)
     monkeypatch.setenv("OPENAI_API_KEY", "fake-key")
 
-    scorer = LLMScorer(model="m", prompt_version="v2")
+    scorer = LLMScorer(model="m", prompt_version="v2", max_retries=2)
     score = scorer.score("foo")
 
     # should have attempted twice (initial + repair)

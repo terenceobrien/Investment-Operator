@@ -1,10 +1,11 @@
 from __future__ import annotations
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import json
 import re
 from datetime import datetime
 from hashlib import sha256
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 
 import pandas as pd
 import requests
@@ -105,33 +106,33 @@ def extract_article_text(html: str, url: Optional[str] = None) -> Optional[str]:
 
 
 def enrich_item_with_full_text(item: RawTextItem, cache: Dict[str, Dict], session: requests.Session) -> RawTextItem:
-    # preserve original summary
-    item.metadata = item.metadata or {}
-    item.metadata.setdefault("rss_summary", item.body)
+    metadata = dict(item.metadata or {})
+    metadata.setdefault("rss_summary", item.body)
+    updated_body = item.body
 
     if not item.url:
-        item.metadata["content_type"] = "rss_summary"
-        item.metadata["full_text_extraction_success"] = False
-        item.metadata["article_word_count"] = 0
-        item.metadata["article_fetch_error"] = None
-        return item
+        metadata["content_type"] = "rss_summary"
+        metadata["full_text_extraction_success"] = False
+        metadata["article_word_count"] = 0
+        metadata["article_fetch_error"] = None
+        return item.model_copy(update={"body": updated_body, "metadata": metadata})
 
     url_hash = sha256(item.url.encode("utf-8")).hexdigest()
     if url_hash in cache:
         rec = cache[url_hash]
         if rec.get("extraction_success"):
             extracted = rec.get("extracted_text", "")
-            item.body = extracted or item.body
-            item.metadata["content_type"] = "full_article"
-            item.metadata["full_text_extraction_success"] = True
-            item.metadata["article_word_count"] = rec.get("word_count", 0)
-            item.metadata["article_fetch_error"] = rec.get("error")
+            updated_body = extracted or item.body
+            metadata["content_type"] = "full_article"
+            metadata["full_text_extraction_success"] = True
+            metadata["article_word_count"] = rec.get("word_count", 0)
+            metadata["article_fetch_error"] = rec.get("error")
         else:
-            item.metadata["content_type"] = "rss_summary"
-            item.metadata["full_text_extraction_success"] = False
-            item.metadata["article_word_count"] = rec.get("word_count", 0)
-            item.metadata["article_fetch_error"] = rec.get("error")
-        return item
+            metadata["content_type"] = "rss_summary"
+            metadata["full_text_extraction_success"] = False
+            metadata["article_word_count"] = rec.get("word_count", 0)
+            metadata["article_fetch_error"] = rec.get("error")
+        return item.model_copy(update={"body": updated_body, "metadata": metadata})
 
     # not cached: try to fetch and extract
     rec: Dict[str, Any] = {
@@ -154,54 +155,65 @@ def enrich_item_with_full_text(item: RawTextItem, cache: Dict[str, Dict], sessio
                 wc = len(clean.split())
                 rec["word_count"] = wc
                 if wc > 50 or len(clean) > 300:
-                    item.body = clean
+                    updated_body = clean
                     rec["extraction_success"] = True
                     rec["extracted_text"] = clean
-                    item.metadata["content_type"] = "full_article"
-                    item.metadata["full_text_extraction_success"] = True
-                    item.metadata["article_word_count"] = wc
-                    item.metadata["article_fetch_error"] = None
+                    metadata["content_type"] = "full_article"
+                    metadata["full_text_extraction_success"] = True
+                    metadata["article_word_count"] = wc
+                    metadata["article_fetch_error"] = None
                 else:
-                    item.metadata["content_type"] = "rss_summary"
-                    item.metadata["full_text_extraction_success"] = False
-                    item.metadata["article_word_count"] = wc
-                    item.metadata["article_fetch_error"] = "extracted text too short"
+                    metadata["content_type"] = "rss_summary"
+                    metadata["full_text_extraction_success"] = False
+                    metadata["article_word_count"] = wc
+                    metadata["article_fetch_error"] = "extracted text too short"
             else:
-                item.metadata["content_type"] = "rss_summary"
-                item.metadata["full_text_extraction_success"] = False
-                item.metadata["article_word_count"] = 0
-                item.metadata["article_fetch_error"] = "no extraction"
+                metadata["content_type"] = "rss_summary"
+                metadata["full_text_extraction_success"] = False
+                metadata["article_word_count"] = 0
+                metadata["article_fetch_error"] = "no extraction"
         else:
-            item.metadata["content_type"] = "rss_summary"
-            item.metadata["full_text_extraction_success"] = False
-            item.metadata["article_word_count"] = 0
-            item.metadata["article_fetch_error"] = "fetch failed"
+            metadata["content_type"] = "rss_summary"
+            metadata["full_text_extraction_success"] = False
+            metadata["article_word_count"] = 0
+            metadata["article_fetch_error"] = "fetch failed"
     except Exception as e:  # noqa: BLE001
-        item.metadata["content_type"] = "rss_summary"
-        item.metadata["full_text_extraction_success"] = False
-        item.metadata["article_word_count"] = 0
-        item.metadata["article_fetch_error"] = str(e)
+        metadata["content_type"] = "rss_summary"
+        metadata["full_text_extraction_success"] = False
+        metadata["article_word_count"] = 0
+        metadata["article_fetch_error"] = str(e)
         rec["error"] = str(e)
 
     cache[url_hash] = rec
-    return item
+    return item.model_copy(update={"body": updated_body, "metadata": metadata})
 
 
-def enrich_items(items: List[RawTextItem]) -> List[RawTextItem]:
+def enrich_items(items: List[RawTextItem], max_workers: int = 8) -> List[RawTextItem]:
     if not items:
         return items
     cache = _load_article_cache()
-    session = make_session()
-    updated = []
+    existing_keys = set(cache.keys())
+    updated: List[RawTextItem] = [None] * len(items)  # type: ignore[list-item]
+    merged_cache: Dict[str, Dict] = dict(cache)
+
+    def _worker(idx: int, item: RawTextItem):
+        local_cache = dict(cache)
+        session = make_session()
+        enriched = enrich_item_with_full_text(item, local_cache, session)
+        new_cache_entries = {k: v for k, v in local_cache.items() if k not in cache}
+        return idx, enriched, new_cache_entries
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [executor.submit(_worker, idx, item) for idx, item in enumerate(items)]
+        for future in as_completed(futures):
+            idx, enriched, new_cache_entries = future.result()
+            updated[idx] = enriched
+            merged_cache.update(new_cache_entries)
+
     new_entries: List[Dict] = []
-    for it in items:
-        enriched = enrich_item_with_full_text(it, cache, session)
-        updated.append(enriched)
-    # append any new records (cache now contains all including old)
-    # we can diff but simpler: write whole cache if new entries not empty
-    # compute entries that weren't in original cache by checking a flag
-    for v in cache.values():
-        # existing records remain in cache; we simply persist everything
-        new_entries.append(v)
-    _append_article_cache(new_entries)
+    for key, value in merged_cache.items():
+        if key not in existing_keys:
+            new_entries.append(value)
+    if new_entries:
+        _append_article_cache(new_entries)
     return updated

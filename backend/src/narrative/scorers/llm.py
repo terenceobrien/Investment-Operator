@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 import logging
+import time
 from typing import List, Dict, Any
 
 from .base import BaseScorer, ChunkScore
@@ -139,8 +140,9 @@ class LLMScorer(BaseScorer):
             return msgs
 
         last_exc: Exception | None = None
-        # first pass + one repair attempt
-        for attempt in range(2):
+        for attempt in range(self.max_retries):
+            started = time.perf_counter()
+            success = False
             try:
                 msgs = _make_messages(repair=(attempt > 0))
                 raw = self.client.complete(model=self.model, messages=msgs, temperature=0.0)
@@ -152,14 +154,22 @@ class LLMScorer(BaseScorer):
                     "model": self.model,
                     "prompt_version": self.prompt_version,
                 })
+                success = True
                 return score
             except Exception as exc:  # noqa: BLE001 (catch-all is fine here)
                 last_exc = exc
-                logger.debug("LLMScorer attempt %d failed: %s", attempt + 1, exc)
-                # continue to repair on first failure
                 continue
+            finally:
+                logger.debug(
+                    {
+                        "attempt": attempt + 1,
+                        "model": self.model,
+                        "latency_ms": round((time.perf_counter() - started) * 1000.0, 3),
+                        "success": success,
+                    }
+                )
 
-        # if we reach here, both attempts failed; return zeroed score
+        # if we reach here, all attempts failed; return zeroed score
         reason = str(last_exc) if last_exc is not None else "unknown error"
         metadata: Dict[str, Any] = {
             "model": self.model,

@@ -6,7 +6,19 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+from openai import OpenAI
+
 from src.narrative.schema import NarrativeStateV1
+
+
+_DEFAULT_CLIENT: OpenAI | None = None
+
+
+def _get_default_client() -> OpenAI:
+    global _DEFAULT_CLIENT
+    if _DEFAULT_CLIENT is None:
+        _DEFAULT_CLIENT = OpenAI()
+    return _DEFAULT_CLIENT
 
 
 def _utc_now_iso() -> str:
@@ -245,11 +257,14 @@ def synthesize_narrative_state(
     max_items: int = 80,
     lookback_hours: int = 36,
     model: str = "gpt-4o",
+    client: OpenAI | None = None,
 ) -> Dict[str, Any]:
     """
     Returns a JSON dict matching NarrativeStateV1,
     with stronger delta-aware prompting and item filtering.
     """
+    client = client or _get_default_client()
+
     raw_items = bundle.get("items") or []
     watch_tickers = {str(x).upper() for x in (bundle.get("watch_tickers") or [])}
     compact = [_compact_item(it) for it in raw_items]
@@ -306,8 +321,6 @@ def synthesize_narrative_state(
         },
     }
 
-    from openai import OpenAI
-    client = OpenAI()
     resp = client.beta.chat.completions.parse(
         model=model,
         messages=[

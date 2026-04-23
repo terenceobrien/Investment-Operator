@@ -10,11 +10,37 @@ import {
   T,
   sx,
   formatAccountingPct,
-  formatCurrency,
   formatNumber,
   formatRelativeAge,
   freshnessColor,
 } from '@/lib/tokens';
+
+// ── Layer descriptions (static — shown on hover) ──────────────────────────────
+
+const LAYER_DESCRIPTIONS: Record<string, string> = {
+  monetary:
+    'Measures net Federal Reserve liquidity (balance sheet minus Treasury General Account and overnight reverse repo), NFCI financial conditions index, and M2 money supply growth year-over-year. High score = abundant liquidity, easy financial conditions. Low score = Fed tightening or draining reserves.',
+  credit:
+    'Measures high-yield and investment-grade credit spread levels, 4-week spread momentum, and the HYG/TLT risk-appetite ratio. High score = spreads tight, credit markets healthy, no systemic stress. Low score = spreads widening, credit deteriorating, systemic risk rising.',
+  volatility:
+    'Measures VIX level and its 20-day z-score, VIX term structure slope (positive contango = calm, negative backwardation = crisis), VVIX volatility-of-volatility, equity put/call ratio, and SKEW tail-risk index. High score = calm, normal term structure. Low score = acute fear or inverted term structure.',
+  breadth:
+    'Measures the percentage of S&P 500 stocks trading above their 200-day moving average, new 52-week highs minus lows, green sector ETF count, and RSP vs SPY (equal-weight vs cap-weight outperformance). High score = broad market participation. Low score = narrow leadership or deteriorating internals.',
+  positioning:
+    'Contrarian layer. Measures equity put/call ratio, AAII retail sentiment, CFTC large speculator net positioning in S&P 500 futures (COT data), and dealer gamma exposure. High score = positioning neutral or washed-out (room to run). Low score = crowded longs, complacency, or negative-gamma territory.',
+};
+
+// ── Layer ordering ─────────────────────────────────────────────────────────────
+
+const LAYERS = [
+  { key: 'monetary',    label: 'Monetary & Liquidity' },
+  { key: 'credit',      label: 'Credit & Stress' },
+  { key: 'volatility',  label: 'Volatility Structure' },
+  { key: 'breadth',     label: 'Breadth & Participation' },
+  { key: 'positioning', label: 'Positioning & Sentiment' },
+] as const;
+
+// ── Hooks ──────────────────────────────────────────────────────────────────────
 
 function useCountUp(target: number | undefined | null, duration = 800) {
   const [value, setValue] = useState(0);
@@ -42,10 +68,24 @@ function useCountUp(target: number | undefined | null, duration = 800) {
   return target === undefined || target === null || Number.isNaN(target) ? null : value;
 }
 
+// ── Helpers ────────────────────────────────────────────────────────────────────
+
 function barColor(val: number) {
   if (val >= 6) return T.up;
   if (val >= 4) return T.wa;
   return T.dn;
+}
+
+function statusColor(status: string | undefined): string {
+  if (status === 'bullish') return T.up;
+  if (status === 'bearish') return T.dn;
+  return T.wa;
+}
+
+function statusLabel(status: string | undefined): string {
+  if (status === 'bullish') return '↑ bullish';
+  if (status === 'bearish') return '↓ bearish';
+  return '~ neutral';
 }
 
 function prettyKey(input: string) {
@@ -59,6 +99,8 @@ function prettyTapeCharacter(input?: string | null) {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 }
+
+// ── Style constants ────────────────────────────────────────────────────────────
 
 const pageShell: CSSProperties = {
   padding: '28px 24px 56px',
@@ -91,6 +133,8 @@ const subPanel: CSSProperties = {
   borderRadius: '10px',
   overflow: 'hidden',
 };
+
+// ── Structural components ──────────────────────────────────────────────────────
 
 function PagePanel({
   title,
@@ -264,79 +308,272 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
   );
 }
 
-function MoverRow({
-  ticker,
-  price,
-  change,
+// ── Layer detail card ──────────────────────────────────────────────────────────
+
+function LayerDetailCard({
+  label,
+  score,
+  status,
+  dataQuality,
+  signals,
+  description,
+  expanded,
+  onToggle,
 }: {
-  ticker: string;
-  price: number | undefined;
-  change: number | undefined;
+  label: string;
+  score: number | null | undefined;
+  status: string | undefined;
+  dataQuality: number | undefined;
+  signals: string[];
+  description: string;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
-  const c = (change ?? 0) >= 0 ? T.up : T.dn;
+  const sc = statusColor(status);
+  const fill = score != null ? barColor(score) : T.mid;
+
   return (
     <div
-      className="temper-interactive-row"
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '12px',
-        padding: '12px 16px',
-        borderBottom: `1px solid ${T.borderSub}`,
+        background: 'rgba(255,255,255,0.018)',
+        border: `1px solid ${T.border}`,
+        borderRadius: '10px',
+        overflow: 'hidden',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
+      {/* ── Card header ── */}
+      <div
+        style={{
+          padding: '13px 16px 12px',
+          background: 'rgba(255,255,255,0.012)',
+          borderBottom: `1px solid ${T.borderSub}`,
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          gap: '8px',
+        }}
+      >
+        {/* Layer name + info trigger */}
+        <button
+          onClick={onToggle}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            textAlign: 'left',
+          }}
+          title={expanded ? 'Hide description' : 'Show description'}
+        >
+          <span
+            style={{
+              fontFamily: T.sans,
+              fontSize: '11px',
+              letterSpacing: '1.4px',
+              textTransform: 'uppercase',
+              color: T.label,
+              fontWeight: 500,
+            }}
+          >
+            {label}
+          </span>
+          <span
+            style={{
+              fontFamily: T.sans,
+              fontSize: '12px',
+              color: expanded ? T.accent : T.textMuted,
+              lineHeight: 1,
+              userSelect: 'none',
+              transition: 'color 0.12s',
+            }}
+          >
+            ⓘ
+          </span>
+        </button>
+
+        {/* Status badge + data quality */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            flexShrink: 0,
+            flexWrap: 'wrap',
+            justifyContent: 'flex-end',
+          }}
+        >
+          {dataQuality != null && (
+            <span
+              style={{
+                fontFamily: T.mono,
+                fontSize: '10px',
+                color: T.textMuted,
+                letterSpacing: '0.3px',
+              }}
+            >
+              {Math.round(dataQuality * 100)}% data
+            </span>
+          )}
+          {status && (
+            <span
+              style={{
+                fontFamily: T.mono,
+                fontSize: '10px',
+                letterSpacing: '0.6px',
+                textTransform: 'uppercase',
+                color: sc,
+                background: `${sc}14`,
+                border: `1px solid ${sc}30`,
+                padding: '2px 7px',
+                borderRadius: '4px',
+              }}
+            >
+              {statusLabel(status)}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* ── Inline description (shown on click/hover) ── */}
+      {expanded && (
+        <div
+          style={{
+            padding: '12px 16px',
+            borderBottom: `1px solid ${T.borderSub}`,
+            background: 'rgba(149,128,212,0.04)',
+          }}
+        >
+          <p
+            style={{
+              fontFamily: T.sans,
+              fontSize: '12px',
+              color: T.textSub,
+              margin: 0,
+              lineHeight: 1.65,
+            }}
+          >
+            {description}
+          </p>
+        </div>
+      )}
+
+      {/* ── Score bar ── */}
+      <div
+        style={{
+          padding: '11px 16px',
+          borderBottom: `1px solid ${T.borderSub}`,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: T.sans,
+            fontSize: '10px',
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
+            color: T.textMuted,
+            width: '40px',
+            flexShrink: 0,
+          }}
+        >
+          Score
+        </span>
+        <div
+          style={{
+            flex: 1,
+            height: '2px',
+            background: 'rgba(255,255,255,0.05)',
+            borderRadius: '2px',
+          }}
+        >
+          {score != null && (
+            <div
+              style={{
+                width: `${Math.min((score / 10) * 100, 100)}%`,
+                height: '100%',
+                background: fill,
+                borderRadius: '2px',
+              }}
+            />
+          )}
+        </div>
         <span
           style={{
             fontFamily: T.mono,
             fontSize: '13px',
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.82)',
-            letterSpacing: '0.3px',
-          }}
-        >
-          {ticker}
-        </span>
-        <span
-          style={{
-            fontFamily: T.mono,
-            fontSize: '12px',
             fontWeight: 300,
-            color: T.textMuted,
+            color: score != null ? fill : T.textMuted,
+            width: '36px',
+            textAlign: 'right',
+            flexShrink: 0,
           }}
         >
-          {formatCurrency(price)}
+          {score != null ? formatNumber(score, 1) : '—'}
         </span>
       </div>
-      <span
-        style={{
-          fontFamily: T.mono,
-          fontSize: '12.5px',
-          fontWeight: 300,
-          color: c,
-        }}
-      >
-        {formatAccountingPct(change)}
-      </span>
+
+      {/* ── Signals list ── */}
+      {signals.length > 0 ? (
+        <div>
+          {signals.map((sig, i) => (
+            <div
+              key={i}
+              style={{
+                padding: '9px 16px',
+                borderBottom: i < signals.length - 1 ? `1px solid ${T.borderSub}` : 'none',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '8px',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: T.mono,
+                  fontSize: '11px',
+                  color: T.accent,
+                  marginTop: '2px',
+                  flexShrink: 0,
+                  lineHeight: 1.5,
+                }}
+              >
+                →
+              </span>
+              <span
+                style={{
+                  fontFamily: T.sans,
+                  fontSize: '12px',
+                  color: T.textSub,
+                  lineHeight: 1.55,
+                }}
+              >
+                {sig}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ padding: '12px 16px' }}>
+          <span
+            style={{
+              fontFamily: T.sans,
+              fontSize: '12px',
+              color: T.textMuted,
+            }}
+          >
+            No signals active
+          </span>
+        </div>
+      )}
     </div>
   );
 }
 
-function DetailMessage({ children, tone = 'muted' }: { children: ReactNode; tone?: 'muted' | 'danger' }) {
-  return (
-    <div
-      style={{
-        padding: '16px',
-        color: tone === 'danger' ? T.dn : T.textMuted,
-        fontSize: '12px',
-        fontFamily: T.sans,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+// ── Skeleton ───────────────────────────────────────────────────────────────────
 
 function MarketStateSkeleton() {
   return (
@@ -359,15 +596,18 @@ function MarketStateSkeleton() {
           </div>
         </SkeletonPanel>
         <SkeletonPanel titleWidth="16%" metaWidth="24%">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '16px' }}>
-            <SkeletonRows rows={8} columns={2} />
-            <SkeletonRows rows={8} columns={2} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: '12px' }}>
+            <SkeletonRows rows={4} columns={2} />
+            <SkeletonRows rows={4} columns={2} />
+            <SkeletonRows rows={4} columns={2} />
           </div>
         </SkeletonPanel>
       </div>
     </main>
   );
 }
+
+// ── Main page ──────────────────────────────────────────────────────────────────
 
 export default function Dashboard() {
   const { data: regimeData, error, isLoading } = useSWR('/api/market/regime', fetcher, {
@@ -380,10 +620,8 @@ export default function Dashboard() {
     revalidateOnFocus: false,
   });
 
-  const { data: contextData, error: contextError } = useSWR('/api/market/context', fetcher, {
-    refreshInterval: 300000,
-    revalidateOnFocus: false,
-  });
+  // Which layer card has its description expanded (click toggles; null = all collapsed)
+  const [expandedLayer, setExpandedLayer] = useState<string | null>(null);
 
   const envColor: Record<string, string> = {
     'Risk-On Rotation Day': T.up,
@@ -394,56 +632,44 @@ export default function Dashboard() {
   };
 
   const regime = regimeData ?? {};
-  const tape = tapeData ?? {};
+  const tape   = tapeData ?? {};
 
-  const asof = regime?.asof_date ?? tape?.asof_utc?.slice(0, 10) ?? '—';
-  const horizon = regime?.horizon ?? '1D';
-  const score = regime?.score_total;
-  const env = regime?.environment ?? '—';
+  const asof       = regime?.asof_date ?? tape?.asof_utc?.slice(0, 10) ?? '—';
+  const horizon    = regime?.horizon ?? '1D';
+  const score      = regime?.score_total;
+  const env        = regime?.environment ?? '—';
   const confidence = regime?.confidence;
-  const secGreen = tape?.sectors_green_now ?? regime?.layer_breadth;
-  const vix = regime?.vix_level ?? tape?.vix_now;
-  const vixChg = tape?.vix_vs_close;
+  const secGreen   = tape?.sectors_green_now ?? regime?.layer_breadth;
+  const vix        = regime?.vix_level ?? tape?.vix_now;
+  const vixChg     = tape?.vix_vs_close;
 
   const components =
     regime?.layer_monetary != null
       ? {
-          monetary: regime.layer_monetary,
-          credit: regime.layer_credit,
-          volatility: regime.layer_volatility,
-          breadth: regime.layer_breadth,
+          monetary:    regime.layer_monetary,
+          credit:      regime.layer_credit,
+          volatility:  regime.layer_volatility,
+          breadth:     regime.layer_breadth,
           positioning: regime.layer_positioning,
         }
       : (regime?.score_components ?? {});
 
   const componentEntries = Object.entries(components).filter(([, val]) => val != null) as [string, number][];
 
-  const animatedScore = useCountUp(score, 800);
+  const animatedScore      = useCountUp(score, 800);
   const animatedConfidence = useCountUp(confidence, 800);
-  const animatedVix = useCountUp(vix, 800);
-  const animatedBreadth = useCountUp(secGreen, 800);
+  const animatedVix        = useCountUp(vix, 800);
+  const animatedBreadth    = useCountUp(secGreen, 800);
 
-  const sectorReturns: [string, number][] = Array.isArray(contextData?.sectors)
-    ? contextData.sectors
-        .map((s: any) => [s.name, s.return] as [string, number])
-        .filter(([, r]: [string, number]) => r != null)
-        .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
-    : [];
-
-  const movers: any[] = Array.isArray(contextData?.movers) ? contextData.movers : [];
-  const topSector = sectorReturns[0];
-  const weakestSector = sectorReturns[sectorReturns.length - 1];
   const diagnostics = [
-    { label: 'Environment', value: env, color: envColor[env] ?? T.text },
-    { label: 'Horizon', value: horizon, color: T.text },
-    { label: 'As of', value: asof, color: T.text },
-    { label: 'Confidence', value: confidence != null ? formatNumber(confidence, 0) : '—', color: T.text },
-    { label: 'Breadth', value: secGreen != null ? `${secGreen}/11` : '—', color: T.text },
-    { label: 'VIX', value: vix != null ? formatNumber(vix, 1) : '—', color: T.text },
-    { label: 'VIX vs close', value: vixChg != null ? formatAccountingPct(vixChg) : '—', color: (vixChg ?? 0) >= 0 ? T.dn : T.up },
+    { label: 'Environment',   value: env, color: envColor[env] ?? T.text },
+    { label: 'Horizon',       value: horizon, color: T.text },
+    { label: 'As of',         value: asof, color: T.text },
+    { label: 'Confidence',    value: confidence != null ? formatNumber(confidence, 0) : '—', color: T.text },
+    { label: 'Breadth',       value: secGreen != null ? `${secGreen}/11` : '—', color: T.text },
+    { label: 'VIX',           value: vix != null ? formatNumber(vix, 1) : '—', color: T.text },
+    { label: 'VIX vs close',  value: vixChg != null ? formatAccountingPct(vixChg) : '—', color: (vixChg ?? 0) >= 0 ? T.dn : T.up },
     { label: 'Tape character', value: prettyTapeCharacter(tape?.tape_character), color: T.text },
-    { label: 'Top sector', value: topSector ? `${topSector[0]} · ${formatAccountingPct(topSector[1])}` : '—', color: topSector ? (topSector[1] >= 0 ? T.up : T.dn) : T.textMuted },
-    { label: 'Weakest sector', value: weakestSector ? `${weakestSector[0]} · ${formatAccountingPct(weakestSector[1])}` : '—', color: weakestSector ? (weakestSector[1] >= 0 ? T.up : T.dn) : T.textMuted },
   ];
 
   if (isLoading && !regimeData) return <MarketStateSkeleton />;
@@ -467,6 +693,8 @@ export default function Dashboard() {
   return (
     <main style={sx.main}>
       <div style={pageShell}>
+
+        {/* ── Market state hero ── */}
         <PagePanel
           title="Market state"
           meta={
@@ -519,10 +747,12 @@ export default function Dashboard() {
           </div>
         </PagePanel>
 
+        {/* ── Primary market read ── */}
         <PagePanel title="Primary market read" meta="Tape · Cross-asset context · Sector leadership">
           <IntradayTape data={tapeData} fetch={false} loading={tapeLoading} hasError={!!tapeError} />
         </PagePanel>
 
+        {/* ── Secondary diagnostics ── */}
         <PagePanel title="Secondary diagnostics" meta="Scoring framework · Regime diagnostics">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '16px' }}>
             <InsetPanel title="Score components" meta={`${componentEntries.length} active`}>
@@ -574,68 +804,50 @@ export default function Dashboard() {
           </div>
         </PagePanel>
 
-        <PagePanel title="Signal detail" meta="Decision layer above · Drill-down tables below">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px,1fr))', gap: '16px' }}>
-            <InsetPanel title="Sector returns" meta="1D leadership table">
-              <div>
-                {sectorReturns.length > 0 ? (
-                  sectorReturns.map(([name, ret]) => (
-                    <div
-                      key={name}
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '12px',
-                        padding: '12px 16px',
-                        borderBottom: `1px solid ${T.borderSub}`,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: T.sans,
-                          fontSize: '11.5px',
-                          letterSpacing: '0.3px',
-                          color: T.textSub,
-                        }}
-                      >
-                        {name}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: T.mono,
-                          fontSize: '12.5px',
-                          fontWeight: 300,
-                          color: ret >= 0 ? T.up : T.dn,
-                        }}
-                      >
-                        {formatAccountingPct(ret)}
-                      </span>
-                    </div>
-                  ))
-                ) : contextError ? (
-                  <DetailMessage tone="danger">Sector data unavailable.</DetailMessage>
-                ) : (
-                  <DetailMessage>Loading sectors...</DetailMessage>
-                )}
-              </div>
-            </InsetPanel>
+        {/* ── Layer detail ── */}
+        <PagePanel
+          title="Layer detail"
+          meta="Per-layer scoring breakdown · click ⓘ on any layer for a description"
+        >
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))',
+              gap: '12px',
+            }}
+          >
+            {LAYERS.map(({ key, label }) => {
+              const layerScore: number | null | undefined =
+                key === 'monetary'    ? regime.layer_monetary    :
+                key === 'credit'      ? regime.layer_credit      :
+                key === 'volatility'  ? regime.layer_volatility  :
+                key === 'breadth'     ? regime.layer_breadth     :
+                                        regime.layer_positioning;
 
-            <InsetPanel title="Market moves" meta="Last · 1D change">
-              <div>
-                {movers.length > 0 ? (
-                  movers.map((m: any) => (
-                    <MoverRow key={m.ticker} ticker={m.ticker} price={m.last} change={m.chg_pct_1d ?? m.change_pct_1d} />
-                  ))
-                ) : contextError ? (
-                  <DetailMessage tone="danger">Market moves unavailable.</DetailMessage>
-                ) : (
-                  <DetailMessage>Loading movers...</DetailMessage>
-                )}
-              </div>
-            </InsetPanel>
+              const signals: string[] = Array.isArray(regime.layer_signals?.[key])
+                ? (regime.layer_signals[key] as string[])
+                : [];
+
+              const layerStatus: string | undefined = regime.layer_statuses?.[key];
+              const dq: number | undefined           = regime.layer_data_quality?.[key];
+
+              return (
+                <LayerDetailCard
+                  key={key}
+                  label={label}
+                  score={layerScore}
+                  status={layerStatus}
+                  dataQuality={dq}
+                  signals={signals}
+                  description={LAYER_DESCRIPTIONS[key]}
+                  expanded={expandedLayer === key}
+                  onToggle={() => setExpandedLayer(prev => prev === key ? null : key)}
+                />
+              );
+            })}
           </div>
         </PagePanel>
+
       </div>
     </main>
   );

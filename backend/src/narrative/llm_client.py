@@ -27,12 +27,10 @@ class LLMClient:
 
         ``messages`` should be a list of dicts in the OpenAI chat format.
         """
-        resp = self._client.responses.create(
+        resp = self._client.chat.completions.create(
             model=model,
-            input=messages,
+            messages=messages,
             temperature=temperature,
             timeout=self.timeout,
         )
-        # ``output_text`` is the convenience property that concatenates all
-        # generated text pieces into one string.
-        return resp.output_text
+        return resp.choices[0].message.content

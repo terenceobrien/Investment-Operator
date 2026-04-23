@@ -6,6 +6,8 @@ import math
 import pandas as pd
 import logging
 from hashlib import sha256
+import numpy as np
+from scipy.stats import trim_mean
 
 from narrative.sources import LocalFileSource, BaseSource, RawTextItem
 # enrichment may be optional in tests
@@ -188,6 +190,7 @@ def build_narrative_scores(
     items: List[RawTextItem] = []
     parse_errors_total = 0
     fetched_per_source: Dict[str, int] = {}
+    article_enrichment_success_rate = None
     for src in sources:
         fetched = src.fetch(start=fetch_start, end=fetch_end)
         items.extend(fetched)
@@ -205,6 +208,14 @@ def build_narrative_scores(
             # enrichment is best-effort; ignore failures
             pass
 
+    enrichment_flags = [
+        bool((it.metadata or {}).get("full_text_extraction_success"))
+        for it in items
+        if "full_text_extraction_success" in (it.metadata or {})
+    ]
+    if enrichment_flags:
+        article_enrichment_success_rate = float(sum(enrichment_flags)) / len(enrichment_flags)
+
     deduped = dedupe_items(items)
     logger.info("Deduped items: %d -> %d", len(items), len(deduped))
 
@@ -216,11 +227,12 @@ def build_narrative_scores(
     days = _date_range_weekdays(start_date, end_date)
 
     scorer_type = os.getenv("NARRATIVE_SCORER", "stub").lower()
+    model = ""
+    prompt_ver = os.getenv("NARRATIVE_PROMPT_VERSION", "v1")
     if scorer_type == "llm":
         model = os.getenv("NARRATIVE_LLM_MODEL")
         if not model:
             raise RuntimeError("NARRATIVE_LLM_MODEL must be set when using llm scorer")
-        prompt_ver = os.getenv("NARRATIVE_PROMPT_VERSION", "v1")
         from narrative.scorers.llm import LLMScorer
         scorer = LLMScorer(model=model, prompt_version=prompt_ver)
     else:
@@ -234,6 +246,7 @@ def build_narrative_scores(
     rows = []
     total_chunks = 0
     total_items_with_chunks = 0
+    llm_call_count = 0
 
     for d in days:
         day_items = buckets.get(d, [])
@@ -252,7 +265,7 @@ def build_narrative_scores(
             total_chunks += len(chunks)
 
             for ch in chunks:
-                ch_hash = sha256(ch.encode("utf-8")).hexdigest()
+                ch_hash = sha256(f"{scorer_type}:{model}:{prompt_ver}:{ch}".encode()).hexdigest()
                 cache_total += 1
 
                 if ch_hash in cache:
@@ -261,6 +274,7 @@ def build_narrative_scores(
                     chunk_scores.append(sc_dict)
                 else:
                     sc = scorer.score(ch)
+                    llm_call_count += 1
                     scd = {
                         "tone": int(sc.tone),
                         "uncertainty": int(sc.uncertainty),
@@ -289,6 +303,8 @@ def build_narrative_scores(
             }
 
             tone_mean = float(sum(tones) / len(tones))
+            tone_trimmed_mean = float(trim_mean(tones, 0.1))
+            tone_tail_risk = float(np.percentile(tones, 10))
             unc_mean = float(sum(uncerts) / len(uncerts))
             theme_means = {k: float(sum(v) / len(v)) for k, v in themes.items()}
 
@@ -306,6 +322,8 @@ def build_narrative_scores(
             cohesion = 3.0 - theme_dispersion_clipped
         else:
             tone_mean = float("nan")
+            tone_trimmed_mean = float("nan")
+            tone_tail_risk = float("nan")
             unc_mean = float("nan")
             theme_means = {k: float("nan") for k in _THEME_KEYS}
             conviction = float("nan")
@@ -318,6 +336,8 @@ def build_narrative_scores(
             "date": d.isoformat(),
             "scorer_type": scorer_type.upper(),
             "tone": tone_mean,
+            "tone_trimmed_mean": tone_trimmed_mean,
+            "tone_tail_risk": tone_tail_risk,
             "uncertainty": unc_mean,
             "theme_ai": theme_means["ai"],
             "theme_inflation": theme_means["inflation"],
@@ -344,6 +364,8 @@ def build_narrative_scores(
         "date",
         "scorer_type",
         "tone",
+        "tone_trimmed_mean",
+        "tone_tail_risk",
         "uncertainty",
         "theme_ai",
         "theme_inflation",
@@ -363,6 +385,23 @@ def build_narrative_scores(
     df = df[cols]
 
     df = add_normalized_columns(df)
+    z_cols = [c for c in df.columns if c.startswith("z_") and c != "z_is_expanding"]
+    if z_cols:
+        text_rows = df["has_text"] == 1
+        nan_z_mask = df.loc[text_rows, z_cols].isna().any(axis=1)
+        if bool(nan_z_mask.any()):
+            nan_dates = df.loc[text_rows].loc[nan_z_mask, "date"]
+            logger.warning(
+                "NaN z-score values found for text-bearing rows between %s and %s",
+                nan_dates.min(),
+                nan_dates.max(),
+            )
+            raise AssertionError(
+                f"NaN z-score values found for text-bearing rows between {nan_dates.min()} and {nan_dates.max()}"
+            )
+        days_with_nan_zscore = int(nan_z_mask.sum())
+    else:
+        days_with_nan_zscore = 0
 
     out_dir = os.path.join("data", "narrative")
     os.makedirs(out_dir, exist_ok=True)
@@ -389,6 +428,19 @@ def build_narrative_scores(
         avg_chunks_per_item,
         cache_hit_rate,
         top_sources,
+    )
+
+    logger.info(
+        {
+            "total_items_fetched": len(items),
+            "total_items_deduped": len(deduped),
+            "total_chunks_scored": total_chunks,
+            "cache_hit_rate": cache_hit_rate,
+            "llm_call_count": llm_call_count,
+            "article_enrichment_success_rate": article_enrichment_success_rate,
+            "days_with_text": days_with_text,
+            "days_with_nan_zscore": days_with_nan_zscore,
+        }
     )
 
     return df
