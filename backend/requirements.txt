@@ -16,6 +16,8 @@ streamlit
 plotly
 scikit-learn
 scipy
+matplotlib
+pytrends
 apscheduler
 beautifulsoup4
 gitpython

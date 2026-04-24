@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import asyncio
 import io
+import json
+import logging
 import sys
 import uuid
 from pathlib import Path
@@ -34,13 +36,16 @@ from src.brief.what_matters import generate_what_matters_today, heuristic_what_m
 from src.narrative.bundle import build_narrative_bundle, top_n_by_channel
 from src.narrative.synth import synthesize_narrative_state, load_latest_narrative_snapshot, save_narrative_snapshot
 
+logger = logging.getLogger("api.main")
+
 app = FastAPI(title="Market Intelligence API", version="1.0.0")
 app.include_router(strategy_router)
 
 @app.on_event("startup")
 async def startup_prewarm():
-    """Build today's regime snapshot in background at startup."""
+    """Build today's regime snapshot in background at startup, then schedule daily trend scan."""
     import asyncio
+
     async def _build():
         try:
             from src.state.regime_state import RegimeState, build_regime_state
@@ -52,7 +57,57 @@ async def startup_prewarm():
                 print("Regime state ready.")
         except Exception as e:
             print(f"Prewarm failed: {e}")
+
     asyncio.create_task(_build())
+    asyncio.create_task(_schedule_daily_trend_scan())
+
+
+def _seconds_until_next_630pm_eastern() -> float:
+    """Return seconds until the next 6:30 PM US/Eastern wall-clock time."""
+    import zoneinfo
+    eastern = zoneinfo.ZoneInfo("America/New_York")
+    now_et = datetime.now(tz=eastern)
+    target = now_et.replace(hour=18, minute=30, second=0, microsecond=0)
+    if now_et >= target:
+        target += timedelta(days=1)
+    return (target - now_et).total_seconds()
+
+
+async def _run_daily_trend_scan() -> None:
+    """Load latest narrative snapshot and run trend scan. Logs all outcomes."""
+    import time as _time
+    from src.narrative.trends import run_trend_scan, save_scan_result
+    t0 = _time.monotonic()
+    today = date.today().isoformat()
+    logger.info("Daily trend scan starting (date=%s)", today)
+    try:
+        _, snapshot = load_latest_narrative_snapshot(SNAPSHOT_DIR, today)
+        result = await asyncio.to_thread(
+            run_trend_scan,
+            snapshot=snapshot,
+            snapshot_date=today,
+        )
+        await asyncio.to_thread(save_scan_result, result, TRENDS_OUTPUT_DIR)
+        elapsed = _time.monotonic() - t0
+        logger.info(
+            "Daily trend scan complete in %.1fs — static=%d dynamic=%d aligned=%d diverging=%d",
+            elapsed,
+            len(result.static_signals),
+            len(result.dynamic_signals),
+            len(result.aligned_signals()),
+            len(result.diverging_signals()),
+        )
+    except Exception as exc:
+        logger.error("Daily trend scan failed: %s", exc, exc_info=False)
+
+
+async def _schedule_daily_trend_scan() -> None:
+    """Background loop: fire _run_daily_trend_scan every day at 6:30 PM Eastern."""
+    while True:
+        wait = _seconds_until_next_630pm_eastern()
+        logger.info("Next daily trend scan in %.0fs (%.1f hours)", wait, wait / 3600)
+        await asyncio.sleep(wait)
+        await _run_daily_trend_scan()
 
 app.add_middleware(
     CORSMiddleware,
@@ -590,6 +645,100 @@ async def get_conditional():
 
 # ── Add this to backend/api/main.py ──────────────────────────────────────────
 # Place alongside your other endpoints
+
+# ── Trends endpoints ──────────────────────────────────────────────────────────
+
+TRENDS_OUTPUT_DIR = "data/narrative/trends"
+
+
+@app.get("/api/narrative/trends/scan")
+async def trends_scan(
+    snapshot_date: Optional[str] = Query(None, description="YYYY-MM-DD; defaults to today"),
+    skip_static: bool = Query(False),
+    skip_dynamic: bool = Query(False),
+):
+    from src.narrative.trends import run_trend_scan, save_scan_result
+    today = snapshot_date or datetime.now().strftime("%Y-%m-%d")
+    _, snapshot = load_latest_narrative_snapshot(SNAPSHOT_DIR, today)
+
+    result = await asyncio.to_thread(
+        run_trend_scan,
+        snapshot=snapshot,
+        snapshot_date=today,
+        skip_static=skip_static,
+        skip_dynamic=skip_dynamic,
+    )
+    await asyncio.to_thread(save_scan_result, result, TRENDS_OUTPUT_DIR)
+    return result.to_dict()
+
+
+@app.get("/api/narrative/trends/live")
+async def trends_live():
+    from pathlib import Path
+    scan_dir = Path(TRENDS_OUTPUT_DIR)
+    if not scan_dir.exists():
+        raise HTTPException(404, "no scan available")
+    files = sorted(scan_dir.glob("trends_*.json"))
+    if not files:
+        raise HTTPException(404, "no scan available")
+    try:
+        return json.loads(files[-1].read_text(encoding="utf-8"))
+    except Exception as exc:
+        raise HTTPException(500, f"Failed to read scan: {exc}")
+
+
+@app.get("/api/narrative/trends/history")
+async def trends_history(days_back: int = Query(30, ge=1, le=365)):
+    from src.narrative.trends import build_trend_history_df
+    df = await asyncio.to_thread(build_trend_history_df, TRENDS_OUTPUT_DIR)
+    if df.empty:
+        return {"records": [], "n_rows": 0}
+    subset = df.tail(days_back)
+    subset = subset.copy()
+    subset["date"] = subset["date"].astype(str)
+    return {"records": subset.to_dict(orient="records"), "n_rows": len(subset)}
+
+
+@app.post("/api/narrative/trends/backtest")
+async def trends_backtest(body: dict):
+    import time as _time
+    from src.narrative.trends_history import run_historical_backtest
+    from pathlib import Path
+
+    synthetic = bool(body.get("synthetic", True))
+    start = body.get("start")
+    end = body.get("end")
+
+    t0 = _time.monotonic()
+    result = await asyncio.to_thread(
+        run_historical_backtest,
+        use_synthetic=synthetic,
+        start=start,
+        end=end,
+    )
+    elapsed = _time.monotonic() - t0
+    if elapsed > 60:
+        logger.warning("trends_backtest took %.1fs (>60s threshold)", elapsed)
+
+    out_dir = Path(TRENDS_OUTPUT_DIR)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    suffix = "synthetic" if synthetic else (start[:4] if start else "custom")
+
+    history_chart = str(out_dir / f"trends_history_{suffix}.png")
+    sq_chart = str(out_dir / f"signal_quality_{suffix}.png")
+
+    await asyncio.to_thread(result.plot, history_chart)
+    from src.narrative.trends_history import plot_signal_quality
+    await asyncio.to_thread(plot_signal_quality, result.term_results, sq_chart)
+
+    return {
+        "results": result.to_dataframe().to_dict(orient="records"),
+        "charts": {
+            "history": history_chart,
+            "signal_quality": sq_chart,
+        },
+    }
+
 
 @app.get("/api/narrative/historical/{date_str}")
 async def get_historical_narrative(date_str: str):
