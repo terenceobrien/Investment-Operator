@@ -24,3 +24,5 @@ __pycache__/
 .streamlit/secrets.toml
 .vercel
 .env*.local
+.claude/
+backend/data/narrative/trends/
