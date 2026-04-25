@@ -103,7 +103,7 @@ async function fetchFinanceMarkets(): Promise<ParsedMarket[]> {
   await Promise.all(
     FINANCE_TAG_IDS.map(async (tagId) => {
       const res = await fetch(
-        `${GAMMA}/markets?active=true&closed=false&limit=12&order=volume24hr&ascending=false&tag_id=${tagId}`,
+        `/api/prediction-markets?tag_id=${tagId}`,
         { cache: "no-store" }
       );
       if (!res.ok) throw new Error(`Polymarket API error: ${res.status}`);
