@@ -7,9 +7,9 @@ import { T } from '@/lib/tokens';
 const links = [
   { href: '/',          label: 'Home' },
   { href: '/state',     label: 'State' },
-  { href: '/brief',     label: 'Macro' },
   { href: '/markets',   label: 'Prices' },
   { href: '/narrative', label: 'Narrative' },
+  { href: '/prediction-markets', label: 'Narrative Insights' },
   { href: '/history',   label: 'Memory' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/strategy', label: 'Custom Strategy' },
