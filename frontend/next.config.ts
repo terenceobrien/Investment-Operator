@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         source: "/api/:path*",
         destination: `${backendBaseUrl}/api/:path*`,
       },
+      {
+      source: '/api/prediction-markets',
+      destination: '/api/prediction-markets',  // no-op, lets Next.js handle it
+      },
     ];
   },
 };

@@ -1,0 +1,7 @@
+# Additional dependencies for backend/screener/
+# (httpx, apscheduler, pandas, numpy are listed here for clarity;
+#  they are also present in the main requirements.txt)
+httpx
+apscheduler
+pandas
+numpy
