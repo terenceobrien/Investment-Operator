@@ -21,3 +21,6 @@ pytrends
 apscheduler
 beautifulsoup4
 gitpython
+PyJWT
+cryptography
+httpx
