@@ -11,12 +11,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: `${backendBaseUrl}/api/:path*`,
-      },
-      {
       source: '/api/prediction-markets',
       destination: '/api/prediction-markets',  // no-op, lets Next.js handle it
+      },
+      {
+        source: "/api/:path*",
+        destination: `${backendBaseUrl}/api/:path*`,
       },
     ];
   },

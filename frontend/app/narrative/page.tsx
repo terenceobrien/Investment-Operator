@@ -174,7 +174,7 @@ export default function NarrativePage() {
             ) : null}
 
             {result.raw_takeaways?.length > 0 ? (
-              <NarrativePanel title="What changed today">
+              <NarrativePanel title="Today's Key Takeaways">
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {result.raw_takeaways.map((item: string, i: number) => {
                     const prefix = item.match(/^(CHANGE|CONFIRMATION|INVALIDATION|UNCLEAR)/)?.[0];
