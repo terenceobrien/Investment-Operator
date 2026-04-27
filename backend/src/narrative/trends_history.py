@@ -237,7 +237,7 @@ def fetch_term_history(
     start: str,
     end: Optional[str] = None,
     geo: str = "US",
-    delay_range: Tuple[float, float] = (3.0, 8.0),
+    delay_range: Tuple[float, float] = (8.0, 15.0),
 ) -> pd.Series:
     """
     Fetch historical weekly Google Trends data for a single term by stitching
@@ -272,11 +272,15 @@ def fetch_term_history(
         )
         try:
             pytrends = TrendReq(hl="en-US", tz=0, timeout=(10, 30), retries=2, backoff_factor=1.5)
-            pytrends.build_payload([ANCHOR_TERM, term], cat=0, timeframe=tf, geo=geo)
+            # When term IS the anchor, passing [ANCHOR_TERM, term] would be a
+            # duplicate keyword list and pytrends raises a 400 error.
+            keywords = [term] if term == ANCHOR_TERM else [ANCHOR_TERM, term]
+            pytrends.build_payload(keywords, cat=0, timeframe=tf, geo=geo)
             df = pytrends.interest_over_time()
             if df is not None and not df.empty and term in df.columns:
                 dti = pd.DatetimeIndex(df.index)
-                windows_raw.append((dti, df[term].astype(float), df[ANCHOR_TERM].astype(float)))
+                anchor_col = term if term == ANCHOR_TERM else ANCHOR_TERM
+                windows_raw.append((dti, df[term].astype(float), df[anchor_col].astype(float)))
         except Exception as exc:
             logger.warning("fetch_term_history window %s failed: %s", tf, exc)
 
@@ -454,7 +458,7 @@ def run_historical_backtest(
     start: Optional[str] = None,
     end: Optional[str] = None,
     geo: str = "US",
-    delay_range: Tuple[float, float] = (3.0, 8.0),
+    delay_range: Tuple[float, float] = (8.0, 15.0),
 ) -> BacktestResult:
     """
     Run the full historical ASVI backtest.
@@ -484,8 +488,15 @@ def run_historical_backtest(
         hist = {}
         for i, term in enumerate(ALL_HISTORY_TERMS):
             if i > 0:
-                delay = delay_range[0] + random.random() * (delay_range[1] - delay_range[0])
-                time.sleep(delay)
+                # Inter-term delay: extra pause on top of the per-window delays
+                # already inside fetch_term_history, to avoid 429s across 14
+                # sequential term fetches.
+                inter_term_delay = random.uniform(10, 20)
+                logger.debug(
+                    "Inter-term pause %.1fs before '%s' (%d/%d)",
+                    inter_term_delay, term, i + 1, len(ALL_HISTORY_TERMS),
+                )
+                time.sleep(inter_term_delay)
             logger.info("Fetching history for term '%s' (%d/%d)", term, i + 1, len(ALL_HISTORY_TERMS))
             try:
                 hist[term] = fetch_term_history(term, start=start_used, end=end_used,
