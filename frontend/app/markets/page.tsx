@@ -9,6 +9,9 @@ import { T, sx, pct, formatCurrency, formatNumber } from '@/lib/tokens';
 const HORIZONS = ['1D', '1W', '1M', '3M', '6M', '1Y', 'YTD'];
 const TFS      = ['1D', '5D', '1M', '3M', 'YTD'];
 
+// Sector ETFs ordered by approximate market cap (largest → smallest)
+const SECTOR_MCAP_ORDER = ['XLK','XLF','XLV','XLY','XLC','XLI','XLE','XLP','XLB','XLU','XLRE'];
+
 function heatColor(ret: number | null): { bg: string; text: string } {
   if (ret === null || ret === undefined) return { bg: 'rgba(255,255,255,0.03)', text: T.textMuted };
   if (ret >  1)   return { bg: 'rgba(60,140,80,0.35)',  text: '#7bc98a' };
@@ -27,17 +30,17 @@ function formatTimeLabel(value: Date, tf: string): string {
   if (Number.isNaN(value.getTime())) return '';
   if (tf === '1D') {
     return new Intl.DateTimeFormat('en-US', {
-      hour: '2-digit',
+      hour: 'numeric',
       minute: '2-digit',
-      hour12: false,
+      hour12: true,
     }).format(value);
   }
   if (tf === '5D') {
     const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(value);
     const time = new Intl.DateTimeFormat('en-US', {
-      hour: '2-digit',
+      hour: 'numeric',
       minute: '2-digit',
-      hour12: false,
+      hour12: true,
     }).format(value);
     return `${day} ${time}`;
   }
@@ -60,9 +63,9 @@ function formatHoverTimeLabel(value: Date, tf: string): string {
   if (tf === '1D') {
     const date = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(value);
     const time = new Intl.DateTimeFormat('en-US', {
-      hour: '2-digit',
+      hour: 'numeric',
       minute: '2-digit',
-      hour12: false,
+      hour12: true,
     }).format(value);
     return `${date} · ${time}`;
   }
@@ -70,9 +73,9 @@ function formatHoverTimeLabel(value: Date, tf: string): string {
     const day = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(value);
     const date = new Intl.DateTimeFormat('en-US', { month: 'numeric', day: 'numeric' }).format(value);
     const time = new Intl.DateTimeFormat('en-US', {
-      hour: '2-digit',
+      hour: 'numeric',
       minute: '2-digit',
-      hour12: false,
+      hour12: true,
     }).format(value);
     return `${day} ${date} · ${time}`;
   }
@@ -92,7 +95,7 @@ function formatCompactVolume(value: number | null | undefined): string {
   return formatNumber(value, 0);
 }
 
-function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: string }) {
+function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: string; tf: string; prevClose?: number | null }) {
   const [hoverState, setHoverState] = useState<{ x: number; value: number; timestamp: Date } | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -135,8 +138,11 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
 
   const first = closes[0];
   const last = closes[closes.length - 1];
-  const change = last - first;
-  const chgPct = first ? (change / first) * 100 : 0;
+  // For 1D, compare against the previous session's close if available;
+  // fall back to the first bar's close (≈ market open) otherwise.
+  const refPrice = (tf === '1D' && prevClose != null && prevClose > 0) ? prevClose : first;
+  const change = last - refPrice;
+  const chgPct = refPrice ? (change / refPrice) * 100 : 0;
   const isPos = change >= 0;
   const lineCol = isPos ? T.up : T.dn;
 
@@ -214,14 +220,23 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
   ];
 
   const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    const svgRect = svgRef.current?.getBoundingClientRect();
-    if (!svgRect || chartData.length === 0) return;
+    const svgEl = svgRef.current;
+    if (!svgEl || chartData.length === 0) return;
 
-    const plotLeft = svgRect.left + (padLeft / svgWidth) * svgRect.width;
-    const plotRight = svgRect.left + ((svgWidth - padRight) / svgWidth) * svgRect.width;
-    const plotPixelWidth = Math.max(plotRight - plotLeft, 1);
-    const clampedClientX = Math.min(plotRight, Math.max(plotLeft, event.clientX));
-    const ratio = (clampedClientX - plotLeft) / plotPixelWidth;
+    // Use getScreenCTM so the mapping is exact regardless of how the SVG is
+    // scaled, letterboxed, or CSS-transformed — getBoundingClientRect alone
+    // breaks when preserveAspectRatio introduces offsets inside the element.
+    const ctm = svgEl.getScreenCTM();
+    if (!ctm) return;
+    const pt = svgEl.createSVGPoint();
+    pt.x = event.clientX;
+    pt.y = event.clientY;
+    const localPt = pt.matrixTransform(ctm.inverse());
+
+    // Clamp to plot bounds in SVG coordinate space
+    const clampedX = Math.min(svgWidth - padRight, Math.max(padLeft, localPt.x));
+    const ratio = (clampedX - padLeft) / plotWidth;
+
     const floatIndex = ratio * Math.max(chartData.length - 1, 1);
     const leftIndex = Math.floor(floatIndex);
     const rightIndex = Math.min(chartData.length - 1, Math.ceil(floatIndex));
@@ -261,6 +276,7 @@ function PriceChart({ chart, ticker, tf }: { chart: any; ticker: string; tf: str
               ref={svgRef}
               key={`${ticker}-${tf}`}
               viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+              preserveAspectRatio="none"
               width="100%"
               height="360"
               role="img"
@@ -465,6 +481,34 @@ export default function MarketsPage() {
     `/api/prices/chart?ticker=${ticker}&tf=${tf}`, fetcher, { refreshInterval: 300000 }
   );
 
+  // For 1D charts: fetch a 5D window to obtain the previous session's close,
+  // so the % change stat is vs prev close rather than vs the intraday open.
+  const { data: prevData } = useSWR(
+    tf === '1D' ? `/api/prices/chart?ticker=${ticker}&tf=5D` : null,
+    fetcher,
+    { refreshInterval: 300000 }
+  );
+  const prevClose = useMemo(() => {
+    if (!prevData?.ohlcv?.length) return null;
+    const todayStr = new Date().toDateString();
+    const prevRows = (prevData.ohlcv as any[]).filter((d) => {
+      const t = new Date(getTimestamp(d));
+      return t.toDateString() !== todayStr;
+    });
+    if (!prevRows.length) return null;
+    return Number(prevRows[prevRows.length - 1].Close);
+  }, [prevData]);
+
+  // Sort sectors by market cap (largest first)
+  const sortedSectors = useMemo(() => {
+    if (!heatmap?.sectors) return [];
+    return [...(heatmap.sectors as any[])].sort((a, b) => {
+      const ai = SECTOR_MCAP_ORDER.indexOf(a.ticker);
+      const bi = SECTOR_MCAP_ORDER.indexOf(b.ticker);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
+  }, [heatmap?.sectors]);
+
   return (
     <main style={sx.main}>
       <div style={sx.pageShell}>
@@ -571,7 +615,7 @@ export default function MarketsPage() {
             <div style={{ ...sx.panelBody, paddingTop: '0' }}>
               <div style={sx.subPanel}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(11, minmax(0,1fr))' }}>
-                  {heatmap?.sectors?.map((item: any, i: number) => {
+                  {sortedSectors.map((item: any, i: number) => {
                     const { bg, text } = heatColor(item.return);
                     return (
                       <div
@@ -579,7 +623,7 @@ export default function MarketsPage() {
                         style={{
                           background: bg,
                           padding: '12px 10px',
-                          borderRight: i < heatmap.sectors.length - 1 ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
+                          borderRight: i < sortedSectors.length - 1 ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
                           display: 'flex',
                           flexDirection: 'column',
                           gap: '4px',
@@ -681,7 +725,7 @@ export default function MarketsPage() {
                 </div>
               </div>
             ) : chart?.ohlcv?.length > 0 ? (
-              <PriceChart chart={chart} ticker={ticker} tf={tf} />
+              <PriceChart chart={chart} ticker={ticker} tf={tf} prevClose={prevClose} />
             ) : (
               <div style={{ ...sx.panelBody, padding: '40px 24px' }}>
                 <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
