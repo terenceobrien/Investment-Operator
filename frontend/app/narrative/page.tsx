@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '../../lib/api';
+import { useAuthFetcher } from '../../lib/api';
 import { T, sx } from '@/lib/tokens';
 
 const STANCE_COLOR: Record<string, string> = {
@@ -39,9 +39,11 @@ export default function NarrativePage() {
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [elapsedMs, setElapsedMs] = useState(0);
 
-  const { data: latest } = useSWR('/api/narrative/latest', fetcher, { onError: () => null });
+  const authFetcher = useAuthFetcher();
 
-  const { data: jobStatus } = useSWR(jobId ? `/api/narrative/status/${jobId}` : null, fetcher, {
+  const { data: latest } = useSWR('/api/narrative/latest', authFetcher, { onError: () => null });
+
+  const { data: jobStatus } = useSWR(jobId ? `/api/narrative/status/${jobId}` : null, authFetcher, {
     refreshInterval: jobId ? 2000 : 0,
     onSuccess: (data) => {
       if (data?.status === 'done') {

@@ -2,7 +2,7 @@
 
 import { MouseEvent, useState } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '../../lib/api';
+import { useAuthFetcher } from '../../lib/api';
 import { SkeletonBlock, SkeletonRows, SkeletonText } from '@/components/Skeleton';
 import { T, sx, formatAccountingPct, formatCurrency, formatNumber } from '@/lib/tokens';
 
@@ -367,9 +367,10 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
 }
 
 function NarrativePanel({ date }: { date: string }) {
+  const authFetcher = useAuthFetcher();
   const { data, isLoading, error } = useSWR<NarrativeData>(
     `/api/narrative/historical/${date}`,
-    fetcher,
+    authFetcher,
     {
       revalidateOnFocus: false,
       dedupingInterval: 300000,
@@ -580,10 +581,11 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
 export default function HistoryPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [topN, setTopN] = useState(15);
+  const authFetcher = useAuthFetcher();
 
   const { data, isLoading, error } = useSWR(
     `/api/market/analogues?top_n=${topN}`,
-    fetcher,
+    authFetcher,
     { refreshInterval: 300000 }
   );
 

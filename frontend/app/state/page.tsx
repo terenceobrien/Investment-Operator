@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '@/lib/api';
+import { useAuthFetcher } from '../../lib/api';
 import IntradayTape from '@/components/IntradayTape';
 import { SkeletonMetricGrid, SkeletonPanel, SkeletonRows, SkeletonText } from '@/components/Skeleton';
 import {
@@ -610,22 +610,25 @@ function MarketStateSkeleton() {
 // ── Main page ──────────────────────────────────────────────────────────────────
 
 export default function Dashboard() {
-  const { data: regimeData, error, isLoading } = useSWR('/api/market/regime', fetcher, {
+
+  const authFetcher = useAuthFetcher();
+
+  const { data: regimeData, error, isLoading } = useSWR('/api/market/regime', authFetcher, {
     refreshInterval: 300000,
     revalidateOnFocus: false,
   });
 
-  const { data: tapeData, isLoading: tapeLoading, error: tapeError } = useSWR('/api/market/tape', fetcher, {
+  const { data: tapeData, isLoading: tapeLoading, error: tapeError } = useSWR('/api/market/tape', authFetcher, {
     refreshInterval: 300000,
     revalidateOnFocus: false,
   });
 
-  const { data: macroData, isLoading: macroLoading } = useSWR('/api/brief/macro', fetcher, {
+  const { data: macroData, isLoading: macroLoading } = useSWR('/api/brief/macro', authFetcher, {
     refreshInterval: 900000,
     revalidateOnFocus: false,
   });
 
-  const { data: summaryData, isLoading: summaryLoading } = useSWR('/api/brief/summary', fetcher, {
+  const { data: summaryData, isLoading: summaryLoading } = useSWR('/api/brief/summary', authFetcher, {
     refreshInterval: 86400000,
     revalidateOnFocus: false,
   });

@@ -11,12 +11,13 @@ from typing import Optional
 from datetime import date, datetime, timedelta, timezone
 
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Query, UploadFile, File, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Query, UploadFile, File, BackgroundTasks, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 # Make sure src/ is importable
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from api.auth import verify_clerk_token
 from api.cache import cache
 from api.models import (
     MarketStateOut, DeltaOut, PortfolioOut, NarrativeOut
@@ -45,9 +46,6 @@ app.include_router(screener_router)
 
 @app.on_event("startup")
 async def startup_prewarm():
-    """Build today's regime snapshot in background at startup, then schedule daily trend scan."""
-    import asyncio
-
     async def _build():
         try:
             from src.state.regime_state import RegimeState, build_regime_state
@@ -65,7 +63,6 @@ async def startup_prewarm():
 
 
 def _seconds_until_next_630pm_eastern() -> float:
-    """Return seconds until the next 6:30 PM US/Eastern wall-clock time."""
     import zoneinfo
     eastern = zoneinfo.ZoneInfo("America/New_York")
     now_et = datetime.now(tz=eastern)
@@ -76,7 +73,6 @@ def _seconds_until_next_630pm_eastern() -> float:
 
 
 async def _run_daily_trend_scan() -> None:
-    """Load latest narrative snapshot and run trend scan. Logs all outcomes."""
     import time as _time
     from src.narrative.trends import run_trend_scan, save_scan_result
     t0 = _time.monotonic()
@@ -104,7 +100,6 @@ async def _run_daily_trend_scan() -> None:
 
 
 async def _schedule_daily_trend_scan() -> None:
-    """Background loop: fire _run_daily_trend_scan every day at 6:30 PM Eastern."""
     while True:
         wait = _seconds_until_next_630pm_eastern()
         logger.info("Next daily trend scan in %.0fs (%.1f hours)", wait, wait / 3600)
@@ -124,8 +119,8 @@ app.add_middleware(
 )
 
 SNAPSHOT_DIR = "data/snapshots"
+TRENDS_OUTPUT_DIR = "data/narrative/trends"
 
-# In-memory job store for long-running narrative synthesis
 _jobs: dict[str, dict] = {}
 _regime_build_tasks: dict[str, asyncio.Task] = {}
 
@@ -219,68 +214,48 @@ async def _resolve_intraday_tape() -> dict:
 # ── Market State ──────────────────────────────────────────────────────────────
 
 @app.get("/api/market/regime")
-@cache("regime_state")           # long cache — regime doesn't change intraday
+@cache("regime_state")
 async def get_regime_state(
     horizon: str = Query("default", enum=["default", "swing", "investor"]),
     refresh: bool = Query(False),
+    user: dict = Depends(verify_clerk_token),
 ):
-    """
-    Returns the current daily regime state.
-    Computed once at close — stable throughout the day.
-    If today's snapshot exists on disk, loads it (fast).
-    If not, computes it fresh (slow — ~30s on first call).
-    """
     return await _resolve_regime_state(horizon=horizon, refresh=refresh)
- 
- 
-# ── Intraday tape endpoint (live, 5min refresh) ───────────────────────────────
- 
+
+
 @app.get("/api/market/tape")
-@cache("intraday_tape")          # short cache — updates every 5 min
-async def get_intraday_tape():
-    """
-    Returns live intraday tape metrics.
-    Updates every 5 minutes during market hours.
-    Never modifies the regime score.
-    """
+@cache("intraday_tape")
+async def get_intraday_tape(user: dict = Depends(verify_clerk_token)):
     return await _resolve_intraday_tape()
- 
- 
-# ── Combined endpoint (for the main dashboard) ────────────────────────────────
- 
+
+
 @app.get("/api/market/dashboard")
 @cache("dashboard")
 async def get_dashboard(
     horizon: str = Query("default", enum=["default", "swing", "investor"]),
+    user: dict = Depends(verify_clerk_token),
 ):
-    """
-    Returns both regime state and intraday tape in one call.
-    Use this for the main market state page.
-    """
     regime = await _resolve_regime_state(horizon=horizon, refresh=False)
     tape = await _resolve_intraday_tape()
-
     return {
         "regime": regime,
         "tape": tape,
         "asof_utc": datetime.now(timezone.utc).isoformat(),
         "stale": bool(regime.get("stale")) or bool(tape.get("stale")),
     }
- 
- 
-# ── Historical regime snapshots ───────────────────────────────────────────────
- 
+
+
 @app.get("/api/market/regime/history")
-async def get_regime_history(days: int = Query(30, ge=1, le=252)):
-    """
-    Returns the last N days of regime snapshots for trend analysis.
-    """
+async def get_regime_history(
+    days: int = Query(30, ge=1, le=252),
+    user: dict = Depends(verify_clerk_token),
+):
     from src.state.regime_state import RegimeState
     from pathlib import Path
- 
+
     snapshot_dir = Path("data/snapshots")
     snapshots = []
- 
+
     for i in range(days):
         d = (date.today() - timedelta(days=i)).isoformat()
         snap = RegimeState.load_snapshot(d)
@@ -297,41 +272,32 @@ async def get_regime_history(days: int = Query(30, ge=1, le=252)):
                 "layer_agreement":   snap.layer_agreement,
                 "confidence":        snap.confidence,
             })
- 
-    return {"snapshots": snapshots, "n": len(snapshots)}
- 
- 
-# ── Cache TTL additions for cache.py ─────────────────────────────────────────
-# Add these entries to your TTL_SECONDS dict in api/cache.py:
-#
-#   "regime_state":  3600 * 6,   # 6 hours — regime stable all day
-#   "intraday_tape": 300,        # 5 minutes — live tape
 
-# ── Add this to backend/api/main.py ──────────────────────────────────────────
-# Place alongside your other endpoints
+    return {"snapshots": snapshots, "n": len(snapshots)}
+
 
 @app.get("/api/market/analogues")
 @cache("market_state")
-async def get_historical_analogues(top_n: int = Query(15, ge=5, le=30)):
+async def get_historical_analogues(
+    top_n: int = Query(15, ge=5, le=30),
+    user: dict = Depends(verify_clerk_token),
+):
     from src.state.regime_state import RegimeState, build_regime_state
     from src.analysis.analogues import get_historical_analogues as _get_analogues
 
     today = date.today().isoformat()
-
-    # Use regime state (new system) not old market_state
     regime = RegimeState.load_snapshot(today)
     if not regime:
         regime = await asyncio.to_thread(build_regime_state, save=True)
 
-    # Score delta from prior snapshot
-    score_delta = regime.score_delta  # already computed in build_regime_state
+    score_delta = regime.score_delta
 
     result = await asyncio.to_thread(
         _get_analogues,
         environment=regime.environment or "Mixed / Neutral",
         score_total=regime.score_total or 50.0,
         vix_level=regime.vix_level,
-        sectors_green=regime.layer_breadth,  # use breadth layer as proxy
+        sectors_green=regime.layer_breadth,
         score_delta=score_delta,
         confidence=regime.confidence,
         top_n=top_n,
@@ -348,10 +314,14 @@ async def get_historical_analogues(top_n: int = Query(15, ge=5, le=30)):
     }
 
     return result
-    
+
+
 @app.get("/api/market/delta", response_model=DeltaOut)
 @cache("market_state")
-async def get_market_delta(horizon: str = Query("1D")):
+async def get_market_delta(
+    horizon: str = Query("1D"),
+    user: dict = Depends(verify_clerk_token),
+):
     state = await asyncio.to_thread(build_market_state, horizon=horizon)
     state = await asyncio.to_thread(score_market_state, state)
     session_date = state.market_session_date
@@ -369,7 +339,7 @@ async def get_market_delta(horizon: str = Query("1D")):
 
 @app.get("/api/brief/macro")
 @cache("macro")
-async def get_macro():
+async def get_macro(user: dict = Depends(verify_clerk_token)):
     signals = await asyncio.to_thread(fetch_regime_signals)
     return {
         k: {
@@ -389,7 +359,8 @@ async def get_macro():
 @app.get("/api/brief/moves")
 @cache("brief_moves")
 async def get_market_moves(
-    tickers: str = Query("SPY,QQQ,IWM,DIA,TLT,HYG,GLD,USO,BTC-USD")
+    tickers: str = Query("SPY,QQQ,IWM,DIA,TLT,HYG,GLD,USO,BTC-USD"),
+    user: dict = Depends(verify_clerk_token),
 ):
     ticker_list = [t.strip() for t in tickers.split(",")]
     df = await asyncio.to_thread(fetch_market_moves, ticker_list)
@@ -398,7 +369,7 @@ async def get_market_moves(
 
 @app.get("/api/brief/summary")
 @cache("brief_summary")
-async def get_brief_summary():
+async def get_brief_summary(user: dict = Depends(verify_clerk_token)):
     try:
         signals = await asyncio.to_thread(fetch_regime_signals)
         moves_df = await asyncio.to_thread(
@@ -422,7 +393,7 @@ async def get_brief_summary():
 
 @app.get("/api/market/context")
 @cache("state_context")
-async def get_market_context():
+async def get_market_context(user: dict = Depends(verify_clerk_token)):
     heatmap = await get_heatmap(horizon="1D")
     movers = await get_market_moves(
         tickers="SPY,QQQ,IWM,DIA,TLT,HYG,GLD,USO,BTC-USD"
@@ -438,7 +409,10 @@ async def get_market_context():
 
 @app.get("/api/prices/heatmap")
 @cache("prices")
-async def get_heatmap(horizon: str = Query("1D")):
+async def get_heatmap(
+    horizon: str = Query("1D"),
+    user: dict = Depends(verify_clerk_token),
+):
     import yfinance as yf
     import numpy as np
 
@@ -488,7 +462,8 @@ async def get_heatmap(horizon: str = Query("1D")):
 @cache("prices")
 async def get_chart(
     ticker: str = Query("SPY"),
-    tf: str = Query("1D")
+    tf: str = Query("1D"),
+    user: dict = Depends(verify_clerk_token),
 ):
     import yfinance as yf
 
@@ -524,7 +499,10 @@ async def get_chart(
 # ── Portfolio ─────────────────────────────────────────────────────────────────
 
 @app.post("/api/portfolio/analyze", response_model=PortfolioOut)
-async def analyze_portfolio(file: UploadFile = File(...)):
+async def analyze_portfolio(
+    file: UploadFile = File(...),
+    user: dict = Depends(verify_clerk_token),
+):
     contents = await file.read()
     try:
         df = load_portfolio_csv(io.BytesIO(contents))
@@ -564,6 +542,7 @@ async def trigger_narrative(
     earnings_days: int = Query(7),
     tickers: str = Query("SPY,QQQ,IWM,AAPL,MSFT,NVDA,TSLA"),
     lookback_hours: int = Query(36),
+    user: dict = Depends(verify_clerk_token),
 ):
     job_id = str(uuid.uuid4())
     _jobs[job_id] = {"status": "running"}
@@ -610,7 +589,10 @@ async def trigger_narrative(
 
 
 @app.get("/api/narrative/status/{job_id}")
-async def narrative_status(job_id: str):
+async def narrative_status(
+    job_id: str,
+    user: dict = Depends(verify_clerk_token),
+):
     job = _jobs.get(job_id)
     if not job:
         raise HTTPException(404, "Job not found")
@@ -618,8 +600,7 @@ async def narrative_status(job_id: str):
 
 
 @app.get("/api/narrative/latest")
-async def get_latest_narrative():
-    from datetime import datetime
+async def get_latest_narrative(user: dict = Depends(verify_clerk_token)):
     today = datetime.now().strftime("%Y-%m-%d")
     _, snap = load_latest_narrative_snapshot(SNAPSHOT_DIR, today)
     if snap is None:
@@ -627,37 +608,14 @@ async def get_latest_narrative():
     return snap
 
 
-@app.get("/health")
-async def health():
-    return {"status": "ok"}
-
-@app.get("/api/market/conditional")
-async def get_conditional():
-    state = await asyncio.to_thread(build_market_state)
-    state = await asyncio.to_thread(score_market_state, state)
-    from src.analysis.conditional_probability import get_conditional_stats
-    result = get_conditional_stats(
-        environment=state.environment,
-        score_total=state.score_total,
-        vix_level=state.vix_level,
-        sectors_green=state.sectors_green,
-        confidence=state.confidence,
-    )
-    return result
-
-# ── Add this to backend/api/main.py ──────────────────────────────────────────
-# Place alongside your other endpoints
-
-# ── Trends endpoints ──────────────────────────────────────────────────────────
-
-TRENDS_OUTPUT_DIR = "data/narrative/trends"
-
+# ── Trends ────────────────────────────────────────────────────────────────────
 
 @app.get("/api/narrative/trends/scan")
 async def trends_scan(
     snapshot_date: Optional[str] = Query(None, description="YYYY-MM-DD; defaults to today"),
     skip_static: bool = Query(False),
     skip_dynamic: bool = Query(False),
+    user: dict = Depends(verify_clerk_token),
 ):
     from src.narrative.trends import run_trend_scan, save_scan_result
     today = snapshot_date or datetime.now().strftime("%Y-%m-%d")
@@ -675,7 +633,7 @@ async def trends_scan(
 
 
 @app.get("/api/narrative/trends/live")
-async def trends_live():
+async def trends_live(user: dict = Depends(verify_clerk_token)):
     from pathlib import Path
     scan_dir = Path(TRENDS_OUTPUT_DIR)
     if not scan_dir.exists():
@@ -690,7 +648,10 @@ async def trends_live():
 
 
 @app.get("/api/narrative/trends/history")
-async def trends_history(days_back: int = Query(30, ge=1, le=365)):
+async def trends_history(
+    days_back: int = Query(30, ge=1, le=365),
+    user: dict = Depends(verify_clerk_token),
+):
     from src.narrative.trends import build_trend_history_df
     df = await asyncio.to_thread(build_trend_history_df, TRENDS_OUTPUT_DIR)
     if df.empty:
@@ -702,7 +663,10 @@ async def trends_history(days_back: int = Query(30, ge=1, le=365)):
 
 
 @app.post("/api/narrative/trends/backtest")
-async def trends_backtest(body: dict):
+async def trends_backtest(
+    body: dict,
+    user: dict = Depends(verify_clerk_token),
+):
     import time as _time
     from src.narrative.trends_history import run_historical_backtest
     from pathlib import Path
@@ -743,12 +707,10 @@ async def trends_backtest(body: dict):
 
 
 @app.get("/api/narrative/historical/{date_str}")
-async def get_historical_narrative(date_str: str):
-    """
-    Generate a retrospective market narrative for a historical date
-    using only quantitative market structure data.
-    Results are cached in memory after first generation.
-    """
+async def get_historical_narrative(
+    date_str: str,
+    user: dict = Depends(verify_clerk_token),
+):
     import re
     if not re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
         raise HTTPException(400, "Date must be in YYYY-MM-DD format")
@@ -761,3 +723,23 @@ async def get_historical_narrative(date_str: str):
         raise HTTPException(404, str(e))
     except Exception as e:
         raise HTTPException(500, f"Failed to generate narrative: {e}")
+
+
+@app.get("/api/market/conditional")
+async def get_conditional(user: dict = Depends(verify_clerk_token)):
+    state = await asyncio.to_thread(build_market_state)
+    state = await asyncio.to_thread(score_market_state, state)
+    from src.analysis.conditional_probability import get_conditional_stats
+    result = get_conditional_stats(
+        environment=state.environment,
+        score_total=state.score_total,
+        vix_level=state.vix_level,
+        sectors_green=state.sectors_green,
+        confidence=state.confidence,
+    )
+    return result
+
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}

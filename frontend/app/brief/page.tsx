@@ -1,8 +1,10 @@
 'use client';
 
 import { T, sx } from '@/lib/tokens';
+import { useAuthFetcher } from '../../lib/api';
 
 export default function MacroPage() {
+  const authFetcher = useAuthFetcher();
   return (
     <main style={sx.main}>
       <div style={sx.pageShell}>

@@ -2,7 +2,7 @@
 
 import { MouseEvent, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '../../lib/api';
+import { useAuthFetcher } from '../../lib/api';
 import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx, pct, formatCurrency, formatNumber } from '@/lib/tokens';
 
@@ -474,18 +474,20 @@ export default function MarketsPage() {
   const [ticker,  setTicker]  = useState('SPY');
   const [tf,      setTf]      = useState('1D');
 
+  const authFetcher = useAuthFetcher();
+
   const { data: heatmap, isLoading: heatmapLoading } = useSWR(
-    `/api/prices/heatmap?horizon=${horizon}`, fetcher, { refreshInterval: 300000 }
+    `/api/prices/heatmap?horizon=${horizon}`, authFetcher, { refreshInterval: 300000 }
   );
   const { data: chart, isLoading: chartLoading } = useSWR(
-    `/api/prices/chart?ticker=${ticker}&tf=${tf}`, fetcher, { refreshInterval: 300000 }
+    `/api/prices/chart?ticker=${ticker}&tf=${tf}`, authFetcher, { refreshInterval: 300000 }
   );
 
   // For 1D charts: fetch a 5D window to obtain the previous session's close,
   // so the % change stat is vs prev close rather than vs the intraday open.
   const { data: prevData } = useSWR(
     tf === '1D' ? `/api/prices/chart?ticker=${ticker}&tf=5D` : null,
-    fetcher,
+    authFetcher,
     { refreshInterval: 300000 }
   );
   const prevClose = useMemo(() => {
