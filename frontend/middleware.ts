@@ -1,12 +1,9 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware } from '@clerk/nextjs/server'
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/'])
-
-export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
-    await auth.protect()
-  }
-})
+// All routes are public — auth is opt-in via the NavBar sign-in button.
+// The middleware still runs so Clerk session state is available everywhere
+// (e.g. useAuth(), currentUser()) without forcing a redirect.
+export default clerkMiddleware()
 
 export const config = {
   matcher: [

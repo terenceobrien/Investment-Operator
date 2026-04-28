@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { T } from '@/lib/tokens';
 
 const links = [
@@ -137,7 +138,7 @@ export default function NavBar() {
         })}
       </div>
 
-      {/* Right: date + live indicator */}
+      {/* Right: date + live indicator + auth */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
         <span style={{
           fontFamily: T.mono,
@@ -168,6 +169,41 @@ export default function NavBar() {
           }} />
           Live
         </span>
+
+        {/* Auth — sign in button or user avatar */}
+        <SignedOut>
+          <SignInButton mode="modal">
+            <button style={{
+              fontFamily: T.sans,
+              fontSize: '11px',
+              letterSpacing: '1.2px',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.55)',
+              background: 'transparent',
+              border: '0.5px solid rgba(255,255,255,0.14)',
+              padding: '5px 14px',
+              cursor: 'pointer',
+              fontWeight: 400,
+              whiteSpace: 'nowrap',
+            }}>
+              Sign In
+            </button>
+          </SignInButton>
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: {
+                  width: '26px',
+                  height: '26px',
+                  border: '0.5px solid rgba(149,128,212,0.35)',
+                },
+              },
+            }}
+          />
+        </SignedIn>
       </div>
 
     </nav>
