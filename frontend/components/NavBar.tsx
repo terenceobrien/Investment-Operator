@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignInButton, UserButton, useAuth } from '@clerk/nextjs';
 import { T } from '@/lib/tokens';
 
 const links = [
@@ -19,6 +19,7 @@ const links = [
 
 export default function NavBar() {
   const pathname = usePathname();
+  const { isSignedIn, isLoaded } = useAuth();
 
   return (
     <nav style={{
@@ -171,7 +172,7 @@ export default function NavBar() {
         </span>
 
         {/* Auth — sign in button or user avatar */}
-        <SignedOut>
+        {isLoaded && !isSignedIn && (
           <SignInButton mode="modal">
             <button style={{
               fontFamily: T.sans,
@@ -189,9 +190,9 @@ export default function NavBar() {
               Sign In
             </button>
           </SignInButton>
-        </SignedOut>
+        )}
 
-        <SignedIn>
+        {isLoaded && isSignedIn && (
           <UserButton
             appearance={{
               elements: {
@@ -203,7 +204,7 @@ export default function NavBar() {
               },
             }}
           />
-        </SignedIn>
+        )}
       </div>
 
     </nav>
