@@ -7,9 +7,11 @@ import json
 
 security = HTTPBearer()
 
+CLERK_JWKS_URL = "https://clerk.helixintel.io/.well-known/jwks.json"
+
 async def get_jwks():
     async with httpx.AsyncClient() as client:
-        resp = await client.get("https://api.clerk.com/v1/jwks")
+        resp = await client.get(CLERK_JWKS_URL)
         return resp.json()
 
 async def verify_clerk_token(
