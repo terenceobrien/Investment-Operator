@@ -1,7 +1,9 @@
 import { useAuth } from '@clerk/nextjs'
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? ''
+
 export async function fetcher(path: string, token?: string) {
-  const res = await fetch(path, {
+  const res = await fetch(`${BACKEND_URL}${path}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
@@ -9,7 +11,7 @@ export async function fetcher(path: string, token?: string) {
 }
 
 export async function postFetcher(path: string, body: any, token?: string) {
-  const res = await fetch(path, {
+  const res = await fetch(`${BACKEND_URL}${path}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
