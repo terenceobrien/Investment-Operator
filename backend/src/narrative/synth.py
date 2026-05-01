@@ -1218,23 +1218,126 @@ def _build_information_ledgers(
     # price_context is built by src/data/price_context.py and gives the LLM
     # concrete cross-asset, sector, and relationship return data to compare
     # against narratives and fundamentals.
+    # Two formats are supported:
+    #   "multi_timeframe" — returns dict per asset across all horizons +
+    #                        trend_context + relative_returns (preferred)
+    #   legacy           — single "return" float per asset + secondary_horizons
     if price_context:
-        horizon = price_context.get("horizon", "1D")
+        if price_context.get("format") == "multi_timeframe":
+            _build_price_ledger_mtf(price_context, ledgers)
+        else:
+            _build_price_ledger_legacy(price_context, ledgers)
 
-        # Helper: sort by return descending, exclude None returns
-        def _sorted(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-            return sorted(
-                [x for x in items if x.get("return") is not None],
-                key=lambda x: x["return"],  # type: ignore[arg-type]
-                reverse=True,
-            )
+    return ledgers
 
-        # Cross-asset returns
-        ca_all = price_context.get("cross_asset") or []
-        ca_sorted = _sorted(ca_all)
+
+def _build_price_ledger_legacy(
+    price_context: Dict[str, Any],
+    ledgers: Dict[str, List[Dict[str, Any]]],
+) -> None:
+    """Populate price_ledger from the single-horizon (legacy) price_context format."""
+    horizon = price_context.get("horizon", "1D")
+
+    def _sorted_by_return(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        return sorted(
+            [x for x in items if x.get("return") is not None],
+            key=lambda x: x["return"],  # type: ignore[arg-type]
+            reverse=True,
+        )
+
+    ca_all = price_context.get("cross_asset") or []
+    ca_sorted = _sorted_by_return(ca_all)
+    ledgers["price_ledger"].append({
+        "type": "cross_asset_returns",
+        "horizon": horizon,
+        "evidence_strength": "high",
+        "information_role": "market_reaction",
+        "items": {
+            "top_up":   ca_sorted[:3],
+            "top_down": list(reversed(ca_sorted[-3:])) if len(ca_sorted) >= 3 else list(reversed(ca_sorted)),
+            "all":      ca_all,
+        },
+    })
+
+    sec_all = price_context.get("sectors") or []
+    sec_sorted = _sorted_by_return(sec_all)
+    ledgers["price_ledger"].append({
+        "type": "sector_returns",
+        "horizon": horizon,
+        "evidence_strength": "high",
+        "information_role": "market_reaction",
+        "items": {
+            "leaders":  [x for x in sec_sorted if x.get("return", 0) > 0],
+            "laggards": [x for x in sec_sorted if x.get("return", 0) < 0],
+            "all":      sec_all,
+        },
+    })
+
+    sn_all = price_context.get("single_names") or []
+    if sn_all:
+        sn_sorted = _sorted_by_return(sn_all)
         ledgers["price_ledger"].append({
-            "type": "cross_asset_returns",
+            "type": "single_name_returns",
             "horizon": horizon,
+            "evidence_strength": "high",
+            "information_role": "market_reaction",
+            "items": {
+                "top_up":   sn_sorted[:5],
+                "top_down": list(reversed(sn_sorted[-5:])) if len(sn_sorted) >= 5 else list(reversed(sn_sorted)),
+                "all":      sn_all,
+            },
+        })
+
+    rels = price_context.get("relationships") or []
+    if rels:
+        ledgers["price_ledger"].append({
+            "type": "relationship_signals",
+            "horizon": horizon,
+            "evidence_strength": "medium_high",
+            "information_role": "derived_market_reaction",
+            "items": rels,
+        })
+
+    sec_horizons = price_context.get("secondary_horizons") or {}
+    if sec_horizons:
+        ledgers["price_ledger"].append({
+            "type": "secondary_horizon_returns",
+            "evidence_strength": "medium",
+            "information_role": "market_reaction",
+            "horizons": sec_horizons,
+        })
+
+
+def _build_price_ledger_mtf(
+    price_context: Dict[str, Any],
+    ledgers: Dict[str, List[Dict[str, Any]]],
+) -> None:
+    """
+    Populate price_ledger from the multi-timeframe price_context format.
+
+    Each asset has a "returns" dict across all horizons plus trend_context
+    and relative_returns.  The LLM sees the full multi-horizon picture so
+    it can distinguish today's move from the intermediate and long-term trend.
+    """
+    horizons = price_context.get("horizons") or ["1D", "5D", "1M", "3M", "YTD", "1Y"]
+
+    def _r1d(asset: Dict[str, Any]) -> Optional[float]:
+        return (asset.get("returns") or {}).get("1D")
+
+    def _sorted_by_1d(assets: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        return sorted(
+            [x for x in assets if _r1d(x) is not None],
+            key=lambda x: _r1d(x),  # type: ignore[arg-type]
+            reverse=True,
+        )
+
+    # --- Cross-asset ---
+    ca_all = price_context.get("cross_asset") or []
+    if ca_all:
+        ca_sorted = _sorted_by_1d(ca_all)
+        ledgers["price_ledger"].append({
+            "type":             "cross_asset_returns",
+            "horizons":         horizons,
             "evidence_strength": "high",
             "information_role": "market_reaction",
             "items": {
@@ -1244,59 +1347,48 @@ def _build_information_ledgers(
             },
         })
 
-        # Sector returns
-        sec_all = price_context.get("sectors") or []
-        sec_sorted = _sorted(sec_all)
+    # --- Sectors ---
+    sec_all = price_context.get("sectors") or []
+    if sec_all:
+        sec_sorted = _sorted_by_1d(sec_all)
         ledgers["price_ledger"].append({
-            "type": "sector_returns",
-            "horizon": horizon,
+            "type":             "sector_returns",
+            "horizons":         horizons,
             "evidence_strength": "high",
             "information_role": "market_reaction",
             "items": {
-                "leaders":  [x for x in sec_sorted if x.get("return", 0) > 0],
-                "laggards": [x for x in sec_sorted if x.get("return", 0) < 0],
+                "leaders":  [x for x in sec_sorted if (_r1d(x) or 0) > 0],
+                "laggards": [x for x in sec_sorted if (_r1d(x) or 0) < 0],
                 "all":      sec_all,
             },
         })
 
-        # Single-name returns (watchlist tickers not in SECTORS/CROSS)
-        sn_all = price_context.get("single_names") or []
-        if sn_all:
-            sn_sorted = _sorted(sn_all)
-            ledgers["price_ledger"].append({
-                "type": "single_name_returns",
-                "horizon": horizon,
-                "evidence_strength": "high",
-                "information_role": "market_reaction",
-                "items": {
-                    "top_up":   sn_sorted[:5],
-                    "top_down": list(reversed(sn_sorted[-5:])) if len(sn_sorted) >= 5 else list(reversed(sn_sorted)),
-                    "all":      sn_all,
-                },
-            })
+    # --- Single names ---
+    sn_all = price_context.get("single_names") or []
+    if sn_all:
+        sn_sorted = _sorted_by_1d(sn_all)
+        ledgers["price_ledger"].append({
+            "type":             "single_name_returns",
+            "horizons":         horizons,
+            "evidence_strength": "high",
+            "information_role": "market_reaction",
+            "items": {
+                "top_up":   sn_sorted[:5],
+                "top_down": list(reversed(sn_sorted[-5:])) if len(sn_sorted) >= 5 else list(reversed(sn_sorted)),
+                "all":      sn_all,
+            },
+        })
 
-        # Derived relationship signals
-        rels = price_context.get("relationships") or []
-        if rels:
-            ledgers["price_ledger"].append({
-                "type": "relationship_signals",
-                "horizon": horizon,
-                "evidence_strength": "medium_high",
-                "information_role": "derived_market_reaction",
-                "items": rels,
-            })
-
-        # Secondary horizons (compact — for trend context)
-        sec_horizons = price_context.get("secondary_horizons") or {}
-        if sec_horizons:
-            ledgers["price_ledger"].append({
-                "type": "secondary_horizon_returns",
-                "evidence_strength": "medium",
-                "information_role": "market_reaction",
-                "horizons": sec_horizons,
-            })
-
-    return ledgers
+    # --- Relationship signals (multi-horizon) ---
+    rels = price_context.get("relationships") or []
+    if rels:
+        ledgers["price_ledger"].append({
+            "type":             "relationship_signals",
+            "horizons":         horizons,
+            "evidence_strength": "medium_high",
+            "information_role": "derived_market_reaction",
+            "items":            rels,
+        })
 
 
 # ---------------------------------------------------------------------------
@@ -1501,11 +1593,19 @@ def synthesize_narrative_state(
             # Non-zero counts here mean boilerplate/low-relevance items were
             # successfully removed before they could pollute ledgers.
             "filtered_items_summary": filtered_summary,
-            # price_context included so you can verify what price data was sent
-            # to the LLM and confirm cross_asset/sector/relationship routing.
+            # price_context_summary: quick sanity-check without parsing the full blob
+            "price_context_summary": {
+                "format":          (price_context or {}).get("format", "legacy"),
+                "horizons":        (price_context or {}).get("horizons"),
+                "cross_asset_count":  len((price_context or {}).get("cross_asset") or []),
+                "sectors_count":      len((price_context or {}).get("sectors") or []),
+                "single_names_count": len((price_context or {}).get("single_names") or []),
+                "single_names":       [(x.get("ticker"), x.get("returns", {}).get("1D")) for x in ((price_context or {}).get("single_names") or [])],
+                "relationships_count": len((price_context or {}).get("relationships") or []),
+                "errors": (price_context or {}).get("errors") or [],
+            },
+            # price_context: full payload — omit to keep debug file small if needed
             "price_context": price_context,
-            # surface any errors from build_price_context so they are visible
-            # in the debug file without having to parse the full price_context dict
             "price_context_errors": (price_context or {}).get("errors") or [],
         }
         input_path.write_text(
@@ -1536,5 +1636,8 @@ def synthesize_narrative_state(
         "role_counts": dict(role_counts),
         "content_tag_counts": dict(content_tag_counts),
         "filtered_items_summary": filtered_summary,
+        # Full ledger contents — compact views used by the UI for Evidence Board
+        # and Price & Timeframe Context rendering.
+        "information_ledgers": information_ledgers,
     }
     return out

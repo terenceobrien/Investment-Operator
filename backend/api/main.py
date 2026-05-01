@@ -545,37 +545,37 @@ async def trigger_narrative(
             # price evidence (e.g. LLY, MRK, GOOGL) appears in price_ledger.
             price_context = None
             try:
-                from src.data.price_context import build_price_context
+                from src.data.price_context import build_multi_timeframe_price_context
                 from src.narrative.synth import extract_tickers_from_items
                 _bundle_items = bundle.to_dict().get("items") or []
                 _derived = extract_tickers_from_items(_bundle_items, max_tickers=20)
-                # Combine endpoint watchlist + derived tickers, deduped, order-preserving
                 _seen_w: set[str] = set(watch)
                 _combined_watch = list(watch) + [t for t in _derived if t not in _seen_w]
-                price_context = await build_price_context(
-                    horizon="1D",
+                price_context = await build_multi_timeframe_price_context(
                     watch_tickers=_combined_watch,
-                    include_secondary_horizons=True,
                 )
                 _pc_errors = (price_context or {}).get("errors") or []
                 if _pc_errors:
                     logger.warning(
                         "price_context returned with %d error(s) "
-                        "(horizon=1D, watch=%s): %s",
-                        len(_pc_errors), watch, _pc_errors,
+                        "(watch=%s): %s",
+                        len(_pc_errors), _combined_watch[:5], _pc_errors,
                     )
                 else:
                     logger.info(
-                        "price_context OK — %d cross_asset, %d sectors, %d relationships",
+                        "price_context OK — %d cross_asset, %d sectors, "
+                        "%d single_names, %d relationships, horizons=%s",
                         len((price_context or {}).get("cross_asset") or []),
                         len((price_context or {}).get("sectors") or []),
+                        len((price_context or {}).get("single_names") or []),
                         len((price_context or {}).get("relationships") or []),
+                        (price_context or {}).get("horizons"),
                     )
             except Exception as _pc_err:
                 import traceback as _tb
                 logger.warning(
                     "price_context build raised an exception "
-                    "(continuing without — horizon=1D, watch=%s): %s\n%s",
+                    "(continuing without — watch=%s): %s\n%s",
                     watch,
                     _pc_err,
                     _tb.format_exc(),
@@ -757,42 +757,38 @@ async def get_conditional(user: dict = Depends(verify_clerk_token)):
 
 @app.get("/api/debug/price-context")
 async def debug_price_context(
-    horizon: str = Query("1D"),
-    tickers: str = Query("SPY,QQQ,IWM,TLT,HYG"),
+    tickers: str = Query("SPY,QQQ,IWM,TLT,HYG,LLY,NVDA,META"),
 ):
     """
-    Lightweight probe: calls build_price_context and returns the full result
-    including any errors.  Useful for confirming that yfinance data is flowing
-    and the cross_asset/sector/relationship lists are non-empty.
+    Probe build_multi_timeframe_price_context and return the full result.
+    Useful for confirming yfinance data is flowing and that per-asset
+    multi-horizon returns + trend_context are populated.
 
-    Not auth-guarded so it can be hit directly from a browser or curl.
+    Not auth-guarded — hit directly from a browser or curl.
     """
     import time as _time
-    from src.data.price_context import build_price_context
+    from src.data.price_context import build_multi_timeframe_price_context
 
     watch = [t.strip().upper() for t in tickers.split(",") if t.strip()]
     t0 = _time.monotonic()
-    result = await build_price_context(
-        horizon=horizon,
-        watch_tickers=watch,
-        include_secondary_horizons=True,
-    )
+    result = await build_multi_timeframe_price_context(watch_tickers=watch)
     elapsed_ms = round((_time.monotonic() - t0) * 1000)
 
-    # Summarise for quick eyeballing — full data is also present
     return {
-        "ok": not bool(result.get("errors")),
-        "elapsed_ms": elapsed_ms,
-        "asof_utc": result.get("asof_utc"),
-        "horizon": result.get("horizon"),
-        "cross_asset_count": len(result.get("cross_asset") or []),
-        "sectors_count": len(result.get("sectors") or []),
-        "single_names_count": len(result.get("single_names") or []),
+        "ok":                  not bool(result.get("errors")),
+        "elapsed_ms":          elapsed_ms,
+        "asof_utc":            result.get("asof_utc"),
+        "format":              result.get("format"),
+        "horizons":            result.get("horizons"),
+        "cross_asset_count":   len(result.get("cross_asset") or []),
+        "sectors_count":       len(result.get("sectors") or []),
+        "single_names_count":  len(result.get("single_names") or []),
         "relationships_count": len(result.get("relationships") or []),
-        "secondary_horizons_keys": list((result.get("secondary_horizons") or {}).keys()),
-        "errors": result.get("errors") or [],
-        "cross_asset": result.get("cross_asset"),
-        "sectors": result.get("sectors"),
+        "errors":              result.get("errors") or [],
+        # Full data for inspection
+        "cross_asset":   result.get("cross_asset"),
+        "sectors":       result.get("sectors"),
+        "single_names":  result.get("single_names"),
         "relationships": result.get("relationships"),
     }
 

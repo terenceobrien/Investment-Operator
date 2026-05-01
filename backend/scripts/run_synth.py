@@ -72,7 +72,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Application imports (after path setup)
 # ---------------------------------------------------------------------------
-from src.data.price_context import build_price_context_sync  # noqa: E402
+from src.data.price_context import build_multi_timeframe_price_context_sync  # noqa: E402
 from src.narrative.bundle import build_narrative_bundle  # noqa: E402
 from src.narrative.source_loader import load_sources_from_csv  # noqa: E402
 from src.narrative.synth import (  # noqa: E402
@@ -272,11 +272,9 @@ def main() -> None:
             _seen_watch.add(t)
             combined_watch.append(t)
 
-    logger.info("Building price context (horizon=1D, %d tickers) …", len(combined_watch))
-    price_context = build_price_context_sync(
-        horizon="1D",
+    logger.info("Building multi-timeframe price context (%d tickers) …", len(combined_watch))
+    price_context = build_multi_timeframe_price_context_sync(
         watch_tickers=combined_watch,
-        include_secondary_horizons=True,
     )
     pc_errors = price_context.get("errors") or []
     if pc_errors:
@@ -287,10 +285,13 @@ def main() -> None:
         )
     else:
         logger.info(
-            "price_context OK — %d cross_asset, %d sectors, %d relationships",
+            "price_context OK — %d cross_asset, %d sectors, %d single_names, "
+            "%d relationships, horizons=%s",
             len(price_context.get("cross_asset") or []),
             len(price_context.get("sectors") or []),
+            len(price_context.get("single_names") or []),
             len(price_context.get("relationships") or []),
+            price_context.get("horizons"),
         )
 
     # ------------------------------------------------------------------
