@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import useSWR from 'swr';
+import { useAuth } from '@clerk/nextjs';
 import { useAuthFetcher } from '../../lib/api';
 import { T, sx } from '@/lib/tokens';
 
@@ -39,6 +40,7 @@ export default function NarrativePage() {
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [elapsedMs, setElapsedMs] = useState(0);
 
+  const { getToken } = useAuth();
   const authFetcher = useAuthFetcher();
 
   const { data: latest } = useSWR('/api/narrative/latest', authFetcher, { onError: () => null });
@@ -57,14 +59,19 @@ export default function NarrativePage() {
   const trigger = async () => {
     setIsTriggering(true);
     try {
+      const token = await getToken();
       const params = new URLSearchParams({ tickers, news_category: 'general', earnings_days: '7', lookback_hours: '36' });
-      const res = await fetch(`/api/narrative/synthesize?${params}`, { method: 'POST' });
+      const res = await fetch(`/api/narrative/synthesize?${params}`, {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!res.ok) throw new Error(`Server responded ${res.status}`);
       const data = await res.json();
       setJobId(data.job_id);
       setStartedAt(Date.now());
       setElapsedMs(0);
     } catch (e) {
-      console.error(e);
+      console.error('Narrative trigger failed:', e);
     } finally {
       setIsTriggering(false);
     }
