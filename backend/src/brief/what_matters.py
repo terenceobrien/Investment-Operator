@@ -22,7 +22,7 @@ def generate_what_matters_today(
     macro_signals: Dict,
     market_moves_df: pd.DataFrame,
     portfolio_flags: Optional[List[str]] = None,
-    model: str = "gpt-5-mini",
+    model: str = "gpt-5.5",
 ) -> str:
     """
     Returns a short bullet brief (3–5 bullets) grounded in:

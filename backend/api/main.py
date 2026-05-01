@@ -382,7 +382,7 @@ async def get_brief_summary(user: dict = Depends(verify_clerk_token)):
             macro_signals=signals,
             market_moves_df=moves_df,
             portfolio_flags=[],
-            model="gpt-4o-mini",
+            model="gpt-5.5",
         )
         return {"summary": text}
     except Exception as e:
@@ -414,47 +414,17 @@ async def get_heatmap(
     horizon: str = Query("1D"),
     user: dict = Depends(verify_clerk_token),
 ):
-    import yfinance as yf
-    import numpy as np
-
-    SECTORS = {
-        "XLB":"Materials","XLE":"Energy","XLF":"Financials",
-        "XLI":"Industrials","XLK":"Technology","XLP":"Staples",
-        "XLU":"Utilities","XLV":"Health Care","XLY":"Discretionary",
-        "XLC":"Comm Services","XLRE":"Real Estate",
-    }
-    CROSS = {
-        "SPY":"S&P 500","QQQ":"Nasdaq 100","IWM":"Russell 2000",
-        "TLT":"20Y+ Treas","HYG":"High Yield","GLD":"Gold",
-        "USO":"Oil","BTC-USD":"Bitcoin",
-    }
-
-    def _ret(series: pd.Series, h) -> float | None:
-        s = series.dropna()
-        if h == "YTD":
-            ytd = s[s.index >= pd.Timestamp(datetime.now().year, 1, 1)]
-            if ytd.empty: return None
-            return float((ytd.iloc[-1] / ytd.iloc[0] - 1) * 100)
-        n = int(h)
-        if len(s) <= n: return None
-        return float((s.iloc[-1] / s.iloc[-(n+1)] - 1) * 100)
-
-    from src.state.market_state import HORIZONS as H
-    h = H.get(horizon, 1)
-
-    all_tickers = list(SECTORS.keys()) + list(CROSS.keys())
-    data = await asyncio.to_thread(
-        yf.download, all_tickers, period="2y",
-        auto_adjust=True, progress=False, threads=True
+    from src.data.price_context import build_price_context
+    price_ctx = await build_price_context(
+        horizon=horizon,
+        include_secondary_horizons=False,
     )
-    closes = data.xs("Close", axis=1, level=0) if isinstance(data.columns, pd.MultiIndex) else data[["Close"]]
-
-    sector_rets = {t: _ret(closes[t], h) for t in SECTORS if t in closes}
-    cross_rets  = {t: _ret(closes[t], h) for t in CROSS  if t in closes}
-
+    # Return shape is unchanged from prior implementation so the frontend
+    # markets page continues to work. "last" is additive — existing reads
+    # of "return" are unaffected.
     return {
-        "sectors": [{"ticker": t, "name": SECTORS[t], "return": sector_rets.get(t)} for t in SECTORS],
-        "cross":   [{"ticker": t, "name": CROSS[t],   "return": cross_rets.get(t)}  for t in CROSS],
+        "sectors": price_ctx["sectors"],
+        "cross":   price_ctx["cross_asset"],
         "horizon": horizon,
     }
 
@@ -568,6 +538,49 @@ async def trigger_narrative(
             moves_df = await asyncio.to_thread(fetch_market_moves, watch)
             moves = moves_df.to_dict(orient="records") if moves_df is not None else []
 
+            # Build price context (sector/cross-asset/relationship returns) so the
+            # LLM can compare narrative/fundamentals against actual market behavior.
+            # Failure here is non-fatal — synthesis runs with price_context=None.
+            # Derive single-name tickers from bundle items so company-specific
+            # price evidence (e.g. LLY, MRK, GOOGL) appears in price_ledger.
+            price_context = None
+            try:
+                from src.data.price_context import build_price_context
+                from src.narrative.synth import extract_tickers_from_items
+                _bundle_items = bundle.to_dict().get("items") or []
+                _derived = extract_tickers_from_items(_bundle_items, max_tickers=20)
+                # Combine endpoint watchlist + derived tickers, deduped, order-preserving
+                _seen_w: set[str] = set(watch)
+                _combined_watch = list(watch) + [t for t in _derived if t not in _seen_w]
+                price_context = await build_price_context(
+                    horizon="1D",
+                    watch_tickers=_combined_watch,
+                    include_secondary_horizons=True,
+                )
+                _pc_errors = (price_context or {}).get("errors") or []
+                if _pc_errors:
+                    logger.warning(
+                        "price_context returned with %d error(s) "
+                        "(horizon=1D, watch=%s): %s",
+                        len(_pc_errors), watch, _pc_errors,
+                    )
+                else:
+                    logger.info(
+                        "price_context OK — %d cross_asset, %d sectors, %d relationships",
+                        len((price_context or {}).get("cross_asset") or []),
+                        len((price_context or {}).get("sectors") or []),
+                        len((price_context or {}).get("relationships") or []),
+                    )
+            except Exception as _pc_err:
+                import traceback as _tb
+                logger.warning(
+                    "price_context build raised an exception "
+                    "(continuing without — horizon=1D, watch=%s): %s\n%s",
+                    watch,
+                    _pc_err,
+                    _tb.format_exc(),
+                )
+
             asof = bundle.asof_utc if hasattr(bundle, "asof_utc") else ""
             prior_date, prior = load_latest_narrative_snapshot(SNAPSHOT_DIR, asof[:10])
 
@@ -578,7 +591,8 @@ async def trigger_narrative(
                 market_moves=moves,
                 prior_state=prior,
                 lookback_hours=lookback_hours,
-                model="gpt-4o",
+                model="gpt-5.5",
+                price_context=price_context,
             )
             save_narrative_snapshot(result, SNAPSHOT_DIR, asof[:10])
             _jobs[job_id] = {"status": "done", "result": result}
@@ -739,6 +753,48 @@ async def get_conditional(user: dict = Depends(verify_clerk_token)):
         confidence=state.confidence,
     )
     return result
+
+
+@app.get("/api/debug/price-context")
+async def debug_price_context(
+    horizon: str = Query("1D"),
+    tickers: str = Query("SPY,QQQ,IWM,TLT,HYG"),
+):
+    """
+    Lightweight probe: calls build_price_context and returns the full result
+    including any errors.  Useful for confirming that yfinance data is flowing
+    and the cross_asset/sector/relationship lists are non-empty.
+
+    Not auth-guarded so it can be hit directly from a browser or curl.
+    """
+    import time as _time
+    from src.data.price_context import build_price_context
+
+    watch = [t.strip().upper() for t in tickers.split(",") if t.strip()]
+    t0 = _time.monotonic()
+    result = await build_price_context(
+        horizon=horizon,
+        watch_tickers=watch,
+        include_secondary_horizons=True,
+    )
+    elapsed_ms = round((_time.monotonic() - t0) * 1000)
+
+    # Summarise for quick eyeballing — full data is also present
+    return {
+        "ok": not bool(result.get("errors")),
+        "elapsed_ms": elapsed_ms,
+        "asof_utc": result.get("asof_utc"),
+        "horizon": result.get("horizon"),
+        "cross_asset_count": len(result.get("cross_asset") or []),
+        "sectors_count": len(result.get("sectors") or []),
+        "single_names_count": len(result.get("single_names") or []),
+        "relationships_count": len(result.get("relationships") or []),
+        "secondary_horizons_keys": list((result.get("secondary_horizons") or {}).keys()),
+        "errors": result.get("errors") or [],
+        "cross_asset": result.get("cross_asset"),
+        "sectors": result.get("sectors"),
+        "relationships": result.get("relationships"),
+    }
 
 
 @app.get("/health")

@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from hashlib import sha256
 from typing import Optional, List, Dict, Any
 
@@ -138,7 +138,7 @@ def enrich_item_with_full_text(item: RawTextItem, cache: Dict[str, Dict], sessio
     rec: Dict[str, Any] = {
         "url_hash": url_hash,
         "url": item.url,
-        "fetched_at": datetime.utcnow().isoformat(),
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
         "extraction_success": False,
         "extracted_text": "",
         "word_count": 0,

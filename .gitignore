@@ -26,3 +26,10 @@ __pycache__/
 .env*.local
 .claude/
 backend/data/narrative/trends/
+
+# Pipeline A output artifacts (pipeline moved to legacy/)
+data/narrative/cache/
+data/narrative/narrative_daily.csv
+data/narrative/narrative_daily.parquet
+data/narrative/raw/
+data/narrative/errors/

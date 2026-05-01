@@ -459,7 +459,7 @@ def _derive_signal(
 
 def extract_narrative_query_terms(
     snapshot: Dict[str, Any],
-    model: str = "gpt-4o-mini",
+    model: str = "gpt-5.5",
     max_terms_per_narrative: int = 3,
     openai_client: Optional[Any] = None,
 ) -> List[Dict[str, Any]]:
@@ -582,7 +582,7 @@ def run_trend_scan(
     geo: str = "US",
     timeframe: str = "today 3-m",
     delay_range: Tuple[float, float] = (3.0, 8.0),
-    llm_model: str = "gpt-4o-mini",
+    llm_model: str = "gpt-5.5",
     openai_client: Optional[Any] = None,
     skip_static: bool = False,
     skip_dynamic: bool = False,

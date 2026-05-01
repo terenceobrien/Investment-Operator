@@ -174,7 +174,7 @@ def generate_historical_narrative(date_str: str) -> Dict[str, Any]:
     prompt = _build_prompt(ctx)
 
     resp = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-5.5",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=600,
@@ -204,7 +204,7 @@ def generate_historical_narrative(date_str: str) -> Dict[str, Any]:
         "narrative": parsed,
         "market_context": ctx,
         "generated": True,
-        "model": "gpt-4o-mini",
+        "model": "gpt-5.5",
     }
 
     # Cache result
