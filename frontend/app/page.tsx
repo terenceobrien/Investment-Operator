@@ -209,31 +209,16 @@ export default function HomePage() {
             </div>
             <div className="helix-trust-row">
               <div className="helix-trust-item">
-                <span className="helix-trust-icon"><ValueIcon type="shield" /></span>
-                <span>
-                  <strong>Institutional grade</strong>
-                  data &amp; security
-                </span>
+                <span className="helix-trust-icon"><ValueIcon type="database" /></span>
+                <span>Institutional-grade sources</span>
               </div>
               <div className="helix-trust-item">
-                <span className="helix-trust-stars" aria-hidden="true">
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <svg key={i} viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                      <path d="m12 17.3-6.18 3.7 1.64-7.03L2 9.24l7.19-.62L12 2l2.81 6.62 7.19.62-5.46 4.73 1.64 7.03L12 17.3Z" />
-                    </svg>
-                  ))}
-                </span>
-                <span>
-                  <strong>Trusted by professional</strong>
-                  investors
-                </span>
+                <span className="helix-trust-icon"><ValueIcon type="eye" /></span>
+                <span>Transparent methodology</span>
               </div>
               <div className="helix-trust-item">
-                <span className="helix-trust-icon"><ValueIcon type="shieldCheck" /></span>
-                <span>
-                  <strong>SOC 2 Type II</strong>
-                  Compliant
-                </span>
+                <span className="helix-trust-icon"><ValueIcon type="target" /></span>
+                <span>Designed for active research</span>
               </div>
             </div>
           </div>
