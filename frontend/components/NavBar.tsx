@@ -108,18 +108,9 @@ export default function NavBar() {
       </div>
 
       <div className="helix-nav-right">
-        <span className="helix-live-pill">
-          <span className="helix-live-dot" />
-          {new Date().toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </span>
-
         {isLoaded && !isSignedIn && (
           <SignInButton mode="modal">
-            <button className="helix-auth-button" type="button">
+            <button className="helix-nav-signin" type="button">
               Sign In
             </button>
           </SignInButton>
@@ -138,10 +129,6 @@ export default function NavBar() {
             }}
           />
         )}
-
-        <Link href="/narrative" className="helix-nav-cta">
-          Analyze a Ticker
-        </Link>
       </div>
     </nav>
   );

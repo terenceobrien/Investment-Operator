@@ -7,8 +7,19 @@ const Icon = ({ children }: { children: ReactNode }) => (
   </svg>
 );
 
-function ValueIcon({ type }: { type: 'book' | 'trend' | 'target' | 'doc' | 'brain' | 'eye' | 'database' }) {
+function ValueIcon({ type }: { type: 'book' | 'trend' | 'target' | 'doc' | 'brain' | 'eye' | 'database' | 'shield' | 'shieldCheck' }) {
   const paths = {
+    shield: (
+      <>
+        <path d="M12 3 4.5 6v6c0 4.5 3 8.4 7.5 9.5 4.5-1.1 7.5-5 7.5-9.5V6L12 3Z" />
+      </>
+    ),
+    shieldCheck: (
+      <>
+        <path d="M12 3 4.5 6v6c0 4.5 3 8.4 7.5 9.5 4.5-1.1 7.5-5 7.5-9.5V6L12 3Z" />
+        <path d="m9 12 2 2 4-4" />
+      </>
+    ),
     book: (
       <>
         <path d="M4 5.5c2.6 0 4.6.6 6 1.8v11.2c-1.4-1.2-3.4-1.8-6-1.8V5.5Z" />
@@ -107,20 +118,22 @@ function ProductPreview() {
             <text x="182" y="113" fill="#5B6678" fontSize="10">Fear</text>
           </svg>
           <p className="helix-preview-note">
-            Participation broadening with improving fundamentals and renewed inflows.
+            Narrative is in Early Optimism. Participation broadening with improving fundamentals and renewed inflows.
           </p>
+          <a href="#" className="helix-preview-link">View full cycle ›</a>
         </article>
 
         <article className="helix-preview-card">
           <div className="helix-preview-card-header">
             <h3>Evidence Board</h3>
-            <span style={{ color: 'var(--teal-dark)', fontSize: 12, fontWeight: 760 }}>View all</span>
+            <span className="helix-preview-link">View all</span>
           </div>
           <div className="helix-evidence-list">
             {[
               ['News & Research', 'Earnings beat, AI features, services growth.', 24],
               ['Company Filings', 'Strong FCF, margin expansion, share repurchases.', 8],
               ['Sentiment & Flows', 'Analyst upgrades and positive revisions.', 15],
+              ['Alternative Data', 'Search trends up, supply chain checks improving.', 12],
             ].map(([title, body, count]) => (
               <div className="helix-evidence-item" key={String(title)}>
                 <span className="helix-evidence-icon">⌁</span>
@@ -132,12 +145,13 @@ function ProductPreview() {
               </div>
             ))}
           </div>
+          <a href="#" className="helix-preview-link helix-preview-footer-link">Open Evidence Board ›</a>
         </article>
 
         <article className="helix-preview-card">
           <div className="helix-preview-card-header">
-            <h3>Price & Timeframe</h3>
-            <span style={{ color: 'var(--teal-dark)', fontSize: 12, fontWeight: 760 }}>View chart</span>
+            <h3>Price &amp; Timeframe</h3>
+            <span className="helix-preview-link">View chart</span>
           </div>
           <div className="helix-price-value">
             <strong>$183.42</strong>
@@ -160,6 +174,7 @@ function ProductPreview() {
             <div><span>52W Range</span><strong>$142.11 – $199.62</strong></div>
             <div><span>Market Cap</span><strong>$2.82T</strong></div>
           </div>
+          <a href="#" className="helix-preview-link helix-preview-footer-link">Open Price Context ›</a>
         </article>
       </div>
     </div>
@@ -174,28 +189,52 @@ export default function HomePage() {
           <div>
             <span className="helix-chip">Narrative + Price Intelligence</span>
             <h1 className="helix-hero-title">
-              <span>Narrative intelligence</span>
-              <span>for active investors</span>
+              <span>A new layer of</span>
+              <span>market understanding</span>
             </h1>
             <p className="helix-hero-copy">
-              Helix helps active investors understand what the market believes, how price is reacting, and where
-              narrative-driven inefficiencies may be forming.
+              Helix transforms information overload into a structured view of market narratives, price evolution, and
+              potential inefficiencies — for any stock, sector, or theme.
             </p>
             <div className="helix-hero-actions">
-              <Link href="/narrative" className="helix-button-primary">Explore Helix →</Link>
-              <Link href="/how-it-works" className="helix-button-secondary">See How it Works</Link>
+              <Link href="/narrative" className="helix-button-primary">Explore Helix</Link>
+              <Link href="/how-it-works" className="helix-button-secondary">
+                See How it Works
+                <span className="helix-button-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                    <path d="M8 5v14l11-7L8 5Z" />
+                  </svg>
+                </span>
+              </Link>
             </div>
             <div className="helix-trust-row">
-              {[
-                ['Institutional-grade sources', 'database'],
-                ['Transparent methodology', 'eye'],
-                ['Designed for active research', 'target'],
-              ].map(([text, icon]) => (
-                <div className="helix-trust-item" key={text}>
-                  <span className="helix-trust-icon"><ValueIcon type={icon as 'database' | 'eye' | 'target'} /></span>
-                  <span>{text}</span>
-                </div>
-              ))}
+              <div className="helix-trust-item">
+                <span className="helix-trust-icon"><ValueIcon type="shield" /></span>
+                <span>
+                  <strong>Institutional grade</strong>
+                  data &amp; security
+                </span>
+              </div>
+              <div className="helix-trust-item">
+                <span className="helix-trust-stars" aria-hidden="true">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <svg key={i} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                      <path d="m12 17.3-6.18 3.7 1.64-7.03L2 9.24l7.19-.62L12 2l2.81 6.62 7.19.62-5.46 4.73 1.64 7.03L12 17.3Z" />
+                    </svg>
+                  ))}
+                </span>
+                <span>
+                  <strong>Trusted by professional</strong>
+                  investors
+                </span>
+              </div>
+              <div className="helix-trust-item">
+                <span className="helix-trust-icon"><ValueIcon type="shieldCheck" /></span>
+                <span>
+                  <strong>SOC 2 Type II</strong>
+                  Compliant
+                </span>
+              </div>
             </div>
           </div>
           <ProductPreview />
