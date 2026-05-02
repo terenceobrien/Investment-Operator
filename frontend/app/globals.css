@@ -545,13 +545,13 @@ textarea {
   position: relative;
   isolation: isolate;
   width: 100%;
-  max-width: 760px;
+  max-width: 780px;
   margin-left: auto;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--border);
-  border-radius: 28px;
+  border-radius: 24px;
   box-shadow: 0 28px 80px rgba(11, 31, 51, 0.12);
-  padding: 24px;
+  padding: 18px;
 }
 
 .helix-preview::before {
@@ -575,54 +575,56 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 0 2px 24px;
+  gap: 14px;
+  padding: 0 2px 16px;
 }
 
 .helix-preview-id {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 11px;
   color: var(--navy);
   font-weight: 760;
+  font-size: 13px;
 }
 
 .helix-preview-id small {
   color: var(--text-muted);
   font-weight: 600;
+  font-size: 11.5px;
 }
 
 .helix-preview-controls {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .helix-preview-pill {
-  padding: 8px 11px;
+  padding: 6px 10px;
   border: 1px solid var(--border-soft);
-  border-radius: 10px;
+  border-radius: 8px;
   background: #fff;
   color: var(--navy);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 680;
-  box-shadow: 0 7px 18px rgba(11, 31, 51, 0.04);
+  box-shadow: 0 6px 16px rgba(11, 31, 51, 0.04);
 }
 
 .helix-preview-grid {
   display: grid;
-  grid-template-columns: 1fr 1.08fr 1fr;
-  gap: 18px;
+  grid-template-columns: 1fr 1.06fr 1fr;
+  gap: 14px;
   align-items: stretch;
   padding: 0;
 }
 
 .helix-preview-card {
-  min-height: 420px;
-  padding: 22px;
+  min-height: 320px;
+  padding: 18px;
   border: 1px solid var(--border-soft);
-  border-radius: 20px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 12px 30px rgba(11, 31, 51, 0.045);
+  box-shadow: 0 10px 26px rgba(11, 31, 51, 0.04);
   display: flex;
   flex-direction: column;
 }
@@ -638,51 +640,51 @@ textarea {
 .helix-preview-card h3 {
   margin: 0;
   color: var(--navy);
-  font-size: 13.5px;
+  font-size: 12.5px;
   font-weight: 720;
   letter-spacing: -0.01em;
 }
 
 .helix-preview-badge {
-  padding: 5px 9px;
+  padding: 4px 8px;
   border-radius: 999px;
   background: var(--teal-soft);
   color: var(--teal-dark);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 760;
 }
 
 .helix-narrative-stage {
-  margin: 20px 0 0;
+  margin: 14px 0 0;
   color: var(--navy);
-  font-size: 19px;
+  font-size: 15.5px;
   line-height: 1.18;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   font-weight: 760;
 }
 
 .helix-cycle {
   display: block;
-  margin: 20px auto 14px;
+  margin: 12px auto 10px;
   width: 100%;
-  max-width: 260px;
-  height: 130px;
+  max-width: 220px;
+  height: 100px;
 }
 
 .helix-preview-note {
-  margin: 14px 0 0;
-  padding: 12px 13px;
+  margin: 12px 0 0;
+  padding: 10px 11px;
   background: var(--surface-muted);
   border: 1px solid var(--border-soft);
-  border-radius: 12px;
+  border-radius: 10px;
   color: var(--text-muted);
-  font-size: 12.5px;
-  line-height: 1.45;
+  font-size: 11.5px;
+  line-height: 1.42;
 }
 
 .helix-preview-link {
   color: var(--teal-dark);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-decoration: none;
   letter-spacing: 0.005em;
@@ -691,22 +693,22 @@ textarea {
 .helix-preview-footer-link {
   display: block;
   margin-top: auto;
-  padding-top: 14px;
+  padding-top: 11px;
   border-top: 1px solid var(--border-soft);
 }
 
 .helix-evidence-list {
   display: grid;
   gap: 0;
-  margin-top: 22px;
+  margin-top: 14px;
 }
 
 .helix-evidence-item {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto;
-  gap: 12px;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 10px;
   align-items: start;
-  padding: 14px 0;
+  padding: 9px 0;
   border-bottom: 1px solid var(--border-soft);
 }
 
@@ -721,60 +723,65 @@ textarea {
 }
 
 .helix-evidence-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   color: var(--teal-dark);
   background: var(--teal-soft);
+  font-size: 11px;
   font-weight: 800;
 }
 
 .helix-evidence-title {
   display: block;
   color: var(--navy);
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 740;
 }
 
 .helix-evidence-body {
   display: block;
-  margin-top: 4px;
+  margin-top: 3px;
   color: var(--text-muted);
-  font-size: 12px;
-  line-height: 1.42;
+  font-size: 10.5px;
+  line-height: 1.4;
 }
 
 .helix-evidence-count {
   color: var(--positive);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .helix-price-value {
-  margin: 24px 0 6px;
+  margin: 18px 0 4px;
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px;
 }
 
 .helix-price-value strong {
   color: var(--navy);
-  font-size: 32px;
-  letter-spacing: -0.03em;
+  font-size: 25px;
+  letter-spacing: -0.025em;
 }
 
 .helix-price-value span {
   color: var(--positive);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 750;
+}
+
+.helix-preview-card small {
+  font-size: 10.5px;
 }
 
 .helix-spark {
   width: 100%;
-  height: 130px;
-  margin: 18px 0 20px;
+  height: 80px;
+  margin: 12px 0 14px;
 }
 
 .helix-price-metrics {
@@ -786,10 +793,10 @@ textarea {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 0;
+  padding: 7px 0;
   border-bottom: 1px solid var(--border-soft);
   color: var(--text-muted);
-  font-size: 12.5px;
+  font-size: 11.5px;
 }
 
 .helix-price-metrics div:last-child {

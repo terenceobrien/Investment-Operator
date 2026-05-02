@@ -133,7 +133,6 @@ function ProductPreview() {
               ['News & Research', 'Earnings beat, AI features, services growth.', 24],
               ['Company Filings', 'Strong FCF, margin expansion, share repurchases.', 8],
               ['Sentiment & Flows', 'Analyst upgrades and positive revisions.', 15],
-              ['Alternative Data', 'Search trends up, supply chain checks improving.', 12],
             ].map(([title, body, count]) => (
               <div className="helix-evidence-item" key={String(title)}>
                 <span className="helix-evidence-icon">⌁</span>
