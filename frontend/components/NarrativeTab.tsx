@@ -27,7 +27,7 @@ function Chip({ text, tone }: { text: string; tone: 'signal' | 'risk' | 'meta' }
       ? { bg: `${T.up}12`, border: `${T.up}40`, text: T.up }
       : tone === 'risk'
         ? { bg: `${T.dn}10`, border: `${T.dn}40`, text: T.dn }
-        : { bg: 'rgba(255,255,255,0.04)', border: T.border, text: T.textMuted };
+        : { bg: 'rgba(16,32,51,0.04)', border: T.border, text: T.textMuted };
 
   return (
     <div
@@ -121,8 +121,8 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
               letterSpacing: '1px',
               textTransform: 'uppercase',
               color: loading ? T.textMuted : T.text,
-              background: loading ? 'transparent' : 'rgba(255,255,255,0.06)',
-              border: `0.5px solid ${loading ? T.border : 'rgba(255,255,255,0.15)'}`,
+              background: loading ? 'transparent' : 'rgba(16,32,51,0.06)',
+              border: `0.5px solid ${loading ? T.border : 'rgba(16,32,51,0.15)'}`,
               padding: '4px 12px',
               cursor: loading ? 'not-allowed' : 'pointer',
             }}
@@ -150,7 +150,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
       {data && !loading && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {data.narrative.regime_verdict && (
-            <div style={{ background: 'rgba(255,255,255,0.02)', border: `0.5px solid ${T.border}`, padding: '10px 12px' }}>
+            <div style={{ background: 'rgba(16,32,51,0.02)', border: `0.5px solid ${T.border}`, padding: '10px 12px' }}>
               <p style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, margin: '0 0 4px' }}>
                 Regime verdict
               </p>
@@ -165,7 +165,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
               <p style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, margin: '0 0 6px' }}>
                 Narrative
               </p>
-              <p style={{ fontFamily: T.sans, fontSize: '13.5px', lineHeight: 1.7, color: 'rgba(255,255,255,0.72)', margin: 0 }}>
+              <p style={{ fontFamily: T.sans, fontSize: '13.5px', lineHeight: 1.7, color: 'rgba(16,32,51,0.72)', margin: 0 }}>
                 {data.narrative.summary}
               </p>
             </div>
@@ -199,7 +199,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
               <p style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.accent, margin: '0 0 4px' }}>
                 How it played out
               </p>
-              <p style={{ fontFamily: T.sans, fontSize: '12.5px', color: 'rgba(255,255,255,0.72)', margin: 0, lineHeight: 1.6 }}>
+              <p style={{ fontFamily: T.sans, fontSize: '12.5px', color: 'rgba(16,32,51,0.72)', margin: 0, lineHeight: 1.6 }}>
                 {data.narrative.outcome_note}
               </p>
             </div>

@@ -1,256 +1,258 @@
-import { T } from '@/lib/tokens';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+
+const Icon = ({ children }: { children: ReactNode }) => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {children}
+  </svg>
+);
+
+function ValueIcon({ type }: { type: 'book' | 'trend' | 'target' | 'doc' | 'brain' | 'eye' | 'database' }) {
+  const paths = {
+    book: (
+      <>
+        <path d="M4 5.5c2.6 0 4.6.6 6 1.8v11.2c-1.4-1.2-3.4-1.8-6-1.8V5.5Z" />
+        <path d="M20 5.5c-2.6 0-4.6.6-6 1.8v11.2c1.4-1.2 3.4-1.8 6-1.8V5.5Z" />
+      </>
+    ),
+    trend: (
+      <>
+        <path d="M4 18V6" />
+        <path d="M4 18h16" />
+        <path d="m7 15 4-5 3 3 5-7" />
+        <path d="M16 6h3v3" />
+      </>
+    ),
+    target: (
+      <>
+        <circle cx="12" cy="12" r="7" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 2v3" />
+        <path d="M12 19v3" />
+        <path d="M2 12h3" />
+        <path d="M19 12h3" />
+      </>
+    ),
+    doc: (
+      <>
+        <path d="M7 3h7l4 4v14H7V3Z" />
+        <path d="M14 3v5h5" />
+        <path d="M9.5 12h5" />
+        <path d="M9.5 16h6.5" />
+      </>
+    ),
+    brain: (
+      <>
+        <path d="M9 5.5a3 3 0 0 0-4 2.8 3.1 3.1 0 0 0 1 2.3 3.4 3.4 0 0 0 0 5.7A3.2 3.2 0 0 0 9 20" />
+        <path d="M15 5.5a3 3 0 0 1 4 2.8 3.1 3.1 0 0 1-1 2.3 3.4 3.4 0 0 1 0 5.7A3.2 3.2 0 0 1 15 20" />
+        <path d="M9 5.5V20" />
+        <path d="M15 5.5V20" />
+        <path d="M9 11h6" />
+      </>
+    ),
+    eye: (
+      <>
+        <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    database: (
+      <>
+        <ellipse cx="12" cy="5" rx="7" ry="3" />
+        <path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5" />
+        <path d="M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+      </>
+    ),
+  };
+
+  return <Icon>{paths[type]}</Icon>;
+}
+
+function ProductPreview() {
+  return (
+    <div className="helix-preview" aria-label="Static Helix product preview">
+      <div className="helix-preview-topbar">
+        <div className="helix-preview-id">
+          <span className="helix-brand-mark">H</span>
+          <strong>AAPL</strong>
+          <small>Apple Inc.</small>
+          <span aria-hidden="true">☆</span>
+        </div>
+        <div className="helix-preview-controls">
+          <span className="helix-preview-pill">3M ▾</span>
+          <span className="helix-preview-pill">Add to Watchlist</span>
+        </div>
+      </div>
+
+      <div className="helix-preview-grid">
+        <article className="helix-preview-card">
+          <div className="helix-preview-card-header">
+            <h3>Narrative Snapshot</h3>
+            <span className="helix-preview-badge">Current Regime</span>
+          </div>
+          <p className="helix-narrative-stage">
+            Early Optimism<br />Growth Re-acceleration
+          </p>
+          <svg className="helix-cycle" viewBox="0 0 240 120" fill="none">
+            <path d="M20 96 C48 38, 92 22, 124 38 C158 55, 174 100, 222 96" stroke="#D8DEE6" strokeWidth="3" />
+            {[
+              [20, 96, '#2F7F82'], [50, 62, '#E7F4F4'], [84, 38, '#E7F4F4'],
+              [118, 35, '#4FA3A5'], [152, 51, '#E7F4F4'], [176, 76, '#F5E8CF'],
+              [194, 96, '#F5E8CF'], [218, 98, '#F7D8D8'],
+            ].map(([cx, cy, fill], idx) => (
+              <circle key={idx} cx={cx} cy={cy} r="8" fill={String(fill)} stroke="#2F7F82" strokeWidth={idx === 0 || idx === 3 ? 2 : 1} />
+            ))}
+            <text x="18" y="113" fill="#102033" fontSize="10">Optimism</text>
+            <text x="98" y="20" fill="#5B6678" fontSize="10">Euphoria</text>
+            <text x="182" y="113" fill="#5B6678" fontSize="10">Fear</text>
+          </svg>
+          <p className="helix-preview-note">
+            Participation broadening with improving fundamentals and renewed inflows.
+          </p>
+        </article>
+
+        <article className="helix-preview-card">
+          <div className="helix-preview-card-header">
+            <h3>Evidence Board</h3>
+            <span style={{ color: 'var(--teal-dark)', fontSize: 12, fontWeight: 760 }}>View all</span>
+          </div>
+          <div className="helix-evidence-list">
+            {[
+              ['News & Research', 'Earnings beat, AI features, services growth.', 24],
+              ['Company Filings', 'Strong FCF, margin expansion, share repurchases.', 8],
+              ['Sentiment & Flows', 'Analyst upgrades and positive revisions.', 15],
+            ].map(([title, body, count]) => (
+              <div className="helix-evidence-item" key={String(title)}>
+                <span className="helix-evidence-icon">⌁</span>
+                <span>
+                  <span className="helix-evidence-title">{title}</span>
+                  <span className="helix-evidence-body">{body}</span>
+                </span>
+                <span className="helix-evidence-count">{count} •</span>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="helix-preview-card">
+          <div className="helix-preview-card-header">
+            <h3>Price & Timeframe</h3>
+            <span style={{ color: 'var(--teal-dark)', fontSize: 12, fontWeight: 760 }}>View chart</span>
+          </div>
+          <div className="helix-price-value">
+            <strong>$183.42</strong>
+            <span>+4.21 (+2.35%)</span>
+          </div>
+          <small style={{ color: 'var(--text-subtle)' }}>As of May 2, 2026 4:00 PM ET</small>
+          <svg className="helix-spark" viewBox="0 0 260 96" fill="none">
+            <path d="M0 74 C16 58, 25 48, 40 51 C58 55, 63 32, 80 37 C98 43, 103 30, 120 35 C137 40, 145 28, 160 33 C179 40, 178 62, 195 58 C212 54, 213 34, 231 31 C243 29, 250 20, 260 16" stroke="#4FA3A5" strokeWidth="3" />
+            <path d="M0 74 C16 58, 25 48, 40 51 C58 55, 63 32, 80 37 C98 43, 103 30, 120 35 C137 40, 145 28, 160 33 C179 40, 178 62, 195 58 C212 54, 213 34, 231 31 C243 29, 250 20, 260 16 L260 96 L0 96Z" fill="url(#sparkFill)" />
+            <defs>
+              <linearGradient id="sparkFill" x1="130" y1="16" x2="130" y2="96" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#4FA3A5" stopOpacity="0.18" />
+                <stop offset="1" stopColor="#4FA3A5" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div className="helix-price-metrics">
+            <div><span>Trend</span><strong style={{ color: 'var(--positive)' }}>Up ↗</strong></div>
+            <div><span>Volatility (20D)</span><strong>22.6%</strong></div>
+            <div><span>52W Range</span><strong>$142.11 – $199.62</strong></div>
+            <div><span>Market Cap</span><strong>$2.82T</strong></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
-    <>
-      <style>{`
-        @keyframes helixHomeDriftA {
-          0% { transform: translate3d(-4%, -2%, 0) scale(1); opacity: 0.5; }
-          50% { transform: translate3d(6%, 4%, 0) scale(1.08); opacity: 0.72; }
-          100% { transform: translate3d(-4%, -2%, 0) scale(1); opacity: 0.5; }
-        }
-
-        @keyframes helixHomeDriftB {
-          0% { transform: translate3d(6%, 0%, 0) scale(1.04); opacity: 0.34; }
-          50% { transform: translate3d(-5%, -4%, 0) scale(0.96); opacity: 0.52; }
-          100% { transform: translate3d(6%, 0%, 0) scale(1.04); opacity: 0.34; }
-        }
-
-        @keyframes helixHomeGridShift {
-          0% { transform: translateY(0px); opacity: 0.16; }
-          50% { transform: translateY(-12px); opacity: 0.26; }
-          100% { transform: translateY(0px); opacity: 0.16; }
-        }
-
-        @keyframes helixHomePulse {
-          0% { transform: scale(0.96); opacity: 0.18; }
-          50% { transform: scale(1.03); opacity: 0.32; }
-          100% { transform: scale(0.96); opacity: 0.18; }
-        }
-
-        @keyframes helixHomeShimmer {
-          0% { transform: translateX(-120%); }
-          100% { transform: translateX(140%); }
-        }
-      `}</style>
-
-      <main
-        style={{
-          position: 'relative',
-          minHeight: 'calc(100vh - 88px)',
-          overflow: 'hidden',
-          background: T.bg,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '48px 24px 72px',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'radial-gradient(circle at 50% 44%, rgba(149,128,212,0.18) 0%, rgba(149,128,212,0.08) 22%, rgba(7,7,10,0) 56%)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <div
-          style={{
-            position: 'absolute',
-            top: '-12%',
-            left: '-10%',
-            width: '48vw',
-            height: '48vw',
-            minWidth: '320px',
-            minHeight: '320px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(149,128,212,0.14) 0%, rgba(149,128,212,0.05) 40%, transparent 72%)',
-            filter: 'blur(32px)',
-            animation: 'helixHomeDriftA 12s ease-in-out infinite',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <div
-          style={{
-            position: 'absolute',
-            right: '-8%',
-            bottom: '-18%',
-            width: '42vw',
-            height: '42vw',
-            minWidth: '280px',
-            minHeight: '280px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(149,128,212,0.12) 0%, rgba(149,128,212,0.04) 42%, transparent 74%)',
-            filter: 'blur(40px)',
-            animation: 'helixHomeDriftB 14s ease-in-out infinite',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px)',
-            backgroundSize: '56px 56px',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 24%, rgba(0,0,0,0.9) 78%, transparent 100%)',
-            animation: 'helixHomeGridShift 9s ease-in-out infinite',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <div
-          style={{
-            position: 'absolute',
-            width: '62vw',
-            height: '62vw',
-            maxWidth: '820px',
-            maxHeight: '820px',
-            borderRadius: '50%',
-            border: '1px solid rgba(149,128,212,0.1)',
-            boxShadow: '0 0 80px rgba(149,128,212,0.08), inset 0 0 60px rgba(149,128,212,0.04)',
-            animation: 'helixHomePulse 8s ease-in-out infinite',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <section
-          style={{
-            position: 'relative',
-            zIndex: 2,
-            width: '100%',
-            maxWidth: '980px',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '860px',
-              padding: '40px 36px 44px',
-              border: `1px solid ${T.border}`,
-              background:
-                'linear-gradient(180deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.018) 100%)',
-              boxShadow:
-                '0 0 0 1px rgba(149,128,212,0.08) inset, 0 24px 80px rgba(0,0,0,0.45), 0 0 64px rgba(149,128,212,0.08)',
-              overflow: 'hidden',
-              backdropFilter: 'blur(8px)',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                  'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%)',
-                width: '42%',
-                animation: 'helixHomeShimmer 5.5s linear infinite',
-                opacity: 0.28,
-                pointerEvents: 'none',
-              }}
-            />
-
-            <div
-              style={{
-                position: 'relative',
-                zIndex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                gap: '20px',
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: T.mono,
-                  fontSize: '11px',
-                  letterSpacing: '4px',
-                  textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.36)',
-                }}
-              >
-                Helix
-              </div>
-
-              <div
-                style={{
-                  width: '72px',
-                  height: '72px',
-                  border: '0.5px solid rgba(255,255,255,0.18)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'rgba(255,255,255,0.02)',
-                  boxShadow: '0 0 36px rgba(149,128,212,0.18)',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: T.mono,
-                    fontSize: '32px',
-                    fontWeight: 400,
-                    lineHeight: 1,
-                    color: 'rgba(255,255,255,0.84)',
-                  }}
-                >
-                  H
-                </span>
-              </div>
-
-              <h1
-                style={{
-                  margin: 0,
-                  maxWidth: '760px',
-                  fontFamily: T.sans,
-                  fontSize: 'clamp(32px, 6vw, 68px)',
-                  lineHeight: 1.02,
-                  letterSpacing: '-0.04em',
-                  fontWeight: 500,
-                  color: 'rgba(255,255,255,0.94)',
-                  textWrap: 'balance',
-                }}
-              >
-                Cutting edge market intelligence for active investors
-              </h1>
-
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '12px',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  marginTop: '6px',
-                }}
-              >
-                {['Macro regime', 'Market memory', 'Narrative state'].map((item) => (
-                  <div
-                    key={item}
-                    style={{
-                      fontFamily: T.mono,
-                      fontSize: '10px',
-                      letterSpacing: '1.6px',
-                      textTransform: 'uppercase',
-                      color: 'rgba(255,255,255,0.42)',
-                      border: `1px solid ${T.borderSub}`,
-                      padding: '8px 10px',
-                      background: 'rgba(255,255,255,0.02)',
-                    }}
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
+    <main className="helix-home">
+      <div className="helix-home-container">
+        <section className="helix-hero">
+          <div>
+            <span className="helix-chip">Narrative + Price Intelligence</span>
+            <h1 className="helix-hero-title">
+              <span>Narrative intelligence</span>
+              <span>for active investors</span>
+            </h1>
+            <p className="helix-hero-copy">
+              Helix helps active investors understand what the market believes, how price is reacting, and where
+              narrative-driven inefficiencies may be forming.
+            </p>
+            <div className="helix-hero-actions">
+              <Link href="/narrative" className="helix-button-primary">Explore Helix →</Link>
+              <Link href="/how-it-works" className="helix-button-secondary">See How it Works</Link>
+            </div>
+            <div className="helix-trust-row">
+              {[
+                ['Institutional-grade sources', 'database'],
+                ['Transparent methodology', 'eye'],
+                ['Designed for active research', 'target'],
+              ].map(([text, icon]) => (
+                <div className="helix-trust-item" key={text}>
+                  <span className="helix-trust-icon"><ValueIcon type={icon as 'database' | 'eye' | 'target'} /></span>
+                  <span>{text}</span>
+                </div>
+              ))}
             </div>
           </div>
+          <ProductPreview />
         </section>
-      </main>
-    </>
+
+        <section className="helix-value-strip" aria-label="Helix value pillars">
+          {[
+            ['Understand the Narrative', 'See the market story, its stage in the cycle, and the evidence shaping it.', 'book'],
+            ['See How Price is Responding', 'Track price, flows, and sentiment across key timeframes and events.', 'trend'],
+            ['Spot Possible Inefficiencies', 'Identify gaps between narrative, fundamentals, and price action.', 'target'],
+          ].map(([title, body, icon]) => (
+            <article className="helix-value-card" key={title}>
+              <span className="helix-value-icon"><ValueIcon type={icon as 'book' | 'trend' | 'target'} /></span>
+              <div>
+                <h2>{title}</h2>
+                <p>{body}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section className="helix-workflow">
+          <h2 className="helix-section-title">A repeatable framework for better decisions</h2>
+          <div className="helix-workflow-grid">
+            {[
+              ['Inputs', 'We aggregate signals across news, filings, sentiment, flows, and price action.', 'database'],
+              ['Evidence', 'Helix organizes what matters, separating signal from noise.', 'doc'],
+              ['Interpretation', 'Our models map the narrative cycle, explain price behavior, and highlight drivers.', 'brain'],
+              ['Watchpoints', 'We surface key risks, catalysts, and invalidation levels to monitor.', 'eye'],
+            ].map(([title, body, icon], idx) => (
+              <article className="helix-step" key={title}>
+                <span className="helix-step-number">{idx + 1}</span>
+                <span className="helix-workflow-icon"><ValueIcon type={icon as 'database' | 'doc' | 'brain' | 'eye'} /></span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="helix-feature-grid" id="pricing">
+          {[
+            ['Narrative Map', 'See the full landscape of market narratives and how they evolve over time.', 'book'],
+            ['Price Confirmation', 'Validate narratives with real price behavior across multiple timeframes.', 'trend'],
+            ['Inefficiency Detection', 'Identify gaps between beliefs and price that may create opportunity.', 'target'],
+            ['Cycle Positioning', 'Understand where a stock or theme may sit in the expectation cycle.', 'brain'],
+          ].map(([title, body, icon]) => (
+            <article className="helix-feature-card" key={title}>
+              <span className="helix-feature-icon"><ValueIcon type={icon as 'book' | 'trend' | 'target' | 'brain'} /></span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </section>
+      </div>
+    </main>
   );
 }

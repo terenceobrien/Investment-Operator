@@ -110,7 +110,7 @@ const pageShell: CSSProperties = {
 };
 
 const panelShell: CSSProperties = {
-  background: 'rgba(255,255,255,0.022)',
+  background: 'rgba(16,32,51,0.022)',
   border: `1px solid ${T.border}`,
   borderRadius: '10px',
   overflow: 'hidden',
@@ -119,7 +119,7 @@ const panelShell: CSSProperties = {
 const panelHeader: CSSProperties = {
   ...sx.sectionHd,
   padding: '14px 18px',
-  background: 'rgba(255,255,255,0.016)',
+  background: 'rgba(16,32,51,0.016)',
   borderBottom: `1px solid ${T.borderSub}`,
 };
 
@@ -128,7 +128,7 @@ const panelBody: CSSProperties = {
 };
 
 const subPanel: CSSProperties = {
-  background: 'rgba(255,255,255,0.015)',
+  background: 'rgba(16,32,51,0.015)',
   border: `1px solid ${T.borderSub}`,
   borderRadius: '10px',
   overflow: 'hidden',
@@ -175,7 +175,7 @@ function InsetPanel({
           gap: '12px',
           padding: '12px 16px',
           borderBottom: `1px solid ${T.borderSub}`,
-          background: 'rgba(255,255,255,0.012)',
+          background: 'rgba(16,32,51,0.012)',
         }}
       >
         <span style={sx.sectionLabel}>{title}</span>
@@ -205,7 +205,7 @@ function HeroMetric({
         padding: prominent ? '24px 24px 22px' : '20px 22px 18px',
         border: `1px solid ${T.borderSub}`,
         borderRadius: '10px',
-        background: prominent ? 'rgba(255,255,255,0.028)' : 'rgba(255,255,255,0.014)',
+        background: prominent ? 'rgba(16,32,51,0.028)' : 'rgba(16,32,51,0.014)',
         minHeight: prominent ? '132px' : '120px',
       }}
     >
@@ -282,7 +282,7 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
       >
         {prettyKey(label)}
       </span>
-      <div style={{ flex: 1, height: '2px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px' }}>
+      <div style={{ flex: 1, height: '2px', background: 'rgba(16,32,51,0.05)', borderRadius: '2px' }}>
         <div
           style={{
             width: `${Math.min((value / 10) * 100, 100)}%`,
@@ -335,7 +335,7 @@ function LayerDetailCard({
   return (
     <div
       style={{
-        background: 'rgba(255,255,255,0.018)',
+        background: 'rgba(16,32,51,0.018)',
         border: `1px solid ${T.border}`,
         borderRadius: '10px',
         overflow: 'hidden',
@@ -345,7 +345,7 @@ function LayerDetailCard({
       <div
         style={{
           padding: '13px 16px 12px',
-          background: 'rgba(255,255,255,0.012)',
+          background: 'rgba(16,32,51,0.012)',
           borderBottom: `1px solid ${T.borderSub}`,
           display: 'flex',
           alignItems: 'flex-start',
@@ -487,7 +487,7 @@ function LayerDetailCard({
           style={{
             flex: 1,
             height: '2px',
-            background: 'rgba(255,255,255,0.05)',
+            background: 'rgba(16,32,51,0.05)',
             borderRadius: '2px',
           }}
         >
@@ -904,7 +904,7 @@ export default function Dashboard() {
                           style={{
                             fontFamily: T.sans,
                             fontSize: '14px',
-                            color: 'rgba(255,255,255,0.70)',
+                            color: 'rgba(16,32,51,0.70)',
                             lineHeight: 1.65,
                             margin: 0,
                           }}
@@ -939,7 +939,7 @@ export default function Dashboard() {
                         <div
                           key={key}
                           style={{
-                            background: 'rgba(255,255,255,0.012)',
+                            background: 'rgba(16,32,51,0.012)',
                             border: `1px solid ${T.borderSub}`,
                             borderRadius: '8px',
                             padding: '16px 18px',

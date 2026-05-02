@@ -60,11 +60,11 @@ export default function PortfolioPage() {
             onDrop={onDrop}
             style={{
               margin: '32px 24px',
-              border: `0.5px dashed ${dragOver ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}`,
+              border: `0.5px dashed ${dragOver ? 'rgba(16,32,51,0.3)' : 'rgba(16,32,51,0.1)'}`,
               padding: '48px 24px',
               textAlign: 'center',
               cursor: loading ? 'default' : 'pointer',
-              background: dragOver ? 'rgba(255,255,255,0.02)' : 'transparent',
+              background: dragOver ? 'rgba(16,32,51,0.02)' : 'transparent',
               transition: 'border-color 0.12s, background 0.12s',
             }}
           >
@@ -73,12 +73,12 @@ export default function PortfolioPage() {
               fontSize: '13px',
               fontWeight: 300,
               letterSpacing: '0.5px',
-              color: dragOver ? 'rgba(255,255,255,0.75)' : T.textMuted,
+              color: dragOver ? 'rgba(16,32,51,0.75)' : T.textMuted,
               marginBottom: '6px',
             }}>
               {loading ? 'Preparing snapshot' : 'Drop CSV here or click to upload'}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: '12px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.3px' }}>
+            <div style={{ fontFamily: T.sans, fontSize: '12px', color: 'rgba(16,32,51,0.35)', letterSpacing: '0.3px' }}>
               ticker · weight · theme
             </div>
             {loading && (
@@ -170,7 +170,7 @@ export default function PortfolioPage() {
                   }}>
                     Warn
                   </span>
-                  <p style={{ fontFamily: T.sans, fontSize: '14px', color: 'rgba(255,255,255,0.68)', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontFamily: T.sans, fontSize: '14px', color: 'rgba(16,32,51,0.68)', lineHeight: 1.6, margin: 0 }}>
                     {flag}
                   </p>
                 </div>
@@ -213,7 +213,7 @@ export default function PortfolioPage() {
                   borderBottom: `0.5px solid ${T.borderSub}`,
                   alignItems: 'center',
                 }}>
-                  <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 400, color: 'rgba(255,255,255,0.82)', letterSpacing: '0.3px' }}>
+                  <span style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 400, color: 'rgba(16,32,51,0.82)', letterSpacing: '0.3px' }}>
                     {pos.ticker}
                   </span>
                   <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textSub, paddingRight: '12px' }}>
@@ -247,7 +247,7 @@ export default function PortfolioPage() {
                       {(t.weight * 100).toFixed(1)}%
                     </span>
                   </div>
-                  <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)' }}>
+                  <div style={{ height: '1px', background: 'rgba(16,32,51,0.05)' }}>
                     <div style={{
                       width: `${t.weight * 100}%`,
                       height: '100%',

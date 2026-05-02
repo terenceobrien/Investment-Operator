@@ -106,7 +106,7 @@ function DistributionChart({ stats }: { stats: HorizonStats }) {
         const fill = v >= 0 ? 'rgba(87,160,106,0.5)' : 'rgba(184,85,85,0.5)';
         return <rect key={i} x={i * barW} y={y} width={barW - 0.5} height={barH} fill={fill} />;
       })}
-      <line x1="0" y1={zeroY} x2={W} y2={zeroY} stroke="rgba(255,255,255,0.12)" strokeWidth="0.5" />
+      <line x1="0" y1={zeroY} x2={W} y2={zeroY} stroke="rgba(16,32,51,0.12)" strokeWidth="0.5" />
     </svg>
   );
 }
@@ -220,7 +220,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
                 y1={yForValue(tick)}
                 x2={W - padR}
                 y2={yForValue(tick)}
-                stroke="rgba(255,255,255,0.04)"
+                stroke="rgba(16,32,51,0.04)"
                 strokeWidth="0.5"
               />
               <text
@@ -251,7 +251,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
                 y1={padT}
                 x2={hoveredX}
                 y2={H - padB}
-                stroke="rgba(255,255,255,0.24)"
+                stroke="rgba(16,32,51,0.24)"
                 strokeWidth="0.75"
                 strokeDasharray="3 4"
               />
@@ -260,7 +260,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
                 y1={hoveredY}
                 x2={W - padR}
                 y2={hoveredY}
-                stroke="rgba(255,255,255,0.18)"
+                stroke="rgba(16,32,51,0.18)"
                 strokeWidth="0.75"
                 strokeDasharray="3 4"
               />
@@ -268,7 +268,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
             </g>
           )}
 
-          <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+          <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="rgba(16,32,51,0.06)" strokeWidth="0.5" />
 
           {xTicks.map((tick) => (
             <g key={tick}>
@@ -277,7 +277,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
                 y1={H - padB}
                 x2={xForDay(tick)}
                 y2={H - padB + 4}
-                stroke="rgba(255,255,255,0.06)"
+                stroke="rgba(16,32,51,0.06)"
                 strokeWidth="0.5"
               />
               <text
@@ -304,7 +304,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
                 padding: '5px 8px',
                 background: 'rgba(7,7,10,0.94)',
                 border: `0.5px solid ${T.border}`,
-                color: 'rgba(255,255,255,0.82)',
+                color: 'rgba(16,32,51,0.82)',
                 fontFamily: T.mono,
                 fontSize: '10px',
                 whiteSpace: 'nowrap',
@@ -403,7 +403,7 @@ function NarrativePanel({ date }: { date: string }) {
       {data && !isLoading && !error && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {data.narrative.regime_verdict && (
-            <div style={{ background: 'rgba(255,255,255,0.02)', border: `0.5px solid ${T.border}`, padding: '10px 12px' }}>
+            <div style={{ background: 'rgba(16,32,51,0.02)', border: `0.5px solid ${T.border}`, padding: '10px 12px' }}>
               <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '4px' }}>
                 Regime verdict
               </div>
@@ -418,7 +418,7 @@ function NarrativePanel({ date }: { date: string }) {
               <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
                 Summary
               </div>
-              <div style={{ fontFamily: T.sans, fontSize: '13.5px', lineHeight: 1.7, color: 'rgba(255,255,255,0.72)' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '13.5px', lineHeight: 1.7, color: 'rgba(16,32,51,0.72)' }}>
                 {data.narrative.summary}
               </div>
             </div>
@@ -461,7 +461,7 @@ function NarrativePanel({ date }: { date: string }) {
               <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.accent, marginBottom: '4px' }}>
                 Outcome note
               </div>
-              <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6 }}>
+              <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: 'rgba(16,32,51,0.72)', lineHeight: 1.6 }}>
                 {data.narrative.outcome_note}
               </div>
             </div>
@@ -491,10 +491,10 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
           alignItems: 'center',
           padding: '8px 24px',
           cursor: 'pointer',
-          background: isExpanded ? 'rgba(255,255,255,0.025)' : 'transparent',
+          background: isExpanded ? 'rgba(16,32,51,0.025)' : 'transparent',
         }}
       >
-        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: 'rgba(255,255,255,0.78)', letterSpacing: '0.2px' }}>
+        <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: 'rgba(16,32,51,0.78)', letterSpacing: '0.2px' }}>
           {a.date}
         </span>
         <span style={{ fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300, color: T.textSub }}>
@@ -518,7 +518,7 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
       </div>
 
       {isExpanded && (
-        <div style={{ background: 'rgba(255,255,255,0.012)', borderTop: `0.5px solid ${T.border}` }}>
+        <div style={{ background: 'rgba(16,32,51,0.012)', borderTop: `0.5px solid ${T.border}` }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(280px, 0.9fr)' }}>
             <div style={{ padding: '16px 20px', borderRight: `0.5px solid ${T.border}` }}>
               <HistoricalPathChart analogue={a} />
@@ -536,7 +536,7 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
                       <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
                         {k.replace(/_/g, ' ')}
                       </span>
-                      <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)' }}>
+                      <div style={{ height: '1px', background: 'rgba(16,32,51,0.05)' }}>
                         <div style={{ width: `${(v / 10) * 100}%`, height: '100%', background: fill }} />
                       </div>
                       <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: fill, textAlign: 'right' }}>
@@ -560,7 +560,7 @@ function AnalogueRow({ a, isExpanded, onToggle }: {
                     <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '4px' }}>
                       {label}
                     </div>
-                    <div style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.78)' }}>
+                    <div style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: 'rgba(16,32,51,0.78)' }}>
                       {value}
                     </div>
                   </div>
@@ -647,9 +647,9 @@ export default function HistoryPage() {
                         fontFamily: T.mono,
                         fontSize: '12px',
                         fontWeight: 300,
-                        color: topN === n ? 'rgba(255,255,255,0.9)' : T.textMuted,
-                        background: topN === n ? 'rgba(255,255,255,0.06)' : 'transparent',
-                        border: `0.5px solid ${topN === n ? 'rgba(255,255,255,0.15)' : T.border}`,
+                        color: topN === n ? 'rgba(16,32,51,0.9)' : T.textMuted,
+                        background: topN === n ? 'rgba(16,32,51,0.06)' : 'transparent',
+                        border: `0.5px solid ${topN === n ? 'rgba(16,32,51,0.15)' : T.border}`,
                         padding: '2px 9px',
                         cursor: 'pointer',
                       }}
@@ -660,7 +660,7 @@ export default function HistoryPage() {
                 </div>
               </div>
               <div style={sx.panelBody}>
-                <div style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
+                <div style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: 'rgba(16,32,51,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
                   {data.conditions_matched}
                 </div>
                 <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>

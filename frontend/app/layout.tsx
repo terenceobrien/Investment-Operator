@@ -25,63 +25,63 @@ export const metadata: Metadata = {
   },
 };
 
-// Clerk appearance — matches the dark terminal UI of the rest of the app.
+// Clerk appearance — matches the light Helix product system.
 // Uses only the `variables` and `elements` APIs (no @clerk/themes package needed).
 const clerkAppearance = {
   variables: {
-    colorPrimary:        '#9580d4',
-    colorBackground:     '#0a0a10',
-    colorInputBackground:'#111118',
-    colorInputText:      'rgba(255,255,255,0.85)',
-    colorText:           'rgba(255,255,255,0.85)',
-    colorTextSecondary:  'rgba(255,255,255,0.42)',
-    colorNeutral:        'rgba(255,255,255,0.42)',
-    colorDanger:         '#e05555',
-    colorSuccess:        '#4caf89',
-    colorShimmer:        'rgba(149,128,212,0.12)',
-    borderRadius:        '2px',
+    colorPrimary:        '#4FA3A5',
+    colorBackground:     '#FFFFFF',
+    colorInputBackground:'#F8FAFB',
+    colorInputText:      '#102033',
+    colorText:           '#102033',
+    colorTextSecondary:  '#5B6678',
+    colorNeutral:        '#7B8798',
+    colorDanger:         '#C94A4A',
+    colorSuccess:        '#168A5A',
+    colorShimmer:        'rgba(79,163,165,0.12)',
+    borderRadius:        '12px',
     fontFamily:          'Inter, system-ui, sans-serif',
     fontSize:            '13px',
   },
   elements: {
     // Outer card
     card: {
-      background:  '#0a0a10',
-      border:      '0.5px solid rgba(255,255,255,0.09)',
-      boxShadow:   '0 24px 64px rgba(0,0,0,0.82)',
+      background:  '#FFFFFF',
+      border:      '1px solid #D8DEE6',
+      boxShadow:   '0 18px 50px rgba(15,31,51,0.12)',
     },
     // Modal backdrop
     modalBackdrop: {
-      background: 'rgba(0,0,0,0.72)',
+      background: 'rgba(11,31,51,0.34)',
       backdropFilter: 'blur(4px)',
     },
     // Header
     headerTitle: {
-      color:       'rgba(255,255,255,0.88)',
+      color:       '#0B1F33',
       fontWeight:  '500',
       letterSpacing: '0.5px',
     },
     headerSubtitle: {
-      color: 'rgba(255,255,255,0.42)',
+      color: '#5B6678',
     },
     // Form inputs
     formFieldInput: {
-      background:  '#111118',
-      border:      '0.5px solid rgba(255,255,255,0.12)',
-      color:       'rgba(255,255,255,0.85)',
+      background:  '#F8FAFB',
+      border:      '1px solid #D8DEE6',
+      color:       '#102033',
       outline:     'none',
     },
     formFieldLabel: {
-      color:       'rgba(255,255,255,0.55)',
+      color:       '#5B6678',
       fontSize:    '11px',
       letterSpacing: '0.8px',
       textTransform: 'uppercase',
     },
     // Primary button (Sign in / Continue)
     formButtonPrimary: {
-      background:  'rgba(149,128,212,0.18)',
-      border:      '0.5px solid rgba(149,128,212,0.45)',
-      color:       'rgba(255,255,255,0.9)',
+      background:  '#0B1F33',
+      border:      '1px solid #0B1F33',
+      color:       '#FFFFFF',
       fontFamily:  'Inter, system-ui, sans-serif',
       letterSpacing: '0.8px',
       textTransform: 'uppercase',
@@ -89,30 +89,30 @@ const clerkAppearance = {
     },
     // Social / OAuth buttons
     socialButtonsBlockButton: {
-      background:  '#111118',
-      border:      '0.5px solid rgba(255,255,255,0.1)',
-      color:       'rgba(255,255,255,0.7)',
+      background:  '#FFFFFF',
+      border:      '1px solid #D8DEE6',
+      color:       '#102033',
     },
     socialButtonsBlockButtonText: {
-      color:       'rgba(255,255,255,0.7)',
+      color:       '#102033',
     },
     // Divider
     dividerLine: {
-      background:  'rgba(255,255,255,0.08)',
+      background:  '#E8EDF2',
     },
     dividerText: {
-      color:       'rgba(255,255,255,0.3)',
+      color:       '#7B8798',
     },
     // Footer links
     footerActionLink: {
-      color:       '#9580d4',
+      color:       '#2F7F82',
     },
     footer: {
-      background:  '#0a0a10',
+      background:  '#FFFFFF',
     },
     // Internal nav links
     identityPreviewEditButton: {
-      color:       '#9580d4',
+      color:       '#2F7F82',
     },
   },
 } as const;
@@ -129,9 +129,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <footer
               style={{
                 borderTop: `0.5px solid ${T.border}`,
-                padding: '10px 24px 14px',
+                background: 'rgba(255,255,255,0.78)',
+                padding: '22px 24px 24px',
                 fontFamily: T.mono,
-                fontSize: '10px',
+                fontSize: '11px',
                 fontWeight: 300,
                 letterSpacing: '0.3px',
                 color: T.textMuted,
@@ -139,7 +140,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }}
             >
               <div>
-                Helix is for informational purposes only and does not constitute financial advice. Not affiliated with any broker or financial institution.{' '}
+                <strong style={{ color: T.text, fontFamily: T.sans, letterSpacing: '0.16em', textTransform: 'uppercase' }}>Helix</strong>
+                {' '}is for informational purposes only and does not constitute financial advice.{' '}
                 <a href="/legal/helix_privacy_policy.docx" target="_blank" rel="noreferrer" style={{ color: T.textMuted, textDecoration: 'underline' }}>
                   Privacy Policy
                 </a>{' '}

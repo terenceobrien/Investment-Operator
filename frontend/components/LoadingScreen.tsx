@@ -16,7 +16,10 @@ export default function LoadingScreen({ loaded }: { loaded: boolean }) {
             position: 'relative',
             width: '80px',
             height: '80px',
-            border: '0.5px solid rgba(255,255,255,0.2)',
+            border: `1px solid ${T.border}`,
+            borderRadius: '18px',
+            background: T.surface,
+            boxShadow: T.shadowSoft,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -29,8 +32,8 @@ export default function LoadingScreen({ loaded }: { loaded: boolean }) {
               zIndex: 1,
               fontFamily: T.mono,
               fontSize: '36px',
-              fontWeight: 400,
-              color: 'rgba(255,255,255,0.8)',
+              fontWeight: 700,
+              color: T.navy,
               lineHeight: 1,
             }}
           >
@@ -43,7 +46,7 @@ export default function LoadingScreen({ loaded }: { loaded: boolean }) {
               left: 0,
               width: '60%',
               height: '100%',
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(79,163,165,0.2) 50%, transparent 100%)',
               animation: 'sweep 1.2s ease-in-out infinite',
             }}
           />
@@ -55,7 +58,7 @@ export default function LoadingScreen({ loaded }: { loaded: boolean }) {
             fontSize: '11px',
             letterSpacing: '4px',
             textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.3)',
+            color: T.textMuted,
           }}
         >
           Helix

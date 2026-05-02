@@ -13,7 +13,7 @@ const TFS      = ['1D', '5D', '1M', '3M', 'YTD'];
 const SECTOR_MCAP_ORDER = ['XLK','XLF','XLV','XLY','XLC','XLI','XLE','XLP','XLB','XLU','XLRE'];
 
 function heatColor(ret: number | null): { bg: string; text: string } {
-  if (ret === null || ret === undefined) return { bg: 'rgba(255,255,255,0.03)', text: T.textMuted };
+  if (ret === null || ret === undefined) return { bg: 'rgba(16,32,51,0.03)', text: T.textMuted };
   if (ret >  1)   return { bg: 'rgba(60,140,80,0.35)',  text: '#7bc98a' };
   if (ret >  0.3) return { bg: 'rgba(60,140,80,0.22)',  text: '#6dba7c' };
   if (ret >  0)   return { bg: 'rgba(60,140,80,0.12)',  text: '#57a06a' };
@@ -290,7 +290,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
                     x2={svgWidth - padRight}
                     y1={line.y}
                     y2={line.y}
-                    stroke="rgba(255,255,255,0.04)"
+                    stroke="rgba(16,32,51,0.04)"
                     strokeWidth="0.5"
                     shapeRendering="crispEdges"
                   />
@@ -327,7 +327,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
                     y1={padTop}
                     x2={hoveredX}
                     y2={svgHeight - padBottom}
-                    stroke="rgba(255,255,255,0.24)"
+                    stroke="rgba(16,32,51,0.24)"
                     strokeWidth="0.75"
                     strokeDasharray="3 4"
                   />
@@ -336,7 +336,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
                     y1={hoveredY}
                     x2={svgWidth - padRight}
                     y2={hoveredY}
-                    stroke="rgba(255,255,255,0.18)"
+                    stroke="rgba(16,32,51,0.18)"
                     strokeWidth="0.75"
                     strokeDasharray="3 4"
                   />
@@ -385,7 +385,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
                     padding: '5px 8px',
                     background: 'rgba(7,7,10,0.94)',
                     border: `0.5px solid ${T.border}`,
-                    color: 'rgba(255,255,255,0.82)',
+                    color: 'rgba(16,32,51,0.82)',
                     fontFamily: T.mono,
                     fontSize: '10px',
                     whiteSpace: 'nowrap',
@@ -400,7 +400,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
 
             <div
               style={{
-                borderTop: '0.5px solid rgba(255,255,255,0.06)',
+                borderTop: '0.5px solid rgba(16,32,51,0.06)',
                 marginTop: '2px',
                 paddingTop: '8px',
                 position: 'relative',
@@ -433,7 +433,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
           flex: '0 1 320px',
           width: '320px',
           minWidth: '280px',
-          background: 'rgba(255,255,255,0.014)',
+          background: 'rgba(16,32,51,0.014)',
         }}
       >
         <div style={{ ...sx.sectionHd, padding: '10px 20px', borderLeft: 'none' }}>
@@ -540,8 +540,8 @@ export default function MarketsPage() {
                       fontSize: '12px',
                       letterSpacing: '1px',
                       textTransform: 'uppercase',
-                      color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
-                      background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
+                      color: active ? 'rgba(16,32,51,0.88)' : T.textMuted,
+                      background: active ? 'rgba(16,32,51,0.06)' : 'transparent',
                       border: 'none',
                       borderRight: `0.5px solid ${T.border}`,
                       borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',
@@ -567,7 +567,7 @@ export default function MarketsPage() {
             <div style={sx.panelBody}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px,1fr))', gap: '1px' }}>
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)' }}>
+                  <div key={i} style={{ padding: '14px 16px', background: 'rgba(16,32,51,0.02)' }}>
                     <SkeletonBlock width="58%" height={10} style={{ marginBottom: '8px' }} />
                     <SkeletonBlock width="44%" height={15} />
                   </div>
@@ -582,7 +582,7 @@ export default function MarketsPage() {
                   return (
                     <div key={item.ticker} style={{ ...sx.subPanel, background: bg }}>
                       <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
+                        <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.5px', color: 'rgba(16,32,51,0.55)', textTransform: 'uppercase' }}>
                           {item.name || item.ticker}
                         </span>
                         <span style={{ fontFamily: T.mono, fontSize: '15px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
@@ -606,7 +606,7 @@ export default function MarketsPage() {
             <div style={sx.panelBody}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(11, minmax(0,1fr))', gap: '1px' }}>
                 {Array.from({ length: 11 }).map((_, i) => (
-                  <div key={i} style={{ padding: '12px 12px', background: 'rgba(255,255,255,0.02)' }}>
+                  <div key={i} style={{ padding: '12px 12px', background: 'rgba(16,32,51,0.02)' }}>
                     <SkeletonBlock width="64%" height={10} style={{ marginBottom: '8px' }} />
                     <SkeletonBlock width="42%" height={15} />
                   </div>
@@ -625,13 +625,13 @@ export default function MarketsPage() {
                         style={{
                           background: bg,
                           padding: '12px 10px',
-                          borderRight: i < sortedSectors.length - 1 ? `0.5px solid rgba(255,255,255,0.04)` : 'none',
+                          borderRight: i < sortedSectors.length - 1 ? `0.5px solid rgba(16,32,51,0.04)` : 'none',
                           display: 'flex',
                           flexDirection: 'column',
                           gap: '4px',
                         }}
                       >
-                        <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.4px', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
+                        <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.4px', color: 'rgba(16,32,51,0.55)', textTransform: 'uppercase' }}>
                           {item.name || item.ticker}
                         </span>
                         <span style={{ fontFamily: T.mono, fontSize: '14px', fontWeight: 300, color: text, letterSpacing: '-0.3px' }}>
@@ -666,7 +666,7 @@ export default function MarketsPage() {
                     fontFamily: T.mono,
                     fontSize: '12px',
                     letterSpacing: '0.5px',
-                    color: 'rgba(255,255,255,0.75)',
+                    color: 'rgba(16,32,51,0.75)',
                     background: 'transparent',
                     border: `0.5px solid ${T.border}`,
                     padding: '5px 8px',
@@ -703,8 +703,8 @@ export default function MarketsPage() {
                       fontSize: '11px',
                       letterSpacing: '1px',
                       textTransform: 'uppercase',
-                      color: active ? 'rgba(255,255,255,0.88)' : T.textMuted,
-                      background: active ? 'rgba(255,255,255,0.06)' : 'transparent',
+                      color: active ? 'rgba(16,32,51,0.88)' : T.textMuted,
+                      background: active ? 'rgba(16,32,51,0.06)' : 'transparent',
                       border: 'none',
                       borderRight: `0.5px solid ${T.border}`,
                       borderLeft: i === 0 ? `0.5px solid ${T.border}` : 'none',

@@ -28,7 +28,7 @@ function Copy({ children }: { children: React.ReactNode }) {
       style={{
         fontFamily: T.sans,
         fontSize: '14px',
-        color: 'rgba(255,255,255,0.72)',
+        color: 'rgba(16,32,51,0.72)',
         lineHeight: 1.75,
         margin: 0,
       }}
@@ -110,7 +110,7 @@ export default function HowItWorksPage() {
               <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
                 {label}
               </div>
-              <div style={{ fontFamily: T.sans, fontSize: '13px', lineHeight: 1.65, color: 'rgba(255,255,255,0.72)' }}>
+              <div style={{ fontFamily: T.sans, fontSize: '13px', lineHeight: 1.65, color: 'rgba(16,32,51,0.72)' }}>
                 {body}
               </div>
             </div>

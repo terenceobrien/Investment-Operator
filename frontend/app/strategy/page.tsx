@@ -104,10 +104,10 @@ const DEFAULT_THRESHOLDS: LayerThresholds = {
 const ENV_COLOR: Record<string, string> = {
   'Trend Day — Broad Participation': T.up,
   'Risk-On — Liquidity Driven':      T.up,
-  'Risk-On Rotation Day':            '#4ade80',
+  'Risk-On Rotation Day':            '#168A5A',
   'Risk-Off / Headline Risk':        T.dn,
   'Chop / Layer Divergence':         T.wa,
-  'Fear Exhaustion — Mean Reversion Setup': '#a78bfa',
+  'Fear Exhaustion — Mean Reversion Setup': '#4FA3A5',
   'Mixed / Neutral':                 T.accent,
 };
 
@@ -165,7 +165,7 @@ function ThresholdInput({ label, description, value, onChange, suffix = '', step
           onChange={e => onChange(parseFloat(e.target.value))}
           style={{
             fontFamily: T.mono, fontSize: '13px', fontWeight: 300,
-            color: T.text, background: 'rgba(255,255,255,0.04)',
+            color: T.text, background: 'rgba(16,32,51,0.04)',
             border: `1px solid ${T.border}`, padding: '3px 8px',
             width: '80px', textAlign: 'right', outline: 'none',
           }}
@@ -182,7 +182,7 @@ function EnvResultCard({ env, stat }: { env: string; stat: EnvStat }) {
   const fwd21 = stat.fwd_21d;
   const isPos5 = (fwd5.median ?? 0) >= 0;
   return (
-    <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, borderLeft: `3px solid ${color}`, padding: '16px 20px', marginBottom: '8px' }}>
+    <div style={{ background: 'rgba(16,32,51,0.02)', border: `1px solid ${T.border}`, borderLeft: `3px solid ${color}`, padding: '16px 20px', marginBottom: '8px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
         <div>
           <div style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 500, color, letterSpacing: '0.5px', marginBottom: '3px' }}>{env}</div>
@@ -296,7 +296,7 @@ function ScoreHistoryChart({ series, thresholdVal, isCustom }: {
         <span style={{
           fontFamily: T.mono, fontSize: '10px', letterSpacing: '0.5px',
           color: isCustom ? T.accent : T.textMuted,
-          background: isCustom ? `${T.accent}18` : 'rgba(255,255,255,0.04)',
+          background: isCustom ? `${T.accent}18` : 'rgba(16,32,51,0.04)',
           border: `1px solid ${isCustom ? `${T.accent}50` : T.border}`,
           padding: '2px 10px',
         }}>
@@ -339,7 +339,7 @@ function ScoreHistoryChart({ series, thresholdVal, isCustom }: {
 
         {/* Main line — ghost shape */}
         <polyline points={pts} fill="none"
-          stroke={isCustom ? T.accent : 'rgba(255,255,255,0.2)'}
+          stroke={isCustom ? T.accent : 'rgba(16,32,51,0.2)'}
           strokeWidth="0.7" />
 
         {/* Regime-colored dots */}
@@ -609,13 +609,13 @@ export default function StrategyPage() {
   // Shared select style
   const selectStyle: React.CSSProperties = {
     fontFamily: T.mono, fontSize: '12px', color: T.text,
-    background: 'rgba(255,255,255,0.05)', border: `1px solid ${T.border}`,
+    background: 'rgba(16,32,51,0.05)', border: `1px solid ${T.border}`,
     padding: '5px 8px', outline: 'none', cursor: 'pointer',
   };
 
   const numInputStyle: React.CSSProperties = {
     fontFamily: T.mono, fontSize: '13px', color: T.text,
-    background: 'rgba(255,255,255,0.05)', border: `1px solid ${T.border}`,
+    background: 'rgba(16,32,51,0.05)', border: `1px solid ${T.border}`,
     padding: '5px 10px', outline: 'none', width: '72px', textAlign: 'right',
   };
 
@@ -636,11 +636,11 @@ export default function StrategyPage() {
                 <SectionLabel>Date range</SectionLabel>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}
-                    style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
+                    style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(16,32,51,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
                   <span style={{ color: T.textMuted, fontSize: '12px' }}>→</span>
                   <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
                     placeholder="Today"
-                    style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
+                    style={{ fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(16,32,51,0.04)', border: `1px solid ${T.border}`, padding: '5px 8px', flex: 1, outline: 'none' }} />
                 </div>
               </div>
 
@@ -716,7 +716,7 @@ export default function StrategyPage() {
               <div style={{ padding: '18px 20px' }}>
                 <button onClick={runBacktest} disabled={loading} style={{
                   width: '100%', padding: '10px', marginBottom: '8px',
-                  background: loading ? 'rgba(255,255,255,0.04)' : T.accent,
+                  background: loading ? 'rgba(16,32,51,0.04)' : T.accent,
                   color: loading ? T.textMuted : '#fff', border: 'none',
                   fontFamily: T.sans, fontSize: '13px', fontWeight: 500,
                   letterSpacing: '0.5px', cursor: loading ? 'not-allowed' : 'pointer',
@@ -738,15 +738,15 @@ export default function StrategyPage() {
                   <div style={{ display: 'flex', gap: '6px' }}>
                     <input value={configName} onChange={e => setConfigName(e.target.value)}
                       placeholder="Strategy name..."
-                      style={{ flex: 1, fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(255,255,255,0.04)', border: `1px solid ${T.border}`, padding: '6px 8px', outline: 'none' }} />
+                      style={{ flex: 1, fontFamily: T.mono, fontSize: '12px', color: T.text, background: 'rgba(16,32,51,0.04)', border: `1px solid ${T.border}`, padding: '6px 8px', outline: 'none' }} />
                     <button onClick={saveConfig} style={{
-                      padding: '6px 12px', background: 'rgba(255,255,255,0.06)', color: T.textSub,
+                      padding: '6px 12px', background: 'rgba(16,32,51,0.06)', color: T.textSub,
                       border: `1px solid ${T.border}`, fontFamily: T.sans, fontSize: '12px', cursor: 'pointer',
                     }}>
                       Save
                     </button>
                   </div>
-                  {saved ? <p style={{ fontFamily: T.sans, fontSize: '11px', color: T.up, marginTop: '6px' }}>✓ Saved "{saved}"</p> : null}
+                  {saved ? <p style={{ fontFamily: T.sans, fontSize: '11px', color: T.up, marginTop: '6px' }}>Saved &quot;{saved}&quot;</p> : null}
                 </div>
               </div>
             </div>
@@ -784,7 +784,7 @@ export default function StrategyPage() {
                       { label: 'Bear days', val: `${result.score_dist.pct_bear.toFixed(1)}%` },
                       { label: 'Date range', val: `${result.date_range.start} → ${result.date_range.end}` },
                     ].map(({ label, val }) => (
-                      <div key={label} style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}` }}>
+                      <div key={label} style={{ padding: '14px 16px', background: 'rgba(16,32,51,0.02)', border: `1px solid ${T.border}` }}>
                         <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>{label}</div>
                         <div style={{ fontFamily: T.mono, fontSize: '16px', fontWeight: 300, color: T.text }}>{val}</div>
                       </div>
@@ -854,7 +854,7 @@ export default function StrategyPage() {
                     <button key={dir} onClick={() => setThresholdDir(dir)} style={{
                       padding: '5px 16px', fontFamily: T.mono, fontSize: '12px',
                       color: thresholdDir === dir ? T.accent : T.textMuted,
-                      background: thresholdDir === dir ? `${T.accent}18` : 'rgba(255,255,255,0.03)',
+                      background: thresholdDir === dir ? `${T.accent}18` : 'rgba(16,32,51,0.03)',
                       border: `1px solid ${thresholdDir === dir ? `${T.accent}50` : T.border}`,
                       marginRight: '-1px', cursor: 'pointer',
                     }}>
@@ -869,7 +869,7 @@ export default function StrategyPage() {
                 <button onClick={() => setSecEnabled(p => !p)} style={{
                   padding: '5px 14px', fontFamily: T.mono, fontSize: '12px',
                   color: secEnabled ? T.accent : T.textMuted,
-                  background: secEnabled ? `${T.accent}18` : 'rgba(255,255,255,0.03)',
+                  background: secEnabled ? `${T.accent}18` : 'rgba(16,32,51,0.03)',
                   border: `1px solid ${secEnabled ? `${T.accent}50` : T.border}`,
                   cursor: 'pointer',
                 }}>
@@ -906,7 +906,7 @@ export default function StrategyPage() {
               ) : null}
 
               <button onClick={findInstances} disabled={thresholdLoading} style={{
-                padding: '6px 20px', background: thresholdLoading ? 'rgba(255,255,255,0.04)' : T.accent,
+                padding: '6px 20px', background: thresholdLoading ? 'rgba(16,32,51,0.04)' : T.accent,
                 color: thresholdLoading ? T.textMuted : '#fff', border: 'none', fontFamily: T.sans, fontSize: '12px', fontWeight: 500,
                 letterSpacing: '0.5px', cursor: thresholdLoading ? 'not-allowed' : 'pointer',
               }}>
@@ -938,7 +938,7 @@ export default function StrategyPage() {
             </div>
             <div style={sx.panelBody}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr minmax(260px, 340px)', gap: '24px', marginBottom: '24px' }}>
-                <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
+                <div style={{ background: 'rgba(16,32,51,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
                   <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '10px' }}>
                     21-Day forward path — {thresholdResult.summary.n} instances
                   </div>
@@ -955,7 +955,7 @@ export default function StrategyPage() {
                   </div>
                 </div>
 
-                <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
+                <div style={{ background: 'rgba(16,32,51,0.02)', border: `1px solid ${T.border}`, padding: '16px 20px' }}>
                   <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '14px' }}>
                     Aggregate statistics
                   </div>
@@ -991,7 +991,7 @@ export default function StrategyPage() {
                     </tbody>
                   </table>
 
-                  <div style={{ marginTop: '16px', padding: '10px 12px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${T.border}` }}>
+                  <div style={{ marginTop: '16px', padding: '10px 12px', background: 'rgba(16,32,51,0.02)', border: `1px solid ${T.border}` }}>
                     <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted, lineHeight: 1.6 }}>
                       <span style={{ color: T.accent }}>{thresholdResult.summary.n}</span> days where score{' '}
                       <span style={{ color: T.text }}>{thresholdDir}</span>{' '}
@@ -1007,7 +1007,7 @@ export default function StrategyPage() {
                 </div>
               </div>
 
-              <div style={{ background: 'rgba(255,255,255,0.015)', border: `1px solid ${T.border}` }}>
+              <div style={{ background: 'rgba(16,32,51,0.015)', border: `1px solid ${T.border}` }}>
                 <div style={{ padding: '12px 20px', borderBottom: `1px solid ${T.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.textMuted }}>
                     Instance detail · sorted newest first

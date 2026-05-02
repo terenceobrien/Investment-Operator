@@ -42,7 +42,7 @@ const TAPE_CHAR_COLOR: Record<string, string> = {
 };
 
 const insetPanel: CSSProperties = {
-  background: 'rgba(255,255,255,0.015)',
+  background: 'rgba(16,32,51,0.015)',
   border: `1px solid ${T.borderSub}`,
   borderRadius: '10px',
   overflow: 'hidden',

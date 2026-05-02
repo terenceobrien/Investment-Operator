@@ -2,28 +2,35 @@
 // Import this in every page: import { T, sx } from '@/lib/tokens'
 
 export const T = {
-  bg:        '#08080c',
-  pageBg:    '#0e0e14',
-  border:    'rgba(255,255,255,0.07)',
-  borderSub: 'rgba(255,255,255,0.04)',
-  sectionBg: 'rgba(255,255,255,0.024)',
-  text:      'rgba(255,255,255,0.92)',
-  textSub:   'rgba(255,255,255,0.52)',
-  textMuted: 'rgba(255,255,255,0.36)',
-  label:     'rgba(255,255,255,0.44)',
-  up:        '#57a06a',
-  dn:        '#b85555',
-  wa:        '#9e7e35',
-  mid:       'rgba(255,255,255,0.22)',
-  accent:    '#9580d4',
-  mono:      "'JetBrains Mono', monospace" as const,
-  sans:      "'Inter', sans-serif" as const,
+  bg:        '#F3F5F7',
+  pageBg:    '#F3F5F7',
+  surface:   '#FFFFFF',
+  surfaceMuted: '#F8FAFB',
+  navy:      '#0B1F33',
+  navySoft:  '#16324F',
+  border:    '#D8DEE6',
+  borderSub: '#E8EDF2',
+  sectionBg: '#F8FAFB',
+  text:      '#102033',
+  textSub:   '#5B6678',
+  textMuted: '#7B8798',
+  label:     '#5B6678',
+  up:        '#168A5A',
+  dn:        '#C94A4A',
+  wa:        '#B7791F',
+  mid:       '#A3ADBA',
+  accent:    '#4FA3A5',
+  accentDark:'#2F7F82',
+  accentSoft:'#E7F4F4',
+  mono:      "'SFMono-Regular', 'Roboto Mono', 'JetBrains Mono', ui-monospace, monospace" as const,
+  sans:      "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" as const,
 
   // ── new spacing tokens ──
-  cardBg:    'rgba(255,255,255,0.028)',
-  cardBdr:   'rgba(255,255,255,0.07)',
-  radius:    '10px',
+  cardBg:    '#FFFFFF',
+  cardBdr:   '#D8DEE6',
+  radius:    '18px',
   gap:       '16px',
+  shadowSoft:'0 18px 50px rgba(15, 31, 51, 0.08)',
 };
 
 export const MOBILE = 768;
@@ -34,19 +41,19 @@ export const sx = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '12px 28px',           // was 8px 24px — more vertical breathing room
+    padding: '16px 24px',
     background: T.sectionBg,
-    borderLeft: `2px solid rgba(149,128,212,0.4)`,
-    borderBottom: `1px solid ${T.border}`,  // was 0.5px — slightly more visible
+    borderLeft: `3px solid ${T.accent}`,
+    borderBottom: `1px solid ${T.borderSub}`,
   } as React.CSSProperties,
 
   sectionLabel: {
     fontFamily: T.sans,
     fontSize: '13px',
-    letterSpacing: '1.6px',
+    letterSpacing: '0.08em',
     textTransform: 'uppercase',
     color: T.label,
-    fontWeight: 500,
+    fontWeight: 700,
   } as React.CSSProperties,
 
   sectionMeta: {
@@ -66,22 +73,24 @@ export const sx = {
   main: {
     background: T.bg,
     minHeight: '100vh',
-    maxWidth: '1600px',
-    margin: '0 auto',               // center content on wide screens
+    color: T.text,
   } as React.CSSProperties,
 
   pageShell: {
-    padding: '28px 24px 56px',
+    width: 'min(1280px, calc(100% - 48px))',
+    margin: '0 auto',
+    padding: '32px 0 72px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '24px',
+    gap: '28px',
   } as React.CSSProperties,
 
   panel: {
-    background: 'rgba(255,255,255,0.022)',
+    background: T.surface,
     border: `1px solid ${T.border}`,
     borderRadius: T.radius,
     overflow: 'hidden',
+    boxShadow: T.shadowSoft,
   } as React.CSSProperties,
 
   panelHeader: {
@@ -90,8 +99,8 @@ export const sx = {
     justifyContent: 'space-between',
     gap: '12px',
     padding: '14px 18px',
-    background: 'rgba(255,255,255,0.016)',
-    borderLeft: `2px solid rgba(149,128,212,0.4)`,
+    background: T.sectionBg,
+    borderLeft: `3px solid ${T.accent}`,
     borderBottom: `1px solid ${T.borderSub}`,
   } as React.CSSProperties,
 
@@ -100,7 +109,7 @@ export const sx = {
   } as React.CSSProperties,
 
   subPanel: {
-    background: 'rgba(255,255,255,0.015)',
+    background: T.surfaceMuted,
     border: `1px solid ${T.borderSub}`,
     borderRadius: T.radius,
     overflow: 'hidden',
@@ -112,12 +121,12 @@ export const sx = {
     justifyContent: 'space-between',
     gap: '12px',
     padding: '12px 16px',
-    background: 'rgba(255,255,255,0.012)',
+    background: T.surfaceMuted,
     borderBottom: `1px solid ${T.borderSub}`,
   } as React.CSSProperties,
 
   skeleton: {
-    background: 'rgba(255,255,255,0.06)',
+    background: 'linear-gradient(90deg, #E8EDF2 0%, #F8FAFB 50%, #E8EDF2 100%)',
     animation: 'temperPulse 1.8s ease-in-out infinite',
   } as React.CSSProperties,
 

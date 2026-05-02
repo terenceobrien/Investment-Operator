@@ -46,7 +46,7 @@ function pctColor(v: unknown): string {
 function parsePrefixedText(text: string): Record<string, string> {
   const prefixes = ['REALITY', 'STORY', 'PRICE', 'TIMEFRAME', 'GAP', 'ARCHETYPE', 'FALSIFIER'];
   const out: Record<string, string> = {};
-  let rest = text;
+  const rest = text;
   for (const p of prefixes) {
     const re = new RegExp(`${p}[:\\s]+([\\s\\S]*?)(?=${prefixes.filter(x => x !== p).join('|')}|$)`, 'i');
     const m = rest.match(re);
@@ -275,7 +275,7 @@ function Pill({ label, value }: { label: string; value: React.ReactNode }) {
 function MetricChip({ label, value, dim }: { label: string; value: string | number; dim?: boolean }) {
   return (
     <div style={{
-      padding: '10px 14px', background: 'rgba(255,255,255,0.018)',
+      padding: '10px 14px', background: 'rgba(16,32,51,0.018)',
       border: `1px solid ${T.borderSub}`, borderRadius: '6px',
       display: 'flex', flexDirection: 'column' as const, gap: '4px', minWidth: '80px',
     }}>
@@ -360,7 +360,7 @@ function NarrativeHeaderControls({
             onChange={e => setTickers(e.target.value)}
             style={{
               flex: '1 1 320px', fontFamily: T.mono, fontSize: '12.5px', fontWeight: 300,
-              color: 'rgba(255,255,255,0.75)', background: 'rgba(255,255,255,0.03)',
+              color: 'rgba(16,32,51,0.75)', background: 'rgba(16,32,51,0.03)',
               border: `0.5px solid ${T.border}`, padding: '8px 10px', outline: 'none',
             }}
           />
@@ -370,9 +370,9 @@ function NarrativeHeaderControls({
             style={{
               fontFamily: T.sans, fontSize: '12px', letterSpacing: '1px',
               textTransform: 'uppercase', fontWeight: 500, flexShrink: 0, whiteSpace: 'nowrap',
-              color: isRunning ? T.textMuted : 'rgba(255,255,255,0.8)',
-              background: isRunning ? 'transparent' : 'rgba(255,255,255,0.06)',
-              border: `0.5px solid ${isRunning ? T.border : 'rgba(255,255,255,0.15)'}`,
+              color: isRunning ? T.textMuted : 'rgba(16,32,51,0.8)',
+              background: isRunning ? 'transparent' : 'rgba(16,32,51,0.06)',
+              border: `0.5px solid ${isRunning ? T.border : 'rgba(16,32,51,0.15)'}`,
               padding: '8px 16px', cursor: isRunning ? 'not-allowed' : 'pointer',
               animation: isRunning ? 'temperPulse 1.8s ease-in-out infinite' : 'none',
             }}
@@ -433,7 +433,7 @@ function NarrativeRegimeSnapshot({ data }: { data: AnyRecord }) {
           ) : null}
         </div>
         {summary ? (
-          <p style={{ fontFamily: T.sans, fontSize: '15px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.72, margin: 0, maxWidth: '900px' }}>
+          <p style={{ fontFamily: T.sans, fontSize: '15px', color: 'rgba(16,32,51,0.72)', lineHeight: 1.72, margin: 0, maxWidth: '900px' }}>
             {summary}
           </p>
         ) : (
@@ -509,7 +509,7 @@ function EvidenceItem({ item }: { item: AnyRecord }) {
   const role = safeStr(item.information_role).replace(/_/g, ' ');
   const tags = safeArray<string>(item.content_tags).slice(0, 3);
   return (
-    <div style={{ padding: '10px 12px', background: 'rgba(255,255,255,0.014)', border: `1px solid ${T.borderSub}`, borderRadius: '6px', marginBottom: '8px' }}>
+    <div style={{ padding: '10px 12px', background: 'rgba(16,32,51,0.014)', border: `1px solid ${T.borderSub}`, borderRadius: '6px', marginBottom: '8px' }}>
       <div style={{ fontFamily: T.sans, fontSize: '13px', color: T.textSub, lineHeight: 1.5, marginBottom: '4px' }}>
         {truncate(safeStr(item.title || item.summary), 160)}
       </div>
@@ -684,7 +684,7 @@ function RelationshipCards({ items }: { items: AnyRecord[] }) {
           const interp = safeStr(rel.interpretation);
           return (
             <div key={i} style={{
-              padding: '8px 12px', background: 'rgba(255,255,255,0.014)',
+              padding: '8px 12px', background: 'rgba(16,32,51,0.014)',
               border: `1px solid ${T.borderSub}`, borderRadius: '6px',
               flex: '1 1 260px', maxWidth: '380px',
             }}>
@@ -842,9 +842,9 @@ function DominantThemes({ data }: { data: AnyRecord }) {
                 const prefix = item.match(/^(CHANGE|CONFIRMATION|INVALIDATION|UNCLEAR|REALITY|STORY|PRICE|GAP|ARCHETYPE|FALSIFIER)/)?.[0];
                 const c = prefix ? (TAKEAWAY_COLOR[prefix] ?? T.textMuted) : T.textMuted;
                 return (
-                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '10px 12px', border: `0.5px solid ${T.borderSub}`, background: 'rgba(255,255,255,0.012)', borderRadius: '6px' }}>
+                  <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '10px 12px', border: `0.5px solid ${T.borderSub}`, background: 'rgba(16,32,51,0.012)', borderRadius: '6px' }}>
                     {prefix ? <Badge label={prefix} color={c} /> : null}
-                    <p style={{ fontFamily: T.sans, fontSize: '13.5px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6, margin: 0 }}>
+                    <p style={{ fontFamily: T.sans, fontSize: '13.5px', color: 'rgba(16,32,51,0.65)', lineHeight: 1.6, margin: 0 }}>
                       {prefix ? item.replace(prefix, '').replace(/^[:\s]+/, '') : item}
                     </p>
                   </div>
@@ -1025,7 +1025,7 @@ function AdvancedRawLedgers({ data }: { data: AnyRecord }) {
               <div style={{ paddingTop: '8px' }}>
                 {items.map((item, i) => (
                   item.type || item.kind ? (
-                    <div key={i} style={{ marginBottom: '6px', padding: '8px', background: 'rgba(255,255,255,0.01)', borderRadius: '4px', fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>
+                    <div key={i} style={{ marginBottom: '6px', padding: '8px', background: 'rgba(16,32,51,0.01)', borderRadius: '4px', fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>
                       {String(item.type ?? item.kind)}
                     </div>
                   ) : (
@@ -1153,8 +1153,8 @@ export default function NarrativePage() {
           <section style={sx.panel}>
             <div style={{ ...sx.panelBody, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', gap: '6px' }}>
               <span style={{ fontFamily: T.mono, fontSize: '13px', color: T.textMuted }}>No narrative snapshot found</span>
-              <span style={{ fontFamily: T.sans, fontSize: '13px', color: 'rgba(255,255,255,0.35)' }}>
-                Hit "Synthesize Narrative" to generate today's analysis
+              <span style={{ fontFamily: T.sans, fontSize: '13px', color: 'rgba(16,32,51,0.35)' }}>
+                Hit &quot;Synthesize Narrative&quot; to generate today&apos;s analysis
               </span>
             </div>
           </section>

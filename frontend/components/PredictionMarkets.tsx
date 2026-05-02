@@ -135,7 +135,7 @@ function ProbBar({ yes, no }: { yes: number; no: number }) {
         style={{
           height: 3,
           borderRadius: 1.5,
-          background: "#9580d4",
+          background: "#4FA3A5",
           width: `${yes}%`,
           transition: "width 0.4s ease",
           flexShrink: 0,
@@ -145,7 +145,7 @@ function ProbBar({ yes, no }: { yes: number; no: number }) {
         style={{
           height: 3,
           borderRadius: 1.5,
-          background: "#3a3a4a",
+          background: "#D8DEE6",
           width: `${no}%`,
           transition: "width 0.4s ease",
           flexShrink: 0,
@@ -157,7 +157,7 @@ function ProbBar({ yes, no }: { yes: number; no: number }) {
 
 function MarketRow({ m, idx }: { m: ParsedMarket; idx: number }) {
   const changeColor =
-    m.dayChange == null ? "#666" : m.dayChange > 0 ? "#4caf89" : m.dayChange < 0 ? "#e05555" : "#666";
+    m.dayChange == null ? "#7B8798" : m.dayChange > 0 ? "#168A5A" : m.dayChange < 0 ? "#C94A4A" : "#7B8798";
 
   return (
     <a
@@ -170,16 +170,16 @@ function MarketRow({ m, idx }: { m: ParsedMarket; idx: number }) {
         gap: "0 16px",
         alignItems: "start",
         padding: "12px 0",
-        borderBottom: "1px solid #1e1e2e",
+        borderBottom: "1px solid #E8EDF2",
         textDecoration: "none",
         cursor: "pointer",
         transition: "background 0.1s",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "#0e0e14")}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "#FFFFFF")}
       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
     >
       {/* Index */}
-      <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: "#444", paddingTop: 2 }}>
+      <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: "#7B8798", paddingTop: 2 }}>
         {String(idx + 1).padStart(2, "0")}
       </span>
 
@@ -188,7 +188,7 @@ function MarketRow({ m, idx }: { m: ParsedMarket; idx: number }) {
         <div
           style={{
             fontSize: 13,
-            color: "#c8c8d8",
+            color: "#5B6678",
             lineHeight: 1.4,
             marginBottom: 5,
             overflow: "hidden",
@@ -209,12 +209,12 @@ function MarketRow({ m, idx }: { m: ParsedMarket; idx: number }) {
             fontFamily: "JetBrains Mono, monospace",
             fontSize: 15,
             fontWeight: 600,
-            color: m.yesProb >= 60 ? "#9580d4" : m.yesProb <= 25 ? "#e05555" : "#c8c8d8",
+            color: m.yesProb >= 60 ? "#4FA3A5" : m.yesProb <= 25 ? "#C94A4A" : "#5B6678",
           }}
         >
           {m.yesProb}%
         </span>
-        <div style={{ fontSize: 10, color: "#555", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
+        <div style={{ fontSize: 10, color: "#7B8798", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
           YES
         </div>
       </div>
@@ -233,29 +233,29 @@ function MarketRow({ m, idx }: { m: ParsedMarket; idx: number }) {
             {m.dayChange}pp
           </span>
         ) : (
-          <span style={{ color: "#444", fontSize: 12 }}>—</span>
+          <span style={{ color: "#7B8798", fontSize: 12 }}>—</span>
         )}
-        <div style={{ fontSize: 10, color: "#555", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
+        <div style={{ fontSize: 10, color: "#7B8798", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
           1D CHG
         </div>
       </div>
 
       {/* 24h volume */}
       <div style={{ textAlign: "right", paddingTop: 1 }}>
-        <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 13, color: "#888" }}>
+        <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 13, color: "#102033" }}>
           {fmtMoney(m.volume24hr)}
         </span>
-        <div style={{ fontSize: 10, color: "#555", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
+        <div style={{ fontSize: 10, color: "#7B8798", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
           VOL 24H
         </div>
       </div>
 
       {/* Expiry */}
       <div style={{ textAlign: "right", paddingTop: 1 }}>
-        <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: "#555" }}>
+        <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 11, color: "#5B6678" }}>
           {fmtDate(m.endDate)}
         </span>
-        <div style={{ fontSize: 10, color: "#3a3a4a", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
+        <div style={{ fontSize: 10, color: "#7B8798", marginTop: 2, fontFamily: "JetBrains Mono, monospace" }}>
           EXPIRY
         </div>
       </div>
@@ -296,8 +296,8 @@ export default function PredictionMarkets() {
   return (
     <div
       style={{
-        background: "#07070a",
-        color: "#c8c8d8",
+        background: "#F3F5F7",
+        color: "#102033",
         fontFamily: "Inter, system-ui, sans-serif",
         minHeight: "100vh",
         padding: "28px 32px",
@@ -311,24 +311,24 @@ export default function PredictionMarkets() {
           justifyContent: "space-between",
           marginBottom: 24,
           paddingBottom: 16,
-          borderBottom: "1px solid #1e1e2e",
+          borderBottom: "1px solid #D8DEE6",
         }}
       >
         <div>
-          <div style={{ fontSize: 11, color: "#555", letterSpacing: "0.12em", marginBottom: 4, fontFamily: "JetBrains Mono, monospace" }}>
+          <div style={{ fontSize: 11, color: "#5B6678", letterSpacing: "0.12em", marginBottom: 4, fontFamily: "JetBrains Mono, monospace" }}>
             PREDICTION MARKETS
           </div>
-          <h1 style={{ margin: 0, fontSize: 20, fontWeight: 500, color: "#e8e8f0" }}>
+          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: "#0B1F33" }}>
             Finance & Economics
           </h1>
-          <div style={{ fontSize: 12, color: "#555", marginTop: 4 }}>
+          <div style={{ fontSize: 12, color: "#5B6678", marginTop: 4 }}>
             Top markets by 24h volume · Polymarket
           </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, paddingBottom: 2 }}>
           {lastUpdated && (
-            <span style={{ fontSize: 11, color: "#444", fontFamily: "JetBrains Mono, monospace" }}>
+            <span style={{ fontSize: 11, color: "#5B6678", fontFamily: "JetBrains Mono, monospace" }}>
               {refreshing ? "refreshing…" : `updated ${lastUpdated.toLocaleTimeString()}`}
             </span>
           )}
@@ -337,8 +337,8 @@ export default function PredictionMarkets() {
             disabled={refreshing}
             style={{
               background: "transparent",
-              border: "1px solid #2a2a3a",
-              color: "#666",
+              border: "1px solid #D8DEE6",
+              color: "#0B1F33",
               fontSize: 11,
               padding: "5px 12px",
               cursor: refreshing ? "default" : "pointer",
@@ -355,7 +355,7 @@ export default function PredictionMarkets() {
 
       {/* States */}
       {loading && (
-        <div style={{ textAlign: "center", padding: "60px 0", color: "#444", fontFamily: "JetBrains Mono, monospace", fontSize: 12 }}>
+        <div style={{ textAlign: "center", padding: "60px 0", color: "#7B8798", fontFamily: "JetBrains Mono, monospace", fontSize: 12 }}>
           fetching markets…
         </div>
       )}
@@ -363,11 +363,11 @@ export default function PredictionMarkets() {
       {error && !loading && (
         <div
           style={{
-            background: "#1a0a0a",
-            border: "1px solid #3a1a1a",
+            background: "#FBEAEA",
+            border: "1px solid #F2CACA",
             borderRadius: 6,
             padding: "16px 20px",
-            color: "#e05555",
+            color: "#C94A4A",
             fontSize: 13,
             fontFamily: "JetBrains Mono, monospace",
           }}
@@ -385,7 +385,7 @@ export default function PredictionMarkets() {
               gridTemplateColumns: "20px 1fr 64px 72px 72px 80px",
               gap: "0 16px",
               padding: "0 0 8px",
-              borderBottom: "1px solid #1e1e2e",
+              borderBottom: "1px solid #D8DEE6",
               marginBottom: 0,
             }}
           >
@@ -394,7 +394,7 @@ export default function PredictionMarkets() {
                 key={h}
                 style={{
                   fontSize: 10,
-                  color: "#3a3a4a",
+                  color: "#5B6678",
                   fontFamily: "JetBrains Mono, monospace",
                   letterSpacing: "0.1em",
                   textAlign: i >= 2 ? "right" : "left",
@@ -414,20 +414,20 @@ export default function PredictionMarkets() {
             style={{
               marginTop: 20,
               paddingTop: 12,
-              borderTop: "1px solid #1e1e2e",
+              borderTop: "1px solid #D8DEE6",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
-            <div style={{ fontSize: 11, color: "#333", fontFamily: "JetBrains Mono, monospace" }}>
+            <div style={{ fontSize: 11, color: "#5B6678", fontFamily: "JetBrains Mono, monospace" }}>
               {markets.length} markets · Macro Indicators + GDP + ETF tags · auto-refresh 60s
             </div>
             <a
               href="https://polymarket.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 11, color: "#444", textDecoration: "none", fontFamily: "JetBrains Mono, monospace" }}
+              style={{ fontSize: 11, color: "#2F7F82", textDecoration: "none", fontFamily: "JetBrains Mono, monospace" }}
             >
               polymarket.com ↗
             </a>
