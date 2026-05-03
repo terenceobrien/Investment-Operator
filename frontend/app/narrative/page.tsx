@@ -1371,25 +1371,50 @@ const CYCLE_STAGES = [
   'Hope', 'Relief',
 ];
 
-// Pre-computed positions along an inverted-arc Wall Street cheat sheet.
-// 14 stages, slight rise → peak at Euphoria (index 3) → trough at Despondency (index 11) → recovery
-// Coordinates are normalized to a 480x180 viewBox.
-const CYCLE_POINTS: Array<[number, number]> = [
-  [40, 130],   // Optimism
-  [78, 96],    // Excitement
-  [120, 64],   // Thrill
-  [165, 38],   // Euphoria (peak)
-  [205, 56],   // Anxiety
-  [238, 76],   // Denial
-  [268, 96],   // Fear
-  [298, 116],  // Desperation
-  [325, 132],  // Panic
-  [350, 146],  // Capitulation
-  [378, 152],  // Despondency
-  [402, 150],  // Depression (trough end)
-  [430, 132],  // Hope
-  [458, 110],  // Relief
-];
+// Cycle geometry — generated programmatically so:
+//   1. Stage points are equidistant along the x axis.
+//   2. The peak (Euphoria) is as smoothly rounded as the trough (Despondency)
+//      — both follow the same cosine; the path is sampled at ~80 sub-points
+//      so straight-line segments don't introduce angular kinks.
+//   3. The wave amplitude is intentionally compressed relative to viewBox
+//      height so the whole SVG can render larger (bigger text + nodes) in
+//      the same card width.
+const CYCLE_VIEW_W = 480;
+const CYCLE_VIEW_H = 240;
+const CYCLE_X_LEFT = 38;
+const CYCLE_X_RIGHT = 442;
+const CYCLE_MID_Y = 120;
+const CYCLE_AMP = 64;
+const CYCLE_PEAK_INDEX = 3; // Euphoria
+
+function _cycleY(continuousIndex: number): number {
+  // Full period spans 14 stages; cosine peaks at i = CYCLE_PEAK_INDEX.
+  const phase = ((continuousIndex - CYCLE_PEAK_INDEX) * 2 * Math.PI) / CYCLE_STAGES.length;
+  return CYCLE_MID_Y - CYCLE_AMP * Math.cos(phase);
+}
+
+function _cycleX(continuousIndex: number): number {
+  return CYCLE_X_LEFT + (continuousIndex * (CYCLE_X_RIGHT - CYCLE_X_LEFT)) / (CYCLE_STAGES.length - 1);
+}
+
+// Equidistant x positions for the 14 stage markers.
+const CYCLE_POINTS: Array<[number, number]> = CYCLE_STAGES.map((_, i) => {
+  return [
+    Math.round(_cycleX(i) * 10) / 10,
+    Math.round(_cycleY(i) * 10) / 10,
+  ] as [number, number];
+});
+
+// Smooth path sampled at high resolution so peak and trough have matching roundness.
+const CYCLE_PATH_D: string = (() => {
+  const N = 80;
+  const segs: string[] = [];
+  for (let k = 0; k < N; k++) {
+    const i = (k * (CYCLE_STAGES.length - 1)) / (N - 1);
+    segs.push(`${_cycleX(i).toFixed(2)},${_cycleY(i).toFixed(2)}`);
+  }
+  return 'M ' + segs.join(' L ');
+})();
 
 function inferCycleStage(data: AnyRecord | null): { stage: string; subject: string } {
   if (!data) return { stage: '', subject: '' };
@@ -1423,34 +1448,37 @@ function MarketPsychologyCurve({ data }: { data: AnyRecord | null }) {
           borderRadius: '12px',
           padding: '14px 12px 8px',
         }}>
-          <svg viewBox="0 0 480 180" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            {/* Curve path */}
+          <svg
+            viewBox={`0 0 ${CYCLE_VIEW_W} ${CYCLE_VIEW_H}`}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          >
+            {/* Smooth curve — sampled densely so peak and trough are equally round */}
             <path
-              d={`M ${CYCLE_POINTS.map(p => p.join(',')).join(' L ')}`}
+              d={CYCLE_PATH_D}
               fill="none"
               stroke={T.border}
-              strokeWidth="1.5"
+              strokeWidth="2.5"
               strokeLinecap="round"
             />
-            {/* Stage nodes */}
+            {/* Stage nodes — equidistant in x */}
             {CYCLE_POINTS.map(([x, y], i) => {
               const isActive = i === activeIndex;
               return (
                 <g key={i}>
                   <circle
                     cx={x} cy={y}
-                    r={isActive ? 6 : 3}
+                    r={isActive ? 9 : 4.5}
                     fill={isActive ? T.accent : T.surface}
                     stroke={isActive ? T.accentDark : T.border}
-                    strokeWidth={isActive ? 2 : 1}
+                    strokeWidth={isActive ? 2 : 1.25}
                   />
                   {isActive ? (
                     <text
-                      x={x} y={y - 12}
+                      x={x} y={y - 18}
                       textAnchor="middle"
                       fontFamily={T.sans}
-                      fontSize="10"
-                      fontWeight={600}
+                      fontSize="14"
+                      fontWeight={700}
                       fill={T.navy}
                     >{CYCLE_STAGES[i]}</text>
                   ) : null}
@@ -1458,10 +1486,10 @@ function MarketPsychologyCurve({ data }: { data: AnyRecord | null }) {
               );
             })}
             {/* Anchor labels at the extremes */}
-            <text x={40} y={170} fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Optimism</text>
-            <text x={165} y={26} textAnchor="middle" fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Euphoria</text>
-            <text x={390} y={170} textAnchor="middle" fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Despondency</text>
-            <text x={458} y={100} textAnchor="end" fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Relief</text>
+            <text x={CYCLE_X_LEFT} y={CYCLE_VIEW_H - 14} fontFamily={T.sans} fontSize="12" fill={T.textMuted}>Optimism</text>
+            <text x={_cycleX(CYCLE_PEAK_INDEX)} y={28} textAnchor="middle" fontFamily={T.sans} fontSize="12" fill={T.textMuted}>Euphoria</text>
+            <text x={_cycleX(10)} y={CYCLE_VIEW_H - 14} textAnchor="middle" fontFamily={T.sans} fontSize="12" fill={T.textMuted}>Despondency</text>
+            <text x={CYCLE_X_RIGHT} y={CYCLE_MID_Y + 4} textAnchor="end" fontFamily={T.sans} fontSize="12" fill={T.textMuted}>Relief</text>
           </svg>
         </div>
 
