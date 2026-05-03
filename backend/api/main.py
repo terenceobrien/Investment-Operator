@@ -37,6 +37,18 @@ from src.brief.portfolio import compute_portfolio_snapshot, add_regime_aware_fla
 from src.brief.what_matters import generate_what_matters_today, heuristic_what_matters
 from src.narrative.bundle import build_narrative_bundle, top_n_by_channel
 from src.narrative.synth import synthesize_narrative_state, load_latest_narrative_snapshot, save_narrative_snapshot
+from src.narrative.cache import (
+    load_cache as load_narrative_cache,
+    save_cache as save_narrative_cache,
+    load_latest_cache as load_latest_narrative_cache,
+    build_cache_record,
+)
+from src.narrative.config import (
+    FINAL_SYNTHESIS_MODEL, PREPROCESSING_MODEL,
+    PROMPT_VERSION, SOURCE_CONFIG_VERSION,
+    is_supported_ticker,
+)
+from src.narrative.orchestrator import run_narrative_for_ticker
 
 logger = logging.getLogger("api.main")
 
@@ -382,7 +394,7 @@ async def get_brief_summary(user: dict = Depends(verify_clerk_token)):
             macro_signals=signals,
             market_moves_df=moves_df,
             portfolio_flags=[],
-            model="gpt-5.5",
+            model=PREPROCESSING_MODEL,
         )
         return {"summary": text}
     except Exception as e:
@@ -591,7 +603,7 @@ async def trigger_narrative(
                 market_moves=moves,
                 prior_state=prior,
                 lookback_hours=lookback_hours,
-                model="gpt-5.5",
+                model=FINAL_SYNTHESIS_MODEL,
                 price_context=price_context,
             )
             save_narrative_snapshot(result, SNAPSHOT_DIR, asof[:10])
@@ -614,8 +626,105 @@ async def narrative_status(
     return job
 
 
+# In-memory tracking of in-flight cache generation per ticker.
+# Cleared once the background task finishes (success or failure).
+_cache_generating: dict[str, dict] = {}
+
+
 @app.get("/api/narrative/latest")
-async def get_latest_narrative(user: dict = Depends(verify_clerk_token)):
+async def get_latest_narrative(
+    ticker: str = Query("SPY"),
+    user: dict = Depends(verify_clerk_token),
+):
+    """
+    User-facing read endpoint for the Narrative page.
+
+    Behavior per ticker:
+      - SPY: serves the cached daily synthesis. If today's cache is cold,
+             kicks off a background generation task and returns
+             status=generating so the UI can poll.
+      - others: returns status=unsupported until broader coverage ships.
+    """
+    ticker_u = ticker.upper().strip()
+
+    if not is_supported_ticker(ticker_u):
+        return {
+            "status": "unsupported",
+            "ticker": ticker_u,
+            "message": (
+                "Cached narrative reads are currently enabled for SPY only. "
+                "Broader ticker coverage is coming soon."
+            ),
+        }
+
+    today = date.today().isoformat()
+
+    # 1. Cache hit — serve immediately
+    cached = load_narrative_cache(ticker_u, today)
+    if cached:
+        return {
+            "status": "ready",
+            "cache_hit": True,
+            **cached,
+        }
+
+    # 2. Cache miss — check in-flight generation
+    pending = _cache_generating.get(ticker_u)
+    if pending and not pending.get("done"):
+        return {
+            "status": "generating",
+            "cache_hit": False,
+            "ticker": ticker_u,
+            "started_at": pending.get("started_at"),
+            "last_cached_result": load_latest_narrative_cache(ticker_u),
+        }
+
+    # 3. Last attempt errored? Surface that with a stale fallback if available
+    last_error = pending.get("error") if (pending and pending.get("done")) else None
+
+    # 4. Kick off a fresh generation
+    started_at = datetime.now(timezone.utc).isoformat()
+    _cache_generating[ticker_u] = {"done": False, "started_at": started_at}
+
+    async def _generate(t: str, day: str) -> None:
+        try:
+            result = await run_narrative_for_ticker(t)
+            record = build_cache_record(
+                t, day, result,
+                final_model=FINAL_SYNTHESIS_MODEL,
+                preprocessing_model=PREPROCESSING_MODEL,
+                prompt_version=PROMPT_VERSION,
+                source_config_version=SOURCE_CONFIG_VERSION,
+            )
+            save_narrative_cache(t, day, record)
+            _cache_generating[t] = {"done": True, "started_at": started_at}
+            logger.info("Narrative cache populated for %s on %s", t, day)
+        except Exception as exc:
+            import traceback as _tb
+            logger.error(
+                "Narrative cache generation failed for %s: %s\n%s",
+                t, exc, _tb.format_exc(),
+            )
+            _cache_generating[t] = {
+                "done": True, "started_at": started_at, "error": str(exc),
+            }
+
+    asyncio.create_task(_generate(ticker_u, today))
+
+    return {
+        "status": "generating",
+        "cache_hit": False,
+        "ticker": ticker_u,
+        "started_at": started_at,
+        "last_cached_result": load_latest_narrative_cache(ticker_u),
+        "last_error": last_error,
+    }
+
+
+# Internal/dev: manual synthesis snapshot (kept for trends + historical paths
+# that still load from data/snapshots). Not used by the user-facing UI anymore.
+@app.get("/api/narrative/snapshot")
+async def get_latest_narrative_snapshot(user: dict = Depends(verify_clerk_token)):
     today = datetime.now().strftime("%Y-%m-%d")
     _, snap = load_latest_narrative_snapshot(SNAPSHOT_DIR, today)
     if snap is None:

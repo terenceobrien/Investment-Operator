@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useAuth } from '@clerk/nextjs';
 import { useAuthFetcher } from '../../lib/api';
 import { T } from '@/lib/tokens';
 
@@ -234,11 +233,6 @@ function extractFalsifiers(data: AnyRecord, themes: Theme[]): string[] {
 }
 function extractUnknowns(data: AnyRecord): string[] {
   return safeArray<string>(data.unknowns).filter(Boolean);
-}
-
-function extractCycleRows(data: AnyRecord) {
-  return safeArray<AnyRecord>((data.cycle_positioning as unknown))
-    .concat(safeArray<AnyRecord>((data._meta as AnyRecord)?.cycle_positioning as unknown));
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -529,19 +523,22 @@ function Tabs({
 }
 
 // ─────────────────────────────────────────────────────────────
-// Section: Analysis Controls (compact)
+// Section: Analysis Controls — search-style; no manual synthesize button.
+// The page automatically loads the cached read for the ticker entered.
 // ─────────────────────────────────────────────────────────────
 function AnalysisControls({
-  tickers, setTickers, trigger, isTriggering, isRunning, elapsedSeconds, jobStatus,
+  ticker, setTicker, statusLine,
 }: {
-  tickers: string;
-  setTickers: (v: string) => void;
-  trigger: () => void;
-  isTriggering: boolean;
-  isRunning: boolean;
-  elapsedSeconds: number;
-  jobStatus: AnyRecord | null;
+  ticker: string;
+  setTicker: (v: string) => void;
+  statusLine?: React.ReactNode;
 }) {
+  const [draft, setDraft] = useState(ticker);
+  useEffect(() => { setDraft(ticker); }, [ticker]);
+  const commit = () => {
+    const next = draft.toUpperCase().trim();
+    if (next && next !== ticker) setTicker(next);
+  };
   return (
     <Card padded={false}>
       <div style={{
@@ -551,41 +548,22 @@ function AnalysisControls({
         <span style={{
           fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.1em',
           textTransform: 'uppercase', color: T.label, fontWeight: 600, flexShrink: 0,
-        }}>Watch tickers</span>
+        }}>Analyze narrative for</span>
         <input
-          value={tickers}
-          onChange={e => setTickers(e.target.value)}
-          placeholder="SPY,QQQ,AAPL,…"
+          value={draft}
+          onChange={e => setDraft(e.target.value)}
+          onBlur={commit}
+          onKeyDown={e => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
+          placeholder="SPY"
           style={{
-            flex: '1 1 320px', fontFamily: T.mono, fontSize: '12.5px',
+            flex: '1 1 220px', fontFamily: T.mono, fontSize: '13.5px',
             color: T.text, background: T.surfaceMuted,
             border: `1px solid ${T.borderSub}`, borderRadius: '8px',
-            padding: '9px 12px', outline: 'none',
+            padding: '10px 14px', outline: 'none', letterSpacing: '0.05em',
           }}
         />
-        <button
-          onClick={trigger}
-          disabled={isTriggering || isRunning}
-          style={{
-            fontFamily: T.sans, fontSize: '13px', fontWeight: 600,
-            color: '#fff',
-            background: isRunning ? T.mid : T.navy,
-            border: 'none', borderRadius: '8px', padding: '10px 18px',
-            cursor: isRunning ? 'not-allowed' : 'pointer', flexShrink: 0,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {isRunning ? `Running ${elapsedSeconds}s` : isTriggering ? 'Starting…' : 'Synthesize'}
-        </button>
+        {statusLine}
       </div>
-      {jobStatus?.status === 'error' ? (
-        <div style={{
-          padding: '10px 18px', borderTop: `1px solid ${T.borderSub}`,
-          fontFamily: T.mono, fontSize: '11.5px', color: T.dn,
-        }}>
-          Error: {safeStr(jobStatus.error)}
-        </div>
-      ) : null}
     </Card>
   );
 }
@@ -1329,61 +1307,6 @@ function InformationSet({ data }: { data: AnyRecord }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Section: Cycle Positioning (compact placeholder)
-// ─────────────────────────────────────────────────────────────
-function CyclePositioning({ data }: { data: AnyRecord }) {
-  const rows = extractCycleRows(data);
-  if (rows.length === 0) {
-    return (
-      <Card>
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '10px',
-          padding: '4px 0',
-        }}>
-          <Chip label="Coming soon" color={T.accent} />
-          <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textMuted }}>
-            Cycle positioning will appear once the psychology/cycle classifier is enabled.
-          </span>
-        </div>
-      </Card>
-    );
-  }
-
-  return (
-    <Card title="Cycle Positioning">
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: T.sans, fontSize: '12.5px' }}>
-          <thead>
-            <tr style={{ borderBottom: `1px solid ${T.borderSub}` }}>
-              {['Subject', 'Stage', 'Direction', 'Timeframe', 'Confidence'].map(h => (
-                <th key={h} style={{
-                  textAlign: 'left', padding: '8px 10px',
-                  fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase',
-                  color: T.textMuted, fontWeight: 600,
-                }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <tr key={i} style={{ borderBottom: `1px solid ${T.borderSub}` }}>
-                <td style={{ padding: '10px', color: T.text }}>{safeStr(row.subject)}</td>
-                <td style={{ padding: '10px' }}>
-                  <Chip label={safeStr(row.cycle_stage || row.stage)} color={T.accent} />
-                </td>
-                <td style={{ padding: '10px', color: T.textSub }}>{safeStr(row.direction)}</td>
-                <td style={{ padding: '10px', color: T.textMuted }}>{safeStr(row.timeframe)}</td>
-                <td style={{ padding: '10px', color: T.textMuted }}>{safeStr(row.confidence)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
 // Section: Advanced Raw Ledgers (debug, collapsed)
 // ─────────────────────────────────────────────────────────────
 function AdvancedRawLedgers({ data }: { data: AnyRecord }) {
@@ -1439,6 +1362,138 @@ function AdvancedRawLedgers({ data }: { data: AnyRecord }) {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Section: Market Psychology Curve
+// ─────────────────────────────────────────────────────────────
+const CYCLE_STAGES = [
+  'Optimism', 'Excitement', 'Thrill', 'Euphoria',
+  'Anxiety', 'Denial', 'Fear', 'Desperation',
+  'Panic', 'Capitulation', 'Despondency', 'Depression',
+  'Hope', 'Relief',
+];
+
+// Pre-computed positions along an inverted-arc Wall Street cheat sheet.
+// 14 stages, slight rise → peak at Euphoria (index 3) → trough at Despondency (index 11) → recovery
+// Coordinates are normalized to a 480x180 viewBox.
+const CYCLE_POINTS: Array<[number, number]> = [
+  [40, 130],   // Optimism
+  [78, 96],    // Excitement
+  [120, 64],   // Thrill
+  [165, 38],   // Euphoria (peak)
+  [205, 56],   // Anxiety
+  [238, 76],   // Denial
+  [268, 96],   // Fear
+  [298, 116],  // Desperation
+  [325, 132],  // Panic
+  [350, 146],  // Capitulation
+  [378, 152],  // Despondency
+  [402, 150],  // Depression (trough end)
+  [430, 132],  // Hope
+  [458, 110],  // Relief
+];
+
+function inferCycleStage(data: AnyRecord | null): { stage: string; subject: string } {
+  if (!data) return { stage: '', subject: '' };
+  const direct = safeArray<AnyRecord>(data.cycle_positioning as unknown)
+    .concat(safeArray<AnyRecord>((data._meta as AnyRecord)?.cycle_positioning as unknown));
+  if (direct[0]) {
+    return {
+      stage: safeStr(direct[0].cycle_stage || direct[0].stage),
+      subject: safeStr(direct[0].subject) || 'Market',
+    };
+  }
+  // Fallback: derive a rough stage from regime tone
+  const stance = safeStr(safeArray<AnyRecord>(data.dominant_narratives)[0]?.stance).toLowerCase();
+  if (stance.includes('bull') || stance.includes('optimistic')) return { stage: 'Optimism', subject: 'Market' };
+  if (stance.includes('bear')) return { stage: 'Despondency', subject: 'Market' };
+  if (stance.includes('cauti') || stance.includes('mixed') || stance.includes('neutral')) return { stage: 'Anxiety', subject: 'Market' };
+  return { stage: '', subject: '' };
+}
+
+function MarketPsychologyCurve({ data }: { data: AnyRecord | null }) {
+  const { stage, subject } = inferCycleStage(data);
+  const activeIndex = CYCLE_STAGES.findIndex(s => s.toLowerCase() === stage.toLowerCase());
+  const hasStage = activeIndex >= 0;
+
+  return (
+    <Card title="Cycle Positioning">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{
+          background: T.surfaceMuted,
+          border: `1px solid ${T.borderSub}`,
+          borderRadius: '12px',
+          padding: '14px 12px 8px',
+        }}>
+          <svg viewBox="0 0 480 180" style={{ width: '100%', height: 'auto', display: 'block' }}>
+            {/* Curve path */}
+            <path
+              d={`M ${CYCLE_POINTS.map(p => p.join(',')).join(' L ')}`}
+              fill="none"
+              stroke={T.border}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            {/* Stage nodes */}
+            {CYCLE_POINTS.map(([x, y], i) => {
+              const isActive = i === activeIndex;
+              return (
+                <g key={i}>
+                  <circle
+                    cx={x} cy={y}
+                    r={isActive ? 6 : 3}
+                    fill={isActive ? T.accent : T.surface}
+                    stroke={isActive ? T.accentDark : T.border}
+                    strokeWidth={isActive ? 2 : 1}
+                  />
+                  {isActive ? (
+                    <text
+                      x={x} y={y - 12}
+                      textAnchor="middle"
+                      fontFamily={T.sans}
+                      fontSize="10"
+                      fontWeight={600}
+                      fill={T.navy}
+                    >{CYCLE_STAGES[i]}</text>
+                  ) : null}
+                </g>
+              );
+            })}
+            {/* Anchor labels at the extremes */}
+            <text x={40} y={170} fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Optimism</text>
+            <text x={165} y={26} textAnchor="middle" fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Euphoria</text>
+            <text x={390} y={170} textAnchor="middle" fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Despondency</text>
+            <text x={458} y={100} textAnchor="end" fontFamily={T.sans} fontSize="9" fill={T.textMuted}>Relief</text>
+          </svg>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
+          <span style={{
+            fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.1em',
+            textTransform: 'uppercase', color: T.textMuted, fontWeight: 600,
+          }}>Position</span>
+          {hasStage ? (
+            <Chip label={`${subject ? subject + ' · ' : ''}${CYCLE_STAGES[activeIndex]}`} color={T.accent} />
+          ) : (
+            <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
+              Not classified yet
+            </span>
+          )}
+        </div>
+
+        <p style={{
+          margin: 0,
+          fontFamily: T.sans, fontSize: '11.5px', color: T.textMuted,
+          lineHeight: 1.5,
+        }}>
+          {hasStage
+            ? 'Stage inferred from regime tone. A dedicated psychology classifier will replace this read.'
+            : 'Maps narrative tone, price behavior, and expectation gaps to the market psychology cycle. Cycle classifier coming soon.'}
+        </p>
+      </div>
+    </Card>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // Page shell
 // ─────────────────────────────────────────────────────────────
 const PAGE_SHELL: React.CSSProperties = {
@@ -1447,6 +1502,12 @@ const PAGE_SHELL: React.CSSProperties = {
   padding: '32px 0 64px',
   display: 'flex',
   flexDirection: 'column',
+  gap: '24px',
+};
+
+const SNAPSHOT_GRID: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 7fr) minmax(320px, 3fr)',
   gap: '24px',
 };
 
@@ -1459,67 +1520,46 @@ const MAIN_GRID: React.CSSProperties = {
 // ─────────────────────────────────────────────────────────────
 // Page
 // ─────────────────────────────────────────────────────────────
+type LatestEnvelope = {
+  status: 'ready' | 'generating' | 'unsupported' | 'error';
+  cache_hit?: boolean;
+  ticker?: string;
+  generated_at?: string;
+  asof_date?: string;
+  message?: string;
+  output?: AnyRecord;
+  last_cached_result?: { output?: AnyRecord; generated_at?: string } | null;
+  last_error?: string;
+} & Record<string, unknown>;
+
 export default function NarrativePage() {
-  const [jobId, setJobId] = useState<string | null>(null);
-  const [isTriggering, setIsTriggering] = useState(false);
-  const [tickers, setTickers] = useState('SPY,QQQ,IWM,AAPL,MSFT,NVDA,TSLA,GOOGL,AMZN,META');
-  const [completedResult, setCompletedResult] = useState<AnyRecord | null>(null);
-  const [startedAt, setStartedAt] = useState<number | null>(null);
-  const [elapsedMs, setElapsedMs] = useState(0);
+  const [ticker, setTicker] = useState('SPY');
   const [stacked, setStacked] = useState(false);
 
-  const { getToken } = useAuth();
   const authFetcher = useAuthFetcher();
 
-  const { data: latest } = useSWR('/api/narrative/latest', authFetcher, { onError: () => null });
-
-  const { data: jobStatus } = useSWR(
-    jobId ? `/api/narrative/status/${jobId}` : null,
+  const { data: latest } = useSWR<LatestEnvelope>(
+    `/api/narrative/latest?ticker=${ticker}`,
     authFetcher,
     {
-      refreshInterval: jobId ? 2000 : 0,
-      onSuccess: (data) => {
-        if (data?.status === 'done') { setCompletedResult(data.result); setJobId(null); }
-        if (data?.status === 'error') setJobId(null);
-      },
+      refreshInterval: (data) => (data?.status === 'generating' ? 5000 : 0),
+      onError: () => null,
     },
   );
 
-  const trigger = async () => {
-    setIsTriggering(true);
-    try {
-      const token = await getToken();
-      const params = new URLSearchParams({ tickers, news_category: 'general', earnings_days: '7', lookback_hours: '36' });
-      const res = await fetch(`/api/narrative/synthesize?${params}`, {
-        method: 'POST',
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      if (!res.ok) throw new Error(`Server responded ${res.status}`);
-      const data = await res.json();
-      setJobId(data.job_id);
-      setStartedAt(Date.now());
-      setElapsedMs(0);
-    } catch (e) {
-      console.error('Narrative trigger failed:', e);
-    } finally {
-      setIsTriggering(false);
-    }
-  };
+  // Pull the synthesis output regardless of whether it's a fresh cache or a stale fallback
+  const result: AnyRecord | null = useMemo(() => {
+    if (!latest) return null;
+    if (latest.status === 'ready' && latest.output) return latest.output as AnyRecord;
+    if (latest.last_cached_result?.output) return latest.last_cached_result.output as AnyRecord;
+    return null;
+  }, [latest]);
 
-  const result: AnyRecord | null =
-    completedResult ?? (jobStatus?.status === 'done' ? (jobStatus.result as AnyRecord) : (latest as AnyRecord)) ?? null;
-  const isRunning = jobId !== null && jobStatus?.status === 'running';
-  const elapsedSeconds = Math.floor(elapsedMs / 1000);
-
-  useEffect(() => {
-    if (!isRunning || !startedAt) return;
-    const t = window.setInterval(() => setElapsedMs(Date.now() - startedAt), 250);
-    return () => window.clearInterval(t);
-  }, [isRunning, startedAt]);
-
-  useEffect(() => {
-    if (!isRunning) { setStartedAt(null); setElapsedMs(0); }
-  }, [isRunning]);
+  const status = latest?.status ?? 'loading';
+  const isUnsupported = status === 'unsupported';
+  const isGenerating = status === 'generating';
+  const cacheHit = !!(latest?.cache_hit && status === 'ready');
+  const generatedAt = (latest?.generated_at || latest?.last_cached_result?.generated_at) as string | undefined;
 
   // Responsive: stack the main grid on narrow viewports
   useEffect(() => {
@@ -1531,25 +1571,106 @@ export default function NarrativePage() {
 
   const themes = useMemo(() => result ? normalizeDominantThemes(result) : [], [result]);
 
+  // Status pill rendered inside AnalysisControls
+  const statusLine = useMemo<React.ReactNode>(() => {
+    if (isUnsupported) {
+      return (
+        <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.wa, fontWeight: 500 }}>
+          Cached reads enabled for SPY only — broader coverage soon.
+        </span>
+      );
+    }
+    if (isGenerating) {
+      return (
+        <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
+          Generating today&apos;s {ticker} read… typically 1–2 min.
+        </span>
+      );
+    }
+    if (status === 'error') {
+      return (
+        <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.dn }}>
+          Could not load today&apos;s read. Showing latest available cached read.
+        </span>
+      );
+    }
+    if (cacheHit && generatedAt) {
+      const t = new Date(generatedAt);
+      const today = new Date();
+      const sameDay = t.toDateString() === today.toDateString();
+      const stamp = sameDay
+        ? `today at ${t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+        : t.toLocaleString();
+      return (
+        <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
+          Latest Helix read · Updated {stamp} · Cached
+        </span>
+      );
+    }
+    return null;
+  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker]);
+
   return (
     <main style={{ background: T.bg, minHeight: '100vh' }}>
       <div style={PAGE_SHELL}>
 
         {/* 1. Analysis Controls */}
-        <AnalysisControls
-          tickers={tickers}
-          setTickers={setTickers}
-          trigger={trigger}
-          isTriggering={isTriggering}
-          isRunning={isRunning}
-          elapsedSeconds={elapsedSeconds}
-          jobStatus={jobStatus as AnyRecord | null}
-        />
+        <AnalysisControls ticker={ticker} setTicker={setTicker} statusLine={statusLine} />
 
-        {result ? (
+        {/* Unsupported ticker — clean coming-soon panel */}
+        {isUnsupported ? (
+          <Card>
+            <div style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              justifyContent: 'center', padding: '60px 24px', gap: '8px',
+              textAlign: 'center',
+            }}>
+              <span style={{ fontFamily: T.sans, fontSize: '15px', color: T.text, fontWeight: 600 }}>
+                Coming soon
+              </span>
+              <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted, maxWidth: '480px', lineHeight: 1.5 }}>
+                {safeStr(latest?.message) || 'Ticker-specific cached narrative reads are currently enabled for SPY. Broader ticker coverage is coming soon.'}
+              </span>
+              <button
+                onClick={() => setTicker('SPY')}
+                style={{
+                  marginTop: '8px', background: T.navy, color: '#fff',
+                  border: 'none', borderRadius: '8px', padding: '8px 16px',
+                  fontFamily: T.sans, fontSize: '12.5px', fontWeight: 600, cursor: 'pointer',
+                }}
+              >Open SPY read</button>
+            </div>
+          </Card>
+        ) : null}
+
+        {/* Loading skeleton — only when we have nothing to show yet */}
+        {!isUnsupported && !result && isGenerating ? (
+          <Card title="Generating today's read">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textSub }}>
+                Helix is gathering sources, computing price context, and synthesizing today&apos;s read.
+                This usually takes 1–2 minutes on a cold cache.
+              </span>
+              {[1, 2, 3].map(i => (
+                <div key={i} style={{
+                  height: '48px',
+                  background: T.surfaceMuted,
+                  border: `1px solid ${T.borderSub}`,
+                  borderRadius: '10px',
+                  animation: 'temperPulse 1.6s ease-in-out infinite',
+                }} />
+              ))}
+            </div>
+          </Card>
+        ) : null}
+
+        {result && !isUnsupported ? (
           <>
-            {/* 2. Executive Snapshot — full width */}
-            <ExecutiveSnapshot data={result} />
+            {/* 2. Executive Snapshot + Psychology Curve */}
+            <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '24px' } : SNAPSHOT_GRID}>
+              <ExecutiveSnapshot data={result} />
+              <MarketPsychologyCurve data={result} />
+            </div>
 
             {/* 3. Two-column: Dominant Themes + Inefficiency Map */}
             <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '24px' } : MAIN_GRID}>
@@ -1569,23 +1690,22 @@ export default function NarrativePage() {
             {/* 7. Information Set */}
             <InformationSet data={result} />
 
-            {/* 8. Cycle Positioning */}
-            <CyclePositioning data={result} />
-
-            {/* 9. Advanced Raw Ledgers */}
+            {/* 8. Advanced Raw Ledgers */}
             <AdvancedRawLedgers data={result} />
           </>
-        ) : !isRunning ? (
+        ) : null}
+
+        {!isUnsupported && !result && !isGenerating && status !== 'loading' ? (
           <Card>
             <div style={{
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               justifyContent: 'center', padding: '60px 24px', gap: '6px',
             }}>
               <span style={{ fontFamily: T.sans, fontSize: '14px', color: T.textSub, fontWeight: 500 }}>
-                No narrative snapshot found
+                No narrative read available
               </span>
               <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted }}>
-                Hit &quot;Synthesize&quot; to generate today&apos;s analysis
+                {safeStr(latest?.last_error) || 'Today’s read will appear once it has been generated.'}
               </span>
             </div>
           </Card>

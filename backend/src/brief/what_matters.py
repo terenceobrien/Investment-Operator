@@ -22,18 +22,25 @@ def generate_what_matters_today(
     macro_signals: Dict,
     market_moves_df: pd.DataFrame,
     portfolio_flags: Optional[List[str]] = None,
-    model: str = "gpt-5.5",
+    model: Optional[str] = None,
 ) -> str:
     """
     Returns a short bullet brief (3–5 bullets) grounded in:
       - Macro regime (Growth/Inflation/Liquidity)
       - Market movers
       - Portfolio flags (optional)
+
+    This is a preprocessing-tier brief, not the final narrative synthesis,
+    so it defaults to PREPROCESSING_MODEL.
     """
     from openai import OpenAI
+    from src.narrative.config import PREPROCESSING_MODEL
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError("Missing OPENAI_API_KEY in your environment/.env")
+
+    if not model:
+        model = PREPROCESSING_MODEL
 
     client = OpenAI(api_key=api_key)
 

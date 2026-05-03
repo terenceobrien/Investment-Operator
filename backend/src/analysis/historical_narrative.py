@@ -167,14 +167,15 @@ def generate_historical_narrative(date_str: str) -> Dict[str, Any]:
     if ctx is None:
         raise ValueError(f"No data found for date {date_str}")
 
-    # Call OpenAI
+    # Call OpenAI — historical retrospective summary uses preprocessing tier
     from openai import OpenAI
+    from src.narrative.config import PREPROCESSING_MODEL
     client = OpenAI()
 
     prompt = _build_prompt(ctx)
 
     resp = client.chat.completions.create(
-        model="gpt-5.5",
+        model=PREPROCESSING_MODEL,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=600,
@@ -204,7 +205,7 @@ def generate_historical_narrative(date_str: str) -> Dict[str, Any]:
         "narrative": parsed,
         "market_context": ctx,
         "generated": True,
-        "model": "gpt-5.5",
+        "model": PREPROCESSING_MODEL,
     }
 
     # Cache result

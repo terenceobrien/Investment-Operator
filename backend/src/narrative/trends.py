@@ -459,7 +459,7 @@ def _derive_signal(
 
 def extract_narrative_query_terms(
     snapshot: Dict[str, Any],
-    model: str = "gpt-5.5",
+    model: Optional[str] = None,
     max_terms_per_narrative: int = 3,
     openai_client: Optional[Any] = None,
 ) -> List[Dict[str, Any]]:
@@ -525,6 +525,9 @@ def extract_narrative_query_terms(
         if openai_client is None:
             from openai import OpenAI
             openai_client = OpenAI()
+        if not model:
+            from src.narrative.config import PREPROCESSING_MODEL
+            model = PREPROCESSING_MODEL
 
         resp = openai_client.chat.completions.create(
             model=model,
@@ -582,7 +585,7 @@ def run_trend_scan(
     geo: str = "US",
     timeframe: str = "today 3-m",
     delay_range: Tuple[float, float] = (3.0, 8.0),
-    llm_model: str = "gpt-5.5",
+    llm_model: Optional[str] = None,
     openai_client: Optional[Any] = None,
     skip_static: bool = False,
     skip_dynamic: bool = False,

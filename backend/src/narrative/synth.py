@@ -49,6 +49,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from openai import OpenAI
 
+from src.narrative.config import FINAL_SYNTHESIS_MODEL
 from src.narrative.schema import NarrativeStateV1
 
 
@@ -1402,7 +1403,7 @@ def synthesize_narrative_state(
     prior_state: Optional[Dict[str, Any]] = None,
     max_items: int = 80,
     lookback_hours: int = 36,
-    model: str = "gpt-5.5",
+    model: str = FINAL_SYNTHESIS_MODEL,
     client: Optional[Any] = None,
     price_context: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
