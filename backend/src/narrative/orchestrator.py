@@ -31,6 +31,46 @@ SNAPSHOT_DIR = "data/snapshots"
 SPY_WATCH_TICKERS: List[str] = ["SPY", "QQQ", "IWM", "TLT", "HYG"]
 
 
+def _shape_regime_for_synth(r: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Project a RegimeState dict into the shape we hand to the LLM.
+
+    Reasoning for the reshape (vs. passing RegimeState.to_dict() verbatim):
+      - The dataclass exposes parallel arrays (`layer_monetary` + `layer_signals.monetary`
+        + `layer_statuses.monetary`) that read awkwardly. Nesting under
+        `layers.<name>.{score,status,signals}` is far cleaner for LLM grounding
+        and for human inspection of synth_input_*.json.
+      - We drop verbose diagnostics (layer_data_quality, raw asof_utc) the LLM
+        does not need.
+    """
+    layer_signals = r.get("layer_signals") or {}
+    layer_statuses = r.get("layer_statuses") or {}
+    return {
+        "asof_date": r.get("asof_date"),
+        "horizon": r.get("horizon"),
+        "score_total": r.get("score_total"),
+        "score_delta": r.get("score_delta"),
+        "environment": r.get("environment"),
+        "environment_drivers": r.get("environment_drivers", []),
+        "confidence": r.get("confidence"),
+        "layer_agreement": r.get("layer_agreement"),
+        "layers": {
+            name: {
+                "score": r.get(f"layer_{name}"),
+                "status": layer_statuses.get(name),
+                "signals": layer_signals.get(name, []),
+            }
+            for name in ("monetary", "credit", "volatility", "breadth", "positioning")
+        },
+        "key_inputs": {
+            k: r.get(k) for k in (
+                "vix_level", "vix_term_slope", "hy_spread_level",
+                "net_liquidity_z", "pct_above_200d", "new_highs_minus_lows_z",
+            )
+        },
+    }
+
+
 async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
     """
     Run the full narrative synthesis pipeline for a ticker. Returns the
@@ -39,6 +79,7 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
     Async — uses asyncio.to_thread for blocking yfinance / synthesis calls.
     """
     # Imports are local to avoid heavy side effects at module load time
+    from datetime import date as date_cls
     from src.narrative.bundle import build_narrative_bundle
     from src.narrative.synth import (
         synthesize_narrative_state,
@@ -46,8 +87,7 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
         save_narrative_snapshot,
         extract_tickers_from_items,
     )
-    from src.state.market_state import build_market_state, summarize_state
-    from src.state.scoring import score_market_state
+    from src.state.regime_state import RegimeState, build_regime_state
     from src.data.market import fetch_market_moves
     from src.data.price_context import build_multi_timeframe_price_context
 
@@ -70,10 +110,16 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
         earnings_days_ahead=7,
     )
 
-    # ── 2. Market state ──
-    state_obj = await asyncio.to_thread(build_market_state)
-    state_obj = await asyncio.to_thread(score_market_state, state_obj)
-    market_summary = summarize_state(state_obj)
+    # ── 2. Regime state (five-layer scoring) ──
+    # Reuse today's saved regime snapshot (computed once at close) when present
+    # — building it from scratch is heavy. Fall back to a fresh build only if
+    # the snapshot is missing.
+    today_str = date_cls.today().isoformat()
+    regime = await asyncio.to_thread(RegimeState.load_snapshot, today_str)
+    if regime is None:
+        logger.info("No regime snapshot for %s — building one now", today_str)
+        regime = await asyncio.to_thread(build_regime_state, save=True)
+    regime_summary = _shape_regime_for_synth(regime.to_dict())
 
     # ── 3. Market moves ──
     moves_df = await asyncio.to_thread(fetch_market_moves, watch)
@@ -106,7 +152,7 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
     result = await asyncio.to_thread(
         synthesize_narrative_state,
         bundle.to_dict(),
-        market_state_summary=market_summary,
+        market_state_summary=regime_summary,
         market_moves=moves,
         prior_state=prior,
         lookback_hours=36,

@@ -1203,12 +1203,15 @@ def _build_information_ledgers(
             },
         )
 
-    # Also attach market_state_summary to price ledger if provided
+    # Also attach the regime-state summary to price ledger if provided.
+    # The Python parameter is still named market_state_summary for backward
+    # compatibility with callers, but it now carries the five-layer regime
+    # decomposition produced by orchestrator._shape_regime_for_synth().
     if market_state_summary:
         ledgers["price_ledger"].insert(
             0,
             {
-                "kind": "market_state_summary",
+                "kind": "regime_state_summary",
                 "data": market_state_summary,
                 "evidence_strength": "high",
                 "information_role": "market_reaction",
@@ -1478,6 +1481,13 @@ def synthesize_narrative_state(
         "7) equal weight vs cap weighted indices, and"
         "and 8) single-name watchlist tickers vs their sector and vs the overall market.\n\n"
 
+        "The `regime_state` object is the canonical macro/regime read, decomposed into five "
+        "layers: monetary, credit, volatility, breadth, positioning. Each layer carries a 0–100 "
+        "score, a qualitative status, and a list of signals that drove it. Cite specific layers "
+        "(e.g. 'credit layer score 68 with HY spreads tightening') when reasoning about whether "
+        "reality, story, and price agree at the regime level. Treat layer disagreement "
+        "(low layer_agreement) as itself a signal that the regime is in transition.\n\n"
+
         "For every major theme, distinguish:\n"
         "  1. REALITY  — what hard fundamental/policy/company evidence says\n"
         "  2. STORY    — what the market, media, and analysts appear to believe\n"
@@ -1495,7 +1505,7 @@ def synthesize_narrative_state(
     payload = {
         "asof_utc": bundle.get("asof_utc") or _utc_now_iso(),
         "lookback_hours": int(lookback_hours),
-        "market_state": market_state_summary or {},
+        "regime_state": market_state_summary or {},
         "market_moves": _summarize_market_moves(market_moves),
         "prior_context": {
             "asof_utc": prior_asof,
