@@ -310,20 +310,26 @@ async def get_historical_analogues(
         environment=regime.environment or "Mixed / Neutral",
         score_total=regime.score_total or 50.0,
         vix_level=regime.vix_level,
-        sectors_green=regime.layer_breadth,
+        sectors_green=regime.sectors_green,
         score_delta=score_delta,
         confidence=regime.confidence,
         top_n=top_n,
     )
 
     result["current_state"] = {
-        "score_total":    regime.score_total,
-        "confidence":     regime.confidence,
-        "environment":    regime.environment,
-        "vix_level":      regime.vix_level,
-        "layer_agreement": regime.layer_agreement,
-        "score_delta":    regime.score_delta,
-        "asof_utc":       regime.asof_utc,
+        "score_total":       regime.score_total,
+        "confidence":        regime.confidence,
+        "environment":       regime.environment,
+        "vix_level":         regime.vix_level,
+        "sectors_green":     regime.sectors_green,
+        "layer_agreement":   regime.layer_agreement,
+        "layer_monetary":    regime.layer_monetary,
+        "layer_credit":      regime.layer_credit,
+        "layer_volatility":  regime.layer_volatility,
+        "layer_breadth":     regime.layer_breadth,
+        "layer_positioning": regime.layer_positioning,
+        "score_delta":       score_delta,
+        "asof_utc":          regime.asof_utc,
     }
 
     return result
@@ -871,15 +877,24 @@ async def get_historical_narrative(
 
 @app.get("/api/market/conditional")
 async def get_conditional(user: dict = Depends(verify_clerk_token)):
-    state = await asyncio.to_thread(build_market_state)
-    state = await asyncio.to_thread(score_market_state, state)
+    # Conditional probabilities query the historical analogues database, which
+    # was scored with the new five-layer regime system. Today's conditions must
+    # come from the same system or the comparison is apples-to-oranges.
+    from src.state.regime_state import RegimeState, build_regime_state
     from src.analysis.conditional_probability import get_conditional_stats
+
+    today = date.today().isoformat()
+    regime = RegimeState.load_snapshot(today)
+    if not regime:
+        regime = await asyncio.to_thread(build_regime_state, save=True)
+
     result = get_conditional_stats(
-        environment=state.environment,
-        score_total=state.score_total,
-        vix_level=state.vix_level,
-        sectors_green=state.sectors_green,
-        confidence=state.confidence,
+        environment=regime.environment,
+        score_total=regime.score_total,
+        vix_level=regime.vix_level,
+        sectors_green=regime.sectors_green,
+        score_delta=regime.score_delta,
+        confidence=regime.confidence,
     )
     return result
 

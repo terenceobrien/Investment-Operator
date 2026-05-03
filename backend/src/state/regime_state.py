@@ -65,6 +65,10 @@ class RegimeState:
     net_liquidity_z: Optional[float] = None
     pct_above_200d: Optional[float] = None
     new_highs_minus_lows_z: Optional[float] = None
+    # Raw count of sectors with positive 1D return (out of 11). Distinct from
+    # layer_breadth (a 0–100 score). Carried through so the analogues /
+    # conditional engines — which still take a raw sector count — can use it.
+    sectors_green: Optional[int] = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -296,6 +300,7 @@ def build_regime_state(
         net_liquidity_z=raw.net_liquidity_z,
         pct_above_200d=raw.pct_above_200d,
         new_highs_minus_lows_z=raw.new_highs_minus_lows_z,
+        sectors_green=sectors_green,
     )
 
     if save:
