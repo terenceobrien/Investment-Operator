@@ -50,6 +50,48 @@ class Signals(BaseModel):
     social_intensity: int = Field(default=30, ge=0, le=100)
 
 
+class ExecutiveBullets(BaseModel):
+    """Three concise bullets the answer-first UI renders verbatim."""
+    reality: str = Field(default="")
+    story: str = Field(default="")
+    price: str = Field(default="")
+
+
+class ExecutiveSnapshot(BaseModel):
+    """
+    Top-level answer for the page. The LLM fills these directly so the
+    frontend never has to parse them out of long text.
+
+    Conservative defaults are returned when the LLM cannot determine a field
+    with confidence (e.g. "Not specified", "Mixed/unclear") rather than
+    fabricating.
+    """
+    regime_tone: str = Field(default="Not specified")
+    primary_gap: str = Field(default="Not specified")
+    primary_archetype: str = Field(default="Not specified")
+    price_confirmation: str = Field(default="Mixed")
+    confidence: Optional[float] = None
+    executive_bullets: ExecutiveBullets = Field(default_factory=ExecutiveBullets)
+
+
+class InefficiencyMapItem(BaseModel):
+    """One concrete dislocation between reality, story, and price."""
+    subject: str
+    gap: str
+    archetype: str
+    confidence: Optional[float] = None
+    evidence: Optional[str] = None
+    falsifier: Optional[str] = None
+
+
+class PriceSummary(BaseModel):
+    """LLM-provided one-line reads of price behavior in context."""
+    cross_asset: str = Field(default="")
+    sector: str = Field(default="")
+    timeframe: str = Field(default="")
+    relationship: str = Field(default="")
+
+
 class NarrativeStateV1(BaseModel):
     asof_utc: str
 
@@ -64,3 +106,10 @@ class NarrativeStateV1(BaseModel):
 
     market_tone: MarketTone = Field(default_factory=MarketTone)
     signals: Signals = Field(default_factory=Signals)
+
+    # ── Explicit answer-first fields (added in prompt v3) ──
+    # Replaces frontend heuristics. Older snapshots without these fields
+    # remain valid because every nested field has a default.
+    executive_snapshot: ExecutiveSnapshot = Field(default_factory=ExecutiveSnapshot)
+    inefficiency_map: List[InefficiencyMapItem] = Field(default_factory=list, max_length=6)
+    price_summary: PriceSummary = Field(default_factory=PriceSummary)

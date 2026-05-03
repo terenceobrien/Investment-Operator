@@ -95,6 +95,54 @@ function extractExecutiveSnapshot(data: AnyRecord) {
   const takeaways = safeArray<string>(data.raw_takeaways);
   const fullSummary = safeStr(data.one_paragraph_summary);
 
+  // ── Prefer the explicit executive_snapshot if the synthesis populated it
+  // (prompt v3+). Older snapshots fall through to the heuristic path below.
+  const snap = (data.executive_snapshot ?? null) as AnyRecord | null;
+
+  const isMissing = (v: string) =>
+    !v || /^not specified$/i.test(v) || /^mixed\s*\/\s*unclear$/i.test(v);
+
+  if (snap) {
+    const eb = (snap.executive_bullets ?? {}) as AnyRecord;
+    const ebReality = safeStr(eb.reality);
+    const ebStory = safeStr(eb.story);
+    const ebPrice = safeStr(eb.price);
+
+    const bullets = [
+      { label: 'Reality', text: ebReality },
+      { label: 'Story', text: ebStory },
+      { label: 'Price', text: ebPrice },
+    ];
+
+    // If all three explicit bullets are empty, fall back to summary-split.
+    if (bullets.every(b => !b.text) && fullSummary) {
+      const sentences = fullSummary
+        .split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
+      if (sentences[0]) bullets[0].text = sentences[0];
+      if (sentences[1]) bullets[1].text = sentences[1];
+      if (sentences[2]) bullets[2].text = sentences.slice(2).join(' ');
+    }
+
+    const regimeTone = safeStr(snap.regime_tone);
+    const primaryGap = safeStr(snap.primary_gap);
+    const primaryArchetype = safeStr(snap.primary_archetype);
+    const priceConfirmation = safeStr(snap.price_confirmation);
+    const confidence = safeNum(snap.confidence);
+
+    return {
+      regimeTone: isMissing(regimeTone) ? '' : regimeTone,
+      primaryGap: isMissing(primaryGap) ? '' : primaryGap,
+      primaryArchetype: isMissing(primaryArchetype) ? '' : primaryArchetype,
+      priceConfirmation: isMissing(priceConfirmation) ? '' : priceConfirmation,
+      confidence,
+      bullets: bullets.filter(b => b.text),
+      fullSummary,
+      asof: safeStr(data.asof_utc),
+      model: safeStr(meta.model ?? data.model),
+    };
+  }
+
+  // ── Heuristic fallback for older snapshots without executive_snapshot ──
   const archetype = firstNonEmpty(
     ...narratives.map(n => safeStr(n.archetype)),
     takeaways.find(t => /^ARCHETYPE/i.test(t))?.replace(/^ARCHETYPE[:\s]*/i, '').split('\n')[0],
@@ -109,11 +157,9 @@ function extractExecutiveSnapshot(data: AnyRecord) {
     ? stance.charAt(0).toUpperCase() + stance.slice(1)
     : '';
 
-  // Confidence: prefer the highest narrative confidence as a proxy
   const confValues = narratives.map(n => safeNum(n.confidence)).filter((x): x is number => x !== null);
   const confidence = confValues.length ? Math.max(...confValues) : null;
 
-  // Price confirmation — derive from raw_takeaways tags or a count of CONFIRMATION/INVALIDATION/UNCLEAR
   let priceConfirmation = '';
   const cf = takeaways.filter(t => /^CONFIRMATION/i.test(t)).length;
   const inv = takeaways.filter(t => /^INVALIDATION/i.test(t)).length;
@@ -124,34 +170,20 @@ function extractExecutiveSnapshot(data: AnyRecord) {
     else priceConfirmation = 'Mixed';
   }
 
-  // Bullets — prefer prefixed REALITY/STORY/PRICE takeaways; else fall back
   const findTakeaway = (re: RegExp) => takeaways
     .find(t => re.test(t))
     ?.replace(re, '').replace(/^[:\s]+/, '').trim();
 
   const bullets = [
-    {
-      label: 'Reality',
-      text: firstNonEmpty(findTakeaway(/^REALITY[:\s]*/i)),
-    },
-    {
-      label: 'Story',
-      text: firstNonEmpty(findTakeaway(/^STORY[:\s]*/i)),
-    },
-    {
-      label: 'Price',
-      text: firstNonEmpty(findTakeaway(/^PRICE[:\s]*/i)),
-    },
+    { label: 'Reality', text: firstNonEmpty(findTakeaway(/^REALITY[:\s]*/i)) },
+    { label: 'Story', text: firstNonEmpty(findTakeaway(/^STORY[:\s]*/i)) },
+    { label: 'Price', text: firstNonEmpty(findTakeaway(/^PRICE[:\s]*/i)) },
   ];
-  // Fallback: if nothing extracted, split the summary into 3 sentences
   if (bullets.every(b => !b.text) && fullSummary) {
-    const sentences = fullSummary
-      .split(/(?<=[.!?])\s+/)
-      .map(s => s.trim())
-      .filter(Boolean);
-    if (sentences.length >= 1) bullets[0].text = sentences[0];
-    if (sentences.length >= 2) bullets[1].text = sentences[1];
-    if (sentences.length >= 3) bullets[2].text = sentences.slice(2).join(' ');
+    const sentences = fullSummary.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(Boolean);
+    if (sentences[0]) bullets[0].text = sentences[0];
+    if (sentences[1]) bullets[1].text = sentences[1];
+    if (sentences[2]) bullets[2].text = sentences.slice(2).join(' ');
   }
 
   return {
@@ -192,7 +224,23 @@ function normalizeDominantThemes(data: AnyRecord) {
 
 type Theme = ReturnType<typeof normalizeDominantThemes>[0];
 
-function extractInefficiencyRows(themes: Theme[]) {
+function extractInefficiencyRows(data: AnyRecord, themes: Theme[]) {
+  // Prefer the explicit inefficiency_map produced by prompt v3 synthesis.
+  const explicit = safeArray<AnyRecord>(data.inefficiency_map);
+  if (explicit.length > 0) {
+    return explicit
+      .map(r => ({
+        subject: safeStr(r.subject),
+        gap: safeStr(r.gap),
+        archetype: safeStr(r.archetype),
+        confidence: safeNum(r.confidence),
+        falsifier: safeStr(r.falsifier),
+        evidence: safeStr(r.evidence),
+      }))
+      .filter(r => r.subject && (r.gap || r.archetype));
+  }
+
+  // Fallback: derive from dominant themes for older snapshots.
   return themes
     .map(t => ({
       subject: t.title,
@@ -200,6 +248,7 @@ function extractInefficiencyRows(themes: Theme[]) {
       archetype: t.archetype,
       confidence: t.confidence,
       falsifier: t.falsifier,
+      evidence: '' as string,
     }))
     .filter(r => r.subject && (r.gap || r.archetype));
 }
@@ -308,6 +357,10 @@ function extractPriceSummary(data: AnyRecord) {
   const sn = findPriceLedgerEntry(entries, 'single_name_returns');
   const rels = findPriceLedgerEntry(entries, 'relationship_signals');
 
+  // Prefer the explicit price_summary the synthesis returns (prompt v3+).
+  // Keep computing the raw arrays below so the tabs/tables still render.
+  const explicitPS = (data.price_summary ?? null) as AnyRecord | null;
+
   const caAll = safeArray<AnyRecord>(((ca?.items as AnyRecord)?.all as AnyRecord[]) ?? []);
   const secAll = safeArray<AnyRecord>(((sec?.items as AnyRecord)?.all as AnyRecord[]) ?? []);
   const snAll = safeArray<AnyRecord>(((sn?.items as AnyRecord)?.all as AnyRecord[]) ?? [])
@@ -367,11 +420,21 @@ function extractPriceSummary(data: AnyRecord) {
   const relHeadline = topRel ? `${safeStr(topRel.name)} ${formatPct(getReturn1D(topRel))}` : '';
   const relRead = topRel ? truncate(safeStr(topRel.interpretation), 80) : '';
 
+  // Prefer explicit price_summary read for the "read" line; keep the
+  // heuristic headline (which is data, not interpretation) so users always
+  // see the actual numbers.
+  const psRead = (k: 'cross_asset' | 'sector' | 'timeframe' | 'relationship'): string => {
+    if (!explicitPS) return '';
+    const v = safeStr((explicitPS as AnyRecord)[k]);
+    if (!v || /price evidence unavailable/i.test(v)) return '';
+    return v;
+  };
+
   return {
-    crossAsset: { headline: caTop, read: caRead },
-    sector: { headline: secHeadline, read: secRead },
-    timeframe: { headline: timeframeHeadline, read: timeframeRead },
-    relationship: { headline: relHeadline, read: relRead },
+    crossAsset:   { headline: caTop,             read: psRead('cross_asset')  || caRead },
+    sector:       { headline: secHeadline,       read: psRead('sector')       || secRead },
+    timeframe:    { headline: timeframeHeadline, read: psRead('timeframe')    || timeframeRead },
+    relationship: { headline: relHeadline,       read: psRead('relationship') || relRead },
     raw: { caAll, secAll, snAll, relItems, horizons: safeArray<string>(ca?.horizons as string[]) },
   };
 }
@@ -802,8 +865,8 @@ function DominantThemes({ themes }: { themes: Theme[] }) {
 // ─────────────────────────────────────────────────────────────
 // Section: Inefficiency Map
 // ─────────────────────────────────────────────────────────────
-function InefficiencyMap({ themes }: { themes: Theme[] }) {
-  const rows = extractInefficiencyRows(themes);
+function InefficiencyMap({ data, themes }: { data: AnyRecord; themes: Theme[] }) {
+  const rows = extractInefficiencyRows(data, themes);
   return (
     <Card title="Inefficiency Map">
       {rows.length === 0 ? (
@@ -1703,7 +1766,7 @@ export default function NarrativePage() {
             {/* 3. Two-column: Dominant Themes + Inefficiency Map */}
             <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '24px' } : MAIN_GRID}>
               <DominantThemes themes={themes} />
-              <InefficiencyMap themes={themes} />
+              <InefficiencyMap data={result} themes={themes} />
             </div>
 
             {/* 4. Price Context */}

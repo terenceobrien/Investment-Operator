@@ -630,6 +630,11 @@ async def narrative_status(
 # Cleared once the background task finishes (success or failure).
 _cache_generating: dict[str, dict] = {}
 
+# Hard ceiling on a single generation. yfinance + bundle + price context +
+# GPT-5.5 synthesis typically finishes well under 2 min on warm caches; 240s
+# leaves headroom without letting a stuck call sit forever.
+NARRATIVE_GENERATION_TIMEOUT_SEC: int = 240
+
 
 @app.get("/api/narrative/latest")
 async def get_latest_narrative(
@@ -687,8 +692,15 @@ async def get_latest_narrative(
     _cache_generating[ticker_u] = {"done": False, "started_at": started_at}
 
     async def _generate(t: str, day: str) -> None:
+        # Wrap the whole pipeline in a hard timeout. Any error path (including
+        # timeout) marks the entry done in `finally` so subsequent requests
+        # can re-trigger generation instead of hanging on a stuck pending flag.
+        error_str: Optional[str] = None
         try:
-            result = await run_narrative_for_ticker(t)
+            result = await asyncio.wait_for(
+                run_narrative_for_ticker(t),
+                timeout=NARRATIVE_GENERATION_TIMEOUT_SEC,
+            )
             record = build_cache_record(
                 t, day, result,
                 final_model=FINAL_SYNTHESIS_MODEL,
@@ -697,17 +709,25 @@ async def get_latest_narrative(
                 source_config_version=SOURCE_CONFIG_VERSION,
             )
             save_narrative_cache(t, day, record)
-            _cache_generating[t] = {"done": True, "started_at": started_at}
             logger.info("Narrative cache populated for %s on %s", t, day)
+        except asyncio.TimeoutError:
+            error_str = f"timeout after {NARRATIVE_GENERATION_TIMEOUT_SEC}s"
+            logger.error(
+                "%s narrative generation timed out after %ds",
+                t, NARRATIVE_GENERATION_TIMEOUT_SEC,
+            )
         except Exception as exc:
             import traceback as _tb
+            error_str = str(exc)
             logger.error(
                 "Narrative cache generation failed for %s: %s\n%s",
                 t, exc, _tb.format_exc(),
             )
-            _cache_generating[t] = {
-                "done": True, "started_at": started_at, "error": str(exc),
-            }
+        finally:
+            entry: dict = {"done": True, "started_at": started_at}
+            if error_str:
+                entry["error"] = error_str
+            _cache_generating[t] = entry
 
     asyncio.create_task(_generate(ticker_u, today))
 

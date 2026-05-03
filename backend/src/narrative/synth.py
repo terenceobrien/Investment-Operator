@@ -1097,12 +1097,19 @@ def _dedupe_and_rank(
 # ---------------------------------------------------------------------------
 
 def _ledger_item_view(it: Dict[str, Any]) -> Dict[str, Any]:
-    """Compact view used inside ledgers — minimal fields for LLM reasoning."""
+    """
+    Compact view used inside ledgers — minimal fields for LLM reasoning.
+
+    Preserves market_relevance_score, source_channel, and why_selected from
+    the ranker's _meta so frontend Evidence Board filtering can prioritize
+    relevant items without re-running classification.
+    """
     meta = it.get("_meta") or {}
     return {
         "title": it.get("title"),
         "source": it.get("source"),
         "source_tier": it.get("source_tier") or it.get("tier"),
+        "source_channel": it.get("source_channel") or it.get("channel"),
         "summary": it.get("summary"),
         "url": it.get("url"),
         "tickers": it.get("tickers") or [],
@@ -1111,6 +1118,14 @@ def _ledger_item_view(it: Dict[str, Any]) -> Dict[str, Any]:
         "information_role": meta.get("information_role"),
         "content_tags": meta.get("content_tags") or [],
         "rank_score": meta.get("rank_score"),
+        # market_relevance_score may be on _meta (ranked path) or on the raw
+        # item (older snapshots) — fall back accordingly. Stays None if absent.
+        "market_relevance_score": (
+            meta.get("market_relevance_score")
+            if meta.get("market_relevance_score") is not None
+            else it.get("market_relevance_score")
+        ),
+        "why_selected": meta.get("why_selected"),
         "is_new_vs_prior": meta.get("is_new_vs_prior"),
     }
 
@@ -1550,6 +1565,36 @@ def synthesize_narrative_state(
                 "Use alternative_views_ledger for COUNTER claims. Do not promote a "
                 "narrative-ledger item to fundamental evidence; cite the actual fundamental "
                 "or policy item if such an item exists, otherwise mark the linkage as weak."
+            ),
+            # ── Explicit answer-first fields (prompt v3) ──
+            "executive_snapshot": (
+                "Populate `executive_snapshot` as the answer-first read for the page. "
+                "regime_tone: short label (e.g. 'Risk-on but fragile', 'Mixed / transition', "
+                "'Defensive rotation', 'Macro risk elevated', 'Narrative reset'). "
+                "primary_gap: one sentence naming the main divergence between reality, story, "
+                "and price. primary_archetype: short label (e.g. 'Narrative-fundamental "
+                "divergence', 'Crowded trade exhaustion', 'Momentum persistence', "
+                "'Expectation reset', 'Price/story contradiction'). price_confirmation: one of "
+                "Confirming / Contradicting / Mixed / Partially confirming / Not enough price "
+                "evidence. confidence: 0–100. executive_bullets.{reality, story, price}: one "
+                "concise sentence each. Use 'Not specified' or 'Mixed/unclear' rather than "
+                "guessing if a field cannot be determined."
+            ),
+            "inefficiency_map": (
+                "Populate `inefficiency_map` with 0–4 concrete dislocations between reality, "
+                "story, and price. Each item: subject (short label), gap (one sentence "
+                "describing the divergence), archetype (classification), optional confidence "
+                "(0–100), evidence (one short citation drawn from the ledgers), falsifier "
+                "(what would refute it). Return an empty list if no high-confidence "
+                "dislocation exists today."
+            ),
+            "price_summary": (
+                "Populate `price_summary` with concise one-sentence INTERPRETATIONS of price "
+                "behavior in context — not raw return lists. Fields: cross_asset (broad-tape "
+                "read), sector (leadership/laggards), timeframe (1D vs higher-horizon "
+                "context), relationship (key cross-asset/sector relationships and what they "
+                "imply). If price_ledger gives no signal for a field, return 'Price evidence "
+                "unavailable'."
             ),
         },
     }

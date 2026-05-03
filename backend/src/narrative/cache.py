@@ -2,11 +2,16 @@
 cache.py — File-based cache for narrative synthesis results.
 
 Layout:
-    {CACHE_DIR}/{TICKER}/{YYYY-MM-DD}.json
+    {CACHE_DIR}/{TICKER}/{PROMPT_VERSION}/{YYYY-MM-DD}.json
+
+Path-level prompt versioning is the primary invalidation mechanism: when
+PROMPT_VERSION changes, the lookup automatically reads from a fresh
+subdirectory and old records become unreachable without being deleted.
+A defensive in-record version check is also performed in case a stale
+record sneaks in via direct file write.
 
 Each record bundles the synthesis output with model/prompt/source-version
-metadata so cached outputs are auditable and roll automatically when the
-versioning constants in config.py are bumped.
+metadata so cached outputs are auditable.
 
 Contract: read/write helpers never raise — they log and return None on
 failure. Callers can safely use them inside request paths.
@@ -19,57 +24,95 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from src.narrative.config import CACHE_DIR
+from src.narrative.config import CACHE_DIR, PROMPT_VERSION
 
 logger = logging.getLogger("narrative.cache")
 
 
-def _ticker_dir(ticker: str) -> Path:
-    return CACHE_DIR / ticker.upper().strip()
+def _ticker_dir(ticker: str, prompt_version: Optional[str] = None) -> Path:
+    """Per-ticker, per-prompt-version cache directory."""
+    return CACHE_DIR / ticker.upper().strip() / (prompt_version or PROMPT_VERSION)
 
 
-def cache_path(ticker: str, date_str: str) -> Path:
-    base = _ticker_dir(ticker)
+def cache_path(
+    ticker: str, date_str: str, prompt_version: Optional[str] = None,
+) -> Path:
+    base = _ticker_dir(ticker, prompt_version)
     base.mkdir(parents=True, exist_ok=True)
     return base / f"{date_str}.json"
 
 
-def load_cache(ticker: str, date_str: str) -> Optional[Dict[str, Any]]:
-    p = cache_path(ticker, date_str)
+def load_cache(
+    ticker: str, date_str: str, prompt_version: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    """
+    Load a cache record for (ticker, date) under the active prompt version.
+
+    Returns None — and logs a warning — if the on-disk record's stored
+    prompt_version does not match the active one (defense in depth on top of
+    the path-level versioning).
+    """
+    p = cache_path(ticker, date_str, prompt_version)
     if not p.exists():
         return None
     try:
-        return json.loads(p.read_text(encoding="utf-8"))
+        rec = json.loads(p.read_text(encoding="utf-8"))
     except Exception as exc:
         logger.error("Failed to read cache %s: %s", p, exc)
         return None
 
+    active = prompt_version or PROMPT_VERSION
+    rec_version = rec.get("prompt_version")
+    if rec_version and rec_version != active:
+        logger.warning(
+            "Cache prompt_version mismatch — file=%s record=%s active=%s; ignoring",
+            p, rec_version, active,
+        )
+        return None
+    return rec
 
-def save_cache(ticker: str, date_str: str, record: Dict[str, Any]) -> Path:
-    p = cache_path(ticker, date_str)
+
+def save_cache(
+    ticker: str, date_str: str, record: Dict[str, Any],
+    prompt_version: Optional[str] = None,
+) -> Path:
+    p = cache_path(ticker, date_str, prompt_version)
     p.write_text(json.dumps(record, indent=2, default=str), encoding="utf-8")
     return p
 
 
 def load_latest_cache(
-    ticker: str, max_lookback_days: int = 14
+    ticker: str, max_lookback_days: int = 14,
+    prompt_version: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
     """
-    Find the most recent cached record for ticker.
+    Find the most recent cached record for (ticker, prompt_version).
 
-    Used as the stale-fallback when today's generation fails — surfaces the
-    last good read instead of crashing the page.
+    Scoped to the active prompt version so we never surface a v1 record as a
+    stale fallback for a v3 page. Used as the stale fallback when today's
+    generation fails.
     """
-    base = _ticker_dir(ticker)
+    base = _ticker_dir(ticker, prompt_version)
     if not base.exists():
         return None
     files = sorted(base.glob("*.json"), reverse=True)
+    active = prompt_version or PROMPT_VERSION
     for f in files[: max_lookback_days]:
         try:
-            return json.loads(f.read_text(encoding="utf-8"))
+            rec = json.loads(f.read_text(encoding="utf-8"))
         except Exception as exc:
             logger.warning("Skipping unreadable cache %s: %s", f, exc)
             continue
+        rec_version = rec.get("prompt_version")
+        if rec_version and rec_version != active:
+            # Path-level versioning should prevent this, but if mismatched
+            # records ever appear we don't want to surface them silently.
+            logger.warning(
+                "Skipping cache with mismatched prompt_version — file=%s record=%s active=%s",
+                f, rec_version, active,
+            )
+            continue
+        return rec
     return None
 
 
