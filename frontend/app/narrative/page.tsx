@@ -233,9 +233,12 @@ function extractInefficiencyRows(data: AnyRecord, themes: Theme[]) {
         subject: safeStr(r.subject),
         gap: safeStr(r.gap),
         archetype: safeStr(r.archetype),
+        archetypeId: safeStr(r.archetype_id),
         confidence: safeNum(r.confidence),
         falsifier: safeStr(r.falsifier),
         evidence: safeStr(r.evidence),
+        taxonomyBasis: safeStr(r.taxonomy_basis),
+        underlyingGapType: safeStr(r.underlying_gap_type),
       }))
       .filter(r => r.subject && (r.gap || r.archetype));
   }
@@ -246,9 +249,12 @@ function extractInefficiencyRows(data: AnyRecord, themes: Theme[]) {
       subject: t.title,
       gap: t.gap,
       archetype: t.archetype,
+      archetypeId: '' as string,
       confidence: t.confidence,
       falsifier: t.falsifier,
       evidence: '' as string,
+      taxonomyBasis: '' as string,
+      underlyingGapType: '' as string,
     }))
     .filter(r => r.subject && (r.gap || r.archetype));
 }
@@ -900,7 +906,21 @@ function InefficiencyMap({ data, themes }: { data: AnyRecord; themes: Theme[] })
               {row.archetype || row.confidence !== null ? (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {row.archetype ? <Chip label={truncate(row.archetype, 40)} color={T.accent} /> : null}
+                  {row.underlyingGapType ? <Chip label={row.underlyingGapType.replace(/_/g, ' ')} /> : null}
                   {row.confidence !== null ? <Chip label={`${row.confidence}/100`} /> : null}
+                </div>
+              ) : null}
+              {row.taxonomyBasis ? (
+                <div style={{
+                  marginTop: '10px',
+                  paddingTop: '10px',
+                  borderTop: `1px solid ${T.borderSub}`,
+                  fontFamily: T.sans,
+                  fontSize: '12px',
+                  color: T.textMuted,
+                  lineHeight: 1.5,
+                }}>
+                  {row.taxonomyBasis}
                 </div>
               ) : null}
             </div>

@@ -79,9 +79,12 @@ class InefficiencyMapItem(BaseModel):
     subject: str
     gap: str
     archetype: str
+    archetype_id: Optional[str] = None
     confidence: Optional[float] = None
     evidence: Optional[str] = None
     falsifier: Optional[str] = None
+    taxonomy_basis: Optional[str] = None
+    underlying_gap_type: Optional[str] = None
 
 
 class PriceSummary(BaseModel):

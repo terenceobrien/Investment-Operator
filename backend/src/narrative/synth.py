@@ -31,16 +31,14 @@ separation made explicit.
 
 Schema decisions
 ----------------
-We keep NarrativeStateV1 unchanged. The richer outputs (REALITY / STORY /
-PRICE / GAP / ARCHETYPE / FALSIFIER lines) are encoded as prefixed strings
-inside the existing freeform fields (raw_takeaways, per-narrative
-takeaways, what_would_change). If future product needs justify it, we can
-add explicit fields — but defer that until the prompted prefixes prove
-insufficient.
+NarrativeStateV1 now includes explicit answer-first fields for the UI,
+including a structured inefficiency_map. Freeform REALITY / STORY / PRICE /
+GAP / ARCHETYPE / FALSIFIER lines remain as calibration/debug aids.
 """
 from __future__ import annotations
 
 import json
+import logging
 import re
 from collections import Counter
 from datetime import datetime, timedelta, timezone
@@ -50,10 +48,17 @@ from typing import Any, Dict, List, Optional, Tuple
 from openai import OpenAI
 
 from src.narrative.config import FINAL_SYNTHESIS_MODEL
+from src.narrative.inefficiency_taxonomy import (
+    INEFFICIENCY_TAXONOMY_VERSION,
+    get_inefficiency_taxonomy_for_prompt,
+    get_inefficiency_taxonomy_ids,
+    normalize_archetype,
+)
 from src.narrative.schema import NarrativeStateV1
 
 
 _DEFAULT_CLIENT: OpenAI | None = None
+logger = logging.getLogger("narrative.synth")
 
 
 def _get_default_client() -> OpenAI:
@@ -65,6 +70,30 @@ def _get_default_client() -> OpenAI:
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _normalize_inefficiency_map_items(items: Any) -> List[Dict[str, Any]]:
+    if not isinstance(items, list):
+        return []
+
+    normalized_items: List[Dict[str, Any]] = []
+    for raw in items:
+        if not isinstance(raw, dict):
+            continue
+        item = dict(raw)
+        archetype_id = item.get("archetype_id")
+        archetype = item.get("archetype")
+        normalized = normalize_archetype(str(archetype_id)) if archetype_id else None
+        if not normalized and archetype:
+            normalized = normalize_archetype(str(archetype))
+        lookup = archetype_id or archetype
+        if normalized:
+            item["archetype_id"] = normalized["id"]
+            item["archetype"] = normalized["name"]
+        elif lookup:
+            logger.warning("Unrecognized inefficiency archetype returned by model: %s", lookup)
+        normalized_items.append(item)
+    return normalized_items
 
 
 def _date_str_from_iso(iso_ts: Optional[str]) -> str:
@@ -1512,10 +1541,19 @@ def synthesize_narrative_state(
         "panic/forced liquidation, crowded trade, narrative-fundamental divergence, "
         "regime shift, credit/equity divergence, value/neglect, vol risk premium, etc.)\n"
         "  6. FALSIFIER — what evidence would change the interpretation\n\n"
+        "Use the supplied inefficiency_taxonomy only for final inefficiency_map[] "
+        "classification. Choose the most specific applicable taxonomy archetype; "
+        "do not default to Narrative-Fundamental Divergence when a more specific "
+        "category explains the setup. Use Narrative-Fundamental Divergence as an "
+        "underlying gap type when appropriate. Do not force an inefficiency "
+        "classification when evidence is weak or mixed.\n\n"
         "Ground every claim in the supplied ledgers. If linkage to price action is weak, "
         "state that explicitly. Avoid generic macro recaps unless the regime itself "
         "changed today."
     )
+
+    inefficiency_taxonomy = get_inefficiency_taxonomy_for_prompt()
+    inefficiency_taxonomy_ids = get_inefficiency_taxonomy_ids()
 
     payload = {
         "asof_utc": bundle.get("asof_utc") or _utc_now_iso(),
@@ -1532,6 +1570,8 @@ def synthesize_narrative_state(
         # Kept for backwards-compat / debugging; the LLM is instructed to
         # rely on the ledgers, not this list.
         "items": selected_items,
+        "inefficiency_taxonomy_version": INEFFICIENCY_TAXONOMY_VERSION,
+        "inefficiency_taxonomy": inefficiency_taxonomy,
         "instructions": {
             "one_paragraph_summary": (
                 "Start with today's net delta vs prior context in 3-6 sentences. "
@@ -1582,11 +1622,18 @@ def synthesize_narrative_state(
             ),
             "inefficiency_map": (
                 "Populate `inefficiency_map` with 0–4 concrete dislocations between reality, "
-                "story, and price. Each item: subject (short label), gap (one sentence "
-                "describing the divergence), archetype (classification), optional confidence "
-                "(0–100), evidence (one short citation drawn from the ledgers), falsifier "
-                "(what would refute it). Return an empty list if no high-confidence "
-                "dislocation exists today."
+                "story, and price using inefficiency_taxonomy as the canonical classification "
+                "system. For each item choose the most specific applicable archetype, not "
+                "Narrative-Fundamental Divergence by default. Each item must include: subject "
+                "(short label), gap (one sentence), archetype_id (canonical taxonomy id), "
+                "archetype (canonical display name), confidence (0–100), evidence (one short "
+                "citation drawn from the ledgers), falsifier (what would refute it), "
+                "taxonomy_basis (briefly why it matches the taxonomy using ledger evidence), "
+                "and underlying_gap_type if identifiable. Allowed underlying_gap_type values: "
+                "positive_narrative_fundamental_divergence, "
+                "negative_narrative_fundamental_divergence, price_narrative_divergence, "
+                "price_fundamental_divergence, cross_asset_divergence, unclear. Return an "
+                "empty list if no high-confidence dislocation exists today."
             ),
             "price_summary": (
                 "Populate `price_summary` with concise one-sentence INTERPRETATIONS of price "
@@ -1625,6 +1672,8 @@ def synthesize_narrative_state(
         debug_dump = {
             "system_prompt": system,
             "model": model,
+            "inefficiency_taxonomy_version": INEFFICIENCY_TAXONOMY_VERSION,
+            "inefficiency_taxonomy_ids": inefficiency_taxonomy_ids,
             "payload": payload,
             "selected_item_keys": [_item_key(it) for it in selected_items],
             "selected_items_with_meta": [
@@ -1683,11 +1732,14 @@ def synthesize_narrative_state(
         response_format=NarrativeStateV1,
     )
     out = resp.choices[0].message.parsed.model_dump()
+    out["inefficiency_map"] = _normalize_inefficiency_map_items(out.get("inefficiency_map"))
     out["_meta"] = {
         "total_items_in_bundle": len(raw_items),
         "items_selected_for_llm": len(selected_items),
         "lookback_hours": int(lookback_hours),
         "prior_snapshot_found": bool(prior_state),
+        "inefficiency_taxonomy_version": INEFFICIENCY_TAXONOMY_VERSION,
+        "inefficiency_taxonomy_ids": inefficiency_taxonomy_ids,
         "ledger_counts": ledger_counts,
         "role_counts": dict(role_counts),
         "content_tag_counts": dict(content_tag_counts),

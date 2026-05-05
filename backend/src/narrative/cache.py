@@ -149,5 +149,7 @@ def build_cache_record(
             "selected_count": meta.get("items_selected_for_llm"),
             "ledger_counts": meta.get("ledger_counts"),
             "price_context_active": bool(ledgers.get("price_ledger")),
+            "inefficiency_taxonomy_version": meta.get("inefficiency_taxonomy_version"),
+            "inefficiency_taxonomy_ids": meta.get("inefficiency_taxonomy_ids"),
         },
     }

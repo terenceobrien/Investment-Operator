@@ -24,7 +24,7 @@ PREPROCESSING_MODEL: str = os.getenv("NARRATIVE_PREPROCESS_MODEL", "gpt-4o-mini"
 # ──────────────────────────────────────────────────────────────────────
 # Versioning — bump when prompt or source config changes so caches roll
 # ──────────────────────────────────────────────────────────────────────
-PROMPT_VERSION: str = os.getenv("NARRATIVE_PROMPT_VERSION", "v3")
+PROMPT_VERSION: str = os.getenv("NARRATIVE_PROMPT_VERSION", "narrative_taxonomy_v1")
 SOURCE_CONFIG_VERSION: str = os.getenv("NARRATIVE_SOURCE_CONFIG_VERSION", "v1")
 
 # ──────────────────────────────────────────────────────────────────────
