@@ -170,7 +170,22 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
   const plotWidth = svgWidth - padLeft - padRight;
   const plotHeight = svgHeight - padTop - padBottom;
 
-  const xForIndex = (idx: number) => padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
+  // ── Intraday (1D) maps x by time across the full 9:30 → 16:00 ET session,
+  // so the latest data sits where the current time would naturally fall —
+  // not pinned to the right edge. Multi-day timeframes keep the existing
+  // index-based mapping since their x-axis is the data span itself.
+  const isIntraday = tf === '1D';
+  const SESSION_MS = 6.5 * 60 * 60 * 1000; // 9:30 → 16:00 ET
+  const sessionStartMs = isIntraday ? chartData[0].timestamp.getTime() : 0;
+
+  const xForIndex = (idx: number) => {
+    if (isIntraday) {
+      const ts = chartData[idx].timestamp.getTime();
+      const ratio = Math.max(0, Math.min(1, (ts - sessionStartMs) / SESSION_MS));
+      return padLeft + ratio * plotWidth;
+    }
+    return padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
+  };
   const yForPrice = (price: number) => padTop + ((domainMax - price) / (domainMax - domainMin || 1)) * plotHeight;
 
   const points = chartData.map((point, idx) => {
@@ -179,16 +194,23 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
     return `${x.toFixed(2)},${y.toFixed(2)}`;
   }).join(' ');
 
-  const xLabelIndices = getEvenlySpacedIndices(chartData.length, 7);
-  const xLabels = xLabelIndices.map((idx) => {
-    const point = chartData[idx];
-    const x = xForIndex(idx);
-    return {
-      key: `${point.rawTime}-${idx}`,
-      x,
-      label: formatTimeLabel(point.timestamp, tf),
-    };
-  });
+  // For intraday, render labels at fixed half-session offsets (9:30, 11:00,
+  // 12:30, 2:00, 3:30, 4:00 ET) regardless of how far through the day we are.
+  const xLabels = isIntraday
+    ? Array.from({ length: 6 }, (_, i) => {
+        const ts = new Date(sessionStartMs + (i / 5) * SESSION_MS);
+        const x = padLeft + (i / 5) * plotWidth;
+        return { key: `intra-${i}`, x, label: formatTimeLabel(ts, tf) };
+      })
+    : getEvenlySpacedIndices(chartData.length, 7).map((idx) => {
+        const point = chartData[idx];
+        const x = xForIndex(idx);
+        return {
+          key: `${point.rawTime}-${idx}`,
+          x,
+          label: formatTimeLabel(point.timestamp, tf),
+        };
+      });
 
   const yHairlines = Array.from({ length: 4 }, (_, idx) => {
     const ratio = idx / 3;
@@ -235,8 +257,36 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
 
     // Clamp to plot bounds in SVG coordinate space
     const clampedX = Math.min(svgWidth - padRight, Math.max(padLeft, localPt.x));
-    const ratio = (clampedX - padLeft) / plotWidth;
 
+    if (isIntraday) {
+      // Intraday: map x → ET time, then find the nearest data bar by time.
+      // If cursor is past the latest bar (the line's right edge), pin to it.
+      const ratio = (clampedX - padLeft) / plotWidth;
+      const lastBarMs = chartData[chartData.length - 1].timestamp.getTime();
+      const cursorMs = sessionStartMs + ratio * SESSION_MS;
+      if (cursorMs >= lastBarMs) {
+        const lastPoint = chartData[chartData.length - 1];
+        setHoverState({ x: xForIndex(chartData.length - 1), value: lastPoint.price, timestamp: lastPoint.timestamp });
+        return;
+      }
+      let leftIdx = 0;
+      for (let i = 0; i < chartData.length; i++) {
+        if (chartData[i].timestamp.getTime() <= cursorMs) leftIdx = i;
+        else break;
+      }
+      const rightIdx = Math.min(chartData.length - 1, leftIdx + 1);
+      const leftPoint = chartData[leftIdx];
+      const rightPoint = chartData[rightIdx];
+      const span = rightPoint.timestamp.getTime() - leftPoint.timestamp.getTime();
+      const mix = span > 0 ? (cursorMs - leftPoint.timestamp.getTime()) / span : 0;
+      const value = leftPoint.price + (rightPoint.price - leftPoint.price) * mix;
+      const timestamp = new Date(cursorMs);
+      setHoverState({ x: clampedX, value, timestamp });
+      return;
+    }
+
+    // Multi-day: index-based mapping (unchanged).
+    const ratio = (clampedX - padLeft) / plotWidth;
     const floatIndex = ratio * Math.max(chartData.length - 1, 1);
     const leftIndex = Math.floor(floatIndex);
     const rightIndex = Math.min(chartData.length - 1, Math.ceil(floatIndex));
@@ -364,7 +414,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
                     top: `${(hoveredY / svgHeight) * 100}%`,
                     transform: 'translateY(-50%)',
                     padding: '5px 8px',
-                    background: 'rgba(7,7,10,0.94)',
+                    background: T.surface,
                     border: `0.5px solid ${T.border}`,
                     color: lineCol,
                     fontFamily: T.mono,
@@ -383,7 +433,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
                     top: `${svgHeight - 10}px`,
                     transform: 'translate(-50%, 0)',
                     padding: '5px 8px',
-                    background: 'rgba(7,7,10,0.94)',
+                    background: T.surface,
                     border: `0.5px solid ${T.border}`,
                     color: 'rgba(16,32,51,0.82)',
                     fontFamily: T.mono,
@@ -730,7 +780,7 @@ export default function MarketsPage() {
               <PriceChart chart={chart} ticker={ticker} tf={tf} prevClose={prevClose} />
             ) : (
               <div style={{ ...sx.panelBody, padding: '40px 24px' }}>
-                <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
+                <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>No chart data available</span>
               </div>
             )}
           </div>

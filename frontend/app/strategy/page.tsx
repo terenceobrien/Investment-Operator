@@ -294,7 +294,7 @@ function ScoreHistoryChart({ series, thresholdVal, isCustom }: {
           Score history
         </div>
         <span style={{
-          fontFamily: T.mono, fontSize: '10px', letterSpacing: '0.5px',
+          fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.5px',
           color: isCustom ? T.accent : T.textMuted,
           background: isCustom ? `${T.accent}18` : 'rgba(16,32,51,0.04)',
           border: `1px solid ${isCustom ? `${T.accent}50` : T.border}`,
@@ -754,7 +754,7 @@ export default function StrategyPage() {
             <div style={{ overflowY: 'auto', padding: '24px' }}>
               {error ? (
                 <div style={{ background: 'rgba(184,85,85,0.1)', border: `1px solid ${T.dn}`, padding: '12px 16px', marginBottom: '16px' }}>
-                  <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>{error}</span>
+                  <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.dn }}>{error}</span>
                 </div>
               ) : null}
 
@@ -770,7 +770,7 @@ export default function StrategyPage() {
 
               {loading ? (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>
-                  <span style={{ fontFamily: T.mono, fontSize: '13px', color: T.textMuted }}>Running backtest across {(2021 - new Date().getFullYear()) * -252 + 252} trading days...</span>
+                  <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted }}>Running backtest across {(2021 - new Date().getFullYear()) * -252 + 252} trading days...</span>
                 </div>
               ) : null}
 
@@ -852,7 +852,7 @@ export default function StrategyPage() {
                 <div style={{ display: 'flex' }}>
                   {(['above', 'below'] as const).map(dir => (
                     <button key={dir} onClick={() => setThresholdDir(dir)} style={{
-                      padding: '5px 16px', fontFamily: T.mono, fontSize: '12px',
+                      padding: '5px 16px', fontFamily: T.sans, fontSize: '12px',
                       color: thresholdDir === dir ? T.accent : T.textMuted,
                       background: thresholdDir === dir ? `${T.accent}18` : 'rgba(16,32,51,0.03)',
                       border: `1px solid ${thresholdDir === dir ? `${T.accent}50` : T.border}`,
@@ -867,7 +867,7 @@ export default function StrategyPage() {
               <div>
                 <div style={{ fontFamily: T.sans, fontSize: '10px', color: T.textMuted, letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: '5px' }}>Filter</div>
                 <button onClick={() => setSecEnabled(p => !p)} style={{
-                  padding: '5px 14px', fontFamily: T.mono, fontSize: '12px',
+                  padding: '5px 14px', fontFamily: T.sans, fontSize: '12px',
                   color: secEnabled ? T.accent : T.textMuted,
                   background: secEnabled ? `${T.accent}18` : 'rgba(16,32,51,0.03)',
                   border: `1px solid ${secEnabled ? `${T.accent}50` : T.border}`,
@@ -992,7 +992,7 @@ export default function StrategyPage() {
                   </table>
 
                   <div style={{ marginTop: '16px', padding: '10px 12px', background: 'rgba(16,32,51,0.02)', border: `1px solid ${T.border}` }}>
-                    <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted, lineHeight: 1.6 }}>
+                    <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted, lineHeight: 1.6 }}>
                       <span style={{ color: T.accent }}>{thresholdResult.summary.n}</span> days where score{' '}
                       <span style={{ color: T.text }}>{thresholdDir}</span>{' '}
                       <span style={{ color: T.accent }}>{thresholdVal}</span>

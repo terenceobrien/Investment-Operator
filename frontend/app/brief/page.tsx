@@ -19,7 +19,7 @@ export default function MacroPage() {
         >
           <span
             style={{
-              fontFamily: T.mono,
+              fontFamily: T.sans,
               fontSize: '11px',
               letterSpacing: '1.6px',
               textTransform: 'uppercase',

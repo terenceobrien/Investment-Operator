@@ -69,7 +69,7 @@ export default function PortfolioPage() {
             }}
           >
             <div style={{
-              fontFamily: T.mono,
+              fontFamily: T.sans,
               fontSize: '13px',
               fontWeight: 300,
               letterSpacing: '0.5px',
@@ -92,7 +92,7 @@ export default function PortfolioPage() {
 
           {error && (
             <div style={{ margin: '0 24px 24px', padding: '10px 14px', border: `0.5px solid ${T.dn}40`, background: `${T.dn}08` }}>
-              <span style={{ fontFamily: T.mono, fontSize: '12px', fontWeight: 300, color: T.dn }}>{error}</span>
+              <span style={{ fontFamily: T.sans, fontSize: '12px', fontWeight: 300, color: T.dn }}>{error}</span>
             </div>
           )}
         </div>

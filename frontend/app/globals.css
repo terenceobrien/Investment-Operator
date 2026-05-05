@@ -36,6 +36,18 @@ body {
     radial-gradient(circle at 76% 20%, rgba(22, 50, 79, 0.055), transparent 30%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(243, 245, 247, 0.95) 54%, #EEF2F5 100%);
   color: var(--text);
+  /* Global default — same Inter stack the homepage uses. Pages may explicitly
+     opt back into the mono stack for tickers, timestamps, raw numbers, debug
+     JSON, and compact metadata. */
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv02", "cv11";
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 body {

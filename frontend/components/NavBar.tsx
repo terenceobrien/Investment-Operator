@@ -49,17 +49,29 @@ function NavGroup({
   pathname: string;
 }) {
   const active = isActive(pathname, links);
+  // CSS `:hover` keeps the menu visible as long as the cursor is over a link
+  // — even after a client-side navigation finishes. We force-close the menu
+  // when the user clicks a link, and only allow CSS hover to re-open it
+  // after the cursor leaves and re-enters the group.
+  const [suppressed, setSuppressed] = useState(false);
   return (
-    <div className="helix-nav-group">
+    <div
+      className="helix-nav-group"
+      onMouseLeave={() => setSuppressed(false)}
+    >
       <button className={`helix-nav-trigger${active ? ' helix-nav-trigger-active' : ''}`} type="button">
         {label}
         <span className="helix-nav-chevron">⌄</span>
       </button>
-      <div className="helix-nav-menu">
+      <div
+        className="helix-nav-menu"
+        style={suppressed ? { opacity: 0, pointerEvents: 'none' } : undefined}
+      >
         {links.map((link) => (
           <Link
             key={`${label}-${link.label}`}
             href={link.href}
+            onClick={() => setSuppressed(true)}
             className={`helix-nav-menu-link${pathname === link.href ? ' helix-nav-menu-link-active' : ''}`}
           >
             {link.label}

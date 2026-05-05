@@ -133,7 +133,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
       </div>
 
       {error && (
-        <p style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.dn, margin: '0 0 12px' }}>{error}</p>
+        <p style={{ fontFamily: T.sans, fontSize: '11.5px', color: T.dn, margin: '0 0 12px' }}>{error}</p>
       )}
 
       {loading && (
@@ -214,7 +214,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
               background: 'transparent',
               border: 'none',
               color: T.textMuted,
-              fontFamily: T.mono,
+              fontFamily: T.sans,
               fontSize: '11px',
               cursor: 'pointer',
               textAlign: 'left',

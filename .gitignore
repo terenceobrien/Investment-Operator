@@ -33,3 +33,6 @@ data/narrative/narrative_daily.csv
 data/narrative/narrative_daily.parquet
 data/narrative/raw/
 data/narrative/errors/
+
+#Prediction market screener
+helix_screener/

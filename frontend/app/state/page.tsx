@@ -420,7 +420,7 @@ function LayerDetailCard({
           {status && (
             <span
               style={{
-                fontFamily: T.mono,
+                fontFamily: T.sans,
                 fontSize: '10px',
                 letterSpacing: '0.6px',
                 textTransform: 'uppercase',
@@ -533,7 +533,7 @@ function LayerDetailCard({
             >
               <span
                 style={{
-                  fontFamily: T.mono,
+                  fontFamily: T.sans,
                   fontSize: '11px',
                   color: T.accent,
                   marginTop: '2px',
@@ -692,7 +692,7 @@ export default function Dashboard() {
       <div
         style={{
           padding: '48px 28px',
-          fontFamily: T.mono,
+          fontFamily: T.sans,
           fontSize: '13px',
           color: T.dn,
           letterSpacing: '0.5px',
@@ -802,7 +802,7 @@ export default function Dashboard() {
                     </div>
                     <div
                       style={{
-                        fontFamily: T.mono,
+                        fontFamily: T.sans,
                         fontSize: '13px',
                         lineHeight: 1.45,
                         color: item.color,
@@ -915,7 +915,7 @@ export default function Dashboard() {
                     ))
                 ) : (
                   <div style={{ padding: '16px' }}>
-                    <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>
+                    <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
                       Summary unavailable.
                     </span>
                   </div>

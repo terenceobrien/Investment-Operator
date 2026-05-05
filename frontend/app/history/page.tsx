@@ -143,7 +143,7 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
   const path = analogue.forward_path ?? [];
   const [hoverState, setHoverState] = useState<{ x: number; value: number; day: number; date: Date } | null>(null);
   if (path.length < 2) {
-    return <span style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.textMuted }}>No path data</span>;
+    return <span style={{ fontFamily: T.sans, fontSize: '11.5px', color: T.textMuted }}>No path data</span>;
   }
 
   const vals = path.map((p) => p.ret_pct ?? 0);
@@ -395,7 +395,7 @@ function NarrativePanel({ date }: { date: string }) {
       )}
 
       {error && (
-        <div style={{ fontFamily: T.mono, fontSize: '11.5px', color: T.dn }}>
+        <div style={{ fontFamily: T.sans, fontSize: '11.5px', color: T.dn }}>
           Unable to load historical narrative.
         </div>
       )}
@@ -435,7 +435,7 @@ function NarrativePanel({ date }: { date: string }) {
                     {signal}
                   </div>
                 )) : (
-                  <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>No key signals returned.</div>
+                  <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted }}>No key signals returned.</div>
                 )}
               </div>
             </div>
@@ -450,7 +450,7 @@ function NarrativePanel({ date }: { date: string }) {
                     {risk}
                   </div>
                 )) : (
-                  <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>No explicit risks returned.</div>
+                  <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted }}>No explicit risks returned.</div>
                 )}
               </div>
             </div>
@@ -627,7 +627,7 @@ export default function HistoryPage() {
         {error ? (
           <section style={sx.panel}>
             <div style={{ ...sx.panelBody, padding: '40px 24px' }}>
-              <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.dn }}>Error loading analogues.</span>
+              <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.dn }}>Error loading analogues.</span>
             </div>
           </section>
         ) : null}
@@ -644,7 +644,7 @@ export default function HistoryPage() {
                       key={n}
                       onClick={() => setTopN(n)}
                       style={{
-                        fontFamily: T.mono,
+                        fontFamily: T.sans,
                         fontSize: '12px',
                         fontWeight: 300,
                         color: topN === n ? 'rgba(16,32,51,0.9)' : T.textMuted,
@@ -660,7 +660,7 @@ export default function HistoryPage() {
                 </div>
               </div>
               <div style={sx.panelBody}>
-                <div style={{ fontFamily: T.mono, fontSize: '13px', fontWeight: 300, color: 'rgba(16,32,51,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
+                <div style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, color: 'rgba(16,32,51,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
                   {data.conditions_matched}
                 </div>
                 <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>

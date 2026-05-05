@@ -139,7 +139,7 @@ function SectorPill({ label, isLeading }: { label: string; isLeading: boolean })
         background: `${color}14`,
         border: `1px solid ${color}26`,
         borderRadius: '6px',
-        fontFamily: T.mono,
+        fontFamily: T.sans,
       }}
     >
       {label}

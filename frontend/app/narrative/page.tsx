@@ -883,7 +883,7 @@ function InefficiencyMap({ data, themes }: { data: AnyRecord; themes: Theme[] })
             }}>
               <div style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
                 <span style={{
-                  fontFamily: T.mono, fontSize: '11px', color: T.textMuted,
+                  fontFamily: T.sans, fontSize: '11px', color: T.textMuted,
                   flexShrink: 0, paddingTop: '2px',
                 }}>{i + 1}.</span>
                 <span style={{
@@ -1134,7 +1134,7 @@ function EvidenceItem({ item }: { item: AnyRecord }) {
         {truncate(safeStr(item.title) || safeStr(item.summary), 140)}
       </div>
       <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ fontFamily: T.mono, fontSize: '10.5px', color: T.textMuted }}>{safeStr(item.source)}</span>
+        <span style={{ fontFamily: T.sans, fontSize: '10.5px', color: T.textMuted }}>{safeStr(item.source)}</span>
         {strength ? <Chip label={strength.replace(/_/g, ' ')} /> : null}
         {tags.map(t => <Chip key={t} label={t.replace(/_/g, ' ')} color={T.accent} />)}
       </div>
@@ -1398,7 +1398,7 @@ function AdvancedRawLedgers({ data }: { data: AnyRecord }) {
                     )
                   )}
                   {items.length > 30 ? (
-                    <div style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted, paddingTop: '6px' }}>
+                    <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.textMuted, paddingTop: '6px' }}>
                       … and {items.length - 30} more
                     </div>
                   ) : null}
