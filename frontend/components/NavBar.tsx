@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SignInButton, UserButton, useAuth } from '@clerk/nextjs';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type MenuLink = {
   href: string;
@@ -49,29 +49,44 @@ function NavGroup({
   pathname: string;
 }) {
   const active = isActive(pathname, links);
-  // CSS `:hover` keeps the menu visible as long as the cursor is over a link
-  // — even after a client-side navigation finishes. We force-close the menu
-  // when the user clicks a link, and only allow CSS hover to re-open it
-  // after the cursor leaves and re-enters the group.
-  const [suppressed, setSuppressed] = useState(false);
+  const [open, setOpen] = useState(false);
+  const groupRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
     <div
-      className="helix-nav-group"
-      onMouseLeave={() => setSuppressed(false)}
+      ref={groupRef}
+      className={`helix-nav-group${open ? ' helix-nav-group-open' : ''}`}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onBlur={(event) => {
+        if (!groupRef.current?.contains(event.relatedTarget as Node | null)) {
+          setOpen(false);
+        }
+      }}
     >
-      <button className={`helix-nav-trigger${active ? ' helix-nav-trigger-active' : ''}`} type="button">
+      <button
+        className={`helix-nav-trigger${active ? ' helix-nav-trigger-active' : ''}`}
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+        onFocus={() => setOpen(true)}
+      >
         {label}
         <span className="helix-nav-chevron">⌄</span>
       </button>
       <div
         className="helix-nav-menu"
-        style={suppressed ? { opacity: 0, pointerEvents: 'none' } : undefined}
+        style={open ? { opacity: 1, pointerEvents: 'auto', transform: 'translateX(-50%) translateY(0)' } : undefined}
       >
         {links.map((link) => (
           <Link
             key={`${label}-${link.label}`}
             href={link.href}
-            onClick={() => setSuppressed(true)}
+            onClick={() => setOpen(false)}
             className={`helix-nav-menu-link${pathname === link.href ? ' helix-nav-menu-link-active' : ''}`}
           >
             {link.label}

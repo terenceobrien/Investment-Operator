@@ -170,18 +170,65 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
   const plotWidth = svgWidth - padLeft - padRight;
   const plotHeight = svgHeight - padTop - padBottom;
 
+  const getTimeZoneOffsetMs = (date: Date, timeZone: string) => {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).formatToParts(date);
+
+    const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+    const asUtc = Date.UTC(
+      Number(values.year),
+      Number(values.month) - 1,
+      Number(values.day),
+      Number(values.hour),
+      Number(values.minute),
+      Number(values.second),
+    );
+    return asUtc - date.getTime();
+  };
+
+  const getNySessionBoundary = (anchor: Date, hours: number, minutes: number) => {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).formatToParts(anchor);
+
+    const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+    const utcGuess = new Date(Date.UTC(
+      Number(values.year),
+      Number(values.month) - 1,
+      Number(values.day),
+      hours,
+      minutes,
+      0,
+    ));
+    const offset = getTimeZoneOffsetMs(utcGuess, 'America/New_York');
+    return new Date(utcGuess.getTime() - offset);
+  };
+
   // ── Intraday (1D) maps x by time across the full 9:30 → 16:00 ET session,
   // so the latest data sits where the current time would naturally fall —
   // not pinned to the right edge. Multi-day timeframes keep the existing
   // index-based mapping since their x-axis is the data span itself.
   const isIntraday = tf === '1D';
-  const SESSION_MS = 6.5 * 60 * 60 * 1000; // 9:30 → 16:00 ET
-  const sessionStartMs = isIntraday ? chartData[0].timestamp.getTime() : 0;
+  const sessionAnchor = chartData[chartData.length - 1]?.timestamp ?? chartData[0].timestamp;
+  const sessionStartMs = isIntraday ? getNySessionBoundary(sessionAnchor, 9, 30).getTime() : 0;
+  const sessionEndMs = isIntraday ? getNySessionBoundary(sessionAnchor, 16, 0).getTime() : 0;
+  const sessionDurationMs = isIntraday ? Math.max(sessionEndMs - sessionStartMs, 1) : 1;
 
   const xForIndex = (idx: number) => {
     if (isIntraday) {
       const ts = chartData[idx].timestamp.getTime();
-      const ratio = Math.max(0, Math.min(1, (ts - sessionStartMs) / SESSION_MS));
+      const ratio = Math.max(0, Math.min(1, (ts - sessionStartMs) / sessionDurationMs));
       return padLeft + ratio * plotWidth;
     }
     return padLeft + (idx / Math.max(chartData.length - 1, 1)) * plotWidth;
@@ -198,7 +245,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
   // 12:30, 2:00, 3:30, 4:00 ET) regardless of how far through the day we are.
   const xLabels = isIntraday
     ? Array.from({ length: 6 }, (_, i) => {
-        const ts = new Date(sessionStartMs + (i / 5) * SESSION_MS);
+        const ts = new Date(sessionStartMs + (i / 5) * sessionDurationMs);
         const x = padLeft + (i / 5) * plotWidth;
         return { key: `intra-${i}`, x, label: formatTimeLabel(ts, tf) };
       })
@@ -263,7 +310,7 @@ function PriceChart({ chart, ticker, tf, prevClose }: { chart: any; ticker: stri
       // If cursor is past the latest bar (the line's right edge), pin to it.
       const ratio = (clampedX - padLeft) / plotWidth;
       const lastBarMs = chartData[chartData.length - 1].timestamp.getTime();
-      const cursorMs = sessionStartMs + ratio * SESSION_MS;
+      const cursorMs = sessionStartMs + ratio * sessionDurationMs;
       if (cursorMs >= lastBarMs) {
         const lastPoint = chartData[chartData.length - 1];
         setHoverState({ x: xForIndex(chartData.length - 1), value: lastPoint.price, timestamp: lastPoint.timestamp });

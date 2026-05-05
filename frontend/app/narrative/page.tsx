@@ -472,12 +472,12 @@ function Card({
       {title ? (
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          padding: '14px 20px',
+          padding: '18px 22px',
           borderBottom: `1px solid ${T.borderSub}`,
         }}>
           <span style={{
-            fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.12em',
-            textTransform: 'uppercase', color: T.label, fontWeight: 600,
+            fontFamily: T.sans, fontSize: '15px', letterSpacing: '-0.02em',
+            textTransform: 'none', color: T.navy, fontWeight: 650,
           }}>{title}</span>
           {meta ? (
             <span style={{ fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>{meta}</span>
@@ -1593,19 +1593,19 @@ const PAGE_SHELL: React.CSSProperties = {
   padding: '32px 0 64px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '24px',
+  gap: '32px',
 };
 
 const SNAPSHOT_GRID: React.CSSProperties = {
   display: 'grid',
   gridTemplateColumns: 'minmax(0, 7fr) minmax(320px, 3fr)',
-  gap: '24px',
+  gap: '32px',
 };
 
 const MAIN_GRID: React.CSSProperties = {
   display: 'grid',
   gridTemplateColumns: 'minmax(0, 1.95fr) minmax(340px, 1.05fr)',
-  gap: '24px',
+  gap: '32px',
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -1758,13 +1758,13 @@ export default function NarrativePage() {
         {result && !isUnsupported ? (
           <>
             {/* 2. Executive Snapshot + Psychology Curve */}
-            <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '24px' } : SNAPSHOT_GRID}>
+            <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '32px' } : SNAPSHOT_GRID}>
               <ExecutiveSnapshot data={result} />
               <MarketPsychologyCurve data={result} />
             </div>
 
             {/* 3. Two-column: Dominant Themes + Inefficiency Map */}
-            <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '24px' } : MAIN_GRID}>
+            <div style={stacked ? { display: 'flex', flexDirection: 'column', gap: '32px' } : MAIN_GRID}>
               <DominantThemes themes={themes} />
               <InefficiencyMap data={result} themes={themes} />
             </div>

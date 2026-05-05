@@ -105,7 +105,10 @@ export const sx = {
   } as React.CSSProperties,
 
   panelBody: {
-    padding: '18px',
+    paddingTop: '18px',
+    paddingRight: '18px',
+    paddingBottom: '18px',
+    paddingLeft: '18px',
   } as React.CSSProperties,
 
   subPanel: {
