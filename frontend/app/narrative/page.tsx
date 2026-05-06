@@ -1632,9 +1632,12 @@ const MAIN_GRID: React.CSSProperties = {
 // Page
 // ─────────────────────────────────────────────────────────────
 type LatestEnvelope = {
-  status: 'ready' | 'generating' | 'unsupported' | 'error';
+  status: 'ready' | 'generating' | 'unsupported' | 'error' | 'cache_miss' | 'llm_blocked';
   cache_hit?: boolean;
+  is_mock?: boolean;
+  narrative_mode?: 'mock' | 'cache' | 'live';
   ticker?: string;
+  subject?: AnyRecord;
   generated_at?: string;
   asof_date?: string;
   message?: string;
@@ -1669,8 +1672,18 @@ export default function NarrativePage() {
   const status = latest?.status ?? 'loading';
   const isUnsupported = status === 'unsupported';
   const isGenerating = status === 'generating';
+  const isCacheMiss = status === 'cache_miss';
+  const isLlmBlocked = status === 'llm_blocked';
   const cacheHit = !!(latest?.cache_hit && status === 'ready');
   const generatedAt = (latest?.generated_at || latest?.last_cached_result?.generated_at) as string | undefined;
+  const subject = (latest?.subject ?? ((result?._meta as AnyRecord | undefined)?.subject)) as AnyRecord | undefined;
+  const subjectTicker = safeStr(subject?.ticker, safeStr(latest?.ticker, ticker));
+  const subjectName = safeStr(subject?.name);
+  const modeBadge = latest?.is_mock
+    ? 'Mock data'
+    : latest?.narrative_mode === 'cache'
+      ? 'Cache-only mode'
+      : null;
 
   // Responsive: stack the main grid on narrow viewports
   useEffect(() => {
@@ -1687,7 +1700,7 @@ export default function NarrativePage() {
     if (isUnsupported) {
       return (
         <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.wa, fontWeight: 500 }}>
-          Cached reads enabled for SPY only — broader coverage soon.
+          Reads enabled for SPY and the Magnificent 7.
         </span>
       );
     }
@@ -1714,12 +1727,12 @@ export default function NarrativePage() {
         : t.toLocaleString();
       return (
         <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
-          Latest Helix read · Updated {stamp} · Cached
+          {subjectTicker}{subjectName ? ` · ${subjectName}` : ''} · Updated {stamp} · Cached
         </span>
       );
     }
     return null;
-  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker]);
+  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker, subjectTicker, subjectName]);
 
   return (
     <main style={{ background: T.bg, minHeight: '100vh' }}>
@@ -1727,6 +1740,24 @@ export default function NarrativePage() {
 
         {/* 1. Analysis Controls */}
         <AnalysisControls ticker={ticker} setTicker={setTicker} statusLine={statusLine} />
+        {modeBadge ? (
+          <div style={{
+            alignSelf: 'flex-start',
+            marginTop: '-22px',
+            padding: '5px 10px',
+            borderRadius: '999px',
+            border: `1px solid ${T.borderSub}`,
+            background: T.surfaceMuted,
+            color: T.textMuted,
+            fontFamily: T.sans,
+            fontSize: '11px',
+            fontWeight: 650,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+          }}>
+            {modeBadge}
+          </div>
+        ) : null}
 
         {/* Unsupported ticker — clean coming-soon panel */}
         {isUnsupported ? (
@@ -1740,7 +1771,7 @@ export default function NarrativePage() {
                 Coming soon
               </span>
               <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted, maxWidth: '480px', lineHeight: 1.5 }}>
-                {safeStr(latest?.message) || 'Ticker-specific cached narrative reads are currently enabled for SPY. Broader ticker coverage is coming soon.'}
+                {safeStr(latest?.message) || 'Ticker-specific Helix reads are currently enabled for SPY and the Magnificent 7. More ticker coverage is coming soon.'}
               </span>
               <button
                 onClick={() => setTicker('SPY')}
@@ -1813,10 +1844,10 @@ export default function NarrativePage() {
               justifyContent: 'center', padding: '60px 24px', gap: '6px',
             }}>
               <span style={{ fontFamily: T.sans, fontSize: '14px', color: T.textSub, fontWeight: 500 }}>
-                No narrative read available
+                {isCacheMiss ? 'No cached narrative read available' : isLlmBlocked ? 'Live generation is disabled' : 'No narrative read available'}
               </span>
               <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted }}>
-                {safeStr(latest?.last_error) || 'Today’s read will appear once it has been generated.'}
+                {safeStr(latest?.message) || safeStr(latest?.last_error) || 'Today’s read will appear once it has been generated.'}
               </span>
             </div>
           </Card>

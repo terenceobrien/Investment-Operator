@@ -168,6 +168,8 @@ def generate_historical_narrative(date_str: str) -> Dict[str, Any]:
         raise ValueError(f"No data found for date {date_str}")
 
     # Call OpenAI — historical retrospective summary uses preprocessing tier
+    from src.narrative.runtime_config import assert_llm_calls_allowed
+    assert_llm_calls_allowed("historical narrative synthesis")
     from openai import OpenAI
     from src.narrative.config import PREPROCESSING_MODEL
     client = OpenAI()

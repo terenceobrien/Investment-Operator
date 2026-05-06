@@ -522,6 +522,8 @@ def extract_narrative_query_terms(
 
     llm_terms: List[Dict[str, Any]] = []
     try:
+        from src.narrative.runtime_config import assert_llm_calls_allowed
+        assert_llm_calls_allowed("narrative trend query generation")
         if openai_client is None:
             from openai import OpenAI
             openai_client = OpenAI()
@@ -557,6 +559,8 @@ def extract_narrative_query_terms(
                         "narrative_stance": item.get("narrative_stance", "unclear"),
                         "confidence": 50,
                     })
+    except RuntimeError:
+        raise
     except Exception as exc:
         logger.warning("Dynamic term extraction LLM call failed: %s", exc)
 

@@ -15,6 +15,11 @@ import os
 from pathlib import Path
 from typing import Set
 
+from src.narrative.ticker_profiles import (
+    SUPPORTED_TICKERS as PROFILE_SUPPORTED_TICKERS,
+    is_supported_ticker as _profile_is_supported_ticker,
+)
+
 # ──────────────────────────────────────────────────────────────────────
 # Model selection
 # ──────────────────────────────────────────────────────────────────────
@@ -35,8 +40,8 @@ CACHE_DIR: Path = Path(os.getenv("NARRATIVE_CACHE_DIR", "data/narrative/cache"))
 # ──────────────────────────────────────────────────────────────────────
 # Supported subjects
 # ──────────────────────────────────────────────────────────────────────
-SUPPORTED_TICKERS: Set[str] = {"SPY"}
+SUPPORTED_TICKERS: Set[str] = set(PROFILE_SUPPORTED_TICKERS)
 
 
 def is_supported_ticker(ticker: str) -> bool:
-    return ticker.upper().strip() in SUPPORTED_TICKERS
+    return _profile_is_supported_ticker(ticker)

@@ -54,7 +54,9 @@ from src.narrative.inefficiency_taxonomy import (
     get_inefficiency_taxonomy_ids,
     normalize_archetype,
 )
+from src.narrative.runtime_config import assert_llm_calls_allowed
 from src.narrative.schema import NarrativeStateV1
+from src.narrative.ticker_profiles import profile_terms, prompt_subject_profile
 
 
 _DEFAULT_CLIENT: OpenAI | None = None
@@ -64,6 +66,7 @@ logger = logging.getLogger("narrative.synth")
 def _get_default_client() -> OpenAI:
     global _DEFAULT_CLIENT
     if _DEFAULT_CLIENT is None:
+        assert_llm_calls_allowed("OpenAI client initialization for narrative synthesis")
         _DEFAULT_CLIENT = OpenAI()
     return _DEFAULT_CLIENT
 
@@ -911,6 +914,83 @@ def _event_keyword_score(it: Dict[str, Any]) -> float:
     return min(2.0, 0.35 * hits)
 
 
+def ticker_relevance_score(
+    item: Dict[str, Any],
+    profile: Optional[Dict[str, Any]],
+) -> Tuple[float, List[str]]:
+    """
+    Score item relevance to an individual ticker profile.
+
+    SPY/broad-market subjects keep the existing broad-market ranking behavior;
+    this score is mainly for single-name runs where company/theme evidence must
+    outrank generic market noise.
+    """
+    if not profile or str(profile.get("subject_type") or "").lower() != "ticker":
+        return 0.0, []
+
+    primary = str(profile.get("ticker") or "").upper().strip()
+    if not primary:
+        return 0.0, []
+
+    title = str(item.get("title") or "")
+    summary = str(item.get("summary") or "")
+    source = str(item.get("source") or "")
+    text = f"{title} {summary} {source}"
+    text_l = text.lower()
+    item_tickers = {str(t).upper().strip() for t in (item.get("tickers") or []) if str(t).strip()}
+
+    score = 0.0
+    matched: List[str] = []
+
+    def add(points: float, term: str) -> None:
+        nonlocal score
+        if term and term not in matched:
+            matched.append(term)
+        score += points
+
+    if primary in item_tickers or re.search(rf"(?<![A-Z])\$?{re.escape(primary)}(?![A-Z])", text.upper()):
+        add(5.0, primary)
+
+    name = str(profile.get("name") or "").strip()
+    aliases = [name, *(profile.get("company_aliases") or [])]
+    for alias in aliases:
+        a = str(alias or "").strip()
+        if len(a) >= 3 and a.lower() in text_l:
+            add(5.0, a)
+            break
+
+    for peer in (profile.get("peers") or []):
+        p = str(peer or "").upper().strip()
+        if p and (p in item_tickers or re.search(rf"(?<![A-Z])\$?{re.escape(p)}(?![A-Z])", text.upper())):
+            add(3.0, p)
+            break
+
+    for term in [profile.get("sector"), profile.get("sector_etf"), *(profile.get("themes") or [])]:
+        t = str(term or "").strip()
+        if len(t) >= 3 and t.lower() in text_l:
+            add(3.0, t)
+            break
+
+    fundamental_words = [
+        "earnings", "guidance", "revenue", "margin", "margins", "capex",
+        "free cash flow", "fcf", "analyst", "upgrade", "downgrade",
+        "price target", "regulatory", "lawsuit", "antitrust",
+    ]
+    if any(k in text_l for k in fundamental_words):
+        add(2.0, "fundamental/event evidence")
+
+    price_words = ["shares", "stock", "rally", "fell", "selloff", "sold", "bought", "relative", "outperform", "underperform"]
+    if any(k in text_l for k in price_words):
+        add(2.0, "price reaction")
+
+    if ("microcap" in text_l or "micro-cap" in text_l or "small-cap calendar" in text_l) and primary not in item_tickers:
+        score -= 4.0
+    if not matched and (item.get("channel") or "").lower() == "earnings":
+        score -= 4.0
+
+    return round(score, 3), matched[:10]
+
+
 def _prior_evidence_keys(prior_state: Optional[Dict[str, Any]]) -> set[str]:
     out: set[str] = set()
     if not prior_state:
@@ -960,6 +1040,7 @@ def _dedupe_and_rank(
     lookback_hours: int,
     limit: int = 80,
     per_channel_cap: int = 35,
+    ticker_profile: Optional[Dict[str, Any]] = None,
 ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """
     Rank items for inclusion in synthesis input.
@@ -1017,6 +1098,11 @@ def _dedupe_and_rank(
         "count": sum(filtered_reasons.values()),
         "reasons": filtered_reasons,
     }
+    if ticker_profile:
+        filtered_summary["ticker_profile"] = {
+            "ticker": ticker_profile.get("ticker"),
+            "subject_type": ticker_profile.get("subject_type"),
+        }
 
     now_utc = datetime.now(timezone.utc)
 
@@ -1051,17 +1137,19 @@ def _dedupe_and_rank(
 
         tks = {str(t).upper() for t in (it.get("tickers") or []) if str(t).strip()}
         overlap = len(tks.intersection(watch_tickers))
-        ticker_relevance = min(1.5, 0.4 * overlap)
+        watchlist_relevance = min(1.5, 0.4 * overlap)
+        profile_relevance, _ = ticker_relevance_score(it, ticker_profile)
 
         content_quality = 0.35 if it.get("summary") else 0.0
         eventness = _event_keyword_score(it)
 
-        total = base + recency + novelty + ticker_relevance + content_quality + eventness
+        total = base + recency + novelty + watchlist_relevance + profile_relevance + content_quality + eventness
         return total, {
             "base": base,
             "recency": recency,
             "novelty": novelty,
-            "ticker_relevance": ticker_relevance,
+            "watchlist_relevance": watchlist_relevance,
+            "ticker_profile_relevance": profile_relevance,
             "content_quality": content_quality,
             "eventness": eventness,
         }
@@ -1075,6 +1163,7 @@ def _dedupe_and_rank(
         ledger = _ROLE_TO_LEDGER.get(role, "uncategorized")
         strength = _evidence_strength_for_role(role, it2)
         content_tags = infer_content_tags(it2)
+        profile_score, matched_profile_terms = ticker_relevance_score(it2, ticker_profile)
 
         # Apply relevance soft-penalty for borderline alternative/blog items
         mrs: Optional[float] = None
@@ -1098,6 +1187,8 @@ def _dedupe_and_rank(
             # duplication and by callers for debug/calibration.
             "content_tags": sorted(content_tags),
             "market_relevance_score": mrs,
+            "ticker_relevance_score": profile_score,
+            "matched_profile_terms": matched_profile_terms,
         }
         ranked.append(it2)
 
@@ -1154,6 +1245,8 @@ def _ledger_item_view(it: Dict[str, Any]) -> Dict[str, Any]:
             if meta.get("market_relevance_score") is not None
             else it.get("market_relevance_score")
         ),
+        "ticker_relevance_score": meta.get("ticker_relevance_score"),
+        "matched_profile_terms": meta.get("matched_profile_terms") or [],
         "why_selected": meta.get("why_selected"),
         "is_new_vs_prior": meta.get("is_new_vs_prior"),
     }
@@ -1453,6 +1546,7 @@ def synthesize_narrative_state(
     model: str = FINAL_SYNTHESIS_MODEL,
     client: Optional[Any] = None,
     price_context: Optional[Dict[str, Any]] = None,
+    subject: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """
     Returns a JSON dict matching NarrativeStateV1.
@@ -1472,6 +1566,7 @@ def synthesize_narrative_state(
 
     raw_items = bundle.get("items") or []
     watch_tickers = {str(x).upper() for x in (bundle.get("watch_tickers") or [])}
+    subject_profile = prompt_subject_profile(subject) if subject else {}
     compact = [_compact_item(it) for it in raw_items]
 
     prior_keys = _prior_evidence_keys(prior_state)
@@ -1483,6 +1578,7 @@ def synthesize_narrative_state(
         watch_tickers=watch_tickers,
         lookback_hours=lookback_hours,
         limit=max_items,
+        ticker_profile=subject_profile,
     )
 
     # Step 3: build the ledgers (price_context populates price_ledger)
@@ -1519,6 +1615,9 @@ def synthesize_narrative_state(
         "For each major narrative, explicitly state whether: 1) price confirmed the narrative,"
         "2) price contradicted the narrative, 3) price partially confirmed the narrative, or "
         "4) price evidence was unavailable or too mixed to draw a conclusion.\n\n"
+        "The payload includes a `subject`. If subject_type is ticker, focus on that "
+        "company/security. Use broad market, benchmark, sector, and peer evidence as "
+        "context, not as the main subject, unless it directly affects the ticker.\n\n"
         "Use cross-asset and sector relationships to identify divergences, especially: "
         "1) equities vs bonds/credit, 2) growth vs. value, 3) large caps vs small caps, "
         "4) energy/oil vs broad equities, 5) defensives vs cyclicals, 6) tech vs the rest of the market, "
@@ -1557,6 +1656,11 @@ def synthesize_narrative_state(
 
     payload = {
         "asof_utc": bundle.get("asof_utc") or _utc_now_iso(),
+        "subject": subject_profile or {
+            "ticker": "SPY",
+            "name": "S&P 500 ETF",
+            "subject_type": "market",
+        },
         "lookback_hours": int(lookback_hours),
         "regime_state": market_state_summary or {},
         "market_moves": _summarize_market_moves(market_moves),
@@ -1605,6 +1709,18 @@ def synthesize_narrative_state(
                 "Use alternative_views_ledger for COUNTER claims. Do not promote a "
                 "narrative-ledger item to fundamental evidence; cite the actual fundamental "
                 "or policy item if such an item exists, otherwise mark the linkage as weak."
+            ),
+            "subject_awareness": (
+                "Subject type can be market or ticker. If subject_type='ticker', analyze the "
+                "named company/security as the primary subject. Use broad-market evidence only "
+                "as context unless it directly affects the ticker. Reality should prioritize "
+                "company fundamentals, earnings, guidance, margins, capex, competitive/sector "
+                "evidence, and relevant macro. Story should describe the bull/bear/current "
+                "market narrative around the company. Price should discuss the ticker's own "
+                "price action across timeframes and relative to SPY, benchmark, sector ETF, "
+                "and peers. Inefficiency_map should identify ticker-specific expectation gaps, "
+                "crowded trades, narrative-fundamental divergence, event mispricing, momentum "
+                "persistence, or value/neglect setups if present."
             ),
             # ── Explicit answer-first fields (prompt v3) ──
             "executive_snapshot": (
@@ -1663,6 +1779,27 @@ def synthesize_narrative_state(
         for it in selected_items
         for tag in ((it.get("_meta") or {}).get("content_tags") or [])
     )
+    profile_scores = [
+        (it.get("_meta") or {}).get("ticker_relevance_score")
+        for it in selected_items
+        if (it.get("_meta") or {}).get("ticker_relevance_score") is not None
+    ]
+    ticker_relevance_summary = {
+        "supported": bool(subject_profile),
+        "ticker": subject_profile.get("ticker"),
+        "subject_type": subject_profile.get("subject_type"),
+        "profile_terms": profile_terms(subject_profile)[:30] if subject_profile else [],
+        "selected_item_relevance_summary": {
+            "count_with_profile_score": len(profile_scores),
+            "avg_score": round(sum(float(x) for x in profile_scores) / len(profile_scores), 3) if profile_scores else 0,
+            "max_score": max(profile_scores) if profile_scores else 0,
+            "matched_terms": sorted({
+                term
+                for it in selected_items
+                for term in ((it.get("_meta") or {}).get("matched_profile_terms") or [])
+            })[:30],
+        },
+    }
 
     try:
         date_str = _date_str_from_iso(payload.get("asof_utc"))
@@ -1675,6 +1812,8 @@ def synthesize_narrative_state(
             "inefficiency_taxonomy_version": INEFFICIENCY_TAXONOMY_VERSION,
             "inefficiency_taxonomy_ids": inefficiency_taxonomy_ids,
             "payload": payload,
+            "subject": subject_profile,
+            "ticker_relevance": ticker_relevance_summary,
             "selected_item_keys": [_item_key(it) for it in selected_items],
             "selected_items_with_meta": [
                 {
@@ -1723,6 +1862,7 @@ def synthesize_narrative_state(
         import traceback
         traceback.print_exc()
 
+    assert_llm_calls_allowed("final narrative synthesis")
     resp = client.beta.chat.completions.parse(
         model=model,
         messages=[
@@ -1734,6 +1874,7 @@ def synthesize_narrative_state(
     out = resp.choices[0].message.parsed.model_dump()
     out["inefficiency_map"] = _normalize_inefficiency_map_items(out.get("inefficiency_map"))
     out["_meta"] = {
+        "subject": subject_profile,
         "total_items_in_bundle": len(raw_items),
         "items_selected_for_llm": len(selected_items),
         "lookback_hours": int(lookback_hours),
@@ -1744,6 +1885,7 @@ def synthesize_narrative_state(
         "role_counts": dict(role_counts),
         "content_tag_counts": dict(content_tag_counts),
         "filtered_items_summary": filtered_summary,
+        "ticker_relevance": ticker_relevance_summary,
         # Full ledger contents — compact views used by the UI for Evidence Board
         # and Price & Timeframe Context rendering.
         "information_ledgers": information_ledgers,

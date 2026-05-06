@@ -35,6 +35,8 @@ def generate_what_matters_today(
     """
     from openai import OpenAI
     from src.narrative.config import PREPROCESSING_MODEL
+    from src.narrative.runtime_config import assert_llm_calls_allowed
+    assert_llm_calls_allowed("what matters brief generation")
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError("Missing OPENAI_API_KEY in your environment/.env")

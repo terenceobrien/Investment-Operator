@@ -20,6 +20,14 @@ from src.narrative.config import (
     FINAL_SYNTHESIS_MODEL,
     PREPROCESSING_MODEL,
 )
+from src.narrative.runtime_config import assert_live_mode, assert_llm_calls_allowed
+from src.narrative.ticker_profiles import (
+    get_ticker_profile,
+    is_supported_ticker,
+    normalize_ticker,
+    prompt_subject_profile,
+    watch_tickers_for_profile,
+)
 
 logger = logging.getLogger("narrative.orchestrator")
 
@@ -78,6 +86,8 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
 
     Async — uses asyncio.to_thread for blocking yfinance / synthesis calls.
     """
+    assert_live_mode("narrative orchestration")
+    assert_llm_calls_allowed("narrative orchestration")
     # Imports are local to avoid heavy side effects at module load time
     from datetime import date as date_cls
     from src.narrative.bundle import build_narrative_bundle
@@ -91,13 +101,17 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
     from src.data.market import fetch_market_moves
     from src.data.price_context import build_multi_timeframe_price_context
 
-    ticker_u = ticker.upper().strip()
-    watch = list(SPY_WATCH_TICKERS) if ticker_u == "SPY" else [ticker_u]
+    ticker_u = normalize_ticker(ticker)
+    if not is_supported_ticker(ticker_u):
+        raise ValueError(f"Unsupported narrative ticker: {ticker_u}")
+    profile = get_ticker_profile(ticker_u) or {"ticker": ticker_u, "subject_type": "ticker"}
+    subject = prompt_subject_profile(profile)
+    watch = list(SPY_WATCH_TICKERS) if ticker_u == "SPY" else watch_tickers_for_profile(profile)
 
     logger.info(
-        "Narrative pipeline starting — ticker=%s, watch=%s, "
+        "Narrative pipeline starting — ticker=%s, subject_type=%s, watch=%s, "
         "final_model=%s, preprocess_model=%s",
-        ticker_u, watch, FINAL_SYNTHESIS_MODEL, PREPROCESSING_MODEL,
+        ticker_u, subject.get("subject_type"), watch, FINAL_SYNTHESIS_MODEL, PREPROCESSING_MODEL,
     )
 
     # ── 1. Bundle ──
@@ -134,6 +148,7 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
         combined_watch = list(watch) + [t for t in derived if t not in seen]
         price_context = await build_multi_timeframe_price_context(
             watch_tickers=combined_watch,
+            subject_profile=subject,
         )
         if price_context.get("errors"):
             logger.warning("price_context errors: %s", price_context["errors"])
@@ -158,6 +173,7 @@ async def run_narrative_for_ticker(ticker: str) -> Dict[str, Any]:
         lookback_hours=36,
         model=FINAL_SYNTHESIS_MODEL,
         price_context=price_context,
+        subject=subject,
     )
 
     # Also write the legacy snapshot so trends/historical analysis still work

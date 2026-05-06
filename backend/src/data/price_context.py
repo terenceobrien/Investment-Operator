@@ -468,6 +468,45 @@ _MTF_RELATIONSHIP_SPECS = [
 ]
 
 
+def _profile_relationship_specs(subject_profile: Optional[Dict[str, Any]]) -> List[tuple]:
+    if not subject_profile:
+        return []
+    primary = str(subject_profile.get("ticker") or "").upper().strip()
+    subject_type = str(subject_profile.get("subject_type") or "").lower()
+    if not primary or subject_type != "ticker":
+        return []
+
+    specs: List[tuple] = []
+    candidates = [
+        (
+            subject_profile.get("broad_market") or "SPY",
+            "broad market",
+            f"{primary} outperforming broad market",
+            f"{primary} lagging broad market",
+        ),
+        (
+            subject_profile.get("benchmark") or "QQQ",
+            "growth benchmark",
+            f"{primary} outperforming benchmark",
+            f"{primary} lagging benchmark",
+        ),
+        (
+            subject_profile.get("sector_etf"),
+            "sector ETF",
+            f"{primary} outperforming sector ETF",
+            f"{primary} lagging sector ETF",
+        ),
+    ]
+    seen: set[str] = set()
+    for raw_bench, label, pos, neg in candidates:
+        bench = str(raw_bench or "").upper().strip()
+        if not bench or bench == primary or bench in seen:
+            continue
+        seen.add(bench)
+        specs.append((f"{primary} minus {bench}", primary, bench, pos, neg))
+    return specs
+
+
 def _mtf_empty_result(horizons: List[str], errors: List[str]) -> Dict[str, Any]:
     return {
         "asof_utc": datetime.now(timezone.utc).isoformat(),
@@ -589,6 +628,7 @@ def _relative_returns_across_horizons(
 async def build_multi_timeframe_price_context(
     watch_tickers: Optional[List[str]] = None,
     horizons: Optional[List[str]] = None,
+    subject_profile: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """
     Multi-timeframe price context for narrative synthesis.
@@ -639,10 +679,24 @@ async def build_multi_timeframe_price_context(
     h_list = horizons or _MULTI_HORIZONS
     errors: List[str] = []
 
-    extra_tickers: List[str] = [
-        t for t in (watch_tickers or [])
-        if t not in SECTORS and t not in CROSS
-    ]
+    requested = list(watch_tickers or [])
+    if subject_profile:
+        requested.extend([
+            subject_profile.get("ticker"),
+            subject_profile.get("broad_market"),
+            subject_profile.get("benchmark"),
+            subject_profile.get("sector_etf"),
+            *(subject_profile.get("peers") or []),
+        ])
+
+    extra_tickers: List[str] = []
+    seen_extra: set[str] = set()
+    for raw in requested:
+        t = str(raw or "").upper().strip()
+        if not t or t in SECTORS or t in CROSS or t in seen_extra:
+            continue
+        seen_extra.add(t)
+        extra_tickers.append(t)
     all_tickers = list(SECTORS.keys()) + list(CROSS.keys()) + extra_tickers
 
     closes = pd.DataFrame()
@@ -685,6 +739,10 @@ async def build_multi_timeframe_price_context(
     # Cache SPY and QQQ returns for relative-return computation
     spy_rets: Optional[Dict[str, Optional[float]]] = _rets("SPY") if "SPY" in closes else None
     qqq_rets: Optional[Dict[str, Optional[float]]] = _rets("QQQ") if "QQQ" in closes else None
+    benchmark = str((subject_profile or {}).get("benchmark") or "").upper().strip()
+    sector_etf = str((subject_profile or {}).get("sector_etf") or "").upper().strip()
+    benchmark_rets = _rets(benchmark) if benchmark and benchmark in closes else None
+    sector_rets = _rets(sector_etf) if sector_etf and sector_etf in closes else None
 
     def _asset_row(
         ticker: str,
@@ -728,7 +786,11 @@ async def build_multi_timeframe_price_context(
     try:
         for t, name in SECTORS.items():
             # Tech and discretionary sectors also get vs_qqq for thematic context
-            extra = {"vs_qqq": qqq_rets} if (qqq_rets and t in ("XLK", "XLY")) else None
+            extra = {"vs_qqq": qqq_rets} if (qqq_rets and t in ("XLK", "XLY", "XLC")) else {}
+            if benchmark_rets and benchmark and benchmark not in ("QQQ", t):
+                extra[f"vs_{benchmark.lower()}"] = benchmark_rets
+            if not extra:
+                extra = None
             sectors.append(_asset_row(t, name, extra))
     except Exception as exc:
         errors.append(f"sectors build failed: {exc}")
@@ -737,15 +799,26 @@ async def build_multi_timeframe_price_context(
     single_names: List[Dict[str, Any]] = []
     try:
         for t in extra_tickers:
-            extra = {"vs_qqq": qqq_rets} if qqq_rets else None
-            single_names.append(_asset_row(t, t, extra))
+            extra: Dict[str, Dict[str, Optional[float]]] = {}
+            if qqq_rets:
+                extra["vs_qqq"] = qqq_rets
+            if benchmark_rets and benchmark and benchmark != "QQQ":
+                extra[f"vs_{benchmark.lower()}"] = benchmark_rets
+            if sector_rets and sector_etf and sector_etf != t:
+                extra["vs_sector"] = sector_rets
+            single_names.append(_asset_row(t, t, extra or None))
     except Exception as exc:
         errors.append(f"single_names build failed: {exc}")
         logger.error("build_multi_timeframe_price_context single_names: %s", exc, exc_info=True)
 
     relationships: List[Dict[str, Any]] = []
     try:
-        for rel_name, a, b, pos_read, neg_read in _MTF_RELATIONSHIP_SPECS:
+        rel_specs = list(_MTF_RELATIONSHIP_SPECS) + _profile_relationship_specs(subject_profile)
+        seen_rels: set[str] = set()
+        for rel_name, a, b, pos_read, neg_read in rel_specs:
+            if rel_name in seen_rels:
+                continue
+            seen_rels.add(rel_name)
             a_rets = _rets(a)
             b_rets = _rets(b)
             rel_rets = _relative_returns_across_horizons(a_rets, b_rets, h_list)
@@ -771,6 +844,12 @@ async def build_multi_timeframe_price_context(
         "single_names": single_names,
         "relationships": relationships,
     }
+    if subject_profile:
+        result["subject"] = {
+            k: subject_profile.get(k)
+            for k in ("ticker", "name", "subject_type", "sector_etf", "benchmark", "broad_market", "peers")
+            if subject_profile.get(k) is not None
+        }
     if errors:
         result["errors"] = errors
     return result
@@ -779,6 +858,7 @@ async def build_multi_timeframe_price_context(
 def build_multi_timeframe_price_context_sync(
     watch_tickers: Optional[List[str]] = None,
     horizons: Optional[List[str]] = None,
+    subject_profile: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """
     Synchronous wrapper around build_multi_timeframe_price_context.
@@ -791,6 +871,7 @@ def build_multi_timeframe_price_context_sync(
             build_multi_timeframe_price_context(
                 watch_tickers=watch_tickers,
                 horizons=horizons,
+                subject_profile=subject_profile,
             )
         )
     except Exception as exc:

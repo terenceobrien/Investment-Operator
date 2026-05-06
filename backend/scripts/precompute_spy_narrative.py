@@ -1,12 +1,13 @@
 """
-precompute_spy_narrative.py — Generate today's SPY narrative cache.
+precompute_spy_narrative.py — Generate today's narrative cache for supported tickers.
 
 Intended schedule:
     Run before market open on trading days, e.g. 8:00 AM ET Mon–Fri.
 
 Usage (from repo root):
     python backend/scripts/precompute_spy_narrative.py
-    python backend/scripts/precompute_spy_narrative.py --ticker SPY --force
+    python backend/scripts/precompute_spy_narrative.py --ticker MSFT --force
+    python backend/scripts/precompute_spy_narrative.py --magnificent7 --force
     python backend/scripts/precompute_spy_narrative.py --ignore-trading-day
 
 Behavior:
@@ -66,9 +67,14 @@ from src.narrative.cache import (  # noqa: E402
 from src.narrative.config import (  # noqa: E402
     FINAL_SYNTHESIS_MODEL, PREPROCESSING_MODEL,
     PROMPT_VERSION, SOURCE_CONFIG_VERSION,
-    is_supported_ticker,
 )
 from src.narrative.orchestrator import run_narrative_for_ticker  # noqa: E402
+from src.narrative.ticker_profiles import (  # noqa: E402
+    MAGNIFICENT_7,
+    is_supported_ticker,
+    normalize_ticker,
+    supported_ticker_label,
+)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -86,39 +92,8 @@ def is_trading_day(d: date_cls) -> bool:
     return d.weekday() < 5  # 0=Mon..4=Fri
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Precompute the daily narrative cache for a supported ticker.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument("--ticker", default="SPY", help="Ticker symbol")
-    parser.add_argument("--force", action="store_true",
-                        help="Regenerate even if today's cache already exists")
-    parser.add_argument("--ignore-trading-day", action="store_true",
-                        help="Run even on weekends/holidays")
-    args = parser.parse_args()
-
-    ticker = args.ticker.upper().strip()
-    if not is_supported_ticker(ticker):
-        logger.error(
-            "Ticker %s is not in the supported set. Add it to "
-            "SUPPORTED_TICKERS in narrative/config.py to enable.",
-            ticker,
-        )
-        return 2
-
-    today = date_cls.today()
-    if not args.ignore_trading_day and not is_trading_day(today):
-        logger.info(
-            "Today (%s, weekday=%d) is not a trading day — skipping. "
-            "Use --ignore-trading-day to override.",
-            today.isoformat(), today.weekday(),
-        )
-        return 0
-
-    today_str = today.isoformat()
-
-    if not args.force and load_cache(ticker, today_str):
+def _precompute_one(ticker: str, today_str: str, force: bool) -> int:
+    if not force and load_cache(ticker, today_str):
         logger.info(
             "Cache already exists for %s on %s — skipping. Use --force to regenerate.",
             ticker, today_str,
@@ -134,7 +109,7 @@ def main() -> int:
     try:
         result = asyncio.run(run_narrative_for_ticker(ticker))
     except Exception as exc:
-        logger.error("Synthesis failed: %s", exc, exc_info=True)
+        logger.error("Synthesis failed for %s: %s", ticker, exc, exc_info=True)
         return 1
 
     record = build_cache_record(
@@ -155,6 +130,47 @@ def main() -> int:
         md.get("price_context_active"),
     )
     return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Precompute the daily narrative cache for a supported ticker.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument("--ticker", default="SPY", help="Ticker symbol")
+    parser.add_argument("--magnificent7", action="store_true",
+                        help="Generate one cache per Magnificent 7 ticker")
+    parser.add_argument("--force", action="store_true",
+                        help="Regenerate even if today's cache already exists")
+    parser.add_argument("--ignore-trading-day", action="store_true",
+                        help="Run even on weekends/holidays")
+    args = parser.parse_args()
+
+    tickers = list(MAGNIFICENT_7) if args.magnificent7 else [normalize_ticker(args.ticker)]
+    unsupported = [t for t in tickers if not is_supported_ticker(t)]
+    if unsupported:
+        logger.error(
+            "Unsupported ticker(s): %s. Supported: %s.",
+            ", ".join(unsupported),
+            supported_ticker_label(),
+        )
+        return 2
+
+    today = date_cls.today()
+    if not args.ignore_trading_day and not is_trading_day(today):
+        logger.info(
+            "Today (%s, weekday=%d) is not a trading day — skipping. "
+            "Use --ignore-trading-day to override.",
+            today.isoformat(), today.weekday(),
+        )
+        return 0
+
+    today_str = today.isoformat()
+
+    exit_code = 0
+    for ticker in tickers:
+        exit_code = max(exit_code, _precompute_one(ticker, today_str, args.force))
+    return exit_code
 
 
 if __name__ == "__main__":

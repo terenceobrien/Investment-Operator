@@ -132,9 +132,16 @@ def build_cache_record(
     """
     meta = (result.get("_meta") or {}) if isinstance(result, dict) else {}
     ledgers = (meta.get("information_ledgers") or {}) if isinstance(meta, dict) else {}
+    subject_meta = meta.get("subject") if isinstance(meta.get("subject"), dict) else None
+    if not subject_meta:
+        subject_meta = {
+            "ticker": ticker.upper().strip(),
+            "subject_type": "ticker",
+        }
     return {
-        "subject": ticker.upper().strip(),
-        "subject_type": "ticker",
+        "ticker": str(subject_meta.get("ticker") or ticker).upper().strip(),
+        "subject": subject_meta,
+        "subject_type": subject_meta.get("subject_type", "ticker"),
         "asof_date": asof_date,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "status": "ready",
@@ -151,5 +158,7 @@ def build_cache_record(
             "price_context_active": bool(ledgers.get("price_ledger")),
             "inefficiency_taxonomy_version": meta.get("inefficiency_taxonomy_version"),
             "inefficiency_taxonomy_ids": meta.get("inefficiency_taxonomy_ids"),
+            "ticker_relevance": meta.get("ticker_relevance"),
+            "ticker_profile": subject_meta,
         },
     }

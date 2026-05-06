@@ -46,9 +46,22 @@ from src.narrative.cache import (
 from src.narrative.config import (
     FINAL_SYNTHESIS_MODEL, PREPROCESSING_MODEL,
     PROMPT_VERSION, SOURCE_CONFIG_VERSION,
-    is_supported_ticker,
 )
+from src.narrative.fixtures import load_narrative_fixture
 from src.narrative.orchestrator import run_narrative_for_ticker
+from src.narrative.runtime_config import (
+    assert_live_mode,
+    assert_llm_calls_allowed,
+    get_narrative_mode,
+    llm_calls_allowed,
+)
+from src.narrative.ticker_profiles import (
+    get_ticker_profile,
+    is_supported_ticker,
+    normalize_ticker,
+    prompt_subject_profile,
+    supported_ticker_label,
+)
 
 logger = logging.getLogger("api.main")
 
@@ -533,6 +546,12 @@ async def trigger_narrative(
     lookback_hours: int = Query(36),
     user: dict = Depends(verify_clerk_token),
 ):
+    try:
+        assert_live_mode("manual narrative synthesis")
+        assert_llm_calls_allowed("manual narrative synthesis")
+    except RuntimeError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+
     job_id = str(uuid.uuid4())
     _jobs[job_id] = {"status": "running"}
 
@@ -642,6 +661,16 @@ _cache_generating: dict[str, dict] = {}
 NARRATIVE_GENERATION_TIMEOUT_SEC: int = 240
 
 
+def _with_result_alias(record: dict, *, mode: str, is_mock: bool) -> dict:
+    out = dict(record)
+    output = out.get("output")
+    if output is not None:
+        out["result"] = output
+    out["narrative_mode"] = mode
+    out["is_mock"] = is_mock
+    return out
+
+
 @app.get("/api/narrative/latest")
 async def get_latest_narrative(
     ticker: str = Query("SPY"),
@@ -651,33 +680,70 @@ async def get_latest_narrative(
     User-facing read endpoint for the Narrative page.
 
     Behavior per ticker:
-      - SPY: serves the cached daily synthesis. If today's cache is cold,
-             kicks off a background generation task and returns
-             status=generating so the UI can poll.
-      - others: returns status=unsupported until broader coverage ships.
+      - Supported subjects: SPY and the Magnificent 7 use the same
+        cache/mock/live flow.
+      - Unsupported subjects: return status=unsupported and never generate.
     """
-    ticker_u = ticker.upper().strip()
+    ticker_u = normalize_ticker(ticker)
+    mode = get_narrative_mode()
+    profile = get_ticker_profile(ticker_u)
+    subject = prompt_subject_profile(profile) if profile else None
 
     if not is_supported_ticker(ticker_u):
         return {
             "status": "unsupported",
             "ticker": ticker_u,
+            "cache_hit": False,
+            "is_mock": False,
+            "narrative_mode": mode,
             "message": (
-                "Cached narrative reads are currently enabled for SPY only. "
-                "Broader ticker coverage is coming soon."
+                f"Ticker-specific Helix reads are currently enabled for {supported_ticker_label()}. "
+                "More ticker coverage is coming soon."
             ),
         }
 
+    if mode == "mock":
+        fixture = load_narrative_fixture(ticker_u)
+        fixture["status"] = "ready"
+        fixture["ticker"] = ticker_u
+        if subject:
+            fixture["subject"] = subject
+            fixture["subject_type"] = subject.get("subject_type")
+        fixture["cache_hit"] = False
+        fixture["narrative_mode"] = "mock"
+        fixture["is_mock"] = True
+        return _with_result_alias(fixture, mode="mock", is_mock=True)
+
     today = date.today().isoformat()
+
+    if mode == "cache":
+        cached = load_narrative_cache(ticker_u, today) or load_latest_narrative_cache(ticker_u)
+        if cached:
+            cached["cache_hit"] = True
+            cached["status"] = "ready"
+            if subject:
+                cached["subject"] = subject
+                cached["subject_type"] = subject.get("subject_type")
+            return _with_result_alias(cached, mode="cache", is_mock=False)
+        return {
+            "status": "cache_miss",
+            "ticker": ticker_u,
+            "subject": subject,
+            "cache_hit": False,
+            "is_mock": False,
+            "narrative_mode": "cache",
+            "message": "No cached narrative read is available for this ticker/date in cache-only mode.",
+        }
 
     # 1. Cache hit — serve immediately
     cached = load_narrative_cache(ticker_u, today)
     if cached:
-        return {
-            "status": "ready",
-            "cache_hit": True,
-            **cached,
-        }
+        cached["cache_hit"] = True
+        cached["status"] = "ready"
+        if subject:
+            cached["subject"] = subject
+            cached["subject_type"] = subject.get("subject_type")
+        return _with_result_alias(cached, mode="live", is_mock=False)
 
     # 2. Cache miss — check in-flight generation
     pending = _cache_generating.get(ticker_u)
@@ -686,6 +752,9 @@ async def get_latest_narrative(
             "status": "generating",
             "cache_hit": False,
             "ticker": ticker_u,
+            "subject": subject,
+            "is_mock": False,
+            "narrative_mode": "live",
             "started_at": pending.get("started_at"),
             "last_cached_result": load_latest_narrative_cache(ticker_u),
         }
@@ -693,7 +762,32 @@ async def get_latest_narrative(
     # 3. Last attempt errored? Surface that with a stale fallback if available
     last_error = pending.get("error") if (pending and pending.get("done")) else None
 
+    if not llm_calls_allowed():
+        stale = load_latest_narrative_cache(ticker_u)
+        if stale:
+            stale["status"] = "ready"
+            stale["cache_hit"] = True
+            stale["stale_cache"] = True
+            stale["generation_blocked"] = True
+            stale["message"] = "Showing latest cached narrative read because live generation is blocked."
+            if subject:
+                stale["subject"] = subject
+                stale["subject_type"] = subject.get("subject_type")
+            return _with_result_alias(stale, mode="live", is_mock=False)
+        return {
+            "status": "llm_blocked",
+            "ticker": ticker_u,
+            "subject": subject,
+            "cache_hit": False,
+            "is_mock": False,
+            "narrative_mode": "live",
+            "message": "Live narrative generation is blocked because LLM calls are disabled.",
+            "last_cached_result": load_latest_narrative_cache(ticker_u),
+            "last_error": last_error,
+        }
+
     # 4. Kick off a fresh generation
+    assert_llm_calls_allowed("narrative live generation")
     started_at = datetime.now(timezone.utc).isoformat()
     _cache_generating[ticker_u] = {"done": False, "started_at": started_at}
 
@@ -741,6 +835,9 @@ async def get_latest_narrative(
         "status": "generating",
         "cache_hit": False,
         "ticker": ticker_u,
+        "subject": subject,
+        "is_mock": False,
+        "narrative_mode": "live",
         "started_at": started_at,
         "last_cached_result": load_latest_narrative_cache(ticker_u),
         "last_error": last_error,
