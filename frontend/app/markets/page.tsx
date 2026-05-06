@@ -3,6 +3,7 @@
 import { MouseEvent, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import { useAuthFetcher } from '../../lib/api';
+import AuthRequired from '@/components/AuthRequired';
 import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx, pct, formatCurrency, formatNumber } from '@/lib/tokens';
 
@@ -572,18 +573,19 @@ export default function MarketsPage() {
   const [tf,      setTf]      = useState('1D');
 
   const authFetcher = useAuthFetcher();
+  const canFetch = authFetcher.isReady;
 
   const { data: heatmap, isLoading: heatmapLoading } = useSWR(
-    `/api/prices/heatmap?horizon=${horizon}`, authFetcher, { refreshInterval: 300000 }
+    canFetch ? `/api/prices/heatmap?horizon=${horizon}` : null, authFetcher, { refreshInterval: 300000 }
   );
   const { data: chart, isLoading: chartLoading } = useSWR(
-    `/api/prices/chart?ticker=${ticker}&tf=${tf}`, authFetcher, { refreshInterval: 300000 }
+    canFetch ? `/api/prices/chart?ticker=${ticker}&tf=${tf}` : null, authFetcher, { refreshInterval: 300000 }
   );
 
   // For 1D charts: fetch a 5D window to obtain the previous session's close,
   // so the % change stat is vs prev close rather than vs the intraday open.
   const { data: prevData } = useSWR(
-    tf === '1D' ? `/api/prices/chart?ticker=${ticker}&tf=5D` : null,
+    canFetch && tf === '1D' ? `/api/prices/chart?ticker=${ticker}&tf=5D` : null,
     authFetcher,
     { refreshInterval: 300000 }
   );
@@ -607,6 +609,10 @@ export default function MarketsPage() {
       return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
     });
   }, [heatmap?.sectors]);
+
+  if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
+    return <AuthRequired isLoaded={authFetcher.isLoaded} />;
+  }
 
   return (
     <main style={sx.main}>

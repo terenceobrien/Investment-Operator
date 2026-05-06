@@ -3,6 +3,7 @@
 import { MouseEvent, useState } from 'react';
 import useSWR from 'swr';
 import { useAuthFetcher } from '../../lib/api';
+import AuthRequired from '@/components/AuthRequired';
 import { SkeletonBlock, SkeletonRows, SkeletonText } from '@/components/Skeleton';
 import { T, sx, formatAccountingPct, formatCurrency, formatNumber } from '@/lib/tokens';
 
@@ -368,8 +369,9 @@ function HistoricalPathChart({ analogue }: { analogue: Analogue }) {
 
 function NarrativePanel({ date }: { date: string }) {
   const authFetcher = useAuthFetcher();
+  const canFetch = authFetcher.isReady;
   const { data, isLoading, error } = useSWR<NarrativeData>(
-    `/api/narrative/historical/${date}`,
+    canFetch ? `/api/narrative/historical/${date}` : null,
     authFetcher,
     {
       revalidateOnFocus: false,
@@ -582,14 +584,20 @@ export default function HistoryPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [topN, setTopN] = useState(15);
   const authFetcher = useAuthFetcher();
+  const canFetch = authFetcher.isReady;
 
   const { data, isLoading, error } = useSWR(
-    `/api/market/analogues?top_n=${topN}`,
+    canFetch ? `/api/market/analogues?top_n=${topN}` : null,
     authFetcher,
     { refreshInterval: 300000 }
   );
 
   const toggle = (date: string) => setExpanded((prev) => (prev === date ? null : date));
+
+  if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
+    return <AuthRequired isLoaded={authFetcher.isLoaded} />;
+  }
+
   const agg = data?.aggregate_stats;
   const current = data?.current_state;
 

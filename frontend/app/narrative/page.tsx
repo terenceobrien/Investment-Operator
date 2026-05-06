@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { useAuthFetcher } from '../../lib/api';
+import AuthRequired from '@/components/AuthRequired';
 import { T } from '@/lib/tokens';
 
 // ─────────────────────────────────────────────────────────────
@@ -1651,9 +1652,10 @@ export default function NarrativePage() {
   const [stacked, setStacked] = useState(false);
 
   const authFetcher = useAuthFetcher();
+  const canFetch = authFetcher.isReady;
 
   const { data: latest } = useSWR<LatestEnvelope>(
-    `/api/narrative/latest?ticker=${ticker}`,
+    canFetch ? `/api/narrative/latest?ticker=${ticker}` : null,
     authFetcher,
     {
       refreshInterval: (data) => (data?.status === 'generating' ? 5000 : 0),
@@ -1733,6 +1735,10 @@ export default function NarrativePage() {
     }
     return null;
   }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker, subjectTicker, subjectName]);
+
+  if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
+    return <AuthRequired isLoaded={authFetcher.isLoaded} />;
+  }
 
   return (
     <main style={{ background: T.bg, minHeight: '100vh' }}>

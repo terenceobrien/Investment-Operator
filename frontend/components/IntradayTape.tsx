@@ -2,7 +2,7 @@
 
 import type { CSSProperties, ReactNode } from 'react';
 import useSWR from 'swr';
-import { fetcher } from '../lib/api';
+import { useAuthFetcher } from '../lib/api';
 import {
   T,
   sx,
@@ -197,14 +197,23 @@ export default function IntradayTape({
   hasError?: boolean;
 }) {
   const shouldFetch = fetch && !initialData;
+  const authFetcher = useAuthFetcher();
   const { data: fetchedData, isLoading, error } = useSWR<TapeData>(
-    shouldFetch ? '/api/market/tape' : null,
-    fetcher,
+    shouldFetch && authFetcher.isReady ? '/api/market/tape' : null,
+    authFetcher,
     { refreshInterval: 300000 }
   );
   const data = initialData ?? fetchedData;
-  const isPending = shouldFetch ? isLoading : loading;
+  const isPending = shouldFetch ? (!authFetcher.isLoaded || isLoading) : loading;
   const isErrored = shouldFetch ? !!error : hasError;
+
+  if (shouldFetch && authFetcher.isLoaded && !authFetcher.isSignedIn) {
+    return (
+      <div style={{ ...insetPanel, padding: '18px', color: T.textMuted, fontSize: '12px' }}>
+        Sign in to view intraday tape.
+      </div>
+    );
+  }
 
   if (!data && isPending) {
     return (

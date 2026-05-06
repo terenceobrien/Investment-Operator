@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import useSWR from 'swr';
 import { useAuthFetcher } from '../../lib/api';
+import AuthRequired from '@/components/AuthRequired';
 import IntradayTape from '@/components/IntradayTape';
 import { SkeletonMetricGrid, SkeletonPanel, SkeletonRows, SkeletonText } from '@/components/Skeleton';
 import {
@@ -612,29 +613,34 @@ function MarketStateSkeleton() {
 export default function Dashboard() {
 
   const authFetcher = useAuthFetcher();
+  const canFetch = authFetcher.isReady;
 
-  const { data: regimeData, error, isLoading } = useSWR('/api/market/regime', authFetcher, {
+  const { data: regimeData, error, isLoading } = useSWR(canFetch ? '/api/market/regime' : null, authFetcher, {
     refreshInterval: 300000,
     revalidateOnFocus: false,
   });
 
-  const { data: tapeData, isLoading: tapeLoading, error: tapeError } = useSWR('/api/market/tape', authFetcher, {
+  const { data: tapeData, isLoading: tapeLoading, error: tapeError } = useSWR(canFetch ? '/api/market/tape' : null, authFetcher, {
     refreshInterval: 300000,
     revalidateOnFocus: false,
   });
 
-  const { data: macroData, isLoading: macroLoading } = useSWR('/api/brief/macro', authFetcher, {
+  const { data: macroData, isLoading: macroLoading } = useSWR(canFetch ? '/api/brief/macro' : null, authFetcher, {
     refreshInterval: 900000,
     revalidateOnFocus: false,
   });
 
-  const { data: summaryData, isLoading: summaryLoading } = useSWR('/api/brief/summary', authFetcher, {
+  const { data: summaryData, isLoading: summaryLoading } = useSWR(canFetch ? '/api/brief/summary' : null, authFetcher, {
     refreshInterval: 86400000,
     revalidateOnFocus: false,
   });
 
   // Which layer card has its description expanded (click toggles; null = all collapsed)
   const [expandedLayer, setExpandedLayer] = useState<string | null>(null);
+
+  if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
+    return <AuthRequired isLoaded={authFetcher.isLoaded} />;
+  }
 
   const envColor: Record<string, string> = {
     'Risk-On Rotation Day': T.up,

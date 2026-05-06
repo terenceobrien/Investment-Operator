@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SkeletonBlock, SkeletonText } from '@/components/Skeleton';
+import { useAuthFetcher } from '@/lib/api';
 import { T } from '@/lib/tokens';
 
 interface NarrativeData {
@@ -54,15 +55,20 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [generated, setGenerated] = useState(false);
+  const authFetcher = useAuthFetcher();
 
   const generate = async () => {
+    if (!authFetcher.isLoaded) return;
+    if (!authFetcher.isSignedIn) {
+      setError('Sign in required');
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
       if (hasSnapshot) {
-        const snap = await fetch(`/api/narrative/snapshot/${date}`);
-        if (snap.ok) {
-          const snapData = await snap.json();
+        try {
+          const snapData = await authFetcher(`/api/narrative/snapshot/${date}`);
           setData({
             date,
             narrative: {
@@ -81,15 +87,12 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
           });
           setGenerated(true);
           return;
+        } catch {
+          // Fall through to historical narrative generation/read below.
         }
       }
 
-      const res = await fetch(`/api/narrative/historical/${date}`);
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.detail || `Error ${res.status}`);
-      }
-      setData(await res.json());
+      setData(await authFetcher(`/api/narrative/historical/${date}`));
       setGenerated(true);
     } catch (e: any) {
       setError(e.message);
@@ -114,7 +117,7 @@ export default function NarrativeTab({ date, hasSnapshot }: { date: string; hasS
         {!generated && (
           <button
             onClick={generate}
-            disabled={loading}
+            disabled={loading || !authFetcher.isLoaded || !authFetcher.isSignedIn}
             style={{
               fontFamily: T.sans,
               fontSize: '11px',
