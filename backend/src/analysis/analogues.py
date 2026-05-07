@@ -17,7 +17,33 @@ import pandas as pd
 # ── Config ────────────────────────────────────────────────────────────────────
 
 import os
-DATA_PATH = Path(os.environ.get("RESEARCH_DATA_PATH", str(Path(__file__).resolve().parents[3] / "data" / "backtest_master_file.csv")))
+
+
+def _candidate_data_paths() -> List[Path]:
+    backend_dir = Path(__file__).resolve().parents[2]
+    repo_root = Path(__file__).resolve().parents[3]
+    env_path = os.environ.get("RESEARCH_DATA_PATH")
+    paths: List[Path] = []
+    if env_path:
+        paths.append(Path(env_path))
+    paths.extend([
+        backend_dir / "data" / "operator_research_v3.csv",
+        backend_dir / "data" / "backtest_master_file.csv",
+        repo_root / "data" / "operator_research_v3.csv",
+        repo_root / "data" / "backtest_master_file.csv",
+    ])
+    return paths
+
+
+def _resolve_data_path() -> Path:
+    for path in _candidate_data_paths():
+        if path.exists():
+            return path
+    # Return preferred v3 path for a clear error if none exists.
+    return _candidate_data_paths()[0]
+
+
+DATA_PATH = _resolve_data_path()
 
 SCORE_BINS   = [0, 35, 45, 55, 65, 75, 101]
 SCORE_LABELS = ["<35", "35-45", "45-55", "55-65", "65-75", ">75"]
@@ -45,12 +71,30 @@ _df_cache: Optional[pd.DataFrame] = None
 # ── Data loading ──────────────────────────────────────────────────────────────
 
 def _load_df() -> pd.DataFrame:
-    global _df_cache
+    global _df_cache, DATA_PATH
     if _df_cache is not None:
         return _df_cache
 
+    if not DATA_PATH.exists():
+        DATA_PATH = _resolve_data_path()
+    if not DATA_PATH.exists():
+        tried = ", ".join(str(p) for p in _candidate_data_paths())
+        raise FileNotFoundError(
+            f"Historical analogue research data not found. Tried: {tried}"
+        )
+
     df = pd.read_csv(DATA_PATH)
+    required = {"date", "signal_time", "score_total"}
+    missing = sorted(required - set(df.columns))
+    if missing:
+        raise ValueError(
+            f"Historical analogue research data at {DATA_PATH} is missing required columns: {missing}"
+        )
+
     df = df[df["signal_time"] == "close"].copy()
+    if df.empty:
+        raise ValueError(f"Historical analogue research data at {DATA_PATH} has no close signal rows")
+
     df["date"] = pd.to_datetime(df["date"])
     df = df.sort_values("date").reset_index(drop=True)
     df["score_delta"] = df["score_total"].diff()

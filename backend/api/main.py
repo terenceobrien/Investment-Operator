@@ -318,16 +318,29 @@ async def get_historical_analogues(
 
     score_delta = regime.score_delta
 
-    result = await asyncio.to_thread(
-        _get_analogues,
-        environment=regime.environment or "Mixed / Neutral",
-        score_total=regime.score_total or 50.0,
-        vix_level=regime.vix_level,
-        sectors_green=regime.sectors_green,
-        score_delta=score_delta,
-        confidence=regime.confidence,
-        top_n=top_n,
-    )
+    try:
+        result = await asyncio.to_thread(
+            _get_analogues,
+            environment=regime.environment or "Mixed / Neutral",
+            score_total=regime.score_total or 50.0,
+            vix_level=regime.vix_level,
+            sectors_green=regime.sectors_green,
+            score_delta=score_delta,
+            confidence=regime.confidence,
+            top_n=top_n,
+        )
+    except FileNotFoundError as exc:
+        logger.error("Historical analogue data missing: %s", exc)
+        raise HTTPException(
+            status_code=503,
+            detail="Historical analogue research data is not available on this backend.",
+        )
+    except Exception as exc:
+        logger.error("Historical analogue lookup failed: %s", exc, exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail="Historical analogue lookup failed.",
+        )
 
     result["current_state"] = {
         "score_total":       regime.score_total,
