@@ -24,13 +24,20 @@ from backend.src.backtest.data import (
     DEFAULT_SECTOR_TICKERS,
     fetch_yf_panel,
 )
+from backend.src.data.breadth_nyhl import (
+    bulk_fetch_sp500_history,
+    compute_nyhl_zscore,
+    compute_sp500_nyhl,
+    get_sp500_membership,
+)
+from backend.src.data.external_sources import fetch_cot_history, load_aaii_sentiment
 from backend.src.state.regime_layers import score_all_layers
 
 FEATURE_VERSION = "v2_layers_2026"
 
 # ── Extended cross-asset set (adds VIX term structure + VVIX) ─────────────────
 
-EXTENDED_CROSS_ASSET = sorted(set(DEFAULT_CROSS_ASSET + ["^VIX3M", "^VVIX"]))
+EXTENDED_CROSS_ASSET = sorted(set(DEFAULT_CROSS_ASSET + ["^VIX3M", "^VVIX", "^SKEW"]))
 
 # ── FRED series needed for credit + breadth layers ────────────────────────────
 
@@ -39,6 +46,13 @@ FRED_SERIES = {
     "ig_spread":  "BAMLC0A0CM",     # IG OAS (%)
     "new_highs":  "HIGHNEW",        # NYSE new 52-week highs
     "new_lows":   "LOWNEW",         # NYSE new 52-week lows
+    "walcl":      "WALCL",          # Fed balance sheet (millions)
+    "tga":        "WTREGEN",        # Treasury General Account (billions)
+    "rrp":        "RRPONTSYD",      # Overnight reverse repo (billions)
+    "nfci":       "NFCI",           # Chicago Fed National Financial Conditions Index
+    "m2":         "M2SL",           # M2 money stock
+    "baa10y":     "BAA10Y",         # Moody's BAA minus 10Y Treasury (%)
+    "aaa10y":     "AAA10Y",         # Moody's AAA minus 10Y Treasury (%)
 }
 
 
@@ -151,7 +165,7 @@ def build_daily_feature_frame(
       ig_spread_z        — rolling z-score of IG spreads
       hyg_tlt_ratio_z    — z-score of HYG/TLT price ratio
       rsp_vs_spy_z       — z-score of RSP/SPY price ratio
-      new_highs_minus_lows_z — z-score of NYSE new highs minus new lows (FRED)
+      new_highs_minus_lows_z — z-score of S&P 500 new highs minus new lows
     """
     cross_assets = cross_assets or EXTENDED_CROSS_ASSET
     sectors = sectors or DEFAULT_SECTOR_TICKERS
@@ -211,6 +225,11 @@ def build_daily_feature_frame(
         vvix_level = vv.reindex(spy_close.index)
         vvix_z     = _rolling_zscore(vv, zscore_window).reindex(spy_close.index)
 
+    # ── SKEW ──
+    skew_level = pd.Series(dtype=float, index=spy_close.index)
+    if panel.has("^SKEW", "Close"):
+        skew_level = panel.field("^SKEW", "Close").reindex(spy_close.index)
+
     # ── RSP/SPY ratio z-score ──
     rsp_vs_spy_z = pd.Series(dtype=float, index=spy_close.index)
     if panel.has("RSP", "Close"):
@@ -252,18 +271,74 @@ def build_daily_feature_frame(
     dispersion = sec_df.std(axis=1, ddof=0)
     sectors_green = (sec_df > 0).sum(axis=1)
 
+    # Time-aware sector proxy for % above 200d MA. Handles newer ETFs such as
+    # XLRE/XLC by dividing only by sectors that have valid data on each date.
+    pct_above_200d = pd.Series(dtype=float, index=spy_close.index)
+    try:
+        above_cols = {}
+        valid_cols = {}
+        sector_proxy = ["XLK", "XLF", "XLV", "XLY", "XLP", "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
+        for t in sector_proxy:
+            if not panel.has(t, "Close"):
+                continue
+            c = panel.field(t, "Close").reindex(spy_close.index)
+            ma200 = c.rolling(200, min_periods=200).mean()
+            valid = c.notna() & ma200.notna()
+            above_cols[t] = (c > ma200).where(valid, False)
+            valid_cols[t] = valid
+        if above_cols:
+            above_df = pd.DataFrame(above_cols)
+            valid_df = pd.DataFrame(valid_cols)
+            denom = valid_df.sum(axis=1).replace(0, np.nan)
+            pct_above_200d = (above_df.sum(axis=1) / denom * 100.0).reindex(spy_close.index)
+    except Exception as e:
+        print(f"  pct_above_200d sector proxy failed: {e}")
+
     # ── FRED data ──
     fred_data = {}
     if use_fred:
         fred_data = _fetch_fred_data(start, end)
 
-    # HY spreads
+    # Monetary + credit + breadth defaults
+    net_liquidity_z = pd.Series(dtype=float, index=spy_close.index)
+    nfci_inverted = pd.Series(dtype=float, index=spy_close.index)
+    m2_growth_yoy = pd.Series(dtype=float, index=spy_close.index)
     hy_spread_level    = pd.Series(dtype=float, index=spy_close.index)
     hy_spread_z        = pd.Series(dtype=float, index=spy_close.index)
     hy_spread_chg_4w   = pd.Series(dtype=float, index=spy_close.index)
     ig_spread_level    = pd.Series(dtype=float, index=spy_close.index)
     ig_spread_z        = pd.Series(dtype=float, index=spy_close.index)
+    baa_spread_level   = pd.Series(dtype=float, index=spy_close.index)
+    baa_spread_z       = pd.Series(dtype=float, index=spy_close.index)
+    baa_spread_chg_4w  = pd.Series(dtype=float, index=spy_close.index)
+    aaa_spread_level   = pd.Series(dtype=float, index=spy_close.index)
+    aaa_spread_z       = pd.Series(dtype=float, index=spy_close.index)
     new_highs_minus_lows_z = pd.Series(dtype=float, index=spy_close.index)
+
+    # Monetary: net liquidity, NFCI, M2
+    if all(k in fred_data and not fred_data[k].empty for k in ("walcl", "tga", "rrp")):
+        try:
+            walcl_b = _align_fred_to_daily(fred_data["walcl"] / 1000.0, spy_close.index)
+            tga = _align_fred_to_daily(fred_data["tga"], spy_close.index)
+            rrp = _align_fred_to_daily(fred_data["rrp"], spy_close.index)
+            net_liq = (walcl_b - tga - rrp).dropna()
+            net_liquidity_z = _rolling_zscore(net_liq, zscore_window).reindex(spy_close.index)
+        except Exception as e:
+            print(f"  net_liquidity calc failed: {e}")
+
+    if "nfci" in fred_data and not fred_data["nfci"].empty:
+        try:
+            nfci_daily = _align_fred_to_daily(fred_data["nfci"], spy_close.index)
+            nfci_inverted = (-1.0 * _rolling_zscore(nfci_daily.dropna(), zscore_window)).reindex(spy_close.index)
+        except Exception as e:
+            print(f"  NFCI calc failed: {e}")
+
+    if "m2" in fred_data and not fred_data["m2"].empty:
+        try:
+            m2_daily = _align_fred_to_daily(fred_data["m2"], spy_close.index)
+            m2_growth_yoy = ((m2_daily / m2_daily.shift(252) - 1.0) * 100.0).reindex(spy_close.index)
+        except Exception as e:
+            print(f"  M2 growth calc failed: {e}")
 
     if "hy_spread" in fred_data and not fred_data["hy_spread"].empty:
         hy_bps = fred_data["hy_spread"] * 100  # % -> bps
@@ -279,6 +354,19 @@ def build_daily_feature_frame(
         ig_spread_level = ig_daily
         ig_spread_z = _rolling_zscore(ig_daily.dropna(), zscore_window).reindex(spy_close.index)
 
+    if "baa10y" in fred_data and not fred_data["baa10y"].empty:
+        baa_bps = fred_data["baa10y"] * 100
+        baa_daily = _align_fred_to_daily(baa_bps, spy_close.index)
+        baa_spread_level = baa_daily
+        baa_spread_z = _rolling_zscore(baa_daily.dropna(), zscore_window).reindex(spy_close.index)
+        baa_spread_chg_4w = baa_daily - baa_daily.shift(20)
+
+    if "aaa10y" in fred_data and not fred_data["aaa10y"].empty:
+        aaa_bps = fred_data["aaa10y"] * 100
+        aaa_daily = _align_fred_to_daily(aaa_bps, spy_close.index)
+        aaa_spread_level = aaa_daily
+        aaa_spread_z = _rolling_zscore(aaa_daily.dropna(), zscore_window).reindex(spy_close.index)
+
     if "new_highs" in fred_data and "new_lows" in fred_data:
         nh = fred_data["new_highs"]
         nl = fred_data["new_lows"]
@@ -286,6 +374,46 @@ def build_daily_feature_frame(
             hl = (nh - nl).dropna()
             hl_z = _rolling_zscore(hl, zscore_window)
             new_highs_minus_lows_z = _align_fred_to_daily(hl_z, spy_close.index)
+
+    # Self-computed S&P 500 NYHL substitute for broken FRED HIGHNEW/LOWNEW.
+    try:
+        members = get_sp500_membership()
+        if members:
+            sp500_prices = bulk_fetch_sp500_history(
+                members,
+                start=start,
+                end=end,
+                force_download=force_download,
+            )
+            if not sp500_prices.empty:
+                nyhl = compute_sp500_nyhl(sp500_prices, window=252)
+                nyhl_z = compute_nyhl_zscore(nyhl["net_highs_lows"], window=252)
+                if not nyhl_z.empty:
+                    new_highs_minus_lows_z = nyhl_z.reindex(spy_close.index)
+    except Exception as e:
+        print(f"  S&P 500 NYHL build failed: {e}")
+
+    cot_net_large_spec_z = pd.Series(dtype=float, index=spy_close.index)
+    try:
+        cot = fetch_cot_history(start_date=start)
+        if not cot.empty and "cot_net_large_spec_z" in cot:
+            cot_net_large_spec_z = cot["cot_net_large_spec_z"].reindex(
+                cot.index.union(spy_close.index)
+            ).sort_index().ffill().reindex(spy_close.index)
+    except Exception as e:
+        print(f"  COT history skipped: {e}")
+
+    aaii_bull_minus_bear = pd.Series(dtype=float, index=spy_close.index)
+    try:
+        aaii = load_aaii_sentiment()
+        if not aaii.empty and "aaii_bull_minus_bear" in aaii:
+            aaii_bull_minus_bear = aaii["aaii_bull_minus_bear"].reindex(
+                aaii.index.union(spy_close.index)
+            ).sort_index().ffill().reindex(spy_close.index)
+    except FileNotFoundError as e:
+        print(f"  AAII sentiment skipped: {e}")
+    except Exception as e:
+        print(f"  AAII sentiment skipped: {e}")
 
     # ── Build output frame ──
     out = pd.DataFrame(index=spy_close.index)
@@ -313,6 +441,12 @@ def build_daily_feature_frame(
     # VVIX
     out["vvix_level"] = vvix_level
     out["vvix_z"]     = vvix_z
+    out["skew_level"] = skew_level
+
+    # Monetary
+    out["net_liquidity_z"] = net_liquidity_z
+    out["nfci_inverted"] = nfci_inverted
+    out["m2_growth_yoy"] = m2_growth_yoy
 
     # Credit
     out["hy_spread_level"]  = hy_spread_level
@@ -320,14 +454,24 @@ def build_daily_feature_frame(
     out["hy_spread_chg_4w"] = hy_spread_chg_4w
     out["ig_spread_level"]  = ig_spread_level
     out["ig_spread_z"]      = ig_spread_z
+    out["baa_spread_level"] = baa_spread_level
+    out["baa_spread_z"] = baa_spread_z
+    out["baa_spread_chg_4w"] = baa_spread_chg_4w
+    out["aaa_spread_level"] = aaa_spread_level
+    out["aaa_spread_z"] = aaa_spread_z
     out["hyg_tlt_ratio_z"]  = hyg_tlt_ratio_z
 
     # Breadth
+    out["pct_above_200d"]           = pct_above_200d
     out["rsp_minus_spy"]            = rsp_minus_spy
     out["rsp_vs_spy_z"]             = rsp_vs_spy_z
     out["new_highs_minus_lows_z"]   = new_highs_minus_lows_z
     out["dispersion"]               = dispersion
     out["sectors_green"]            = sectors_green
+
+    # Positioning
+    out["cot_net_large_spec_z"] = cot_net_large_spec_z
+    out["aaii_bull_minus_bear"] = aaii_bull_minus_bear
 
     # Cross-asset returns
     for t, s in cross_ret_1d.items():
@@ -376,19 +520,27 @@ def _row_to_layer_inputs(row: pd.Series) -> dict:
         v = row.get(col)
         return _safe_float(v)
 
+    def first_available(*cols):
+        for col in cols:
+            v = g(col)
+            if v is not None:
+                return v
+        return None
+
     return dict(
-        # Monetary — not in price data, will be None -> neutral
-        net_liquidity_z=None,
-        nfci_inverted=None,
-        m2_growth_yoy=None,
+        # Monetary
+        net_liquidity_z=g("net_liquidity_z"),
+        nfci_inverted=g("nfci_inverted"),
+        m2_growth_yoy=g("m2_growth_yoy"),
         fci_z=None,
 
-        # Credit
-        hy_spread_level=g("hy_spread_level"),
-        hy_spread_z=g("hy_spread_z"),
-        hy_spread_chg_4w=g("hy_spread_chg_4w"),
-        ig_spread_level=g("ig_spread_level"),
-        ig_spread_z=g("ig_spread_z"),
+        # Credit. Use BAA/AAA Treasury-relative series as substitutes when
+        # the preferred HY/IG OAS series are unavailable.
+        hy_spread_level=first_available("hy_spread_level", "baa_spread_level"),
+        hy_spread_z=first_available("hy_spread_z", "baa_spread_z"),
+        hy_spread_chg_4w=first_available("hy_spread_chg_4w", "baa_spread_chg_4w"),
+        ig_spread_level=first_available("ig_spread_level", "aaa_spread_level"),
+        ig_spread_z=first_available("ig_spread_z", "aaa_spread_z"),
         hyg_tlt_ratio_z=g("hyg_tlt_ratio_z"),
 
         # Volatility
@@ -398,20 +550,20 @@ def _row_to_layer_inputs(row: pd.Series) -> dict:
         vvix_level=g("vvix_level"),
         vvix_z=g("vvix_z"),
         put_call_ratio=None,    # not in daily data
-        skew_index=None,
+        skew_index=g("skew_level"),
 
         # Breadth
-        pct_above_200d=None,
+        pct_above_200d=g("pct_above_200d"),
         new_highs_minus_lows_z=g("new_highs_minus_lows_z"),
         sectors_green=int(row["sectors_green"]) if pd.notna(row.get("sectors_green")) else None,
         rsp_vs_spy_z=g("rsp_vs_spy_z"),
         adl_slope=None,
 
-        # Positioning — not in daily price data
+        # Positioning
         dealer_gamma_z=None,
         put_call_5d_ma=None,
-        aaii_bull_minus_bear=None,
-        cot_net_large_spec_z=None,
+        aaii_bull_minus_bear=g("aaii_bull_minus_bear"),
+        cot_net_large_spec_z=g("cot_net_large_spec_z"),
         equity_etf_flow_z=None,
     )
 
@@ -550,11 +702,11 @@ def build_research_frame(
       layer_agreement                   — 0-1
       dq_*                              — data quality per layer
       status_*                          — bullish/neutral/bearish per layer
-      vix_term_slope, vvix_level, vvix_z
-      hy_spread_level, hy_spread_z, hy_spread_chg_4w
-      ig_spread_level, ig_spread_z
-      hyg_tlt_ratio_z, rsp_vs_spy_z
-      new_highs_minus_lows_z
+      net_liquidity_z, nfci_inverted, m2_growth_yoy
+      vix_term_slope, vvix_level, vvix_z, skew_level
+      hy/ig spreads plus BAA/AAA substitutes
+      hyg_tlt_ratio_z, rsp_vs_spy_z, pct_above_200d
+      new_highs_minus_lows_z, cot_net_large_spec_z, aaii_bull_minus_bear
     """
     print(f"Building feature frame: {start} → {end}")
     feats = build_daily_feature_frame(

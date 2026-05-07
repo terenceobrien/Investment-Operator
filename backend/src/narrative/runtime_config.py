@@ -19,7 +19,7 @@ def _env_bool(name: str, default: bool = False) -> bool:
 
 
 def get_narrative_mode() -> str:
-    mode = os.getenv("NARRATIVE_MODE", "mock").strip().lower()
+    mode = os.getenv("NARRATIVE_MODE", "live").strip().lower()
     if mode not in NARRATIVE_MODES:
         raise RuntimeError(
             f"Invalid NARRATIVE_MODE={mode!r}. Expected one of: "
@@ -29,7 +29,7 @@ def get_narrative_mode() -> str:
 
 
 def llm_calls_allowed() -> bool:
-    return _env_bool("ALLOW_LLM_CALLS", default=False)
+    return _env_bool("ALLOW_LLM_CALLS", default=True)
 
 
 def assert_llm_calls_allowed(context: str = "") -> None:

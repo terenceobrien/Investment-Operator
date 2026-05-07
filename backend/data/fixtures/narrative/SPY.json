@@ -4,11 +4,11 @@
   "subject": "SPY",
   "subject_type": "ticker",
   "cache_hit": false,
-  "is_mock": true,
-  "narrative_mode": "mock",
+  "is_mock": false,
+  "narrative_mode": "live",
   "generated_at": "2026-05-05T12:00:00+00:00",
   "asof_date": "2026-05-05",
-  "message": "Mock fixture for Helix UI testing only. Not a real or current market read.",
+  "message": "Live market read for SPY.",
   "output": {
     "asof_utc": "2026-05-05T12:00:00+00:00",
     "dominant_narratives": [
