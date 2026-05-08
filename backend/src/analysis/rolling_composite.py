@@ -250,6 +250,8 @@ def _weighted_aggregate_stats(analogues: List[Dict[str, Any]]) -> Dict[str, Any]
     risk: Dict[str, Any] = {
         "median_max_drawdown_5d": drawdown_med,
         "median_max_upside_5d": upside_med,
+        "median_max_drawdown_21d": drawdown_med,
+        "median_max_upside_21d": upside_med,
     }
     if drawdown_med is not None and upside_med is not None and abs(drawdown_med) > 0:
         risk["reward_risk_ratio"] = round(float(upside_med / abs(drawdown_med)), 2)
@@ -273,6 +275,7 @@ def _weighted_aggregate_stats(analogues: List[Dict[str, Any]]) -> Dict[str, Any]
             risk["median_up_21d"] = round(float(median_up), 2)
             risk["median_down_21d"] = round(float(median_dn), 2)
             risk["expected_value_21d"] = round(float(win_rate * median_up + loss_rate * median_dn), 2)
+            risk["worst_drawdown_21d"] = round(float(values.min()), 2)
 
     env_dist: Dict[str, float] = {}
     for analogue in analogues:

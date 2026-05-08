@@ -75,6 +75,13 @@ const retColor = (v: number | null) => {
   return v >= 0 ? T.up : T.dn;
 };
 
+const riskValue = (risk: Record<string, number | null | undefined> | undefined, primary: string, fallback?: string) => {
+  if (!risk) return null;
+  const value = risk[primary];
+  if (value !== null && value !== undefined) return value;
+  return fallback ? risk[fallback] ?? null : null;
+};
+
 const formatDayNumber = (day: number) => String(day);
 
 function getEvenTicks(totalDays: number, count: number) {
@@ -642,123 +649,169 @@ export default function HistoryPage() {
 
         {data ? (
           <>
-            <section style={sx.panel}>
-              <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
-                <span style={sx.sectionLabel}>Current conditions</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
-                  {[10, 15, 20].map((n) => (
-                    <button
-                      key={n}
-                      onClick={() => setTopN(n)}
-                      style={{
-                        fontFamily: T.sans,
-                        fontSize: '12px',
-                        fontWeight: 300,
-                        color: topN === n ? 'rgba(16,32,51,0.9)' : T.textMuted,
-                        background: topN === n ? 'rgba(16,32,51,0.06)' : 'transparent',
-                        border: `0.5px solid ${topN === n ? 'rgba(16,32,51,0.15)' : T.border}`,
-                        padding: '2px 9px',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {n}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div style={sx.panelBody}>
-                <div style={{ fontFamily: T.sans, fontSize: '13px', fontWeight: 300, color: 'rgba(16,32,51,0.75)', letterSpacing: '0.3px', marginBottom: '4px' }}>
-                  {data.conditions_matched}
-                </div>
-                <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>
-                  {current?.asof_utc?.slice(0, 10)} · score {formatNumber(current?.score_total, 1)} · VIX {formatNumber(current?.vix_level, 1)} · {current?.sectors_green}/11 sectors green
-                </div>
-              </div>
-            </section>
-
-            {agg ? (
-              <section style={sx.panel}>
-                <div style={sx.panelHeader}>
-                  <span style={sx.sectionLabel}>Aggregate outlook</span>
-                  <span style={sx.sectionMeta}>{agg.n_analogues} comparable episodes</span>
-                </div>
-                <div style={{ ...sx.panelBody, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', gap: '12px' }}>
-                    {(['1d', '5d', '10d', '21d'] as const).map((h) => (
-                      <div key={h} style={sx.subPanel}>
-                        <FwdCard horizon={h} stats={agg.forward_returns[h]} />
-                      </div>
-                    ))}
-                  </div>
-
-                  {agg.risk_profile ? (
-                    <div style={sx.subPanel}>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))' }}>
-                        {[
-                          { label: '21D risk profile', val: null },
-                          { label: 'Median max DD', val: agg.risk_profile.median_max_drawdown_21d, color: T.dn, fmt: fmtRet },
-                          { label: 'Median max upside', val: agg.risk_profile.median_max_upside_21d, color: T.up, fmt: fmtRet },
-                          { label: 'EV (21d)', val: agg.risk_profile.expected_value_21d, color: (agg.risk_profile.expected_value_21d ?? 0) >= 0 ? T.up : T.dn, fmt: fmtRet },
-                          { label: 'Win rate', val: agg.risk_profile.win_rate_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 1)}%` },
-                          { label: 'Wtd R/R', val: agg.risk_profile.weighted_reward_risk_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 2)}×` },
-                          { label: 'Worst 21D', val: agg.risk_profile.worst_drawdown_21d, color: T.dn, fmt: fmtRet },
-                        ].map(({ label, val, color, fmt }, i) => (
-                          <div key={label} style={{ padding: '12px 20px', borderRight: i < 4 ? `0.5px solid ${T.border}` : 'none' }}>
-                            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '5px' }}>
-                              {label}
-                            </div>
-                            {val !== null && val !== undefined && fmt ? (
-                              <div style={{ fontFamily: T.mono, fontSize: '17px', fontWeight: 300, color: color ?? T.text }}>
-                                {fmt(val)}
-                              </div>
-                            ) : null}
-                          </div>
-                        ))}
-                      </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '28px', alignItems: 'start' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', minWidth: 0 }}>
+                <section style={sx.panel}>
+                  <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+                    <span style={sx.sectionLabel}>Current conditions</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.8px', color: T.textMuted }}>Show top</span>
+                      {[10, 15, 20].map((n) => (
+                        <button
+                          key={n}
+                          onClick={() => setTopN(n)}
+                          style={{
+                            fontFamily: T.sans,
+                            fontSize: '12px',
+                            fontWeight: 500,
+                            color: topN === n ? T.accentDark : T.textMuted,
+                            background: topN === n ? T.accentSoft : 'transparent',
+                            border: `0.5px solid ${topN === n ? 'rgba(79,163,165,0.35)' : T.border}`,
+                            borderRadius: '999px',
+                            padding: '3px 10px',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {n}
+                        </button>
+                      ))}
                     </div>
-                  ) : null}
-                </div>
-              </section>
-            ) : null}
-
-            <section style={sx.panel}>
-              <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
-                <span style={sx.sectionLabel}>Comparable episodes</span>
-                <span style={sx.sectionMeta}>Click any row to expand</span>
-              </div>
-              <div style={sx.panelBody}>
-                <div style={{ overflowX: 'auto' }}>
-                  <div style={{ minWidth: '610px' }}>
+                  </div>
+                  <div style={{ ...sx.panelBody, display: 'flex', flexDirection: 'column', gap: '14px' }}>
                     <div
                       style={{
-                        display: 'grid',
-                        gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px',
-                        padding: '10px 18px',
-                        borderBottom: `0.5px solid ${T.border}`,
-                        background: T.sectionBg,
+                        padding: '18px',
+                        borderRadius: '16px',
+                        border: `1px solid ${T.borderSub}`,
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.96), rgba(231,244,244,0.42))',
                       }}
                     >
-                      {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd'].map((h) => (
-                        <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
-                          {h}
-                        </span>
+                      <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.11em', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px', fontWeight: 700 }}>
+                        Current market state
+                      </div>
+                      <div style={{ fontFamily: T.sans, fontSize: '17px', fontWeight: 650, lineHeight: 1.28, color: ENV_COLOR[current?.environment] ?? T.navy, letterSpacing: '0.02em', textTransform: 'uppercase', marginBottom: '12px' }}>
+                        {current?.environment ?? 'Mixed / Neutral'}
+                      </div>
+                      <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textMuted, lineHeight: 1.5 }}>
+                        {data.conditions_matched}
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(90px, 1fr))', gap: '10px' }}>
+                      {[
+                        { label: 'Score', value: formatNumber(current?.score_total, 1), tone: T.navy },
+                        { label: 'Confidence', value: formatNumber(current?.confidence, 0), tone: T.navy },
+                        { label: 'Breadth', value: `${current?.sectors_green ?? '—'}/11`, tone: T.accentDark },
+                        { label: 'VIX', value: formatNumber(current?.vix_level, 1), tone: T.dn },
+                      ].map((item) => (
+                        <div key={item.label} style={{ ...sx.subPanel, padding: '12px 14px', minHeight: '72px' }}>
+                          <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: T.textMuted, marginBottom: '7px', fontWeight: 700 }}>
+                            {item.label}
+                          </div>
+                          <div style={{ fontFamily: T.mono, fontSize: '19px', fontWeight: 300, color: item.tone, letterSpacing: '-0.04em' }}>
+                            {item.value}
+                          </div>
+                        </div>
                       ))}
                     </div>
 
-                    {data.analogues?.map((a: Analogue) => (
-                      <AnalogueRow key={a.date} a={a} isExpanded={expanded === a.date} onToggle={() => toggle(a.date)} />
-                    ))}
+                    <div style={{ fontFamily: T.mono, fontSize: '11.5px', fontWeight: 300, color: T.textMuted }}>
+                      {current?.asof_utc?.slice(0, 10)} · score delta {current?.score_delta != null ? `${current.score_delta >= 0 ? '+' : ''}${formatNumber(current.score_delta, 1)}` : '—'}
+                    </div>
                   </div>
-                </div>
+                </section>
 
-                <div style={{ padding: '16px 6px 0' }}>
-                  <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, lineHeight: 1.5 }}>
-                    Analogues ranked by similarity to current conditions (environment + score range + VIX regime + breadth + score momentum).
-                  </span>
-                </div>
+                <section style={sx.panel}>
+                  <div style={{ ...sx.panelHeader, justifyContent: 'space-between' }}>
+                    <span style={sx.sectionLabel}>Comparable episodes</span>
+                    <span style={sx.sectionMeta}>Click any row to expand</span>
+                  </div>
+                  <div style={sx.panelBody}>
+                    <div style={{ overflowX: 'auto' }}>
+                      <div style={{ minWidth: '610px' }}>
+                        <div
+                          style={{
+                            display: 'grid',
+                            gridTemplateColumns: '90px 52px 130px 60px 72px 72px 72px',
+                            padding: '10px 18px',
+                            borderBottom: `0.5px solid ${T.border}`,
+                            background: T.sectionBg,
+                          }}
+                        >
+                          {['Date', 'Score', 'Environment', 'VIX', '1D fwd', '5D fwd', '21D fwd'].map((h) => (
+                            <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>
+                              {h}
+                            </span>
+                          ))}
+                        </div>
+
+                        {data.analogues?.map((a: Analogue) => (
+                          <AnalogueRow key={a.date} a={a} isExpanded={expanded === a.date} onToggle={() => toggle(a.date)} />
+                        ))}
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '16px 6px 0' }}>
+                      <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted, lineHeight: 1.5 }}>
+                        Analogues ranked by similarity to current conditions (environment + score range + VIX regime + breadth + score momentum).
+                      </span>
+                    </div>
+                  </div>
+                </section>
               </div>
-            </section>
+
+              <div style={{ minWidth: 0 }}>
+                {agg ? (
+                  <section style={sx.panel}>
+                    <div style={sx.panelHeader}>
+                      <span style={sx.sectionLabel}>Aggregate outlook</span>
+                      <span style={sx.sectionMeta}>{agg.n_analogues} comparable episodes</span>
+                    </div>
+                    <div style={{ ...sx.panelBody, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', gap: '12px' }}>
+                        {(['1d', '5d', '10d', '21d'] as const).map((h) => (
+                          <div key={h} style={sx.subPanel}>
+                            <FwdCard horizon={h} stats={agg.forward_returns[h]} />
+                          </div>
+                        ))}
+                      </div>
+
+                      {agg.risk_profile ? (
+                        <div style={sx.subPanel}>
+                          <div style={{ padding: '14px 18px', borderBottom: `1px solid ${T.borderSub}`, background: T.surfaceMuted }}>
+                            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '4px', fontWeight: 700 }}>
+                              21D risk profile
+                            </div>
+                            <div style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
+                              Risk and payoff distribution across comparable historical episodes.
+                            </div>
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px,1fr))' }}>
+                            {[
+                              { label: 'Median max DD', val: riskValue(agg.risk_profile, 'median_max_drawdown_21d', 'median_max_drawdown_5d'), color: T.dn, fmt: fmtRet },
+                              { label: 'Median max upside', val: riskValue(agg.risk_profile, 'median_max_upside_21d', 'median_max_upside_5d'), color: T.up, fmt: fmtRet },
+                              { label: 'Worst 21D', val: riskValue(agg.risk_profile, 'worst_drawdown_21d') ?? agg.forward_returns?.['21d']?.worst, color: T.dn, fmt: fmtRet },
+                              { label: 'EV (21d)', val: agg.risk_profile.expected_value_21d, color: (agg.risk_profile.expected_value_21d ?? 0) >= 0 ? T.up : T.dn, fmt: fmtRet },
+                              { label: 'Win rate', val: agg.risk_profile.win_rate_21d, color: T.mid, fmt: (v: number) => `${formatNumber(v, 1)}%` },
+                              { label: 'Wtd R/R', val: agg.risk_profile.weighted_reward_risk_21d ?? agg.risk_profile.reward_risk_ratio, color: T.mid, fmt: (v: number) => `${formatNumber(v, 2)}×` },
+                            ].map(({ label, val, color, fmt }) => (
+                              <div key={label} style={{ padding: '14px 18px', borderRight: `0.5px solid ${T.border}`, borderBottom: `0.5px solid ${T.border}` }}>
+                                <div style={{ fontFamily: T.sans, fontSize: '10.5px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
+                                  {label}
+                                </div>
+                                <div style={{ fontFamily: T.mono, fontSize: '18px', fontWeight: 300, color: color ?? T.text }}>
+                                  {val !== null && val !== undefined && fmt ? fmt(val) : '—'}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  </section>
+                ) : null}
+              </div>
+            </div>
           </>
         ) : null}
       </div>

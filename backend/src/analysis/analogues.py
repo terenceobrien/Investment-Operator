@@ -273,6 +273,14 @@ def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
         med_dd = abs(np.median(drawdowns))
         med_up = np.median(upsides)
 
+        risk["median_max_drawdown_5d"] = round(float(np.median(drawdowns)), 2)
+        risk["median_max_upside_5d"] = round(float(med_up), 2)
+        # Compatibility aliases for the frontend's aggregate 21D risk panel. The
+        # current research file stores max excursion columns over 5D, while 21D
+        # risk uses realized 21D return distribution below.
+        risk["median_max_drawdown_21d"] = risk["median_max_drawdown_5d"]
+        risk["median_max_upside_21d"] = risk["median_max_upside_5d"]
+
         # Raw reward/risk (unweighted, based on 5d max range)
         risk["reward_risk_ratio"] = round(float(med_up / med_dd), 2) if med_dd > 0 else None
 
@@ -293,6 +301,7 @@ def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
             ev = (win_rate * med_fwd_21d_up) + (loss_rate * med_fwd_21d_dn)
             risk["expected_value_21d"] = round(float(ev), 2)
             risk["win_rate_21d"] = round(win_rate * 100, 1)
+            risk["worst_drawdown_21d"] = round(float(min(fwd_21d_vals)), 2)
 
             # Probability-weighted reward/risk using 21d realized returns
             if loss_rate > 0 and med_fwd_21d_dn != 0:
