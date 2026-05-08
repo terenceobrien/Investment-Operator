@@ -361,6 +361,43 @@ async def get_historical_analogues(
     return result
 
 
+@app.get("/api/analogues/rolling-composite")
+@cache("market_state")
+async def get_rolling_composite_analogues(
+    asof_date: Optional[str] = Query(None),
+    lookback_days: int = Query(30, ge=1, le=252),
+    half_life: int = Query(30, ge=1, le=252),
+    top_n_per_lookup: int = Query(15, ge=1, le=50),
+    pool_top_n: int = Query(50, ge=1, le=200),
+    exclude_recent_days: int = Query(60, ge=0, le=365),
+    user: dict = Depends(verify_clerk_token),
+):
+    from src.analysis.rolling_composite import get_rolling_composite
+
+    try:
+        return await asyncio.to_thread(
+            get_rolling_composite,
+            asof_date=asof_date,
+            lookback_days=lookback_days,
+            half_life=half_life,
+            top_n_per_lookup=top_n_per_lookup,
+            pool_top_n=pool_top_n,
+            exclude_recent_days=exclude_recent_days,
+        )
+    except FileNotFoundError as exc:
+        logger.error("Rolling composite analogue data missing: %s", exc)
+        raise HTTPException(
+            status_code=503,
+            detail="Historical analogue research data is not available on this backend.",
+        )
+    except Exception as exc:
+        logger.error("Rolling composite analogue lookup failed: %s", exc, exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail="Rolling composite analogue lookup failed.",
+        )
+
+
 @app.get("/api/market/delta", response_model=DeltaOut)
 @cache("market_state")
 async def get_market_delta(

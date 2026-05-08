@@ -331,6 +331,7 @@ def get_historical_analogues(
     confidence: Optional[float] = None,
     top_n: int = 15,
     min_score_window: float = 15.0,
+    exclude_before: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Find the top_n most similar historical market states and return
@@ -345,6 +346,7 @@ def get_historical_analogues(
         confidence:       0-100 confidence reading
         top_n:            Number of analogues to return (default 15)
         min_score_window: Minimum score distance window (default ±15)
+        exclude_before:   Exclude candidate rows with date >= this ISO date
 
     Returns:
         {
@@ -366,7 +368,10 @@ def get_historical_analogues(
     }
 
     # ── Filter to same environment first ──
+    exclude_dt = pd.to_datetime(exclude_before) if exclude_before else None
     pool = df[df["environment"] == environment].copy()
+    if exclude_dt is not None:
+        pool = pool[pool["date"] < exclude_dt]
 
     # ── Score window filter ──
     pool = pool[
@@ -381,6 +386,8 @@ def get_historical_analogues(
             (df["score_total"] >= score_total - min_score_window) &
             (df["score_total"] <= score_total + min_score_window)
         ].copy()
+        if exclude_dt is not None:
+            pool = pool[pool["date"] < exclude_dt]
 
     pool = pool.copy()
     pool["_similarity"] = pool.apply(
