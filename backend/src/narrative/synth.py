@@ -949,23 +949,23 @@ def ticker_relevance_score(
         score += points
 
     if primary in item_tickers or re.search(rf"(?<![A-Z])\$?{re.escape(primary)}(?![A-Z])", text.upper()):
-        add(5.0, primary)
+        add(6.0, primary)
 
     name = str(profile.get("name") or "").strip()
     aliases = [name, *(profile.get("company_aliases") or [])]
     for alias in aliases:
         a = str(alias or "").strip()
         if len(a) >= 3 and a.lower() in text_l:
-            add(5.0, a)
+            add(6.0, a)
             break
 
     for peer in (profile.get("peers") or []):
         p = str(peer or "").upper().strip()
         if p and (p in item_tickers or re.search(rf"(?<![A-Z])\$?{re.escape(p)}(?![A-Z])", text.upper())):
-            add(3.0, p)
+            add(4.0, p)
             break
 
-    for term in [profile.get("sector"), profile.get("sector_etf"), *(profile.get("themes") or [])]:
+    for term in [profile.get("sector"), profile.get("industry"), profile.get("sector_etf"), *(profile.get("themes") or [])]:
         t = str(term or "").strip()
         if len(t) >= 3 and t.lower() in text_l:
             add(3.0, t)
@@ -974,19 +974,30 @@ def ticker_relevance_score(
     fundamental_words = [
         "earnings", "guidance", "revenue", "margin", "margins", "capex",
         "free cash flow", "fcf", "analyst", "upgrade", "downgrade",
-        "price target", "regulatory", "lawsuit", "antitrust",
+        "price target", "revision", "revisions", "regulatory", "lawsuit", "antitrust",
     ]
     if any(k in text_l for k in fundamental_words):
-        add(2.0, "fundamental/event evidence")
+        add(3.0, "fundamental/event evidence")
 
-    price_words = ["shares", "stock", "rally", "fell", "selloff", "sold", "bought", "relative", "outperform", "underperform"]
+    price_words = ["shares", "stock", "rally", "fell", "selloff", "sold", "bought", "reaction", "relative", "outperform", "underperform"]
     if any(k in text_l for k in price_words):
         add(2.0, "price reaction")
 
+    source_tier = str(item.get("source_tier") or item.get("tier") or "").upper()
+    channel = str(item.get("channel") or "").lower()
+    if source_tier in {"A", "B"} and channel in {"ticker_news", "earnings", "wire"} and matched:
+        add(2.0, "company-specific source")
+
     if ("microcap" in text_l or "micro-cap" in text_l or "small-cap calendar" in text_l) and primary not in item_tickers:
+        score -= 5.0
+    if str(item.get("market_relevance") or "").lower() == "low":
         score -= 4.0
-    if not matched and (item.get("channel") or "").lower() == "earnings":
+    if any(k in text_l for k in ("boilerplate", "paywall", "transcript notice")):
         score -= 4.0
+    if not matched and channel == "earnings":
+        score -= 5.0
+    if not matched:
+        score -= 3.0
 
     return round(score, 3), matched[:10]
 
@@ -1140,16 +1151,31 @@ def _dedupe_and_rank(
         watchlist_relevance = min(1.5, 0.4 * overlap)
         profile_relevance, _ = ticker_relevance_score(it, ticker_profile)
 
+        broad_market_penalty = 0.0
+        subject_type = str((ticker_profile or {}).get("subject_type") or "").lower()
+        if subject_type in {"", "market"}:
+            text_l = f"{it.get('title') or ''} {it.get('summary') or ''}".lower()
+            broad_terms = (
+                "s&p 500", "spx", "spy", "nasdaq", "qqq", "dow", "russell",
+                "fed", "treasury", "yields", "vix", "credit", "breadth",
+                "inflation", "cpi", "pce", "jobs", "payrolls", "rates",
+            )
+            if ch == "earnings" and overlap == 0 and not any(term in text_l for term in broad_terms):
+                broad_market_penalty = -3.0
+            if any(term in text_l for term in ("microcap", "micro-cap", "penny stock")):
+                broad_market_penalty -= 3.0
+
         content_quality = 0.35 if it.get("summary") else 0.0
         eventness = _event_keyword_score(it)
 
-        total = base + recency + novelty + watchlist_relevance + profile_relevance + content_quality + eventness
+        total = base + recency + novelty + watchlist_relevance + profile_relevance + broad_market_penalty + content_quality + eventness
         return total, {
             "base": base,
             "recency": recency,
             "novelty": novelty,
             "watchlist_relevance": watchlist_relevance,
             "ticker_profile_relevance": profile_relevance,
+            "broad_market_penalty": broad_market_penalty,
             "content_quality": content_quality,
             "eventness": eventness,
         }
@@ -1166,9 +1192,8 @@ def _dedupe_and_rank(
         profile_score, matched_profile_terms = ticker_relevance_score(it2, ticker_profile)
 
         # Apply relevance soft-penalty for borderline alternative/blog items
-        mrs: Optional[float] = None
+        mrs: Optional[float] = market_relevance_score(it2, content_tags)
         if role == "alternative_or_blog_interpretation":
-            mrs = market_relevance_score(it2, content_tags)
             if mrs < 0.5:
                 sc += mrs  # mrs is negative or near-zero — acts as penalty
 
@@ -1720,7 +1745,11 @@ def synthesize_narrative_state(
                 "price action across timeframes and relative to SPY, benchmark, sector ETF, "
                 "and peers. Inefficiency_map should identify ticker-specific expectation gaps, "
                 "crowded trades, narrative-fundamental divergence, event mispricing, momentum "
-                "persistence, or value/neglect setups if present."
+                "persistence, or value/neglect setups if present. Do not let unrelated "
+                "broad-market stories or obscure microcap/single-name earnings dominate. "
+                "For subject_type='market', prioritize index-level macro, policy, credit, "
+                "breadth, volatility, sector, and major index-driver evidence; deprioritize "
+                "obscure single-name earnings unless explicitly tied to a top theme."
             ),
             # ── Explicit answer-first fields (prompt v3) ──
             "executive_snapshot": (
@@ -1889,5 +1918,6 @@ def synthesize_narrative_state(
         # Full ledger contents — compact views used by the UI for Evidence Board
         # and Price & Timeframe Context rendering.
         "information_ledgers": information_ledgers,
+        "price_context": price_context,
     }
     return out

@@ -1,0 +1,102 @@
+ticker,company_name,index_memberships,sector,industry,exchange
+AAPL,Apple Inc.,Nasdaq-100,,,NASDAQ
+ABNB,Airbnb,Nasdaq-100,,,NASDAQ
+ADBE,Adobe Inc.,Nasdaq-100,,,NASDAQ
+ADI,Analog Devices,Nasdaq-100,,,NASDAQ
+ADP,Automatic Data Processing,Nasdaq-100,,,NASDAQ
+ADSK,Autodesk,Nasdaq-100,,,NASDAQ
+AEP,American Electric Power,Nasdaq-100,,,NASDAQ
+ALNY,Alnylam Pharmaceuticals,Nasdaq-100,,,NASDAQ
+AMAT,Applied Materials,Nasdaq-100,,,NASDAQ
+AMD,Advanced Micro Devices,Nasdaq-100,,,NASDAQ
+AMGN,Amgen,Nasdaq-100,,,NASDAQ
+AMZN,Amazon,Nasdaq-100,,,NASDAQ
+APP,AppLovin,Nasdaq-100,,,NASDAQ
+ARM,Arm Holdings,Nasdaq-100,,,NASDAQ
+ASML,ASML Holding,Nasdaq-100,,,NASDAQ
+AVGO,Broadcom,Nasdaq-100,,,NASDAQ
+AXON,Axon Enterprise,Nasdaq-100,,,NASDAQ
+BKNG,Booking Holdings,Nasdaq-100,,,NASDAQ
+BKR,Baker Hughes,Nasdaq-100,,,NASDAQ
+CCEP,Coca-Cola Europacific Partners,Nasdaq-100,,,NASDAQ
+CDNS,Cadence Design Systems,Nasdaq-100,,,NASDAQ
+CEG,Constellation Energy,Nasdaq-100,,,NASDAQ
+CHTR,Charter Communications,Nasdaq-100,,,NASDAQ
+CMCSA,Comcast,Nasdaq-100,,,NASDAQ
+COST,Costco,Nasdaq-100,,,NASDAQ
+CPRT,Copart,Nasdaq-100,,,NASDAQ
+CRWD,CrowdStrike,Nasdaq-100,,,NASDAQ
+CSCO,Cisco,Nasdaq-100,,,NASDAQ
+CSGP,CoStar Group,Nasdaq-100,,,NASDAQ
+CSX,CSX Corporation,Nasdaq-100,,,NASDAQ
+CTAS,Cintas,Nasdaq-100,,,NASDAQ
+CTSH,Cognizant,Nasdaq-100,,,NASDAQ
+DASH,DoorDash,Nasdaq-100,,,NASDAQ
+DDOG,Datadog,Nasdaq-100,,,NASDAQ
+DXCM,DexCom,Nasdaq-100,,,NASDAQ
+EA,Electronic Arts,Nasdaq-100,,,NASDAQ
+EXC,Exelon,Nasdaq-100,,,NASDAQ
+FANG,Diamondback Energy,Nasdaq-100,,,NASDAQ
+FAST,Fastenal,Nasdaq-100,,,NASDAQ
+FER,Ferrovial,Nasdaq-100,,,NASDAQ
+FTNT,Fortinet,Nasdaq-100,,,NASDAQ
+GEHC,GE HealthCare,Nasdaq-100,,,NASDAQ
+GILD,Gilead Sciences,Nasdaq-100,,,NASDAQ
+GOOG,Alphabet Inc. (Class C),Nasdaq-100,,,NASDAQ
+GOOGL,Alphabet Inc. (Class A),Nasdaq-100,,,NASDAQ
+HON,Honeywell,Nasdaq-100,,,NASDAQ
+IDXX,Idexx Laboratories,Nasdaq-100,,,NASDAQ
+INSM,Insmed Incorporated,Nasdaq-100,,,NASDAQ
+INTC,Intel,Nasdaq-100,,,NASDAQ
+INTU,Intuit,Nasdaq-100,,,NASDAQ
+ISRG,Intuitive Surgical,Nasdaq-100,,,NASDAQ
+KDP,Keurig Dr Pepper,Nasdaq-100,,,NASDAQ
+KHC,Kraft Heinz,Nasdaq-100,,,NASDAQ
+KLAC,KLA Corporation,Nasdaq-100,,,NASDAQ
+LIN,Linde plc,Nasdaq-100,,,NASDAQ
+LRCX,Lam Research,Nasdaq-100,,,NASDAQ
+MAR,Marriott International,Nasdaq-100,,,NASDAQ
+MCHP,Microchip Technology,Nasdaq-100,,,NASDAQ
+MDLZ,Mondelez International,Nasdaq-100,,,NASDAQ
+MELI,Mercado Libre,Nasdaq-100,,,NASDAQ
+META,Meta Platforms,Nasdaq-100,,,NASDAQ
+MNST,Monster Beverage,Nasdaq-100,,,NASDAQ
+MPWR,Monolithic Power Systems,Nasdaq-100,,,NASDAQ
+MRVL,Marvell Technology,Nasdaq-100,,,NASDAQ
+MSFT,Microsoft,Nasdaq-100,,,NASDAQ
+MSTR,MicroStrategy,Nasdaq-100,,,NASDAQ
+MU,Micron Technology,Nasdaq-100,,,NASDAQ
+NFLX,"Netflix, Inc.",Nasdaq-100,,,NASDAQ
+NVDA,Nvidia,Nasdaq-100,,,NASDAQ
+NXPI,NXP Semiconductors,Nasdaq-100,,,NASDAQ
+ODFL,Old Dominion Freight Line,Nasdaq-100,,,NASDAQ
+ORLY,O'Reilly Automotive,Nasdaq-100,,,NASDAQ
+PANW,Palo Alto Networks,Nasdaq-100,,,NASDAQ
+PAYX,Paychex,Nasdaq-100,,,NASDAQ
+PCAR,Paccar,Nasdaq-100,,,NASDAQ
+PDD,PDD Holdings,Nasdaq-100,,,NASDAQ
+PEP,PepsiCo,Nasdaq-100,,,NASDAQ
+PLTR,Palantir Technologies,Nasdaq-100,,,NASDAQ
+PYPL,PayPal,Nasdaq-100,,,NASDAQ
+QCOM,Qualcomm,Nasdaq-100,,,NASDAQ
+REGN,Regeneron Pharmaceuticals,Nasdaq-100,,,NASDAQ
+ROP,Roper Technologies,Nasdaq-100,,,NASDAQ
+ROST,Ross Stores,Nasdaq-100,,,NASDAQ
+SBUX,Starbucks,Nasdaq-100,,,NASDAQ
+SHOP,Shopify,Nasdaq-100,,,NASDAQ
+SNDK,Sandisk,Nasdaq-100,,,NASDAQ
+SNPS,Synopsys,Nasdaq-100,,,NASDAQ
+STX,Seagate Technology,Nasdaq-100,,,NASDAQ
+TMUS,T-Mobile US,Nasdaq-100,,,NASDAQ
+TRI,Thomson Reuters,Nasdaq-100,,,NASDAQ
+TSLA,"Tesla, Inc.",Nasdaq-100,,,NASDAQ
+TTWO,Take-Two Interactive,Nasdaq-100,,,NASDAQ
+TXN,Texas Instruments,Nasdaq-100,,,NASDAQ
+VRSK,Verisk Analytics,Nasdaq-100,,,NASDAQ
+VRTX,Vertex Pharmaceuticals,Nasdaq-100,,,NASDAQ
+WBD,Warner Bros. Discovery,Nasdaq-100,,,NASDAQ
+WDAY,"Workday, Inc.",Nasdaq-100,,,NASDAQ
+WDC,Western Digital,Nasdaq-100,,,NASDAQ
+WMT,Walmart,Nasdaq-100,,,NASDAQ
+XEL,Xcel Energy,Nasdaq-100,,,NASDAQ
+ZS,Zscaler,Nasdaq-100,,,NASDAQ

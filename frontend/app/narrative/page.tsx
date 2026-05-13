@@ -606,7 +606,7 @@ function AnalysisControls({
   const [draft, setDraft] = useState(ticker);
   useEffect(() => { setDraft(ticker); }, [ticker]);
   const commit = () => {
-    const next = draft.toUpperCase().trim();
+    const next = draft.toUpperCase().trim().replace(/\s+/g, '').replace('.', '-');
     if (next && next !== ticker) setTicker(next);
   };
   return (
@@ -1681,6 +1681,7 @@ export default function NarrativePage() {
   const subject = (latest?.subject ?? ((result?._meta as AnyRecord | undefined)?.subject)) as AnyRecord | undefined;
   const subjectTicker = safeStr(subject?.ticker, safeStr(latest?.ticker, ticker));
   const subjectName = safeStr(subject?.name);
+  const subjectSector = safeStr(subject?.sector);
   const modeBadge = latest?.is_mock
     ? 'Mock data'
     : latest?.narrative_mode === 'cache'
@@ -1702,7 +1703,7 @@ export default function NarrativePage() {
     if (isUnsupported) {
       return (
         <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.wa, fontWeight: 500 }}>
-          Reads enabled for SPY and the Magnificent 7.
+          Reads enabled for S&P 500 and Nasdaq-100 constituents.
         </span>
       );
     }
@@ -1729,12 +1730,12 @@ export default function NarrativePage() {
         : t.toLocaleString();
       return (
         <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
-          {subjectTicker}{subjectName ? ` · ${subjectName}` : ''} · Updated {stamp} · Cached
+          {subjectTicker}{subjectName ? ` · ${subjectName}` : ''}{subjectSector ? ` · ${subjectSector}` : ''} · Updated {stamp} · Cached
         </span>
       );
     }
     return null;
-  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker, subjectTicker, subjectName]);
+  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker, subjectTicker, subjectName, subjectSector]);
 
   if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
     return <AuthRequired isLoaded={authFetcher.isLoaded} />;
@@ -1777,7 +1778,7 @@ export default function NarrativePage() {
                 Coming soon
               </span>
               <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted, maxWidth: '480px', lineHeight: 1.5 }}>
-                {safeStr(latest?.message) || 'Ticker-specific Helix reads are currently enabled for SPY and the Magnificent 7. More ticker coverage is coming soon.'}
+                {safeStr(latest?.message) || 'Ticker-specific Helix reads are currently enabled for S&P 500 and Nasdaq-100 constituents.'}
               </span>
               <button
                 onClick={() => setTicker('SPY')}

@@ -496,14 +496,27 @@ def _profile_relationship_specs(subject_profile: Optional[Dict[str, Any]]) -> Li
             f"{primary} outperforming sector ETF",
             f"{primary} lagging sector ETF",
         ),
+        (
+            subject_profile.get("sector_etf"),
+            "sector ETF vs market",
+            f"{subject_profile.get('sector_etf')} outperforming SPY",
+            f"{subject_profile.get('sector_etf')} lagging SPY",
+            "SPY",
+        ),
     ]
     seen: set[str] = set()
-    for raw_bench, label, pos, neg in candidates:
+    for candidate in candidates:
+        raw_bench, label, pos, neg = candidate[:4]
         bench = str(raw_bench or "").upper().strip()
-        if not bench or bench == primary or bench in seen:
+        numerator = primary
+        denominator = bench
+        if len(candidate) > 4:
+            numerator = bench
+            denominator = str(candidate[4] or "").upper().strip()
+        if not bench or numerator == denominator or f"{numerator}:{denominator}" in seen:
             continue
-        seen.add(bench)
-        specs.append((f"{primary} minus {bench}", primary, bench, pos, neg))
+        seen.add(f"{numerator}:{denominator}")
+        specs.append((f"{numerator} minus {denominator}", numerator, denominator, pos, neg))
     return specs
 
 

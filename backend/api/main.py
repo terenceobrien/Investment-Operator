@@ -48,6 +48,7 @@ from src.narrative.config import (
     PROMPT_VERSION, SOURCE_CONFIG_VERSION,
 )
 from src.narrative.fixtures import load_narrative_fixture
+from src.narrative.memory import save_memory_record
 from src.narrative.orchestrator import run_narrative_for_ticker
 from src.narrative.runtime_config import (
     assert_live_mode,
@@ -730,7 +731,7 @@ async def get_latest_narrative(
     User-facing read endpoint for the Narrative page.
 
     Behavior per ticker:
-      - Supported subjects: SPY and the Magnificent 7 use the same
+      - Supported subjects: S&P 500 and Nasdaq-100 constituents use the same
         cache/mock/live flow.
       - Unsupported subjects: return status=unsupported and never generate.
     """
@@ -747,8 +748,7 @@ async def get_latest_narrative(
             "is_mock": False,
             "narrative_mode": mode,
             "message": (
-                f"Ticker-specific Helix reads are currently enabled for {supported_ticker_label()}. "
-                "More ticker coverage is coming soon."
+                f"Ticker-specific Helix reads are currently enabled for {supported_ticker_label()}."
             ),
         }
 
@@ -774,6 +774,7 @@ async def get_latest_narrative(
             if subject:
                 cached["subject"] = subject
                 cached["subject_type"] = subject.get("subject_type")
+            save_memory_record(cached)
             return _with_result_alias(cached, mode="cache", is_mock=False)
         return {
             "status": "cache_miss",
@@ -793,6 +794,7 @@ async def get_latest_narrative(
         if subject:
             cached["subject"] = subject
             cached["subject_type"] = subject.get("subject_type")
+        save_memory_record(cached)
         return _with_result_alias(cached, mode="live", is_mock=False)
 
     # 2. Cache miss — check in-flight generation
@@ -823,6 +825,7 @@ async def get_latest_narrative(
             if subject:
                 stale["subject"] = subject
                 stale["subject_type"] = subject.get("subject_type")
+            save_memory_record(stale)
             return _with_result_alias(stale, mode="live", is_mock=False)
         return {
             "status": "llm_blocked",
@@ -857,8 +860,10 @@ async def get_latest_narrative(
                 preprocessing_model=PREPROCESSING_MODEL,
                 prompt_version=PROMPT_VERSION,
                 source_config_version=SOURCE_CONFIG_VERSION,
+                narrative_mode="live",
             )
             save_narrative_cache(t, day, record)
+            save_memory_record(record)
             logger.info("Narrative cache populated for %s on %s", t, day)
         except asyncio.TimeoutError:
             error_str = f"timeout after {NARRATIVE_GENERATION_TIMEOUT_SEC}s"

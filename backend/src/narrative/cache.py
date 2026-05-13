@@ -126,6 +126,7 @@ def build_cache_record(
     prompt_version: str,
     source_config_version: str,
     input_snapshot_path: Optional[str] = None,
+    narrative_mode: str = "live",
 ) -> Dict[str, Any]:
     """
     Wrap a synthesis output into the canonical cache record shape.
@@ -149,6 +150,8 @@ def build_cache_record(
         "preprocessing_model": preprocessing_model,
         "prompt_version": prompt_version,
         "source_config_version": source_config_version,
+        "narrative_mode": narrative_mode,
+        "universe_memberships": subject_meta.get("universe_memberships") or [],
         "input_snapshot_path": input_snapshot_path,
         "output": result,
         "metadata": {

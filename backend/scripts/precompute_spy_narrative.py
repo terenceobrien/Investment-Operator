@@ -68,6 +68,7 @@ from src.narrative.config import (  # noqa: E402
     FINAL_SYNTHESIS_MODEL, PREPROCESSING_MODEL,
     PROMPT_VERSION, SOURCE_CONFIG_VERSION,
 )
+from src.narrative.memory import save_memory_record  # noqa: E402
 from src.narrative.orchestrator import run_narrative_for_ticker  # noqa: E402
 from src.narrative.ticker_profiles import (  # noqa: E402
     MAGNIFICENT_7,
@@ -120,6 +121,7 @@ def _precompute_one(ticker: str, today_str: str, force: bool) -> int:
         source_config_version=SOURCE_CONFIG_VERSION,
     )
     path = save_cache(ticker, today_str, record)
+    save_memory_record(record)
     logger.info("Saved cache → %s", path)
 
     md = record.get("metadata") or {}

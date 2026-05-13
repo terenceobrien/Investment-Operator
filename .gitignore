@@ -16,6 +16,8 @@ __pycache__/
 !backend/data/operator_research_v1.csv
 !backend/data/operator_research_v3.csv
 !backend/data/backtest_master_file.csv
+!backend/data/universe/
+!backend/data/universe/*.csv
 
 # VS Code settings (optional)
 .vscode/
