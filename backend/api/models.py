@@ -50,6 +50,7 @@ class PortfolioOut(BaseModel):
     top_positions: List[Dict[str, Any]]
     theme_exposure: List[Dict[str, Any]]
     flags: List[str]
+    regime_overlay: Optional[Dict[str, Any]] = None
 
 class NarrativeOut(BaseModel):
     status: str

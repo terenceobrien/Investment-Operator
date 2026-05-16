@@ -1,27 +1,255 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useAuth } from '@clerk/nextjs';
+import AuthRequired from '@/components/AuthRequired';
 import { SkeletonBlock } from '@/components/Skeleton';
 import { T, sx } from '@/lib/tokens';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? '';
+
+interface PortfolioSummary {
+  n_positions: number;
+  cash_weight: number;
+  top1_invested: number;
+  top3_invested: number;
+  top5_invested: number;
+}
+
+interface TopPosition {
+  ticker: string;
+  weight: number;
+  theme?: string;
+  w_norm: number;
+}
+
+interface ThemeExposure {
+  theme: string;
+  weight: number;
+}
+
+interface RegimeAlignment {
+  score: number;
+  aligned_weight: number;
+  misaligned_weight: number;
+  unknown_weight: number;
+  cash_like_weight: number;
+  main_mismatch: string;
+}
+
+interface ExposureMapItem {
+  name: string;
+  current_weight: number;
+  status: 'underweight' | 'neutral' | 'overweight';
+}
+
+interface PositionDiagnostic {
+  ticker: string;
+  weight: number;
+  regime_score: number;
+  action: string;
+  reason: string;
+  tags: string[];
+}
+
+interface SuggestedBucket {
+  name: string;
+  current_weight: number;
+  target_range: string;
+  examples: string[];
+  why_it_fits: string;
+  type: string;
+  status: 'underweight' | 'neutral' | 'overweight';
+}
+
+interface RegimeOverlay {
+  regime: {
+    label: string;
+    confidence: number;
+  };
+  alignment: RegimeAlignment;
+  exposure_map: ExposureMapItem[];
+  position_diagnostics: PositionDiagnostic[];
+  suggested_buckets: SuggestedBucket[];
+  falsifiers: string[];
+}
+
+interface PortfolioResult {
+  summary: PortfolioSummary;
+  top_positions: TopPosition[];
+  theme_exposure: ThemeExposure[];
+  flags: string[];
+  regime_overlay?: RegimeOverlay | null;
+}
+
+function pct(value: number | null | undefined, decimals = 1): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return '—';
+  return `${(value * 100).toFixed(decimals)}%`;
+}
+
+function scoreColor(score: number): string {
+  if (score >= 75) return T.up;
+  if (score >= 55) return T.accentDark;
+  if (score >= 35) return T.wa;
+  return T.dn;
+}
+
+function statusColor(status: ExposureMapItem['status']): string {
+  if (status === 'underweight') return T.wa;
+  if (status === 'overweight') return T.dn;
+  return T.up;
+}
+
+function RegimeOverlaySection({ overlay }: { overlay: RegimeOverlay }) {
+  return (
+    <>
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={sx.sectionHd}>
+          <span style={sx.sectionLabel}>Regime alignment</span>
+          <span style={sx.sectionMeta}>{overlay.regime.label}</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(260px, 1.1fr) repeat(auto-fit, minmax(150px, 1fr))' }}>
+          <div style={{ padding: '18px 24px', borderRight: `0.5px solid ${T.border}` }}>
+            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
+              Main mismatch
+            </div>
+            <div style={{ fontFamily: T.sans, fontSize: '14px', color: T.text, lineHeight: 1.55 }}>
+              {overlay.alignment.main_mismatch}
+            </div>
+          </div>
+          {[
+            { label: 'Alignment score', value: overlay.alignment.score.toFixed(1), color: scoreColor(overlay.alignment.score) },
+            { label: 'Confidence', value: pct(overlay.regime.confidence, 0), color: T.text },
+            { label: 'Aligned weight', value: pct(overlay.alignment.aligned_weight), color: T.up },
+            { label: 'Misaligned weight', value: pct(overlay.alignment.misaligned_weight), color: T.dn },
+            { label: 'Cash-like', value: pct(overlay.alignment.cash_like_weight), color: T.accentDark },
+          ].map((item) => (
+            <div key={item.label} style={{ padding: '18px 24px', borderRight: `0.5px solid ${T.border}` }}>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
+                {item.label}
+              </div>
+              <div style={{ fontFamily: T.mono, fontSize: '23px', fontWeight: 300, letterSpacing: '-0.5px', color: item.color }}>
+                {item.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={{ borderRight: `0.5px solid ${T.border}` }}>
+          <div style={sx.sectionHd}>
+            <span style={sx.sectionLabel}>Exposure map</span>
+          </div>
+          {overlay.exposure_map.map((item) => (
+            <div key={item.name} style={{ padding: '10px 24px', borderBottom: `0.5px solid ${T.borderSub}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub }}>{item.name}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: T.text }}>{pct(item.current_weight)}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ flex: 1, height: '2px', background: 'rgba(16,32,51,0.06)' }}>
+                  <div style={{ width: `${Math.min(item.current_weight * 100, 100)}%`, height: '100%', background: statusColor(item.status) }} />
+                </div>
+                <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: statusColor(item.status), minWidth: '86px', textAlign: 'right' }}>
+                  {item.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div>
+          <div style={sx.sectionHd}>
+            <span style={sx.sectionLabel}>Falsifiers</span>
+          </div>
+          {overlay.falsifiers.map((falsifier) => (
+            <div key={falsifier} style={{ padding: '11px 24px', borderBottom: `0.5px solid ${T.borderSub}` }}>
+              <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textSub, lineHeight: 1.5 }}>{falsifier}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={sx.sectionHd}>
+          <span style={sx.sectionLabel}>Position diagnostics</span>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <div style={{ minWidth: '760px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '90px 90px 120px 170px minmax(260px,1fr)', padding: '8px 24px', borderBottom: `0.5px solid ${T.borderSub}`, background: T.sectionBg }}>
+              {['Ticker', 'Weight', 'Regime score', 'Action', 'Reason'].map((h) => (
+                <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>{h}</span>
+              ))}
+            </div>
+            {overlay.position_diagnostics.map((pos) => (
+              <div key={pos.ticker} style={{ display: 'grid', gridTemplateColumns: '90px 90px 120px 170px minmax(260px,1fr)', padding: '10px 24px', borderBottom: `0.5px solid ${T.borderSub}`, alignItems: 'center' }}>
+                <span style={{ fontFamily: T.mono, fontSize: '13px', color: T.text }}>{pos.ticker}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: T.textMuted }}>{pct(pos.weight)}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '13px', color: scoreColor(pos.regime_score) }}>{pos.regime_score}</span>
+                <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: scoreColor(pos.regime_score), fontWeight: 600 }}>{pos.action}</span>
+                <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.45 }}>{pos.reason}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+        <div style={sx.sectionHd}>
+          <span style={sx.sectionLabel}>Suggested buckets</span>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <div style={{ minWidth: '860px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '190px 120px 120px 230px minmax(260px,1fr)', padding: '8px 24px', borderBottom: `0.5px solid ${T.borderSub}`, background: T.sectionBg }}>
+              {['Bucket', 'Current weight', 'Target range', 'Examples', 'Why it fits'].map((h) => (
+                <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>{h}</span>
+              ))}
+            </div>
+            {overlay.suggested_buckets.map((bucket) => (
+              <div key={bucket.name} style={{ display: 'grid', gridTemplateColumns: '190px 120px 120px 230px minmax(260px,1fr)', padding: '11px 24px', borderBottom: `0.5px solid ${T.borderSub}`, alignItems: 'start' }}>
+                <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.text, fontWeight: 600 }}>{bucket.name}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: statusColor(bucket.status) }}>{pct(bucket.current_weight)}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: T.text }}>{bucket.target_range}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>{bucket.examples.join(', ')}</span>
+                <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.45 }}>{bucket.why_it_fits}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function PortfolioPage() {
-  const [result,   setResult]   = useState<any>(null);
+  const [result,   setResult]   = useState<PortfolioResult | null>(null);
   const [loading,  setLoading]  = useState(false);
   const [error,    setError]    = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const { getToken, isLoaded, isSignedIn } = useAuth();
 
   const analyze = async (file: File) => {
+    if (!isLoaded || !isSignedIn) {
+      setError('Sign-in required');
+      return;
+    }
     setLoading(true);
     setError(null);
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('/api/portfolio/analyze', { method: 'POST', body: form });
+      const token = await getToken();
+      const res = await fetch(`${BACKEND_URL}/api/portfolio/analyze`, {
+        method: 'POST',
+        body: form,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
       if (!res.ok) throw new Error(`Error ${res.status}`);
       setResult(await res.json());
-    } catch (e: any) {
-      setError(e.message);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Portfolio analysis failed');
     } finally {
       setLoading(false);
     }
@@ -38,6 +266,10 @@ export default function PortfolioPage() {
     const file = e.dataTransfer.files?.[0];
     if (file) analyze(file);
   };
+
+  if (!isLoaded || !isSignedIn) {
+    return <AuthRequired isLoaded={isLoaded} />;
+  }
 
   return (
     <main style={sx.main}>
@@ -178,6 +410,10 @@ export default function PortfolioPage() {
             </div>
           )}
 
+          {result.regime_overlay ? (
+            <RegimeOverlaySection overlay={result.regime_overlay} />
+          ) : null}
+
           {/* Top positions + Theme exposure — side by side */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', borderBottom: `0.5px solid ${T.border}` }}>
 
@@ -205,7 +441,7 @@ export default function PortfolioPage() {
                 ))}
               </div>
 
-              {result.top_positions.map((pos: any) => (
+              {result.top_positions.map((pos) => (
                 <div key={pos.ticker} style={{
                   display: 'grid',
                   gridTemplateColumns: '80px minmax(0,1fr) 80px 100px',
@@ -234,7 +470,7 @@ export default function PortfolioPage() {
               <div style={sx.sectionHd}>
                 <span style={sx.sectionLabel}>Theme exposure</span>
               </div>
-              {result.theme_exposure.map((t: any, i: number) => (
+              {result.theme_exposure.map((t) => (
                 <div key={t.theme} style={{
                   padding: '9px 24px',
                   borderBottom: `0.5px solid ${T.borderSub}`,

@@ -34,6 +34,7 @@ from src.data.macro import fetch_regime_signals
 from src.data.market import fetch_market_moves
 from src.data.portfolio import load_portfolio_csv
 from src.brief.portfolio import compute_portfolio_snapshot, add_regime_aware_flags
+from src.portfolio.regime_overlay import analyze_portfolio_for_regime
 from src.brief.what_matters import generate_what_matters_today, heuristic_what_matters
 from src.narrative.bundle import build_narrative_bundle, top_n_by_channel
 from src.narrative.synth import synthesize_narrative_state, load_latest_narrative_snapshot, save_narrative_snapshot
@@ -563,6 +564,7 @@ async def analyze_portfolio(
         raise HTTPException(400, f"Could not parse CSV: {e}")
 
     snap = await asyncio.to_thread(compute_portfolio_snapshot, df)
+    overlay = await asyncio.to_thread(analyze_portfolio_for_regime, df)
 
     try:
         from src.data.macro import fetch_regime_signals as _frs
@@ -583,6 +585,7 @@ async def analyze_portfolio(
         top_positions=snap["top_positions"].to_dict(orient="records"),
         theme_exposure=snap["theme_exposure"].to_dict(orient="records"),
         flags=snap["flags"],
+        regime_overlay=overlay,
     )
 
 
