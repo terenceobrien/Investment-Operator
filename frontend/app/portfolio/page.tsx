@@ -40,7 +40,11 @@ interface RegimeAlignment {
 interface ExposureMapItem {
   name: string;
   current_weight: number;
-  status: 'underweight' | 'neutral' | 'overweight';
+  target_min?: number;
+  target_max?: number;
+  target_range?: string;
+  gap_to_min?: number;
+  status: 'underweight' | 'in_range' | 'neutral' | 'overweight';
 }
 
 interface PositionDiagnostic {
@@ -53,13 +57,39 @@ interface PositionDiagnostic {
 }
 
 interface SuggestedBucket {
+  bucket?: string;
   name: string;
   current_weight: number;
+  target_min?: number;
+  target_max?: number;
   target_range: string;
+  gap_to_min?: number;
   examples: string[];
   why_it_fits: string;
   type: string;
-  status: 'underweight' | 'neutral' | 'overweight';
+  status: 'underweight' | 'in_range' | 'neutral' | 'overweight';
+}
+
+interface KeyDriver {
+  name: string;
+  status: string;
+  explanation: string;
+}
+
+interface ContextPanel {
+  title: string;
+  regime_headline: string;
+  regime_summary: string;
+  risk_summary: string;
+  key_drivers: KeyDriver[];
+  portfolio_implications: string[];
+  best_positioned: string[];
+  most_vulnerable: string[];
+}
+
+interface DiagnosisSummary {
+  headline: string;
+  bullets: string[];
 }
 
 interface RegimeOverlay {
@@ -67,6 +97,8 @@ interface RegimeOverlay {
     label: string;
     confidence: number;
   };
+  context_panel?: ContextPanel;
+  diagnosis_summary?: DiagnosisSummary;
   alignment: RegimeAlignment;
   exposure_map: ExposureMapItem[];
   position_diagnostics: PositionDiagnostic[];
@@ -100,31 +132,134 @@ function statusColor(status: ExposureMapItem['status']): string {
   return T.up;
 }
 
+function statusLabel(status: ExposureMapItem['status']): string {
+  return status === 'in_range' ? 'in range' : status;
+}
+
 function RegimeOverlaySection({ overlay }: { overlay: RegimeOverlay }) {
+  const context = overlay.context_panel;
+  const diagnosis = overlay.diagnosis_summary;
   return (
     <>
+      {context ? (
+        <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
+          <div style={sx.sectionHd}>
+            <span style={sx.sectionLabel}>Macro context</span>
+            <span style={sx.sectionMeta}>{context.title}</span>
+          </div>
+          <div style={{ padding: '22px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '22px' }}>
+            <div>
+              <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
+                {overlay.regime.label}
+              </div>
+              <h2 style={{ margin: 0, fontFamily: T.sans, fontSize: '22px', lineHeight: 1.2, letterSpacing: '-0.03em', color: T.navy, fontWeight: 650 }}>
+                {context.regime_headline}
+              </h2>
+              <p style={{ margin: '12px 0 0', fontFamily: T.sans, fontSize: '14px', lineHeight: 1.6, color: T.textSub }}>
+                {context.regime_summary}
+              </p>
+              <div style={{ marginTop: '14px', padding: '13px 14px', border: `1px solid ${T.borderSub}`, background: T.surfaceMuted, borderRadius: '12px' }}>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '6px' }}>
+                  Risk summary
+                </div>
+                <div style={{ fontFamily: T.sans, fontSize: '13px', lineHeight: 1.55, color: T.text }}>
+                  {context.risk_summary}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: '12px' }}>
+              <div style={{ ...sx.subPanel, padding: '14px' }}>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+                  Confidence
+                </div>
+                <div style={{ fontFamily: T.mono, fontSize: '24px', color: T.navy, fontWeight: 300 }}>{pct(overlay.regime.confidence, 0)}</div>
+              </div>
+              <div style={{ ...sx.subPanel, padding: '14px' }}>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+                  Best positioned
+                </div>
+                <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.5 }}>
+                  {(context.best_positioned ?? []).join(' · ')}
+                </div>
+              </div>
+              <div style={{ ...sx.subPanel, padding: '14px' }}>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+                  Most vulnerable
+                </div>
+                <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.5 }}>
+                  {(context.most_vulnerable ?? []).join(' · ')}
+                </div>
+              </div>
+              <div style={{ ...sx.subPanel, padding: '14px' }}>
+                <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted, marginBottom: '8px' }}>
+                  Portfolio implication
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {(context.portfolio_implications ?? []).map((item) => (
+                    <div key={item} style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.45 }}>
+                      <span style={{ color: T.accentDark, fontWeight: 700 }}>• </span>{item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))', borderTop: `0.5px solid ${T.borderSub}` }}>
+            {(context.key_drivers ?? []).map((driver) => (
+              <div key={driver.name} style={{ padding: '14px 18px', borderRight: `0.5px solid ${T.borderSub}` }}>
+                <div style={{ fontFamily: T.sans, fontSize: '13px', color: T.text, fontWeight: 650, marginBottom: '4px' }}>{driver.name}</div>
+                <div style={{ fontFamily: T.sans, fontSize: '11px', color: T.accentDark, fontWeight: 650, marginBottom: '7px' }}>{driver.status}</div>
+                <div style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.5 }}>{driver.explanation}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       <div style={{ borderBottom: `0.5px solid ${T.border}` }}>
         <div style={sx.sectionHd}>
           <span style={sx.sectionLabel}>Regime alignment</span>
           <span style={sx.sectionMeta}>{overlay.regime.label}</span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(260px, 1.1fr) repeat(auto-fit, minmax(150px, 1fr))' }}>
-          <div style={{ padding: '18px 24px', borderRight: `0.5px solid ${T.border}` }}>
-            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
-              Main mismatch
+        <div style={{ padding: '18px 24px', borderBottom: `0.5px solid ${T.borderSub}` }}>
+          <div style={{ fontFamily: T.sans, fontSize: '16px', color: T.navy, fontWeight: 650, lineHeight: 1.35, marginBottom: '10px' }}>
+            {diagnosis?.headline ?? overlay.alignment.main_mismatch}
+          </div>
+          {diagnosis?.bullets?.length ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '8px 18px' }}>
+              {diagnosis.bullets.map((bullet) => (
+                <div key={bullet} style={{ fontFamily: T.sans, fontSize: '13px', color: T.textSub, lineHeight: 1.5 }}>
+                  <span style={{ color: T.accentDark, fontWeight: 700 }}>• </span>{bullet}
+                </div>
+              ))}
             </div>
-            <div style={{ fontFamily: T.sans, fontSize: '14px', color: T.text, lineHeight: 1.55 }}>
-              {overlay.alignment.main_mismatch}
+          ) : null}
+          <div style={{ marginTop: '12px', fontFamily: T.sans, fontSize: '13px', color: T.text, lineHeight: 1.5 }}>
+            <strong>Main mismatch:</strong> {overlay.alignment.main_mismatch}
+          </div>
+          {overlay.alignment.unknown_weight > 0 ? (
+            <div style={{ marginTop: '10px', padding: '8px 10px', border: `1px solid ${T.wa}40`, background: `${T.wa}08`, color: T.wa, fontFamily: T.sans, fontSize: '12px' }}>
+              Data quality warning: {pct(overlay.alignment.unknown_weight)} of the portfolio has no overlay metadata yet.
+            </div>
+          ) : null}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
+          <div style={{ padding: '16px 24px', borderRight: `0.5px solid ${T.border}` }}>
+            <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
+              Alignment score
+            </div>
+            <div style={{ fontFamily: T.mono, fontSize: '23px', fontWeight: 300, letterSpacing: '-0.5px', color: scoreColor(overlay.alignment.score) }}>
+              {overlay.alignment.score.toFixed(1)}
             </div>
           </div>
           {[
-            { label: 'Alignment score', value: overlay.alignment.score.toFixed(1), color: scoreColor(overlay.alignment.score) },
-            { label: 'Confidence', value: pct(overlay.regime.confidence, 0), color: T.text },
             { label: 'Aligned weight', value: pct(overlay.alignment.aligned_weight), color: T.up },
             { label: 'Misaligned weight', value: pct(overlay.alignment.misaligned_weight), color: T.dn },
             { label: 'Cash-like', value: pct(overlay.alignment.cash_like_weight), color: T.accentDark },
           ].map((item) => (
-            <div key={item.label} style={{ padding: '18px 24px', borderRight: `0.5px solid ${T.border}` }}>
+            <div key={item.label} style={{ padding: '16px 24px', borderRight: `0.5px solid ${T.border}` }}>
               <div style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1.2px', textTransform: 'uppercase', color: T.label, marginBottom: '8px' }}>
                 {item.label}
               </div>
@@ -145,14 +280,16 @@ function RegimeOverlaySection({ overlay }: { overlay: RegimeOverlay }) {
             <div key={item.name} style={{ padding: '10px 24px', borderBottom: `0.5px solid ${T.borderSub}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center', marginBottom: '6px' }}>
                 <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub }}>{item.name}</span>
-                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: T.text }}>{pct(item.current_weight)}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: T.text }}>
+                  {pct(item.current_weight)}{item.target_range ? ` / ${item.target_range}` : ''}
+                </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ flex: 1, height: '2px', background: 'rgba(16,32,51,0.06)' }}>
                   <div style={{ width: `${Math.min(item.current_weight * 100, 100)}%`, height: '100%', background: statusColor(item.status) }} />
                 </div>
                 <span style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '1px', textTransform: 'uppercase', color: statusColor(item.status), minWidth: '86px', textAlign: 'right' }}>
-                  {item.status}
+                  {statusLabel(item.status)}
                 </span>
               </div>
             </div>
@@ -201,16 +338,18 @@ function RegimeOverlaySection({ overlay }: { overlay: RegimeOverlay }) {
         </div>
         <div style={{ overflowX: 'auto' }}>
           <div style={{ minWidth: '860px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '190px 120px 120px 230px minmax(260px,1fr)', padding: '8px 24px', borderBottom: `0.5px solid ${T.borderSub}`, background: T.sectionBg }}>
-              {['Bucket', 'Current weight', 'Target range', 'Examples', 'Why it fits'].map((h) => (
+            <div style={{ display: 'grid', gridTemplateColumns: '180px 110px 110px 100px 100px 220px minmax(240px,1fr)', padding: '8px 24px', borderBottom: `0.5px solid ${T.borderSub}`, background: T.sectionBg }}>
+              {['Bucket', 'Current', 'Target', 'Gap to min', 'Status', 'Examples', 'Why it fits'].map((h) => (
                 <span key={h} style={{ fontFamily: T.sans, fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: T.textMuted }}>{h}</span>
               ))}
             </div>
             {overlay.suggested_buckets.map((bucket) => (
-              <div key={bucket.name} style={{ display: 'grid', gridTemplateColumns: '190px 120px 120px 230px minmax(260px,1fr)', padding: '11px 24px', borderBottom: `0.5px solid ${T.borderSub}`, alignItems: 'start' }}>
-                <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.text, fontWeight: 600 }}>{bucket.name}</span>
+              <div key={bucket.name} style={{ display: 'grid', gridTemplateColumns: '180px 110px 110px 100px 100px 220px minmax(240px,1fr)', padding: '11px 24px', borderBottom: `0.5px solid ${T.borderSub}`, alignItems: 'start' }}>
+                <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.text, fontWeight: 600 }}>{bucket.bucket ?? bucket.name}</span>
                 <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: statusColor(bucket.status) }}>{pct(bucket.current_weight)}</span>
                 <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: T.text }}>{bucket.target_range}</span>
+                <span style={{ fontFamily: T.mono, fontSize: '12.5px', color: (bucket.gap_to_min ?? 0) > 0 ? T.wa : T.textMuted }}>{pct(bucket.gap_to_min ?? 0)}</span>
+                <span style={{ fontFamily: T.sans, fontSize: '11px', color: statusColor(bucket.status), textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 650 }}>{statusLabel(bucket.status)}</span>
                 <span style={{ fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>{bucket.examples.join(', ')}</span>
                 <span style={{ fontFamily: T.sans, fontSize: '12.5px', color: T.textSub, lineHeight: 1.45 }}>{bucket.why_it_fits}</span>
               </div>
