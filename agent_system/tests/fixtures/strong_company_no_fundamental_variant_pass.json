@@ -1,0 +1,149 @@
+{
+  "candidate": {
+    "catalysts": [
+      {
+        "asymmetry": "Positive order/backlog evidence can force estimate revisions.",
+        "catalyst_type": "earnings",
+        "created_at": "2026-05-20T03:09:30.884066Z",
+        "earliest_date": null,
+        "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+        "id": null,
+        "is_ongoing": true,
+        "latest_date": null,
+        "schema_version": "0.1.0"
+      }
+    ],
+    "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+    "created_at": "2026-05-20T03:09:30.884068Z",
+    "fit_evidence": [
+      {
+        "channel": null,
+        "claim": "VST has identifiable AI power/grid exposure.",
+        "created_at": "2026-05-20T03:09:30.884060Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884059Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884060Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "VST mentioned as AI infrastructure beneficiary",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "fit_strength": 0.66,
+    "id": null,
+    "instrument_type": "single_stock",
+    "name": "Vistra",
+    "potential_variant_view": "Power scarcity is relevant, but merchant-power cyclicality makes the edge less clean.",
+    "priority_rank": 4,
+    "recommended_research_depth": "standard",
+    "schema_version": "0.1.0",
+    "thematic_fit": "VST is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+    "theme_tags": [
+      "grid",
+      "power",
+      "cyclical"
+    ],
+    "ticker": "VST",
+    "variant_evidence": [
+      {
+        "channel": null,
+        "claim": "VST variant view is underappreciated relative to consensus focus.",
+        "created_at": "2026-05-20T03:09:30.884063Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884062Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884063Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "VST grid/power optionality remains debated",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "variant_strength": "moderate"
+  },
+  "conviction": {
+    "created_at": "2026-05-20T03:09:30.884393Z",
+    "id": null,
+    "rating": "pass",
+    "reasoning": "Fundamental view agrees with consensus; without a differentiated estimate or expectation edge, there is no tradeable advantage.",
+    "rule_applied": "no_fundamental_variant_view_pass",
+    "schema_version": "0.1.0",
+    "weakest_link": "fundamental"
+  },
+  "fundamental": {
+    "bear_case_evidence": [
+      {
+        "channel": null,
+        "claim": "VST is exposed to cyclical industrial demand.",
+        "created_at": "2026-05-20T03:09:30.884355Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884355Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884356Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "VST macro sensitivity remains a risk",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "business_quality": {
+      "created_at": "2026-05-20T03:09:30.884347Z",
+      "cyclicality": "hybrid",
+      "id": null,
+      "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+      "moat_evidence": [],
+      "schema_version": "0.1.0",
+      "summary": "Vistra has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review."
+    },
+    "conviction": {
+      "created_at": "2026-05-20T03:09:30.884358Z",
+      "id": null,
+      "justification": "VST has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity.",
+      "rating": "moderate",
+      "schema_version": "0.1.0"
+    },
+    "created_at": "2026-05-20T03:09:30.884360Z",
+    "estimates_and_expectations": {
+      "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+      "created_at": "2026-05-20T03:09:30.884351Z",
+      "differ_evidence": [],
+      "differ_magnitude": null,
+      "id": null,
+      "revision_trend": "stable",
+      "schema_version": "0.1.0",
+      "where_we_differ": null
+    },
+    "financials": {
+      "accounting_red_flags": [],
+      "balance_sheet_quality": 6.5,
+      "cash_generation_quality": 6.2,
+      "created_at": "2026-05-20T03:09:30.884349Z",
+      "id": null,
+      "key_metrics": [],
+      "schema_version": "0.1.0"
+    },
+    "id": null,
+    "positioning": {
+      "created_at": "2026-05-20T03:09:30.884353Z",
+      "crowdedness_assessment": "crowded",
+      "id": null,
+      "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+      "options_skew_signal": null,
+      "schema_version": "0.1.0",
+      "short_interest": null
+    },
+    "schema_version": "0.1.0",
+    "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+    "thesis_statement": "VST can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+    "ticker": "VST",
+    "what_bear_case_misses": "The bear case underweights the duration of utility and data-center capex plans, which are tied to multi-year power constraints rather than one quarter of industrial activity."
+  }
+}

@@ -31,6 +31,7 @@ const featureLinks: MenuLink[] = [
 
 const resourceLinks: MenuLink[] = [
   { href: '/prediction-markets', label: 'Narrative Insights', description: 'Prediction-market context' },
+  { href: '/agent-system', label: 'Agent System Review', description: 'Internal execution spine audit' },
   { href: '/how-it-works', label: 'Methodology', description: 'How the framework is organized' },
   { href: '/how-it-works', label: 'Disclaimers', description: 'What Helix does and does not claim' },
 ];

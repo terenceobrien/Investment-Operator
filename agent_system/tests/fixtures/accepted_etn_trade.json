@@ -1,0 +1,492 @@
+{
+  "combined_conviction": {
+    "created_at": "2026-05-20T03:09:30.884199Z",
+    "id": null,
+    "rating": "strong",
+    "reasoning": "Strong thematic, fundamental, and narrative alignment with a differentiated expectations view.",
+    "rule_applied": "strong_multi_layer_alignment",
+    "schema_version": "0.1.0",
+    "weakest_link": "none"
+  },
+  "created_at": "2026-05-20T03:09:30.884233Z",
+  "expected_holding_period": "6 to 12 months",
+  "expression": {
+    "alternatives_considered": [
+      {
+        "created_at": "2026-05-20T03:09:30.884209Z",
+        "id": null,
+        "instrument": {
+          "created_at": "2026-05-20T03:09:30.884207Z",
+          "description": "",
+          "direction": "long",
+          "id": null,
+          "instrument_type": "etf",
+          "schema_version": "0.1.0",
+          "ticker": "IFRA"
+        },
+        "schema_version": "0.1.0",
+        "why_rejected": "ETF exposure is too diluted for the variant view."
+      }
+    ],
+    "created_at": "2026-05-20T03:09:30.884217Z",
+    "entry_logic": "Open a starter position post-close and add only if backlog commentary remains supportive.",
+    "exit_stop": "Reduce if price breaks below the 200-day trend with negative order commentary.",
+    "exit_target": "Exit when consensus estimate revisions catch up or valuation discounts the grid demand path.",
+    "exit_time_stop": "Review after two earnings cycles if no estimate revision occurs.",
+    "hedges": [
+      {
+        "created_at": "2026-05-20T03:09:30.884214Z",
+        "hedge_ratio": 0.25,
+        "hedge_type": "index_short",
+        "id": null,
+        "instrument": {
+          "created_at": "2026-05-20T03:09:30.884211Z",
+          "description": "",
+          "direction": "short",
+          "id": null,
+          "instrument_type": "etf",
+          "schema_version": "0.1.0",
+          "ticker": "SPY"
+        },
+        "rationale": "Small index hedge dampens broad late-cycle beta risk.",
+        "schema_version": "0.1.0"
+      }
+    ],
+    "id": null,
+    "primary_instrument": {
+      "created_at": "2026-05-20T03:09:30.884204Z",
+      "description": "Long ETN common equity",
+      "direction": "long",
+      "id": null,
+      "instrument_type": "single_stock",
+      "schema_version": "0.1.0",
+      "ticker": "ETN"
+    },
+    "rationale_for_instrument": "Direct equity exposure captures the company-specific estimate revision and narrative repricing path better than a broad ETF.",
+    "schema_version": "0.1.0"
+  },
+  "fundamental": {
+    "bear_case_evidence": [
+      {
+        "channel": null,
+        "claim": "ETN is exposed to cyclical industrial demand.",
+        "created_at": "2026-05-20T03:09:30.884140Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884140Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884141Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "ETN macro sensitivity remains a risk",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "business_quality": {
+      "created_at": "2026-05-20T03:09:30.884121Z",
+      "cyclicality": "hybrid",
+      "id": null,
+      "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+      "moat_evidence": [],
+      "schema_version": "0.1.0",
+      "summary": "Eaton has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review."
+    },
+    "conviction": {
+      "created_at": "2026-05-20T03:09:30.884145Z",
+      "id": null,
+      "justification": "ETN has enough evidence for a strong stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity.",
+      "rating": "strong",
+      "schema_version": "0.1.0"
+    },
+    "created_at": "2026-05-20T03:09:30.884149Z",
+    "estimates_and_expectations": {
+      "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+      "created_at": "2026-05-20T03:09:30.884128Z",
+      "differ_evidence": [
+        {
+          "channel": null,
+          "claim": "ETN backlog/earnings evidence supports differentiated estimates.",
+          "created_at": "2026-05-20T03:09:30.884112Z",
+          "id": null,
+          "notes": "",
+          "published_at": "2026-05-20T03:09:30.884111Z",
+          "publisher": "Helix Stub Research",
+          "retrieved_at": "2026-05-20T03:09:30.884113Z",
+          "schema_version": "0.1.0",
+          "source_type": "news",
+          "supports": true,
+          "title": "ETN order backlog points to durable electrification demand",
+          "url": "https://example.com/helix-stub"
+        }
+      ],
+      "differ_magnitude": "significant",
+      "id": null,
+      "revision_trend": "upward",
+      "schema_version": "0.1.0",
+      "where_we_differ": "We expect AI electrical infrastructure demand to sustain order growth and margins longer than consensus models currently imply."
+    },
+    "financials": {
+      "accounting_red_flags": [],
+      "balance_sheet_quality": 8.0,
+      "cash_generation_quality": 8.2,
+      "created_at": "2026-05-20T03:09:30.884124Z",
+      "id": null,
+      "key_metrics": [],
+      "schema_version": "0.1.0"
+    },
+    "id": null,
+    "positioning": {
+      "created_at": "2026-05-20T03:09:30.884133Z",
+      "crowdedness_assessment": "normal",
+      "id": null,
+      "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+      "options_skew_signal": null,
+      "schema_version": "0.1.0",
+      "short_interest": null
+    },
+    "schema_version": "0.1.0",
+    "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+    "thesis_statement": "ETN can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+    "ticker": "ETN",
+    "what_bear_case_misses": "The bear case underweights the duration of utility and data-center capex plans, which are tied to multi-year power constraints rather than one quarter of industrial activity."
+  },
+  "id": null,
+  "invalidation_price": null,
+  "invalidation_thesis": "The thesis is invalidated if AI infrastructure demand stops translating into orders/backlog or if the market fully prices the multi-year grid demand path before estimates revise.",
+  "narrative": {
+    "contradicting_signals": [],
+    "conviction": {
+      "created_at": "2026-05-20T03:09:30.884181Z",
+      "id": null,
+      "justification": "ETN has enough evidence for a strong stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity.",
+      "rating": "strong",
+      "schema_version": "0.1.0"
+    },
+    "created_at": "2026-05-20T03:09:30.884183Z",
+    "current_narrative": {
+      "created_at": "2026-05-20T03:09:30.884156Z",
+      "dominant_archetype": "narrative_fundamental_divergence",
+      "id": null,
+      "narrative_age": "established",
+      "narrative_strength": 6.8,
+      "schema_version": "0.1.0",
+      "secondary_archetype": null,
+      "summary": "ETN is viewed through the AI infrastructure lens, but the market differs on whether the edge is still early or already crowded."
+    },
+    "id": null,
+    "inefficiency_thesis": {
+      "archetype": "narrative_fundamental_divergence",
+      "created_at": "2026-05-20T03:09:30.884168Z",
+      "description": "The market narrative around ETN may be too focused on near-term cyclicality rather than the multi-year power infrastructure requirement behind AI demand.",
+      "evidence": [
+        {
+          "as_of": "2026-05-20T03:09:30.884159Z",
+          "claim": "ETN price action is consistent with selective infrastructure leadership.",
+          "created_at": "2026-05-20T03:09:30.884161Z",
+          "id": null,
+          "metric": "relative_strength_3m",
+          "notes": "",
+          "retrieved_at": "2026-05-20T03:09:30.884162Z",
+          "schema_version": "0.1.0",
+          "source_type": "price",
+          "supports": true,
+          "ticker": "ETN",
+          "timeframe": "daily",
+          "value": 7.5
+        }
+      ],
+      "expected_resolution_path": "Backlog, orders, and margin guidance should reveal whether demand is structural enough to force estimate revisions.",
+      "id": null,
+      "resolution_horizon": "quarters",
+      "schema_version": "0.1.0",
+      "why_it_persists": "The theme cuts across industrials, utilities, and technology, so benchmarked investors are slow to size it outside obvious AI names."
+    },
+    "narrative_could_be_wrong_if": [
+      "AI infrastructure orders prove to be pulled-forward rather than structural.",
+      "Management commentary shows backlog conversion slowing faster than expected."
+    ],
+    "schema_version": "0.1.0",
+    "source_narrative_state_asof": "2026-05-19",
+    "ticker": "ETN"
+  },
+  "next_review_trigger": "Next earnings report, material backlog update, or 30-day relative drawdown.",
+  "proposed_sizing": {
+    "base_size_pct": 0.04,
+    "created_at": "2026-05-20T03:09:30.884222Z",
+    "id": null,
+    "kelly_implied": 0.07,
+    "max_loss_estimate_pct": 0.018,
+    "schema_version": "0.1.0",
+    "sizing_logic": "4% NAV is large enough to matter for a strong thesis but small enough to respect late-cycle macro uncertainty."
+  },
+  "provenance": {
+    "created_at": "2026-05-20T03:09:30.884230Z",
+    "fundamental_analysis_id": null,
+    "id": null,
+    "narrative_analysis_id": null,
+    "regime_state_id": null,
+    "research_priority_id": null,
+    "schema_version": "0.1.0",
+    "thematic_map_id": null
+  },
+  "regime": {
+    "asof_date": "2026-05-19",
+    "best_positioned": [
+      "Energy / oil beta",
+      "Quality AI leaders",
+      "Infrastructure / grid"
+    ],
+    "composite": 43.0,
+    "composite_confidence": 78.0,
+    "created_at": "2026-05-20T03:09:30.883976Z",
+    "environment": "Late-cycle tightening with narrow AI leadership",
+    "environment_drivers": [
+      "Oil shock",
+      "Fed repricing",
+      "AI earnings resilience"
+    ],
+    "falsifiers": [
+      {
+        "check_frequency": "daily",
+        "condition": "Oil falls below $70 while inflation breakevens compress",
+        "created_at": "2026-05-20T03:09:30.883972Z",
+        "current_status": "not_triggered",
+        "id": null,
+        "last_checked_at": null,
+        "notes": "",
+        "observable_in": "data_series",
+        "schema_version": "0.1.0"
+      }
+    ],
+    "headline": "Oil-driven inflation pressure is tightening financial conditions while AI earnings leadership remains intact.",
+    "horizon": "default",
+    "id": null,
+    "key_drivers": [
+      {
+        "created_at": "2026-05-20T03:09:30.883967Z",
+        "explanation": "Elevated oil keeps inflation risk alive and raises input costs.",
+        "id": null,
+        "name": "Oil supply shock",
+        "schema_version": "0.1.0",
+        "status": "bearish for broad beta / bullish for energy"
+      },
+      {
+        "created_at": "2026-05-20T03:09:30.883969Z",
+        "explanation": "Capital spending tied to data-center demand remains durable.",
+        "id": null,
+        "name": "AI earnings resilience",
+        "schema_version": "0.1.0",
+        "status": "bullish for quality AI infrastructure"
+      }
+    ],
+    "layer_agreement": 0.72,
+    "layers": {
+      "breadth": {
+        "created_at": "2026-05-20T03:09:30.883951Z",
+        "data_quality": 0.85,
+        "id": null,
+        "inputs": {
+          "pct_above_200d": 42.0
+        },
+        "schema_version": "0.1.0",
+        "score": 3.8,
+        "signals": [
+          "Narrow leadership"
+        ],
+        "status": "bearish"
+      },
+      "created_at": "2026-05-20T03:09:30.883957Z",
+      "credit": {
+        "created_at": "2026-05-20T03:09:30.883946Z",
+        "data_quality": 0.8,
+        "id": null,
+        "inputs": {
+          "baa_spread_z": 0.4
+        },
+        "schema_version": "0.1.0",
+        "score": 4.4,
+        "signals": [
+          "Credit is contained but no longer easing"
+        ],
+        "status": "neutral"
+      },
+      "id": null,
+      "monetary": {
+        "created_at": "2026-05-20T03:09:30.883941Z",
+        "data_quality": 0.9,
+        "id": null,
+        "inputs": {
+          "net_liquidity_z": -0.8
+        },
+        "schema_version": "0.1.0",
+        "score": 3.4,
+        "signals": [
+          "Liquidity tightening"
+        ],
+        "status": "bearish"
+      },
+      "positioning": {
+        "created_at": "2026-05-20T03:09:30.883954Z",
+        "data_quality": 0.75,
+        "id": null,
+        "inputs": {
+          "cot_net_large_spec_z": 0.2
+        },
+        "schema_version": "0.1.0",
+        "score": 5.8,
+        "signals": [
+          "AI leadership still supported"
+        ],
+        "status": "neutral"
+      },
+      "schema_version": "0.1.0",
+      "volatility": {
+        "created_at": "2026-05-20T03:09:30.883949Z",
+        "data_quality": 0.9,
+        "id": null,
+        "inputs": {
+          "vix": 22.0
+        },
+        "schema_version": "0.1.0",
+        "score": 4.0,
+        "signals": [
+          "Volatility risk premium elevated"
+        ],
+        "status": "neutral"
+      }
+    },
+    "most_vulnerable": [
+      "Small caps",
+      "Long-duration bonds",
+      "Unprofitable growth"
+    ],
+    "portfolio_implications": [
+      "Favor quality AI infrastructure and short-duration optionality.",
+      "Be selective with broad beta and rate-sensitive cyclicals."
+    ],
+    "regime_call_confidence": 0.78,
+    "regime_id": "supply_shock_inflation",
+    "regime_label": "Supply-shock inflation / late-cycle tightening",
+    "research_priorities": [
+      {
+        "created_at": "2026-05-20T03:09:30.883883Z",
+        "edge_hypothesis": "Market attention is concentrated in semiconductors and mega-cap AI, while the duration and scale of electrical grid and power infrastructure demand may be underappreciated.",
+        "expected_edge_decay": "quarters",
+        "id": null,
+        "priority_rank": 1,
+        "rationale": "Supply-shock inflation and tighter policy make broad beta fragile, but AI infrastructure demand still supports select grid and power names.",
+        "schema_version": "0.1.0",
+        "sub_questions": [
+          "Which names have direct exposure to data-center power equipment demand?",
+          "Where is consensus still treating AI grid demand as cyclical rather than structural?"
+        ],
+        "supporting_evidence": [
+          {
+            "channel": null,
+            "claim": "Grid and power infrastructure demand can extend beyond the semiconductor cycle.",
+            "created_at": "2026-05-20T03:09:30.883780Z",
+            "id": null,
+            "notes": "",
+            "published_at": "2026-05-20T03:09:30.883632Z",
+            "publisher": "Helix Stub Research",
+            "retrieved_at": "2026-05-20T03:09:30.883783Z",
+            "schema_version": "0.1.0",
+            "source_type": "news",
+            "supports": true,
+            "title": "AI data-center power demand pulls forward grid investment",
+            "url": "https://example.com/helix-stub"
+          }
+        ],
+        "theme": "AI power/grid beneficiaries"
+      }
+    ],
+    "risk_summary": "The key risk is mistaking narrow leadership for a clean risk-on environment while rates and liquidity remain restrictive.",
+    "schema_version": "0.1.0",
+    "summary": "This is a fractured regime: broad beta is less attractive, but energy, infrastructure, defense, cash, and quality AI-linked beneficiaries can still work.",
+    "weights": {
+      "breadth": 0.2,
+      "created_at": "2026-05-20T03:09:30.883961Z",
+      "credit": 0.22,
+      "id": null,
+      "monetary": 0.2,
+      "positioning": 0.16,
+      "schema_version": "0.1.0",
+      "volatility": 0.22
+    }
+  },
+  "rejection_reason": null,
+  "rejection_rule_fired": null,
+  "rejection_stage": null,
+  "research_priority": {
+    "created_at": "2026-05-20T03:09:30.883883Z",
+    "edge_hypothesis": "Market attention is concentrated in semiconductors and mega-cap AI, while the duration and scale of electrical grid and power infrastructure demand may be underappreciated.",
+    "expected_edge_decay": "quarters",
+    "id": null,
+    "priority_rank": 1,
+    "rationale": "Supply-shock inflation and tighter policy make broad beta fragile, but AI infrastructure demand still supports select grid and power names.",
+    "schema_version": "0.1.0",
+    "sub_questions": [
+      "Which names have direct exposure to data-center power equipment demand?",
+      "Where is consensus still treating AI grid demand as cyclical rather than structural?"
+    ],
+    "supporting_evidence": [
+      {
+        "channel": null,
+        "claim": "Grid and power infrastructure demand can extend beyond the semiconductor cycle.",
+        "created_at": "2026-05-20T03:09:30.883780Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.883632Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.883783Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "AI data-center power demand pulls forward grid investment",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "theme": "AI power/grid beneficiaries"
+  },
+  "schema_version": "0.1.0",
+  "thesis_review_cadence": "weekly",
+  "trade_falsifiers": [
+    {
+      "check_frequency": "event_driven",
+      "condition": "ETN reports backlog contraction while management cuts full-year demand commentary.",
+      "created_at": "2026-05-20T03:09:30.884224Z",
+      "current_status": "not_triggered",
+      "id": null,
+      "last_checked_at": null,
+      "notes": "",
+      "observable_in": "earnings",
+      "schema_version": "0.1.0"
+    },
+    {
+      "check_frequency": "event_driven",
+      "condition": "AI data-center capex guidance from hyperscalers weakens for two consecutive earnings cycles.",
+      "created_at": "2026-05-20T03:09:30.884226Z",
+      "current_status": "not_triggered",
+      "id": null,
+      "last_checked_at": null,
+      "notes": "",
+      "observable_in": "earnings",
+      "schema_version": "0.1.0"
+    },
+    {
+      "check_frequency": "daily",
+      "condition": "ETN underperforms XLI by more than 12% over 30 trading days without a market-wide drawdown.",
+      "created_at": "2026-05-20T03:09:30.884228Z",
+      "current_status": "not_triggered",
+      "id": null,
+      "last_checked_at": null,
+      "notes": "",
+      "observable_in": "price_action",
+      "schema_version": "0.1.0"
+    }
+  ],
+  "underlying": "ETN"
+}

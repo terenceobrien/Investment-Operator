@@ -1,0 +1,222 @@
+{
+  "candidate": {
+    "catalysts": [
+      {
+        "asymmetry": "Positive order/backlog evidence can force estimate revisions.",
+        "catalyst_type": "earnings",
+        "created_at": "2026-05-20T03:09:30.884036Z",
+        "earliest_date": null,
+        "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+        "id": null,
+        "is_ongoing": true,
+        "latest_date": null,
+        "schema_version": "0.1.0"
+      }
+    ],
+    "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+    "created_at": "2026-05-20T03:09:30.884039Z",
+    "fit_evidence": [
+      {
+        "channel": null,
+        "claim": "NVDA has identifiable AI power/grid exposure.",
+        "created_at": "2026-05-20T03:09:30.884028Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884027Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884029Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "NVDA mentioned as AI infrastructure beneficiary",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "fit_strength": 0.66,
+    "id": null,
+    "instrument_type": "single_stock",
+    "name": "Nvidia",
+    "potential_variant_view": "The AI accelerator thesis is real but widely owned and fully debated.",
+    "priority_rank": 2,
+    "recommended_research_depth": "standard",
+    "schema_version": "0.1.0",
+    "thematic_fit": "NVDA is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+    "theme_tags": [
+      "quality_ai",
+      "semiconductors",
+      "crowded"
+    ],
+    "ticker": "NVDA",
+    "variant_evidence": [
+      {
+        "channel": null,
+        "claim": "NVDA variant view is underappreciated relative to consensus focus.",
+        "created_at": "2026-05-20T03:09:30.884032Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884032Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884033Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "NVDA grid/power optionality remains debated",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "variant_strength": "weak"
+  },
+  "conviction": {
+    "created_at": "2026-05-20T03:09:30.884341Z",
+    "id": null,
+    "rating": "weak",
+    "reasoning": "The narrative is mature and strong, while the candidate's variant view is not strong enough to overcome crowding risk.",
+    "rule_applied": "crowded_mature_narrative_weak",
+    "schema_version": "0.1.0",
+    "weakest_link": "narrative"
+  },
+  "fundamental": {
+    "bear_case_evidence": [
+      {
+        "channel": null,
+        "claim": "NVDA is exposed to cyclical industrial demand.",
+        "created_at": "2026-05-20T03:09:30.884313Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884312Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884313Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "NVDA macro sensitivity remains a risk",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "business_quality": {
+      "created_at": "2026-05-20T03:09:30.884304Z",
+      "cyclicality": "hybrid",
+      "id": null,
+      "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+      "moat_evidence": [],
+      "schema_version": "0.1.0",
+      "summary": "Nvidia has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review."
+    },
+    "conviction": {
+      "created_at": "2026-05-20T03:09:30.884316Z",
+      "id": null,
+      "justification": "NVDA has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity.",
+      "rating": "moderate",
+      "schema_version": "0.1.0"
+    },
+    "created_at": "2026-05-20T03:09:30.884318Z",
+    "estimates_and_expectations": {
+      "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+      "created_at": "2026-05-20T03:09:30.884308Z",
+      "differ_evidence": [
+        {
+          "channel": null,
+          "claim": "NVDA backlog/earnings evidence supports differentiated estimates.",
+          "created_at": "2026-05-20T03:09:30.884301Z",
+          "id": null,
+          "notes": "",
+          "published_at": "2026-05-20T03:09:30.884300Z",
+          "publisher": "Helix Stub Research",
+          "retrieved_at": "2026-05-20T03:09:30.884301Z",
+          "schema_version": "0.1.0",
+          "source_type": "news",
+          "supports": true,
+          "title": "NVDA order backlog points to durable electrification demand",
+          "url": "https://example.com/helix-stub"
+        }
+      ],
+      "differ_magnitude": "significant",
+      "id": null,
+      "revision_trend": "stable",
+      "schema_version": "0.1.0",
+      "where_we_differ": "We expect AI electrical infrastructure demand to sustain order growth and margins longer than consensus models currently imply."
+    },
+    "financials": {
+      "accounting_red_flags": [],
+      "balance_sheet_quality": 6.5,
+      "cash_generation_quality": 6.2,
+      "created_at": "2026-05-20T03:09:30.884306Z",
+      "id": null,
+      "key_metrics": [],
+      "schema_version": "0.1.0"
+    },
+    "id": null,
+    "positioning": {
+      "created_at": "2026-05-20T03:09:30.884311Z",
+      "crowdedness_assessment": "crowded",
+      "id": null,
+      "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+      "options_skew_signal": null,
+      "schema_version": "0.1.0",
+      "short_interest": null
+    },
+    "schema_version": "0.1.0",
+    "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+    "thesis_statement": "NVDA can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+    "ticker": "NVDA",
+    "what_bear_case_misses": "The bear case underweights the duration of utility and data-center capex plans, which are tied to multi-year power constraints rather than one quarter of industrial activity."
+  },
+  "narrative": {
+    "contradicting_signals": [],
+    "conviction": {
+      "created_at": "2026-05-20T03:09:30.884332Z",
+      "id": null,
+      "justification": "NVDA has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity.",
+      "rating": "moderate",
+      "schema_version": "0.1.0"
+    },
+    "created_at": "2026-05-20T03:09:30.884334Z",
+    "current_narrative": {
+      "created_at": "2026-05-20T03:09:30.884322Z",
+      "dominant_archetype": "narrative_fundamental_divergence",
+      "id": null,
+      "narrative_age": "mature",
+      "narrative_strength": 9.0,
+      "schema_version": "0.1.0",
+      "secondary_archetype": null,
+      "summary": "NVDA is viewed through the AI infrastructure lens, but the market differs on whether the edge is still early or already crowded."
+    },
+    "id": null,
+    "inefficiency_thesis": {
+      "archetype": "narrative_fundamental_divergence",
+      "created_at": "2026-05-20T03:09:30.884329Z",
+      "description": "The market narrative around NVDA may be too focused on near-term cyclicality rather than the multi-year power infrastructure requirement behind AI demand.",
+      "evidence": [
+        {
+          "as_of": "2026-05-20T03:09:30.884324Z",
+          "claim": "NVDA price action is consistent with selective infrastructure leadership.",
+          "created_at": "2026-05-20T03:09:30.884325Z",
+          "id": null,
+          "metric": "relative_strength_3m",
+          "notes": "",
+          "retrieved_at": "2026-05-20T03:09:30.884326Z",
+          "schema_version": "0.1.0",
+          "source_type": "price",
+          "supports": true,
+          "ticker": "NVDA",
+          "timeframe": "daily",
+          "value": 7.5
+        }
+      ],
+      "expected_resolution_path": "Backlog, orders, and margin guidance should reveal whether demand is structural enough to force estimate revisions.",
+      "id": null,
+      "resolution_horizon": "quarters",
+      "schema_version": "0.1.0",
+      "why_it_persists": "The theme cuts across industrials, utilities, and technology, so benchmarked investors are slow to size it outside obvious AI names."
+    },
+    "narrative_could_be_wrong_if": [
+      "AI infrastructure orders prove to be pulled-forward rather than structural.",
+      "Management commentary shows backlog conversion slowing faster than expected."
+    ],
+    "schema_version": "0.1.0",
+    "source_narrative_state_asof": "2026-05-19",
+    "ticker": "NVDA"
+  }
+}

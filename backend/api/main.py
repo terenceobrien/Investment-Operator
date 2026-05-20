@@ -23,6 +23,7 @@ from api.models import (
     MarketStateOut, DeltaOut, PortfolioOut, NarrativeOut
 )
 from api.strategy_router import strategy_router
+from api.agent_system_router import agent_system_router
 from screener.screener_router import router as screener_router
 
 from src.state.market_state import (
@@ -69,6 +70,7 @@ logger = logging.getLogger("api.main")
 
 app = FastAPI(title="Market Intelligence API", version="1.0.0")
 app.include_router(strategy_router)
+app.include_router(agent_system_router)
 app.include_router(screener_router)
 
 @app.on_event("startup")

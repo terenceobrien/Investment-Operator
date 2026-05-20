@@ -1,0 +1,78 @@
+{
+  "candidate": {
+    "catalysts": [
+      {
+        "asymmetry": "Positive order/backlog evidence can force estimate revisions.",
+        "catalyst_type": "earnings",
+        "created_at": "2026-05-20T03:09:30.884052Z",
+        "earliest_date": null,
+        "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+        "id": null,
+        "is_ongoing": true,
+        "latest_date": null,
+        "schema_version": "0.1.0"
+      }
+    ],
+    "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+    "created_at": "2026-05-20T03:09:30.884054Z",
+    "fit_evidence": [
+      {
+        "channel": null,
+        "claim": "SMH has identifiable AI power/grid exposure.",
+        "created_at": "2026-05-20T03:09:30.884045Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884044Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884046Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "SMH mentioned as AI infrastructure beneficiary",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "fit_strength": 0.66,
+    "id": null,
+    "instrument_type": "etf",
+    "name": "VanEck Semiconductor ETF",
+    "potential_variant_view": "",
+    "priority_rank": 3,
+    "recommended_research_depth": "standard",
+    "schema_version": "0.1.0",
+    "thematic_fit": "SMH is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+    "theme_tags": [
+      "semiconductors",
+      "quality_ai",
+      "crowded"
+    ],
+    "ticker": "SMH",
+    "variant_evidence": [
+      {
+        "channel": null,
+        "claim": "SMH variant view is underappreciated relative to consensus focus.",
+        "created_at": "2026-05-20T03:09:30.884049Z",
+        "id": null,
+        "notes": "",
+        "published_at": "2026-05-20T03:09:30.884048Z",
+        "publisher": "Helix Stub Research",
+        "retrieved_at": "2026-05-20T03:09:30.884049Z",
+        "schema_version": "0.1.0",
+        "source_type": "news",
+        "supports": true,
+        "title": "SMH grid/power optionality remains debated",
+        "url": "https://example.com/helix-stub"
+      }
+    ],
+    "variant_strength": "unclear"
+  },
+  "conviction": {
+    "created_at": "2026-05-20T03:09:30.884290Z",
+    "id": null,
+    "rating": "pass",
+    "reasoning": "Candidate has thematic fit but no clear variant view. A theme without an articulated edge is not enough to build a trade.",
+    "rule_applied": "no_variant_view_pass",
+    "schema_version": "0.1.0",
+    "weakest_link": "thematic"
+  }
+}
