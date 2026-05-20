@@ -1,7 +1,7 @@
 import { useAuth } from '@clerk/nextjs'
 import { useMemo } from 'react'
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? ''
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? process.env.NEXT_PUBLIC_API_URL ?? ''
 const DEBUG_AUTH = process.env.NEXT_PUBLIC_DEBUG_AUTH === 'true'
 
 type AuthFetcher = ((url: string) => Promise<any>) & {

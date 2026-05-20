@@ -78,6 +78,17 @@ const pct = (value?: number | null) => {
   return formatAccountingPct(value * 100, 1);
 };
 
+const describeApiError = (err: unknown) => {
+  const message = err instanceof Error ? err.message : String(err ?? '');
+  if (message.includes('401')) {
+    return 'Unauthorized. Clerk auth failed or the local dev bypass is disabled.';
+  }
+  if (message.includes('403')) {
+    return 'Agent-system dev endpoints are disabled. Set ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS=true locally.';
+  }
+  return message || 'Unable to load agent-system outputs.';
+};
+
 function StatusBadge({ accepted }: { accepted: boolean }) {
   return (
     <span
@@ -127,7 +138,7 @@ function EmptyState({ message }: { message: string }) {
           {message}
         </div>
         <div style={{ marginTop: '8px', fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>
-          Run <span style={{ color: T.navy }}>python -m agent_system.orchestration.run_research_cycle</span> locally, or enable the dev endpoint.
+          From <span style={{ color: T.navy }}>backend/</span>, run <span style={{ color: T.navy }}>python -m src.agent_system.orchestration.run_research_cycle</span>, or enable the dev endpoint.
         </div>
       </div>
     </section>
@@ -358,13 +369,14 @@ export default function AgentSystemPage() {
       await postFetcher('/api/agent-system/run-stub-cycle', {});
       await refreshAll();
     } catch (err) {
-      setRunError(err instanceof Error ? err.message : 'Unable to run stub cycle');
+      setRunError(describeApiError(err));
     } finally {
       setRunning(false);
     }
   };
 
   const hasData = summary.data?.has_data;
+  const loadError = summary.error ?? trades.error ?? decisions.error;
 
   return (
     <main style={sx.main}>
@@ -394,9 +406,11 @@ export default function AgentSystemPage() {
           </section>
         ) : null}
 
-        {summary.error || trades.error || decisions.error ? (
+        {loadError ? (
           <section style={sx.panel}>
-            <div style={{ ...sx.panelBody, color: T.dn, fontFamily: T.sans }}>Error loading agent-system outputs.</div>
+            <div style={{ ...sx.panelBody, color: T.dn, fontFamily: T.sans }}>
+              {describeApiError(loadError)}
+            </div>
           </section>
         ) : null}
 

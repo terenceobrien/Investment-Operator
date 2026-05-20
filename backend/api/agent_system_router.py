@@ -4,13 +4,15 @@ Internal/dev-facing endpoints for inspecting the agent-system execution spine.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 if str(ROOT_DIR) not in sys.path:
@@ -21,7 +23,9 @@ if str(BACKEND_DIR) not in sys.path:
 
 from api.auth import verify_clerk_token
 
+logger = logging.getLogger("api.agent_system")
 agent_system_router = APIRouter(prefix="/api/agent-system", tags=["agent-system"])
+agent_system_security = HTTPBearer(auto_error=False)
 
 
 def _storage_dir() -> Path:
@@ -133,8 +137,36 @@ def _dev_endpoint_enabled() -> bool:
     return os.getenv("ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS", "").lower() == "true"
 
 
+async def verify_agent_system_access(
+    credentials: Optional[HTTPAuthorizationCredentials] = Security(agent_system_security),
+) -> dict:
+    """
+    Router-local access control.
+
+    Agent-system review endpoints are inspectable without Clerk only when the
+    explicit dev switch is enabled. All other app routes keep their normal auth.
+    """
+
+    if _dev_endpoint_enabled():
+        return {"id": "local-dev-agent-system", "dev_endpoint_enabled": True}
+
+    if credentials is None:
+        logger.info(
+            "Agent-system endpoint blocked: dev endpoints disabled and no Clerk bearer token supplied"
+        )
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Agent-system dev endpoints are disabled. Set "
+                "ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS=true locally or provide valid Clerk auth."
+            ),
+        )
+
+    return await verify_clerk_token(credentials)
+
+
 @agent_system_router.get("/summary")
-async def get_agent_system_summary(user: dict = Depends(verify_clerk_token)):
+async def get_agent_system_summary(user: dict = Depends(verify_agent_system_access)):
     try:
         return _latest_cycle_summary()
     except Exception:
@@ -142,7 +174,7 @@ async def get_agent_system_summary(user: dict = Depends(verify_clerk_token)):
 
 
 @agent_system_router.get("/decisions")
-async def get_agent_system_decisions(user: dict = Depends(verify_clerk_token)):
+async def get_agent_system_decisions(user: dict = Depends(verify_agent_system_access)):
     try:
         return _decision_payloads()
     except Exception:
@@ -150,7 +182,7 @@ async def get_agent_system_decisions(user: dict = Depends(verify_clerk_token)):
 
 
 @agent_system_router.get("/trade-ideas")
-async def get_agent_system_trade_ideas(user: dict = Depends(verify_clerk_token)):
+async def get_agent_system_trade_ideas(user: dict = Depends(verify_agent_system_access)):
     try:
         return [_flatten_trade_idea(row) for row in _trade_idea_records()]
     except Exception:
@@ -160,7 +192,7 @@ async def get_agent_system_trade_ideas(user: dict = Depends(verify_clerk_token))
 @agent_system_router.get("/trade-ideas/{trade_idea_id}")
 async def get_agent_system_trade_idea(
     trade_idea_id: str,
-    user: dict = Depends(verify_clerk_token),
+    user: dict = Depends(verify_agent_system_access),
 ):
     try:
         for row in _trade_idea_records():
@@ -185,14 +217,14 @@ async def get_agent_system_trade_idea(
 
 
 @agent_system_router.post("/run-stub-cycle")
-async def post_agent_system_run_stub_cycle(user: dict = Depends(verify_clerk_token)):
+async def post_agent_system_run_stub_cycle(user: dict = Depends(verify_agent_system_access)):
     if not _dev_endpoint_enabled():
         raise HTTPException(
             status_code=403,
             detail="Agent-system dev endpoints are disabled. Set ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS=true to enable.",
         )
     try:
-        from agent_system.orchestration.run_research_cycle import run_stub_research_cycle
+        from src.agent_system.orchestration.run_research_cycle import run_stub_research_cycle
 
         summary = run_stub_research_cycle()
         summary["ran_at"] = datetime.now(timezone.utc).isoformat()
