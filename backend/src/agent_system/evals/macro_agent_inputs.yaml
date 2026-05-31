@@ -1,0 +1,192 @@
+# Test inputs for the macro agent evaluation harness.
+#
+# Each input is one prompt the user would type into the system. Inputs
+# are categorized by type so the harness can confirm coverage across
+# input types — see the categories in the contract failure modes (A-I).
+#
+# Inputs 1-5 are the user's own — things they'd actually type tomorrow
+# or topics where they have a strong personal view. These are the most
+# diagnostic because they reflect real usage patterns.
+#
+# Inputs 6-15 are drafted to systematically test specific contract rules:
+# vague sectors test narrowing (MA-1), vague feelings test the
+# clarification gate (MA-7), bullishly-framed inputs test pragmatic-bearish
+# bias (MA-6), forecast-laden inputs test topic extraction (MA-12), and
+# so on.
+#
+# When iterating the prompt, REPLACE inputs by edit-in-place rather than
+# adding new ones — keeping the test set stable across iterations is
+# what lets you compare scores across runs.
+
+inputs:
+  # ─── User's own (authentic, view-laden, exactly as user would type) ───
+
+  - id: "user_01_hormuz"
+    text: "Given the Hormuz closure that is now expected to last into the summer, give me some good investments that will benefit (can be oil-related or a second-order effect of the war)"
+    category: "user_authentic_directional"
+    expected_behavior_notes: |
+      Input is view-laden — "expected to last," "good investments that
+      will benefit." Agent should produce a regime-grounded priority
+      that examines what's already priced in vs. second-order
+      exposures that aren't, not a list of obvious Hormuz beneficiaries.
+      If the edge_hypothesis is "buy XLE/CVX" the agent has failed.
+
+  - id: "user_02_emerging_markets"
+    text: "Emerging markets with breakout potential"
+    category: "user_authentic_directional"
+    expected_behavior_notes: |
+      "Breakout potential" is bullish framing. Agent should reframe into
+      a regime-grounded EM topic — perhaps about dollar dynamics, real
+      yield differentials, or specific country exposures vs. consensus.
+      Should NOT produce a list of "EMs to buy."
+
+  - id: "user_03_ai_power"
+    text: "AI power producers that are set up to benefit significantly from this insatiable demand for compute"
+    category: "user_authentic_duplication_test"
+    expected_behavior_notes: |
+      This input maps almost exactly to the existing seed_research_priority
+      in current_regime.yaml ("AI power/grid beneficiaries"). Per Rule
+      MA-5, agent should NOT produce a duplicate priority. Expected
+      behavior: either a ClarificationRequest asking whether the user
+      wants a different angle, OR a priority that refines/sharpens the
+      existing one (e.g. focusing on a specific sub-segment). A
+      duplicate priority is a failure.
+
+  - id: "user_04_quantum"
+    text: "Quantum stocks that will blossom into the world's next computing frontier"
+    category: "user_authentic_speculative_framing"
+    expected_behavior_notes: |
+      This is the strongest test of the analyst model (Rule MA-12). The
+      framing is heavily directional. In the current regime (late-cycle
+      tightening, narrow leadership, real yields elevated), the honest
+      priority is examining whether quantum positioning has decoupled
+      from revenue. If the agent produces a "find quantum winners"
+      priority, it has adopted the user's view — failure of MA-12.
+
+  - id: "user_05_concentration"
+    text: "Concentration risk in the S&P"
+    category: "user_authentic_neutral_topic"
+    expected_behavior_notes: |
+      The cleanest topic-laden input of the user's five. Should produce
+      a sharp priority around mega-cap concentration, dispersion
+      mispricings, or hedge structures — grounded in the current
+      narrow-leadership regime call.
+
+  - id: "user_06_software"
+    text: "Software"
+    category: "sector_with_bearish_consensus"
+    expected_behavior_notes: |
+      Software is a sector where the regime stance (long-duration assets
+      vulnerable, unprofitable growth vulnerable) ALIGNS with market
+      consensus (AI-disruption thesis has compressed multiples since
+      2023). This is the canonical test of Rule MA-6's rewrite: agent
+      should NOT just reinforce the bearish direction. The honest priority
+      examines whether consensus has over-extrapolated the AI disruption
+      thesis, and where empirical retention/operating data diverges from
+      priced-in disruption. A "be cautious on software because regime
+      says long-duration is vulnerable" output is a MA-6 failure. The
+      target is a bullishly-contrarian-but-disciplined priority that
+      identifies selective dislocations within the broader compression.
+      
+  # ─── Drafted: vague sector mentions (test Rule MA-1 narrowing) ───
+
+  - id: "draft_06_industrials"
+    text: "industrials"
+    category: "vague_sector"
+    expected_behavior_notes: |
+      Single-word sector. Agent must narrow significantly. Could produce
+      a priority around late-cycle industrial demand vs. fiscal-supported
+      defense/infrastructure subsectors, depending on which way the
+      regime data points.
+
+  - id: "draft_07_small_caps"
+    text: "small caps"
+    category: "vague_sector"
+    expected_behavior_notes: |
+      Small caps are in "most_vulnerable" in the current regime. Agent
+      should produce a priority that's structurally honest about the
+      regime stance — either examining a contrarian small-cap angle
+      or articulating the bearish case if regime-aligned. Priority_rank
+      should reflect that this is regime-contrarian (rank 3+).
+
+  # ─── Drafted: vague directional feelings (test narrowing + MA-7) ───
+
+  - id: "draft_08_doesnt_feel_right"
+    text: "this market doesn't feel right"
+    category: "vague_directional"
+    expected_behavior_notes: |
+      Similar to Example 3 in the few-shot. Agent should narrow into
+      a specific fragility thesis grounded in the regime data — likely
+      breadth/leadership related given the current regime. Should NOT
+      return a clarification — this is narrowable.
+
+  - id: "draft_09_biggest_risk"
+    text: "where's the biggest risk I'm not paying attention to"
+    category: "vague_directional"
+    expected_behavior_notes: |
+      Narrowable — the regime has named risk factors (falsifiers,
+      most_vulnerable). Agent should pick the under-appreciated angle,
+      not the obvious one. Could examine credit, positioning extremes,
+      or a specific layer that's been deteriorating.
+
+  - id: "draft_10_what_should_i_do"
+    text: "what should I do"
+    category: "vague_clarification_eligible"
+    expected_behavior_notes: |
+      This input has no topic, no context, no direction. Agent SHOULD
+      return a ClarificationRequest. Suggested_options should be
+      meaningfully different (not just rewordings of "what do you want
+      to research").
+
+  # ─── Drafted: bullishly-framed (test Rule MA-6) ───
+
+  - id: "draft_11_dry_powder"
+    text: "where should I deploy fresh cash if I'm sitting on dry powder"
+    category: "bullish_frame"
+    expected_behavior_notes: |
+      Mirrors Example 4 in the few-shot. Agent should NOT produce a
+      "buy these names" priority. Expected: regime-grounded reframe
+      around cash deployment vs. preserving optionality, or a specific
+      sub-segment recommendation if regime-aligned.
+
+  - id: "draft_12_highest_conviction"
+    text: "what are the highest-conviction longs right now"
+    category: "bullish_frame"
+    expected_behavior_notes: |
+      Strongly bullishly framed. Agent should reframe into something
+      like "where is consensus most aligned and what is the contrarian
+      angle" — not produce a list of "buy these." Tests whether MA-6
+      holds under directional pressure.
+
+  # ─── Drafted: forecast-laden (test Rule MA-12) ───
+
+  - id: "draft_13_dovish_pivot"
+    text: "if the Fed pivots dovish in Q3, what positions itself best"
+    category: "forecast_laden"
+    expected_behavior_notes: |
+      Forecast-laden but legitimately framed as scenario analysis. Agent
+      should produce a priority around "what's currently priced for a
+      dovish pivot scenario and where consensus might be wrong" — NOT
+      a priority that assumes the pivot happens and helps find winners.
+      Tests MA-12 specifically.
+
+  - id: "draft_14_credit_stress"
+    text: "assuming credit stress accelerates from here, where's the cleanest short"
+    category: "forecast_laden"
+    expected_behavior_notes: |
+      Same as 13 but bearish framing. Agent should resist adopting the
+      "credit stress accelerates" premise and instead examine what's
+      currently priced in credit, where the marginal stress would show
+      up first, what positioning indicates. Symmetric MA-12 test.
+
+  # ─── Drafted: multi-asset framing ───
+
+  - id: "draft_15_cross_asset"
+    text: "what is the cross-asset tell right now"
+    category: "multi_asset"
+    expected_behavior_notes: |
+      Sophisticated framing — implies the user wants a priority grounded
+      in cross-asset relationships (yields, credit, FX, equities, vol).
+      Agent should produce something specific about an observable
+      divergence or convergence across asset classes, not a generic
+      "here's how to think about cross-asset."

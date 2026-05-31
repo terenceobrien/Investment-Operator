@@ -18,12 +18,15 @@ import pytest
 from pydantic import ValidationError
 
 from src.agent_system.schemas.common import (
+    DerivedEvidence,
     Falsifier,
     FalsifierFrequency,
     FalsifierObservable,
     FREDEvidence,
 )
+from src.agent_system.schemas.forward import ForwardContext, MarketEvent
 from src.agent_system.schemas.regime import (
+    ClarificationRequest,
     EdgeDecayHorizon,
     LayerWeights,
     RegimeDriver,
@@ -33,6 +36,15 @@ from src.agent_system.schemas.regime import (
     RegimeState,
     ResearchPriority,
 )
+
+
+def _derived_evidence() -> DerivedEvidence:
+    return DerivedEvidence(
+        claim="Test priority claim is traceable to regime context",
+        supports=True,
+        computation="test fixture derived from regime context",
+        upstream_claims=["regime state: test claim"],
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -188,6 +200,7 @@ class TestResearchPriority:
                 edge_hypothesis="oil up",  # < 30 chars — invalid
                 priority_rank=1,
                 expected_edge_decay=EdgeDecayHorizon.WEEKS,
+                supporting_evidence=[_derived_evidence()],
             )
 
     def test_priority_rank_bounds(self):
@@ -199,6 +212,34 @@ class TestResearchPriority:
                 edge_hypothesis="x" * 100,
                 priority_rank=6,
                 expected_edge_decay=EdgeDecayHorizon.DAYS,
+                supporting_evidence=[_derived_evidence()],
+            )
+
+    def test_supporting_evidence_required_when_empty(self):
+        with pytest.raises(ValidationError):
+            ResearchPriority(
+                theme="long-duration vulnerability",
+                rationale="yields rising hurts long-duration assets",
+                edge_hypothesis=(
+                    "Market continues to price policy easing despite regime "
+                    "evidence that rates may stay restrictive."
+                ),
+                priority_rank=2,
+                expected_edge_decay=EdgeDecayHorizon.MONTHS,
+                supporting_evidence=[],
+            )
+
+    def test_supporting_evidence_required_when_omitted(self):
+        with pytest.raises(ValidationError):
+            ResearchPriority(
+                theme="long-duration vulnerability",
+                rationale="yields rising hurts long-duration assets",
+                edge_hypothesis=(
+                    "Market continues to price policy easing despite regime "
+                    "evidence that rates may stay restrictive."
+                ),
+                priority_rank=2,
+                expected_edge_decay=EdgeDecayHorizon.MONTHS,
             )
 
     def test_supporting_evidence_allowed(self):
@@ -224,6 +265,90 @@ class TestResearchPriority:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# ClarificationRequest — stateless clarification path
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+class TestClarificationRequest:
+    def test_well_formed_construction(self):
+        req = ClarificationRequest(
+            question="Which AI infrastructure mispricing should the macro agent investigate?",
+            suggested_options=[
+                "Grid equipment backlog underappreciation",
+                "Power generator scarcity premium",
+            ],
+            reasoning=(
+                "The input mentions AI infrastructure broadly but does not specify "
+                "whether the mispricing thesis is equipment, power, or semiconductors."
+            ),
+            original_input="AI infrastructure",
+        )
+        assert req.original_input == "AI infrastructure"
+        assert len(req.suggested_options) == 2
+
+    def test_min_two_suggested_options_enforced(self):
+        with pytest.raises(ValidationError):
+            ClarificationRequest(
+                question="Which narrower mispricing should be investigated?",
+                suggested_options=["Grid equipment backlog underappreciation"],
+                reasoning="The input is ambiguous between multiple distinct research directions.",
+                original_input="AI infrastructure",
+            )
+
+    def test_max_four_suggested_options_enforced(self):
+        with pytest.raises(ValidationError):
+            ClarificationRequest(
+                question="Which narrower mispricing should be investigated?",
+                suggested_options=["A", "B", "C", "D", "E"],
+                reasoning="The input is ambiguous between multiple distinct research directions.",
+                original_input="AI infrastructure",
+            )
+
+    def test_question_minimum_length(self):
+        with pytest.raises(ValidationError):
+            ClarificationRequest(
+                question="Too short",
+                suggested_options=["Grid equipment backlog", "Power scarcity premium"],
+                reasoning="The input is ambiguous between multiple distinct research directions.",
+                original_input="AI infrastructure",
+            )
+
+    def test_reasoning_minimum_length(self):
+        with pytest.raises(ValidationError):
+            ClarificationRequest(
+                question="Which narrower mispricing should be investigated?",
+                suggested_options=["Grid equipment backlog", "Power scarcity premium"],
+                reasoning="Too short",
+                original_input="AI infrastructure",
+            )
+
+    def test_original_input_required(self):
+        with pytest.raises(ValidationError):
+            ClarificationRequest(
+                question="Which narrower mispricing should be investigated?",
+                suggested_options=["Grid equipment backlog", "Power scarcity premium"],
+                reasoning="The input is ambiguous between multiple distinct research directions.",
+                original_input="",
+            )
+
+    def test_frozen(self):
+        req = ClarificationRequest(
+            question="Which AI infrastructure mispricing should the macro agent investigate?",
+            suggested_options=[
+                "Grid equipment backlog underappreciation",
+                "Power generator scarcity premium",
+            ],
+            reasoning=(
+                "The input mentions AI infrastructure broadly but does not specify "
+                "which tradable mispricing thesis should be converted into a priority."
+            ),
+            original_input="AI infrastructure",
+        )
+        with pytest.raises(ValidationError):
+            req.question = "Can this be changed?"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # RegimeState — full construction
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -246,6 +371,7 @@ class TestRegimeState:
         assert state.regime_id == "mixed_neutral"
         assert state.research_priorities == []
         assert state.falsifiers == []
+        assert state.forward_context is None
 
     def test_full_regime_state(self, regime_layers, default_weights, research_priority):
         driver = RegimeDriver(
@@ -284,6 +410,58 @@ class TestRegimeState:
         assert state.regime_id == "supply_shock_inflation"
         assert len(state.research_priorities) == 1
         assert state.research_priorities[0].priority_rank == 1
+
+    def test_regime_state_accepts_valid_forward_context(
+        self, regime_layers, default_weights
+    ):
+        forward_context = ForwardContext(
+            upcoming_catalysts=[
+                MarketEvent(
+                    name="FOMC June Meeting",
+                    date="2026-06-17",
+                    category="fed",
+                    significance="high",
+                    notes="Market pricing remains focused on the hold/cut split.",
+                )
+            ],
+            as_of=datetime.now(timezone.utc),
+            data_quality_notes="Fed path unavailable in this minimal fixture.",
+        )
+        state = RegimeState(
+            asof_date="2026-05-19",
+            horizon=RegimeHorizon.DEFAULT,
+            layers=regime_layers,
+            weights=default_weights,
+            composite=50.0,
+            layer_agreement=0.6,
+            composite_confidence=70.0,
+            environment="Mixed / Neutral",
+            regime_id="mixed_neutral",
+            regime_label="Mixed / Neutral",
+            regime_call_confidence=0.5,
+            forward_context=forward_context,
+        )
+        assert state.forward_context is not None
+        assert state.forward_context.upcoming_catalysts[0].category == "fed"
+
+    def test_forward_context_none_does_not_break_validation(
+        self, regime_layers, default_weights
+    ):
+        state = RegimeState(
+            asof_date="2026-05-19",
+            horizon=RegimeHorizon.DEFAULT,
+            layers=regime_layers,
+            weights=default_weights,
+            composite=50.0,
+            layer_agreement=0.6,
+            composite_confidence=70.0,
+            environment="Mixed / Neutral",
+            regime_id="mixed_neutral",
+            regime_label="Mixed / Neutral",
+            regime_call_confidence=0.5,
+            forward_context=None,
+        )
+        assert state.forward_context is None
 
     def test_invalid_asof_date_format(self, regime_layers, default_weights):
         with pytest.raises(ValidationError):

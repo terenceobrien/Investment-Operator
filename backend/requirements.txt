@@ -3,9 +3,10 @@ uvicorn[standard]
 cachetools
 python-multipart
 pydantic
+ruamel.yaml>=0.18.6
 pandas
 numpy
-yfinance
+yfinance>=0.2.40
 fredapi
 finnhub-python
 openai

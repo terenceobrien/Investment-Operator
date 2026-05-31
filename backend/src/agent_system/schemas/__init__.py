@@ -38,7 +38,15 @@ from src.agent_system.schemas.common import (
     # Helpers
     archetype_from_taxonomy_id,
 )
+from src.agent_system.schemas.forward import (
+    FedPathReading,
+    ForwardContext,
+    InflationExpectations,
+    MarketEvent,
+    PredictionMarketReading,
+)
 from src.agent_system.schemas.regime import (
+    ClarificationRequest,
     EdgeDecayHorizon,
     LayerWeights,
     RegimeDriver,
@@ -69,6 +77,11 @@ from src.agent_system.schemas.fundamental import (
     KeyMetric,
     Positioning,
     ShortInterestSnapshot,
+)
+from src.agent_system.schemas.fundamental_screen import (
+    Archetype,
+    FundamentalScreen,
+    ScreenVerdict,
 )
 from src.agent_system.schemas.narrative import (
     CurrentNarrative,
@@ -102,6 +115,11 @@ from src.agent_system.schemas.portfolio import (
     ThesisPerformance,
     ThesisStatus,
 )
+from src.agent_system.schemas.portfolio_plan import (
+    PortfolioPlan,
+    PortfolioTradeDecision,
+    SizingAdjustment,
+)
 
 __all__ = [
     # common
@@ -128,6 +146,12 @@ __all__ = [
     "Score0to10",
     "Score0to100",
     "archetype_from_taxonomy_id",
+    # forward
+    "FedPathReading",
+    "ForwardContext",
+    "InflationExpectations",
+    "MarketEvent",
+    "PredictionMarketReading",
     # regime
     "EdgeDecayHorizon",
     "LayerWeights",
@@ -138,6 +162,7 @@ __all__ = [
     "RegimeLayerStatus",
     "RegimeState",
     "ResearchPriority",
+    "ClarificationRequest",
     # thematic
     "Candidate",
     "ExclusionRecord",
@@ -157,6 +182,10 @@ __all__ = [
     "KeyMetric",
     "Positioning",
     "ShortInterestSnapshot",
+    # fundamental screen
+    "Archetype",
+    "FundamentalScreen",
+    "ScreenVerdict",
     # narrative
     "CurrentNarrative",
     "InefficiencyThesis",
@@ -186,4 +215,8 @@ __all__ = [
     "Position",
     "ThesisPerformance",
     "ThesisStatus",
+    # portfolio plan
+    "PortfolioPlan",
+    "PortfolioTradeDecision",
+    "SizingAdjustment",
 ]

@@ -1,0 +1,28 @@
+# Upcoming macro events of significance.
+# Update cadence: monthly or when major events get scheduled/cancelled.
+# Last updated: 2026-05-19
+
+events:
+  - name: "FOMC June Meeting"
+    date: "2026-06-17"
+    category: "fed"
+    significance: "high"
+    notes: "First meeting after recent data; market pricing 70% hold."
+
+  - name: "May CPI Release"
+    date: "2026-06-11"
+    category: "data_release"
+    significance: "high"
+    notes: "Reacceleration risk after April uptick."
+
+  - name: "OPEC+ June Meeting"
+    date: "2026-06-04"
+    category: "geopolitical"
+    significance: "medium"
+    notes: "Hormuz disruption pricing implies further production decisions."
+
+  - name: "May PCE Release"
+    date: "2026-05-30"
+    category: "data_release"
+    significance: "high"
+    notes: "Fed's preferred inflation gauge."

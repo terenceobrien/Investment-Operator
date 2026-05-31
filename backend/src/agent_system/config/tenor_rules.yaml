@@ -1,0 +1,26 @@
+tenor_rules:
+  weeks:
+    catalyst_within_30d:
+      min_dte: 30
+      target_dte: 45
+      max_dte: 75
+    no_near_catalyst:
+      min_dte: 30
+      target_dte: 45
+      max_dte: 60
+  months:
+    catalyst_within_60d:
+      min_dte: 60
+      target_dte: 90
+      max_dte: 150
+    no_near_catalyst:
+      min_dte: 90
+      target_dte: 120
+      max_dte: 180
+  quarters:
+    any:
+      min_dte: 180
+      target_dte: 270
+      max_dte: 365
+
+catalyst_buffer_days: 14

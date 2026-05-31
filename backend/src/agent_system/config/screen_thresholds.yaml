@@ -1,0 +1,22 @@
+# Financial-health screen thresholds. Tune these as you observe results.
+# All values are starting points from Phase 2.3.1 design.
+
+distressed:
+  debt_to_ebitda_ceiling: 6.0       # above this (with positive EBITDA) = distressed
+  # negative stockholders' equity is always distressed (no threshold)
+  # negative OCF + cash < total_debt is always distressed (no threshold)
+
+growth:
+  min_revenue_growth: 0.20          # 20% - classify as growth if unprofitable + growing above this
+  max_debt_to_assets: 0.30          # growth should be lightly levered
+  min_cash_runway_quarters: 6.0     # cash / quarterly burn must exceed this
+  implausible_growth_ceiling: 1.00  # >100% YoY revenue growth is treated as artifact
+
+established:
+  max_debt_to_ebitda: 4.0           # leverage ceiling for profitable names
+  min_growth_if_unprofitable: 0.05  # 5% - thin/no profit OK if growing at least this
+
+crowding:
+  min_buy_ratio: 0.70               # >=70% buy ratings = "loved"
+  max_upside_to_target: 0.05        # <=5% upside to mean target = "already run"
+  # crowding_flag = (buy_ratio >= min_buy_ratio) AND (upside <= max_upside_to_target)

@@ -33,6 +33,7 @@ from src.agent_system.schemas.common import (
     Score0to100,
     UnitInterval,
 )
+from src.agent_system.schemas.forward import ForwardContext
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -246,7 +247,69 @@ class ResearchPriority(BaseSchema):
     )
     priority_rank: int = Field(ge=1, le=5)
     expected_edge_decay: EdgeDecayHorizon
-    supporting_evidence: List[Evidence] = Field(default_factory=list, max_length=20)
+    supporting_evidence: List[Evidence] = Field(
+        default_factory=list,
+        min_length=1,
+        max_length=20,
+        validate_default=True,
+        description=(
+            "Evidence trail for the priority's quantitative or factual claims. "
+            "Required to be non-empty — every priority must trace at least one "
+            "claim back to its source. In current implementation most entries "
+            "are DerivedEvidence pointing to the regime context (layer scores, "
+            "key drivers, forward context fields). Structural enforcement of "
+            "the discipline that every research output has provenance."
+        ),
+    )
+
+
+class ClarificationRequest(BaseSchema):
+    """
+    Returned by the macro agent when user input is too vague to produce
+    a sharp ResearchPriority.
+
+    The agent returns this INSTEAD OF a ResearchPriority — never both.
+    Downstream code uses isinstance() or pattern matching to dispatch.
+
+    The clarification UX is intentionally not conversational. Each priority
+    generation is fresh: the user picks a suggested option (or types a more
+    specific input), and the agent re-runs from scratch with the new input.
+    This keeps the agent stateless and makes outputs comparable across runs.
+
+    Design rule: if the agent could produce a priority with edge_hypothesis
+    at moderate confidence or above, it MUST produce a priority. Clarification
+    is reserved for cases where the input is genuinely ambiguous about
+    which mispricing thesis the user wants to investigate.
+    """
+
+    question: str = Field(
+        min_length=10,
+        max_length=500,
+        description="What the agent needs to know to produce a sharp priority.",
+    )
+    suggested_options: List[str] = Field(
+        min_length=2,
+        max_length=4,
+        description=(
+            "2-4 narrower framings the user could pick. Each option must be "
+            "specific enough that picking it would let the agent produce a "
+            "sharp priority on a re-run."
+        ),
+    )
+    reasoning: str = Field(
+        min_length=20,
+        max_length=1000,
+        description=(
+            "Why clarification is needed rather than a best-effort priority. "
+            "Forces the agent to articulate the specific ambiguity, preventing "
+            "lazy use of this path."
+        ),
+    )
+    original_input: str = Field(
+        min_length=1,
+        max_length=500,
+        description="Echo of the user's input, for audit and re-run context.",
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -325,6 +388,16 @@ class RegimeState(BaseSchema):
     # The new piece — research agenda
     research_priorities: List[ResearchPriority] = Field(
         default_factory=list, max_length=10
+    )
+    forward_context: Optional[ForwardContext] = Field(
+        default=None,
+        description=(
+            "Forward-looking macro context: market-implied Fed path, inflation "
+            "expectations, upcoming catalysts, prediction market signals. None "
+            "is valid and means forward data was unavailable when this regime "
+            "snapshot was built — graceful degradation, the algorithmic regime "
+            "layers remain valid without it."
+        ),
     )
 
     @field_validator("asof_date")

@@ -1,0 +1,46 @@
+# Calibration plausibility bounds. Values outside bounds are trimmed, not capped.
+
+debt_to_ebitda:
+  min: 0.0
+  max: 30.0
+  inclusion: "Include only when ebitda_ttm > 0 and total_debt >= 0."
+
+debt_to_assets:
+  min: 0.0
+  max: 1.5
+  inclusion: "Include only when total_assets > 0."
+
+fcf_margin:
+  min: -2.0
+  max: 1.0
+  inclusion: "free_cash_flow_ttm / revenue_ttm."
+
+operating_margin:
+  min: -2.0
+  max: 1.0
+  inclusion: "Use CompanyFacts.operating_margin."
+
+net_margin:
+  min: -2.0
+  max: 1.0
+  inclusion: "Use CompanyFacts.net_margin."
+
+gross_margin:
+  min: 0.0
+  max: 1.0
+  inclusion: "Use CompanyFacts.gross_margin."
+
+revenue_yoy_growth:
+  min: -0.9
+  max: 1.0
+  inclusion: "Drop growth artifacts above 100% or below -90%."
+
+revenue_3yr_cagr:
+  min: -0.5
+  max: 1.0
+  inclusion: "Drop implausible CAGR artifacts."
+
+cash_runway_quarters:
+  min: 0.0
+  max: 40.0
+  inclusion: "Include only when operating_cash_flow_ttm < 0."

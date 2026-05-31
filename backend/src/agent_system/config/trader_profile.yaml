@@ -1,0 +1,43 @@
+# Trader account and instrument profile.
+# Used by the trade expression agent to select feasible instruments
+# and respect personal constraints.
+
+instruments_allowed:
+  long_stock: true
+  short_stock: false
+  long_call: true
+  long_put: true
+  short_call: false
+  covered_call: true
+  cash_secured_put: true
+  long_call_spread: true
+  long_put_spread: true
+  iron_condor: false
+  pair_trade: true
+
+margin:
+  enabled: true
+  max_leverage: 2.0
+  use_for_sizing: false           # default unlevered; margin is headroom only
+
+constraints:
+  max_position_pct: 0.05          # 5% of UNLEVERED equity
+  max_options_pct: 0.20           # 20% of UNLEVERED equity in long options total
+  min_option_dte: 21              # gamma-risk floor
+  max_option_dte: 365              # tenor ceiling
+
+portfolio_constraints:
+  max_priority_pct: 0.15           # max % of unlevered NAV per priority
+  max_total_new_deployment_pct: 0.50  # cap on total new capital deployed per cycle
+  min_tradeable_size_pct: 0.005    # trades scaled below this become zero (too small)
+
+robustness:
+  demotion_quartile_threshold: 0.25  # bottom 25% by robustness get demoted
+  demotion_factor: 0.5             # demoted trades get this multiplier on size
+
+preferences:
+  prefer_options_for_strong_variants: true
+  prefer_stock_for_weak_variants: true
+  avoid_earnings_options: false   # we WANT earnings options when thesis is catalyst-driven
+
+account_type: "taxable"

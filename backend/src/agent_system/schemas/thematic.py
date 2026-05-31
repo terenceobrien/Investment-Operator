@@ -21,7 +21,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from src.agent_system.schemas.common import (
     BaseSchema,
@@ -104,6 +104,18 @@ class Candidate(BaseSchema):
     instrument_type: InstrumentType
     name: str = Field(default="", max_length=200, description="Display name.")
 
+    @field_validator("ticker", mode="before")
+    @classmethod
+    def _validate_ticker_format(cls, v: str) -> str:
+        if isinstance(v, str) and ("/" in v or any(ch.isspace() for ch in v)):
+            raise ValueError(
+                "ticker must be a single symbol (no '/' or whitespace). "
+                "For pair trades, use one leg's ticker (the long leg, "
+                "conventionally) and describe the pair in thematic_fit; "
+                "set instrument_type=PAIR. Got: " + repr(v)
+            )
+        return v
+
     # Fit to the source priority
     thematic_fit: str = Field(
         min_length=1,
@@ -132,7 +144,7 @@ class Candidate(BaseSchema):
 
     # Catalysts and depth recommendation
     catalysts: List[Catalyst] = Field(default_factory=list, max_length=10)
-    priority_rank: int = Field(ge=1, le=10)
+    priority_rank: int = Field(ge=1, le=15)
     recommended_research_depth: ResearchDepth
 
     # Pre-attached metadata from regime_overlay.TICKER_METADATA (optional)

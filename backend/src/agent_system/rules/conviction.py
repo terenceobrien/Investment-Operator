@@ -170,6 +170,19 @@ def evaluate_conviction(
             "The setup has multi-layer support, but one analytical layer is only moderate, so construction should stay modest.",
         )
 
+    if (
+        candidate.variant_strength == VariantStrength.MODERATE
+        and fundamental.conviction.rating.at_least(ConvictionRating.MODERATE)
+        and narrative.conviction.rating.at_least(ConvictionRating.MODERATE)
+    ):
+        return _conviction(
+            ConvictionRating.MODERATE,
+            "moderate_variant_with_layer_support",
+            _weakest_layer(fundamental, narrative),
+            "The variant view is moderate but both analytical layers provide "
+            "moderate support; the setup is tradeable at modest size.",
+        )
+
     return _conviction(
         ConvictionRating.WEAK,
         "insufficient_multi_layer_alignment_weak",

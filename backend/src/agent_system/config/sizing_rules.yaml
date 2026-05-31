@@ -1,0 +1,21 @@
+sizing_rules:
+  conviction_factors:
+    # Multiplier applied to trader_profile.constraints.max_position_pct
+    strong_clean: 1.00
+    strong_or_high_fit: 0.70
+    moderate_default: 0.40
+    weak_or_flagged: 0.20
+
+  # Max-loss estimate as a fraction of base_size_pct, by instrument type.
+  # For long stock with a 2x-ATR stop, max loss ~ stop distance pct of position.
+  # For long calls/puts, max loss = full premium (=base_size_pct).
+  # For spreads, max loss = net debit (typically ~50% of equivalent single-leg).
+  max_loss_estimates:
+    long_stock: 0.30
+    long_call: 1.00
+    long_put: 1.00
+    long_call_spread: 0.50
+    long_put_spread: 0.50
+    covered_call: 0.30
+    cash_secured_put: 0.30
+    pair_trade: 0.20

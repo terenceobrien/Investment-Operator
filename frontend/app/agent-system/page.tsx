@@ -1,441 +1,1024 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import AuthRequired from '@/components/AuthRequired';
-import { T, formatAccountingPct, formatRelativeAge, sx } from '@/lib/tokens';
+import {
+  Card,
+  Chip,
+  Collapsible,
+  EmptyState,
+  MutedLabel,
+  PAGE_SHELL,
+} from '@/components/helix/primitives';
+import { T, formatCurrency } from '@/lib/tokens';
 import { useAuthFetcher, useAuthPostFetcher } from '@/lib/api';
 
-type AgentSystemSummary = {
-  has_data: boolean;
-  latest_cycle_id?: string;
-  last_run_at?: string;
-  accepted?: number;
-  rejected?: number;
-  candidates_considered?: number;
-  accepted_underlyings?: string[];
-  rejected_underlyings?: string[];
-  storage_path?: string;
+type StageStatus = 'pending' | 'running' | 'complete' | 'failed' | 'skipped';
+
+type StageState = {
+  stage: string;
+  status: StageStatus;
+  started_at?: string | null;
+  completed_at?: string | null;
   message?: string;
-  dev_endpoint_enabled?: boolean;
+  progress_current?: number | null;
+  progress_total?: number | null;
+  error?: string | null;
 };
 
-type PortfolioConstraintSummary = {
-  allowed: boolean;
-  hard_block: boolean;
-  reasoning: string;
-};
-
-type DecisionLogEntry = {
-  timestamp: string;
+type CycleStatus = {
   cycle_id: string;
-  candidate: string;
-  decision: 'accepted' | 'rejected' | string;
-  conviction_rating: string;
-  rule_applied: string;
-  weakest_link: string;
-  summary: string;
-  trade_idea_id?: string;
-  portfolio_constraint?: PortfolioConstraintSummary;
-  review_notes?: string;
+  started_at: string;
+  updated_at: string;
+  completed_at?: string | null;
+  overall_status: StageStatus;
+  stages: StageState[];
+  summary_counters?: Record<string, unknown>;
+  fatal_error?: string | null;
+  user_inputs_preview?: string[];
 };
 
-type TradeIdeaListItem = {
-  id: string;
-  created_at: string;
-  underlying: string;
-  conviction_rating: string;
-  rule_applied: string;
-  weakest_link: string;
-  is_accepted: boolean;
-  rejection_reason?: string | null;
-  rejection_stage?: string | null;
-  expected_holding_period?: string | null;
-  primary_instrument?: string | null;
-  direction?: string | null;
+type RecentCycle = {
+  cycle_id: string;
+  started_at: string;
+  completed_at?: string | null;
+  overall_status: StageStatus;
+  user_inputs_preview?: string[];
+};
+
+type CycleResults = {
+  cycle_id: string;
+  records_by_type: Record<string, SchemaRecord[]>;
+  decision_log_entries?: Record<string, unknown>[];
+};
+
+type SchemaRecord = {
+  id?: string;
+  schema_type?: string;
+  created_at?: string;
+  payload_json?: unknown;
+};
+
+type SubmitCycleResponse = {
+  cycle_id: string;
+};
+
+type ResearchPriorityPayload = {
+  theme?: string;
+  rationale?: string;
+  edge_hypothesis?: string;
+  sub_questions?: string[];
+  priority_rank?: number;
+  expected_edge_decay?: string;
+};
+
+type ConvictionPayload = {
+  rating?: string;
+  rule_applied?: string;
+};
+
+type InstrumentPayload = {
+  ticker?: string;
+  description?: string | null;
+};
+
+type ExpressionPayload = {
+  primary_instrument?: InstrumentPayload | null;
+  entry_logic?: string | null;
+  exit_stop?: string | null;
+  exit_target?: string | null;
+  exit_time_stop?: string | null;
+};
+
+type ProposedSizingPayload = {
   base_size_pct?: number | null;
-  max_loss_estimate_pct?: number | null;
-  thesis?: string | null;
+};
+
+type FalsifierPayload = {
+  condition?: string | null;
+  description?: string | null;
+};
+
+type TradeIdeaPayload = {
+  id?: string | null;
+  underlying?: string | null;
+  expression?: ExpressionPayload | null;
+  proposed_sizing?: ProposedSizingPayload | null;
+  combined_conviction?: ConvictionPayload | null;
+  research_priority?: ResearchPriorityPayload | null;
+  rejection_stage?: string | null;
+  rejection_rule_fired?: string | null;
+  rejection_reason?: string | null;
   invalidation_thesis?: string | null;
-  falsifiers_count?: number;
+  trade_falsifiers?: FalsifierPayload[];
 };
 
-type TradeIdeaDetail = {
-  trade_idea: Record<string, unknown>;
-  decision_log_entry?: DecisionLogEntry | null;
+type SizingAdjustmentPayload = {
+  step?: string;
+  size_before?: number;
+  size_after?: number;
+  rationale?: string;
 };
 
-const cap = (value?: string | null) => {
+type PortfolioTradeDecisionPayload = {
+  trade_id?: string;
+  underlying?: string;
+  priority_theme?: string | null;
+  proposed_size_pct?: number;
+  robustness_score?: number | null;
+  robustness_quartile?: number | null;
+  final_size_pct?: number;
+  sizing_adjustments?: SizingAdjustmentPayload[];
+  decision?: string;
+  rationale_summary?: string;
+};
+
+type PortfolioPlanPayload = {
+  id?: string | null;
+  cycle_id?: string;
+  nav_unlevered_usd?: number;
+  cash_usd?: number;
+  trade_decisions?: PortfolioTradeDecisionPayload[];
+  total_new_deployment_pct?: number;
+  total_new_deployment_usd?: number;
+  per_priority_deployment_pct?: Record<string, number>;
+  binding_constraints?: string[];
+};
+
+const C = {
+  bg: T.bg,
+  panel: T.surface,
+  panel2: T.surfaceMuted,
+  panel3: T.surfaceMuted,
+  border: T.borderSub,
+  border2: T.border,
+  text: T.text,
+  sub: T.textSub,
+  muted: T.textMuted,
+  accent: T.accentDark,
+  accentSoft: T.accentSoft,
+  up: T.up,
+  dn: T.dn,
+  wa: T.wa,
+};
+
+const stageLabels: Record<string, string> = {
+  macro_agent: 'Macro agent',
+  thematic_agent: 'Thematic agent',
+  fundamental_screen: 'Fundamental screen',
+  conviction_gate: 'Conviction gate',
+  trade_expression: 'Trade expression',
+  scenario_scoring: 'Scenario scoring',
+  portfolio_construction: 'Portfolio construction',
+};
+
+const statusColor: Record<StageStatus, string> = {
+  pending: C.muted,
+  running: C.accent,
+  complete: C.up,
+  failed: C.dn,
+  skipped: C.muted,
+};
+
+const shell: React.CSSProperties = {
+  minHeight: '100vh',
+  background: C.bg,
+  color: C.text,
+  fontFamily: T.sans,
+};
+
+const page: React.CSSProperties = {
+  ...PAGE_SHELL,
+  width: 'min(1320px, calc(100% - 48px))',
+  gap: '20px',
+};
+
+const label: React.CSSProperties = {
+  fontFamily: T.sans,
+  fontSize: '10px',
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase',
+  color: C.muted,
+  fontWeight: 600,
+};
+
+const mono: React.CSSProperties = {
+  fontFamily: T.mono,
+  fontSize: '12px',
+  color: C.sub,
+};
+
+const panel: React.CSSProperties = {
+  background: C.panel,
+  border: `1px solid ${C.border}`,
+  borderRadius: '14px',
+  overflow: 'hidden',
+  boxShadow: '0 8px 22px rgba(11,31,51,0.04)',
+};
+
+const button: React.CSSProperties = {
+  border: `1px solid ${C.border2}`,
+  background: C.panel2,
+  color: C.text,
+  borderRadius: '10px',
+  padding: '9px 12px',
+  fontFamily: T.sans,
+  fontSize: '12px',
+  fontWeight: 750,
+  cursor: 'pointer',
+};
+
+function usePageVisible() {
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const onVisibility = () => setVisible(document.visibilityState !== 'hidden');
+    onVisibility();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+  return visible;
+}
+
+function fmtDate(input?: string | null) {
+  if (!input) return '—';
+  const date = new Date(input);
+  if (Number.isNaN(date.getTime())) return '—';
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+}
+
+function fmtDuration(start?: string | null, end?: string | null) {
+  if (!start || !end) return '—';
+  const a = new Date(start).getTime();
+  const b = new Date(end).getTime();
+  if (Number.isNaN(a) || Number.isNaN(b) || b < a) return '—';
+  const seconds = Math.round((b - a) / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return minutes ? `${minutes}m ${rest}s` : `${rest}s`;
+}
+
+function fmtPct(value?: number | null, decimals = 1) {
+  if (value === undefined || value === null || Number.isNaN(value)) return '—';
+  return `${(value * 100).toFixed(decimals)}%`;
+}
+
+function humanize(value?: string | null) {
   if (!value) return '—';
   return value
-    .split('_')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
-};
+    .replaceAll('_', ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
-const pct = (value?: number | null) => {
-  if (value === undefined || value === null) return '—';
-  return formatAccountingPct(value * 100, 1);
-};
+function truncate(value: string, max = 90) {
+  return value.length > max ? `${value.slice(0, max - 1).trim()}…` : value;
+}
 
-const describeApiError = (err: unknown) => {
+function stageProgress(stage: StageState) {
+  if (stage.progress_current != null && stage.progress_total != null) {
+    return `${stage.progress_current} of ${stage.progress_total}`;
+  }
+  if (stage.progress_current != null) return String(stage.progress_current);
+  return '';
+}
+
+function describeApiError(err: unknown) {
   const message = err instanceof Error ? err.message : String(err ?? '');
-  if (message.includes('401')) {
-    return 'Unauthorized. Clerk auth failed or the local dev bypass is disabled.';
-  }
+  if (message.includes('401')) return 'Unauthorized. Clerk auth failed.';
   if (message.includes('403')) {
-    return 'Agent-system dev endpoints are disabled. Set ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS=true locally.';
+    return 'Agent-system endpoints are blocked. Enable local dev access or sign in.';
   }
-  return message || 'Unable to load agent-system outputs.';
-};
+  return message || 'Request failed.';
+}
 
-function StatusBadge({ accepted }: { accepted: boolean }) {
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function recordsOf<T extends Record<string, unknown>>(
+  results: CycleResults | undefined,
+  schemaType: string,
+): T[] {
   return (
-    <span
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        borderRadius: '999px',
-        padding: '4px 9px',
-        background: accepted ? `${T.up}12` : `${T.dn}10`,
-        border: `1px solid ${accepted ? `${T.up}35` : `${T.dn}28`}`,
-        color: accepted ? T.up : T.dn,
-        fontFamily: T.sans,
-        fontSize: '11px',
-        fontWeight: 700,
-        letterSpacing: '0.06em',
-        textTransform: 'uppercase',
-      }}
-    >
-      {accepted ? 'Accepted' : 'Rejected'}
-    </span>
+    results?.records_by_type?.[schemaType]
+      ?.map((r) => r.payload_json)
+      .filter(isObject) as T[] | undefined
+  ) ?? [];
+}
+
+function latestRecord<T>(records: T[]): T | null {
+  return records.length ? records[records.length - 1] : null;
+}
+
+function isAcceptedTrade(trade: TradeIdeaPayload) {
+  return Boolean(trade?.expression) && !trade?.rejection_stage;
+}
+
+function tradeId(trade: TradeIdeaPayload, idx: number) {
+  return String(trade.id ?? trade.underlying ?? idx);
+}
+
+function numberFrom(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function stringArrayFrom(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
+}
+
+function Section({
+  title,
+  meta,
+  children,
+}: {
+  title: string;
+  meta?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card title={title} meta={meta}>
+      {children}
+    </Card>
   );
 }
 
-function SummaryCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
+function Badge({ text, tone = 'neutral' }: { text: string; tone?: 'neutral' | 'good' | 'bad' | 'warn' | 'accent' }) {
+  const color =
+    tone === 'good' ? C.up : tone === 'bad' ? C.dn : tone === 'warn' ? C.wa : tone === 'accent' ? C.accent : C.sub;
+  return <Chip label={text} color={color} />;
+}
+
+function RecentCycles({
+  cycles,
+  activeCycleId,
+  onSelect,
+}: {
+  cycles: RecentCycle[];
+  activeCycleId: string | null;
+  onSelect: (id: string) => void;
+}) {
   return (
-    <div style={{ ...sx.subPanel, padding: '16px 18px' }}>
-      <div style={{ ...sx.sectionMeta, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
-        {label}
+    <Card title="Recent cycles" meta={`${cycles.length} loaded`} padded={false}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          overflowX: 'auto',
+          padding: '14px',
+        }}
+      >
+        {cycles.length === 0 ? (
+          <EmptyState msg="No cycles yet. Type inputs to start one." small />
+        ) : null}
+        {cycles.map((cycle) => {
+          const active = cycle.cycle_id === activeCycleId;
+          const firstInput = cycle.user_inputs_preview?.[0] ?? 'No input preview';
+          return (
+            <button
+              key={cycle.cycle_id}
+              type="button"
+              onClick={() => onSelect(cycle.cycle_id)}
+              style={{
+                flex: '0 0 220px',
+                minHeight: '96px',
+                textAlign: 'left',
+                border: `1px solid ${active ? C.accent : C.border}`,
+                borderLeft: `4px solid ${statusColor[cycle.overall_status]}`,
+                background: active ? C.accentSoft : 'transparent',
+                borderRadius: '14px',
+                padding: '12px',
+                cursor: 'pointer',
+                color: C.text,
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}>
+                <span style={{ ...mono, color: C.text }}>{fmtDate(cycle.started_at)}</span>
+                <span style={{ ...mono, color: statusColor[cycle.overall_status] }}>
+                  {cycle.overall_status}
+                </span>
+              </div>
+              <div style={{ marginTop: '7px', color: C.sub, fontSize: '12px', lineHeight: 1.4 }}>
+                {truncate(firstInput, 58)}
+              </div>
+            </button>
+          );
+        })}
       </div>
-      <div style={{ fontFamily: T.sans, fontSize: '26px', lineHeight: 1, fontWeight: 650, color: T.navy }}>
-        {value}
+    </Card>
+  );
+}
+
+function SubmitForm({ onSubmitted }: { onSubmitted: (id: string) => void }) {
+  const postFetcher = useAuthPostFetcher();
+  const [rows, setRows] = useState(['']);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const cleanInputs = rows.map((row) => row.trim()).filter(Boolean);
+  const canSubmit = cleanInputs.length > 0 && !submitting && postFetcher.isReady;
+
+  const update = (idx: number, value: string) => {
+    setRows((prev) => prev.map((row, i) => (i === idx ? value.slice(0, 500) : row)));
+  };
+
+  const submit = async () => {
+    if (!canSubmit) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const response = (await postFetcher('/api/cycles/submit', {
+        user_inputs: cleanInputs,
+      })) as SubmitCycleResponse;
+      onSubmitted(response.cycle_id);
+    } catch (err) {
+      setError(describeApiError(err));
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <Section title="Run a cycle" meta="free-text inputs">
+      <div style={{ display: 'grid', gap: '10px' }}>
+        {error ? (
+          <div style={{ border: `1px solid ${C.dn}55`, background: `${C.dn}12`, color: C.dn, padding: '10px 12px', borderRadius: '12px', fontSize: '12px' }}>
+            {error}
+          </div>
+        ) : null}
+        {rows.map((row, idx) => (
+          <div key={idx} style={{ display: 'grid', gridTemplateColumns: '1fr 36px', gap: '8px' }}>
+            <div>
+              <input
+                value={row}
+                onChange={(e) => update(idx, e.target.value)}
+                placeholder="Dovish pivot beneficiaries"
+                style={{
+                  width: '100%',
+                  height: '40px',
+                  borderRadius: '10px',
+                  border: `1px solid ${C.border2}`,
+                  background: C.panel2,
+                  color: C.text,
+                  padding: '0 12px',
+                  fontFamily: T.sans,
+                  fontSize: '13px',
+                  outline: 'none',
+                }}
+              />
+              {row.length > 400 ? (
+                <div style={{ ...mono, marginTop: '5px', color: row.length >= 500 ? C.dn : C.wa }}>
+                  {row.length}/500
+                </div>
+              ) : null}
+            </div>
+            <button
+              type="button"
+              disabled={rows.length === 1}
+              onClick={() => setRows((prev) => prev.filter((_, i) => i !== idx))}
+              style={{ ...button, opacity: rows.length === 1 ? 0.35 : 1, padding: 0 }}
+              aria-label="Remove input"
+            >
+              X
+            </button>
+          </div>
+        ))}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            disabled={rows.length >= 10}
+            onClick={() => setRows((prev) => (prev.length < 10 ? [...prev, ''] : prev))}
+            style={{ ...button, opacity: rows.length >= 10 ? 0.4 : 1 }}
+          >
+            + Add input
+          </button>
+          <span style={{ ...mono, color: C.muted }}>
+            Estimated cost: ~$3-5 per input (~${cleanInputs.length * 3}-{cleanInputs.length * 5 || 5} total)
+          </span>
+        </div>
+        <button
+          type="button"
+          disabled={!canSubmit}
+          onClick={submit}
+          style={{
+            ...button,
+            width: '160px',
+            background: canSubmit ? T.navy : C.panel2,
+            color: canSubmit ? T.surface : C.muted,
+            borderColor: canSubmit ? T.navy : C.border2,
+          }}
+        >
+          {submitting ? 'Submitting...' : 'Submit'}
+        </button>
       </div>
-      {sub ? (
-        <div style={{ marginTop: '8px', fontFamily: T.sans, fontSize: '12px', lineHeight: 1.45, color: T.textMuted }}>
-          {sub}
+    </Section>
+  );
+}
+
+function StageTimeline({ status }: { status: CycleStatus }) {
+  const [expanded, setExpanded] = useState(false);
+  const done = status.overall_status === 'complete';
+  const failed = status.overall_status === 'failed';
+  const total = fmtDuration(status.started_at, status.completed_at);
+  const completeCount = status.stages.filter((s) => s.status === 'complete' || s.status === 'skipped').length;
+
+  if (done && !expanded) {
+    return (
+      <Section title="Stage progress">
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          style={{ ...button, width: '100%', textAlign: 'left' }}
+        >
+          {completeCount} stages complete · {total} total · expand
+        </button>
+      </Section>
+    );
+  }
+
+  return (
+    <Section title="Stage progress" meta={failed ? 'failed' : status.overall_status}>
+      <div style={{ display: 'grid', gap: '10px' }}>
+        {done ? (
+          <button type="button" onClick={() => setExpanded(false)} style={{ ...button, width: '120px' }}>
+            Collapse
+          </button>
+        ) : null}
+        {status.stages.map((stage) => {
+          const progress = stageProgress(stage);
+          const running = stage.status === 'running';
+          return (
+            <div
+              key={stage.stage}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '18px minmax(150px, 0.8fr) minmax(220px, 1.4fr) auto',
+                gap: '12px',
+                alignItems: 'start',
+                padding: '12px',
+                border: `1px solid ${C.border}`,
+                borderRadius: '14px',
+                background: C.panel2,
+              }}
+            >
+              <span
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  marginTop: '5px',
+                  background: statusColor[stage.status],
+                  boxShadow: running ? `0 0 0 7px ${C.accentSoft}` : 'none',
+                  animation: running ? 'agentPulse 1.6s ease-in-out infinite' : 'none',
+                }}
+              />
+              <div>
+                <div style={{ ...label, color: C.text }}>{stageLabels[stage.stage] ?? humanize(stage.stage)}</div>
+                <div style={{ ...mono, marginTop: '4px' }}>
+                  {fmtDate(stage.started_at)} {stage.completed_at ? `→ ${fmtDate(stage.completed_at)}` : ''}
+                </div>
+              </div>
+              <div style={{ color: stage.error ? C.dn : C.sub, fontSize: '12.5px', lineHeight: 1.5 }}>
+                {stage.error || stage.message || '—'}
+              </div>
+              <div style={{ ...mono, color: statusColor[stage.status], textTransform: 'uppercase' }}>
+                {progress || stage.status}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Section>
+  );
+}
+
+function InputsPanel({ status }: { status: CycleStatus }) {
+  const inputs = status.user_inputs_preview ?? [];
+  if (!inputs.length) return null;
+  return (
+    <div style={{ ...panel, padding: '10px 14px', color: C.sub, fontSize: '12px' }}>
+      <span style={{ ...label, marginRight: '10px' }}>Inputs</span>
+      <span title={inputs.join('\n')}>{inputs.map((item) => truncate(item, 80)).join('  /  ')}</span>
+    </div>
+  );
+}
+
+function PrioritySection({ tradeIdeas }: { tradeIdeas: TradeIdeaPayload[] }) {
+  const priority = tradeIdeas.find((trade) => trade?.research_priority)?.research_priority;
+  if (!priority) return null;
+  return (
+    <Section title="Research priority" meta={`rank ${priority.priority_rank ?? '—'} · ${priority.expected_edge_decay ?? '—'}`}>
+      <h1 style={{ margin: 0, fontSize: '25px', lineHeight: 1.16, color: C.text, fontWeight: 760 }}>
+        {priority.theme}
+      </h1>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginTop: '18px' }}>
+        <div>
+          <div style={label}>Rationale</div>
+          <p style={{ color: C.sub, fontSize: '13px', lineHeight: 1.65 }}>{priority.rationale}</p>
+        </div>
+        <div>
+          <div style={label}>Edge hypothesis</div>
+          <p style={{ color: C.text, fontSize: '13px', lineHeight: 1.65 }}>{priority.edge_hypothesis}</p>
+        </div>
+      </div>
+      {priority.sub_questions?.length ? (
+        <ol style={{ margin: '10px 0 0', paddingLeft: '22px', color: C.sub, fontSize: '12.5px', lineHeight: 1.6 }}>
+          {priority.sub_questions.map((question: string) => (
+            <li key={question}>{question}</li>
+          ))}
+        </ol>
+      ) : null}
+    </Section>
+  );
+}
+
+function StatStrip({ status, portfolioPlan }: { status?: CycleStatus; portfolioPlan: PortfolioPlanPayload | null }) {
+  const counters = status?.summary_counters ?? {};
+  const hasDecisions = counters.accepted != null || counters.rejected != null || portfolioPlan;
+  if (!hasDecisions) return null;
+  const constraints = portfolioPlan?.binding_constraints ?? stringArrayFrom(counters.portfolio_binding_constraints);
+  return (
+    <Section title="Cycle summary">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
+        <Metric label="Accepted" value={String(numberFrom(counters.accepted) ?? '—')} />
+        <Metric label="Rejected" value={String(numberFrom(counters.rejected) ?? '—')} />
+        <Metric label="Deployment" value={fmtPct(portfolioPlan?.total_new_deployment_pct ?? numberFrom(counters.portfolio_total_deployment_pct))} />
+        <Metric label="Constraints" value={String(constraints.length)} />
+      </div>
+      {constraints.length ? (
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px' }}>
+          {constraints.map((constraint: string) => <Badge key={constraint} text={constraint} tone="warn" />)}
+        </div>
+      ) : null}
+    </Section>
+  );
+}
+
+function Metric({ label: text, value }: { label: string; value: string }) {
+  return (
+    <div style={{ background: C.panel2, border: `1px solid ${C.border}`, borderRadius: '14px', padding: '14px' }}>
+      <MutedLabel>{text}</MutedLabel>
+      <div style={{ marginTop: '7px', fontFamily: T.mono, fontSize: '24px', color: C.text }}>{value}</div>
+    </div>
+  );
+}
+
+function AcceptedTrades({ trades, portfolioPlan }: { trades: TradeIdeaPayload[]; portfolioPlan: PortfolioPlanPayload | null }) {
+  if (!trades.length) return null;
+  const decisions = portfolioPlan?.trade_decisions ?? [];
+  const byUnderlying = new Map(
+    decisions
+      .filter((decision): decision is PortfolioTradeDecisionPayload & { underlying: string } => Boolean(decision.underlying))
+      .map((decision) => [decision.underlying, decision]),
+  );
+  return (
+    <Section title="Accepted trades" meta={`${trades.length} trade${trades.length === 1 ? '' : 's'}`}>
+      <div style={{ display: 'grid', gap: '10px' }}>
+        {trades.map((trade, idx) => (
+          <TradeCard
+            key={tradeId(trade, idx)}
+            trade={trade}
+            portfolioDecision={trade.underlying ? byUnderlying.get(trade.underlying) : undefined}
+          />
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function TradeCard({ trade, portfolioDecision }: { trade: TradeIdeaPayload; portfolioDecision?: PortfolioTradeDecisionPayload }) {
+  const [open, setOpen] = useState(false);
+  const expression = trade.expression ?? {};
+  const instrument = expression.primary_instrument ?? {};
+  const sizing = trade.proposed_sizing ?? {};
+  const finalSize = portfolioDecision?.final_size_pct ?? sizing.base_size_pct;
+  const decision = portfolioDecision?.decision ? humanize(portfolioDecision.decision) : 'Accepted';
+  const adjustments = portfolioDecision?.sizing_adjustments ?? [];
+  return (
+    <div style={{ border: `1px solid ${C.border}`, borderRadius: '8px', background: C.panel2 }}>
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        style={{
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(80px, 0.6fr) minmax(220px, 1.8fr) minmax(110px, 0.8fr) minmax(120px, 0.7fr)',
+          gap: '14px',
+          alignItems: 'center',
+          background: 'transparent',
+          border: 0,
+          color: C.text,
+          padding: '14px',
+          textAlign: 'left',
+          cursor: 'pointer',
+        }}
+      >
+        <div style={{ fontFamily: T.mono, fontSize: '26px', color: C.text }}>{trade.underlying}</div>
+        <div>
+          <div style={{ fontSize: '13px', color: C.text, lineHeight: 1.4 }}>
+            {instrument.description ?? instrument.ticker ?? '—'}
+          </div>
+          <div style={{ ...mono, marginTop: '5px' }}>
+            {humanize(trade.combined_conviction?.rating)} · {trade.combined_conviction?.rule_applied ?? '—'}
+          </div>
+        </div>
+        <Badge text={decision} tone={decision.includes('Rejected') ? 'bad' : decision.includes('Reduced') ? 'warn' : 'good'} />
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ ...label, color: C.muted }}>{portfolioDecision ? 'Final size' : 'Proposed size'}</div>
+          <div style={{ fontFamily: T.mono, color: C.text, fontSize: '18px' }}>{fmtPct(finalSize)}</div>
+        </div>
+      </button>
+      {open ? (
+        <div style={{ borderTop: `1px solid ${C.border}`, padding: '14px', display: 'grid', gap: '12px' }}>
+          <LabeledProse label="Entry" value={expression.entry_logic} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+            <LabeledProse label="Stop" value={expression.exit_stop} />
+            <LabeledProse label="Target" value={expression.exit_target} />
+          </div>
+          <LabeledProse label="Time stop" value={expression.exit_time_stop} />
+          <LabeledProse label="Invalidation thesis" value={trade.invalidation_thesis} />
+          {trade.trade_falsifiers?.length ? (
+            <div>
+              <div style={label}>Falsifiers</div>
+              <ol style={{ margin: '8px 0 0', paddingLeft: '20px', color: C.sub, fontSize: '12.5px', lineHeight: 1.55 }}>
+                {trade.trade_falsifiers.map((f, idx) => (
+                  <li key={`${f.condition ?? idx}-${idx}`}>
+                    {f.condition ?? f.description ?? JSON.stringify(f)}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+          {portfolioDecision ? (
+            <div style={{ display: 'grid', gap: '6px' }}>
+              <div style={label}>Robustness</div>
+              <div style={{ color: C.sub, fontSize: '12.5px' }}>
+                Score {portfolioDecision.robustness_score ?? '—'} · quartile {portfolioDecision.robustness_quartile ?? '—'}
+              </div>
+              {adjustments.map((adj) => (
+                <div key={`${adj.step}-${adj.size_before}-${adj.size_after}`} style={mono}>
+                  {humanize(adj.step)}: {fmtPct(adj.size_before)} → {fmtPct(adj.size_after)} — {adj.rationale}
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>
   );
 }
 
-function EmptyState({ message }: { message: string }) {
+function LabeledProse({ label: text, value }: { label: string; value?: string | null }) {
+  if (!value) return null;
   return (
-    <section style={sx.panel}>
-      <div style={{ ...sx.panelBody, paddingTop: '42px', paddingBottom: '42px', textAlign: 'center' }}>
-        <div style={{ fontFamily: T.sans, fontSize: '14px', color: T.textSub, lineHeight: 1.6 }}>
-          {message}
-        </div>
-        <div style={{ marginTop: '8px', fontFamily: T.mono, fontSize: '11px', color: T.textMuted }}>
-          From <span style={{ color: T.navy }}>backend/</span>, run <span style={{ color: T.navy }}>python -m src.agent_system.orchestration.run_research_cycle</span>, or enable the dev endpoint.
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TradeTable({
-  title,
-  items,
-  mode,
-  onSelect,
-}: {
-  title: string;
-  items: TradeIdeaListItem[];
-  mode: 'accepted' | 'rejected';
-  onSelect: (id: string) => void;
-}) {
-  return (
-    <section style={sx.panel}>
-      <div style={sx.panelHeader}>
-        <span style={sx.sectionLabel}>{title}</span>
-        <span style={sx.sectionMeta}>{items.length} ideas</span>
-      </div>
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: mode === 'accepted' ? '1040px' : '920px' }}>
-          <thead>
-            <tr>
-              {(mode === 'accepted'
-                ? ['Underlying', 'Conviction', 'Rule applied', 'Size', 'Direction', 'Holding period', 'Max loss', 'Invalidation thesis', 'Falsifiers']
-                : ['Underlying', 'Conviction', 'Rule applied', 'Weakest link', 'Rejection stage', 'Rejection reason']
-              ).map((h) => (
-                <th key={h} style={{ padding: '12px 14px', textAlign: 'left', borderBottom: `1px solid ${T.borderSub}`, fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: T.textMuted }}>
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => (
-              <tr key={item.id} onClick={() => onSelect(item.id)} style={{ cursor: 'pointer' }}>
-                <td style={tdStrong}>{item.underlying}</td>
-                <td style={td}><StatusBadge accepted={item.is_accepted} /></td>
-                <td style={tdMono}>{item.rule_applied}</td>
-                {mode === 'accepted' ? (
-                  <>
-                    <td style={tdMono}>{pct(item.base_size_pct)}</td>
-                    <td style={td}>{cap(item.direction)}</td>
-                    <td style={td}>{item.expected_holding_period ?? '—'}</td>
-                    <td style={tdMono}>{pct(item.max_loss_estimate_pct)}</td>
-                    <td style={{ ...td, maxWidth: '320px' }}>{item.invalidation_thesis ?? '—'}</td>
-                    <td style={tdMono}>{item.falsifiers_count ?? 0}</td>
-                  </>
-                ) : (
-                  <>
-                    <td style={td}>{cap(item.weakest_link)}</td>
-                    <td style={td}>{cap(item.rejection_stage)}</td>
-                    <td style={{ ...td, maxWidth: '520px' }}>{item.rejection_reason ?? '—'}</td>
-                  </>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-}
-
-const td: React.CSSProperties = {
-  padding: '13px 14px',
-  borderBottom: `1px solid ${T.borderSub}`,
-  fontFamily: T.sans,
-  fontSize: '12.5px',
-  lineHeight: 1.45,
-  color: T.textSub,
-  verticalAlign: 'top',
-};
-
-const tdStrong: React.CSSProperties = {
-  ...td,
-  color: T.navy,
-  fontWeight: 750,
-  letterSpacing: '0.02em',
-};
-
-const tdMono: React.CSSProperties = {
-  ...td,
-  fontFamily: T.mono,
-  fontSize: '11.5px',
-  color: T.text,
-};
-
-function DecisionLog({ decisions }: { decisions: DecisionLogEntry[] }) {
-  return (
-    <section style={sx.panel}>
-      <div style={sx.panelHeader}>
-        <span style={sx.sectionLabel}>Decision log</span>
-        <span style={sx.sectionMeta}>Most recent entries</span>
-      </div>
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '980px' }}>
-          <thead>
-            <tr>
-              {['Time', 'Candidate', 'Decision', 'Conviction', 'Rule', 'Portfolio allowed?', 'Constraint reasoning'].map((h) => (
-                <th key={h} style={{ padding: '12px 14px', textAlign: 'left', borderBottom: `1px solid ${T.borderSub}`, fontFamily: T.sans, fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: T.textMuted }}>
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {decisions.slice(0, 24).map((entry, idx) => (
-              <tr key={`${entry.trade_idea_id ?? entry.candidate}-${entry.timestamp}-${idx}`}>
-                <td style={tdMono}>{formatRelativeAge(entry.timestamp)}</td>
-                <td style={tdStrong}>{entry.candidate}</td>
-                <td style={td}><StatusBadge accepted={entry.decision === 'accepted'} /></td>
-                <td style={td}>{cap(entry.conviction_rating)}</td>
-                <td style={tdMono}>{entry.rule_applied}</td>
-                <td style={td}>{entry.portfolio_constraint?.allowed ? 'Yes' : 'No'}</td>
-                <td style={{ ...td, maxWidth: '420px' }}>{entry.portfolio_constraint?.reasoning ?? '—'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-}
-
-function DetailPanel({ id, onClose }: { id: string; onClose: () => void }) {
-  const authFetcher = useAuthFetcher();
-  const { data, isLoading, error } = useSWR<TradeIdeaDetail>(
-    authFetcher.isReady ? `/api/agent-system/trade-ideas/${id}` : null,
-    authFetcher,
-    { revalidateOnFocus: false }
-  );
-
-  const trade = data?.trade_idea;
-  const fundamental = trade?.fundamental as Record<string, unknown> | undefined;
-  const narrative = trade?.narrative as Record<string, unknown> | undefined;
-  const currentNarrative = narrative?.current_narrative as Record<string, unknown> | undefined;
-  const researchPriority = trade?.research_priority as Record<string, unknown> | undefined;
-
-  return (
-    <section style={sx.panel}>
-      <div style={sx.panelHeader}>
-        <span style={sx.sectionLabel}>Audit trail</span>
-        <button type="button" onClick={onClose} style={ghostButton}>Close</button>
-      </div>
-      <div style={{ ...sx.panelBody, display: 'grid', gap: '16px' }}>
-        {isLoading ? <div style={td}>Loading detail…</div> : null}
-        {error ? <div style={{ ...td, color: T.dn }}>Unable to load trade detail.</div> : null}
-        {trade ? (
-          <>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: '12px' }}>
-              <MiniBlock label="Thesis statement" value={String(fundamental?.thesis_statement ?? '—')} />
-              <MiniBlock label="Narrative summary" value={String(currentNarrative?.summary ?? '—')} />
-              <MiniBlock label="Research priority" value={String(researchPriority?.theme ?? '—')} />
-              <MiniBlock label="Invalidation thesis" value={String(trade.invalidation_thesis ?? trade.rejection_reason ?? '—')} />
-            </div>
-            <details style={{ ...sx.subPanel, padding: '14px 16px' }}>
-              <summary style={{ cursor: 'pointer', fontFamily: T.sans, fontSize: '12px', fontWeight: 700, color: T.navy }}>
-                Raw JSON
-              </summary>
-              <pre style={{ margin: '14px 0 0', overflowX: 'auto', fontFamily: T.mono, fontSize: '11px', lineHeight: 1.6, color: T.textSub }}>
-                {JSON.stringify(data, null, 2)}
-              </pre>
-            </details>
-          </>
-        ) : null}
-      </div>
-    </section>
-  );
-}
-
-function MiniBlock({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ ...sx.subPanel, padding: '14px 16px' }}>
-      <div style={{ ...sx.sectionMeta, textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: '8px' }}>
-        {label}
-      </div>
-      <div style={{ fontFamily: T.sans, fontSize: '13px', lineHeight: 1.6, color: T.textSub }}>
-        {value}
-      </div>
+    <div>
+      <MutedLabel>{text}</MutedLabel>
+      <p style={{ margin: '7px 0 0', color: C.sub, fontSize: '12.5px', lineHeight: 1.58 }}>{value}</p>
     </div>
   );
 }
 
-const ghostButton: React.CSSProperties = {
-  border: `1px solid ${T.border}`,
-  background: T.surface,
-  borderRadius: '11px',
-  color: T.navy,
-  padding: '8px 12px',
-  fontFamily: T.sans,
-  fontSize: '12px',
-  fontWeight: 700,
-  cursor: 'pointer',
-};
+function RejectedCandidates({ trades }: { trades: TradeIdeaPayload[] }) {
+  if (!trades.length) return null;
+  return (
+    <Section title={`Rejected candidates (${trades.length})`}>
+      <Collapsible label="Rejected candidates" count={trades.length}>
+        <div style={{ display: 'grid', gap: '8px', marginTop: '12px' }}>
+          {trades.map((trade, idx) => (
+            <div key={tradeId(trade, idx)} style={{ display: 'grid', gridTemplateColumns: 'minmax(70px, 0.4fr) minmax(160px, 0.8fr) minmax(220px, 1.8fr)', gap: '12px', padding: '10px 0', borderBottom: `1px solid ${C.border}` }}>
+              <div style={{ fontFamily: T.mono, color: C.text }}>{trade.underlying}</div>
+              <div style={mono}>{humanize(trade.rejection_stage)} · {trade.rejection_rule_fired ?? '—'}</div>
+              <div style={{ color: C.sub, fontSize: '12.5px', lineHeight: 1.45 }}>{trade.rejection_reason ?? '—'}</div>
+            </div>
+          ))}
+        </div>
+      </Collapsible>
+    </Section>
+  );
+}
 
-export default function AgentSystemPage() {
+function PortfolioPlanSection({ plan, terminalText }: { plan: PortfolioPlanPayload | null; terminalText?: unknown }) {
+  const [mode, setMode] = useState<'detail' | 'terminal'>('detail');
+  if (!plan) return null;
+  const perPriorityDeployment = plan.per_priority_deployment_pct ?? {};
+  return (
+    <Section title="Portfolio plan" meta={plan.cycle_id}>
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '14px' }}>
+        <button type="button" onClick={() => setMode('detail')} style={{ ...button, background: mode === 'detail' ? C.accentSoft : C.panel2 }}>
+          Detail view
+        </button>
+        <button type="button" onClick={() => setMode('terminal')} style={{ ...button, background: mode === 'terminal' ? C.accentSoft : C.panel2 }}>
+          Terminal view
+        </button>
+      </div>
+      {mode === 'terminal' ? (
+        <pre style={{ margin: 0, overflowX: 'auto', color: C.sub, fontFamily: T.mono, fontSize: '12px', lineHeight: 1.55 }}>
+          {typeof terminalText === 'string' && terminalText ? terminalText : JSON.stringify(plan, null, 2)}
+        </pre>
+      ) : (
+        <div style={{ display: 'grid', gap: '14px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
+            <Metric label="NAV" value={formatCurrency(plan.nav_unlevered_usd, 0)} />
+            <Metric label="Cash" value={formatCurrency(plan.cash_usd, 0)} />
+            <Metric label="Deployment $" value={formatCurrency(plan.total_new_deployment_usd, 0)} />
+            <Metric label="Deployment %" value={fmtPct(plan.total_new_deployment_pct)} />
+          </div>
+          {Object.keys(perPriorityDeployment).length ? (
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <tbody>
+                {Object.entries(perPriorityDeployment).map(([priority, value]) => (
+                  <tr key={priority}>
+                    <td style={{ padding: '9px 0', color: C.sub, fontSize: '12.5px', borderBottom: `1px solid ${C.border}` }}>{priority}</td>
+                    <td style={{ padding: '9px 0', textAlign: 'right', fontFamily: T.mono, color: C.text, borderBottom: `1px solid ${C.border}` }}>{fmtPct(value as number)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : null}
+          {plan.binding_constraints?.length ? (
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+              {plan.binding_constraints.map((constraint: string) => <Badge key={constraint} text={constraint} tone="warn" />)}
+            </div>
+          ) : null}
+        </div>
+      )}
+    </Section>
+  );
+}
+
+function FailedCycle({ status }: { status?: CycleStatus }) {
+  if (status?.overall_status !== 'failed') return null;
+  return (
+    <Section title="Failed cycle" meta="fatal error">
+      <pre style={{ margin: 0, whiteSpace: 'pre-wrap', color: C.dn, fontFamily: T.mono, fontSize: '12px', lineHeight: 1.55 }}>
+        {status.fatal_error ?? 'Cycle failed without a fatal_error payload.'}
+      </pre>
+    </Section>
+  );
+}
+
+function ActiveCycleView({
+  cycleId,
+  status,
+  results,
+}: {
+  cycleId: string;
+  status?: CycleStatus;
+  results?: CycleResults;
+}) {
+  const tradeIdeas = recordsOf(results, 'TradeIdea');
+  const portfolioPlan = latestRecord(recordsOf(results, 'PortfolioPlan'));
+  const accepted = tradeIdeas.filter(isAcceptedTrade);
+  const rejected = tradeIdeas.filter((trade) => !isAcceptedTrade(trade));
+  const terminalText = status?.summary_counters?._portfolio_summary_text;
+
+  return (
+    <div style={{ display: 'grid', gap: '16px' }}>
+      {status ? <InputsPanel status={status} /> : null}
+      {status ? <StageTimeline status={status} /> : (
+        <Section title="Stage progress" meta={cycleId}>
+          <div style={{ color: C.sub, fontSize: '13px' }}>Waiting for status file…</div>
+        </Section>
+      )}
+      <PrioritySection tradeIdeas={tradeIdeas} />
+      <StatStrip status={status} portfolioPlan={portfolioPlan} />
+      <AcceptedTrades trades={accepted} portfolioPlan={portfolioPlan} />
+      <RejectedCandidates trades={rejected} />
+      <PortfolioPlanSection plan={portfolioPlan} terminalText={terminalText} />
+      <FailedCycle status={status} />
+    </div>
+  );
+}
+
+function AgentSystemClient() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const authFetcher = useAuthFetcher();
-  const postFetcher = useAuthPostFetcher();
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [runError, setRunError] = useState<string | null>(null);
-  const [running, setRunning] = useState(false);
-  const canFetch = authFetcher.isReady;
+  const visible = usePageVisible();
+  const cycleId = searchParams.get('cycle');
+  const completionRefetchedRef = useRef<string | null>(null);
 
-  const summary = useSWR<AgentSystemSummary>(canFetch ? '/api/agent-system/summary' : null, authFetcher, { revalidateOnFocus: false });
-  const trades = useSWR<TradeIdeaListItem[]>(canFetch ? '/api/agent-system/trade-ideas' : null, authFetcher, { revalidateOnFocus: false });
-  const decisions = useSWR<DecisionLogEntry[]>(canFetch ? '/api/agent-system/decisions' : null, authFetcher, { revalidateOnFocus: false });
+  const recent = useSWR<{ cycles: RecentCycle[] }>(
+    authFetcher.isReady ? '/api/cycles/recent?limit=10' : null,
+    authFetcher,
+    {
+      refreshInterval: (data) => (
+        visible && data?.cycles?.some((cycle) => cycle.overall_status === 'running') ? 5000 : 0
+      ),
+      revalidateOnFocus: true,
+    }
+  );
 
-  const accepted = useMemo(() => (trades.data ?? []).filter((item) => item.is_accepted), [trades.data]);
-  const rejected = useMemo(() => (trades.data ?? []).filter((item) => !item.is_accepted), [trades.data]);
+  const status = useSWR<CycleStatus>(
+    authFetcher.isReady && cycleId ? `/api/cycles/${cycleId}/status` : null,
+    authFetcher,
+    {
+      refreshInterval: (data) => (visible && data?.overall_status === 'running' ? 2000 : 0),
+      revalidateOnFocus: true,
+    }
+  );
+
+  const results = useSWR<CycleResults>(
+    authFetcher.isReady && cycleId ? `/api/cycles/${cycleId}/results` : null,
+    authFetcher,
+    {
+      refreshInterval: () => (visible && status.data?.overall_status === 'running' ? 10000 : 0),
+      revalidateOnFocus: true,
+    }
+  );
+
+  useEffect(() => {
+    if (!cycleId || !status.data) return;
+    if (
+      (status.data.overall_status === 'complete' || status.data.overall_status === 'failed') &&
+      completionRefetchedRef.current !== cycleId
+    ) {
+      completionRefetchedRef.current = cycleId;
+      void results.mutate();
+      void recent.mutate();
+    }
+  }, [cycleId, recent, results, status.data]);
 
   if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
     return <AuthRequired isLoaded={authFetcher.isLoaded} />;
   }
 
-  const refreshAll = async () => {
-    await Promise.all([summary.mutate(), trades.mutate(), decisions.mutate()]);
-  };
-
-  const runStubCycle = async () => {
-    setRunning(true);
-    setRunError(null);
-    try {
-      await postFetcher('/api/agent-system/run-stub-cycle', {});
-      await refreshAll();
-    } catch (err) {
-      setRunError(describeApiError(err));
-    } finally {
-      setRunning(false);
-    }
-  };
-
-  const hasData = summary.data?.has_data;
-  const loadError = summary.error ?? trades.error ?? decisions.error;
+  const cycles = recent.data?.cycles ?? [];
+  const statusError = status.error ? describeApiError(status.error) : null;
+  const resultsError = results.error ? describeApiError(results.error) : null;
 
   return (
-    <main style={sx.main}>
-      <div style={sx.pageShell}>
-        <section style={sx.panel}>
-          <div style={{ ...sx.panelHeader, alignItems: 'flex-start' }}>
-            <div>
-              <span style={sx.sectionLabel}>Agent System Review</span>
-              <p style={{ margin: '8px 0 0', fontFamily: T.sans, fontSize: '14px', color: T.textSub }}>
-                Inspect accepted and rejected research outputs from the Helix agent spine.
-              </p>
-            </div>
-            <button type="button" onClick={runStubCycle} disabled={running} style={{ ...ghostButton, opacity: running ? 0.6 : 1 }}>
-              {running ? 'Running…' : 'Run stub cycle'}
-            </button>
+    <main style={shell}>
+      <style>{`
+        @keyframes agentPulse {
+          0% { opacity: 0.45; transform: scale(0.92); }
+          50% { opacity: 1; transform: scale(1); }
+          100% { opacity: 0.45; transform: scale(0.92); }
+        }
+      `}</style>
+      <div style={page}>
+        <header style={{ marginBottom: '22px' }}>
+          <div style={{ ...label, color: C.accent }}>Agent system</div>
+          <div style={{ marginTop: '8px', color: C.sub, fontSize: '13px' }}>
+            research cycle: input → priorities → trades → plan
           </div>
-          {runError ? (
-            <div style={{ padding: '10px 18px', borderTop: `1px solid ${T.borderSub}`, fontFamily: T.sans, fontSize: '12px', color: T.wa }}>
-              {runError}
-            </div>
-          ) : null}
-        </section>
+        </header>
 
-        {summary.isLoading || trades.isLoading || decisions.isLoading ? (
-          <section style={sx.panel}>
-            <div style={{ ...sx.panelBody, fontFamily: T.sans, color: T.textMuted }}>Loading agent-system records…</div>
-          </section>
-        ) : null}
+        <div style={{ display: 'grid', gap: '18px' }}>
+          <RecentCycles
+            cycles={cycles}
+            activeCycleId={cycleId}
+            onSelect={(id) => router.push(`/agent-system?cycle=${encodeURIComponent(id)}`)}
+          />
 
-        {loadError ? (
-          <section style={sx.panel}>
-            <div style={{ ...sx.panelBody, color: T.dn, fontFamily: T.sans }}>
-              {describeApiError(loadError)}
-            </div>
-          </section>
-        ) : null}
-
-        {summary.data && !hasData ? (
-          <EmptyState message={summary.data.message ?? 'No agent-system data found.'} />
-        ) : null}
-
-        {summary.data && hasData ? (
-          <>
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', gap: '14px' }}>
-              <SummaryCard label="Latest cycle" value={(summary.data.latest_cycle_id ?? '—').slice(0, 8)} sub={summary.data.latest_cycle_id} />
-              <SummaryCard label="Last run" value={formatRelativeAge(summary.data.last_run_at)} sub={summary.data.last_run_at} />
-              <SummaryCard label="Accepted" value={summary.data.accepted ?? 0} sub={(summary.data.accepted_underlyings ?? []).join(', ') || '—'} />
-              <SummaryCard label="Rejected" value={summary.data.rejected ?? 0} sub={(summary.data.rejected_underlyings ?? []).join(', ') || '—'} />
-              <SummaryCard label="Candidates" value={summary.data.candidates_considered ?? 0} sub="Latest cycle" />
-              <SummaryCard label="Storage" value="JSONL" sub={summary.data.storage_path ?? 'data/agent_system'} />
-            </section>
-
-            <TradeTable title="Accepted trade ideas" items={accepted} mode="accepted" onSelect={setSelectedId} />
-            <TradeTable title="Rejected trade ideas" items={rejected} mode="rejected" onSelect={setSelectedId} />
-            <DecisionLog decisions={decisions.data ?? []} />
-            {selectedId ? <DetailPanel id={selectedId} onClose={() => setSelectedId(null)} /> : null}
-          </>
-        ) : null}
+          <div style={{ display: 'grid', gap: '18px' }}>
+            {!cycleId ? (
+              <SubmitForm onSubmitted={(id) => router.push(`/agent-system?cycle=${encodeURIComponent(id)}`)} />
+            ) : (
+              <>
+                <div style={{ ...panel, padding: '12px 14px', display: 'flex', justifyContent: 'space-between', gap: '14px', alignItems: 'center' }}>
+                  <div>
+                    <div style={label}>Active cycle</div>
+                    <div style={{ ...mono, marginTop: '4px', color: C.text }}>{cycleId}</div>
+                  </div>
+                  <button type="button" style={button} onClick={() => router.push('/agent-system')}>
+                    New cycle
+                  </button>
+                </div>
+                {statusError ? (
+                  <div style={{ ...panel, padding: '14px', color: C.dn, fontSize: '13px' }}>{statusError}</div>
+                ) : null}
+                {resultsError ? (
+                  <div style={{ ...panel, padding: '14px', color: C.wa, fontSize: '13px' }}>{resultsError}</div>
+                ) : null}
+                <ActiveCycleView cycleId={cycleId} status={status.data} results={results.data} />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </main>
+  );
+}
+
+export default function AgentSystemPage() {
+  return (
+    <Suspense
+      fallback={
+        <main style={shell}>
+          <div style={page}>
+            <div style={{ ...panel, padding: '18px', color: C.sub, fontFamily: T.sans }}>
+              Loading agent system...
+            </div>
+          </div>
+        </main>
+      }
+    >
+      <AgentSystemClient />
+    </Suspense>
   );
 }

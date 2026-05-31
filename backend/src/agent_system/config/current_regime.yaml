@@ -1,0 +1,161 @@
+# Hand-curated regime overlay, merged with algorithmic dataclass RegimeState
+# by the adapter in src/agent_system/adapters/regime.py.
+#
+# Update cadence: weekly, or when the algorithmic regime materially shifts.
+# Last updated: 2026-05-27
+#
+# The seed_research_priorities section is TEMPORARY. It exists until the
+# macro agent (Phase 2.1.2) is built. Once that lands, remove this section
+# entirely — priorities will be populated by the agent at cycle time, not
+# from this file.
+
+regime_id: "two_sided_oil_shock_late_cycle_ai"
+regime_label: "Late-cycle tightening with two-sided oil risk and AI leadership"
+regime_call_confidence: 0.62
+
+headline: >-
+  Oil remains an inflation risk, but reopening headlines have made the shock
+  more two-sided while AI earnings and infrastructure leadership remain intact.
+
+summary: >-
+  This is a fractured regime: broad beta remains less attractive while rates
+  and liquidity are restrictive, but quality AI, grid/infrastructure, defense,
+  cash-like exposure, and selective real-asset hedges can still work. The oil
+  shock is no longer a clean one-way driver because de-escalation or Hormuz
+  reopening headlines could compress the energy risk premium quickly.
+
+risk_summary: >-
+  The key risk is mistaking narrow AI leadership for a clean risk-on
+  environment while rates and liquidity remain restrictive. A second risk is
+  overcommitting to oil beta after a large supply-shock repricing if reopening
+  or de-escalation headlines continue to build.
+
+key_drivers:
+  - name: "Oil supply shock / reopening optionality"
+    status: "still inflationary, but risk premium is now two-sided"
+    explanation: >-
+      Oil remains elevated versus pre-shock levels, but reopening and
+      de-escalation headlines have reduced the one-way upside pressure.
+      Energy remains a useful hedge, but the trade is more tactical and
+      headline-sensitive.
+
+  - name: "Hormuz reopening optionality"
+    status: "bearish for crowded energy hedges / bullish for broad risk if confirmed"
+    explanation: >-
+      Reports or evidence of a reopening framework would reduce the oil risk
+      premium, ease inflation pressure, and potentially support broader risk
+      appetite. Until shipping normalizes, uncertainty remains high.
+
+  - name: "AI earnings resilience"
+    status: "bullish for quality AI infrastructure"
+    explanation: >-
+      Capital spending tied to data-center demand remains durable, and
+      revision-supported AI infrastructure leaders can continue working even
+      if the broader macro backdrop is fragile.
+
+  - name: "Narrow market leadership"
+    status: "mixed"
+    explanation: >-
+      Index-level performance can remain supported by AI leaders, but weak
+      breadth raises fragility and makes broad beta less attractive.
+
+portfolio_implications:
+  - "Favor selective energy and real-asset hedges, but avoid treating oil beta as a one-way trade while reopening risk is rising."
+  - "Favor short-duration cash-like exposure while rates and policy expectations remain restrictive."
+  - "Keep AI/grid exposure, but distinguish high-quality revision-supported beneficiaries from crowded priced-for-perfection momentum."
+  - "Be cautious with small caps, long-duration bonds, unprofitable growth, and weak balance sheets."
+  - "Hold more optionality than usual to handle sharp rotations across oil, rates, and AI leadership."
+
+best_positioned:
+  - "Selective energy / oil beta hedges"
+  - "Commodities / real assets"
+  - "Short-duration cash-like instruments"
+  - "Quality AI leaders"
+  - "Defense / geopolitics"
+  - "Infrastructure / grid"
+
+most_vulnerable:
+  - "Small caps"
+  - "Long-duration bonds"
+  - "Unprofitable growth"
+  - "Weak balance sheets"
+  - "Consumer discretionary exposed to energy costs"
+  - "Crowded oil-shock trades if reopening headlines are confirmed"
+  - "Priced-for-perfection AI momentum if hyperscaler capex guidance disappoints"
+
+falsifiers:
+  - condition: "Oil falls below $90 and stays for 5+ sessions"
+    observable_in: "price_action"
+    check_frequency: "daily"
+
+  - condition: "Hormuz reopening is confirmed and tanker traffic normalizes"
+    observable_in: "news"
+    check_frequency: "daily"
+
+  - condition: "Oil falls below $70 and stays for 5+ sessions"
+    observable_in: "price_action"
+    check_frequency: "daily"
+
+  - condition: "Inflation breakevens stop rising or roll over for 2+ weeks"
+    observable_in: "data_series"
+    check_frequency: "daily"
+
+  - condition: "Fed hike odds fade meaningfully"
+    observable_in: "data_series"
+    check_frequency: "weekly"
+
+  - condition: "Credit spreads tighten materially despite oil/rate pressure"
+    observable_in: "data_series"
+    check_frequency: "daily"
+
+  - condition: "Market breadth improves significantly with small caps outperforming"
+    observable_in: "price_action"
+    check_frequency: "weekly"
+
+  - condition: "Hyperscaler capex guidance weakens materially"
+    observable_in: "earnings"
+    check_frequency: "event_driven"
+
+# TEMPORARY — remove when Phase 2.1.2 macro agent is built.
+seed_research_priorities:
+  - theme: Quality rate-sensitive equities with underpriced Fed-cut convexity
+    rationale: >-
+      The relevant starting point is the forward Fed path: June FOMC pricing is still dominated
+      by hold at 70%, and July is also hold-heavy at 55%, so a genuinely dovish pivot over the
+      next two quarters is not the base case embedded in near-term rates. That creates conditional
+      upside if May PCE, May CPI, or the June/July FOMC path forces a repricing toward cuts.
+      But the regime also flags oil as an inflation risk and explicitly lists Hormuz reopening/oil
+      downside as a key falsifier, so the research should not simply buy every duration-sensitive
+      asset. Credit is the supportive offset: the credit layer is bullish at 8.5 and HY spreads
+      are tight at 283bps, which argues that quality cyclicals with refinancing or demand sensitivity
+      could benefit more asymmetrically than distressed balance sheets. Breadth is only neutral
+      at 4.6 with RSP lagging SPY, so the better question is which under-owned rate-sensitive
+      sectors can broaden if the Fed path turns dovish without requiring a full small-cap junk
+      rally. The edge should decay over weeks because the next inflation and FOMC catalysts
+      are imminent and would quickly reprice the Fed-path component if the thesis is right.
+    edge_hypothesis: "The market may be mispricing dovish-Fed upside by treating it as a generic\
+      \ long-duration trade rather than a quality-filtered operating-leverage trade. Fed funds\
+      \ futures still lean toward near-term hold, while equity leadership remains concentrated\
+      \ in AI infrastructure; that leaves a possible gap in rate-sensitive companies where lower\
+      \ front-end yields, lower mortgage/financing costs, and easier refinancing would improve\
+      \ actual demand or cash-flow durability. The likely mispricing is not in the weakest balance\
+      \ sheets or unprofitable growth \u2014 those remain vulnerable if inflation data disappoints\
+      \ \u2014 but in profitable, rate-sensitive sectors whose multiples still reflect restrictive-policy\
+      \ assumptions even though credit stress is not currently confirming a recessionary downside\
+      \ case."
+    sub_questions:
+      - Which sectors and industries have the highest historical positive sensitivity to 2-year
+        Treasury yield declines, after excluding unprofitable companies and highly levered balance
+        sheets?
+      - Which profitable rate-sensitive equities have de-rated the most since the prior easing
+        cycle while maintaining positive free cash flow and stable forward earnings revisions?
+      - Do homebuilders, building-products companies, residential REITs, banks, or profitable
+        software show the best combination of Fed-cut beta, balance-sheet resilience, and under-owned
+        positioning?
+      - Which stocks have the largest earnings or demand sensitivity to lower mortgage rates,
+        lower refinancing costs, or lower discount rates, rather than only multiple-expansion
+        sensitivity?
+      - Where do options markets show cheap upside convexity into the May PCE, May CPI, June
+        FOMC, and July FOMC catalysts relative to historical post-Fed-move realized volatility?
+    priority_rank: 3
+    expected_edge_decay: weeks

@@ -1,0 +1,21 @@
+# Manually maintained Fed funds path probabilities.
+# Source: CME FedWatch tool — https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html
+# Update cadence: weekly (after each Fed meeting or major data release)
+# Last updated: 2026-05-19
+
+source_note: "CME FedWatch readings as of 2026-05-19"
+
+meetings:
+  - meeting_date: "2026-06-17"
+    prob_cut_50: 0.02
+    prob_cut_25: 0.18
+    prob_hold: 0.70
+    prob_hike_25: 0.09
+    prob_hike_50: 0.01
+
+  - meeting_date: "2026-07-29"
+    prob_cut_50: 0.05
+    prob_cut_25: 0.30
+    prob_hold: 0.55
+    prob_hike_25: 0.09
+    prob_hike_50: 0.01

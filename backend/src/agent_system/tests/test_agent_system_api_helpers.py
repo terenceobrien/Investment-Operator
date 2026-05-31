@@ -7,9 +7,12 @@ import pytest
 from fastapi import HTTPException
 
 from api.agent_system_router import (
+    _archive_local_data,
     _flatten_trade_idea,
+    _filter_decisions,
     _latest_cycle_summary,
     _read_jsonl,
+    get_agent_system_trade_ideas,
     verify_agent_system_access,
 )
 
@@ -123,6 +126,65 @@ def test_latest_cycle_summary_uses_latest_decision_log_cycle(tmp_path, monkeypat
     assert summary["accepted"] == 1
     assert summary["rejected"] == 1
     assert summary["accepted_underlyings"] == ["ETN"]
+
+
+def test_decisions_can_filter_latest_cycle(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    rows = [
+        {"payload_json": {"timestamp": "2026-05-18T00:00:00Z", "cycle_id": "older", "candidate": "OLD"}},
+        {"payload_json": {"timestamp": "2026-05-19T00:00:00Z", "cycle_id": "latest", "candidate": "ETN"}},
+        {"payload_json": {"timestamp": "2026-05-19T00:01:00Z", "cycle_id": "latest", "candidate": "SMH"}},
+    ]
+    (tmp_path / "decision_log.jsonl").write_text(
+        "\n".join(json.dumps(row) for row in rows),
+        encoding="utf-8",
+    )
+
+    latest = _filter_decisions(latest_only=True)
+    assert {d["candidate"] for d in latest} == {"ETN", "SMH"}
+
+
+def test_trade_ideas_latest_only_uses_decision_log_references(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    decisions = [
+        {"payload_json": {"timestamp": "2026-05-18T00:00:00Z", "cycle_id": "older", "candidate": "OLD", "trade_idea_id": "old-id"}},
+        {"payload_json": {"timestamp": "2026-05-19T00:00:00Z", "cycle_id": "latest", "candidate": "ETN", "trade_idea_id": "etn-id"}},
+    ]
+    schemas = [
+        {
+            "id": "old-id",
+            "schema_type": "TradeIdea",
+            "created_at": "2026-05-18T00:00:00Z",
+            "payload_json": {"id": "old-id", "underlying": "OLD", "combined_conviction": {"rating": "strong"}},
+        },
+        {
+            "id": "etn-id",
+            "schema_type": "TradeIdea",
+            "created_at": "2026-05-19T00:00:00Z",
+            "payload_json": {"id": "etn-id", "underlying": "ETN", "combined_conviction": {"rating": "strong"}, "expression": {"primary_instrument": {"ticker": "ETN", "direction": "long"}}},
+        },
+    ]
+    (tmp_path / "decision_log.jsonl").write_text("\n".join(json.dumps(row) for row in decisions), encoding="utf-8")
+    (tmp_path / "schema_records.jsonl").write_text("\n".join(json.dumps(row) for row in schemas), encoding="utf-8")
+
+    latest = asyncio.run(get_agent_system_trade_ideas(latest_only=True, user={}))
+    assert len(latest) == 1
+    assert latest[0]["underlying"] == "ETN"
+    assert latest[0]["cycle_id"] == "latest"
+
+
+def test_archive_local_data_moves_jsonl_files(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    (tmp_path / "schema_records.jsonl").write_text("schema\n", encoding="utf-8")
+    (tmp_path / "decision_log.jsonl").write_text("decision\n", encoding="utf-8")
+
+    result = _archive_local_data()
+
+    assert result["cleared"] is True
+    assert result["archived"] is True
+    assert sorted(result["files_moved"]) == ["decision_log.jsonl", "schema_records.jsonl"]
+    assert not (tmp_path / "schema_records.jsonl").exists()
+    assert not (tmp_path / "decision_log.jsonl").exists()
 
 
 def test_agent_system_access_bypasses_clerk_only_when_dev_enabled(monkeypatch):

@@ -36,6 +36,7 @@ if str(BACKEND_DIR) not in sys.path:
 from src.agent_system.schemas.common import (
     AnalysisConviction,
     ConvictionRating,
+    DerivedEvidence,
     FREDEvidence,
     InefficiencyArchetype,
     NewsEvidence,
@@ -142,6 +143,14 @@ def research_priority() -> ResearchPriority:
         ),
         priority_rank=1,
         expected_edge_decay=EdgeDecayHorizon.QUARTERS,
+        supporting_evidence=[
+            DerivedEvidence(
+                claim="Hormuz disruption and tight policy support the priority",
+                supports=True,
+                computation="test fixture derived from regime narrative",
+                upstream_claims=["test fixture: energy supply shock beneficiaries"],
+            )
+        ],
     )
 
 

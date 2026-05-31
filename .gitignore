@@ -30,6 +30,7 @@ __pycache__/
 .env*.local
 .claude/
 backend/data/narrative/trends/
+backend/data/agent_system/data_cache/
 
 # Pipeline A output artifacts (pipeline moved to legacy/)
 data/narrative/cache/

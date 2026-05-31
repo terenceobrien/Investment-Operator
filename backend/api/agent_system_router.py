@@ -6,12 +6,13 @@ from __future__ import annotations
 import json
 import logging
 import os
+import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Annotated, Any, Dict, List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Security
+from fastapi import APIRouter, Depends, HTTPException, Query, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -62,6 +63,29 @@ def _decision_payloads() -> List[Dict[str, Any]]:
     return sorted(payloads, key=lambda x: str(x.get("timestamp") or ""), reverse=True)
 
 
+def _latest_cycle_id(decisions: Optional[List[Dict[str, Any]]] = None) -> Optional[str]:
+    entries = decisions if decisions is not None else _decision_payloads()
+    if not entries:
+        return None
+    cycle_id = entries[0].get("cycle_id")
+    return str(cycle_id) if cycle_id else None
+
+
+def _filter_decisions(
+    *,
+    cycle_id: Optional[str] = None,
+    latest_only: bool = False,
+    limit: Optional[int] = None,
+) -> List[Dict[str, Any]]:
+    decisions = _decision_payloads()
+    selected_cycle = cycle_id or (_latest_cycle_id(decisions) if latest_only else None)
+    if selected_cycle:
+        decisions = [d for d in decisions if d.get("cycle_id") == selected_cycle]
+    if limit is not None:
+        decisions = decisions[:limit]
+    return decisions
+
+
 def _schema_rows() -> List[Dict[str, Any]]:
     return _read_jsonl(_storage_dir() / "schema_records.jsonl")
 
@@ -71,7 +95,16 @@ def _trade_idea_records() -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda x: str(x.get("created_at") or ""), reverse=True)
 
 
-def _flatten_trade_idea(row: Dict[str, Any]) -> Dict[str, Any]:
+def _record_id(row: Dict[str, Any]) -> Optional[str]:
+    payload = row.get("payload_json") if isinstance(row.get("payload_json"), dict) else {}
+    record_id = row.get("id") or payload.get("id")
+    return str(record_id) if record_id else None
+
+
+def _flatten_trade_idea(
+    row: Dict[str, Any],
+    decision: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     payload = row.get("payload_json") if isinstance(row.get("payload_json"), dict) else {}
     conviction = payload.get("combined_conviction") or {}
     expression = payload.get("expression") or {}
@@ -84,6 +117,7 @@ def _flatten_trade_idea(row: Dict[str, Any]) -> Dict[str, Any]:
 
     return {
         "id": row.get("id") or payload.get("id"),
+        "cycle_id": decision.get("cycle_id") if decision else None,
         "created_at": payload.get("created_at") or row.get("created_at"),
         "underlying": payload.get("underlying"),
         "conviction_rating": rating,
@@ -137,6 +171,39 @@ def _dev_endpoint_enabled() -> bool:
     return os.getenv("ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS", "").lower() == "true"
 
 
+def _decision_by_trade_id(decisions: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    result: Dict[str, Dict[str, Any]] = {}
+    for decision in decisions:
+        trade_id = decision.get("trade_idea_id")
+        if trade_id and str(trade_id) not in result:
+            result[str(trade_id)] = decision
+    return result
+
+
+def _archive_local_data() -> Dict[str, Any]:
+    storage = _storage_dir()
+    archive_root = storage / "archive"
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    archive_path = archive_root / timestamp
+    files_moved: List[str] = []
+
+    for filename in ("schema_records.jsonl", "decision_log.jsonl"):
+        source = storage / filename
+        if not source.exists():
+            continue
+        archive_path.mkdir(parents=True, exist_ok=True)
+        destination = archive_path / filename
+        shutil.move(str(source), str(destination))
+        files_moved.append(filename)
+
+    return {
+        "cleared": True,
+        "archived": bool(files_moved),
+        "archive_path": str(archive_path) if files_moved else None,
+        "files_moved": files_moved,
+    }
+
+
 async def verify_agent_system_access(
     credentials: Optional[HTTPAuthorizationCredentials] = Security(agent_system_security),
 ) -> dict:
@@ -174,17 +241,43 @@ async def get_agent_system_summary(user: dict = Depends(verify_agent_system_acce
 
 
 @agent_system_router.get("/decisions")
-async def get_agent_system_decisions(user: dict = Depends(verify_agent_system_access)):
+async def get_agent_system_decisions(
+    cycle_id: Optional[str] = None,
+    latest_only: bool = False,
+    limit: Annotated[int, Query(ge=1, le=500)] = 50,
+    user: dict = Depends(verify_agent_system_access),
+):
     try:
-        return _decision_payloads()
+        return _filter_decisions(cycle_id=cycle_id, latest_only=latest_only, limit=limit)
     except Exception:
         raise HTTPException(status_code=500, detail="Unable to read agent-system decision log")
 
 
 @agent_system_router.get("/trade-ideas")
-async def get_agent_system_trade_ideas(user: dict = Depends(verify_agent_system_access)):
+async def get_agent_system_trade_ideas(
+    cycle_id: Optional[str] = None,
+    latest_only: bool = False,
+    user: dict = Depends(verify_agent_system_access),
+):
     try:
-        return [_flatten_trade_idea(row) for row in _trade_idea_records()]
+        decisions = _decision_payloads()
+        selected_cycle = cycle_id or (_latest_cycle_id(decisions) if latest_only else None)
+        if selected_cycle:
+            decisions = [d for d in decisions if d.get("cycle_id") == selected_cycle]
+            allowed_ids = {str(d.get("trade_idea_id")) for d in decisions if d.get("trade_idea_id")}
+            rows = [row for row in _trade_idea_records() if _record_id(row) in allowed_ids]
+        elif latest_only:
+            rows = []
+        else:
+            rows = _trade_idea_records()
+        decision_map = _decision_by_trade_id(decisions)
+        return [
+            _flatten_trade_idea(
+                row,
+                decision_map.get(_record_id(row) or ""),
+            )
+            for row in rows
+        ]
     except Exception:
         raise HTTPException(status_code=500, detail="Unable to read agent-system trade ideas")
 
@@ -231,3 +324,16 @@ async def post_agent_system_run_stub_cycle(user: dict = Depends(verify_agent_sys
         return summary
     except Exception:
         raise HTTPException(status_code=500, detail="Unable to run stub research cycle")
+
+
+@agent_system_router.post("/clear-local-data")
+async def post_agent_system_clear_local_data(user: dict = Depends(verify_agent_system_access)):
+    if not _dev_endpoint_enabled():
+        raise HTTPException(
+            status_code=403,
+            detail="Agent-system dev endpoints are disabled. Set ENABLE_AGENT_SYSTEM_DEV_ENDPOINTS=true to enable.",
+        )
+    try:
+        return _archive_local_data()
+    except Exception:
+        raise HTTPException(status_code=500, detail="Unable to clear local agent-system data")

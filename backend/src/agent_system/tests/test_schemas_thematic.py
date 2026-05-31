@@ -113,7 +113,34 @@ class TestCandidate:
                 fit_strength=0.5,
                 consensus_view="something",
                 variant_strength=VariantStrength.UNCLEAR,
-                priority_rank=11,  # > 10, invalid
+                priority_rank=16,  # > 15, invalid
+                recommended_research_depth=ResearchDepth.STANDARD,
+            )
+
+    def test_priority_rank_allows_full_candidate_map_range(self):
+        c = Candidate(
+            ticker="CVX",
+            instrument_type=InstrumentType.SINGLE_STOCK,
+            thematic_fit="x" * 50,
+            fit_strength=0.5,
+            consensus_view="something",
+            variant_strength=VariantStrength.UNCLEAR,
+            priority_rank=12,
+            recommended_research_depth=ResearchDepth.STANDARD,
+        )
+        assert c.priority_rank == 12
+
+    def test_pair_ticker_string_is_rejected(self):
+        with pytest.raises(ValidationError, match="ticker must be a single symbol"):
+            Candidate(
+                ticker="RSP/SPY",
+                instrument_type=InstrumentType.PAIR,
+                thematic_fit="Long RSP versus short SPY as a breadth normalization pair.",
+                fit_strength=0.7,
+                consensus_view="Cap-weight leadership remains consensus.",
+                potential_variant_view="Equal-weight may outperform as leadership broadens.",
+                variant_strength=VariantStrength.MODERATE,
+                priority_rank=1,
                 recommended_research_depth=ResearchDepth.STANDARD,
             )
 

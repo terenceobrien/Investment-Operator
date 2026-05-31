@@ -1,0 +1,201 @@
+"""Tests for cycle status files and frontend cycle API helpers."""
+from __future__ import annotations
+
+import json
+from datetime import datetime, timedelta, timezone
+from uuid import UUID
+
+import pytest
+from fastapi import HTTPException
+
+from api import cycle_router
+from src.agent_system.api import cycle_runner
+from src.agent_system.orchestration.cycle_status import (
+    CycleStatus,
+    CycleStatusEmitter,
+    StageName,
+    StageState,
+    StageStatus,
+)
+from src.agent_system.orchestration.run_research_cycle import run_stub_research_cycle
+from src.agent_system.paths import cycles_dir
+
+
+def _write_status(cycle_id: str, *, started_at: datetime, status: StageStatus) -> None:
+    path = cycles_dir() / cycle_id / "status.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = CycleStatus(
+        cycle_id=cycle_id,
+        started_at=started_at,
+        updated_at=started_at,
+        completed_at=started_at if status in {StageStatus.COMPLETE, StageStatus.FAILED} else None,
+        overall_status=status,
+        stages=[StageState(stage=stage) for stage in StageName],
+        user_inputs_preview=[f"{cycle_id} input"],
+    )
+    path.write_text(payload.model_dump_json(indent=2), encoding="utf-8")
+
+
+def test_cycle_status_emitter_writes_atomically_and_updates(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    emitter = CycleStatusEmitter("cycle-test", user_inputs=["Dovish pivot beneficiaries"])
+
+    emitter.start_stage(StageName.MACRO, "starting macro")
+    emitter.update_stage(StageName.MACRO, current=1, total=2)
+    emitter.complete_stage(StageName.MACRO, "macro complete")
+
+    path = tmp_path / "cycles" / "cycle-test" / "status.json"
+    assert path.exists()
+    status = CycleStatus.model_validate_json(path.read_text(encoding="utf-8"))
+    macro = next(stage for stage in status.stages if stage.stage == StageName.MACRO)
+    assert status.cycle_id == "cycle-test"
+    assert status.user_inputs_preview == ["Dovish pivot beneficiaries"]
+    assert macro.status == StageStatus.COMPLETE
+    assert macro.progress_current == 1
+    assert macro.progress_total == 2
+    assert not list(path.parent.glob("*.tmp"))
+
+
+def test_stub_cycle_with_emitter_completes_status(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    emitter = CycleStatusEmitter("cycle-emitted")
+
+    summary = run_stub_research_cycle(
+        skip_portfolio_construction=True,
+        emitter=emitter,
+    )
+
+    status = CycleStatus.model_validate_json(
+        (tmp_path / "cycles" / "cycle-emitted" / "status.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert summary["cycle_id"] == "cycle-emitted"
+    assert status.overall_status == StageStatus.COMPLETE
+    assert status.summary_counters["cycle_id"] == "cycle-emitted"
+
+
+def test_submit_cycle_returns_uuid_and_submits_worker(monkeypatch):
+    submitted = []
+
+    class FakeExecutor:
+        def submit(self, fn, cycle_id, user_inputs):
+            submitted.append((fn, cycle_id, user_inputs))
+            return object()
+
+    monkeypatch.setattr(cycle_runner, "_executor", FakeExecutor())
+
+    cycle_id = cycle_runner.submit_cycle(["AI power"])
+
+    assert UUID(cycle_id)
+    assert len(submitted) == 1
+    assert submitted[0][1] == cycle_id
+    assert submitted[0][2] == ["AI power"]
+
+
+def test_submit_endpoint_validation(monkeypatch):
+    monkeypatch.setattr(cycle_router, "submit_cycle", lambda _inputs: "cycle-ok")
+
+    with pytest.raises(HTTPException) as empty:
+        cycle_router.submit_cycle_endpoint(
+            cycle_router.SubmitCycleRequest(user_inputs=[]),
+            user={},
+        )
+    assert empty.value.status_code == 400
+
+    with pytest.raises(HTTPException) as too_many:
+        cycle_router.submit_cycle_endpoint(
+            cycle_router.SubmitCycleRequest(user_inputs=["x"] * 11),
+            user={},
+        )
+    assert too_many.value.status_code == 400
+
+    with pytest.raises(HTTPException) as too_long:
+        cycle_router.submit_cycle_endpoint(
+            cycle_router.SubmitCycleRequest(user_inputs=["x" * 501]),
+            user={},
+        )
+    assert too_long.value.status_code == 400
+
+    response = cycle_router.submit_cycle_endpoint(
+        cycle_router.SubmitCycleRequest(user_inputs=["  AI power  "]),
+        user={},
+    )
+    assert response.cycle_id == "cycle-ok"
+
+
+def test_status_endpoint_returns_status_and_404s(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    emitter = CycleStatusEmitter("cycle-status")
+    emitter.start_stage(StageName.THEMATIC, "working")
+
+    status = cycle_router.get_status_endpoint("cycle-status", user={})
+
+    assert status.cycle_id == "cycle-status"
+    assert status.overall_status == StageStatus.RUNNING
+
+    with pytest.raises(HTTPException) as missing:
+        cycle_router.get_status_endpoint("missing", user={})
+    assert missing.value.status_code == 404
+
+
+def test_results_endpoint_filters_records_by_cycle(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    _write_status("cycle-a", started_at=datetime.now(timezone.utc), status=StageStatus.COMPLETE)
+    (tmp_path / "decision_log.jsonl").write_text(
+        json.dumps(
+            {
+                "payload_json": {
+                    "cycle_id": "cycle-a",
+                    "candidate": "ETN",
+                    "trade_idea_id": "trade-a",
+                }
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    schemas = [
+        {
+            "id": "trade-a",
+            "schema_type": "TradeIdea",
+            "payload_json": {"id": "trade-a", "underlying": "ETN"},
+        },
+        {
+            "id": "plan-a",
+            "schema_type": "PortfolioPlan",
+            "payload_json": {"id": "plan-a", "cycle_id": "cycle-a"},
+        },
+        {
+            "id": "other",
+            "schema_type": "TradeIdea",
+            "payload_json": {"id": "other", "cycle_id": "cycle-b"},
+        },
+    ]
+    (tmp_path / "schema_records.jsonl").write_text(
+        "\n".join(json.dumps(row) for row in schemas),
+        encoding="utf-8",
+    )
+
+    result = cycle_router.get_results_endpoint("cycle-a", user={})
+
+    assert set(result["records_by_type"]) == {"TradeIdea", "PortfolioPlan"}
+    assert result["records_by_type"]["TradeIdea"][0]["id"] == "trade-a"
+    assert result["decision_log_entries"][0]["candidate"] == "ETN"
+
+    with pytest.raises(HTTPException) as missing:
+        cycle_router.get_results_endpoint("missing", user={})
+    assert missing.value.status_code == 404
+
+
+def test_recent_cycles_endpoint_sorts_and_limits(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    now = datetime.now(timezone.utc)
+    _write_status("older", started_at=now - timedelta(hours=1), status=StageStatus.COMPLETE)
+    _write_status("newer", started_at=now, status=StageStatus.RUNNING)
+
+    result = cycle_router.list_recent_cycles_endpoint(limit=1, user={})
+
+    assert len(result["cycles"]) == 1
+    assert result["cycles"][0]["cycle_id"] == "newer"
+    assert result["cycles"][0]["user_inputs_preview"] == ["newer input"]
