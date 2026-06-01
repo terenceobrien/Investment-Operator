@@ -1,5 +1,2 @@
 # One free-text user input per line. Blank lines and # comments are ignored.
-Given the Hormuz closure that is now expected to last into the summer, give me some good investments that will benefit (can be oil-related or a second-order effect of the war)
-Which companies are the real winners as quantum computing matures over the next 5-10 years?
-Where should I deploy fresh cash if I'm sitting on dry powder
-If the Fed pivots dovishly in the next 2 quarters, which sectors and stocks benefit asymmetrically?
+Companies with significant 2027-2028 debt maturity walls facing refinancing at materially higher rates than current debt costs — where is consensus underestimating the EPS impact?

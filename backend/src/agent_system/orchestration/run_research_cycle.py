@@ -12,6 +12,8 @@ import argparse
 import asyncio
 import json
 import logging
+import os
+import traceback
 from datetime import datetime, timezone
 from typing import Optional
 from uuid import uuid4
@@ -71,6 +73,38 @@ from src.agent_system.schemas.trade import TradeIdea
 from src.agent_system.storage.repository import save_decision_log_entry, save_schema
 
 logger = logging.getLogger("agent_system.cycle")
+
+
+def _ensure_status_emitter(
+    cycle_id: str | None,
+    emitter: CycleStatusEmitter | None,
+    *,
+    user_inputs: list[str] | None = None,
+) -> tuple[str, CycleStatusEmitter]:
+    if emitter is not None:
+        if cycle_id is not None and cycle_id != emitter.cycle_id:
+            raise ValueError(
+                "cycle_id and emitter.cycle_id must match when both are supplied"
+            )
+        return emitter.cycle_id, emitter
+
+    resolved_cycle_id = cycle_id or str(uuid4())
+    return resolved_cycle_id, CycleStatusEmitter(
+        resolved_cycle_id,
+        user_inputs=user_inputs,
+    )
+
+
+def _frontend_cycle_url(cycle_id: str) -> str:
+    base_url = os.getenv("AGENT_SYSTEM_FRONTEND_URL", "http://localhost:3000")
+    return f"{base_url.rstrip('/')}/agent-system?cycle={cycle_id}"
+
+
+def _print_cli_cycle_start(cycle_id: str, emitter: CycleStatusEmitter) -> None:
+    print(f"Cycle ID: {cycle_id}")
+    print(f"Frontend: {_frontend_cycle_url(cycle_id)}")
+    print(f"Status file: {emitter.path}")
+    print()
 
 
 def _decision_label(rating: ConvictionRating) -> str:
@@ -450,7 +484,14 @@ def _execute_cycle(
                 narrative_analysis_id=narrative_id,
                 regime_state_id=regime_id,
             )
-            trade = trade.model_copy_validate({"provenance": provenance})
+            conviction_id = save_schema(conviction, schema_type="Conviction")
+            conviction = conviction.model_copy(update={"id": conviction_id})
+            trade = trade.model_copy_validate(
+                {
+                    "combined_conviction": conviction,
+                    "provenance": provenance,
+                }
+            )
             trade_id = save_schema(trade)
             trade = trade.model_copy(update={"id": trade_id})
             trade_ideas_saved += 1
@@ -711,12 +752,15 @@ def run_research_cycle(
         cycle_id: Optional externally assigned id, used by API background jobs.
         research_priorities: Optional in-memory priorities to use instead of
             the regime state's YAML-loaded priorities.
-        emitter: Optional status emitter. When None, CLI behavior is unchanged.
+        emitter: Optional status emitter. When None, one is created so every
+            cycle emits frontend-readable status.
 
     Returns:
         Cycle summary dict with regime_source, regime_asof_date, and
         fallback_reason added.
     """
+    cycle_id, emitter = _ensure_status_emitter(cycle_id, emitter)
+
     if force_stub:
         regime = make_stub_regime_state()
         regime_source = "stub"
@@ -761,10 +805,14 @@ def run_cycle_with_inputs(
     existing cycle then consumes those priorities directly without mutating
     current_regime.yaml.
     """
-    cycle_id = cycle_id or str(uuid4())
     cleaned_inputs = [text.strip() for text in user_inputs if text.strip()]
     if not cleaned_inputs:
         raise ValueError("At least one non-empty user input is required")
+    cycle_id, emitter = _ensure_status_emitter(
+        cycle_id,
+        emitter,
+        user_inputs=cleaned_inputs,
+    )
 
     if force_stub:
         regime = make_stub_regime_state()
@@ -883,8 +931,10 @@ def run_stub_research_cycle(
     Returns a summary that is intentionally compact enough for CLI output and
     tests, while detailed artifacts live in JSONL storage.
     """
+    cycle_id, emitter = _ensure_status_emitter(None, emitter)
     return _execute_cycle(
         make_stub_regime_state(),
+        cycle_id=cycle_id,
         regime_source="stub",
         fallback_reason=None,
         use_stub_thematic=use_stub_thematic,
@@ -895,7 +945,7 @@ def run_stub_research_cycle(
     )
 
 
-if __name__ == "__main__":
+def main(argv: list[str] | None = None) -> dict:
     parser = argparse.ArgumentParser(
         description="Run a research cycle (real thematic agent by default)."
     )
@@ -944,19 +994,32 @@ if __name__ == "__main__":
             "portfolio construction. Useful for cheap upstream iteration."
         ),
     )
-    args = parser.parse_args()
-    summary = run_research_cycle(
-        asof_date=args.asof_date,
-        force_stub=args.stub,
-        use_stub_thematic=args.use_stub_thematic,
-        use_stub_fundamental=args.use_stub_fundamental,
-        use_stub_trade_expression=args.use_stub_trade_expression,
-        skip_portfolio_construction=args.skip_portfolio_construction,
-    )
-    portfolio_summary = summary.pop("_portfolio_summary_text", None)
+    args = parser.parse_args(argv)
+    cycle_id = str(uuid4())
+    emitter = CycleStatusEmitter(cycle_id)
+    _print_cli_cycle_start(cycle_id, emitter)
+    try:
+        summary = run_research_cycle(
+            asof_date=args.asof_date,
+            force_stub=args.stub,
+            use_stub_thematic=args.use_stub_thematic,
+            use_stub_fundamental=args.use_stub_fundamental,
+            use_stub_trade_expression=args.use_stub_trade_expression,
+            skip_portfolio_construction=args.skip_portfolio_construction,
+            cycle_id=cycle_id,
+            emitter=emitter,
+        )
+    except Exception:
+        emitter.fail_cycle(traceback.format_exc())
+        raise
+
+    portfolio_summary = summary.get("_portfolio_summary_text")
+    printable_summary = {
+        key: value for key, value in summary.items() if key != "_portfolio_summary_text"
+    }
     print(
         json.dumps(
-            summary,
+            printable_summary,
             indent=2,
             sort_keys=True,
         )
@@ -964,3 +1027,8 @@ if __name__ == "__main__":
     if portfolio_summary:
         print()
         print(portfolio_summary)
+    return summary
+
+
+if __name__ == "__main__":
+    main()

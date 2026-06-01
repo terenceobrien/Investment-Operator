@@ -1,13 +1,22 @@
 from __future__ import annotations
 
 from src.agent_system.orchestration.stub_agents import make_stub_regime_state
+from src.agent_system.paths import decision_log_path, schema_records_path
 from src.agent_system.schemas.regime import RegimeState
+from src.agent_system.storage import repository
 from src.agent_system.storage.repository import (
     get_schema,
     list_schemas,
     save_decision_log_entry,
     save_schema,
 )
+
+
+def test_repository_uses_shared_agent_system_paths(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+
+    assert repository._schema_records_path() == schema_records_path()
+    assert repository._decision_log_path() == decision_log_path()
 
 
 def test_repository_saves_and_rehydrates_schema(tmp_path, monkeypatch):

@@ -7,13 +7,17 @@ storage layer should not know about investment logic yet.
 from __future__ import annotations
 
 import json
-import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional, TypeVar
 from uuid import uuid4
 
 from src.agent_system.schemas.common import BaseSchema
+from src.agent_system.paths import (
+    agent_system_data_root,
+    decision_log_path,
+    schema_records_path,
+)
 
 T = TypeVar("T", bound=BaseSchema)
 
@@ -23,16 +27,15 @@ def _utcnow() -> datetime:
 
 
 def _data_dir() -> Path:
-    default_dir = Path(__file__).resolve().parents[4] / "data" / "agent_system"
-    return Path(os.getenv("AGENT_SYSTEM_DATA_DIR", str(default_dir)))
+    return agent_system_data_root()
 
 
 def _schema_records_path() -> Path:
-    return _data_dir() / "schema_records.jsonl"
+    return schema_records_path()
 
 
 def _decision_log_path() -> Path:
-    return _data_dir() / "decision_log.jsonl"
+    return decision_log_path()
 
 
 def _ensure_parent(path: Path) -> None:

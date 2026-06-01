@@ -73,10 +73,7 @@ class CycleStatusEmitter:
         self.cycle_id = cycle_id
         self.path = cycles_dir() / cycle_id / "status.json"
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        preview = [
-            text[:120] + ("..." if len(text) > 120 else "")
-            for text in (user_inputs or [])[:2]
-        ]
+        preview = list(user_inputs or [])
         now = _utcnow()
         self.state = CycleStatus(
             cycle_id=cycle_id,

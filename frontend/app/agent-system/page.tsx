@@ -81,11 +81,20 @@ type ConvictionPayload = {
 
 type InstrumentPayload = {
   ticker?: string;
+  instrument_type?: string | null;
+  direction?: string | null;
   description?: string | null;
+};
+
+type AlternativePayload = {
+  instrument?: InstrumentPayload | null;
+  why_rejected?: string | null;
 };
 
 type ExpressionPayload = {
   primary_instrument?: InstrumentPayload | null;
+  rationale_for_instrument?: string | null;
+  alternatives_considered?: AlternativePayload[];
   entry_logic?: string | null;
   exit_stop?: string | null;
   exit_target?: string | null;
@@ -269,6 +278,11 @@ function fmtPct(value?: number | null, decimals = 1) {
   return `${(value * 100).toFixed(decimals)}%`;
 }
 
+function fmtDecimal(value?: number | null, decimals = 3) {
+  if (value === undefined || value === null || Number.isNaN(value)) return '—';
+  return value.toFixed(decimals);
+}
+
 function humanize(value?: string | null) {
   if (!value) return '—';
   return value
@@ -330,6 +344,13 @@ function numberFrom(value: unknown): number | null {
 
 function stringArrayFrom(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
+}
+
+function quartileColor(value?: number | null) {
+  if (value === 1) return C.dn;
+  if (value === 4) return C.up;
+  if (value === 2) return C.wa;
+  return C.accent;
 }
 
 function Section({
@@ -597,12 +618,44 @@ function StageTimeline({ status }: { status: CycleStatus }) {
 }
 
 function InputsPanel({ status }: { status: CycleStatus }) {
+  const [expanded, setExpanded] = useState(false);
   const inputs = status.user_inputs_preview ?? [];
   if (!inputs.length) return null;
   return (
-    <div style={{ ...panel, padding: '10px 14px', color: C.sub, fontSize: '12px' }}>
-      <span style={{ ...label, marginRight: '10px' }}>Inputs</span>
-      <span title={inputs.join('\n')}>{inputs.map((item) => truncate(item, 80)).join('  /  ')}</span>
+    <div style={{ ...panel, padding: '12px 14px', color: C.sub, fontSize: '12px' }}>
+      <button
+        type="button"
+        onClick={() => setExpanded((prev) => !prev)}
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '12px',
+          border: 0,
+          background: 'transparent',
+          color: C.sub,
+          padding: 0,
+          textAlign: 'left',
+          cursor: 'pointer',
+        }}
+      >
+        <span style={label}>Inputs</span>
+        <span style={{ ...mono, color: C.muted }}>{expanded ? 'Collapse' : 'Expand'}</span>
+      </button>
+      {expanded ? (
+        <div style={{ display: 'grid', gap: '8px', marginTop: '10px' }}>
+          {inputs.map((item, idx) => (
+            <div key={`${idx}-${item}`} style={{ background: C.panel2, border: `1px solid ${C.border}`, borderRadius: '12px', padding: '10px 12px', lineHeight: 1.5 }}>
+              {item}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ marginTop: '8px', lineHeight: 1.5 }} title={inputs.join('\n')}>
+          {inputs.map((item) => truncate(item, 80)).join('  /  ')}
+        </div>
+      )}
     </div>
   );
 }
@@ -691,7 +744,6 @@ function AcceptedTrades({ trades, portfolioPlan }: { trades: TradeIdeaPayload[];
 }
 
 function TradeCard({ trade, portfolioDecision }: { trade: TradeIdeaPayload; portfolioDecision?: PortfolioTradeDecisionPayload }) {
-  const [open, setOpen] = useState(false);
   const expression = trade.expression ?? {};
   const instrument = expression.primary_instrument ?? {};
   const sizing = trade.proposed_sizing ?? {};
@@ -699,22 +751,17 @@ function TradeCard({ trade, portfolioDecision }: { trade: TradeIdeaPayload; port
   const decision = portfolioDecision?.decision ? humanize(portfolioDecision.decision) : 'Accepted';
   const adjustments = portfolioDecision?.sizing_adjustments ?? [];
   return (
-    <div style={{ border: `1px solid ${C.border}`, borderRadius: '8px', background: C.panel2 }}>
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
+    <div style={{ border: `1px solid ${C.border}`, borderRadius: '14px', background: C.panel2 }}>
+      <div
         style={{
           width: '100%',
           display: 'grid',
           gridTemplateColumns: 'minmax(80px, 0.6fr) minmax(220px, 1.8fr) minmax(110px, 0.8fr) minmax(120px, 0.7fr)',
           gap: '14px',
           alignItems: 'center',
-          background: 'transparent',
-          border: 0,
           color: C.text,
           padding: '14px',
           textAlign: 'left',
-          cursor: 'pointer',
         }}
       >
         <div style={{ fontFamily: T.mono, fontSize: '26px', color: C.text }}>{trade.underlying}</div>
@@ -731,9 +778,11 @@ function TradeCard({ trade, portfolioDecision }: { trade: TradeIdeaPayload; port
           <div style={{ ...label, color: C.muted }}>{portfolioDecision ? 'Final size' : 'Proposed size'}</div>
           <div style={{ fontFamily: T.mono, color: C.text, fontSize: '18px' }}>{fmtPct(finalSize)}</div>
         </div>
-      </button>
-      {open ? (
-        <div style={{ borderTop: `1px solid ${C.border}`, padding: '14px', display: 'grid', gap: '12px' }}>
+      </div>
+      <div style={{ borderTop: `1px solid ${C.border}`, padding: '0 14px 14px' }}>
+        <Collapsible label="Details">
+          <div style={{ display: 'grid', gap: '12px' }}>
+            <LabeledProse label="Instrument rationale" value={expression.rationale_for_instrument} />
           <LabeledProse label="Entry" value={expression.entry_logic} />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
             <LabeledProse label="Stop" value={expression.exit_stop} />
@@ -753,21 +802,66 @@ function TradeCard({ trade, portfolioDecision }: { trade: TradeIdeaPayload; port
               </ol>
             </div>
           ) : null}
+          {expression.alternatives_considered?.length ? (
+            <div>
+              <MutedLabel>Alternatives considered</MutedLabel>
+              <div style={{ display: 'grid', gap: '8px' }}>
+                {expression.alternatives_considered.map((alt, idx) => {
+                  const altInstrument = alt.instrument;
+                  const description = altInstrument?.description
+                    || altInstrument?.instrument_type
+                    || altInstrument?.ticker
+                    || 'Alternative expression';
+                  return (
+                    <div key={`${description}-${idx}`} style={{ background: C.panel, border: `1px solid ${C.border}`, borderRadius: '12px', padding: '10px 12px' }}>
+                      <div style={{ color: C.text, fontSize: '12.5px', lineHeight: 1.45 }}>
+                        {description}
+                      </div>
+                      <div style={{ color: C.sub, fontSize: '12px', lineHeight: 1.5, marginTop: '4px' }}>
+                        {alt.why_rejected ?? 'No rejection rationale provided.'}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
           {portfolioDecision ? (
-            <div style={{ display: 'grid', gap: '6px' }}>
-              <div style={label}>Robustness</div>
-              <div style={{ color: C.sub, fontSize: '12.5px' }}>
-                Score {portfolioDecision.robustness_score ?? '—'} · quartile {portfolioDecision.robustness_quartile ?? '—'}
+            <div style={{ background: C.panel, border: `1px solid ${C.border}`, borderRadius: '12px', padding: '12px', display: 'grid', gap: '8px' }}>
+              <MutedLabel>Robustness</MutedLabel>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontFamily: T.mono, color: C.text, fontSize: '15px' }}>
+                  {fmtDecimal(portfolioDecision.robustness_score)}
+                </span>
+                {portfolioDecision.robustness_quartile != null ? (
+                  <Chip
+                    label={`Q${portfolioDecision.robustness_quartile}`}
+                    color={quartileColor(portfolioDecision.robustness_quartile)}
+                  />
+                ) : null}
               </div>
               {adjustments.map((adj) => (
-                <div key={`${adj.step}-${adj.size_before}-${adj.size_after}`} style={mono}>
-                  {humanize(adj.step)}: {fmtPct(adj.size_before)} → {fmtPct(adj.size_after)} — {adj.rationale}
+                <div
+                  key={`${adj.step}-${adj.size_before}-${adj.size_after}`}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'minmax(120px, 0.6fr) minmax(120px, 0.5fr) minmax(220px, 1fr)',
+                    gap: '10px',
+                    color: C.sub,
+                    fontSize: '12px',
+                    lineHeight: 1.45,
+                  }}
+                >
+                  <span style={{ color: C.text }}>{humanize(adj.step)}</span>
+                  <span style={{ fontFamily: T.mono }}>{fmtPct(adj.size_before)} → {fmtPct(adj.size_after)}</span>
+                  <span>{adj.rationale}</span>
                 </div>
               ))}
             </div>
           ) : null}
-        </div>
-      ) : null}
+          </div>
+        </Collapsible>
+      </div>
     </div>
   );
 }
