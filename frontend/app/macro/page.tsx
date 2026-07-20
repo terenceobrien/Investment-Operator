@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { useAuthFetcher } from '../../lib/api';
 import AuthRequired from '@/components/AuthRequired';
+import { M } from '../lib/researchOsTheme';
 
 // ═══════════════════════════════════════════════════════════════════
 // Macro & Regime
@@ -30,35 +31,6 @@ import AuthRequired from '@/components/AuthRequired';
 const FORECAST_ENDPOINT = '/api/macro/forecast/latest';
 const NARRATIVE_TICKER = 'SPY';
 const NARRATIVE_ENDPOINT = (ticker: string) => `/api/narrative/latest?ticker=${ticker}`;
-
-// Macro page uses the dark-card "Research OS" prototype look, scoped to this
-// page only (the rest of the app keeps the shared white-card T tokens).
-// To revert to white-card consistency: swap card/well/line to the light values
-// and set ink -> T.text, keeping only the accent + serif changes.
-const M = {
-  canvas:      '#DBE4F1',  // page background (matches T.bg family)
-  card:        '#212F4F',  // standard card
-  cardElev:    '#293A5F',  // elevated / chip background
-  well:        '#16213C',  // inset well (scores, sparkline bg)
-  line:        '#2E3F63',
-  line2:       '#3A4D76',
-  ink:         '#E8EDF7',  // primary text on dark cards
-  inkDim:      '#8B98B4',
-  inkFaint:    '#5B6A8C',
-  accent:      '#4B8DFF',
-  accentSoft:  '#1E2F54',
-  accentBright:'#6AA3FF',
-  pos:         '#3FD08A',
-  neg:         '#F2765F',
-  warn:        '#E8B74A',
-  // on-canvas text (headings sit on the light canvas, not on cards)
-  canvasInk:      '#1A2540',
-  canvasInkDim:   '#4A5A7A',
-  canvasInkFaint: '#6B7A99',
-  serif: "'Newsreader', Georgia, serif",
-  sans:  "Inter, ui-sans-serif, system-ui, sans-serif",
-  mono:  "'IBM Plex Mono', ui-monospace, monospace",
-};
 
 type AnyRecord = Record<string, unknown>;
 
@@ -943,7 +915,6 @@ export default function MacroPage() {
 
   return (
     <main style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');`}</style>
       <div style={{ width: 'min(1280px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '2px' }}>
           <div>

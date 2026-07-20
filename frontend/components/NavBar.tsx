@@ -29,15 +29,17 @@ type NavItem = {
 // Primary workspace destinations, in workflow order.
 const workspace: NavItem[] = [
   { href: '/macro', label: 'Macro & regime', num: '01' },
-  { href: '/narrative', label: 'Narrative engine', num: '02' },
+  { href: '/company', label: 'Company research', num: '02' },
   { href: '/research-cycle', label: 'Research cycle', num: '03' },
-  { href: '/portfolio', label: 'Portfolio monitor', num: '04' },
+  { href: '/portfolio-monitor', label: 'Portfolio monitor', num: '04' },
 ];
 
 // Secondary destinations (kept from the old nav so nothing is lost).
 const more: NavItem[] = [
+  { href: '/narrative', label: 'Narrative engine' },
   { href: '/state', label: 'Market state' },
   { href: '/markets', label: 'Prices' },
+  { href: '/portfolio', label: 'Portfolio' },
   { href: '/history', label: 'Market memory' },
   { href: '/strategy', label: 'Custom strategy' },
   { href: '/prediction-markets', label: 'Prediction markets' },
