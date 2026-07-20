@@ -8,7 +8,11 @@ from datetime import datetime, timezone
 
 from src.agent_system.config.trader_profile import TraderProfile
 from src.agent_system.positions.types import PositionsSnapshot
-from src.agent_system.scenarios.types import ScenarioSet, TradeScenarioAnalysis
+from src.agent_system.scenarios.types import (
+    ScenarioSet,
+    ScenarioWeightSource,
+    TradeScenarioAnalysis,
+)
 from src.agent_system.schemas.portfolio_plan import (
     PortfolioPlan,
     PortfolioTradeDecision,
@@ -30,6 +34,10 @@ class _WorkingDecision:
     final_size_pct: float
     robustness_score: float | None = None
     robustness_quartile: int | None = None
+    scenario_weighted_expected_return: float | None = None
+    scenario_weight_source: ScenarioWeightSource | None = None
+    scenario_weights_used: dict[str, float] = field(default_factory=dict)
+    scenario_weight_warning: str | None = None
     existing_position_pct: float = 0.0
     sizing_adjustments: list[SizingAdjustment] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
@@ -170,6 +178,10 @@ def _to_public_decision(decision: _WorkingDecision) -> PortfolioTradeDecision:
         proposed_size_pct=decision.proposed_size_pct,
         robustness_score=decision.robustness_score,
         robustness_quartile=decision.robustness_quartile,
+        scenario_weighted_expected_return=decision.scenario_weighted_expected_return,
+        scenario_weight_source=decision.scenario_weight_source,
+        scenario_weights_used=decision.scenario_weights_used,
+        scenario_weight_warning=decision.scenario_weight_warning,
         existing_position_pct=decision.existing_position_pct,
         final_size_pct=decision.final_size_pct,
         sizing_adjustments=decision.sizing_adjustments,
@@ -211,6 +223,10 @@ def construct_portfolio(
                 proposed_size_pct=trade.proposed_sizing.base_size_pct,
                 final_size_pct=trade.proposed_sizing.base_size_pct,
                 robustness_score=analysis.robustness_score if analysis else None,
+                scenario_weighted_expected_return=analysis.expected_return if analysis else None,
+                scenario_weight_source=analysis.scenario_weight_source if analysis else None,
+                scenario_weights_used=analysis.scenario_weights_used if analysis else {},
+                scenario_weight_warning=analysis.scenario_weight_warning if analysis else None,
             )
             if analysis is None:
                 decision.notes.append(

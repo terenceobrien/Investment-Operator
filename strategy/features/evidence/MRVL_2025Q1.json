@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'anticipate', 'we project' in both calls' forward outlook sections."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue $1.15B midpoint; current guides Q2 to $1.25B (+8-9% seq) vs prior's implied stronger 'favorable second half' framing and Q1 data center guidance of low-single-digit growth beaten but Q2 data center only guided mid-single-digit vs prior's stronger AI silicon ramp commentary, reflecting a more modest sequential trajectory overall."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Cloud optimized silicon target 'above $800M annual target' prior call vs current custom compute TAM raised to $40B by 2028 and DCI TAM to $3B, both new upward figures vs prior's 'couple hundred million' and no DCI TAM given."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New PCIe Gen 6 retimer market and new coherent DSP extending DCI reach to 1000km are introduced, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'market leading', 'first to market', 'increasingly confident' and GM Supplier of the Year award, slightly more superlative than prior."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data center growth decelerated to 87% YoY/7% sequential from 54% YoY/38% sequential prior, and enterprise/carrier described as still soft with only 'flat sequential' expected vs prior's expected recovery language."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging terms like 'expect', 'anticipate', 'we see' at comparable density."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $1.00-1.03B (midpoint EPS $1.40); current guides Q1 $975M-$1.025B with mobile declining low-to-mid teens sequentially."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Broad Markets described as ~$1.5B business in both calls, figure held rather than revised up or down."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Qorvo combination announcement and new CFO Philip Carter introduced, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds framing like 'three straight quarters of solid execution' and 'transformative deal' not present prior."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior guided mid-single-digit mobile sequential growth; current guides mobile to decline low-to-mid teens sequentially next quarter."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "CEO opens with 'more confident than ever' vs prior's more measured 'solid quarter' framing, less hedged overall."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue $128-138M (7.2% seq growth); current guides Q4 $138-148M (22% YoY, largest in nearly 2 years) - raised trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "New products goal reiterated both calls, but AI usage now quantified: 'high teens in 2025 and mid-20% range in 2026,' a new specific forward figure not in prior call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topics: post-quantum cryptography (PQC)/NIST CNSA compliance and Open Compute Summit security/board management traction absent in prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "CEO says 'more confident than ever,' 'record year,' 'record level' communications, more superlatives than prior's 'solid quarter' language."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Comms/Compute grew 8% seq/21% YoY current vs 20% seq/26% YoY prior (deceleration), but bookings framed as 'strongest... in at least 6 quarters' and Q4 guide implies accelerating 22% YoY vs Q3's 7.2% seq guide, indicating stronger forward demand confidence."
+  }
+}

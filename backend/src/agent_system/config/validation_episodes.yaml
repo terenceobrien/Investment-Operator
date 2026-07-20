@@ -1,0 +1,8 @@
+episodes:
+  - {start: 2008Q1, expected: credit_led_recession, must_pass: true,  note: GFC}
+  - {start: 2021Q3, expected: inflation_shock,      must_pass: true,  note: post-COVID inflation}
+  - {start: 2018Q4, expected: growth_scare_no_credit, must_pass: false, note: equity-led scare, credit held}
+  - {start: 2015Q3, expected: growth_scare_no_credit, must_pass: false, note: manufacturing/China scare}
+  - {start: 2017Q1, expected: expansion_disinflation, must_pass: false, note: synchronized growth, quiet inflation}
+  - {start: 1978Q1, expected: stagflation,           must_pass: false, note: pre-Volcker}
+  - {start: 2006Q3, expected: late_cycle_expansion,  must_pass: false, note: housing-flavored, imperfect analogue}

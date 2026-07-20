@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call had more qualifiers on demand recovery; current call states 'tremendous demand' and 'exceptional' more definitively."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call guided Q2 revenue ~$11B; current call guides Q3 to $16B, a much steeper sequential raise than prior quarter's implied trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Automotive design-win pipeline of $14B (up from $11B) was highlighted in prior call; current call omits any updated pipeline figure, showing no further escalation, and auto revenue growth decelerated from 114% YoY to 15% YoY."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topics introduced: Spectrum-X, VMware Private AI Foundation, GH200/DGX GH200, MediaTek automotive partnership, Alliance for OpenUSD."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Prior call said 'record data center revenue'; current call opens with 'exceptional quarter' and repeats 'record' and 'tremendous' more densely."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Data center revenue growth accelerated from 14% YoY/18% QoQ prior to 171% YoY/141% QoQ current, described as 'tremendous demand.'"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedged phrasing like 'we expect' and 'continue to expect' throughout."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided FY2024 sales ~$3.35B and EPS >$3.25; current cuts to ~$3.3B sales and ~$3.15 EPS."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Kaohsiung revenue contribution cut from $40-50M (H2) prior to ~$40M full-year now."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New CHIPS Act $75M funding award and FOUP/membrane production plans introduced, absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'record sales' for MC division and 'strong performance' language not emphasized before."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior expected 'gradual market recovery'; current cites improving utilization, sequential growth in all divisions and reaching cycle bottom."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'estimate', 'may not occur until 2025' language in both calls."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 mid ~$695M and flattish Q3; current Q3 guide midpoint $710M, raised vs prior view."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Compute TAM raised to $1.6B from $1.5B; memory TAM range unchanged but tracking to high end vs prior 'increasing' language."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New China revenue exposure disclosure and OEM channel scale metrics (>$1M run-rate partners) not detailed previously."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar confident language like 'strong performance' and 'well positioned' with no marked escalation."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Robotics growth guide moved from 10-20% range to 'low end' of that range, and OpEx raised due to weak macro despite AI strength."
+  }
+}

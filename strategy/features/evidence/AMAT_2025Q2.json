@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New repeated caveats about 'highly dynamic macro environment' and 'evolving trade policy' not present in prior call's confident framing."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $7.1B\u00b1$400M/EPS $2.30\u00b10.18; current guides Q3 revenue $7.2B\u00b1$500M (6% YoY) vs prior 7% YoY and EPS growth 11% vs prior 10%, but wider bands and lower revenue growth rate signal softer trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Leading-edge foundry TAM uplift cited as 'more than 15% to ~$14B' with 30% revenue growth prior call; current call cites only ~30% revenue opportunity uplift, dropping the TAM figure and lowering the growth framing."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New specifics introduced: Sym3 Magnum etch system ($1.2B revenue), Cold Field Emission eBeam technology, and advanced DRAM growth >40% guidance not present prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called results 'record revenues' and emphasized 'outperformance'; current repeatedly hedges with 'highly dynamic' and 'dynamic commercial landscape' despite record EPS claim."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior described 'strong momentum' and DRAM 'healthy demand' with clear growth themes; current states 'have not seen significant changes in market demand' and 'demand and customer investments continuing at the expected rate,' a more neutral/cautious framing."
+  }
+}

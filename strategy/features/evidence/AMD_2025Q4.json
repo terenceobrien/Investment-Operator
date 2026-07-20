@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'well-positioned', 'on track' phrasing in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior Q4 guide was ~$9.6B (+25% YoY, +4% seq); current Q1 guide is ~$9.8B (+32% YoY but down ~5% sequentially)."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior call: 'tens of billions in annual revenue in 2027'; current call repeats same 2027 target with no upward revision, but semi-custom guided to decline double-digits in 2026, a new downward revision for gaming."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New items introduced: MI500 series/cDNA6 roadmap, Ryzen AI Halo platform, TCS partnership, MI440x enterprise servers."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record', 'leadership', 'exceptional' at similarly high density throughout."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized accelerating cloud/enterprise demand without caveats; current call flags semi-custom gaming demand 'to decline by a significant double-digit percentage' in 2026."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'we don't know', 'plus minus a year' type hedges from Michael Hsing."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior call implied continued strong enterprise data growth; current guides enterprise data 'plus low-single-digits' after prior sequential deceleration, a weaker trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Enterprise data revenue growth trajectory: prior call described 'fairly large step up in each of the last two quarters' with growth slowing; current call reports enterprise data down ~1.5-15% sequentially, a downward revision."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of TPUs/tensor processors and hyperscaler in-house SOCs, and second/third sourcing competition, not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record' revenue and confident framing; superlative density similar across calls."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call framed enterprise data as accelerating growth driver; current call reports enterprise data down sequentially and attributes to customer ordering pattern shifts and new competitors entering."
+  }
+}

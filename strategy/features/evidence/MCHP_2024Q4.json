@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'significant macro uncertainty' broadly; current adds concrete 'green shoots' (bookings, cancellations subsiding) alongside caution, slightly more definitive."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided March quarter net sales $1.225B-$1.425B (midpoint $1.325B); current guides June quarter $1.22B-$1.26B (midpoint $1.24B), a lower guide."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "FPGA revenue record >$679M and CHIPS grant $162M are reiterated/new figures without a directly comparable prior forward number to compare against."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New VSI and Neuronix AI Labs acquisitions and planned 64-bit embedded microprocessor entry are introduced, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'green shoots,' 'bottom of the cycle,' and record dividend/buyback language versus prior's more purely defensive tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior described broad weakness and destocking with no bottom in sight; current cites bookings picking up, 'April bookings higher than March,' and expected return to growth in September."
+  }
+}

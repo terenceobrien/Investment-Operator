@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "New language on 'unprecedented global trade uncertainty', tariff impact caveats, and postponed Investor Day due to 'fluid business operating environment'."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided March revenue $3.0B\u00b1$150M (27% YoY growth); current guides June revenue $3.075B\u00b1$150M, a much smaller sequential/YoY growth trajectory implied."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Advanced packaging 2025 revenue estimate raised from 'exceed $800M' (prior) to 'exceed $850M' (current)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of tariffs' gross margin impact, RPO disclosure methodology change, and postponed Investor Day were absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Superlatives persist but are now qualified by 'notable macro uncertainty' and postponed Investor Day, softening overall confidence tone."
+  },
+  "demand_language_delta": {
+    "score": 0,
+    "evidence": "Both calls describe demand as strong in leading-edge logic/HBM with 'no change in demand,' though current call flags macro uncertainty as a caveat."
+  }
+}

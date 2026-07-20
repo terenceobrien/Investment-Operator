@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Steve now definitively 'calling the last quarter as a revenue bottom' vs prior refusal to call a bottom despite pressure to do so."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided March sales $920M-$1B and EPS $0.05-$0.15; current guides June sales $1.045B\u00b1$25M and EPS $0.18-$0.26, both raised."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "FY26 inventory reduction goal raised from ~$250M (prior) to over $350M (current)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New megatrend swaps introduced: replaced 5G with AI and ADAS with Network and Connectivity, not discussed prior."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Prior avoided calling a bottom amid weakness; current says 'finally calling the last quarter as a revenue bottom' and describes 'tremendous leverage' and 'trifecta effect.'"
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Book-to-bill rose to 1.07 from below 1.0 for three years, backlog and April bookings higher, distributors starting to buy more vs prior low bookings/backlog."
+  }
+}

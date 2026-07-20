@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we expect', 'believe', 'on track' framing across both calls with comparable definitiveness."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call raised 2024 Data Center GPU revenue guide to $4.5B from $4B; current call raises it further to exceed $5B."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "New 2028 AI accelerator TAM of $500B introduced in current call with no comparable prior-call TAM figure to compare against."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New ZT Systems acquisition, x86 ecosystem advisory group with Intel, and Windows 10 refresh cycle are newly discussed."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'record' revenue, '500 performance World Records', and CEO's 10th-anniversary reflection, slightly more superlative."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data Center growth decelerated from 115% prior quarter to 122%... but Client grew 49% prior vs 29% current, and Gaming decline worsened from -59% to -69%."
+  }
+}

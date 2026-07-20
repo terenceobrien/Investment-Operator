@@ -1,0 +1,56 @@
+{
+  "asof_date": "2026-06-05",
+  "asof_utc": "2026-06-05T03:15:58.404011",
+  "signal_time": "close",
+  "layer_monetary": 5.59,
+  "layer_credit": 8.26,
+  "layer_volatility": 7.26,
+  "layer_breadth": 4.39,
+  "layer_positioning": 7.25,
+  "layer_signals": {
+    "monetary": [],
+    "credit": [
+      "HY spreads tight (275bps) \u2014 credit healthy"
+    ],
+    "volatility": [
+      "Put/call ratio elevated (1.15) \u2014 fear-driven hedging, contrarian bullish"
+    ],
+    "breadth": [
+      "Equal weight (RSP) lagging cap weight (SPY) \u2014 mega-cap concentration, breadth narrowing"
+    ],
+    "positioning": [
+      "Equity put/call elevated (1.15) \u2014 retail fear, contrarian bullish setup"
+    ]
+  },
+  "layer_statuses": {
+    "monetary": "neutral",
+    "credit": "bullish",
+    "volatility": "bullish",
+    "breadth": "neutral",
+    "positioning": "bullish"
+  },
+  "layer_data_quality": {
+    "monetary": 0.75,
+    "credit": 1.0,
+    "volatility": 1.0,
+    "breadth": 0.6,
+    "positioning": 0.4
+  },
+  "score_total": 65.7,
+  "score_prior": 66.31,
+  "score_delta": -0.61,
+  "environment": "Mixed / Neutral",
+  "environment_drivers": [
+    "No dominant regime signal"
+  ],
+  "confidence": 64.5,
+  "layer_agreement": 0.4,
+  "horizon": "default",
+  "vix_level": 15.399999618530273,
+  "vix_term_slope": 3.8299999237060547,
+  "hy_spread_level": 275.0,
+  "net_liquidity_z": -0.24168016756918143,
+  "pct_above_200d": 63.6,
+  "new_highs_minus_lows_z": null,
+  "sectors_green": 8
+}

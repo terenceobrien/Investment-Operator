@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar forward-looking boilerplate and hedge words like 'expect', 'may', 'will'."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 gross margin 'mean 30% range' and utilization ~70%; current guides Q4 margin 'close to 30%' and utilization 'high 60% range', both lower."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "2024 CapEx budget revised down from $3.3 billion (prior call) to $3 billion (current call)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mention of Singapore fab nearing completion and Intel collaboration on track, not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar superlatives like 'record high' and 'best-in-class' with comparable frequency."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior called demand 'momentum' improving further; current says demand is merely 'stabilizing' with flat wafer shipment guide vs mid-single-digit growth guided prior."
+  }
+}

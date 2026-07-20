@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Current call uses more direct claims ('strong results', 'healthy sell-through') vs prior's cautious tariff/macro caveats and 'dynamic environment' language."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue $920-960M/EPS $1.24; current guides Q4 revenue $1.00-1.03B/EPS $1.40, a clear raise."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Broad Markets described as $1.5B business with double-digit growth is a new framing, not a comparable prior figure."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: Woburn facility closure/Newbury Park consolidation, internal modem adoption, named OEM wins (BYD, Ford, Geely, Nissan)."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current opens with 'delivered strong results' and 'sustained strength' vs prior's more measured 'solid performance driven by...execution'."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior: Mobile down 17% sequentially (seasonal); current: Mobile up 1% sequentially, 8% YoY with 'strength continuing into September quarter'."
+  }
+}

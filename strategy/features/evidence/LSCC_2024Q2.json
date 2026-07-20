@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar hedging density with 'expect', 'anticipate', 'we believe' used comparably in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $120-140M (down from $140.8M actual Q1); current guides Q3 $117-137M, a lower midpoint reflecting continued decline."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Opex guide $53-55M vs prior $54-56M, roughly flat/slightly lower, not a clear escalation either direction."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New CEO transition discussion and NVIDIA Edge AI solution shipping, plus Developers Conference details not in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior said 'strong customer momentum' with confident second-half outlook; current repeats similar language but under weaker actual results and CEO uncertainty."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Industrial/Automotive down 23% sequentially in Q2 vs down 25% in Q1, and overall revenue decline widened to -35% YoY from -24% YoY prior."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "More definitive statements ('things are now much more stable', 'we did bottom in Q2') vs prior quarter's more tentative recovery language."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided FY24 revenue to $51B and AI revenue over $11B; current raises FY24 to $51.5B and AI to $12B."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "VMware EBITDA target of $8.5B in 3 years now expected to be met or exceeded in FY25, vs no such timing claim before."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New VCF/VMware Explore conference and CPU core booking metric (15M cores, 80% of bookings) not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Confident claims like 'strength continues', 'well on the path to achieving or even exceeding' vs prior's more cautious 'modest recovery' framing."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Non-AI networking up 17% sequentially and 'bottomed' confirmed, server storage up 5% sequentially, vs prior call's forecasted 'modest recovery' not yet realized."
+  }
+}

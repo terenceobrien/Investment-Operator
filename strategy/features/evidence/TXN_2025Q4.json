@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'we expect', 'about as expected', and macro-uncertainty framing."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 revenue $4.22B-$4.58B (midpoint $4.4B); current guides Q1 $4.32B-$4.68B (midpoint $4.5B), roughly flat/seasonal, not an acceleration versus prior trajectory of sequential growth."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No directly comparable forward-looking specific target (e.g. TAM, capacity) repeated in both calls with revised figures."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New end-market category 'data center' introduced with detailed breakout, replacing 'enterprise systems' segment from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized strong sequential/YoY growth across markets; current call reports sequential declines and 'uniquely positioned' appears but overall superlative density is similar to lower given weaker results."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior: industrial +25% YoY/up low-single-digits seq, automotive +10% seq; current: industrial down mid-single-digits seq, automotive down low-single-digits seq, personal electronics and comms equipment declining YoY and seq."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior emphasized 'significant uncertainty', 'very difficult to precisely quantify'; current gives firmer outlook with narrower framing though still calls environment 'dynamic'."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 revenue $735M-$775M; current guides Q3 $780M-$820M, a raised sequential range."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CapEx and cost-saving figures reiterated ($300M capex, $15M savings) without directional revision versus prior figures."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Korea Technology Center opening and CEO succession to Dave Reeder are substantive topics absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Bertrand adds reflective pride language ('most recognized and trusted', 'could not be prouder') not present in prior call's more cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior cited 'sharp contraction' in FOUPs/fluid handling and broad tariff-driven caution; current expects 'stronger second half' and highlights double-digit growth in several product lines."
+  }
+}

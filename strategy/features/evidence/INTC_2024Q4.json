@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Michelle repeatedly says 'no quick fixes,' 'not happy with where we are,' more qualified language on AI data center vs prior's confident x86 franchise claims."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $13.3B-$14.3B; current guides Q1 revenue $11.7B-$12.7B, down 11-18% sequentially, well below prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "2025 gross CapEx now 'approximately $20 billion, at the low end' vs prior guide of $20B-$23B, a downward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": -1,
+    "evidence": "Falcon Shores demoted to internal test chip only, dropped from market roadmap versus prior call's active AI accelerator emphasis."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "New co-CEO language emphasizes 'rebuilding our credibility,' 'not happy,' 'no quick fixes' vs prior's more assertive 'uniquely positioned' framing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Q1 outlook cites 'macro uncertainty, tariffs, PC inventory' pressures and declines across all segments, vs prior's 'modestly above consensus' Q4 outlook."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'believe', 'we see' hedges in both calls describing WFE outlook."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided March revenue $3.7B/EPS $7.25; current guides June revenue $3.8B but gross margin cut to 47.5% from 48% and op margin held, slightly softer trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "HBM shipments 'more than triple' cited in both calls, and GAA shipments >$1B is a new figure not comparable to prior."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive discussion of NAND/AI storage economics, molybdenum transition, and Semiverse digital twins not present prior."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar confident language like 'strong start' vs prior 'strong performance', comparable superlative density."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "CSBG revenue down 4% QoQ and 13% YoY currently vs prior quarter's 2% QoQ growth and 16% YoY decline, slightly weaker trend."
+  }
+}

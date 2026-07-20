@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior emphasized 'we believe bottomed' uncertainty; current states growth 'began' and results 'played out as expected', more definitive."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided June revenue $2.5B midpoint; current guides September revenue $2.75B, an upward sequential guide beyond prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Advanced packaging run-rate raised from ~$400M (prior) to more than $500M (current) for same 2024 exit-rate metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on BBP Gen4/Gen5 product line's 40th anniversary and 2025 memory growth outlook, not detailed prior."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current uses 'market leadership,' 'strong customer demand,' 'confident' more assertively than prior's 'encouraged' language."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior said business 'bottomed' with cautious optimism; current cites 'strong customer demand' and return to 'growth' with rising utilization rates."
+  }
+}

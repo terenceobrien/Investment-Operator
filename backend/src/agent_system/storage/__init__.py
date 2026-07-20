@@ -11,6 +11,7 @@ from src.agent_system.storage.repository import (
     get_schema,
     list_decision_log_entries,
     list_schemas,
+    load_decision_log_entries_by_cycle,
     save_decision_log_entry,
     save_schema,
 )
@@ -21,6 +22,7 @@ __all__ = [
     "get_schema",
     "list_decision_log_entries",
     "list_schemas",
+    "load_decision_log_entries_by_cycle",
     "save_decision_log_entry",
     "save_schema",
 ]

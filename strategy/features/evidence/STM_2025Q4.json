@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'anticipate', 'believe' used in both calls for outlook statements."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior call guided Q4 revenue at $3.28B (+2.9% seq); current guides Q1'26 at $3.04B (-8.7% seq), a sequential decline versus prior growth guide."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "General purpose MCU share target of ~23% repeated in both calls, now pushed to 'by 2027' with no clear upward revision."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New discussion of humanoid robotics ($600/system BOM), silicon carbide recovery to 2027, and $1B data center revenue target before 2030 not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized 'strong designing momentum' and specific wins; current call is more measured with 'challenging year' and softer Automotive commentary."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Automotive was 'below expectations' in Q4 vs 'in line with expectations' in Q3, and full-year framed as 'challenging' with inventory correction."
+  }
+}

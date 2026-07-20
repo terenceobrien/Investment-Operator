@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More conditional language re: EV shift 'from full battery electric to hybrid', resizing plans, and 'well above normal seasonality' caveats for Q1"
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided FY24 $13.2-13.7B; current guides ~$13.27B, 'low end of the range' with Q1 2025 decline 'well above normal seasonality'"
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Unused capacity charges guided ~350bps prior for Q3 vs actual Q4 guide now ~400bps, a downward revision in cost impact"
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New manufacturing footprint reshaping program, Qualcomm partnership, and new CFO/EVP organizational announcements absent in prior call"
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Less confident framing, emphasis on 'further deterioration in automotive' and cost resizing rather than upcycle optimism"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior cited 'delayed recovery' in Industrial and declining Automotive; current cites 'further deterioration in automotive' and continuing inventory correction"
+  }
+}

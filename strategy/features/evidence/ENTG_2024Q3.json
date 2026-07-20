@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior call was declarative ('will accelerate'); current stresses 'visibility continues to be limited' and softer demand."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided FY2024 sales ~$3.3B and 11% H2 growth; current guides full-year growth of only 4% and Q4 sales $810-840M, below prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Prior guided FY2024 CapEx ~$350M; current lowers to ~$300M, a downward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of AMH/MC division combination and moly deposition POR wins not mentioned previously."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior called results 'strong performance'; current says revenue 'was below our expectations' and industry 'remains challenged'."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior expected market to 'accelerate entering 2025'; current says 'demand for our products is softer than our original expectations'."
+  }
+}

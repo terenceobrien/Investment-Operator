@@ -20,11 +20,16 @@ from src.agent_system.schemas.common import (
 )
 from src.agent_system.schemas.thematic import (
     Candidate,
+    ConsensusType,
     ExclusionRecord,
+    FitStrengthComponents,
     InstrumentType,
+    RejectedQuickItem,
     ResearchDepth,
     ThematicMap,
     VariantStrength,
+    VerificationRequiredEvidence,
+    compute_fit_strength_from_components,
 )
 
 
@@ -171,6 +176,53 @@ class TestCandidate:
         assert len(c.catalysts) == 1
         assert c.catalysts[0].catalyst_type == CatalystType.EARNINGS
 
+    def test_fit_strength_computed_from_components(self):
+        components = FitStrengthComponents(
+            thesis_mechanism_match=1.0,
+            consensus_anchoring_strength=0.75,
+            catalyst_proximity=0.5,
+            tradeability=1.0,
+        )
+        c = Candidate(
+            ticker="CVX",
+            instrument_type=InstrumentType.SINGLE_STOCK,
+            thematic_fit="Directly exposed to the thesis mechanism.",
+            fit_strength=0.1,  # overwritten by components
+            fit_strength_components=components,
+            consensus_view="Narrative-based: consensus appears cautious.",
+            consensus_type=ConsensusType.NARRATIVE,
+            potential_variant_view="Consensus may be too cautious.",
+            variant_strength=VariantStrength.MODERATE,
+            priority_rank=1,
+            recommended_research_depth=ResearchDepth.STANDARD,
+        )
+        assert c.fit_strength == compute_fit_strength_from_components(components)
+
+    def test_verification_required_fit_evidence_allowed(self):
+        c = Candidate(
+            ticker="CVX",
+            instrument_type=InstrumentType.SINGLE_STOCK,
+            thematic_fit="Directly exposed to refinancing EPS drag.",
+            fit_strength=0.7,
+            consensus_view=(
+                "Estimate-based: consensus appears to under-model higher "
+                "refinancing coupons."
+            ),
+            consensus_type=ConsensusType.ESTIMATE,
+            fit_evidence=[
+                VerificationRequiredEvidence(
+                    claim="Consensus interest expense claim requires validation.",
+                    supports=True,
+                    notes="Need current sell-side interest expense estimates.",
+                )
+            ],
+            potential_variant_view="Higher coupons could pressure EPS.",
+            variant_strength=VariantStrength.MODERATE,
+            priority_rank=1,
+            recommended_research_depth=ResearchDepth.STANDARD,
+        )
+        assert c.fit_evidence[0].source_type == "verification_required"
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ExclusionRecord
@@ -220,6 +272,12 @@ class TestThematicMap:
             source_priority=research_priority,
             candidates=[candidate],
             excluded=[exclusion],
+            rejected_quick=[
+                RejectedQuickItem(
+                    ticker="XLE",
+                    one_line_reason="ETF too broad for this single-name thesis.",
+                )
+            ],
             mapping_logic=(
                 "Filtered the energy universe by oil_beta > 0.7 and quality_score > 0.6, "
                 "then ranked by capital return + balance sheet."
@@ -228,6 +286,7 @@ class TestThematicMap:
         )
         assert len(tm.candidates) == 1
         assert len(tm.excluded) == 1
+        assert len(tm.rejected_quick) == 1
         assert tm.universe_considered == 42
 
     def test_mapping_logic_minimum_length(self, research_priority):

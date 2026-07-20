@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call stressed 'very limited visibility' and refused to comment beyond Q2; current call says visibility 'is starting to improve' and 'gaining confidence'."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 sales $610-680M; current guides Q3 sales $710-770M, a clear sequential raise with higher implied operating profit (19.5% vs 14.5%)."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "HBM4 win mentioned in both calls (wafer sort win prior, post-stack singulated die win current) but no comparable quantified target revised, so not scorable as escalation."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive items: closed Quantifi Photonics acquisition, large customer 'plan of record' decision, and new US manufacturing operation not detailed before."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Greg states 'we are significantly more confident than we were 90 days ago' and Sanjay echoes 'more confident in our near-term outlook,' absent from prior call's cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior call called mobile strength 'transitory' with 'limited visibility'; current call says 'demand is strengthening in AI compute' and 'forecasts are materializing into orders.'"
+  }
+}

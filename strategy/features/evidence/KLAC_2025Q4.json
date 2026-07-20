@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedges like 'expect', 'anticipate', 'we'll see how that plays out'."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Sept-implied Q at $3.075B midpoint; current guides Sept quarter to $3.15B but gross margin cut from 62.5% to 62% and margin guide 63% to 62%."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Advanced packaging 2025 estimate raised from $850M (prior call) to $925M (current call)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of 2026 growth expectations and detailed RPO/backlog framework not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'record free cash flow' and 'strong across the board... at or above high end' vs prior's more measured 'above midpoint'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Revenue growth decelerated from 30% YoY (prior) to 24% YoY (current), though AP and packaging demand still strong."
+  }
+}

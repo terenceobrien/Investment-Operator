@@ -1,0 +1,116 @@
+{
+  "asof_utc": "2026-06-05T03:23:26.848369+00:00",
+  "dominant_narratives": [
+    {
+      "title": "SPY stub narrative refresh",
+      "stance": "unclear",
+      "confidence": 1,
+      "why_now": "This is a stub for testing; live narrative synthesis was disabled.",
+      "takeaways": [
+        "REALITY: this is a stub for testing.",
+        "STORY: this is a stub for testing.",
+        "PRICE: this is a stub for testing.",
+        "GAP: no real gap was computed."
+      ],
+      "key_catalysts": [],
+      "tickers": [
+        "SPY"
+      ],
+      "evidence": [],
+      "what_would_change": [
+        "Enable live narrative synthesis and rerun the refresh."
+      ],
+      "risks_to_watch": [
+        "Do not consume this stub as a production narrative read."
+      ]
+    }
+  ],
+  "one_paragraph_summary": "This is a stub for testing for SPY. Live narrative synthesis did not run, so no production investment signal should be inferred from this snapshot.",
+  "raw_takeaways": [
+    "UNCLEAR: this is a stub for testing.",
+    "FALSIFIER: enable live LLM calls and regenerate the snapshot."
+  ],
+  "counter_narratives": [
+    "This snapshot contains no real counter-narrative analysis."
+  ],
+  "unknowns": [
+    "UNKNOWN: live synthesis was disabled for this scheduled refresh."
+  ],
+  "market_tone": {
+    "risk_appetite": "unclear",
+    "fragility": "unclear",
+    "positioning_guess": "unclear",
+    "tone_notes": "Stub snapshot for testing; no live tone was computed."
+  },
+  "signals": {
+    "headline_intensity": 0,
+    "earnings_intensity": 0,
+    "macro_intensity": 0,
+    "social_intensity": 0
+  },
+  "executive_snapshot": {
+    "regime_tone": "Stub - not production",
+    "primary_gap": "Stub for testing; no real gap computed.",
+    "primary_archetype": "Stub",
+    "price_confirmation": "Not enough price evidence",
+    "confidence": 0.0,
+    "executive_bullets": {
+      "reality": "Stub for testing.",
+      "story": "Stub for testing.",
+      "price": "Stub for testing."
+    }
+  },
+  "inefficiency_map": [],
+  "price_summary": {
+    "cross_asset": "Stub for testing; price evidence unavailable.",
+    "sector": "Stub for testing; price evidence unavailable.",
+    "timeframe": "Stub for testing; price evidence unavailable.",
+    "relationship": "Stub for testing; price evidence unavailable."
+  },
+  "_meta": {
+    "is_stub": true,
+    "stub_reason": "LLM calls are disabled by ALLOW_LLM_CALLS=false. Blocked: daily narrative refresh",
+    "subject": {
+      "ticker": "SPY",
+      "name": "S&P 500 ETF",
+      "subject_type": "market",
+      "sector": "Broad Market",
+      "industry": "Large Cap Blend",
+      "sector_etf": "SPY",
+      "benchmark": "SPY",
+      "broad_market": "SPY",
+      "peers": [
+        "QQQ",
+        "IWM",
+        "DIA",
+        "TLT",
+        "HYG"
+      ],
+      "themes": [
+        "S&P 500",
+        "broad market",
+        "risk appetite",
+        "earnings breadth",
+        "credit",
+        "rates"
+      ],
+      "company_aliases": [
+        "SPY",
+        "S&P 500",
+        "S&P",
+        "broad market"
+      ],
+      "universe_memberships": [
+        "Broad Market"
+      ],
+      "exchange": "NYSEARCA"
+    },
+    "total_items_in_bundle": 0,
+    "items_selected_for_llm": 0,
+    "lookback_hours": 36,
+    "prior_snapshot_found": false,
+    "ledger_counts": {},
+    "role_counts": {},
+    "information_ledgers": {}
+  }
+}

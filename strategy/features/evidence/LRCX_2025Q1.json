@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar mix of 'we expect', 'anticipate', 'believe' language across both calls."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Sept revenue $4.05B midpoint; current delivered $4.17B and guides Dec to $4.3B, a step-up trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "SABRE 3D revenue 'more than doubled this year,' a new escalation vs no comparable prior figure though framed as growth acceleration."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New emphasis on tungsten-to-moly materials migration and equipment intelligence subscriptions, absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added phrases like 'strong momentum,' 'best is yet to come,' and 'outstanding opportunity' not present in prior remarks."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior called NAND at 'low point'; current says NAND recovery driven by upgrades expected in 2025, slightly more constructive."
+  }
+}

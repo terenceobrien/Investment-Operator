@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar boilerplate hedging in forward-looking statements section; operative language equally definitive in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 revenue +25-27% sequentially to ~$55M; current guides Q4 to $63-65M, only ~10% sequential growth."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "CED target reiterated as prior forecast, no new higher figure; CED growth rate cited without accelerating beyond prior 50%+ claim, now framed as 'lead growth' but no upward revision of $100M CED target."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New GNSS/anti-jamming and automotive fail-safe integrated timing device topics introduced, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added phrases like 'leadership position in AI' and 'strategy is working' show slightly more confident framing than prior call."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "CED grew 208% YoY in prior call vs 233% YoY current, but sequential CED growth decelerated from 55% to ~30%, showing softening momentum."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'anticipate', 'we estimate' language in both guidance sections; prior tariff-uncertainty language is absent but replaced by early-stage data center hedges."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 revenue $9.9B-$10.7B (~12% YoY QCT growth); current guides Q4 $10.3B-$11.1B but handset growth slows to ~5% sequential and QCT margin guide 27-29% vs prior 28-30%."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Fiscal '29 targets ($22B auto+IoT, $4B PC, 100+ PC designs) reiterated unchanged from prior call, not revised up or down."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive discussion of data center expansion, Alphawave acquisition, NVIDIA NVLink Fusion, and $1 trillion robotics/physical AI TAM absent from prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Similar confident language ('leading', 'record', 'excited') used in both calls without marked increase or decrease."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Automotive/IoT growth decelerated from 59%/27% YoY prior call to 21%/24% YoY current call, and handset growth slowed from 12% to 7%."
+  }
+}

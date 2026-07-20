@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'anticipate' in both calls' guidance sections."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 revenue $32.5B (up ~8% seq implied); current guides Q4 at $37.5B, up ~7% sequential, a deceleration in guided sequential growth rate."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Software/SaaS run-rate guided to 'approach $2B' exiting year in both calls; unchanged, but current annualizing only $1.5B now vs prior 'approach $2B' pace implied stronger trajectory."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on AI-RAN/telecom (SoftBank, T-Mobile) and reasoning models like OpenAI's o1 not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called Blackwell demand 'well above supply' and 'strong'; current calls it 'staggering' but revenue growth rates (94% YoY vs 122% YoY) show deceleration despite superlatives."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data center YoY growth decelerated from 154% (prior) to 112% (current), and overall revenue growth from 122% to 94% YoY."
+  }
+}

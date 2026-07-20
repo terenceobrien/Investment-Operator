@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More conditional language on funding milestones, e.g. 'should we determine to build a fab' and 'we would need to see' vs prior's firmer PMT progress claims."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior Q1 FY25 revenue guide was $185M-$215M; current Q2 FY25 guide is $160M-$200M, a lower range."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Design-wins backlog was $9B design-ins/$21B EV design-ins cumulative prior call vs $11B backlog now cited differently; EV revenue growth decelerated from ~300% guided to 2.5x (150%) actual."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New restructuring plan: closing Farmers Branch epi facility, suspending Saarland fab, 20% workforce cuts, $200M CHIPS PMT/debt package details not present before."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Shift from 'ahead of plan' progress framing to 'critical inflection point' and repeated emphasis on right-sizing/restructuring rather than growth superlatives."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior: EV revenue +300% y/y expected next quarter; current: EV revenue grew only 2.5x y/y and I&E 'continued softness' with weak orders, indicating deceleration."
+  }
+}

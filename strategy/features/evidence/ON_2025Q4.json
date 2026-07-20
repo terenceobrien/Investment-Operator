@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Current call adds phrases like 'against the backdrop of uncertainty and limited demand visibility' and 'we believe we have seen the bottom', more qualified than prior's direct 'we are pleased with our results'."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 revenue $1.48B-$1.58B (mid $1.53B); current guides Q1 $1.44B-$1.54B (mid $1.49B), a sequential step-down versus prior quarter's guided trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Design funnel held flat at 'over $1 billion' in both calls, and AI data center revenue reiterated at ~$250 million for 2025 in both calls."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New details introduced: GM VGaN EV collaboration, Zonal $400M design funnel, TLVR regulator architecture, and $6B buyback program not mentioned prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'pleased', 'strength', milestones; current opens with 'challenging demand environment' and 'amid...uncertainty', more subdued framing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Auto grew 7% and Industrial 5% sequentially prior quarter vs. only 1% and 4% sequential growth this quarter, indicating decelerating sequential demand momentum."
+  }
+}

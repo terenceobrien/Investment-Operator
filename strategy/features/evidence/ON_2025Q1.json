@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'expect', 'anticipate', 'we believe' hedging around demand and macro uncertainty."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue $1.35-1.45B/GM 39-41%; current guides Q2 to $1.4-1.5B but GM falls to 36.5-38.5%, a lower margin trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "UPS revenue growth guide of 40-50% for 2025 is new; JFET TAM of $1.3B from prior call not repeated, no comparable upward revision found."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New PHEV SiC design win with US OEM and China EV SiC penetration (~50% of new models) are newly detailed topics."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Similar confident language about differentiation and leadership persists in both calls without marked increase."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Automotive revenue declined 26% sequentially versus prior quarter's 8% sequential increase, signaling weaker demand momentum."
+  }
+}

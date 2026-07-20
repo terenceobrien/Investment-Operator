@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Repeated new tariff uncertainty language ('unclear', 'impossible to determine', 'dynamic') not present in prior call"
+  },
+  "guidance_direction": {
+    "score": 0,
+    "evidence": "FY2025 revenue guide held at EUR30-35B and gross margin 51-53%, same as prior call's range"
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "2030 gross margin outlook lowered to 56-60% from prior 56-66%, same revenue range EUR44-60B"
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New extensive tariff impact discussion (direct/indirect effects, US manufacturing) absent from prior call"
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Shift from 'extremely thankful...strong quarter' to more measured 'good first quarter financial results'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call cited AI demand strength with fewer caveats; current call adds 'quite some uncertainty' for customers lowering range"
+  }
+}

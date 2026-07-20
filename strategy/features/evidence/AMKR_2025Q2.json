@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Less tariff-uncertainty hedging; more definitive statements like 'well above expectations' and 'strong momentum' replace cautious tariff monitoring language."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $1.375B-$1.475B (8% seq growth); current guides Q3 $1.875B-$1.975B (27% seq growth), a much stronger trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "CapEx forecast unchanged at $850M both calls, but capital return framework now explicit at 40-50% of FCF, a firmer commitment than before."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New disclosures: Japan factory rationalization plan, NANIUM contingent payment, new $1B revolver/$500M term loan, test revenue growth metric."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current call emphasizes 'well above expectations,' 'strong momentum,' 'record computing revenue,' more superlatives than prior's cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Automotive shifted from 'weak end market demand' to 'inflection point with 6% year-on-year growth' and 'strong revenue growth' across all end markets."
+  }
+}

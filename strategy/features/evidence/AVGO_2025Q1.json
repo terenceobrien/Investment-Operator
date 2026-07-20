@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'we believe', and forward-looking qualifiers in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue $14.6B/EBITDA 66%; current guides Q2 revenue $14.9B/EBITDA ~66%, roughly flat sequential growth trajectory vs prior quarter's stronger 22% y/y framing."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "SAM of $60-90B in fiscal 2027 reaffirmed unchanged from prior call's same figure."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New VMware Private AI Foundation with 39 enterprise customers and Tomahawk 6 switch details absent from prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record' revenue/EBITDA language similarly ('record $51.6B' vs 'record $14.9B')."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "AI revenue growth 220% y/y (FY) and 150% y/y (Q4) prior vs 77% y/y AI growth this quarter, a deceleration."
+  }
+}

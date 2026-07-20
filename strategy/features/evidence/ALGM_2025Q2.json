@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging terms like 'we expect', 'believe', 'encouraged' at comparable density."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 sales $182-192M (12% seq growth); current guides Q3 sales $170-180M, a sequential decline."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Chinese xEV production share (45% now, 75% by 2030) is a new figure with no comparable prior-call number."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New TMR sensor launches from Crocus acquisition and detailed China supply chain localization were absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds phrases like 'encouraged', 'poised for acceleration', 'world leading' more frequently than prior's brief optimism."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior guided low double-digit Q2 growth; current flags 'continued near-term choppiness' and lower Q3 guide implying softer demand trajectory."
+  }
+}

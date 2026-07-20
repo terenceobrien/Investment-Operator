@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar forward-looking disclaimer and guidance phrasing structure retained across both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 gross margin ~30% and flat ASP; current guides Q1 margin only >25% (earthquake impact) and ASP down mid-single digits."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "CapEx guided at USD 3B in prior call; current call cuts 2025 CapEx budget to USD 1.8B."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mentions of advanced packaging for AI and 12-nanometer collaboration migration path not discussed prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'record high' specialty revenue; current has fewer superlatives, more caveats like 'order modulation' and earthquake impact."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior said inventory clearly declining and demand stabilizing; current cites ASP declines and Q1 margin hit, softer near-term demand signal."
+  }
+}

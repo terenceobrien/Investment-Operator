@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar forward-looking cautionary language and hedge words in both boilerplate and remarks."
+  },
+  "guidance_direction": {
+    "score": 0,
+    "evidence": "No explicit forward quarter/year guidance figures given in either call's prepared remarks to compare."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "New capacity figure ($4B) has no comparable prior-call number to measure escalation against."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CFO transition, 800V data center solution, 48V/zonal automotive launches, dividend hike not mentioned prior."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Adds 'fourteenth consecutive year,' 'milestone,' 'leading-edge' superlatives beyond prior 'record' claim."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Non-enterprise data grew 40% YoY and revenue growth accelerated to 20.8% YoY vs 18.9% prior quarter."
+  }
+}

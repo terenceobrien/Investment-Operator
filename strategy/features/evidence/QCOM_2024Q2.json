@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'estimate', 'anticipate' throughout guidance sections in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $8.9-9.7B/EPS $2.20-2.40; current guides Q3 $8.8-9.6B/EPS $2.15-2.35, both slightly lower."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Automotive design win pipeline rose from implied ~$30B (Sept '22 reference) to $45B, cited explicitly in current call as an increase."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New Company AI Hub, QCC730 SoC, RB3 Gen 2 platform, and Snapdragon X80 modem introduced, absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized 'above high end,' 'record,' 'very optimistic'; current call slightly more measured, 'pleased,' fewer superlatives."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior cited handset revenue beat and >35% Chinese OEM sequential growth; current cites only >40% first-half YoY growth with QCT revenue down sequentially to $8B from $8.4B."
+  }
+}

@@ -1,0 +1,4 @@
+horizon_quarters: 4
+baseline_mode: trailing_trend
+kernel_sigma: 1.0
+scaling: std

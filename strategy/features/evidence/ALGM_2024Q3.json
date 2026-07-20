@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More references to 'inventory digestion,' 'pockets of rebalancing,' and cyclical caveats than prior call's more direct tone"
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 sales $250-260M and EPS $0.27-0.31; current guides Q4 sales $230-240M and EPS $0.19-0.23, both lower sequentially"
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior called Q3 auto growth y/y expected; full-year sales growth now framed at midpoint 7% vs prior implied low double-digit target model"
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New ExtremeSense brand launch and Power-Thru gate driver details not present in prior call"
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior touted 'new record' EPS and 'strong performance'; current says 'solid quarter against a weaker backdrop'"
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior expected Q3 industrial sequential decline but auto growth; current cites inventory digestion across industrial, consumer and now auto pockets, trough expected Q1 FY25"
+  }
+}

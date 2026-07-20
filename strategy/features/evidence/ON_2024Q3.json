@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging language ('we expect', 'anticipate') at comparable density."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 revenue $1.7B-$1.8B; current guides Q4 at $1.71B-$1.81B, flat despite prior expectation of H2 industrial recovery not materializing."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior call: SiC to outgrow market 2x in 2024; current call: 'don't expect meaningful market growth' and SiC revenue only 'low to mid-single digit growth' over 2023."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New details on M3e 200mm qualification, solar/storage installation stats, and East Fishkill trusted foundry accreditation not present prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call cited recovery signs in China/industrial; current call stresses 'continued softness,' 'muted' demand, 'uncertainty persists'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call said inventory 'stabilization' with H2 industrial recovery expected; current call says outlook 'unchanged,' automotive 'continues to be soft,' industrial 'has not broadly recovered'."
+  }
+}

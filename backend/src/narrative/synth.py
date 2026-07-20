@@ -56,7 +56,7 @@ from src.narrative.inefficiency_taxonomy import (
 )
 from src.narrative.runtime_config import assert_llm_calls_allowed
 from src.narrative.schema import NarrativeStateV1
-from src.narrative.ticker_profiles import profile_terms, prompt_subject_profile
+from src.narrative.ticker_profiles import normalize_ticker, profile_terms, prompt_subject_profile
 
 
 _DEFAULT_CLIENT: OpenAI | None = None
@@ -109,9 +109,16 @@ def _date_str_from_iso(iso_ts: Optional[str]) -> str:
         return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
-def narrative_snapshot_path(base_dir: str | Path, date_str: str) -> Path:
+def narrative_snapshot_path(
+    base_dir: str | Path,
+    date_str: str,
+    subject_key: Optional[str] = None,
+) -> Path:
     base = Path(base_dir)
     base.mkdir(parents=True, exist_ok=True)
+    if subject_key:
+        normalized_subject = normalize_ticker(subject_key)
+        return base / f"narrative_state_{date_str}_{normalized_subject}.json"
     return base / f"narrative_state_{date_str}.json"
 
 
@@ -119,10 +126,11 @@ def save_narrative_snapshot(
     state: Dict[str, Any],
     base_dir: str | Path = "data/snapshots",
     date_str: Optional[str] = None,
+    subject_key: Optional[str] = None,
 ) -> Path:
     if date_str is None:
         date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    path = narrative_snapshot_path(base_dir, date_str)
+    path = narrative_snapshot_path(base_dir, date_str, subject_key=subject_key)
     path.write_text(json.dumps(state, indent=2), encoding="utf-8")
     return path
 
@@ -131,12 +139,13 @@ def load_latest_narrative_snapshot(
     base_dir: str | Path = "data/snapshots",
     today_date_str: Optional[str] = None,
     max_lookback_days: int = 14,
+    subject_key: Optional[str] = None,
 ) -> Tuple[Optional[str], Optional[Dict[str, Any]]]:
     today = datetime.strptime(today_date_str or datetime.now(timezone.utc).strftime("%Y-%m-%d"), "%Y-%m-%d").date()
 
     for i in range(1, max_lookback_days + 1):
         d = (today - timedelta(days=i)).strftime("%Y-%m-%d")
-        p = narrative_snapshot_path(base_dir, d)
+        p = narrative_snapshot_path(base_dir, d, subject_key=subject_key)
         if p.exists():
             try:
                 return d, json.loads(p.read_text(encoding="utf-8"))

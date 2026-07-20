@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 2,
+    "evidence": "Prior call: 'cannot confirm 2026 growth... increasing uncertainties'; current: 'last 3 months have really clarified' outlook, more definitive"
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided FY25 revenue +15% and 52% GM; current guides FY26 EUR34-39B (~12% midpoint growth on a higher base) after actual FY25 growth of 16%, with EUV growth reaccelerating vs cautious prior tone"
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "2030 revenue target unchanged at EUR44-60B with 56-60% gross margin in both calls"
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: Mistral AI investment, 3D integration/TWINSCAN XT:260, and major 1,700-person technology reorg not present in prior call"
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current call repeatedly uses 'record quarter, record year, record booking' vs prior's more measured 'good financial results'"
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior call said 2026 growth 'cannot confirm' amid uncertainty; current says customers 'moving forward,' capacity means market share, memory demand 'extremely tight'"
+  }
+}

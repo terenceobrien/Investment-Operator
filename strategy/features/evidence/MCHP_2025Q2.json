@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior called environment 'uncertain' but more resolved bottom signals; current adds cybersecurity incident, extended shutdowns, 'cautiously optimistic' CHIPS language, more caveats."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Sept quarter net sales $1.12B-$1.18B and EPS $0.40-$0.46; current guides Dec quarter net sales $1.025B-$1.095B and EPS $0.25-$0.35, both lower."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Capex guidance cut from ~$175M (prior) to ~$150M (current) for FY25, a downward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New cybersecurity incident disclosure and detailed Rich Simoncic product-line segment (dsPIC33A, PIC64GX, CXL controllers) not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'strong design-in pipeline' confidently; current adds 'most prolonged and challenging down cycle I can recall' and 'suppressed' business fundamentals."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior saw bookings up ~50% sequentially with green shoots progressing; current describes bookings 'flattish' and Europe revenue down ~22% sequentially."
+  }
+}

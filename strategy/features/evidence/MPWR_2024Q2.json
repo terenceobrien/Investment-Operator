@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call repeatedly stressed 'visibility is limited' and caution; current call opens with 'yet another record quarter' and more definitive growth statements, though some hedging on auto persists."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 growth ~7% with cautious 2H view; current reports Q2 revenue 'exceeding the high end of our guidance' and describes broad-based Q3 growth across multiple end markets."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior call emphasized accelerating enterprise data demand; current call explicitly states 'the rate of growth is slowing down' for enterprise data vs prior four quarters."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive discussion of power isolation ramps in auto/data center as 'Greenfield opportunities in the hundreds of millions' not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call opens with 'yet another record quarter' and 'leading positions' claims, more superlative than prior call's cautious 'consistent improvement' framing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Enterprise data growth explicitly flagged as slowing ('rate of growth is slowing down') versus prior call's steadily improving ordering patterns narrative; auto uplift 'did not occur' as expected."
+  }
+}

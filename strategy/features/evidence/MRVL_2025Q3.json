@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Language is more definitive ('we are clearly set to significantly exceed', 'entering a new era of growth') vs prior's more cautious framing."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue +14% sequential ($1.45B midpoint); current guides Q4 at $1.8B, +19% sequential and 26% YoY acceleration."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Full-year AI revenue target of $1.5B reiterated but now stated as 'clearly set to significantly exceed' vs prior's more tentative 'confident we can exceed'."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New AWS five-year multi-generational agreement, 3nm 1.6T DSP announcement, and CEO succession/retirement disclosure are all new vs prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Superlatives increase: 'excellent results,' 'new era of growth,' 'firing on all cylinders,' 'insatiable need' vs more measured prior tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Data center grew 92% YoY prior vs 98% YoY current, with sequential growth accelerating from 8% to 25%, signaling stronger demand."
+  }
+}

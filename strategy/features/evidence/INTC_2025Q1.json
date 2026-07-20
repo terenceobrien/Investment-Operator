@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Current call stresses 'significant uncertainty,' 'fluid trade policies,' and 'increased chance of recession' vs prior's more contained tariff/inventory concerns."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 revenue $11.7-12.7B; current guides Q2 to $11.2-12.4B, a wider, lower range citing TAM contraction risk."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "2025 gross CapEx cut from $20B (prior) to $18B now; OpEx also lowered from $17.5B to $17B."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New CEO introduces four-day RTO policy, flattened leadership structure, and Altera stake sale to Silver Lake absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "New CEO tone is humbler ('no quick fixes,' 'stay humble') with less emphasis on leadership superlatives like 'market leader' seen in prior call."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior called PC/server demand 'stable'/'normal buying patterns'; current cites 'increasingly uncertain' economy and anticipates TAM contraction."
+  }
+}

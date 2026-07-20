@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar mix of 'expect', 'will', boilerplate forward-looking language in both calls."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 utilization mid-60%, gross margin ~30%; current guides Q3 utilization ~70%, margin mid-30% range, an improvement in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "12A capacity guided to reach 'above 400,000' in Q3 vs prior call's total 1.2 million 12-inch equivalent capacity Q1, showing continued upward capacity build."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mention of 3D IC RFSOI stacking 'first of its kind' and 22nm embedded high voltage display driver platform not discussed prior."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call notes margin 'better than what we previously guided' and touts 'first of its kind' leadership claims, more confident than prior's cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior call cited muted automotive demand and slow inventory digestion; current call cites 'notable demand momentum in the consumer segment' and improving utilization to 68% from 65%."
+  }
+}

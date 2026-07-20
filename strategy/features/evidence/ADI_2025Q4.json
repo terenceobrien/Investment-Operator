@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedge terms ('expect', 'anticipate', 'mindful of macro/tariffs') at comparable density."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 revenue $3.0B midpoint (9% seq growth) and EPS $2.22; current guides Q1 revenue $3.1B (+0.6% seq) and EPS $2.29, implying much slower sequential growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Humanoid content/opportunity narrative repeated without a new comparable figure versus prior call's 'thousands of dollars/10x' claim."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New specifics introduced: HBM4 transition, E2B Ethernet bus, Acoustics platform, LEO satellite market, wireless bottoming with new base-station chip."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives added: 'record free cash flow', 'record years' for A&D/ATE/automotive/hearables, 'uniquely positioned' repeated with added record claims."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior: industrial +23% YoY, comms +40% YoY; current: industrial +34% YoY but automotive seq growth slowed to +1% from -1%->+... and wireless described as merely 'bottomed' after prior's strong double-digit growth across all end markets, with consumer seq growth slowing to 7% from 16%."
+  }
+}

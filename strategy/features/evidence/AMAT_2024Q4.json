@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'believe', 'we see' language in both calls' forward-looking sections."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q4 revenue $6.93B (+3% YoY); current guides Q1 revenue $7.15B (+7% YoY), an improved growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Gate-all-around TAM was ~$6B->$7B per 100k WSPM prior call; now $12B->$14B including backside power, an upward revision of scope/value."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New details on EPIC Center construction timeline, Singapore technical summit, and first five-year service agreements not mentioned prior."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls emphasize 'record revenue' and leadership language at similar intensity."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "DRAM sales grew ~50% YoY prior quarter vs. declined 10% YoY this quarter; ICAPS also down vs. prior 'strong overall'."
+  }
+}

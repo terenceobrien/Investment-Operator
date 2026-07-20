@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar 'may/could/expect' safe-harbor and forward-looking phrasing with no notable shift."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided 2024 revenue growth 'slightly above mid-20s%'; current raises full-year outlook to 'close to 30%'."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior forecast Foundry 2.0 industry growth ~10% and TSMC share rising in 2024; current adds server AI revenue to 'more than triple' vs no comparable prior figure, but overall CapEx raised from $30-32B range to 'slightly higher than $30B', and gross margin guide raised (54.5% to 58% midpoint), showing upward revision in comparable metrics."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New detailed discussion of Arizona, Japan, and Germany fab progress/milestones absent in prior call's key messages."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "New phrases like 'extremely robust AI-related demand' and 'highly satisfactory' yields are more emphatic than prior 'strong AI and high-end smartphone related demand'."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior called demand 'strong'; current upgrades to 'extremely robust AI-related demand' and raises full-year growth guide from mid-20s% to close to 30%."
+  }
+}

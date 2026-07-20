@@ -35,7 +35,20 @@ HORIZONS = {
     "10d": "fwd_ret_cc_10d",
     "21d": "fwd_ret_cc_21d",
     "63d": "fwd_ret_cc_63d",
+    "126d": "fwd_ret_cc_126d",
+    "252d": "fwd_ret_cc_252d",
 }
+TACTICAL_HORIZONS = ["1d", "5d", "10d"]
+MACRO_HORIZONS = ["21d", "63d", "126d", "252d"]
+MACRO_RISK_COLUMNS = {
+    "21d": ("fwd_21d_max_drawdown_pct", "fwd_21d_max_upside_pct"),
+    "63d": ("fwd_63d_max_drawdown_pct", "fwd_63d_max_upside_pct"),
+    "126d": ("fwd_126d_max_drawdown_pct", "fwd_126d_max_upside_pct"),
+    "252d": ("fwd_252d_max_drawdown_pct", "fwd_252d_max_upside_pct"),
+}
+MACRO_RISK_UNAVAILABLE_WARNING = (
+    "Macro-horizon drawdown/upside columns unavailable; only return-distribution risk shown."
+)
 
 SCORE_BINS   = [0, 35, 45, 55, 65, 75, 101]
 SCORE_LABELS = ["<35", "35-45", "45-55", "55-65", "65-75", ">75"]
@@ -74,7 +87,19 @@ def _return_stats(series: pd.Series) -> Dict[str, Any]:
     """Return dict of stats for a forward return series (already in %)."""
     s = series.dropna()
     if len(s) < 3:
-        return {"n": len(s), "insufficient_data": True}
+        return {
+            "n": int(len(s)),
+            "median": None,
+            "mean": None,
+            "pct_positive": None,
+            "p10": None,
+            "p25": None,
+            "p75": None,
+            "p90": None,
+            "worst": None,
+            "best": None,
+            "insufficient_data": True,
+        }
     return {
         "n": int(len(s)),
         "median": round(float(s.median()), 2),
@@ -89,12 +114,19 @@ def _return_stats(series: pd.Series) -> Dict[str, Any]:
     }
 
 
-def _build_return_table(subset: pd.DataFrame) -> Dict[str, Any]:
+def _build_return_table(
+    subset: pd.DataFrame,
+    warnings: Optional[List[str]] = None,
+) -> Dict[str, Any]:
     """Build return stats for all horizons for a given subset."""
     out = {}
     for label, col in HORIZONS.items():
         if col in subset.columns:
             out[label] = _return_stats(subset[col].dropna() * 100)
+        elif warnings is not None:
+            warning = f"Forward return column {col} unavailable; skipping {label} conditional stats."
+            if warning not in warnings:
+                warnings.append(warning)
     return out
 
 
@@ -185,29 +217,88 @@ def _get_multi_factor_match(
 # ── Risk profile ──────────────────────────────────────────────────────────────
 
 def _risk_profile(subset: pd.DataFrame) -> Dict[str, Any]:
-    dd = subset["fwd_5d_max_drawdown_pct"].dropna() * 100
-    up = subset["fwd_5d_max_upside_pct"].dropna() * 100
-
     out: Dict[str, Any] = {}
-    if len(dd) >= 5:
-        out["max_drawdown_5d"] = {
-            "median": round(float(dd.median()), 2),
-            "p25":    round(float(dd.quantile(0.25)), 2),
-            "worst":  round(float(dd.min()), 2),
-        }
-    if len(up) >= 5:
-        out["max_upside_5d"] = {
-            "median": round(float(up.median()), 2),
-            "p75":    round(float(up.quantile(0.75)), 2),
-            "best":   round(float(up.max()), 2),
-        }
+    if "fwd_5d_max_drawdown_pct" in subset.columns:
+        dd = subset["fwd_5d_max_drawdown_pct"].dropna() * 100
+        if len(dd) >= 5:
+            out["max_drawdown_5d"] = {
+                "median": round(float(dd.median()), 2),
+                "p25":    round(float(dd.quantile(0.25)), 2),
+                "worst":  round(float(dd.min()), 2),
+            }
+    else:
+        dd = pd.Series(dtype=float)
 
-    # Reward/risk ratio
+    if "fwd_5d_max_upside_pct" in subset.columns:
+        up = subset["fwd_5d_max_upside_pct"].dropna() * 100
+        if len(up) >= 5:
+            out["max_upside_5d"] = {
+                "median": round(float(up.median()), 2),
+                "p75":    round(float(up.quantile(0.75)), 2),
+                "best":   round(float(up.max()), 2),
+            }
+    else:
+        up = pd.Series(dtype=float)
+
     if len(dd) >= 5 and len(up) >= 5:
         rr = abs(up.median() / dd.median()) if dd.median() != 0 else None
         out["reward_risk_ratio"] = round(rr, 2) if rr else None
 
+    available_macro_risk_horizons: List[str] = []
+    for horizon in MACRO_HORIZONS:
+        col = HORIZONS[horizon]
+        if col in subset.columns:
+            values = (subset[col].dropna() * 100).tolist()
+            out.update(_forward_return_risk(values, horizon))
+
+        dd_col, up_col = MACRO_RISK_COLUMNS[horizon]
+        if dd_col in subset.columns and up_col in subset.columns:
+            dd_h = subset[dd_col].dropna() * 100
+            up_h = subset[up_col].dropna() * 100
+            if len(dd_h) >= 5 and len(up_h) >= 5:
+                available_macro_risk_horizons.append(horizon)
+                out[f"max_drawdown_{horizon}"] = {
+                    "median": round(float(dd_h.median()), 2),
+                    "p25": round(float(dd_h.quantile(0.25)), 2),
+                    "worst": round(float(dd_h.min()), 2),
+                }
+                out[f"max_upside_{horizon}"] = {
+                    "median": round(float(up_h.median()), 2),
+                    "p75": round(float(up_h.quantile(0.75)), 2),
+                    "best": round(float(up_h.max()), 2),
+                }
+    out["drawdown_upside_available_horizons"] = available_macro_risk_horizons
+
     return out
+
+
+def _forward_return_risk(values: List[float], horizon: str) -> Dict[str, Any]:
+    if not values:
+        return {
+            f"win_rate_{horizon}": None,
+            f"median_up_{horizon}": None,
+            f"median_down_{horizon}": None,
+            f"expected_value_{horizon}": None,
+            f"worst_forward_return_{horizon}": None,
+            f"p10_forward_return_{horizon}": None,
+            f"p90_forward_return_{horizon}": None,
+        }
+    arr = np.array(values, dtype=float)
+    up = arr[arr > 0]
+    down = arr[arr <= 0]
+    win_rate = float((arr > 0).mean())
+    median_up = float(np.median(up)) if len(up) else 0.0
+    median_down = float(np.median(down)) if len(down) else 0.0
+    return {
+        f"win_rate_{horizon}": round(win_rate * 100.0, 1),
+        f"median_up_{horizon}": round(median_up, 2),
+        f"median_down_{horizon}": round(median_down, 2),
+        f"expected_value_{horizon}": round(float(win_rate * median_up + (1.0 - win_rate) * median_down), 2),
+        f"worst_forward_return_{horizon}": round(float(arr.min()), 2),
+        f"p10_forward_return_{horizon}": round(float(np.percentile(arr, 10)), 2),
+        f"p90_forward_return_{horizon}": round(float(np.percentile(arr, 90)), 2),
+        f"worst_drawdown_{horizon}": round(float(arr.min()), 2),
+    }
 
 
 # ── Plain-English summary ─────────────────────────────────────────────────────
@@ -315,15 +406,16 @@ def get_conditional_stats(
           - condition_description: what conditions were matched
     """
     df = _load_df()
+    warnings: List[str] = []
 
     # ── By environment ──
     env_subset = _get_environment_match(df, environment)
-    by_environment = _build_return_table(env_subset)
+    by_environment = _build_return_table(env_subset, warnings)
     by_environment["n"] = len(env_subset)
 
     # ── By score bucket ──
     score_subset, score_bucket_label = _get_score_bucket_match(df, score_total)
-    by_score_bucket = _build_return_table(score_subset)
+    by_score_bucket = _build_return_table(score_subset, warnings)
     by_score_bucket["n"] = len(score_subset)
     by_score_bucket["bucket"] = score_bucket_label
 
@@ -336,12 +428,14 @@ def get_conditional_stats(
         score_delta=score_delta,
         sectors_green=sectors_green,
     )
-    multi_factor = _build_return_table(multi_subset)
+    multi_factor = _build_return_table(multi_subset, warnings)
     multi_factor["n"] = len(multi_subset)
     multi_factor["condition_description"] = condition_desc
 
     # ── Risk profile ──
     risk = _risk_profile(multi_subset if len(multi_subset) >= 15 else env_subset)
+    if not risk.get("drawdown_upside_available_horizons") and MACRO_RISK_UNAVAILABLE_WARNING not in warnings:
+        warnings.append(MACRO_RISK_UNAVAILABLE_WARNING)
 
     # ── Comparable dates ──
     comparable_dates = _comparable_dates(multi_subset)
@@ -373,6 +467,17 @@ def get_conditional_stats(
             "score_delta": score_delta,
             "confidence": confidence,
         },
+        "available_horizons": [
+            label
+            for label, column in HORIZONS.items()
+            if column in df.columns
+        ],
+        "missing_horizons": [
+            label
+            for label, column in HORIZONS.items()
+            if column not in df.columns
+        ],
+        "warnings": warnings,
     }
 
 

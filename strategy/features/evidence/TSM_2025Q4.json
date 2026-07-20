@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar hedging on tariffs/uncertainty language ('prudent', 'uncertainties and risk') repeated in both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided FY25 revenue growth 'close to mid-30s%'; current guides FY26 growth 'close to 30%' but also raises long-term AI CAGR from mid-40s to mid-to-high 50s and overall CAGR framing newly to 25%, and Q1'26 gross margin guided up 170bps to 64% vs prior quarter's 50bps raise to 60%."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "AI accelerator revenue CAGR raised from 'mid-40s%' (prior call reference) to 'mid- to high 50s% CAGR' for 2024-2029, and 2026 CapEx guided to $52-56B vs prior 2025 CapEx of $40-42B, showing upward revision of forward capacity/growth figures."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New disclosures include Foundry 2.0 industry growth framework, N3 margin crossover to corporate average, and explicit long-term gross margin/ROE targets (56%+, high 20s ROE) not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added superlatives like 'insatiable demand' and 'strong technology leadership position well into the future' plus record full-year results emphasis exceeding prior quarter's tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "AI demand described as 'conviction... remains strong' with raised AI accelerator CAGR to mid-to-high 50s vs prior mid-40s reference, indicating strengthening demand characterization."
+  }
+}

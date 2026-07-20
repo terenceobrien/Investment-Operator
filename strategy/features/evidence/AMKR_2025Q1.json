@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff/export-control uncertainty language added ('closely monitoring', 'may affect demand', 'difficult to predict') not present in prior call."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q1 revenue ~$1.275B; current guides Q2 to $1.375-1.475B (8% sequential growth), an upward step versus prior quarter's guide trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CapEx forecast for 2025 unchanged at $850 million with same 5-10% Arizona allocation as prior call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive discussion of tariffs/trade regulations, co-packaged optics/photonics, and K5 Incheon test expansion absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call used 'record' repeatedly (Advanced SiP, Computing records); current call drops such superlatives, more measured tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Computing grew 16% full-year and 13% sequential in prior call vs 21% y/y but flat-ish tone now, with 'volumes difficult to predict' language added."
+  }
+}

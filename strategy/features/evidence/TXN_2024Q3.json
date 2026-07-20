@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar forward-looking boilerplate and 'about as expected' phrasing without notable change."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 revenue $3.65B-$3.95B (sequential growth); current guides Q4 revenue $3.7B-$4B, down from Q3's $4.2B actual, implying sequential decline."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No comparable specific forward numeric targets (TAM, capacity, customer counts) cited in both calls."
+  },
+  "new_topic_rate": {
+    "score": 0,
+    "evidence": "Same structure and topics (end-markets, capital management, margins) as prior call, no new initiatives introduced."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call notes 'cyclical recovery' and broad end-market growth versus prior's uniformly negative sequential declines."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior call: all end-markets down sequentially (industrial down upper-single digits, comms down ~25%); current: most end-markets up (auto +upper-single, personal electronics +30%, comms +25%), demand clearly strengthening."
+  }
+}

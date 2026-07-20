@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'very uncertain environment' repeatedly; current still notes tariff uncertainty but frames trends as 'increasingly positive' and more definitive."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $2.9B (down 7% YoY, up 2% seq); current guides Q3 to $3.15B (down 3% YoY, up 8% seq), a stronger sequential trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Industrial & IoT guided down mid-teens% YoY in prior call vs. up mid-single-digits% YoY in current guide, an upward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mention of TTTech Auto acquisition closed and hybrid manufacturing 200mm consolidation/bridge stock plan not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call uses 'increasingly positive,' 'new up cycle beginning to materialize' vs prior's more cautious 'early innings' framing under heavy uncertainty caveats."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior: mixed end markets, auto/industrial below expectations; current: 'revenue trends in all our focus end markets were above expectations,' broad-based recovery signaled."
+  }
+}

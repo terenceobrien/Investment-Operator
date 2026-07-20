@@ -46,12 +46,22 @@ def _weakest_layer(
     narrative: NarrativeAnalysis | None,
 ) -> str:
     f_rank = fundamental.conviction.rating.rank if fundamental else -1
-    n_rank = narrative.conviction.rating.rank if narrative else -1
+    n_rank = (
+        narrative.conviction.rating.rank
+        if _has_narrative_signal(narrative)
+        else f_rank
+    )
     if f_rank < n_rank:
         return "fundamental"
     if n_rank < f_rank:
         return "narrative"
     return "none"
+
+
+def _has_narrative_signal(narrative: NarrativeAnalysis | None) -> bool:
+    if narrative is None:
+        return False
+    return getattr(narrative, "coverage_quality", None) != "absent"
 
 
 def evaluate_conviction(
@@ -106,7 +116,10 @@ def evaluate_conviction(
     if _is_nothing_material(fundamental.what_bear_case_misses):
         if (
             fundamental.conviction.rating.at_least(ConvictionRating.MODERATE)
-            and narrative.conviction.rating.at_least(ConvictionRating.MODERATE)
+            and (
+                not _has_narrative_signal(narrative)
+                or narrative.conviction.rating.at_least(ConvictionRating.MODERATE)
+            )
         ):
             return _conviction(
                 ConvictionRating.MODERATE,
@@ -122,7 +135,8 @@ def evaluate_conviction(
         )
 
     if (
-        narrative.current_narrative.narrative_age == NarrativeAge.MATURE
+        _has_narrative_signal(narrative)
+        and narrative.current_narrative.narrative_age == NarrativeAge.MATURE
         and narrative.current_narrative.narrative_strength >= 8
         and candidate.variant_strength != VariantStrength.STRONG
     ):
@@ -131,6 +145,38 @@ def evaluate_conviction(
             "crowded_mature_narrative_weak",
             "narrative",
             "The narrative is mature and strong, while the candidate's variant view is not strong enough to overcome crowding risk.",
+        )
+
+    if not _has_narrative_signal(narrative):
+        # Absent broad-snapshot coverage is neutral, not bearish. The gate
+        # combines thematic variant strength with fundamentals, but caps at
+        # MODERATE because there is no active narrative support.
+        if (
+            candidate.variant_strength == VariantStrength.STRONG
+            and fundamental.conviction.rating.at_least(ConvictionRating.MODERATE)
+        ):
+            return _conviction(
+                ConvictionRating.MODERATE,
+                "moderate_fundamental_variant_no_narrative_signal",
+                _weakest_layer(fundamental, narrative),
+                "The setup has a strong variant view and sufficient fundamentals, but no current narrative snapshot coverage, so conviction is capped at MODERATE.",
+            )
+        if (
+            candidate.variant_strength == VariantStrength.MODERATE
+            and fundamental.conviction.rating.at_least(ConvictionRating.MODERATE)
+        ):
+            return _conviction(
+                ConvictionRating.MODERATE,
+                "moderate_variant_fundamental_no_narrative_signal",
+                _weakest_layer(fundamental, narrative),
+                "The setup has a moderate variant view and sufficient fundamentals, while absent narrative coverage is treated as neutral rather than negative.",
+            )
+
+        return _conviction(
+            ConvictionRating.WEAK,
+            "insufficient_fundamental_variant_no_narrative_signal_weak",
+            _weakest_layer(fundamental, narrative),
+            "Absent narrative coverage is neutral, but the remaining thematic and fundamental evidence is not strong enough for construction.",
         )
 
     if (

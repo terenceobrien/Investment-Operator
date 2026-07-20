@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'anticipate', 'expect', 'bullish' hedging language in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 revenue $1.020-1.070B midpoint $1.045B EPS $1.52; current guides Q3 revenue $900M midpoint EPS $1.21, a clear step-down."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Inventory reduction slowed: prior cut $193M to $927M vs current cut $91M to $836M, a smaller decline."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on software defined vehicles, audio SoC wins with Sony/Samsung, and 1.6 terabyte Ethernet timing not mentioned prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior touted 'record cash flow' and 'record free cash flow margin'; current has no record claims, just 'solid results'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior said December quarter is 'the bottom' with restocking beginning; current says mobile will be down 'below normal seasonal patterns' and broad markets 'remain under pressure'."
+  }
+}

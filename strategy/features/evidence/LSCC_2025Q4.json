@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior repeatedly said 'remain subject to macro uncertainty'; current uses more definitive framing like 'highly confident' and 'exceptional strength'."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 revenue ~$143M (22% YoY); current guides Q1 revenue ~$165M midpoint (37% YoY) and full-year 2026 growth 'at least 20%', a clear raise in growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Prior said AI usage 'high teens in 2025, mid-20% in 2026'; current reiterates new product revenue reaching 'mid-20% range' in 2026 but new product growth escalated to ~70% in 2025 vs prior 'on track to exceed' goal without a number."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "Current introduces 'physical AI', humanoid robots, robotaxes, companion chip/Switzerland framing, and 'Go Big, Be Great' slogan absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current uses more elaborate superlatives ('exceptional strength', 'strongest sequential performance in seven years', MVP sports analogy) vs prior's steadier confident tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Comms/computing grew 21% YoY prior vs 60% YoY current, and industrial/auto moves from 'channel normalization drag' to 'returning to growth' with inventory now normalized."
+  }
+}

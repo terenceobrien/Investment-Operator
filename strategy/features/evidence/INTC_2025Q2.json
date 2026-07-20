@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'increasingly uncertain' recession risk; current notes markets 'largely functioned normally' though still plans below-seasonal H2."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior Q2 guide midpoint $11.8B (36.5% GM); current Q3 guide midpoint $13.1B but at only ~36% GM, below prior implied seasonal path of high-single-digit growth."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "2025 gross CapEx held at $18B but net CapEx lowered ~$5B YTD versus prior guide, and Germany/Poland projects canceled, Ohio slowed."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New details on canceling Germany/Poland fabs, Costa Rica consolidation, Secure Enclave program, and CEO tape-out approval policy not in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Lip-Bu calls 2021 the last positive FCF year 'completely unacceptable,' more self-critical than prior call's forward-looking optimism."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior flagged tariff-driven pull-ins and TAM contraction risk; current cites 'continued solid demand' and revenue above high end of guidance for third straight quarter."
+  }
+}

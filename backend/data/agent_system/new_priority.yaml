@@ -1,0 +1,46 @@
+- theme: Under-owned structural AI infrastructure suppliers versus crowded post-Micron semiconductor beta
+  rationale: "The cleanest version of the user\u2019s topic is an AI-infrastructure broadening\
+    \ test, not a blanket call to buy semiconductors. The regime\u2019s largest deterministic\
+    \ driver is AI earnings resilience, and the model explicitly says durable data-center\
+    \ demand supports quality AI infrastructure capital spending even while broader participation\
+    \ is fragile. That supports looking beyond the most crowded headline AI names. But the\
+    \ same regime also flags weak breadth: RSP is lagging SPY, indicating mega-cap concentration,\
+    \ and it lists high-beta AI semiconductors, memory semiconductors, and crowded capex beta\
+    \ as vulnerable if capex rollover risk rises. That means the priority should focus on\
+    \ structural AI suppliers with measurable content growth, not second-tier memory merely\
+    \ because Micron reset sentiment. The next 4-8 weeks are especially event-driven because\
+    \ May CPI on 2026-06-11 and the June FOMC on 2026-06-17, where market pricing shows a\
+    \ 70% hold probability, can affect multiple expansion for duration-sensitive semi names\
+    \ even if AI fundamentals remain strong. The edge horizon is weeks because the proposed\
+    \ dislocation is mainly capital-flow and positioning-driven after an earnings surprise,\
+    \ not a multi-quarter capex-cycle thesis."
+  edge_hypothesis: "The potential mispricing is not simply that \u201CAI semi demand is stronger\u201D\
+    ; that is already visible in headline AI winners and, per the user-supplied premise, has\
+    \ been reinforced by Micron\u2019s blowout. The market may be underpricing second-order\
+    \ infrastructure suppliers where AI content is contractual or capacity-constrained \u2014\
+    \ advanced packaging, networking silicon, and power delivery \u2014 while overpaying for\
+    \ generic high-beta semiconductor beta and second-tier memory names whose earnings leverage\
+    \ is more cyclical than structural. The research edge is to separate names with verifiable\
+    \ AI backlog, content-per-rack growth, and estimate revision upside from names being mechanically\
+    \ pulled up by the Micron read-through despite weaker pricing power or higher capex-cycle\
+    \ exposure."
+  sub_questions:
+    - Which advanced packaging, testing, substrate, or inspection companies have disclosed
+      AI-related order growth, utilization gains, or backlog acceleration that has not yet
+      translated into relative multiple expansion versus headline AI semiconductor names?
+    - Which networking silicon suppliers have the highest exposure to AI cluster bandwidth
+      growth, Ethernet/inference networking, optical interconnect, or custom ASIC attach rates,
+      and how much of that exposure is already embedded in sell-side revenue estimates?
+    - Which power-delivery and data-center power semiconductor names have rising content per
+      AI rack, pricing power, and backlog visibility, but still trade at discounts to their
+      own AI-exposed peer group?
+    - Which second-tier memory or storage names are being repriced by the Micron read-through,
+      and do their DRAM/HBM/NAND mix, customer concentration, and capex requirements support
+      structural multiple expansion rather than a cyclical earnings bounce?
+    - Where are ETF flows, short interest, options skew, and relative performance showing
+      capital still crowded in headline AI semis while second-order infrastructure suppliers
+      remain under-owned?
+    - Which candidates would be most vulnerable if hyperscaler capex guidance weakens materially,
+      and which have enough non-hyperscaler or mission-critical demand to survive that falsifier?
+  priority_rank: 2
+  expected_edge_decay: weeks

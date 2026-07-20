@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar frequency of 'expect', 'target', 'anticipate' language across both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $192M-$222M; current guides Q3 $185M-$215M, a lower midpoint trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Building 10 utilization capability raised from 20% target to supporting ~25% wafer start utilization by end of 2024."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New details on IATF automotive certification and 120 EV models/30 OEMs over five years not present prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Language shifts from 'uniquely positioned' record framing to more caveated 'not linear', 'challenges remain' tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Materials revenue guided down to $90M-$95M from $101M prior quarter due to industrial/energy softness persisting."
+  }
+}

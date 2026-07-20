@@ -2,8 +2,8 @@
 // Import this in every page: import { T, sx } from '@/lib/tokens'
 
 export const T = {
-  bg:        '#F3F5F7',
-  pageBg:    '#F3F5F7',
+  bg:        '#D6E0EE',   // faded neutral blue (was #F3F5F7)
+  pageBg:    '#D6E0EE',   // faded neutral blue (was #F3F5F7)
   surface:   '#FFFFFF',
   surfaceMuted: '#F8FAFB',
   navy:      '#0B1F33',
@@ -31,6 +31,16 @@ export const T = {
   radius:    '18px',
   gap:       '16px',
   shadowSoft:'0 18px 50px rgba(15, 31, 51, 0.08)',
+
+  // ── sidebar (dark rail) tokens ──
+  railBg:       '#0B1F33',
+  railBgElev:   '#16324F',
+  railBorder:   '#1E3A57',
+  railText:     '#C6D2E0',
+  railTextDim:  '#7E93AC',
+  railActive:   '#FFFFFF',
+  railAccent:   '#4FA3A5',
+  sidebarWidth: '248px',
 };
 
 export const MOBILE = 768;

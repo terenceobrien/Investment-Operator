@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "New tariff/macro uncertainty language: 'uncertainty around the impact of global trade,' 'dynamic situation,' absent in prior call."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 revenue $10.2-11B/EPS $2.70-2.90; current guides Q3 $9.9-10.7B/EPS $2.60-2.80, both lower ranges."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "IoT/automotive Q-next growth guided 15%/50% prior call vs 15%/20% current call for same forward metric, a downward revision."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: X85 modem, Palantir collaboration, Edge Impulse and FocusAI acquisitions, tariff/trade impact discussion."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior emphasized 'record revenues,' 'strongest in our history'; current drops 'record' language, adds 'despite near term macro uncertainty.'"
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Automotive/IoT growth decelerated (61%->59%, 36%->27% YoY) and new uncertainty flagged around tariff impact on demand."
+  }
+}

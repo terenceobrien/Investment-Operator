@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior called results 'about as we expected'; current admits results 'disappointing and below our expectations' with wider, larger-than-normal guidance range signaling more uncertainty."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Dec quarter down 15-20% sequential (~$1.8-1.9B); current guides March quarter to $1.225-1.425B, an even steeper sequential decline of ~19-31%, continuing the cut trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Lead times target 'less than 8 weeks by end of 2023' in prior call vs actual 'roughly eight weeks' achieved but bookings/visibility worse, and capex cut again from $300-325M to $300-310M."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: discontinuation of PSP program, CHIPS Act $162M DoC grant preliminary MOU, factory shutdown weeks, and broad-based pay cuts (10%/20%) not mentioned prior."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior touted 'record' operating income/EPS/cash return repeatedly; current explicitly calls results 'disappointing' with margins 'down from our recent strong performance.'"
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior said business 'slowed down as expected'; current says business 'was weaker than we expected' with destocking 'at multiple levels' and risk of 'overcorrection.'"
+  }
+}

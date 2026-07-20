@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior call confidently projected H2 recovery; current call repeatedly cites 'uncertain demand environment' and unmaterialized rebound."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 to $3.25B (up 4% seq); current guides Q4 to $3.1B, down ~5% sequentially, reversing expected growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Prior expected automotive resumption of growth into Q4; current cuts automotive outlook to down mid-single digits sequentially in Q4."
+  },
+  "new_topic_rate": {
+    "score": -1,
+    "evidence": "VSMC joint venture detail, a major topic in prior call, is dropped/de-emphasized in current call."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior call said 'confident to resume sequential growth'; current admits 'cyclical rebound...has not materialized' and takes 'conservative stance.'"
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call framed auto/industrial as bottoming and recovering; current cites 'increasing macro-related weakness,' PMI contraction, and unmaterialized rebound."
+  }
+}

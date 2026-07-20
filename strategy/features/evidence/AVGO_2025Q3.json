@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior used 'we may see acceleration'/'we anticipate'; current states bookings 'extremely strong' and backlog 'record $110B' more assertively."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 AI semis $5.1B up 60%; current guides Q4 AI semis $6.2B up 66%, and explicitly raises FY2026 AI outlook 'significantly' vs last quarter."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior: 3 customers each deploying 1M accelerator clusters by 2027; current: new qualified 4th customer secured over $10B XPU orders, raising FY26 AI outlook."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New VCF 9.0 launch, Jericho4 router, and CEO tenure extension through 2030 were absent in prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current adds 'record backlog $110 billion', 'extremely strong' demand, and 'exciting times' commentary beyond prior's more measured framing."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior cited AI semis growth accelerating to 46% YoY; current cites 63% YoY growth plus 'robust' bookings and record backlog, indicating strengthening demand."
+  }
+}

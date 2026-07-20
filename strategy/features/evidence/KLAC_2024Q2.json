@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior said demand 'stabilizing'; current adds 'timing... remains uncertain' and cites a project delay, more qualifiers around recovery."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Dec quarter revenue $2.45B; current guides March quarter to $2.3B, a sequential cut, with March called 'low point for the year'."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "2023 WFE was revised to ~$80B prior call; 2024 WFE now guided 'mid- to high $80 billion,' only modestly up, weaker trajectory than prior recovery framing."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New disclosure of PCB/display goodwill impairment and strategic alternatives review for that business, absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call had strong 'proud', 'excellent' cash flow tone; current tone more cautious, citing impairment and 'still challenging near-term demand trends.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call saw demand 'stabilizing' with H1'24 continuation; current cites a customer project delay causing March quarter to bottom, softer near-term demand."
+  }
+}

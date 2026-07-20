@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar forward-looking hedges like 'expect', 'anticipate', 'believe' at comparable density."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue $6.6B/GM 26.5%/EPS $0.45; current guides Q4 revenue $7.6B/GM 34.5%/EPS $1.08, all raised."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "HBM fiscal 2024 revenue held at 'several hundred million' but fiscal 2025 upgraded from unspecified to 'multiple billions of dollars'."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New PMT $6.1B CHIPS grant announcement and Taiwan earthquake recovery are new substantive topics absent in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar superlatives like 'record revenue', 'leadership', 'well-positioned' at comparable frequency."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior called data center 'more than doubled sequentially' cloud; current cites data center revenue grew 'over 50% sequentially' with customer inventories 'normalized' and demand 'continues to strengthen', a more confident steady-state framing."
+  }
+}

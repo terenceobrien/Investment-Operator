@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "2026 growth now 'cannot confirm at this stage' vs prior's more direct 'expect 2026 to be a growth year'."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided FY revenue EUR30-35B range; current guides 'increase by around 15%' with narrower Q3 range at upper end trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "2030 revenue opportunity unchanged at EUR44-60B, gross margin still 56-60% in both calls."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New specifics on China revenue share (>25%) and EXE:5200B shipment/install not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called Q1 results 'good'; 2026 language shifted from confident growth-year claim to 'cannot confirm'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior: 'both 2025 and 2026 will be growth years'; current: '2026...we cannot confirm it at this stage' amid customer-specific challenges."
+  }
+}

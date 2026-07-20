@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior call was fairly confident; current adds 'have to be cautious about wafer demand projections' due to tariffs, more qualifiers on outlook."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1'25 gross margin >25% and utilization ~70%; current Q1 actual margin came in at 26.7% with commentary of decline, and current-quarter guide of ~30% margin/mid-70% utilization is a recovery ask, not an increase versus the prior call's implied trajectory of steady improvement into 2025."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior call cited 22/28nm as 34% of revenue; current shows 22/28nm at 37% but 40nm-and-below overtaking as key metric, while CapEx held flat at $1.8B (no upward revision)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on tariff impact on demand and cost-reduction/AI manufacturing initiatives not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call touted 'industry-leading' and steady 2025 growth outlook; current call stresses being 'cautious' and 'challenging environment' amid tariffs."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call described 2025 as 'posted for another year of growth'; current call only expects 'moderate rebound' and flags caution on wafer demand due to tariffs."
+  }
+}

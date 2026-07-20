@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar 'we expect'/'anticipate' density around guidance and 2025 outlook."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q4 guide was $112-122M/$0.15-0.23 EPS; current Q1 guide $115-125M/$0.20-0.24 EPS, modestly higher."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Long-term growth target held at 15-20%, just pushed to '2026 and beyond' rather than revised in magnitude."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CFO/CPO hires, Pune R&D site, Nexus 2 launch, PQC and five secular tailwinds are new vs prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives like 'uniquely positioned,' 'strongest management teams,' 'even more energized' than prior call."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior call noted only stronger backlog; current adds book-to-bill over 1 for first time in six quarters and improving consumption."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "More definitive claims like 'we predicted this expansion' and 'we achieved it' vs prior's more speculative framing of expectations."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 revenue $100-103M vs actual $113.3M beat; current Q1 guide $101-104M implies deceleration in sequential dollar growth trajectory vs Q4's $17M sequential beat-driven jump."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "1.6T oscillator 2026 forecast raised 50% above the increase already reported in November, and clock funnel context builds on prior $300M funnel figure."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Renesas timing business acquisition, humanoid robots ($20 content), robotaxi ADAS content, and book-to-bill metric are all newly introduced."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added superlatives like 'exceptional results', 'monumental milestone', 'more excited than ever' beyond prior's 'milestone quarter' language."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "CED grew 115% prior vs 160% current (accelerating), plus new book-to-bill of 1.5 and 'demand continued to strengthen' language not present before."
+  }
+}

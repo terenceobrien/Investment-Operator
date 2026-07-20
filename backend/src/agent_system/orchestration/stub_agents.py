@@ -9,6 +9,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from src.agent_system.rules.conviction import evaluate_conviction
+from src.agent_system.narrative_service import TickerNarrative, get_ticker_narrative
 from src.agent_system.schemas.common import (
     AnalysisConviction,
     Catalyst,
@@ -21,6 +22,7 @@ from src.agent_system.schemas.common import (
     InefficiencyArchetype,
     NewsEvidence,
     PriceEvidence,
+    archetype_from_taxonomy_id,
 )
 from src.agent_system.schemas.fundamental import (
     BusinessQuality,
@@ -111,6 +113,97 @@ def _analysis_conviction(rating: ConvictionRating, ticker: str) -> AnalysisConvi
             "theme before the market reprices the opportunity."
         ),
     )
+
+
+def _clip(value: str, max_length: int) -> str:
+    text = " ".join(value.split())
+    if len(text) <= max_length:
+        return text
+    return text[: max_length - 3].rstrip() + "..."
+
+
+def _narrative_snapshot_evidence(
+    ticker_narrative: TickerNarrative,
+) -> list[NewsEvidence]:
+    if ticker_narrative.coverage_quality == "absent":
+        return []
+    title = ticker_narrative.dominant_narrative_title or "Narrative snapshot coverage"
+    subject = ticker_narrative.snapshot_subject or "market"
+    snapshot_date = ticker_narrative.snapshot_date or "latest"
+    return [
+        NewsEvidence(
+            claim=(
+                f"{ticker_narrative.ticker} appears in the {subject} narrative "
+                f"snapshot for narrative '{title}'."
+            ),
+            supports=True,
+            publisher="Narrative Service",
+            title=_clip(f"{snapshot_date} {subject} snapshot: {title}", 500),
+            published_at=_now(),
+            channel="narrative_snapshot",
+        )
+    ]
+
+
+def _quality_to_conviction(
+    ticker_narrative: TickerNarrative,
+) -> AnalysisConviction:
+    if ticker_narrative.coverage_quality in {"high", "medium"}:
+        rating = ConvictionRating.MODERATE
+        justification = (
+            f"{ticker_narrative.ticker} has {ticker_narrative.coverage_quality} "
+            "coverage in the daily narrative snapshots, enough to provide a "
+            "moderate narrative input but not a strong per-ticker underwriting."
+        )
+    elif ticker_narrative.coverage_quality == "absent":
+        rating = ConvictionRating.WEAK
+        justification = (
+            f"{ticker_narrative.ticker} has no SPY or QQQ snapshot coverage. "
+            "This is treated as a neutral no-signal narrative input, not as "
+            "negative narrative evidence."
+        )
+    else:
+        rating = ConvictionRating.WEAK
+        justification = (
+            f"{ticker_narrative.ticker} has only "
+            f"{ticker_narrative.coverage_quality} narrative coverage, so the "
+            "narrative input is weak and should not lift conviction."
+        )
+    return AnalysisConviction(
+        rating=rating,
+        justification=justification,
+        primary_uncertainty=(
+            "Broad daily snapshots can miss ticker-specific narratives that "
+            "would require deeper per-name synthesis."
+        ),
+    )
+
+
+def _narrative_strength(ticker_narrative: TickerNarrative) -> float:
+    if ticker_narrative.confidence is not None:
+        return max(0.0, min(10.0, ticker_narrative.confidence / 10.0))
+    return {
+        "high": 7.0,
+        "medium": 5.0,
+        "low": 2.5,
+        "absent": 0.0,
+        "stale": 2.0,
+    }.get(ticker_narrative.coverage_quality, 0.0)
+
+
+def _narrative_age(ticker_narrative: TickerNarrative) -> NarrativeAge:
+    if ticker_narrative.coverage_quality == "low":
+        return NarrativeAge.EMERGING
+    if ticker_narrative.coverage_quality == "absent":
+        return NarrativeAge.EMERGING
+    return NarrativeAge.ESTABLISHED
+
+
+def _thematic_consensus_supplement(candidate: Candidate) -> str:
+    consensus = " ".join((candidate.consensus_view or "").split())
+    if not consensus:
+        return ""
+    return f" Thematic agent's consensus view: {_clip(consensus, 100)}"
 
 
 def make_stub_regime_state() -> RegimeState:
@@ -434,57 +527,131 @@ def make_stub_fundamental_analysis(candidate: Candidate) -> FundamentalAnalysis:
     )
 
 
-def make_stub_narrative_analysis(candidate: Candidate) -> NarrativeAnalysis:
-    """Create a ticker-specific narrative stub."""
+def build_narrative_analysis(candidate: Candidate) -> NarrativeAnalysis:
+    """Build ticker narrative analysis from the daily narrative service."""
 
-    mature = candidate.ticker in {"NVDA", "SMH"}
+    ticker_narrative = get_ticker_narrative(candidate.ticker)
+    if ticker_narrative.coverage_quality == "absent":
+        summary = (
+            f"No current narrative coverage. {candidate.ticker} does not appear "
+            "in today's broad-market or tech-heavy narrative snapshots."
+            f"{_thematic_consensus_supplement(candidate)}"
+        )
+        return NarrativeAnalysis(
+            ticker=candidate.ticker,
+            current_narrative=CurrentNarrative(
+                summary=_clip(summary, 2000),
+                dominant_archetype=InefficiencyArchetype.UNKNOWN,
+                narrative_strength=0.0,
+                narrative_age=NarrativeAge.EMERGING,
+            ),
+            inefficiency_thesis=InefficiencyThesis(
+                archetype=InefficiencyArchetype.UNKNOWN,
+                description=(
+                    f"No narrative-service inefficiency thesis is available for "
+                    f"{candidate.ticker} because it has absent coverage in the "
+                    "broad SPY/QQQ snapshots."
+                ),
+                evidence=[],
+                why_it_persists=(
+                    "No cross-sectional narrative signal has been observed in "
+                    "the current broad-market snapshots."
+                ),
+                expected_resolution_path=(
+                    f"A future daily snapshot must include {candidate.ticker} "
+                    "with source evidence before the agent system treats "
+                    "narrative as an active input."
+                ),
+                resolution_horizon=EdgeDecayHorizon.QUARTERS,
+            ),
+            narrative_could_be_wrong_if=[
+                f"Future SPY or QQQ narrative snapshots begin to mention {candidate.ticker} with source evidence.",
+            ],
+            contradicting_signals=[],
+            conviction=_quality_to_conviction(ticker_narrative),
+            coverage_quality=ticker_narrative.coverage_quality,
+            snapshot_date=ticker_narrative.snapshot_date or None,
+            snapshot_subject=ticker_narrative.snapshot_subject,
+            inefficiency_archetype_id=ticker_narrative.inefficiency_archetype_id,
+            price_confirmation=ticker_narrative.price_confirmation,
+            sector_etf=ticker_narrative.sector_etf,
+            sector_narrative_alignment=ticker_narrative.sector_narrative_alignment,
+            source_narrative_indices=ticker_narrative.source_narrative_indices,
+            is_stale=ticker_narrative.is_stale,
+            source_narrative_state_asof=ticker_narrative.snapshot_date or None,
+        )
+
+    title = ticker_narrative.dominant_narrative_title or (
+        f"{candidate.ticker} narrative coverage"
+    )
+    narrative_summary = ticker_narrative.dominant_narrative_summary or (
+        "The daily snapshot includes this ticker but did not provide a "
+        "standalone narrative summary."
+    )
+    stale_prefix = (
+        f"[As of {ticker_narrative.snapshot_date}] "
+        if ticker_narrative.is_stale and ticker_narrative.snapshot_date
+        else ""
+    )
+    current_summary = _clip(f"{stale_prefix}{title}: {narrative_summary}", 2000)
+    archetype = archetype_from_taxonomy_id(ticker_narrative.inefficiency_archetype_id)
+    archetype_label = (
+        ticker_narrative.inefficiency_archetype_name
+        or ticker_narrative.inefficiency_archetype_id
+        or "unclassified narrative setup"
+    )
     return NarrativeAnalysis(
         ticker=candidate.ticker,
         current_narrative=CurrentNarrative(
-            summary=(
-                f"{candidate.ticker} is viewed through the AI infrastructure lens, "
-                "but the market differs on whether the edge is still early or already crowded."
-            ),
-            dominant_archetype=InefficiencyArchetype("narrative_fundamental_divergence"),
-            narrative_strength=9.0 if mature else 6.8,
-            narrative_age=NarrativeAge.MATURE if mature else NarrativeAge.ESTABLISHED,
+            summary=current_summary,
+            dominant_archetype=archetype,
+            narrative_strength=_narrative_strength(ticker_narrative),
+            narrative_age=_narrative_age(ticker_narrative),
         ),
         inefficiency_thesis=InefficiencyThesis(
-            archetype=InefficiencyArchetype("narrative_fundamental_divergence"),
-            description=(
-                f"The market narrative around {candidate.ticker} may be too "
-                "focused on near-term cyclicality rather than the multi-year "
-                "power infrastructure requirement behind AI demand."
+            archetype=archetype,
+            description=_clip(
+                f"Narrative service maps {candidate.ticker} to "
+                f"{archetype_label} through the snapshot narrative '{title}'. "
+                f"{narrative_summary}",
+                2000,
             ),
-            evidence=[
-                _price(
-                    f"{candidate.ticker} price action is consistent with selective infrastructure leadership.",
-                    candidate.ticker,
-                    "relative_strength_3m",
-                    7.5,
-                )
-            ],
+            evidence=_narrative_snapshot_evidence(ticker_narrative),
             why_it_persists=(
-                "The theme cuts across industrials, utilities, and technology, "
-                "so benchmarked investors are slow to size it outside obvious AI names."
+                "The daily broad-market snapshot links this ticker to a "
+                "cross-asset story, so the signal persists only while that "
+                "story remains visible in source evidence."
             ),
             expected_resolution_path=(
-                "Backlog, orders, and margin guidance should reveal whether "
-                "demand is structural enough to force estimate revisions."
+                "Subsequent daily snapshots, price confirmation, and sector "
+                "alignment should show whether the narrative continues to "
+                "support the ticker."
             ),
             resolution_horizon=EdgeDecayHorizon.QUARTERS,
         ),
         narrative_could_be_wrong_if=[
-            "AI infrastructure orders prove to be pulled-forward rather than structural.",
-            "Management commentary shows backlog conversion slowing faster than expected.",
+            "Future daily snapshots stop mentioning the ticker or reverse the narrative stance.",
+            "Price confirmation turns contradicting while the narrative remains otherwise unchanged.",
         ],
         contradicting_signals=[],
-        conviction=_analysis_conviction(
-            ConvictionRating.STRONG if candidate.ticker == "ETN" else ConvictionRating.MODERATE,
-            candidate.ticker,
-        ),
-        source_narrative_state_asof="2026-05-19",
+        conviction=_quality_to_conviction(ticker_narrative),
+        coverage_quality=ticker_narrative.coverage_quality,
+        snapshot_date=ticker_narrative.snapshot_date or None,
+        snapshot_subject=ticker_narrative.snapshot_subject,
+        inefficiency_archetype_id=ticker_narrative.inefficiency_archetype_id,
+        price_confirmation=ticker_narrative.price_confirmation,
+        sector_etf=ticker_narrative.sector_etf,
+        sector_narrative_alignment=ticker_narrative.sector_narrative_alignment,
+        source_narrative_indices=ticker_narrative.source_narrative_indices,
+        is_stale=ticker_narrative.is_stale,
+        source_narrative_state_asof=ticker_narrative.snapshot_date or None,
     )
+
+
+def make_stub_narrative_analysis(candidate: Candidate) -> NarrativeAnalysis:
+    """Compatibility wrapper for older tests/helpers."""
+
+    return build_narrative_analysis(candidate)
 
 
 def _accepted_expression(candidate: Candidate) -> TradeExpression:

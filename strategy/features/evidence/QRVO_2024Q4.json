@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'continue to' hedging language across both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided March revenue ~$925M; current guides June revenue ~$850M, a lower sequential guide."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No directly comparable forward numeric target (e.g. TAM, unit growth %) restated with a revised figure in both calls."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Investor Day announcement, core systems/AI modernization initiative, and silicon carbide/6G/LEO SATCOM topics not in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives like 'record annual and March quarterly revenue', 'unique', 'exceptional customer relationships' vs prior call's 'solid quarter'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Base station 'demand environment to remain weak' echoes prior 'soft' outlook, and June revenue guide down from March guide signals softer near-term demand."
+  }
+}

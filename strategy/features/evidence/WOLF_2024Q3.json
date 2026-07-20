@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar level of hedging language ('we expect', 'anticipate', 'could') persists across both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 revenue $185-215M midpoint $200M; current guides Q4 revenue $185-215M but gross margin midpoint drops to 12% from 16.5%."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Design-wins fell to $2.9B prior quarter vs $870M current quarter, a comparable metric revised down."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on stock undervaluation, capital allocation stance against dilutive raises, and China EV competitive threat not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "More explicit acknowledgment of 'headwinds', 'peaks and valleys', and 'more work to be done' versus prior call's steadier optimism."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "I&E weakness described as 'weaker than our original expectations' now vs. just 'persistent weakness' before, with recovery pushed to 2025."
+  }
+}

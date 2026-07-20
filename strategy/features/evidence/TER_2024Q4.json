@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we expect', 'believe', 'may' hedges in both calls regarding demand recovery timing."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided 2025 OpEx 'low teens increase'; current guides 8-10% OpEx growth, a reduction, alongside Robotics 2025 growth of only ~10% vs. prior 15-20% peer-outperformance framing."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Memory TAM 2025 forecast now 'roughly flat' ~$1.3-1.5B vs prior call's 2024 raise to $1.4B and expectation of accelerating 2025 growth across all businesses."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Infineon power semiconductor partnership, ADI robotics partnership, and 2028 midterm earnings model are substantively new vs prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'strong', 'record', 'remarkable'; current adds 'very good year' and 'remarkable' pivot, roughly comparable superlative density."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior expected 2025 revenue growth acceleration 'across all businesses'; current says Memory TAM flattish and Robotics Q4 seasonality 'far more muted', underperforming expectations."
+  }
+}

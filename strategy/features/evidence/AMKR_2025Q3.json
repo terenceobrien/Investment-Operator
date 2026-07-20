@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'anticipate' throughout both calls' forward-looking sections."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 revenue $1.875-1.975B (27% seq growth); current guides Q4 to $1.775-1.875B, an 8% sequential decline."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Arizona campus investment raised from unspecified prior scope to '$7 billion' total, plus 2025 CapEx raised from $850M to $950M."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CEO transition announcement and Arizona campus groundbreaking/Investor Day plans absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More use of 'record revenue' in communications and computing, and 'strong quarter' language versus prior's more measured tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior expected 'strong third quarter' growth; current guides Q4 revenue decline of 8% sequentially with iOS slowdown."
+  }
+}

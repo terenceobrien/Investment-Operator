@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "New extensive language on 'high uncertainty,' tariffs, geopolitics, 'unclear' impact, 'range of scenarios' absent in prior call"
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q1 revenue $3.74B-$4.06B; current guides Q2 $4.17B-$4.53B, a sequential raise in range"
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No repeated specific forward numeric target (e.g. TAM, capacity) compared across both calls"
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New discussion of tariffs, geopolitics, cycle-bottom framework, historical crisis comparisons, and Y2K/GFC/COVID analogies"
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior tone was matter-of-fact on results; current adds cautious framing 'we remain cautious' despite recovery language"
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior: industrial/auto down sequentially; current: industrial up upper-single-digits after 'seven consecutive quarters of decline,' broad recovery"
+  }
+}

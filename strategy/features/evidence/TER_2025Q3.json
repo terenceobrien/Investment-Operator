@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call had heavy caveats about uncertain quarterly timing; current call states demand ramping and 'more direct connection' with less qualification, though still notes lumpiness."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 sales $710-770M; current Q4 guide is $920M-$1B, a clear sequential raise beyond prior trajectory, plus EPS guide $1.20-$1.46 vs prior $0.69-$0.87."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior call noted AI compute demand improving qualitatively; current call states 2H25 compute view is 'more than 50% higher' than expectations 3 months ago, an explicit upward revision."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New CFO transition (Michelle Turner) and expanded detail on VIP/merchant GPU customer wins and credit line usage were not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Language shifts from 'more confident than 90 days ago' to 'exceptionally strong' and 'significant growth' with added superlatives like 'fantastically complex' and 'well positioned for significant growth'."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior call described AI demand 'strengthening' with modest visibility; current call cites revenue view '50% higher' than expected and demand 'ramp significantly' in Q4."
+  }
+}

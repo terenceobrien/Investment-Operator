@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar guarded language: 'guarded optimism' prior vs 'macro backdrop presents challenges' current."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $2.4B \u00b1$100M (up 4% sequentially); current guides Q1 revenue $2.35B \u00b1$100M, a sequential decline."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Robotics content tripling ('three times') now vs 'doubling' prior call is a different specific metric/framing, not directly comparable growth target."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New items: CodeFusion Studio, Assure security architecture, U2B Ethernet-to-edge, CGM wins, hot-swap AI server solution."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use confident language ('stellar,' 'leading,' 'record') at similar density levels."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior forecast Q4 sequential growth of 4%; current guides Q1 sequential decline citing seasonal weakness across segments."
+  }
+}

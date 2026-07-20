@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar level of 'expect'/'we believe' forward-looking language in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $37.5B (+17% seq implied); current guides Q1 at $43B, only ~9% sequential growth vs prior 17-19% pace, decelerating trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Blackwell margin recovery to mid-70s pushed to 'late this fiscal year' vs prior call's 'when fully ramped' with no delay specified."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Cosmos world foundation model platform, Stargate data centers, Cisco SpectrumX integration, AI investment initiatives in France/EU not present prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Fewer superlatives like 'staggering' or 'incredible' demand descriptions; more measured 'exceeded expectations' phrasing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data center YoY growth decelerated from 112% prior to 93% current, and gaming revenue fell 22% sequentially vs prior sequential growth."
+  }
+}

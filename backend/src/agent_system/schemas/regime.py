@@ -261,6 +261,23 @@ class ResearchPriority(BaseSchema):
             "the discipline that every research output has provenance."
         ),
     )
+    source_theme_id: Optional[str] = Field(
+        default=None,
+        max_length=100,
+        description=(
+            "Stable macro theme id when this priority was generated from the "
+            "macro forecast theme ranking. Used for cross-cycle priority matching."
+        ),
+    )
+    source_scenario_ids: List[str] = Field(
+        default_factory=list,
+        max_length=10,
+        description=(
+            "Scenario ids that drove this priority. Used to distinguish same-hypothesis "
+            "held-position repeats from cross-hypothesis diagnostic resurfacing."
+        ),
+    )
+    source_macro_forecast_id: Optional[str] = Field(default=None, max_length=100)
 
 
 class ClarificationRequest(BaseSchema):
@@ -373,6 +390,19 @@ class RegimeState(BaseSchema):
     headline: str = Field(default="", max_length=1000)
     summary: str = Field(default="", max_length=3000)
     risk_summary: str = Field(default="", max_length=3000)
+    scenario_probabilities: Dict[str, UnitInterval] = Field(
+        default_factory=dict,
+        description=(
+            "Current macro scenario probabilities, preferably from the latest "
+            "MacroForecastResult blended probabilities."
+        ),
+    )
+    scenario_probability_source: Optional[
+        Literal["macro_forecast", "current_regime_yaml"]
+    ] = Field(
+        default=None,
+        description="Where scenario_probabilities were loaded from.",
+    )
 
     key_drivers: List[RegimeDriver] = Field(default_factory=list, max_length=10)
     portfolio_implications: List[str] = Field(default_factory=list, max_length=10)

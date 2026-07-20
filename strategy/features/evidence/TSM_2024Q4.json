@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar 'expect/forecast/well-positioned' hedged forward language throughout guidance sections."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided full-year 2024 revenue growth 'close to 30%'; current guides 2025 revenue growth 'close to mid-20s percent', a lower trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "AI accelerator revenue was forecast to triple in 2024 (prior); current forecasts doubling in 2025 off that higher base plus new mid-40% five-year CAGR framing."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New N2P and A16/Super Power Rail technology details and long-term 20% five-year revenue CAGR framing absent from prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Similar superlative density: 'industry-leading', 'well-positioned', 'strong' appear comparably in both calls."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior forecast AI server revenue to 'more than triple' in 2024; current forecasts only 'double' in 2025, a deceleration in growth rate."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'anticipate/expect/we believe' forward-looking hedges throughout."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call guided Q3 revenue ~$900M and EPS $1.21; current guides Q4 revenue $1.0B-$1.04B (midpoint $1.02B) and EPS $1.52, a clear raise."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Timing/800G-1.6T targets and inventory-reduction streak (5 to 6 quarters) restated but not materially revised upward as forward targets."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on hybrid on-device/cloud AI computing architecture and dividend increase, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds phrases like 'uniquely positioned,' 'best-in-class,' 'exceptional engineering talent' not present in prior remarks."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior call: mobile 'undership' and broad markets 'soft'; current: mobile inventory 'normalizing' and broad markets sees '2 consecutive quarters of sequential growth'."
+  }
+}

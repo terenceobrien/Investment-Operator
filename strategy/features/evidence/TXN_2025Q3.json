@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New language: 'slower pace than prior upturns' and 'overall uncertainty' vs prior's more confident 'cyclical recovery is continuing'."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 revenue $4.45B-$4.80B/EPS $1.36-$1.60; current guides Q4 revenue $4.22B-$4.58B/EPS $1.13-$1.39, both ranges lower."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Analog growth 18% YoY prior vs 16% YoY current; embedded 10% vs 9%; both decelerated on comparable metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New topics: chairman succession announcement, 250mm fab closures/restructuring charges, CHIPS Act incentive details."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior said 'we are well positioned,' current adds caveats like 'slower pace' and 'broader macroeconomic dynamics and overall uncertainty'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Industrial grew ~upper teens/mid-teens seq prior vs 25% YoY but only low single digits sequentially current, decelerating sequential momentum; enterprise 40%->35%, comms 50%->45%, all decelerating YoY."
+  }
+}

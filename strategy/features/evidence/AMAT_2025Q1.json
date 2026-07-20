@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we expect', 'believe', 'approximately' hedging language in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue $7.15B\u00b1$400M/EPS $2.29; current guides Q2 revenue $7.1B\u00b1$400M/EPS $2.30, plus new $400M China headwind not previously flagged."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "TAM per 100k wafer starts held at ~$14B, but expected Company revenue growth for gate-all-around cited as '30% range' now vs prior 'approximately double' 2025 revenue from advanced nodes."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New emphasis on power electronics as 'fifth theme', DeepSeek/AI efficiency, hybrid bonding qualification, Thin Film Battery spinoff with TPG."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called results 'outstanding' and 'strong finish'; current uses more measured 'strong start' and 'largely in line with expectations'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior saw DRAM growth >60% YoY and ICAPS demand strong; current notes DRAM decline YoY, ICAPS 'more measured level of investment' and down slightly YoY."
+  }
+}

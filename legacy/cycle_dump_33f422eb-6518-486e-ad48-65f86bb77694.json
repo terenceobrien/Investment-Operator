@@ -1,0 +1,277 @@
+{
+  "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+  "exported_at": "2026-07-02T15:02:25.647666Z",
+  "decision_log_entries": [
+    {
+      "id": 275,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "HWKN",
+      "payload": {
+        "id": "067cba65-2760-4116-ae92-44f6e62752bc",
+        "timestamp": "2026-07-02T14:49:20.903228+00:00",
+        "payload_json": {
+          "id": "067cba65-2760-4116-ae92-44f6e62752bc",
+          "summary": "The setup has a strong variant view and sufficient fundamentals, but no current narrative snapshot coverage, so conviction is capped at MODERATE.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "accepted",
+          "candidate": "HWKN",
+          "timestamp": "2026-07-02T14:49:20.903228+00:00",
+          "review_notes": "",
+          "rule_applied": "moderate_fundamental_variant_no_narrative_signal",
+          "weakest_link": "none",
+          "trade_idea_id": "4ee4220f-17e0-4076-823e-3b42c428a78c",
+          "conviction_rating": "moderate",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": true,
+            "reasoning": "No live portfolio constraints were applied; trade allowed for stub-cycle validation only.",
+            "created_at": "2026-07-02T14:49:20.902602Z",
+            "hard_block": false,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": []
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:49:21.277692+00:00"
+    },
+    {
+      "id": 276,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "NHC",
+      "payload": {
+        "id": "027e1830-2d2d-4796-ac72-1c12506fc8a3",
+        "timestamp": "2026-07-02T14:50:13.448820+00:00",
+        "payload_json": {
+          "id": "027e1830-2d2d-4796-ac72-1c12506fc8a3",
+          "summary": "The setup has a strong variant view and sufficient fundamentals, but no current narrative snapshot coverage, so conviction is capped at MODERATE.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "accepted",
+          "candidate": "NHC",
+          "timestamp": "2026-07-02T14:50:13.448820+00:00",
+          "review_notes": "",
+          "rule_applied": "moderate_fundamental_variant_no_narrative_signal",
+          "weakest_link": "none",
+          "trade_idea_id": "cd7cbd12-066e-454c-9375-c0c768d65bc7",
+          "conviction_rating": "moderate",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": true,
+            "reasoning": "No live portfolio constraints were applied; trade allowed for stub-cycle validation only.",
+            "created_at": "2026-07-02T14:50:13.448397Z",
+            "hard_block": false,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": []
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:50:13.826265+00:00"
+    },
+    {
+      "id": 277,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "WDFC",
+      "payload": {
+        "id": "888e15fa-c66c-4052-a154-3136c58f7e06",
+        "timestamp": "2026-07-02T14:50:22.736923+00:00",
+        "payload_json": {
+          "id": "888e15fa-c66c-4052-a154-3136c58f7e06",
+          "summary": "Absent narrative coverage is neutral, but the remaining thematic and fundamental evidence is not strong enough for construction.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "rejected",
+          "candidate": "WDFC",
+          "timestamp": "2026-07-02T14:50:22.736923+00:00",
+          "review_notes": "",
+          "rule_applied": "insufficient_fundamental_variant_no_narrative_signal_weak",
+          "weakest_link": "none",
+          "trade_idea_id": "ae82c5c2-b012-4c86-b3ec-d3dacd968965",
+          "conviction_rating": "weak",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": false,
+            "reasoning": "No live portfolio state was supplied, and the proposed idea has no trade expression.",
+            "created_at": "2026-07-02T14:50:22.736746Z",
+            "hard_block": true,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": [
+              "Rejected ideas cannot be portfolio-approved"
+            ]
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:50:23.115834+00:00"
+    },
+    {
+      "id": 278,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "SAFT",
+      "payload": {
+        "id": "7a011298-92e2-4d15-ac25-4d8129b0eea3",
+        "timestamp": "2026-07-02T14:51:15.522167+00:00",
+        "payload_json": {
+          "id": "7a011298-92e2-4d15-ac25-4d8129b0eea3",
+          "summary": "The setup has a moderate variant view and sufficient fundamentals, while absent narrative coverage is treated as neutral rather than negative.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "accepted",
+          "candidate": "SAFT",
+          "timestamp": "2026-07-02T14:51:15.522167+00:00",
+          "review_notes": "",
+          "rule_applied": "moderate_variant_fundamental_no_narrative_signal",
+          "weakest_link": "none",
+          "trade_idea_id": "67999cd9-4d66-44d7-ac25-d0f5f4e1e1ce",
+          "conviction_rating": "moderate",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": true,
+            "reasoning": "No live portfolio constraints were applied; trade allowed for stub-cycle validation only.",
+            "created_at": "2026-07-02T14:51:15.521874Z",
+            "hard_block": false,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": []
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:51:15.800931+00:00"
+    },
+    {
+      "id": 279,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "CASS",
+      "payload": {
+        "id": "86e456f8-275e-4d9b-b4d1-a0a16773b78a",
+        "timestamp": "2026-07-02T14:52:03.464881+00:00",
+        "payload_json": {
+          "id": "86e456f8-275e-4d9b-b4d1-a0a16773b78a",
+          "summary": "The setup has a moderate variant view and sufficient fundamentals, while absent narrative coverage is treated as neutral rather than negative.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "accepted",
+          "candidate": "CASS",
+          "timestamp": "2026-07-02T14:52:03.464881+00:00",
+          "review_notes": "",
+          "rule_applied": "moderate_variant_fundamental_no_narrative_signal",
+          "weakest_link": "none",
+          "trade_idea_id": "b5d70de2-a801-4173-86d1-49399639afd8",
+          "conviction_rating": "moderate",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": true,
+            "reasoning": "No live portfolio constraints were applied; trade allowed for stub-cycle validation only.",
+            "created_at": "2026-07-02T14:52:03.464392Z",
+            "hard_block": false,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": []
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:52:03.810488+00:00"
+    },
+    {
+      "id": 280,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "FCFS",
+      "payload": {
+        "id": "97b9589b-58d3-4f0c-9e5f-aa9ce6413868",
+        "timestamp": "2026-07-02T14:53:05.257690+00:00",
+        "payload_json": {
+          "id": "97b9589b-58d3-4f0c-9e5f-aa9ce6413868",
+          "summary": "The setup has a moderate variant view and sufficient fundamentals, while absent narrative coverage is treated as neutral rather than negative.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "accepted",
+          "candidate": "FCFS",
+          "timestamp": "2026-07-02T14:53:05.257690+00:00",
+          "review_notes": "",
+          "rule_applied": "moderate_variant_fundamental_no_narrative_signal",
+          "weakest_link": "none",
+          "trade_idea_id": "0594863f-bc8d-4a36-a19b-dce54f2d4282",
+          "conviction_rating": "moderate",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": true,
+            "reasoning": "No live portfolio constraints were applied; trade allowed for stub-cycle validation only.",
+            "created_at": "2026-07-02T14:53:05.257096Z",
+            "hard_block": false,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": []
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:53:05.605039+00:00"
+    },
+    {
+      "id": 281,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "HCSG",
+      "payload": {
+        "id": "9833489d-67ae-48ef-a02a-65b46776d29e",
+        "timestamp": "2026-07-02T14:53:11.154860+00:00",
+        "payload_json": {
+          "id": "9833489d-67ae-48ef-a02a-65b46776d29e",
+          "summary": "Absent narrative coverage is neutral, but the remaining thematic and fundamental evidence is not strong enough for construction.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "rejected",
+          "candidate": "HCSG",
+          "timestamp": "2026-07-02T14:53:11.154860+00:00",
+          "review_notes": "",
+          "rule_applied": "insufficient_fundamental_variant_no_narrative_signal_weak",
+          "weakest_link": "none",
+          "trade_idea_id": "7ced4400-28bf-445f-bfa1-8a64e171bbd8",
+          "conviction_rating": "weak",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": false,
+            "reasoning": "No live portfolio state was supplied, and the proposed idea has no trade expression.",
+            "created_at": "2026-07-02T14:53:11.154584Z",
+            "hard_block": true,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": [
+              "Rejected ideas cannot be portfolio-approved"
+            ]
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:53:11.522600+00:00"
+    },
+    {
+      "id": 282,
+      "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+      "candidate": "CBU",
+      "payload": {
+        "id": "1c754288-0fc2-4110-baae-3e37502eeeff",
+        "timestamp": "2026-07-02T14:53:18.449921+00:00",
+        "payload_json": {
+          "id": "1c754288-0fc2-4110-baae-3e37502eeeff",
+          "summary": "Absent narrative coverage is neutral, but the remaining thematic and fundamental evidence is not strong enough for construction.",
+          "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+          "decision": "rejected",
+          "candidate": "CBU",
+          "timestamp": "2026-07-02T14:53:18.449921+00:00",
+          "review_notes": "",
+          "rule_applied": "insufficient_fundamental_variant_no_narrative_signal_weak",
+          "weakest_link": "none",
+          "trade_idea_id": "1a3ebb65-35a5-4e21-83f2-06cd7a116a0a",
+          "conviction_rating": "weak",
+          "portfolio_constraint": {
+            "id": null,
+            "allowed": false,
+            "reasoning": "No live portfolio state was supplied, and the proposed idea has no trade expression.",
+            "created_at": "2026-07-02T14:53:18.449303Z",
+            "hard_block": true,
+            "schema_version": "0.1.0",
+            "alternative_paths": [],
+            "binding_constraints": [
+              "Rejected ideas cannot be portfolio-approved"
+            ]
+          }
+        }
+      },
+      "created_at": "2026-07-02 14:53:18.826710+00:00"
+    }
+  ],
+  "trade_ideas": []
+}

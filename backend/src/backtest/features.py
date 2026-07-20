@@ -554,7 +554,7 @@ def _row_to_layer_inputs(row: pd.Series) -> dict:
 
         # Breadth
         pct_above_200d=g("pct_above_200d"),
-        new_highs_minus_lows_z=g("new_highs_minus_lows_z"),
+        avg_dist_from_200d=g("avg_dist_from_200d"),
         sectors_green=int(row["sectors_green"]) if pd.notna(row.get("sectors_green")) else None,
         rsp_vs_spy_z=g("rsp_vs_spy_z"),
         adl_slope=None,

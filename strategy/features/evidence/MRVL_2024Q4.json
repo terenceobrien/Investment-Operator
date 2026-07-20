@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we expect'/'anticipate' throughout guidance sections in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $1.42B and data center growth mid-30% sequential; current guides Q1 revenue down to $1.15B with data center growth only low-single-digits."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Cloud optimized silicon target was ~'a couple hundred million' for fiscal 2025 prior; now expected to exceed $200M exiting Q4 and surpass the $800M annual Investor Day target."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New emphasis on TSMC 2-nanometer platform collaboration and April 11 AI investor event, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives like 'record revenue,' 'largest repurchase authorization in our history,' and 'remarkable opportunity' vs prior call's more measured tone."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call forecast Q4 carrier decline mid-40% and enterprise mid-single digits; current guides Q1 carrier down ~50% and enterprise down ~40%, showing deeper weakness."
+  }
+}

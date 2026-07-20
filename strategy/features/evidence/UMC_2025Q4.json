@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'confident', 'anticipating' framing in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided flat shipments/high-20s margin/mid-70% utilization/$1.8B capex; current guides same shipment/margin/utilization but capex cut to $1.5B."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior: 2025 shipment growth 'low teens'; current: full-year shipment growth 12.3%, at low end of that range."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New mentions of advanced packaging, silicon photonics, Intel 12nm collaboration, Polar Semiconductor MoU absent in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar confident language like 'record' (22nm) and 'differentiation'/'leadership'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior: 'demand growth across most market segments'; current: 'mild demand across most of the markets'."
+  }
+}

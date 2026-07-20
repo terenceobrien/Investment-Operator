@@ -1,0 +1,30 @@
+{
+  "description": "Sample Macro Forecast Engine v1 output shape for inspection.",
+  "asof_date": "2026-06-05",
+  "horizon": "3m",
+  "scenario_probabilities": {
+    "reopening_soft_landing": 0.18,
+    "sticky_late_cycle_ai": 0.39,
+    "oil_inflation_tail": 0.21,
+    "late_cycle_risk_off": 0.14,
+    "ai_capex_rollover": 0.08
+  },
+  "top_theme_examples": [
+    {
+      "theme_id": "cash_short_duration",
+      "label": "Cash and short duration",
+      "probability_weighted_score": 1.78
+    },
+    {
+      "theme_id": "grid_power_infrastructure",
+      "label": "Grid and power infrastructure",
+      "probability_weighted_score": 1.55
+    },
+    {
+      "theme_id": "quality_ex_ai_cash_flow",
+      "label": "Quality ex-AI cash flow",
+      "probability_weighted_score": 1.47
+    }
+  ],
+  "notes": "Run python -m src.agent_system.forecasting.macro_forecast_runner for a live deterministic JSON result persisted to schema_records.jsonl."
+}

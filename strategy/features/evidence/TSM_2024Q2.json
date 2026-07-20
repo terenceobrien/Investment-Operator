@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call had extensive earthquake-related uncertainty and lowered SAM forecast; current call is more declarative about strong demand and raised outlook."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided FY24 revenue growth 'low to mid-20%'; current raises to 'slightly above mid-20s percent', and gross margin guide up from 51-53% to 53.5-55.5%."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "CapEx range narrowed from $28-32B to $30-32B (raised low end); SAM growth held at ~10% but foundry share/TAM redefined upward under Foundry 2.0."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Foundry 2.0 definition ($250B TAM), A16/SPR backside power delivery, and N2P introduced, all absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Language shifts from 'mild and gradual recovery' and lowered forecasts to 'strong growth year' and 'raising our full-year guidance'."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior call lowered SAM forecast citing weak consumer sentiment; current call cites 'strong AI and high-end smartphone related demand' increasing utilization vs three months ago."
+  }
+}

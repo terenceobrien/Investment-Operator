@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we expect', 'believe' across both calls guiding by segment."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q4 revenue ~$14B/64% EBITDA; current Q1 guide is $14.6B/66% EBITDA, a step up in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "VMware EBITDA target 'well on path to achieving or exceeding' $8.5B prior vs now 'significantly exceeds' target achieved earlier than 3-year plan."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New 2027 AI SAM of $60-90B, 1M XPU cluster fabric plans, and two additional hyperscaler customers introduced."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives: 'transformative year', 'record $51.6 billion', 'record $22 billion' vs less emphatic prior framing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "AI revenue growth decelerated from 220%/150% framing to Q1 guide of 65% YoY growth vs prior Q4 guide of 10% sequential AI growth pace narrative."
+  }
+}

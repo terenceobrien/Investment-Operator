@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior guided cautious optimism; current adds caveats on wide inventory variation and 'hard to say' where inventory lands."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior called for modest annual growth/decline; current narrows to 'low end' of earlier range, i.e., modest annual decline toward low single digits."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Prior channel inventory target 1.7 months exiting Q2 vs current actual 1.7 months and Q3 guide of 1.8 months - roughly consistent trajectory."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New VSMC joint venture with Vanguard, $2.8B investment, Singapore fab detailed extensively - absent in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar 'cautious optimism' and confidence language without notable escalation or reduction."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior expected auto inventory digestion to ease by H2; current says it 'takes longer than we thought' and extends into Q3, with auto macro 'somewhat softening.'"
+  }
+}

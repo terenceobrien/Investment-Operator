@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "New geopolitical/trade uncertainty language: 'uncertain geopolitical environments limit visibility', 'timing is uncertain' vs prior's more definitive tone."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue ~$1.65B; current guides Q1 2025 revenue $1.275B, a 7% y/y decline with muted first half."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Prior expected 2024 2.5D revenue to quadruple vs 2023; current cites AI GPU transition/trade restrictions lowering 2.5D growth outlook."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mentions of trade restrictions, AI GPU product family transition, and next-gen iOS SiP socket loss not discussed prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called Q3 'outstanding' with record SiP; current uses more measured 'in line with guidance' and 'resilience' language."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Computing 2.5D demand described as strong but 'adjusted near-term outlook... at a lower level than previously anticipated', and Auto/Industrial missed 'flat to mild growth' expectations with deteriorating forecasts."
+  }
+}

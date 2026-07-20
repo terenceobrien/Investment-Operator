@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call had brief, hedge-heavy Q&A on pricing uncertainty; current call gives detailed, definitive record/growth statements with fewer qualifiers."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call gave no explicit fiscal Q3 revenue figure; current guides fiscal Q3 revenue to $8.8B, explicitly framed as another record versus prior fiscal Q2 record, showing raised trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "HBM TAM raised: prior call had no stated TAM figure, but current explicitly says 'once again increased our HBM TAM estimate for calendar 2025 to over $35 billion,' indicating upward revision from an earlier stated estimate."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "Current call introduces SOCAMM, HBM4/HBM4E, robotaxi DRAM content, Windows 10 EOL PC catalyst, and tariff discussion, none present in prior call's brief Q&A."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current call uses 'best competitive position in our history,' 'uniquely positioned,' 'record' repeatedly, far more superlative-dense than prior call's narrower Q&A tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call cited data center SSD share growing to 14% and expected reacceleration; current call notes data center NAND demand 'moderated' in fiscal Q2 due to inventory impacts, a softer characterization."
+  }
+}

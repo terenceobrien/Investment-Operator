@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "CEO more definitive: 'Q2 results exceeded' and 'confident' language replaces prior tentative 'we expect' framing."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $40-42M; current guides Q3 to ~$55M midpoint (25-27% sequential growth), a clear raise in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CED $100M target reiterated as 'previously forecasted', not a new upward revision."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New detail on AI hardware design wins: '70 unique part numbers across 14 product families to 30 customers' not in prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Shift from 'reiterate that growth' to 'exceeded the high end,' 'strong bookings,' 'confident' repeated multiple times."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior noted inventory drawdown expected; current states 'drag of excess inventory... has passed' and 'bookings for second half are strong.'"
+  }
+}

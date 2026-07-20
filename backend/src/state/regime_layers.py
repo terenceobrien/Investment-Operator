@@ -21,6 +21,12 @@ from dataclasses import dataclass, asdict, field
 from typing import Dict, List, Optional, Tuple
 import numpy as np
 
+from src.state.config_loader import (
+    ENV_PARAMS,
+    REGIME_PARAMS,
+    WEIGHTS as CONFIG_WEIGHTS,
+)
+
 
 # ── Output dataclass ──────────────────────────────────────────────────────────
 
@@ -63,16 +69,28 @@ class LayerScores:
         }
 
 
-# ── Weights by horizon ────────────────────────────────────────────────────────
+# ── Shared helpers ────────────────────────────────────────────────────────────
 
+def _get_weights(horizon: str) -> dict[str, float]:
+    """Build per-layer composite weights for a scoring horizon from config."""
+    if horizon not in ("default", "swing", "investor"):
+        horizon = "default"
+    return {
+        "monetary": CONFIG_WEIGHTS[f"weights.{horizon}.monetary"],
+        "credit": CONFIG_WEIGHTS[f"weights.{horizon}.credit"],
+        "volatility": CONFIG_WEIGHTS[f"weights.{horizon}.volatility"],
+        "breadth": CONFIG_WEIGHTS[f"weights.{horizon}.breadth"],
+        "positioning": CONFIG_WEIGHTS[f"weights.{horizon}.positioning"],
+    }
+
+
+# Compatibility view for adapters that rehydrate older dataclass snapshots.
+# Values are sourced from AGENT_SYSTEM_INPUTS.xlsx, not hardcoded here.
 WEIGHTS = {
-    "swing":    {"monetary": 0.15, "credit": 0.25, "volatility": 0.25, "breadth": 0.20, "positioning": 0.15},
-    "investor": {"monetary": 0.30, "credit": 0.25, "volatility": 0.15, "breadth": 0.20, "positioning": 0.10},
-    "default":  {"monetary": 0.20, "credit": 0.22, "volatility": 0.22, "breadth": 0.20, "positioning": 0.16},
+    horizon: _get_weights(horizon)
+    for horizon in ("default", "swing", "investor")
 }
 
-
-# ── Shared helpers ────────────────────────────────────────────────────────────
 
 def _safe(x) -> Optional[float]:
     try:
@@ -92,9 +110,11 @@ def _scale(value: float, lo: float, hi: float, invert: bool = False) -> float:
 
 
 def _status(score: float) -> str:
-    if score >= 6.5:
+    bullish = REGIME_PARAMS["status.bullish_cutoff"]
+    bearish = REGIME_PARAMS["status.bearish_cutoff"]
+    if score >= bullish:
         return "bullish"
-    if score <= 3.5:
+    if score <= bearish:
         return "bearish"
     return "neutral"
 
@@ -117,6 +137,7 @@ def score_monetary(
     High score = abundant liquidity, easy conditions.
     Low score  = tightening, draining liquidity.
     """
+    P = REGIME_PARAMS
     components = []
     signals = []
     inputs = {
@@ -128,34 +149,48 @@ def score_monetary(
 
     # Net liquidity z-score: positive = expanding (bullish), negative = contracting
     if inputs["net_liquidity_z"] is not None:
-        # z-score range: -2 to +2 typical
-        s = _scale(inputs["net_liquidity_z"], -2.0, 2.0)
+        s = _scale(
+            inputs["net_liquidity_z"],
+            P["monetary.net_liquidity_z.scale_lo"],
+            P["monetary.net_liquidity_z.scale_hi"],
+        )
         components.append(s)
-        if inputs["net_liquidity_z"] > 0.5:
+        if inputs["net_liquidity_z"] > P["monetary.net_liquidity_z.expanding_signal_threshold"]:
             signals.append("Net liquidity expanding — structural tailwind")
-        elif inputs["net_liquidity_z"] < -0.5:
+        elif inputs["net_liquidity_z"] < P["monetary.net_liquidity_z.contracting_signal_threshold"]:
             signals.append("Net liquidity contracting — structural headwind")
 
     # NFCI inverted: higher = easier financial conditions
     if inputs["nfci_inverted"] is not None:
-        # NFCI inverted z-score: -2 to +2
-        s = _scale(inputs["nfci_inverted"], -2.0, 2.0)
+        s = _scale(
+            inputs["nfci_inverted"],
+            P["monetary.nfci_inverted.scale_lo"],
+            P["monetary.nfci_inverted.scale_hi"],
+        )
         components.append(s)
-        if inputs["nfci_inverted"] < -0.5:
+        if inputs["nfci_inverted"] < P["monetary.nfci_inverted.tightening_signal_threshold"]:
             signals.append("Financial conditions tightening (NFCI elevated)")
 
     # M2 growth: above 5% YoY historically supportive
     if inputs["m2_growth_yoy"] is not None:
-        s = _scale(inputs["m2_growth_yoy"], -2.0, 10.0)
+        s = _scale(
+            inputs["m2_growth_yoy"],
+            P["monetary.m2_growth_yoy.scale_lo"],
+            P["monetary.m2_growth_yoy.scale_hi"],
+        )
         components.append(s)
-        if inputs["m2_growth_yoy"] < 0:
+        if inputs["m2_growth_yoy"] < P["monetary.m2_growth_yoy.contracting_signal_threshold"]:
             signals.append(f"M2 contracting YoY ({inputs['m2_growth_yoy']:.1f}%) — rare tightening signal")
-        elif inputs["m2_growth_yoy"] > 8:
+        elif inputs["m2_growth_yoy"] > P["monetary.m2_growth_yoy.accelerating_signal_threshold"]:
             signals.append(f"M2 accelerating ({inputs['m2_growth_yoy']:.1f}% YoY) — liquidity abundant")
 
     # FCI z-score inverted: higher = easier
     if inputs["fci_z"] is not None:
-        s = _scale(inputs["fci_z"], -2.0, 2.0)
+        s = _scale(
+            inputs["fci_z"],
+            P["monetary.fci_z.scale_lo"],
+            P["monetary.fci_z.scale_hi"],
+        )
         components.append(s)
 
     score = float(np.mean(components)) if components else 5.0
@@ -185,6 +220,7 @@ def score_credit(
     High score = credit healthy, spreads tight, no stress.
     Low score  = spreads widening, credit stress, systemic risk rising.
     """
+    P = REGIME_PARAMS
     components = []
     signals = []
     inputs = {
@@ -196,43 +232,64 @@ def score_credit(
         "hyg_tlt_ratio_z":  _safe(hyg_tlt_ratio_z),
     }
 
-    # HY spread level — tight is good, wide is bad
-    # Historical range: ~250 (tight/bull) to ~900 (crisis)
     if inputs["hy_spread_level"] is not None:
-        s = _scale(inputs["hy_spread_level"], 250.0, 900.0, invert=True)
+        s = _scale(
+            inputs["hy_spread_level"],
+            P["credit.hy_spread_level.scale_lo"],
+            P["credit.hy_spread_level.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["hy_spread_level"] > 600:
+        if inputs["hy_spread_level"] > P["credit.hy_spread_level.stress_signal_threshold"]:
             signals.append(f"HY spreads at stress levels ({inputs['hy_spread_level']:.0f}bps) — credit deteriorating")
-        elif inputs["hy_spread_level"] < 350:
+        elif inputs["hy_spread_level"] < P["credit.hy_spread_level.tight_signal_threshold"]:
             signals.append(f"HY spreads tight ({inputs['hy_spread_level']:.0f}bps) — credit healthy")
 
     # HY z-score — relative to recent history
     if inputs["hy_spread_z"] is not None:
-        s = _scale(inputs["hy_spread_z"], -2.0, 3.0, invert=True)
+        s = _scale(
+            inputs["hy_spread_z"],
+            P["credit.hy_spread_z.scale_lo"],
+            P["credit.hy_spread_z.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["hy_spread_z"] > 1.5:
+        if inputs["hy_spread_z"] > P["credit.hy_spread_z.elevated_signal_threshold"]:
             signals.append("HY spreads elevated relative to 2yr history")
 
     # HY 4-week change — momentum matters as much as level
     if inputs["hy_spread_chg_4w"] is not None:
-        # Widening (positive) is bad, tightening (negative) is good
-        s = _scale(inputs["hy_spread_chg_4w"], -80.0, 150.0, invert=True)
+        s = _scale(
+            inputs["hy_spread_chg_4w"],
+            P["credit.hy_spread_chg_4w.scale_lo"],
+            P["credit.hy_spread_chg_4w.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["hy_spread_chg_4w"] > 50:
+        if inputs["hy_spread_chg_4w"] > P["credit.hy_spread_chg_4w.widening_signal_threshold"]:
             signals.append(f"HY spreads widening rapidly (+{inputs['hy_spread_chg_4w']:.0f}bps/4wk) — stress accelerating")
-        elif inputs["hy_spread_chg_4w"] < -30:
+        elif inputs["hy_spread_chg_4w"] < P["credit.hy_spread_chg_4w.tightening_signal_threshold"]:
             signals.append(f"HY spreads tightening ({inputs['hy_spread_chg_4w']:.0f}bps/4wk) — credit improving")
 
     # IG spread level — IG widening is systemic, not idiosyncratic
     if inputs["ig_spread_level"] is not None:
-        s = _scale(inputs["ig_spread_level"], 60.0, 300.0, invert=True)
+        s = _scale(
+            inputs["ig_spread_level"],
+            P["credit.ig_spread_level.scale_lo"],
+            P["credit.ig_spread_level.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["ig_spread_level"] > 180:
+        if inputs["ig_spread_level"] > P["credit.ig_spread_level.elevated_signal_threshold"]:
             signals.append(f"IG spreads elevated ({inputs['ig_spread_level']:.0f}bps) — systemic stress signal")
 
     # HYG/TLT ratio z-score — risk appetite in credit
     if inputs["hyg_tlt_ratio_z"] is not None:
-        s = _scale(inputs["hyg_tlt_ratio_z"], -2.5, 2.5)
+        s = _scale(
+            inputs["hyg_tlt_ratio_z"],
+            P["credit.hyg_tlt_ratio_z.scale_lo"],
+            P["credit.hyg_tlt_ratio_z.scale_hi"],
+        )
         components.append(s)
 
     score = float(np.mean(components)) if components else 5.0
@@ -263,6 +320,7 @@ def score_volatility(
     High score = calm, normal term structure, no hedging surge.
     Low score  = acute fear, inverted term structure, VVIX elevated.
     """
+    P = REGIME_PARAMS
     components = []
     signals = []
     inputs = {
@@ -277,34 +335,53 @@ def score_volatility(
 
     # VIX level — lower is calmer
     if inputs["vix_level"] is not None:
-        s = _scale(inputs["vix_level"], 10.0, 45.0, invert=True)
+        s = _scale(
+            inputs["vix_level"],
+            P["volatility.vix_level.scale_lo"],
+            P["volatility.vix_level.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["vix_level"] > 30:
+        if inputs["vix_level"] > P["volatility.vix_level.elevated_signal_threshold"]:
             signals.append(f"VIX elevated at {inputs['vix_level']:.1f} — fear regime")
-        elif inputs["vix_level"] < 15:
+        elif inputs["vix_level"] < P["volatility.vix_level.suppressed_signal_threshold"]:
             signals.append(f"VIX suppressed at {inputs['vix_level']:.1f} — complacency risk")
 
     # VIX z-score
     if inputs["vix_z_20d"] is not None:
-        s = _scale(inputs["vix_z_20d"], -1.5, 3.0, invert=True)
+        s = _scale(
+            inputs["vix_z_20d"],
+            P["volatility.vix_z_20d.scale_lo"],
+            P["volatility.vix_z_20d.scale_hi"],
+            invert=True,
+        )
         components.append(s)
 
     # VIX term slope: VIX3M - VIX
     # Positive (contango) = normal, calm
     # Negative (backwardation) = crisis, acute fear
     if inputs["vix_term_slope"] is not None:
-        s = _scale(inputs["vix_term_slope"], -8.0, 8.0)
+        s = _scale(
+            inputs["vix_term_slope"],
+            P["volatility.vix_term_slope.scale_lo"],
+            P["volatility.vix_term_slope.scale_hi"],
+        )
         components.append(s)
-        if inputs["vix_term_slope"] < -2:
+        if inputs["vix_term_slope"] < P["volatility.vix_term_slope.inverted_signal_threshold"]:
             signals.append(f"VIX term structure inverted ({inputs['vix_term_slope']:+.1f}) — acute near-term fear")
-        elif inputs["vix_term_slope"] > 4:
+        elif inputs["vix_term_slope"] > P["volatility.vix_term_slope.contango_signal_threshold"]:
             signals.append("VIX term structure steep contango — market pricing calm ahead")
 
     # VVIX — uncertainty about uncertainty
     if inputs["vvix_level"] is not None:
-        s = _scale(inputs["vvix_level"], 70.0, 130.0, invert=True)
+        s = _scale(
+            inputs["vvix_level"],
+            P["volatility.vvix_level.scale_lo"],
+            P["volatility.vvix_level.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["vvix_level"] > 110:
+        if inputs["vvix_level"] > P["volatility.vvix_level.elevated_signal_threshold"]:
             signals.append(f"VVIX elevated ({inputs['vvix_level']:.0f}) — VIX itself unstable, regime calls less reliable")
 
     # Put/call ratio — 5d MA
@@ -312,22 +389,31 @@ def score_volatility(
     if inputs["put_call_ratio"] is not None:
         # High P/C (fear) = contrarian bullish = higher vol score
         # Low P/C (greed) = contrarian bearish = lower vol score
-        if inputs["put_call_ratio"] > 1.1:
-            s = 7.5  # fear = tradeable bounce setup
+        if inputs["put_call_ratio"] > P["volatility.put_call_ratio.fear_threshold"]:
+            s = P["volatility.put_call_ratio.fear_score"]
             signals.append(f"Put/call ratio elevated ({inputs['put_call_ratio']:.2f}) — fear-driven hedging, contrarian bullish")
-        elif inputs["put_call_ratio"] < 0.65:
-            s = 2.5  # complacency
+        elif inputs["put_call_ratio"] < P["volatility.put_call_ratio.complacency_threshold"]:
+            s = P["volatility.put_call_ratio.complacency_score"]
             signals.append(f"Put/call ratio low ({inputs['put_call_ratio']:.2f}) — complacency, limited upside protection")
         else:
-            s = _scale(inputs["put_call_ratio"], 0.65, 1.1)
+            s = _scale(
+                inputs["put_call_ratio"],
+                P["volatility.put_call_ratio.complacency_threshold"],
+                P["volatility.put_call_ratio.fear_threshold"],
+            )
         components.append(s)
 
     # SKEW index
     if inputs["skew_index"] is not None:
         # High skew = institutions paying up for tail protection = bearish
-        s = _scale(inputs["skew_index"], 110.0, 155.0, invert=True)
+        s = _scale(
+            inputs["skew_index"],
+            P["volatility.skew_index.scale_lo"],
+            P["volatility.skew_index.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["skew_index"] > 145:
+        if inputs["skew_index"] > P["volatility.skew_index.elevated_signal_threshold"]:
             signals.append(f"SKEW index elevated ({inputs['skew_index']:.0f}) — institutional tail hedging surge")
 
     score = float(np.mean(components)) if components else 5.0
@@ -345,67 +431,92 @@ def score_volatility(
 # ── Layer 4: Breadth & Participation ──────────────────────────────────────────
 
 def score_breadth(
-    pct_above_200d: Optional[float] = None,     # % of S&P stocks above 200-day MA
-    new_highs_minus_lows_z: Optional[float] = None,  # z-score of (HIGHNEW - LOWNEW)
-    sectors_green: Optional[int] = None,         # your existing 0-11
-    rsp_vs_spy_z: Optional[float] = None,        # z-score of RSP/SPY ratio (equal vs cap weight)
-    adl_slope: Optional[float] = None,           # advance/decline line 20d slope
+    pct_above_200d: Optional[float] = None,       # diagnostic only; not scored
+    avg_dist_from_200d: Optional[float] = None,   # avg % distance from 200d MA
+    sectors_green: Optional[int] = None,           # raw count out of 11
+    rsp_vs_spy_z: Optional[float] = None,          # equal vs cap weight z-score
+    adl_slope: Optional[float] = None,             # sector-level ADL 20d slope
 ) -> LayerScore:
     """
     Breadth & Participation layer.
     High score = broad participation, healthy internals.
     Low score  = narrow leadership, diverging breadth.
+
+    Inputs (with weights for the weighted average):
+        avg_dist_from_200d (35%) — continuous distance from 200d MA
+        rsp_vs_spy_z       (30%) — equal vs cap-weight z-score
+        adl_slope          (20%) — sector ADL trend direction
+        sectors_green      (15%) — noisy daily snapshot
+
+    pct_above_200d is retained for diagnostic display but not scored.
     """
-    components = []
+    P = REGIME_PARAMS
+    component_weight_pairs: list[tuple[float, float]] = []
     signals = []
     inputs = {
-        "pct_above_200d":        _safe(pct_above_200d),
-        "new_highs_minus_lows_z": _safe(new_highs_minus_lows_z),
-        "sectors_green":          float(sectors_green) if sectors_green is not None else None,
-        "rsp_vs_spy_z":          _safe(rsp_vs_spy_z),
-        "adl_slope":             _safe(adl_slope),
+        "pct_above_200d":      _safe(pct_above_200d),
+        "avg_dist_from_200d":  _safe(avg_dist_from_200d),
+        "sectors_green":       float(sectors_green) if sectors_green is not None else None,
+        "rsp_vs_spy_z":        _safe(rsp_vs_spy_z),
+        "adl_slope":           _safe(adl_slope),
     }
 
-    # % above 200-day MA — most important breadth signal
-    if inputs["pct_above_200d"] is not None:
-        s = _scale(inputs["pct_above_200d"], 45.0, 100.0)
-        components.append(s)
-        if inputs["pct_above_200d"] >= 100:
-            signals.append(f"{inputs['pct_above_200d']:.0f}% of stocks above 200d MA — broad participation")
-        elif inputs["pct_above_200d"] < 50:
-            signals.append(f"Only {inputs['pct_above_200d']:.0f}% above 200d MA — narrow market, deteriorating internals")
+    if inputs["avg_dist_from_200d"] is not None:
+        d = inputs["avg_dist_from_200d"]
+        s = _scale(
+            d,
+            P["breadth.avg_dist_from_200d.scale_lo"],
+            P["breadth.avg_dist_from_200d.scale_hi"],
+        )
+        component_weight_pairs.append((s, P["breadth.avg_dist_from_200d.weight"]))
+        if d < P["breadth.avg_dist_from_200d.below_signal_threshold"]:
+            signals.append(f"Sector avg {d:+.1f}% below 200d MA — broad downtrend")
+        elif d > P["breadth.avg_dist_from_200d.above_signal_threshold"]:
+            signals.append(f"Sector avg {d:+.1f}% above 200d MA — broad uptrend")
+        elif (
+            P["breadth.avg_dist_from_200d.transition_zone_lo"]
+            <= d
+            <= P["breadth.avg_dist_from_200d.transition_zone_hi"]
+        ):
+            signals.append(f"Sector avg near 200d MA ({d:+.1f}%) — transition zone")
 
-    # New highs minus new lows z-score
-    if inputs["new_highs_minus_lows_z"] is not None:
-        s = _scale(inputs["new_highs_minus_lows_z"], -2.5, 2.5)
-        components.append(s)
-        if inputs["new_highs_minus_lows_z"] < -1.5:
-            signals.append("New lows expanding rapidly — internal deterioration despite possible index strength")
-        elif inputs["new_highs_minus_lows_z"] > 1.5:
-            signals.append("New highs expanding — broad underlying strength confirmed")
-
-    # Sectors green — your existing signal
-    if inputs["sectors_green"] is not None:
-        s = _scale(inputs["sectors_green"], 1.0, 10.0)
-        components.append(s)
-
-    # RSP vs SPY z-score — equal weight vs cap weight
-    # Positive = equal weight outperforming = broad rally (good)
-    # Negative = cap weight outperforming = narrow/mega-cap led rally (caution)
     if inputs["rsp_vs_spy_z"] is not None:
-        s = _scale(inputs["rsp_vs_spy_z"], -2.0, 2.0)
-        components.append(s)
-        if inputs["rsp_vs_spy_z"] < -1.0:
+        s = _scale(
+            inputs["rsp_vs_spy_z"],
+            P["breadth.rsp_vs_spy_z.scale_lo"],
+            P["breadth.rsp_vs_spy_z.scale_hi"],
+        )
+        component_weight_pairs.append((s, P["breadth.rsp_vs_spy_z.weight"]))
+        if inputs["rsp_vs_spy_z"] < P["breadth.rsp_vs_spy_z.lagging_signal_threshold"]:
             signals.append("Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing")
-        elif inputs["rsp_vs_spy_z"] > 1.0:
+        elif inputs["rsp_vs_spy_z"] > P["breadth.rsp_vs_spy_z.outperforming_signal_threshold"]:
             signals.append("Equal weight outperforming — broad rally, not just mega-cap driven")
 
-    # ADL slope
     if inputs["adl_slope"] is not None:
-        s = _scale(inputs["adl_slope"], -50.0, 50.0)
-        components.append(s)
+        s = _scale(
+            inputs["adl_slope"],
+            P["breadth.adl_slope.scale_lo"],
+            P["breadth.adl_slope.scale_hi"],
+        )
+        component_weight_pairs.append((s, P["breadth.adl_slope.weight"]))
+        if inputs["adl_slope"] < P["breadth.adl_slope.deteriorating_signal_threshold"]:
+            signals.append("Sector ADL slope sharply negative — participation deteriorating")
+        elif inputs["adl_slope"] > P["breadth.adl_slope.broadening_signal_threshold"]:
+            signals.append("Sector ADL slope rising — participation broadening")
 
-    score = float(np.mean(components)) if components else 5.0
+    if inputs["sectors_green"] is not None:
+        s = _scale(
+            inputs["sectors_green"],
+            P["breadth.sectors_green.scale_lo"],
+            P["breadth.sectors_green.scale_hi"],
+        )
+        component_weight_pairs.append((s, P["breadth.sectors_green.weight"]))
+
+    if component_weight_pairs:
+        total_weight = sum(w for _, w in component_weight_pairs)
+        score = sum(s * w for s, w in component_weight_pairs) / total_weight
+    else:
+        score = 5.0
     dq = _data_quality(list(inputs.values()))
 
     return LayerScore(
@@ -435,6 +546,7 @@ def score_positioning(
     Low score  = crowded long, extreme complacency, or negative gamma territory
                  (fragile, mechanical amplification, limited upside)
     """
+    P = REGIME_PARAMS
     components = []
     signals = []
     inputs = {
@@ -449,58 +561,82 @@ def score_positioning(
     if inputs["dealer_gamma_z"] is not None:
         # Positive gamma = dealers suppress vol = more orderly = higher score
         # Negative gamma = dealers amplify = dangerous = lower score
-        s = _scale(inputs["dealer_gamma_z"], -2.5, 2.5)
+        s = _scale(
+            inputs["dealer_gamma_z"],
+            P["positioning.dealer_gamma_z.scale_lo"],
+            P["positioning.dealer_gamma_z.scale_hi"],
+        )
         components.append(s)
-        if inputs["dealer_gamma_z"] < -1.0:
+        if inputs["dealer_gamma_z"] < P["positioning.dealer_gamma_z.negative_signal_threshold"]:
             signals.append("Dealers net short gamma — mechanical vol amplification likely, moves will overshoot")
-        elif inputs["dealer_gamma_z"] > 1.0:
+        elif inputs["dealer_gamma_z"] > P["positioning.dealer_gamma_z.positive_signal_threshold"]:
             signals.append("Dealers net long gamma — suppressing volatility, orderly tape")
 
     # Put/call ratio (equity) — contrarian
     if inputs["put_call_5d_ma"] is not None:
-        if inputs["put_call_5d_ma"] > 0.95:
-            # Extreme fear = contrarian bullish
-            s = 7.5
+        if inputs["put_call_5d_ma"] > P["positioning.put_call_5d_ma.fear_threshold"]:
+            s = P["positioning.put_call_5d_ma.fear_score"]
             signals.append(f"Equity put/call elevated ({inputs['put_call_5d_ma']:.2f}) — retail fear, contrarian bullish setup")
-        elif inputs["put_call_5d_ma"] < 0.60:
-            # Extreme complacency = contrarian bearish
-            s = 2.5
+        elif inputs["put_call_5d_ma"] < P["positioning.put_call_5d_ma.complacency_threshold"]:
+            s = P["positioning.put_call_5d_ma.complacency_score"]
             signals.append(f"Equity put/call suppressed ({inputs['put_call_5d_ma']:.2f}) — complacency, limited protection bought")
         else:
-            s = 5.0
+            s = P["positioning.put_call_5d_ma.neutral_score"]
         components.append(s)
 
-    # AAII sentiment — contrarian
+    # AAII sentiment — contrarian. Tightened thresholds:
+    #   < -28pp -> genuine panic (12th percentile historically) -> strong contrarian bullish
+    #   > +37pp -> genuine euphoria (88th percentile historically) -> strong contrarian bearish
+    # Old thresholds of -20/+30 fired on too many normal-range readings.
     if inputs["aaii_bull_minus_bear"] is not None:
-        # Extreme bearish (< -20) = contrarian bullish
-        # Extreme bullish (> +30) = contrarian bearish
-        if inputs["aaii_bull_minus_bear"] < -20:
-            s = 8.0
-            signals.append(f"AAII sentiment deeply bearish ({inputs['aaii_bull_minus_bear']:+.0f}pp) — historically bullish contrarian signal")
-        elif inputs["aaii_bull_minus_bear"] > 30:
-            s = 2.5
-            signals.append(f"AAII sentiment euphoric ({inputs['aaii_bull_minus_bear']:+.0f}pp) — crowded bullish positioning")
+        if inputs["aaii_bull_minus_bear"] < P["positioning.aaii_bull_minus_bear.panic_threshold"]:
+            s = P["positioning.aaii_bull_minus_bear.panic_score"]
+            signals.append(
+                f"AAII sentiment in panic territory ({inputs['aaii_bull_minus_bear']:+.0f}pp) "
+                "— rare contrarian bullish signal"
+            )
+        elif inputs["aaii_bull_minus_bear"] > P["positioning.aaii_bull_minus_bear.euphoria_threshold"]:
+            s = P["positioning.aaii_bull_minus_bear.euphoria_score"]
+            signals.append(
+                f"AAII sentiment euphoric ({inputs['aaii_bull_minus_bear']:+.0f}pp) "
+                "— extreme positioning, contrarian bearish"
+            )
         else:
-            # Neutral zone: scale normally
-            s = _scale(inputs["aaii_bull_minus_bear"], -20.0, 30.0, invert=True)
+            # Scale linearly within the normal -28 to +37 band, inverted (contrarian)
+            s = _scale(
+                inputs["aaii_bull_minus_bear"],
+                P["positioning.aaii_bull_minus_bear.scale_lo"],
+                P["positioning.aaii_bull_minus_bear.scale_hi"],
+                invert=True,
+            )
         components.append(s)
 
     # COT large speculator net positioning — contrarian at extremes
     if inputs["cot_net_large_spec_z"] is not None:
         # Extreme long (z > 2) = crowded = contrarian bearish
         # Extreme short (z < -2) = washed out = contrarian bullish
-        s = _scale(inputs["cot_net_large_spec_z"], -2.5, 2.5, invert=True)
+        s = _scale(
+            inputs["cot_net_large_spec_z"],
+            P["positioning.cot_net_large_spec_z.scale_lo"],
+            P["positioning.cot_net_large_spec_z.scale_hi"],
+            invert=True,
+        )
         components.append(s)
-        if inputs["cot_net_large_spec_z"] > 2.0:
+        if inputs["cot_net_large_spec_z"] > P["positioning.cot_net_large_spec_z.extreme_long_signal_threshold"]:
             signals.append("COT large speculators near extreme net long — historically mean-reverts")
-        elif inputs["cot_net_large_spec_z"] < -2.0:
+        elif inputs["cot_net_large_spec_z"] < P["positioning.cot_net_large_spec_z.extreme_short_signal_threshold"]:
             signals.append("COT large speculators near extreme net short — historically bullish setup")
 
     # ETF flows z-score — contrarian at extremes
     if inputs["equity_etf_flow_z"] is not None:
         # Large inflows = crowded = mild bearish
         # Large outflows = capitulation = mild bullish
-        s = _scale(inputs["equity_etf_flow_z"], -2.5, 2.5, invert=True)
+        s = _scale(
+            inputs["equity_etf_flow_z"],
+            P["positioning.equity_etf_flow_z.scale_lo"],
+            P["positioning.equity_etf_flow_z.scale_hi"],
+            invert=True,
+        )
         components.append(s)
 
     score = float(np.mean(components)) if components else 5.0
@@ -530,59 +666,99 @@ def classify_environment(scores: LayerScores) -> Tuple[str, List[str]]:
     composite = scores.composite
     agreement = scores.layer_agreement
 
+    E = ENV_PARAMS
     drivers = []
 
-    # ── High conviction bullish regimes ──
-    if composite >= 70 and agreement >= 0.7:
-        if b >= 7 and v >= 6 and c >= 6:
-            drivers = ["Strong breadth", "Healthy credit", "Calm vol structure"]
-            return "Trend Day — Broad Participation", drivers
-        if m >= 7 and c >= 7 and b >= 6:
-            drivers = ["Liquidity supportive", "Credit healthy", "Breadth expanding"]
-            return "Risk-On — Liquidity Driven", drivers
+    if (
+        composite >= E["env.trend_day.composite_threshold"]
+        and agreement >= E["env.trend_day.agreement_threshold"]
+        and b >= E["env.trend_day.breadth_threshold"]
+        and v >= E["env.trend_day.volatility_threshold"]
+        and c >= E["env.trend_day.credit_threshold"]
+    ):
+        drivers = ["Strong breadth", "Healthy credit", "Calm vol structure"]
+        return "Trend Day — Broad Participation", drivers
 
-    # ── Risk-on with caveats ──
-    if composite >= 62 and b >= 6 and c >= 6:
-        if v < 5:
+    if (
+        composite >= E["env.risk_on_liquidity.composite_threshold"]
+        and agreement >= E["env.risk_on_liquidity.agreement_threshold"]
+        and m >= E["env.risk_on_liquidity.monetary_threshold"]
+        and c >= E["env.risk_on_liquidity.credit_threshold"]
+        and b >= E["env.risk_on_liquidity.breadth_threshold"]
+    ):
+        drivers = ["Liquidity supportive", "Credit healthy", "Breadth expanding"]
+        return "Risk-On — Liquidity Driven", drivers
+
+    if (
+        composite >= E["env.risk_on_rotation.composite_threshold"]
+        and b >= E["env.risk_on_rotation.breadth_threshold"]
+        and c >= E["env.risk_on_rotation.credit_threshold"]
+    ):
+        if v < E["env.risk_on_rotation.vol_caution_threshold"]:
             drivers = ["Good breadth/credit", "Vol structure elevated"]
             return "Risk-On Rotation — Vol Caution", drivers
         drivers = ["Breadth expanding", "Credit supportive"]
         return "Risk-On Rotation Day", drivers
 
-    # ── Complacency warning — calm surface, fragile underneath ──
-    if v >= 7 and p <= 3.5 and b <= 5:
+    if (
+        v >= E["env.complacency.volatility_threshold"]
+        and p <= E["env.complacency.positioning_threshold"]
+        and b <= E["env.complacency.breadth_threshold"]
+    ):
         drivers = ["Vol suppressed", "Crowded positioning", "Breadth deteriorating"]
         return "Complacency Warning", drivers
 
-    # ── Gamma squeeze / technical environment ──
-    if scores.positioning.inputs.get("dealer_gamma_z") is not None:
-        dgz = scores.positioning.inputs["dealer_gamma_z"]
-        if dgz is not None and dgz < -1.5 and v <= 4:
-            drivers = ["Negative dealer gamma", "Elevated vol"]
-            return "Negative Gamma — Volatile", drivers
+    dgz = scores.positioning.inputs.get("dealer_gamma_z")
+    if (
+        dgz is not None
+        and dgz < E["env.negative_gamma.dealer_gamma_z_threshold"]
+        and v <= E["env.negative_gamma.volatility_threshold"]
+    ):
+        drivers = ["Negative dealer gamma", "Elevated vol"]
+        return "Negative Gamma — Volatile", drivers
 
-    # ── Stress / risk-off ──
-    if c <= 3.5 or (composite <= 38 and v <= 4):
-        if c <= 3 and v <= 3:
+    risk_off_triggered = (
+        c <= E["env.risk_off_headline.credit_threshold"]
+        or (
+            composite <= E["env.risk_off_headline.composite_threshold"]
+            and v <= E["env.risk_off_headline.volatility_threshold"]
+        )
+    )
+    if risk_off_triggered:
+        if (
+            c <= E["env.risk_off_credit_stress.credit_threshold"]
+            and v <= E["env.risk_off_credit_stress.volatility_threshold"]
+        ):
             drivers = ["Credit stress", "Vol elevated"]
             return "Risk-Off — Credit Stress", drivers
         drivers = ["Low composite score", "Stress signals present"]
         return "Risk-Off / Headline Risk", drivers
 
-    # ── Mean reversion / fear exhaustion ──
-    if p >= 7 and v <= 4 and composite <= 50:
+    if (
+        p >= E["env.fear_exhaustion.positioning_threshold"]
+        and v <= E["env.fear_exhaustion.volatility_threshold"]
+        and composite <= E["env.fear_exhaustion.composite_threshold"]
+    ):
         drivers = ["Positioning washed out", "Contrarian setup"]
         return "Fear Exhaustion — Mean Reversion Setup", drivers
 
-    # ── Chop / divergence ──
-    if agreement < 0.4 or (40 <= composite <= 60 and agreement < 0.55):
-        # Find which layers are diverging
+    chop_band_lo = E["env.chop.composite_band_lo"]
+    chop_band_hi = E["env.chop.composite_band_hi"]
+    if (
+        agreement < E["env.chop.agreement_threshold_strict"]
+        or (
+            chop_band_lo <= composite <= chop_band_hi
+            and agreement < E["env.chop.agreement_threshold_band"]
+        )
+    ):
         layer_statuses = {
             "monetary":    m, "credit": c,
             "volatility":  v, "breadth": b, "positioning": p,
         }
-        bullish_layers = [k for k, s in layer_statuses.items() if s >= 6.5]
-        bearish_layers = [k for k, s in layer_statuses.items() if s <= 3.5]
+        bullish = REGIME_PARAMS["status.bullish_cutoff"]
+        bearish = REGIME_PARAMS["status.bearish_cutoff"]
+        bullish_layers = [k for k, s in layer_statuses.items() if s >= bullish]
+        bearish_layers = [k for k, s in layer_statuses.items() if s <= bearish]
         if bullish_layers and bearish_layers:
             drivers = [
                 f"Bullish: {', '.join(bullish_layers)}",
@@ -592,7 +768,6 @@ def classify_environment(scores: LayerScores) -> Tuple[str, List[str]]:
             drivers = ["Low layer agreement", "Mixed signals"]
         return "Chop / Layer Divergence", drivers
 
-    # ── Mixed neutral ──
     drivers = ["No dominant regime signal"]
     return "Mixed / Neutral", drivers
 
@@ -604,8 +779,10 @@ def _layer_agreement(scores: List[float]) -> float:
     0 = completely split (half bullish, half bearish)
     1 = all layers pointing same direction
     """
-    above = sum(1 for s in scores if s >= 6.5)
-    below = sum(1 for s in scores if s <= 3.5)
+    bullish = REGIME_PARAMS["status.bullish_cutoff"]
+    bearish = REGIME_PARAMS["status.bearish_cutoff"]
+    above = sum(1 for s in scores if s >= bullish)
+    below = sum(1 for s in scores if s <= bearish)
     neutral = len(scores) - above - below
     total = len(scores)
     if total == 0:
@@ -660,7 +837,7 @@ def score_all_layers(
     skew_index: Optional[float] = None,
     # Breadth
     pct_above_200d: Optional[float] = None,
-    new_highs_minus_lows_z: Optional[float] = None,
+    avg_dist_from_200d: Optional[float] = None,
     sectors_green: Optional[int] = None,
     rsp_vs_spy_z: Optional[float] = None,
     adl_slope: Optional[float] = None,
@@ -680,10 +857,10 @@ def score_all_layers(
     monetary   = score_monetary(net_liquidity_z, nfci_inverted, m2_growth_yoy, fci_z)
     credit     = score_credit(hy_spread_level, hy_spread_z, hy_spread_chg_4w, ig_spread_level, ig_spread_z, hyg_tlt_ratio_z)
     volatility = score_volatility(vix_level, vix_z_20d, vix_term_slope, vvix_level, vvix_z, put_call_ratio, skew_index)
-    breadth    = score_breadth(pct_above_200d, new_highs_minus_lows_z, sectors_green, rsp_vs_spy_z, adl_slope)
+    breadth    = score_breadth(pct_above_200d, avg_dist_from_200d, sectors_green, rsp_vs_spy_z, adl_slope)
     positioning = score_positioning(dealer_gamma_z, put_call_5d_ma, aaii_bull_minus_bear, cot_net_large_spec_z, equity_etf_flow_z)
 
-    weights = WEIGHTS.get(horizon, WEIGHTS["default"])
+    weights = _get_weights(horizon)
 
     raw_scores = [monetary.score, credit.score, volatility.score, breadth.score, positioning.score]
     layer_names = ["monetary", "credit", "volatility", "breadth", "positioning"]
@@ -735,9 +912,10 @@ if __name__ == "__main__":
         put_call_ratio=1.05,
         # Breadth — weak
         pct_above_200d=42,
-        new_highs_minus_lows_z=-0.8,
+        avg_dist_from_200d=-4.5,
         sectors_green=5,
         rsp_vs_spy_z=-0.5,
+        adl_slope=-0.2,
         # Positioning — fear / contrarian bullish
         put_call_5d_ma=1.02,
         aaii_bull_minus_bear=-18,

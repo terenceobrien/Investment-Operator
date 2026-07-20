@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Current call states firmer facts (HBM sold out, revenue realized) vs prior's more conditional 'we expect'/'on track' framing."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided fiscal Q2 revenue $5.3B/margin 13%/EPS -$0.28; current beat and guides Q3 revenue $6.6B, margin 26.5%, EPS $0.45, well above prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior guided FY24 OpEx >$3.9B and tax >$300M; current raises OpEx to ~$4.0B and tax to ~$400M, and 2023 DRAM/NAND bit demand growth revised upward (low double-digit/low-20s vs prior high-single/high-teens)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive content: Blackwell GPU HBM3E content increase, 12-high HBM3E, HBM4 roadmap, LPCAMM2 launch not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlative/confident claims: 'record revenue share', 'firmly establishing leader in QLC', 'sold out HBM' vs prior's more cautious 'early stages' framing."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior described data center inventory 'improving' and demand recovering; current reports HBM 'sold out for calendar 2024' and 'strong AI server demand' driving tighter supply."
+  }
+}

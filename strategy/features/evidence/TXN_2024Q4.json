@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar 'we expect' framing for guidance and outlook with no notable change in hedging density."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $3.7B-$4.0B and EPS $1.07-$1.29; current guides Q1 revenue $3.74B-$4.06B and EPS $0.94-$1.16, lower EPS range."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CapEx cycle '70% through six-year elevated CapEx cycle' is a new specific framing not directly comparable to prior call's figures."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New annual end-market revenue breakout and Capital Management call announcement not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call had no superlatives either, but current adds 'uniquely position' claim while overall results are weaker, tone slightly more muted given declines."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior: industrial down low-single digits, auto up upper-single digit; current: industrial down low-single digits, auto down mid-single-digits, signaling broader softening."
+  }
+}

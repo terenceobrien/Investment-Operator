@@ -24,11 +24,15 @@ from src.agent_system.schemas.regime import (
 )
 from src.agent_system.schemas.thematic import (
     Candidate,
+    ConsensusType,
     ExclusionRecord,
+    FitStrengthComponents,
     InstrumentType,
     ResearchDepth,
+    RejectedQuickItem,
     ThematicMap,
     VariantStrength,
+    compute_fit_strength_from_components,
 )
 
 
@@ -43,13 +47,14 @@ class ThematicAgentValidationError(Exception):
 
 
 class _ThematicDerivedEvidence(BaseSchema):
-    """OpenAI-compatible DerivedEvidence subset for thematic-agent output."""
+    """OpenAI-compatible thematic evidence subset for agent output."""
 
-    source_type: Literal["derived"] = "derived"
+    source_type: Literal["derived", "verification_required"] = "derived"
     claim: str = Field(min_length=1, max_length=2000)
     supports: bool
     computation: str = Field(min_length=1, max_length=500)
     upstream_claims: list[str] = Field(min_length=1, max_length=20)
+    notes: str = Field(default="", max_length=2000)
 
 
 class _ThematicCandidate(BaseSchema):
@@ -78,12 +83,14 @@ class _ThematicCandidate(BaseSchema):
         return v
 
     thematic_fit: str = Field(min_length=1, max_length=1000)
-    fit_strength: UnitInterval
+    fit_strength: UnitInterval = 0.0
+    fit_strength_components: FitStrengthComponents
     fit_evidence: list[_ThematicDerivedEvidence] = Field(
         default_factory=list,
         max_length=15,
     )
     consensus_view: str = Field(min_length=1, max_length=2000)
+    consensus_type: ConsensusType = ConsensusType.NARRATIVE
     potential_variant_view: str = Field(default="", max_length=2000)
     variant_strength: VariantStrength
     variant_evidence: list[_ThematicDerivedEvidence] = Field(
@@ -97,7 +104,11 @@ class _ThematicCandidate(BaseSchema):
 
     def to_candidate(self) -> Candidate:
         """Convert structured-output shape to the public Candidate schema."""
-        return Candidate.model_validate(self.model_dump())
+        data = self.model_dump()
+        data["fit_strength"] = compute_fit_strength_from_components(
+            self.fit_strength_components
+        )
+        return Candidate.model_validate(data)
 
 
 class _ThematicMapOutput(BaseSchema):
@@ -111,6 +122,7 @@ class _ThematicMapOutput(BaseSchema):
 
     candidates: list[_ThematicCandidate] = Field(default_factory=list, max_length=30)
     excluded: list[ExclusionRecord] = Field(default_factory=list, max_length=50)
+    rejected_quick: list[RejectedQuickItem] = Field(default_factory=list, max_length=30)
     mapping_logic: str = Field(min_length=20, max_length=3000)
     universe_considered: int = Field(default=0, ge=0)
 
@@ -120,6 +132,7 @@ class _ThematicMapOutput(BaseSchema):
             source_priority=source_priority,
             candidates=[candidate.to_candidate() for candidate in self.candidates],
             excluded=self.excluded,
+            rejected_quick=self.rejected_quick,
             mapping_logic=self.mapping_logic,
             universe_considered=self.universe_considered,
         )

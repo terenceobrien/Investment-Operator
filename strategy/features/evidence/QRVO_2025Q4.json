@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff uncertainty language ('less than $1 million', 'could rise to high single-digit millions', 'timing and scope remain uncertain') absent from prior call."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "June quarter revenue guide raised vs plan: 'our expectations for revenue in the June quarter are higher than what we anticipated when we provided guidance last quarter.'"
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "D&A sales funnel grew from unspecified prior level to '$5 billion now' and UWB automotive funnel grew from implied ~$1.5B to 'exceeds $2 billion', up over $500M in 12 months."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: Costa Rica facility closure, Wi-Fi 8 development, Aliro/Nordic smart lock partnership, envelope tracking PM ramp, motor drive SoC."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives: 'record revenue quarter and record fiscal year', Northrop/BAE supplier awards, 'exceptional customer relationships' not present in prior call."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Base station demand upgraded from 'past the bottom, stabilization' to 'inventory...stabilized, and customer demand...has strengthened'."
+  }
+}

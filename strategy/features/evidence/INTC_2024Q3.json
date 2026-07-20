@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "More declarative statements on progress/milestones vs prior quarter's heavy conditional language on recovery pace and market uncertainty."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q4 at high end of flat-to-5% seasonal; current reaffirms Q4 revenue $13.3-14.3B, midpoint $13.8B gross margin 39.5% vs Q3's weaker 38%, slightly firmer outlook."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Gaudi revenue target of $500M for 2024 (implied from prior optimism) now explicitly missed: 'we will not achieve our target of 500 million in revenue for Gaudi in 2024.'"
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New items: x86 Ecosystem Advisory Group with AMD, Foundry subsidiary/fiduciary board, Altera stake sale process, NEX/Edge portfolio restructuring not in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Similar mix of confident claims ('leading', 'strong') balanced by explicit admissions of shortfalls like Gaudi miss and 'far from satisfied.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Gaudi adoption 'slower than we anticipated' and CCG revenue down 1% on inventory drawdown, a softer characterization than prior call's AI PC ramp optimism."
+  }
+}

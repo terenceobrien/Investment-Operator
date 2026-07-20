@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar forward-looking hedges ('subject to risks', 'we expect', 'anticipate') at comparable density."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Sept quarter midpoint 23% YoY growth vs current Dec quarter midpoint 25% YoY but sequential guide shifts from prior +6% sequential to flat-to-down seasonality this quarter."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Gross margin guide raised from 57-58% (prior) to 62-64% (current) for the next quarter, a clear upward revision."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: Studio 6, Simplicity AI SDK, active wireless asset tracking, GlobalFoundries Malta partnership, none mentioned in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlative language: 'de facto standard', 'groundbreaking', 'uniquely position' vs more measured prior tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Medical customers growth decelerated from 'more than doubling' YoY prior call to 'nearly 60% YoY' current call; YoY revenue growth also slowed from 33% to 24%."
+  }
+}

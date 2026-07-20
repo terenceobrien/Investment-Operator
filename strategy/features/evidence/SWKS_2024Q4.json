@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'anticipate', 'believe' throughout both calls, no marked shift in definitiveness."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 revenue $1.00-1.04B (~9-12% seq growth); current guides Q1 $1.05-1.08B (~4% seq growth), a slower implied trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No comparable specific forward numeric target (e.g. TAM, capacity) revised between calls beyond revenue guide."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mentions of clinical-grade hearing aids and wireless gaming audio solutions not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior used 'uniquely positioned', 'exceptional engineering'; current tone more measured, notes 'more measured' recovery pace."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior said broad markets demand 'improving' and automotive 'signs of stabilization'; current says automotive/industrial demand 'remains muted' and recovery 'more measured than we anticipated'."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging phrases like 'we expect', 'uncertainties', 'prudent in our business planning' regarding tariffs."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided FY25 revenue +30% USD; current guides FY25 to 'close to mid-30s percent', but Q4 guide implies 1% sequential decrease vs prior quarters' sequential increases."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Overseas fab gross margin dilution for FY25 revised to 1-2% from prior 2-3% guidance, an improvement."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of enterprise AI demand and detailed capacity planning discipline/customer engagement lead times not present prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'our conviction in the AI megatrend is strengthening' and 'very strong signals', more assertive than prior's 'robust' language."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior said non-AI 'mild recovery' expected; current says non-AI segments 'have bottomed out and are seeing a mild recovery,' indicating improved demand characterization."
+  }
+}

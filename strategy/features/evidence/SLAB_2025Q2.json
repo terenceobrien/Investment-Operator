@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior repeatedly stressed 'uncertain,' 'too early to quantify'; current says tariffs 'somewhat limit visibility' but no significant impact observed, slightly more definitive."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 revenue $185M-$200M (midpoint 32% YoY growth); current guides Q3 $200M-$210M (midpoint ~23% YoY growth), a deceleration in guided growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CGM revenue target still stated as 'expect will become 10% of revenue,' unchanged from implied prior trajectory, no comparable figure given in prior call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: Roku battery camera Wi-Fi design win, PSA Level 4 certified Series 3 device, pallet-maker asset-tracking win, not mentioned in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior used 'highly confident,' 'significant competitive differentiator'; current tone slightly more measured despite similar superlatives like 'best-in-class.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Revenue growth decelerated from 67% YoY (prior) to 33% YoY (current), and guided YoY growth fell from 32% midpoint to 23% midpoint."
+  }
+}

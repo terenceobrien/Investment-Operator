@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'estimate', 'anticipate' across both calls for guidance framing."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q3 guide was $8.8B-$9.6B revenue; current Q4 guide raised to $9.5B-$10.3B."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Automotive design win pipeline of ~$45B repeated, not raised, and auto revenue guided flat next quarter vs prior 'low double-digit growth' outlook."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: Copilot+ PC launch details, Aramco industrial IoT deal, Huawei license revocation, Honor licensing agreement."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar superlatives like 'leading,' 'record,' and 'well-positioned' throughout."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Auto revenue grew 35% YoY prior call vs 34% sequential now but guided flat next quarter, and IoT recovery language 'gradual' persists unchanged."
+  }
+}

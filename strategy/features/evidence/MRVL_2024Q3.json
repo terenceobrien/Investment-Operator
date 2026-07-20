@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we expect', 'anticipate', 'looking forward to' language across both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call guided AI to exit year >$200M/quarter run-rate; current call says Q4 AI revenue will come in 'significantly above' that forecast."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior guided data center growth 'mid-teens' sequential for Q3; current guides Q4 data center growth 'mid-30% range' sequential, well above trajectory."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New mentions of Ultra Ethernet Consortium membership, NVIDIA collaboration video, and SiPho tech for inside-data-center connections, absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More emphatic language like 'significantly above forecast' and 'benefiting from strong demand' vs prior's more measured 'accelerating demand.'"
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Cloud grew 'well in excess of 30%' sequentially vs prior quarter's 20%+ cloud growth, and AI demand described as exceeding raised forecast."
+  }
+}

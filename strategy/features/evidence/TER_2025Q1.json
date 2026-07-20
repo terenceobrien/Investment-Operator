@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Company explicitly refuses to guide beyond Q2, citing tariff uncertainty and 'very limited' visibility versus prior full-year 2025 guidance."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior call guided full-year 2025 with SOC/Memory TAM and ~10% Robotics growth; current call withdraws full-year guidance, providing only Q2 sales of $610-680M."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Robotics breakeven of $365M reiterated but full-year Robotics ~10% growth and SOC TAM $4.7-5.1B targets are no longer affirmed, implicitly walked back."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New tariff/trade-policy discussion and Quantifi Photonics acquisition/Silicon Photonics initiative introduced, absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Shift from 'very good year,' 'remarkable pivot' language to 'transitory demand,' 'challenging macro backdrop,' and repeated uncertainty caveats."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Mobile strength called 'transitory' and expected to decline in Q2, and customers 'reviewing capital plans' vs prior call's expectation of 'modest recovery' in Mobile/Auto/Industrial."
+  }
+}

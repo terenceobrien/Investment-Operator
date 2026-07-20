@@ -24,6 +24,7 @@ from src.agent_system.schemas.fundamental import (
     EstimatesAndExpectations,
     Financials,
     FundamentalAnalysis,
+    KeyMetric,
     Positioning,
 )
 from src.agent_system.schemas.fundamental_screen import (
@@ -87,6 +88,53 @@ def _leverage_measure_phrase(leverage_measure_used: str | None) -> str:
 
 def _format_pct(value: float) -> str:
     return f"{value:.0%}"
+
+
+_SCREEN_KEY_METRICS: tuple[tuple[str, str, str, float], ...] = (
+    ("revenue_ttm", "revenue TTM", "$mm", 1 / 1_000_000),
+    ("revenue_3yr_cagr", "revenue growth (3yr CAGR)", "%", 100),
+    ("revenue_yoy_growth", "revenue growth (YoY)", "%", 100),
+    ("ebitda_ttm", "EBITDA TTM", "$mm", 1 / 1_000_000),
+    ("operating_income_ttm", "operating income TTM", "$mm", 1 / 1_000_000),
+    ("operating_margin", "operating margin", "%", 100),
+    ("net_margin", "net margin", "%", 100),
+    ("free_cash_flow_ttm", "free cash flow TTM", "$mm", 1 / 1_000_000),
+    ("operating_cash_flow_ttm", "operating cash flow TTM", "$mm", 1 / 1_000_000),
+    ("total_debt", "total debt", "$mm", 1 / 1_000_000),
+    ("debt_to_ebitda", "debt / EBITDA", "x", 1),
+    ("debt_to_assets", "debt / assets", "ratio", 1),
+    ("cash_and_equivalents", "cash and equivalents", "$mm", 1 / 1_000_000),
+    ("stockholders_equity", "stockholders' equity", "$mm", 1 / 1_000_000),
+    ("upside_to_target", "upside to target", "%", 100),
+    ("buy_ratio", "buy rating ratio", "ratio", 1),
+)
+
+
+def _screen_key_metrics(screen: FundamentalScreen) -> list[KeyMetric]:
+    key_metrics: list[KeyMetric] = []
+    for source_key, label, unit, scale in _SCREEN_KEY_METRICS:
+        raw_value = screen.metrics_used.get(source_key)
+        if raw_value is None or isinstance(raw_value, bool):
+            continue
+        if not isinstance(raw_value, (int, float)):
+            continue
+
+        key_metrics.append(
+            KeyMetric(
+                metric=label,
+                value=float(raw_value) * scale,
+                unit=unit,
+                vs_history="not assessed by deterministic screen",
+                vs_peers="not assessed by deterministic screen",
+                source=DerivedEvidence(
+                    claim=f"{label} came from {screen.ticker} screen metrics.",
+                    supports=True,
+                    computation="FundamentalScreen.metrics_used",
+                    upstream_claims=[f"{source_key}={raw_value}"],
+                ),
+            )
+        )
+    return key_metrics
 
 
 def _select_growth_signal(
@@ -712,6 +760,7 @@ def screen_to_minimal_fundamental_analysis(
             cyclicality=Cyclicality.HYBRID,
         ),
         financials=Financials(
+            key_metrics=_screen_key_metrics(screen),
             balance_sheet_quality=balance_quality,
             cash_generation_quality=cash_quality,
             accounting_red_flags=[],

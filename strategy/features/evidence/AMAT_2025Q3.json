@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior said 'no significant changes in demand'; current cites 'uncertainty,' 'lowering visibility,' 'nonlinear demand,' 'conservative' license assumptions."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 revenue $7.2B (+6% YoY) and EPS $2.35 (+11%); current guides Q4 revenue $6.7B (-4.9% YoY) and EPS $2.11 (-9%)."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Advanced DRAM growth raised from 'more than 40%' (prior) to 'around 50%' (current) for fiscal 2025."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: Apple American Manufacturing Program, $200M Arizona investment, moly deposition wins, $9B power semiconductor TAM, MAX OLED system."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'not seeing significant changes in market demand'; current stresses 'muted outlook,' 'sequentially lower' Q4 despite 'record' results."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior: 'have not seen significant changes in market demand'; current: China digestion, nonlinear leading-edge demand, shorter visibility window, customers taking longer to commit."
+  }
+}

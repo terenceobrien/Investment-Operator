@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Language is more declarative ('we are pleased', 'stabilization') vs prior's more cautious 'signs of stabilization' framing throughout."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q3 guide was $1.465B-$1.565B (midpoint $1.515B); current Q4 guide is $1.48B-$1.58B (midpoint $1.53B), a slight raise in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Treo design funnel 'more than doubled quarter-over-quarter' prior call vs 'now exceeds $1 billion' current call, an upward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New vGaN platform, Vcore acquisition, and SiC JFET in low-orbit satellites are substantive topics absent from the prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives like 'record power density', 'industry-leading', 'best-in-class' appear more densely than prior call's language."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Automotive grew 7% and Industrial 5% sequentially vs prior quarter's Automotive down 4% and Industrial up 2%, indicating stronger demand momentum."
+  }
+}

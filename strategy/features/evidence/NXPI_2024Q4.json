@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior said 'confident we deployed a winning strategy'; current stresses 'poor forward visibility' and 'very cloudy' outlook."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 down 5% sequentially to $3.1B; current guides Q1 down 9% sequentially to $2.825B, a steeper sequential decline."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Channel inventory target unchanged at long-term 11 weeks in both calls, actual held flat at ~8 weeks both periods."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Aviva Links and TT Tech Auto acquisitions and CoreRide platform details absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'very confident' long-term strategy; current repeats 'cloudy'/'soft landing' language, less superlative."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior anticipated cyclical rebound not materializing; current cites 'poor forward visibility' and continued Tier 1 inventory digestion."
+  }
+}

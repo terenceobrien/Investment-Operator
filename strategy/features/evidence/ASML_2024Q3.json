@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior call was mostly declarative; current adds heavy qualifiers like 'cautiousness', 'push outs', 'reduced growth curve' throughout."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "2025 revenue scenario cut from EUR30-40B (Investor Day 2022 reiterated last quarter) to EUR30-35B, gross margin cut from 54-56% to 51-53%."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Low NA EUV shipments for 2025 now guided 'fewer than 50', a reduction versus prior expectations tied to the higher 2022 scenario range."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of specific competitive foundry dynamics and customer fab push-outs not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Shift from 'good momentum' and 'strong 2025' confidence to 'reduced growth curve' and 'overall reduction of lithography demand'."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call expected 'strong 2025'; current call cites 'slow recovery', 'customer cautiousness', and 'push outs' lowering the outlook."
+  }
+}

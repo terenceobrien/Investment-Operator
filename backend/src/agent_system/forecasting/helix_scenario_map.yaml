@@ -1,0 +1,111 @@
+# helix_behavioral_scenario_map.yaml
+#
+# Maps the six Helix BEHAVIORAL scenarios (the Monte Carlo taxonomy) to
+# generic FRB/US shock templates plus per-cycle parameters.
+#
+# Why behavioral, not narrative: behavioral scenarios are defined by
+# empirical macro conditions (growth x inflation x credit), which is the
+# language FRB/US speaks. The narrative scenarios in the macro forecast
+# stay current-specific and translate to this taxonomy at the boundary
+# via scenario_translation.py. Current-regime flavor (e.g. "AI capex")
+# enters ONLY through the params blocks below.
+#
+# WHAT TO EDIT EACH CYCLE: params magnitudes/durations and rationale text.
+# WHAT NOT TO EDIT: template assignments (stable), templates themselves.
+#
+# Scenario ids match the behavioral taxonomy used by the Helix Monte
+# Carlo layer. The runner fails loudly on unknown templates or malformed
+# params.
+
+meta:
+  map_version: "behavioral-v1-2026-06"
+  taxonomy: behavioral
+  notes: >
+    First behavioral-taxonomy calibration. Late-cycle expansion params
+    express the current AI-capex flavor; credit shock sized to a
+    moderate IG spread blowout (rbbbp is a BBB premium — FRB/US has no
+    HY block, so Helix's HY-OAS credit layer maps loosely, not 1:1).
+
+scenarios:
+  expansion_disinflation:
+    template: demand_with_inflation_addfactor
+    params:
+      # Growth modestly above the Fed baseline while core inflation
+      # surprises to the downside; policy eases endogenously.
+      growth_delta_annualized: [0.3, 0.3, 0.2, 0.2]
+      picxfe_aerr_add: [-0.25, -0.25, -0.2, -0.15, -0.1, -0.1]
+      instrument: eco_aerr
+    rationale: >
+      Goldilocks: demand holds above projection, disinflation continues
+      faster than the Phillips block would deliver, the Taylor rule turns
+      easier and breadth-supportive financial conditions follow.
+
+  late_cycle_expansion:
+    template: investment_boom_sticky_inflation
+    params:
+      # Investment persistently above baseline (current flavor: hyperscaler
+      # AI capex) with inflation sticky ~0.3pp above the endogenous path.
+      ebfi_level_delta_pct: [1.5, 2.5, 3.0, 3.0]
+      picxfe_aerr_add: [0.3, 0.3, 0.3, 0.25, 0.2, 0.15]
+      instrument: ebfi_aerr
+    rationale: >
+      Narrow, capex-led expansion. Growth is fine but concentrated in
+      investment; sticky inflation keeps the funds rate restrictive
+      (higher-for-longer), which is what caps breadth in this regime.
+
+  inflation_shock:
+    template: demand_with_inflation_addfactor
+    params:
+      # Pure supply-side inflation impulse: +1.2pp fading over 4 quarters.
+      # No forced GDP path — demand and policy respond endogenously
+      # (the Taylor rule hikes; growth slows as a consequence, not by fiat).
+      picxfe_aerr_add: [1.2, 1.0, 0.7, 0.4]
+      instrument: eco_aerr
+    rationale: >
+      Inflation reaccelerates, rates spike, equities de-rate. The model
+      determines how much growth damage the policy response causes.
+      For an energy-specific variant, run oil_price_shock alongside and
+      compare transmission.
+
+  stagflation:
+    template: demand_with_inflation_addfactor
+    params:
+      # Weak growth AND persistent inflation simultaneously: growth held
+      # near zero in absolute terms while inflation runs +0.8pp above the
+      # endogenous path for six quarters.
+      growth_annualized: [0.5, 0.0, -0.5, 0.0, 0.5, 1.0]
+      picxfe_aerr_add: [0.8, 0.8, 0.7, 0.6, 0.5, 0.4]
+      instrument: eco_aerr
+    rationale: >
+      The policy-bind scenario: the Taylor rule is pulled in both
+      directions. Absolute growth path because stagflation's meaning is
+      a specific outcome (stagnant output), not a tilt vs baseline.
+
+  growth_scare_no_credit:
+    template: demand_gdp_path
+    params:
+      # Moderate demand scare with a V-ish recovery. NO credit shock —
+      # FRB/US's endogenous rbbbp response to a demand scare is mild,
+      # which IS the "credit stays healthy" configuration. Equity-led
+      # drawdown without funding stress.
+      growth_annualized: [-0.5, -1.0, 0.5, 1.5]
+      instrument: eco_aerr
+    rationale: >
+      Growth decelerates but credit holds. Contrast with
+      credit_led_recession is the whole point: same demand direction,
+      no spread blowout, faster recovery.
+
+  credit_led_recession:
+    template: credit_spread_shock
+    params:
+      # IG premium blows out ~150bp and fades over 4 quarters, combined
+      # with a forced demand contraction. The rbbbp shock propagates to
+      # corporate borrowing costs AND the equity premium (reqp loads on
+      # rbbbp), tightening financial conditions through both channels.
+      rbbbp_aerr_add: [1.5, 1.2, 0.8, 0.4]
+      growth_annualized: [-1.0, -2.0, -1.0, 0.5]
+      instrument: eco_aerr
+    rationale: >
+      Credit deteriorates first, equities and the real economy follow.
+      Deeper and slower-recovering than growth_scare_no_credit by
+      construction; the spread shock is the distinguishing lever.

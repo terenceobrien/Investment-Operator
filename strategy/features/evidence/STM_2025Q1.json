@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior called environment 'challenging'; current uses 'persistently uncertain' and withdraws full-year guidance citing tariff/trade uncertainty."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior gave no FY25 revenue figure but current explicitly withdraws FY2025 outlook entirely ('we are not providing an indication'), a clear downgrade in guidance specificity."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Silicon carbide 2024 revenue was $1.1B in prior call; current call gives no comparable SiC revenue figure, and cost savings range unchanged ('$300-360M' vs restated only as 'high triple-digit')."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: GaN agreement with Innoscience, tariff/trade uncertainty, silicon photonics for AI data centers/AWS, and planned 2,800 voluntary departures."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized wins and strategy; current adds cautious language like 'challenging market conditions' and 'lower and delayed growth in power and discrete'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue decline 'well above normal seasonality'; current cites 'slight downward revision of forecasts' for automotive and no FY guide due to uncertainty."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior emphasized tariff uncertainty repeatedly; current mentions macro uncertainty but with more definitive 'growing confidence' framing."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue $3.15B (down 3% YoY, up 8% seq); current guides Q4 to $3.3B (up 6% YoY, up 4% seq), explicitly 'better than our view 90 days ago'."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Channel inventory guidance similar: prior 9 weeks, current 9-10 weeks, not a clear escalation of a specific forward metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New CEO transition narrative and closed Kinara/Aviva Links acquisitions (previously pending) discussed with more detail on 2028 revenue impact."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'growing confidence,' 'extremely excited,' 'compelling strategy' language absent in prior's more measured tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior said Tier 1s 'approaching or already at normalized inventory'; current says inventory 'below manufacturing cycle time' and Industrial/IoT guide improved from mid/high-single-digit to mid-20% range."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Current call gives more definitive 2026 growth drivers (node transitions, MSI growth) vs prior's 'wait-and-see' cautious stance."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q4 guide was $790-830M/43-44% GM; current Q1 guide $785-825M/44.5-45.5% GM, margin raised despite similar revenue range."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Net leverage target 'below 4x' prior call now specified as 'below 3.5x exiting 2026', a firmer/lower target."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New disclosures: China local-for-local 85% supply target, facility rationalization (Chester closure), useful-life accounting change."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar confident language ('record', 'strong PORs', 'outperform the market') at comparable density."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior called industry 'muted' with 'wait-and-see'; current sees 'more constructive' backdrop with MSI growth expected to increase in 2026."
+  }
+}

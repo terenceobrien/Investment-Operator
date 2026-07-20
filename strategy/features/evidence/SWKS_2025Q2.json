@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'anticipate', 'expect', 'believe' in both calls, no marked change in hedging density."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $935-965M (mid $950M) EPS $1.20; current guides Q3 $920-960M (mid $940M) EPS $1.24, revenue midpoint lower though EPS slightly higher."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No comparable specific forward numeric target (e.g., content % decline) revisited with a new figure in this call."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mentions of tariff/macroeconomic landscape, Wi-Fi 8 development, and precision timing for AI data centers not in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "New CEO uses more superlatives: 'record $600 million', 'largest quarterly return ever', 'smartest engineers I've ever worked with'."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior said broad markets 'modest growth' and 'muted demand'; current says 'demand signals are firming' and 'accelerating' broad markets growth."
+  }
+}

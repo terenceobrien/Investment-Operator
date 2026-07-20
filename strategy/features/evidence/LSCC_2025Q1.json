@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff/macro uncertainty language and 'actively monitoring,' 'multiple scenarios' added vs prior call's more settled tone."
+  },
+  "guidance_direction": {
+    "score": 0,
+    "evidence": "Q1 guided $115-125M prior call; Q2 guided $118.5-128.5M, similar midpoint trajectory, reiterated not raised/cut."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Full-year low single-digit growth and 15-20% 2026+ target not repeated with updated figures in current call."
+  },
+  "new_topic_rate": {
+    "score": -1,
+    "evidence": "Tariff/macro risk discussion is new; leadership hire announcements and executive summit topics from prior call dropped."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call cited 'record design wins,' multiple superlatives about new team; current call more measured amid tariff caution."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Comm/computing had first YoY growth in two years and industrial/auto grew 6% sequentially vs prior call's declines of 5% and 9%."
+  }
+}

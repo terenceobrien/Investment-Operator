@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar density of 'we expect', 'believe', 'anticipate' across both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 revenue $6.65B\u00b1$400M/EPS $2.01\u00b10.18; current guides Q4 $6.93B\u00b1$400M/EPS $2.18\u00b10.18, both framed as only 3% YoY growth, a deceleration in stated growth framing vs prior quarter's high-end beat momentum."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "DRAM 4F-squared TAM now framed as ~10% growth to $6.5B plus new 3D DRAM +15% claim, vs prior call's more static DRAM/interconnect figures ($6B/$7B unchanged, no 3D DRAM mention)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on 'energy-efficient compute' 10,000x/15-year target and 3D DRAM transition, absent in prior call; also new IR leadership transition topic."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record', 'strong', 'leadership' at similar density (record AGS revenue in both)."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Foundry-logic sales down 4% YoY and China DRAM declining as anticipated, versus prior call's broadly strong across all device types with no declines noted."
+  }
+}

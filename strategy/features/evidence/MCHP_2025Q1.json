@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior called June quarter 'the bottom' with growth expected next quarter; current says 'very low backlog visibility' and 'neither we, nor our customers know the shape of the recovery.'"
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided June quarter net sales $1.22B-$1.26B; current guides September quarter $1.12B-$1.18B, a lower sequential guide despite prior call predicting return to growth."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Prior forecast return to sequential revenue growth in September quarter; current guides September revenue down further to $1.12B-$1.18B from $1.241B actual June, reversing that claim."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of data center growth 'beyond the AI subset,' Steve Sanghi's transition to Non-Executive Chair, and cumulative 19-quarter revenue cycle analysis."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior touted 'record' buybacks/dividends and multiple 'record' results; current buyback dropped to $72.7M (non-record) with more cautious framing of uncertainty."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior said all end-markets weak except A&D/AI with green shoots pointing to a bottom; current says bookings growth 'uneven,' 'still below where we would like to see them,' and 'reduced near-term visibility.'"
+  }
+}

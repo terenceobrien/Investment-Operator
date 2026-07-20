@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of forward-looking hedges ('we expect', 'subject to') in both calls, e.g. MI308 language conditioned on license approval in both."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q2 guide was ~$7.4B (+/-$300M, 27% YoY); current Q3 guide is ~$8.7B (+/-$300M, 28% YoY), a step-up in growth rate."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Full-year embedded design win record of $14B (2024) reiterated as pace target, but MI400 TAM/scale claims stayed qualitative ('tens of billions') without new upward revision vs prior 'significantly expanding TAM' language."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: Microsoft Xbox multiyear chip deal, Project Amethyst with Sony, Helios rack platform, HUMAIN sovereign AI deal, Sanmina ZT manufacturing sale."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use heavy superlatives ('record', 'leadership', 'strong'); current call similarly saturated, e.g. 'very strong second quarter results' vs prior 'outstanding start.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data center revenue growth decelerated to 14% YoY from 57% YoY prior quarter, despite 'robust demand' framing, indicating softer momentum."
+  }
+}

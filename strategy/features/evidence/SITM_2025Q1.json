@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Boilerplate risk language nearly identical; similar use of 'expect', 'confident' in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 revenue growth of 64% YoY ($53-55M); current guides Q2 growth of only 45-50% YoY ($64.7M midpoint), a deceleration."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "The $10B timing market, $50M industrial and $25M PNT TAMs from prior call are not repeated/updated in current call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Clocking business/system-solution strategy and named products (Cascade, Chorus, Symphonic) introduced, absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "New superlatives like 'uniquely focused', 'exceptional value', 'highest clocking revenue in the industry' added versus prior call."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "CED grew 156% YoY in prior Q4 vs 198% in Q1 current, but overall revenue growth decelerated from 61%/64% guided to 83% actual then 45-50% guided next, signaling softening momentum."
+  }
+}

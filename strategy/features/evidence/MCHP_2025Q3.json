@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior called green shoots and bottom-forming signals; current explicitly refuses to call bottom, citing low bookings/visibility."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Dec quarter sales $1.025-1.095B; current guides March quarter to $920M-$1B, a lower trajectory with EPS guide of $0.05-$0.15 vs prior $0.25-$0.35."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Inventory days target unchanged at 130-150 days, but actual days worsened from 247 (prior) to 266 (current), moving further from target."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CEO's nine-point restructuring plan, fab two closure, channel margin/flag changes, and top-1000-customer initiative are all new vs prior call."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior touted 'strong design-in pipeline' and long-term confidence; current focuses on restructuring, closures, and admits bottom not yet reached."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior saw bookings flattish with declining cancellations as bottoming signs; current says bookings remain low and inventory 'has not fully corrected yet.'"
+  }
+}

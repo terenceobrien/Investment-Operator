@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'well above', 'plus or minus' guidance language in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $28B on Q1 growth of 18% seq; current guides Q3 to $32.5B, but seq growth decelerates from 15% to implied ~8%, and gross margin guide (75%) is below prior quarter's 75.5% guide."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Sovereign AI revenue estimate raised from 'high single-digit billions' (prior) to 'low-double-digit billions' (current)."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New AI foundry service with Llama 3.1, NIM agent blueprints, and healthcare as emerging multi-billion business are newly emphasized."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Jensen's closing 'industrial revolution' rhetoric absent this quarter; less superlative framing overall despite still using 'record'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data center YoY growth decelerated from 427% (prior) to 154% (current), and revenue seq growth slowed from 23% to 16%."
+  }
+}

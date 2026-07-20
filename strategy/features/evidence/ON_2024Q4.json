@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior said outlook 'unchanged'; current stresses 'visibility is very limited' and 'wait-and-see approach' amid geopolitical uncertainty."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $1.71-1.81B, GM 44-46%, EPS $0.92-1.04; current guides Q1 revenue $1.35-1.45B, GM 39-41%, EPS $0.45-0.55."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Prior expected exit China SiC share ~50%; current gives no comparable figure, and prior CapEx target mid-single-digit unchanged, but FY24 SiC revenue 'declined slightly' vs prior guided low-mid single digit growth."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Treo analog platform ($36B TAM) and Corbus SiC JFET acquisition ($1.3B TAM) introduced, absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'confident in our strategy'; current repeats 'difficult environment' and 'despite the current environment' more cautious framing."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior described muted but stabilizing L-shaped recovery; current says 'demand declined late in the quarter and continued into January' with weakening across regions."
+  }
+}

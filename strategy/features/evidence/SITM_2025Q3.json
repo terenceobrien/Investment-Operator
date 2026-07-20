@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar level of standard forward-looking disclaimers and confident assertions in both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior Q3 guide was $77-79M revenue/$0.67-0.75 EPS; current Q4 guide raised to $100-103M revenue/$1.16-1.21 EPS, above prior sequential trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "New Titan/resonator TAM ($4B market, $400M SAM growing to $1B by 2028) has no comparable prior-call figure to compare against."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "Introduced Titan Platform and stand-alone resonator market entry, plus new Chorus clock generator and funnel quadrupling, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added superlatives like 'milestone quarter,' 'exceptionally strong bookings,' and 'years ahead of the industry' versus prior's 'exceptional quarter.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "CED grew 137% prior call vs 115% current call, a deceleration despite bookings and funnel strength being emphasized more."
+  }
+}

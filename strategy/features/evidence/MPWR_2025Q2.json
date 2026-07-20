@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging: 'plus or minus 6 to 12 months' now vs. 'not forecasting' language prior."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 revenue roughly flat/slightly up sequentially; current guides Q3 up ~8% sequentially with enterprise data up 20-30%."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "SAM held at $4 billion from Analyst Day, Hsing says 'that's what we said... we're going to get there', not revised upward yet."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New ASIC-based AI product shipments introduced, absent from prior call's discussion."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Hsing says 'MPS has appeared to be a winner' and 'very excited,' more assertive than prior's cautious 'not forecasting' tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Enterprise data now guided 20-30% sequential growth vs prior quarter's vague 'second half weighted' improvement with no numbers."
+  }
+}

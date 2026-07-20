@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body style={{ margin: 0, background: T.pageBg, color: T.text }}>
           <AppShell>
-            <div className="temper-page-shell" style={{ minHeight: 'calc(100vh - 88px)' }}>
+            <div className="temper-page-shell" style={{ minHeight: '100vh' }}>
               {children}
             </div>
             <footer

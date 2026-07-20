@@ -25,11 +25,16 @@ from src.agent_system.llm.client import StructuredOutputError
 from src.agent_system.orchestration.stub_agents import make_stub_regime_state
 from src.agent_system.schemas.regime import ClarificationRequest, ResearchPriority
 from src.agent_system.schemas.thematic import (
+    ConsensusType,
     ExclusionRecord,
+    FitStrengthComponents,
     InstrumentType,
     ResearchDepth,
+    RejectedQuickItem,
     ThematicMap,
     VariantStrength,
+    VerificationRequiredEvidence,
+    compute_fit_strength_from_components,
 )
 
 
@@ -48,7 +53,12 @@ def _thematic_output() -> _ThematicMapOutput:
                     "Electrical equipment exposure directly captures the "
                     "AI power and grid-capacity thesis."
                 ),
-                fit_strength=0.86,
+                fit_strength_components=FitStrengthComponents(
+                    thesis_mechanism_match=0.90,
+                    consensus_anchoring_strength=0.80,
+                    catalyst_proximity=0.70,
+                    tradeability=1.00,
+                ),
                 fit_evidence=[
                     _ThematicDerivedEvidence(
                         claim="Grid-capacity beneficiaries fit the priority.",
@@ -61,6 +71,7 @@ def _thematic_output() -> _ThematicMapOutput:
                     "Our prior is that consensus recognizes data-center demand "
                     "but underweights grid-upgrade duration."
                 ),
+                consensus_type=ConsensusType.NARRATIVE,
                 potential_variant_view=(
                     "Backlog persistence may support earnings durability beyond "
                     "the semiconductor-led AI capital-spending cycle."
@@ -78,6 +89,12 @@ def _thematic_output() -> _ThematicMapOutput:
                     "Semiconductor exposure reflects first-order AI leadership "
                     "rather than the grid-capacity bottleneck thesis."
                 ),
+            )
+        ],
+        rejected_quick=[
+            RejectedQuickItem(
+                ticker="XLU",
+                one_line_reason="Utility ETF too broad for grid-equipment bottleneck thesis.",
             )
         ],
         mapping_logic=(
@@ -136,6 +153,10 @@ def test_successful_call_returns_thematic_map(monkeypatch):
     assert result.candidates[0].ticker == "ETN"
     assert result.source_priority is priority
     assert result.candidates[0].fit_evidence
+    assert result.rejected_quick[0].ticker == "XLU"
+    assert result.candidates[0].fit_strength == compute_fit_strength_from_components(
+        result.candidates[0].fit_strength_components
+    )
 
 
 def test_successful_call_returns_clarification_request(monkeypatch):
@@ -253,6 +274,49 @@ def test_llm_facing_candidate_matches_rank_and_ticker_constraints():
     candidate_data["ticker"] = "RSP/SPY"
     with pytest.raises(ValidationError, match="ticker must be a single symbol"):
         _ThematicCandidate.model_validate(candidate_data)
+
+
+def test_llm_facing_candidate_requires_fit_strength_components():
+    candidate_data = _thematic_output().candidates[0].model_dump()
+    candidate_data.pop("fit_strength_components")
+
+    with pytest.raises(ValidationError, match="fit_strength_components"):
+        _ThematicCandidate.model_validate(candidate_data)
+
+
+def test_verification_required_fit_evidence_converts_to_public_candidate():
+    candidate = _ThematicCandidate(
+        ticker="REFI",
+        instrument_type=InstrumentType.SINGLE_STOCK,
+        thematic_fit="Direct refinancing wall exposure.",
+        fit_strength_components=FitStrengthComponents(
+            thesis_mechanism_match=1.0,
+            consensus_anchoring_strength=0.75,
+            catalyst_proximity=0.75,
+            tradeability=0.75,
+        ),
+        fit_evidence=[
+            _ThematicDerivedEvidence(
+                source_type="verification_required",
+                claim="Consensus interest expense estimates require validation.",
+                supports=True,
+                computation="No direct source available to the thematic agent.",
+                upstream_claims=["missing external source"],
+                notes="Need current sell-side interest expense estimates.",
+            )
+        ],
+        consensus_view=(
+            "Estimate-based: consensus appears to under-model refinancing EPS drag."
+        ),
+        consensus_type=ConsensusType.ESTIMATE,
+        potential_variant_view="Refinancing at current coupons could pressure EPS.",
+        variant_strength=VariantStrength.MODERATE,
+        priority_rank=1,
+        recommended_research_depth=ResearchDepth.STANDARD,
+    ).to_candidate()
+
+    assert candidate.consensus_type == ConsensusType.ESTIMATE
+    assert isinstance(candidate.fit_evidence[0], VerificationRequiredEvidence)
 
 
 def test_render_priority_context_is_specific():

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar mix of 'expect', 'anticipate', 'well positioned' language in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 revenue $10.5-11.3B/EPS $2.85-3.05; current guides Q2 $10.2-11B/EPS $2.70-2.90, a lower sequential trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Automotive growth guided '50% relative to last year' in both calls, but handset guide moderates from mid-single-digit y/y with 40%+ China sequential growth to just ~10% y/y."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: DeepSeek-R1 on-device inference, Arm trial verdict update, AI on-prem appliance, Android XR with Samsung."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives: 'record revenues', 'strongest in our history', 'exceptional traction' vs prior's more measured 'very pleased'."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Cites 'stronger end consumer demand' for S25 flagships and Snapdragon X exceeding expectations, more explicit demand-strength language than prior call."
+  }
+}

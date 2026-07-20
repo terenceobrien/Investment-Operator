@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More qualifiers like 'trimmed production', 'bumps in the road', 'near-term macroeconomic uncertainties' vs prior's more direct tone."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 sales $270-280M and EPS $0.35-0.39; current guides Q3 sales $250-260M and EPS $0.27-0.31, both lower."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Strategic growth area sales growth decelerated from 63% prior call to 37% current call, same metric both calls."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Crocus acquisition, TMR technology, China trip, BMW design win, UAW strike impact all newly introduced."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Fewer superlatives; more caution language like 'trimmed production schedules', 'more cautious' industrial OEMs replaces prior's unqualified enthusiasm."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Industrial sales growth fell from 70% prior call to 6% current, with expected sequential decline and inventory destocking in consumer/industrial."
+  }
+}

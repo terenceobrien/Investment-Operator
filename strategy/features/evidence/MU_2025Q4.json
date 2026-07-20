@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior noted tariff uncertainty and 'may have been pull-ins'; current language is more definitive with fewer conditional qualifiers around demand."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided FQ4 revenue $10.7B/EPS $2.50; current guides FQ1 revenue $12.5B and EPS $3.75, both raised and now called 'record'."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior guided CY25 server unit growth 'mid-single digits'; current raises to 'approximately 10%' for the same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New disclosures/topics: AI internal productivity (30-40% uplift), new BU segment reporting (CMBU/CDBU/MCBU/AEBU), ceasing mobile managed NAND development."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added superlatives like 'outstanding finish', 'positioned better than ever', 'most competitive position in our history' beyond prior's already strong tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "DRAM bit demand growth raised from 'high teens' to 'somewhat higher than previous outlook' and NAND raised from low double-digit to low-to-mid-teens."
+  }
+}

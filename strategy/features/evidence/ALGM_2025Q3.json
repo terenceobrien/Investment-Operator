@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'encouraged', 'cautiously optimistic' in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 $170-180M/EPS $0.04-0.08; current guides Q4 $180-190M/EPS $0.03-0.07, with gross margin down (46-48% vs 49-51% prior guide) and headwinds cited."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "China xEV production stat and content-per-vehicle claims repeated qualitatively without comparable revised figures."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on China-for-China local OSAT shipments, AI/automation cost efficiency, and datacenter cooling wins not detailed prior."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives: 'Best In Show Award', 'unparalleled space savings', 'ground-breaking', 'redefine performance' vs more measured prior tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Auto sales declined 8% sequentially (vs +8% prior quarter) and e-mobility fell 12% vs prior +14% growth, indicating softer demand trend."
+  }
+}

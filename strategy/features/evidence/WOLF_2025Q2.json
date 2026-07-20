@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More conditional language ('should demand materialize', 'not out of the woods yet', NDAs limiting disclosure) vs prior's firmer directives."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $160-200M; current guides Q3 $170-200M, similar range but gross margin midpoint guide (-3% to 7%) roughly flat vs prior (-6% to 6%), showing no clear raise despite new quarter."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "48D tax credit accruals were ~$725M prior call, now $865M (up), but CapEx midpoint unchanged at $1.2B and breakeven target unchanged <$1B, no clear upward revision overall; EV revenue growth decelerated from 2.5x YoY prior to 92% YoY current."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CEO transition (Tom Werner as Executive Chairman), new Gen 4 MOSFET product, AI data centers/renewables emphasis, and China Section 301 trade investigation are new topics absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called Mohawk Valley milestone a major highlight with strong language; current is more measured, admitting 'not out of the woods yet' and 'challenges in demand.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "EV revenue growth decelerated from '2.5x year-over-year' prior to '92% year-over-year' current, and I&E demand still described as weak with 'green shoots' but 'visibility remains limited.'"
+  }
+}

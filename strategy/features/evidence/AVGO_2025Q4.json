@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Language is similarly direct, but current call adds firmer figures ('doubled year on year', concrete backlog) with less speculative framing than prior 'we expect... to improve significantly'."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 revenue ~$17.4B/AI $6.2B; current guides Q1 revenue $19.1B and AI semis to double to $8.2B, up ~100% y/y, a clear raise in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Consolidated backlog rose from $110B (prior) to $162B (current), and AI-specific backlog newly quantified at $73B, both upward revisions."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New disclosures: fifth XPU customer ($1B order), TPU use by external LLM peers (Apple, Cohere, SSI), and dividend increase to $0.65/share not present before."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives stacked ('record' used repeatedly, 'best exemplified', 'first and only') and added dividend-streak bragging ('fifteenth consecutive increase')."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "AI semis growth accelerated from 63% (prior) to 74% y/y, and Q1 guide moves from 66% growth (prior Q4 guide) to ~100% growth, showing strengthening demand."
+  }
+}

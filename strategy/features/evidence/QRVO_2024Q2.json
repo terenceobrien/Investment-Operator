@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior repeatedly hedged with 'we expect'/'anticipate' on inventory timing; current states demand 'improved' and inventories 'approaching historical norms' more definitively."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 (Sept quarter) revenue ~$1B; current guides Q3 (Dec quarter) at ~$1B but gross margin cut to 43-44% vs prior 45-46%, and EPS $1.65 vs prior quarter's $1.75 midpoint."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Android 5G smartphone mix cited as 'approximately 45%' with double-digit CAGR in prior call; current call says 'fewer than half' with 'low double-digits' growth, a slightly softer framing."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive items introduced: QSPICE tool launch, 5G Advanced content driver, and large $250M+ ultra-wideband automotive program, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call emphasizes results 'above the high-end' vs prior 'above midpoint', and cites large customer wins like the $250M ultra-wideband program with more emphatic framing."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior said demand was 'consistent with expectations' with inventory drag; current says demand 'improved versus our August guidance' driven by smartphone ramp, though explicitly caveats markets 'have not yet turned.'"
+  }
+}

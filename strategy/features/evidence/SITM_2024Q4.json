@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar boilerplate hedging language and forward-looking disclaimers; body text similarly declarative in both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $63-65M with EPS $0.39-0.45; current guides Q1 revenue $53-55M with EPS $0.09-0.13, a sequential cut."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "CED growth cited as 233% YoY prior quarter vs 156% YoY current quarter, a deceleration in the same metric."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New discussion of $50M mining/construction/ag market and $25M drones/military/PNT market with share targets, absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior said CED grew 'over 200%' and 'triple digits'; current softens to 'growing significantly' without repeating triple-digit language."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "CED revenue growth decelerated from 233% to 156% YoY and overall revenue growth from 62% to 61%, showing softening momentum."
+  }
+}

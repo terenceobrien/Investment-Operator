@@ -1,0 +1,74 @@
+{
+  "tickers": {
+    "AMKR": {
+      "beta": 2.258,
+      "cached_at": "2026-06-25T00:23:30.497063+00:00",
+      "sector": "Technology"
+    },
+    "CARR": {
+      "beta": 1.309,
+      "cached_at": "2026-07-10T02:34:37.228673+00:00",
+      "sector": "Industrials"
+    },
+    "CASS": {
+      "beta": 0.459,
+      "cached_at": "2026-07-02T14:55:12.753164+00:00",
+      "sector": "Industrials"
+    },
+    "FCFS": {
+      "beta": 0.525,
+      "cached_at": "2026-07-02T14:55:12.979692+00:00",
+      "sector": "Financial Services"
+    },
+    "GILD": {
+      "beta": 0.331,
+      "cached_at": "2026-06-25T00:23:30.350060+00:00",
+      "sector": "Healthcare"
+    },
+    "GWW": {
+      "beta": 1.035,
+      "cached_at": "2026-07-10T02:34:37.076857+00:00",
+      "sector": "Industrials"
+    },
+    "HWKN": {
+      "beta": 0.763,
+      "cached_at": "2026-07-02T14:55:11.935563+00:00",
+      "sector": "Basic Materials"
+    },
+    "MCO": {
+      "beta": 1.335,
+      "cached_at": "2026-07-10T02:34:36.889734+00:00",
+      "sector": "Financial Services"
+    },
+    "MDT": {
+      "beta": 0.597,
+      "cached_at": "2026-06-25T00:23:30.207281+00:00",
+      "sector": "Healthcare"
+    },
+    "MPWR": {
+      "beta": 1.691,
+      "cached_at": "2026-06-25T00:23:30.722079+00:00",
+      "sector": "Technology"
+    },
+    "MRK": {
+      "beta": 0.218,
+      "cached_at": "2026-06-25T00:23:30.064853+00:00",
+      "sector": "Healthcare"
+    },
+    "NHC": {
+      "beta": 0.666,
+      "cached_at": "2026-07-02T14:55:12.157807+00:00",
+      "sector": "Healthcare"
+    },
+    "PH": {
+      "beta": 1.11,
+      "cached_at": "2026-07-10T02:34:36.739082+00:00",
+      "sector": "Industrials"
+    },
+    "SAFT": {
+      "beta": 0.228,
+      "cached_at": "2026-07-02T14:55:12.471525+00:00",
+      "sector": "Financial Services"
+    }
+  }
+}

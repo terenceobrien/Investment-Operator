@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New CEO adds conditional language like 'we now expect more of a U-shaped recovery' and cautious 2025 growth caveats vs prior's more direct cyclic commentary."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior Q3 guide was $117M-$137M midpoint $127M; current Q4 guide is $112M-$122M midpoint $117M, a lower sequential guide."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior call implied return to growth soon; current call revises to 'low single-digit revenue growth' in 2025 with U-shaped not V-shaped recovery."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CEO introduces headcount reduction, Dell XPS/Latitude AI laptop wins, LiDAR design wins in top six companies, and $1B revenue goal not present prior."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "New CEO uses stronger superlatives like 'even more excited', 'confident', 'high confidence', 'sound investment opportunity' vs prior's more measured tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call anticipated 'return to growth'; current call now expects 'U-shaped recovery' and only 'low single-digit revenue growth' in 2025, a weaker outlook."
+  }
+}

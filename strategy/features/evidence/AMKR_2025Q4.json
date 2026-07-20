@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar forward-looking disclaimers and hedged language like 'expect', 'anticipate', 'well-positioned'."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue $1.775-1.875B (8% seq decline); current guides Q1 revenue $1.6-1.7B, a steeper ~13% sequential decline and lower gross margin 12.5-13.5% vs prior 14-15%."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Arizona CapEx total ($7B) not revisited with a new figure; 2025 CapEx of $950M guide came in at $905M, roughly held not escalated."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New details on Korea HDFO qualification programs, Vietnam-Korea SiP migration, and May Investor Day timing not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "New CEO uses personal/gracious language ('honored', 'exceptional organization') but less concrete superlative claims like prior's 'record revenue... demonstrating ability to scale quickly'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior guided Q4 y/y communications +20%+ and computing continued growth; current Q1 guide implies steep sequential drop and lower margins despite 25% y/y revenue growth framing."
+  }
+}

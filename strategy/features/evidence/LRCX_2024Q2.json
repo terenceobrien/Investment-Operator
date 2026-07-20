@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar mix of 'we expect', 'believe' language across both calls; no marked shift in hedging density."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Dec revenue $3.7B\u00b1300M/EPS $7\u00b10.75; current guides March revenue $3.7B\u00b1300M/EPS $7.25\u00b10.75, flat revenue vs a quarter that should show growth into recovery."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior called 2023 WFE ~$80B with no 2024 estimate; current gives 2024 WFE mid-to-high $80B and raised 2023 to low $80B, both upward revisions."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New disclosures on Malaysia manufacturing scaling, pulse laser deposition/MEMS acquisition, and executive-level workforce reduction not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added comparisons like 'near doubling of EPS' vs 2019 trough and 'stronger cycle to cycle' language not present in prior call's more cautious framing."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior called environment 'hard to call timing of WFE recovery'; current says 'modest recovery in memory spending' and HBM shipments 'more than triple year-on-year' expected in 2024."
+  }
+}

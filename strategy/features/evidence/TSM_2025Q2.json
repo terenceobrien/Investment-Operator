@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior: 'uncertainties and risk' with cautious tariff hedging repeated more; current still hedges tariffs but pairs it with firmer 30% guide, slightly less hedged overall."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided full-year 2025 revenue growth 'close to mid-20s percent'; current raises full-year guide to 'around 30%' in USD terms."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "AI accelerator 'double in 2025' and mid-40s% CAGR claims from prior call are not repeated with updated figures in current call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "Current call introduces A14 technology (2028 volume production) and detailed FX sensitivity mechanics, both absent in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar superlatives like 'technology leadership' and 'most efficient and cost-effective manufacturer'."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior guided full-year growth mid-20s%; current raises to around 30%, citing 'robust' AI/HPC demand and rising sovereign AI, indicating stronger demand."
+  }
+}

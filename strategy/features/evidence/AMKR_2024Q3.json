@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Q4 outlook adds new caveats like 'uneven' recovery and 'unique and challenging environment' not present in prior call's more matter-of-fact framing."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior call guided Q3 revenue ~$1.835B (26% sequential growth); current call guides Q4 to ~$1.65B, an 11% sequential decline."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Both calls reiterate 2024 2.5D revenue will 'quadruple versus 2023,' unchanged from prior call."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New specifics introduced: TSMC MOU, Infineon partnership/power modules, panel line evaluation not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "CFO calls Q3 'outstanding' with a 'record,' but CEO commentary is more guarded, citing 'unique and challenging environment' and dampened outlook."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call expected 'gradual recovery' exiting cycle; current call cites 'prolonged weakness,' 'weaker-than-anticipated communication cycle,' and more-than-seasonal Q4 decline."
+  }
+}

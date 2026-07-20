@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior emphasized 'high uncertainty,' 'unclear' impact; current drops that framing, stating revenue 'came in about as expected.'"
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 revenue $4.17-4.53B/EPS $1.21-1.47; current guides Q3 $4.45-4.80B/EPS $1.36-1.60, both raised sequentially."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No comparable specific forward numeric target (TAM, capacity) repeated across both calls beyond guidance already scored."
+  },
+  "new_topic_rate": {
+    "score": 0,
+    "evidence": "Same topic set: end-market breakdown, tariffs/geopolitics, cycle recovery, capital management continue similarly."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar restrained, factual tone; no notable increase in superlatives."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Industrial went from 'upper single digits' sequential recovery to 'upper teens y/y, mid-teens sequential' broad growth across sectors."
+  }
+}

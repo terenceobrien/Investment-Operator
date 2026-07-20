@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls similarly hedge with 'geopolitical and macro uncertainty' and tariff monitoring language."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue $2.75B/EPS $1.92 and OM 41.5%; current guides Q4 revenue $3.0B/EPS $2.22 and OM 43.5%, raised sequentially beyond prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Humanoid robot content 'several thousands of dollars/10x AMR' is new, no comparable figure existed in prior call to compare."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New deep-dive on industrial automation, humanoid robotics, Teradyne partnership, NVIDIA digital twin collaboration absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added 'record quarter' for aerospace/defense and more expansive superlatives like 'exponential growth opportunity' not present prior."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Revenue growth accelerated to 25% YoY from 22% YoY, and industrial subsector growth broadened/accelerated versus prior quarter's recovery language."
+  }
+}

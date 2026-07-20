@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior called recovery 'continued'; current says demand recovery 'likely to be more gradual than customers originally expected' and destocking 'decelerated'."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Sept quarter revenue $160-170M sequential growth of ~14%; current guides Dec quarter $161-171M, flat sequentially versus prior growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "IoT device TAM of 100 billion devices is a new figure not present in prior call, so not comparable."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on Wi-Fi 6 ramp timing, Bluetooth channel sounding, AI/ML growth catalyst narrative, and Nvidia partnership not present prior."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior said 'strong second quarter results'; current says only 'solid third quarter results', softer superlative usage."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior: 'improved booking patterns indicate continued recovery'; current: 'bookings...have not significantly accelerated' and 'recovery likely more gradual than expected'."
+  }
+}

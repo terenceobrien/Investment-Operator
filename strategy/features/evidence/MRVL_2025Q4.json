@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar density of 'expect', 'anticipate', 'believe' language across both calls regarding forward outlook."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 revenue +19% sequential; current guides Q1 FY26 revenue growth of over 60% YoY at midpoint, a stronger forward trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior call set FY26 AI target implicitly via $1.5B FY25 AI target 'to be significantly exceeded'; current call raises to expect 'very significantly exceed' the $2.5B FY26 AI target."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topics: custom NIC/CXL memory design wins, Co-Packaged Optics architecture, org restructuring into cloud data center vs multi-market groups."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives added: 'record' used repeatedly for revenue, EPS, cash flow, and 'tremendous progress', 'extremely well' vs prior's already-strong but less saturated superlative use."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Data center revenue grew 78% YoY vs prior quarter's 98% YoY (deceleration), but overall multi-market recovery framed as 'continued' and accelerating, and guide of 60%+ YoY next quarter is stronger than prior's 26% guide, netting mildly positive."
+  }
+}

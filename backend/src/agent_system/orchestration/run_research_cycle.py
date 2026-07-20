@@ -15,6 +15,7 @@ import logging
 import os
 import traceback
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Optional
 from uuid import uuid4
 
@@ -35,9 +36,9 @@ from src.agent_system.agents.thematic_agent import (
 from src.agent_system.config.trader_profile import load_trader_profile
 from src.agent_system.data import get_fundamental_data, get_market_data
 from src.agent_system.orchestration.stub_agents import (
+    build_narrative_analysis,
     construct_trade_idea,
     make_stub_fundamental_analysis,
-    make_stub_narrative_analysis,
     make_stub_regime_state,
     make_stub_thematic_map,
 )
@@ -55,12 +56,18 @@ from src.agent_system.rules.fundamental_screen import (
 from src.agent_system.positions.loader import load_latest_positions
 from src.agent_system.scenarios.loader import load_current_scenarios
 from src.agent_system.scenarios.scorer import score_trade_against_scenarios
+from src.agent_system.scenarios.types import (
+    DEFAULT_SCENARIO_PRIORS,
+    TradeScenarioAnalysis,
+)
 from src.agent_system.schemas.common import Conviction, ConvictionRating
 from src.agent_system.schemas.fundamental_screen import (
     Archetype,
     FundamentalScreen,
     ScreenVerdict,
 )
+from src.agent_system.schemas.macro_forecast import MacroForecastResult
+from src.agent_system.schemas.monte_carlo import MonteCarloConfig, MonteCarloPathResult
 from src.agent_system.schemas.regime import (
     ClarificationRequest,
     ResearchPriority,
@@ -70,7 +77,27 @@ from src.agent_system.schemas.thematic import ThematicMap
 from src.agent_system.schemas.portfolio_plan import PortfolioPlan
 from src.agent_system.schemas.trade import TradeProvenance
 from src.agent_system.schemas.trade import TradeIdea
-from src.agent_system.storage.repository import save_decision_log_entry, save_schema
+from src.agent_system.services.exposure_enrichment import ExposureEnrichmentService
+from src.agent_system.services.existing_position_filter import (
+    ExistingPositionCheck,
+    ExistingPositionVerdict,
+    apply_existing_position_filter,
+    existing_position_filter_config,
+    format_existing_position_filter_report,
+)
+from src.agent_system.services.held_position_registry import get_held_positions
+from src.agent_system.services.monte_carlo_engine import MonteCarloEngine
+from src.agent_system.services.scenario_assumptions_loader import ScenarioAssumptionsLoader
+from src.agent_system.services.scenario_translation import translate_scenario_probabilities
+from src.agent_system.services.shadow_outcome_builder import build_shadow_outcome
+from src.agent_system.services.trade_outcome_builder import build_trade_outcome
+from src.agent_system.paths import cycles_dir
+from src.agent_system.storage.repository import (
+    load_trade_outcome,
+    save_decision_log_entry,
+    save_schema,
+    save_trade_outcome,
+)
 
 logger = logging.getLogger("agent_system.cycle")
 
@@ -104,6 +131,43 @@ def _print_cli_cycle_start(cycle_id: str, emitter: CycleStatusEmitter) -> None:
     print(f"Cycle ID: {cycle_id}")
     print(f"Frontend: {_frontend_cycle_url(cycle_id)}")
     print(f"Status file: {emitter.path}")
+    print()
+
+
+def _print_research_priorities(regime: PydanticRegimeState) -> None:
+    """Print the research priorities at cycle start for operator verification."""
+
+    priorities = regime.research_priorities
+    if not priorities:
+        print("=== RESEARCH PRIORITIES ===")
+        print("  (none - cycle will run with no priorities)")
+        print()
+        return
+
+    print(f"=== RESEARCH PRIORITIES ({len(priorities)}) ===")
+    for priority in priorities:
+        theme = priority.theme if len(priority.theme) <= 110 else priority.theme[:107] + "..."
+        edge_preview = priority.edge_hypothesis
+        if len(edge_preview) > 180:
+            edge_preview = edge_preview[:177] + "..."
+        scenarios = ", ".join(priority.source_scenario_ids) if priority.source_scenario_ids else "n/a"
+        print(f"  {priority.priority_rank}. {theme}")
+        print(f"     Edge decay: {priority.expected_edge_decay.value}")
+        print(f"     Source scenarios: {scenarios}")
+        print(f"     Edge: {edge_preview}")
+        print()
+
+
+def _print_scenario_probabilities(probabilities: dict[str, float] | None) -> None:
+    """Print the macro scenario probabilities that will drive this cycle."""
+
+    print("=== MACRO SCENARIO PROBABILITIES ===")
+    if not probabilities:
+        print("  (none - cycle will use fallback priors)")
+        print()
+        return
+    for scenario_id, probability in sorted(probabilities.items(), key=lambda kv: -kv[1]):
+        print(f"  {scenario_id}: {probability:.1%}")
     print()
 
 
@@ -205,12 +269,122 @@ def _portfolio_summary_text(plan: PortfolioPlan) -> str:
     for decision in plan.trade_decisions:
         status = decision.decision.upper().replace("_PORTFOLIO", "")
         trade_desc = decision.underlying
+        details = [f"proposed {decision.proposed_size_pct:.1%}"]
+        if decision.scenario_weighted_expected_return is not None:
+            details.append(
+                f"scenario-weighted exp. return {decision.scenario_weighted_expected_return:.1%}"
+            )
+        else:
+            details.append("scenario-weighted exp. return n/a")
+        if decision.scenario_weight_source:
+            details.append(f"weights={decision.scenario_weight_source}")
         lines.append(
             f"  {status:<8} {decision.underlying:<6} {trade_desc:<38} "
             f"{decision.final_size_pct:.1%} of NAV "
-            f"(proposed {decision.proposed_size_pct:.1%})"
+            f"({'; '.join(details)})"
         )
     return "\n".join(lines)
+
+
+def _load_latest_macro_forecast_probabilities() -> dict[str, float] | None:
+    reports_dir = (
+        Path(__file__).resolve().parents[3]
+        / "data"
+        / "agent_system"
+        / "reports"
+        / "macro_forecasts"
+    )
+    try:
+        candidates = sorted(
+            reports_dir.glob("macro_forecast_*.json"),
+            key=lambda path: path.stat().st_mtime,
+            reverse=True,
+        )
+        if not candidates:
+            logger.warning("No macro forecast JSON files found in %s", reports_dir)
+            return None
+        for path in candidates:
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                result = MacroForecastResult.model_validate(payload)
+                probabilities = (
+                    result.scenario_probabilities_blended
+                    or (
+                        result.historical_calibration.blended_scenario_probabilities
+                        if result.historical_calibration is not None
+                        else None
+                    )
+                    or result.scenario_probabilities
+                )
+                if probabilities:
+                    return {scenario_id: float(value) for scenario_id, value in probabilities.items()}
+                logger.warning("Macro forecast %s has no scenario probabilities", path)
+            except Exception as exc:
+                logger.warning("Failed to load macro forecast %s: %s", path, exc)
+        return None
+    except Exception as exc:
+        logger.warning("Unable to load latest macro forecast probabilities: %s", exc)
+        return None
+
+
+def _run_monte_carlo(
+    *,
+    plan: PortfolioPlan,
+    accepted_trades: list[TradeIdea],
+    scenario_analyses: list[TradeScenarioAnalysis],
+    macro_scenario_probabilities: dict[str, float] | None,
+    cycle_id: str,
+    n_paths: int | None = None,
+) -> MonteCarloPathResult:
+    analyses_by_trade_id = {
+        analysis.trade_id: analysis
+        for analysis in scenario_analyses
+    }
+    final_sizes = {
+        decision.trade_id: decision.final_size_pct
+        for decision in plan.trade_decisions
+        if decision.decision != "rejected_portfolio" and decision.final_size_pct > 0
+    }
+    enrichment = ExposureEnrichmentService()
+    exposures = []
+    for trade in accepted_trades:
+        if trade.id is None or trade.id not in final_sizes:
+            continue
+        scenario_analysis = analyses_by_trade_id.get(trade.id)
+        if scenario_analysis is None:
+            continue
+        exposures.append(
+            enrichment.enrich(
+                trade,
+                scenario_analysis,
+                final_sizes[trade.id],
+            )
+        )
+    if not exposures:
+        raise ValueError("No enrichable trades after portfolio construction")
+
+    if macro_scenario_probabilities:
+        scenario_probabilities = macro_scenario_probabilities
+    else:
+        logger.warning(
+            "Monte Carlo used fallback scenario priors; macro probabilities unavailable."
+        )
+        scenario_probabilities = DEFAULT_SCENARIO_PRIORS
+    scenario_probabilities = translate_scenario_probabilities(scenario_probabilities)
+
+    loader = ScenarioAssumptionsLoader()
+    engine = MonteCarloEngine(
+        assumptions_loader=loader,
+        config=MonteCarloConfig(n_paths=n_paths) if n_paths is not None else None,
+    )
+    result = engine.run(exposures, scenario_probabilities)
+    output_path = cycles_dir() / cycle_id / "monte_carlo_result.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        json.dumps(result.model_dump(mode="json"), indent=2),
+        encoding="utf-8",
+    )
+    return result
 
 
 def _execute_cycle(
@@ -226,6 +400,9 @@ def _execute_cycle(
     emitter: CycleStatusEmitter | None = None,
 ) -> dict:
     cycle_id = cycle_id or (emitter.cycle_id if emitter is not None else str(uuid4()))
+    _print_research_priorities(regime)
+    macro_scenario_probabilities = _load_latest_macro_forecast_probabilities()
+    _print_scenario_probabilities(macro_scenario_probabilities)
     if emitter is not None:
         macro_stage = next(
             (stage for stage in emitter.state.stages if stage.stage == StageName.MACRO),
@@ -264,11 +441,29 @@ def _execute_cycle(
     portfolio_total_deployment_pct = 0.0
     portfolio_binding_constraints: list[str] = []
     portfolio_plan_summary: str | None = None
+    monte_carlo_result: MonteCarloPathResult | None = None
     accepted_trades: list[TradeIdea] = []
+    all_trade_idea_lookup: dict[str, TradeIdea] = {}
+    cycle_decision_log_entries: list[dict] = []
     trader_profile = load_trader_profile()
     screen_stage_started = False
     conviction_stage_started = False
     trade_expression_stage_started = False
+    existing_position_checks: list[ExistingPositionCheck] = []
+    try:
+        existing_position_config = existing_position_filter_config()
+        held_positions_by_ticker = (
+            get_held_positions(
+                include_watching=True,
+                recently_closed_window_days=existing_position_config.same_priority_recently_closed_window_days,
+            )
+            if existing_position_config.enabled
+            else {}
+        )
+    except Exception as exc:
+        logger.warning("Existing position filter disabled after setup failure: %s", exc, exc_info=True)
+        existing_position_config = None
+        held_positions_by_ticker = {}
 
     if emitter is not None:
         emitter.start_stage(
@@ -283,8 +478,9 @@ def _execute_cycle(
                 message=f"working on priority {priority_index}: {priority.theme[:100]}",
                 current=priority_index,
                 total=len(regime.research_priorities),
-            )
+        )
         priority_id = save_schema(priority)
+        priority = priority.model_copy_validate({"id": priority_id})
         if use_stub_thematic:
             thematic_map = make_stub_thematic_map(regime).model_copy_validate(
                 {"source_priority_id": priority_id}
@@ -360,7 +556,7 @@ def _execute_cycle(
                 )
                 fundamental_id = save_schema(fundamental)
 
-            narrative = make_stub_narrative_analysis(candidate)
+            narrative = build_narrative_analysis(candidate)
             narrative_id = save_schema(narrative)
             if emitter is not None:
                 if not conviction_stage_started:
@@ -378,6 +574,16 @@ def _execute_cycle(
                 narrative=narrative,
                 regime=regime,
             )
+            if existing_position_config is not None and existing_position_config.enabled:
+                application = apply_existing_position_filter(
+                    candidate=candidate,
+                    priority=priority,
+                    conviction=conviction,
+                    held_records=held_positions_by_ticker.get(candidate.ticker.upper(), []),
+                )
+                candidate = application.candidate
+                conviction = application.conviction
+                existing_position_checks.extend(application.checks)
             if use_stub_trade_expression:
                 trade = construct_trade_idea(
                     candidate=candidate,
@@ -494,6 +700,7 @@ def _execute_cycle(
             )
             trade_id = save_schema(trade)
             trade = trade.model_copy(update={"id": trade_id})
+            all_trade_idea_lookup[trade_id] = trade
             trade_ideas_saved += 1
 
             constraint = check_portfolio_constraints(
@@ -507,20 +714,24 @@ def _execute_cycle(
             else:
                 rejected_underlyings.append(candidate.ticker)
 
-            save_decision_log_entry(
-                {
-                    "cycle_id": cycle_id,
-                    "candidate": candidate.ticker,
-                    "decision": decision if constraint.allowed or decision == "rejected" else "rejected",
-                    "conviction_rating": conviction.rating.value,
-                    "rule_applied": conviction.rule_applied,
-                    "weakest_link": conviction.weakest_link,
-                    "summary": conviction.reasoning,
-                    "trade_idea_id": trade_id,
-                    "portfolio_constraint": constraint.model_dump(mode="json"),
-                    "review_notes": "",
-                }
-            )
+            decision_log_entry = {
+                "cycle_id": cycle_id,
+                "candidate": candidate.ticker,
+                "decision": (
+                    decision
+                    if constraint.allowed or decision == "rejected"
+                    else "rejected"
+                ),
+                "conviction_rating": conviction.rating.value,
+                "rule_applied": conviction.rule_applied,
+                "weakest_link": conviction.weakest_link,
+                "summary": conviction.reasoning,
+                "trade_idea_id": trade_id,
+                "portfolio_constraint": constraint.model_dump(mode="json"),
+                "review_notes": "",
+            }
+            save_decision_log_entry(decision_log_entry)
+            cycle_decision_log_entries.append(decision_log_entry)
             decision_log_entries += 1
 
     if emitter is not None:
@@ -584,7 +795,12 @@ def _execute_cycle(
                         total=len(accepted_trades),
                     )
                 analysis = asyncio.run(
-                    score_trade_against_scenarios(trade, scenario_set)
+                    score_trade_against_scenarios(
+                        trade,
+                        scenario_set,
+                        regime=regime,
+                        scenario_probabilities=macro_scenario_probabilities,
+                    )
                 )
                 scenario_analyses.append(analysis)
                 save_schema(analysis, schema_type="TradeScenarioAnalysis")
@@ -612,6 +828,114 @@ def _execute_cycle(
             cycle_id=cycle_id,
         )
         save_schema(plan, schema_type="PortfolioPlan")
+        try:
+            trade_idea_lookup = {t.id: t for t in accepted_trades if t.id}
+            cycle_date = str(regime.asof_date)[:10]
+            for decision in plan.trade_decisions:
+                try:
+                    trade_idea = trade_idea_lookup.get(decision.trade_id)
+                    if trade_idea is None:
+                        continue
+                    outcome = build_trade_outcome(
+                        trade_idea=trade_idea,
+                        decision=decision,
+                        cycle_id=cycle_id,
+                        cycle_date=cycle_date,
+                    )
+                    if outcome is not None:
+                        save_trade_outcome(outcome)
+                except Exception as exc:
+                    logger.warning(
+                        "Failed to create TradeOutcome for trade_id=%s: %s",
+                        decision.trade_id,
+                        exc,
+                        exc_info=True,
+                    )
+            for decision_log_entry in cycle_decision_log_entries:
+                if decision_log_entry.get("decision") != "rejected":
+                    continue
+                trade_id = decision_log_entry.get("trade_idea_id")
+                if not trade_id or load_trade_outcome(trade_id) is not None:
+                    continue
+                trade_idea = all_trade_idea_lookup.get(trade_id)
+                if trade_idea is None:
+                    continue
+                try:
+                    shadow = build_shadow_outcome(
+                        trade_idea=trade_idea,
+                        decision_log_entry=decision_log_entry,
+                        cycle_id=cycle_id,
+                        cycle_date=cycle_date,
+                    )
+                    if shadow is not None:
+                        save_trade_outcome(shadow)
+                except Exception as exc:
+                    logger.warning(
+                        "Failed to create shadow TradeOutcome for trade_id=%s: %s",
+                        trade_id,
+                        exc,
+                        exc_info=True,
+                    )
+        except Exception as exc:
+            logger.warning(
+                "TradeOutcome creation block failed: %s",
+                exc,
+                exc_info=True,
+            )
+        if not skip_portfolio_construction and accepted_trades and scenario_analyses:
+            if emitter is not None:
+                emitter.start_stage(
+                    StageName.MONTE_CARLO,
+                    "running portfolio Monte Carlo simulation",
+                )
+            try:
+                monte_carlo_result = _run_monte_carlo(
+                    plan=plan,
+                    accepted_trades=accepted_trades,
+                    scenario_analyses=scenario_analyses,
+                    macro_scenario_probabilities=macro_scenario_probabilities,
+                    cycle_id=cycle_id,
+                )
+                if emitter is not None:
+                    emitter.complete_stage(
+                        StageName.MONTE_CARLO,
+                        (
+                            "simulation complete: expected return "
+                            f"{monte_carlo_result.portfolio_expected_return:.1%}, "
+                            f"P10 {monte_carlo_result.portfolio_p10:.1%}, "
+                            f"P90 {monte_carlo_result.portfolio_p90:.1%}"
+                        ),
+                    )
+            except Exception as exc:
+                logger.warning(
+                    "Monte Carlo simulation failed: %s",
+                    exc,
+                    exc_info=True,
+                )
+                if emitter is not None:
+                    emitter.skip_stage(
+                        StageName.MONTE_CARLO,
+                        f"simulation failed: {exc}",
+                    )
+        elif emitter is not None:
+            emitter.skip_stage(
+                StageName.MONTE_CARLO,
+                "insufficient data for simulation",
+            )
+        try:
+            from src.agent_system.services.excel_sync import ExcelSync
+
+            report = ExcelSync().sync()
+            logger.info(
+                "Excel sync after cycle: %d edits read, %d updates written, %d appended",
+                len(report.user_edits_applied),
+                len(report.system_fields_written),
+                len(report.outcomes_appended),
+            )
+        except FileNotFoundError:
+            logger.info("Excel log not found; skipping sync")
+        except Exception as exc:
+            logger.warning("Excel sync failed: %s", exc, exc_info=True)
         portfolio_trades_executed = plan.n_executed
         portfolio_trades_reduced = plan.n_reduced
         portfolio_trades_rejected = plan.n_rejected_portfolio
@@ -626,6 +950,36 @@ def _execute_cycle(
     elif emitter is not None:
         emitter.skip_stage(StageName.SCENARIO_SCORING, "portfolio construction skipped")
         emitter.skip_stage(StageName.PORTFOLIO, "portfolio construction skipped")
+        emitter.skip_stage(StageName.MONTE_CARLO, "portfolio construction skipped")
+
+    existing_position_report = format_existing_position_filter_report(existing_position_checks)
+    existing_position_counts = {
+        "demoted_same_hypothesis": sum(
+            1
+            for check in existing_position_checks
+            if check.verdict
+            in {
+                ExistingPositionVerdict.SAME_PRIORITY_HELD,
+                ExistingPositionVerdict.SAME_PRIORITY_WATCHING,
+            }
+            and check.conviction_after != check.conviction_before
+        ),
+        "same_hypothesis_recently_closed": sum(
+            1
+            for check in existing_position_checks
+            if check.verdict == ExistingPositionVerdict.SAME_PRIORITY_RECENTLY_CLOSED
+        ),
+        "cross_hypothesis_confirming": sum(
+            1
+            for check in existing_position_checks
+            if check.verdict == ExistingPositionVerdict.CROSS_HYPOTHESIS_CONFIRMING
+        ),
+        "cross_hypothesis_tension": sum(
+            1
+            for check in existing_position_checks
+            if check.verdict == ExistingPositionVerdict.CROSS_HYPOTHESIS_TENSION
+        ),
+    }
 
     summary = {
         "cycle_id": cycle_id,
@@ -661,6 +1015,18 @@ def _execute_cycle(
         "portfolio_trades_rejected": portfolio_trades_rejected,
         "portfolio_total_deployment_pct": portfolio_total_deployment_pct,
         "portfolio_binding_constraints": portfolio_binding_constraints,
+        "existing_position_filter_enabled": (
+            bool(existing_position_config.enabled)
+            if existing_position_config is not None
+            else False
+        ),
+        "existing_position_filter": existing_position_counts,
+        "monte_carlo_result": (
+            monte_carlo_result.model_dump(mode="json")
+            if monte_carlo_result
+            else None
+        ),
+        "_existing_position_filter_report": existing_position_report,
         "_portfolio_summary_text": portfolio_plan_summary,
     }
     if emitter is not None:
@@ -893,6 +1259,7 @@ def run_cycle_with_inputs(
                 StageName.TRADE_EXPRESSION,
                 StageName.SCENARIO_SCORING,
                 StageName.PORTFOLIO,
+                StageName.MONTE_CARLO,
             ):
                 emitter.skip_stage(stage, "no macro priorities available")
             emitter.set_summary(summary)
@@ -1014,8 +1381,11 @@ def main(argv: list[str] | None = None) -> dict:
         raise
 
     portfolio_summary = summary.get("_portfolio_summary_text")
+    existing_position_filter_report = summary.get("_existing_position_filter_report")
     printable_summary = {
-        key: value for key, value in summary.items() if key != "_portfolio_summary_text"
+        key: value
+        for key, value in summary.items()
+        if key not in {"_portfolio_summary_text", "_existing_position_filter_report"}
     }
     print(
         json.dumps(
@@ -1024,6 +1394,9 @@ def main(argv: list[str] | None = None) -> dict:
             sort_keys=True,
         )
     )
+    if existing_position_filter_report:
+        print()
+        print(existing_position_filter_report)
     if portfolio_summary:
         print()
         print(portfolio_summary)

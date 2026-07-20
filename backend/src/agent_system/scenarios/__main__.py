@@ -163,7 +163,8 @@ async def _cmd_score(args: argparse.Namespace) -> int:
         )
         return 1
 
-    analysis = await score_trade_against_scenarios(trade, scenario_set)
+    regime, _regime_source, _fallback_reason = _select_regime_state()
+    analysis = await score_trade_against_scenarios(trade, scenario_set, regime=regime)
     analysis_id = save_schema(analysis, schema_type="TradeScenarioAnalysis")
 
     primary = trade.expression.primary_instrument
@@ -198,7 +199,15 @@ async def _cmd_score(args: argparse.Namespace) -> int:
     best = max(analysis.scenario_scores, key=lambda score: score.expected_pnl_pct)
     print()
     print("Computed metrics:")
-    print(f"  expected_return: {analysis.expected_return:.1%}")
+    print(f"  scenario-weighted expected_return: {analysis.expected_return:.1%}")
+    print(f"  scenario_weight_source: {analysis.scenario_weight_source}")
+    weights = ", ".join(
+        f"{scenario_id}={weight:.0%}"
+        for scenario_id, weight in analysis.scenario_weights_used.items()
+    )
+    print(f"  scenario_weights_used: {weights}")
+    if analysis.scenario_weight_warning:
+        print(f"  scenario_weight_warning: {analysis.scenario_weight_warning}")
     print(
         f"  worst_case_pnl_pct: {analysis.worst_case_pnl_pct:.1%} "
         f"({worst.scenario_id})"

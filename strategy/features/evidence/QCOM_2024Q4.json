@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of forward-looking hedges like 'expect', 'anticipate' in both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 revenue $9.5-10.3B; current guides Q1 FY25 revenue $10.5-11.3B, above prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Auto growth guided '50% relative to last year' now vs prior call's ~50% YoY FY24 target, held not escalated; IoT growth 'more than 20%' vs prior 'low double-digit sequential' not directly comparable but automotive sequential now flat vs prior flat, no upward revision."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New IQ Series industrial platform, Networking Pro A7 Elite, and Amazon SageMaker AI Hub partnership are newly introduced."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives like 'world's fastest mobile processor' and 'most powerful platforms to date' vs prior's more measured claims."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "IoT revenue grew 24% sequentially now vs prior 9% sequential growth, indicating stronger demand recovery."
+  }
+}

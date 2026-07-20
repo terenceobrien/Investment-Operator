@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'we believe', 'expect', 'cautiously optimistic' as prior call's hedged inventory language."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 sales $160-170M; current guides Q2 sales $182-192M off a much lower base after actual Q1 fell to $167M vs prior year $241M, reflecting a lowered trajectory overall."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "xEV double-digit growth cited in both calls with no revised specific target figure given."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Sanken share repurchase, governance overhaul, and debt repricing/ratings upgrade topics substantively introduced, absent in prior call."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior call touted 'record annual sales' and 'record design wins'; current call has no such superlatives amid steep declines."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call expected trough then double-digit growth; current call again describes 'bottom' and cautious recovery pushed to FY2026, weaker tone."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior said 'too early to be overly specific' on 2025; current says views 'mostly unchanged' with more specific China/segment detail."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Sept revenue $2.75B midpoint; current guides Dec revenue $2.95B midpoint, an increase in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Advanced packaging raised from 'more than $500 million' estimate in prior call to confirmed 'exceed $500 million' plus continued growth into CY2025."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New detail on China exposure trajectory (mid-30s to ~30%) and export control speculation not present in prior call's remarks."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current uses 'strengthening,' 'exceeded expectations,' and 'continued relative outperformance,' slightly more confident than prior's 'signs of strengthening.'"
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior cited 'signs of a strengthening market'; current states demand 'exhibited strengthening' with double-digit growth and DRAM/foundry demand exceeding expectations."
+  }
+}

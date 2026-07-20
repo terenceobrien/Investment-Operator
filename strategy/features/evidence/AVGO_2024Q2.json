@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'believe', 'forecast' language across both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "FY24 revenue guide raised from $50B (reiterated) to $51B; networking guide raised from 35% to 40% growth."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "AI revenue outlook raised from ~$10B ('35% of semi revenue') to over $11B for fiscal '24."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New ABV metric, VMware SKU consolidation to four products, and stock split announcement not present prior."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More confident language: 'integration going very well', 'strong progress', additional specific proof points vs prior's more cautious framing."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Server storage revised to 'decline around 20%' from mid-20s decline, and called a bottom, though broadband outlook worsened from -30% to high-30s decline."
+  }
+}

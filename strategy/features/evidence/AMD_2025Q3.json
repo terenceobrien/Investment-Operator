@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Fewer conditional caveats about export controls/licenses dominating narrative; more definitive statements like 'entering a new phase of growth'."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue ~$8.7B (28% YoY, 13% seq growth); current guides Q4 ~$9.6B (25% YoY) after beating with $9.2B actual, and raised long-term AI trajectory to 'well over $100B' vs prior 'tens of billions'."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior call: EPYC cloud instances 'nearly 1,200'; current: 'more than 1,350' instances, and design wins 'pace to pass $14B' now 'already totaling more than $14B year-to-date'."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New OpenAI 6GW/$100B+ deal, Venice 2nm launch progress, MI430X/Discovery supercomputer, Lux AI DOE partnership all absent from prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Language shifts from 'very strong results' to 'outstanding quarter', 'record revenue and profitability', 'demand has never been greater'."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior described Data Center AI revenue as declining YoY due to export curbs; current reports data center AI 'continues to accelerate' with sharp MI350 ramp and record segment revenue."
+  }
+}

@@ -89,7 +89,7 @@ def test_adapt_regime_state_with_production_current_regime_yaml():
     adapted = adapt_regime_state(state)
 
     assert isinstance(adapted, PydanticRegimeState)
-    assert adapted.regime_id == "supply_shock_inflation"
+    assert adapted.regime_id == "two_sided_oil_shock_late_cycle_ai"
     assert adapted.research_priorities
 
 
@@ -172,6 +172,24 @@ def test_seed_research_priorities_produce_valid_objects(tmp_path):
         .supporting_evidence[0]
         .claim.startswith("Seed research priority from current_regime.yaml")
     )
+
+
+def test_scenario_probabilities_populate_from_current_regime_yaml(tmp_path):
+    yaml_with_probabilities = BASE_CURATION_YAML + """
+scenario_probabilities:
+  sticky_late_cycle_ai: 0.42
+  reopening_soft_landing: 0.28
+  oil_inflation_tail: 0.14
+  late_cycle_risk_off: 0.11
+  ai_capex_rollover: 0.05
+"""
+    adapted = adapt_regime_state(
+        _make_dataclass_state(),
+        curation_config_path=_write_yaml(tmp_path, yaml_with_probabilities),
+    )
+
+    assert adapted.scenario_probabilities["sticky_late_cycle_ai"] == pytest.approx(0.42)
+    assert adapted.scenario_probability_source == "current_regime_yaml"
 
 
 def test_absent_seed_research_priorities_returns_empty_list(tmp_path):

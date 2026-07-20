@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Tariff uncertainty, 'broader than normal' guidance, and 'will not update our 2025 outlook' vs prior's confident specific 2025 guide."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 sales $775-805M; current Q2 guided $735-775M and full-year 2025 outlook withdrawn/not updated."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "CapEx cut from $325M (prior full-year 2025 plan) to $300M now."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New emphasis on tariffs, regional supply-chain derisking, and IPA purifier win with Korean HBM customers absent in prior call."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Shift from 'strong performance' and 'very pleased' with above-guidance results to 'slightly below guidance' and repeated 'dynamic'/'uncertain' framing."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "APS growth decelerated from 9% YoY prior to 3% YoY current, with 'sharp contraction in FOUPs and fluid handling revenue.'"
+  }
+}

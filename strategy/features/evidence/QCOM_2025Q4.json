@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "More definitive claims ('we now expect', 'record results') with less conditional framing than prior call's 'if successful' data center language."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 revenue $10.3-11.1B/EPS $2.75-2.95; current guides Q1 revenue $11.8-12.6B/EPS $3.30-3.50, clearly raised."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "PC design wins raised from 'more than 100 through 2026' to 'approximately 150 designs through 2026'."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topics: Arduino acquisition, AI200/AI250 data center SoCs with HUMAIN deployment, Snapdragon Ride Pilot launch."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added superlatives like 'record automotive quarterly revenues', 'record free cash flow', 'fastest mobile CPU ever' beyond prior call's tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "IoT growth decelerated (24%->7% YoY) but automotive accelerated (21%->36% YoY) and handset demand described as 'exceeding expectations', net modestly stronger."
+  }
+}

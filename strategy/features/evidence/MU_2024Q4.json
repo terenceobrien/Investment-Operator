@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar density of 'expect', 'anticipate', 'we believe' forward-looking language in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided FQ4 revenue $7.6B\u00b10.2B/GM 34.5%/EPS $1.08; actual FQ4 beat, but FQ1 guide of $8.7B/GM 39.5%/EPS $1.74 implies only ~11% sequential growth vs. prior quarter's guided ~12% sequential growth ($6.8B to $7.6B), a similar trajectory not clearly raised beyond prior pace."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "HBM TAM given as new specific figure: ~$4B (2023) to over $25B (2025), a new upward-revised quantification not present as a number in prior call."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New specifics introduced: LPCAMM2 design wins, Taiwan LCD fab acquisition for DRAM testing, and detailed AI PC DRAM capacity tiers (16GB/32-64GB)."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More frequent record claims: 'strongest competitive positioning in the Company's history' and multiple 'record' mentions vs. prior call's more measured 'improving' framing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call cited AI data center revenue growing 'over 50% sequential'; current call notes data center revenue growth without repeating comparable rate, and PC/mobile/auto show inventory adjustment caution, e.g. 'resumption in automotive growth' expected only in 2H FY25 vs prior record quarter language."
+  }
+}

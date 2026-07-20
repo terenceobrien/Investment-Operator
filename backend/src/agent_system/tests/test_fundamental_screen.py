@@ -515,6 +515,54 @@ def test_screen_bridge_clean_pass_maps_to_moderate_fundamental_conviction():
     assert "Bounded at MODERATE" in fundamental.conviction.justification
 
 
+def test_screen_bridge_populates_key_metrics_from_screen_metrics_used():
+    screen = screen_candidate(
+        _bundle(
+            company_facts=_facts(
+                revenue_ttm=1_000_000_000.0,
+                operating_income_ttm=200_000_000.0,
+                net_income_ttm=120_000_000.0,
+                total_assets=2_000_000_000.0,
+                total_debt=500_000_000.0,
+                cash_and_equivalents=150_000_000.0,
+                stockholders_equity=800_000_000.0,
+                operating_cash_flow_ttm=180_000_000.0,
+                free_cash_flow_ttm=110_000_000.0,
+                depreciation_amortization_ttm=50_000_000.0,
+                revenue_yoy_growth=0.08,
+                revenue_3yr_cagr=0.12,
+            ),
+            current_price=100.0,
+            mean_price_target=115.0,
+            analyst_count_buy=6,
+            analyst_count_hold=3,
+            analyst_count_sell=1,
+        )
+    )
+    fundamental = screen_to_minimal_fundamental_analysis(
+        _bridge_candidate(),
+        screen,
+    )
+
+    metrics = {item.metric: item for item in fundamental.financials.key_metrics}
+
+    assert len(metrics) >= 10
+    assert metrics["revenue TTM"].value == pytest.approx(1_000.0)
+    assert metrics["revenue TTM"].unit == "$mm"
+    assert metrics["revenue growth (3yr CAGR)"].value == pytest.approx(12.0)
+    assert metrics["revenue growth (3yr CAGR)"].unit == "%"
+    assert metrics["debt / EBITDA"].value == pytest.approx(2.0)
+    assert metrics["debt / EBITDA"].unit == "x"
+    assert metrics["debt / assets"].value == pytest.approx(0.25)
+    assert metrics["debt / assets"].unit == "ratio"
+    assert metrics["buy rating ratio"].value == pytest.approx(0.6)
+    assert metrics["buy rating ratio"].source.computation == (
+        "FundamentalScreen.metrics_used"
+    )
+    assert "FundamentalScreen" in metrics["total debt"].source.computation
+    assert "net income TTM" not in metrics
+
+
 def test_screen_bridge_crowding_flag_maps_to_weak_fundamental_conviction():
     screen = screen_candidate(
         _bundle(

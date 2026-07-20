@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior said 'macro situation remains challenging'; current states 'believe we've passed the low point' more definitively, though still 'guarded'."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $2.1B and op margin 37%; current guides Q3 revenue $2.27B (up 5% sequentially) and op margin 40%, raised trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "GMSL design wins moved from unspecified 'top three OEM' expansion to '12 to 15 of top 20 OEMs', not directly comparable to prior specific figure."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "Extensive new AI 'two waves' framework, surgical robotics, CGM, 800G/1.6T optical modules absent from prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current call adds 'never been more excited', 'record revenues near to mid-term', more superlatives than prior's cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior said bookings improved sequentially with 'challenging macro'; current reports bookings up third straight quarter and book-to-bill above parity for first time in a year."
+  }
+}

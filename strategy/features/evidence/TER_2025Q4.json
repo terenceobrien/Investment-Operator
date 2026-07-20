@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'expect', 'believe', 'uncertain' language around AI demand and TAM forecasts."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 sales $920M-$1B; current reports Q4 revenue up 41% sequentially, above high guidance, with Q1 AI mix rising to 70% from 60% in Q4."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior said memory TAM 2025 down low double digits; current says memory TAM down ~4% in 2025 and expects low double-digit growth in 2026, an upward revision to outlook."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New target earnings model, Quantifi Photonics integration, and detailed SoC mix history (2020-2025) are newly introduced substantive topics."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'striking trend', 'record levels' TAM, and 'successful pivot' language beyond prior's already-positive tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "AI drove 40-50% of revenue in Q3 (prior call), rising to 60% in Q4 and expected 70% in Q1 2026, showing accelerating demand strength."
+  }
+}

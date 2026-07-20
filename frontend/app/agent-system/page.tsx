@@ -138,6 +138,10 @@ type PortfolioTradeDecisionPayload = {
   proposed_size_pct?: number;
   robustness_score?: number | null;
   robustness_quartile?: number | null;
+  scenario_weighted_expected_return?: number | null;
+  scenario_weight_source?: string | null;
+  scenario_weights_used?: Record<string, number>;
+  scenario_weight_warning?: string | null;
   final_size_pct?: number;
   sizing_adjustments?: SizingAdjustmentPayload[];
   decision?: string;
@@ -281,6 +285,12 @@ function fmtPct(value?: number | null, decimals = 1) {
 function fmtDecimal(value?: number | null, decimals = 3) {
   if (value === undefined || value === null || Number.isNaN(value)) return '—';
   return value.toFixed(decimals);
+}
+
+function fmtScenarioWeights(weights?: Record<string, number>) {
+  const entries = Object.entries(weights ?? {});
+  if (!entries.length) return '—';
+  return entries.map(([scenario, weight]) => `${humanize(scenario)} ${fmtPct(weight, 0)}`).join(' · ');
 }
 
 function humanize(value?: string | null) {
@@ -840,6 +850,24 @@ function TradeCard({ trade, portfolioDecision }: { trade: TradeIdeaPayload; port
                   />
                 ) : null}
               </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
+                <div>
+                  <div style={label}>Scenario-weighted exp. return</div>
+                  <div style={{ fontFamily: T.mono, color: C.text }}>{fmtPct(portfolioDecision.scenario_weighted_expected_return)}</div>
+                </div>
+                <div>
+                  <div style={label}>Scenario weight source</div>
+                  <div style={{ fontFamily: T.mono, color: C.text }}>{humanize(portfolioDecision.scenario_weight_source)}</div>
+                </div>
+              </div>
+              <div style={{ color: C.sub, fontSize: '12px', lineHeight: 1.45 }}>
+                {fmtScenarioWeights(portfolioDecision.scenario_weights_used)}
+              </div>
+              {portfolioDecision.scenario_weight_warning ? (
+                <div style={{ color: C.wa, fontSize: '12px', lineHeight: 1.45 }}>
+                  {portfolioDecision.scenario_weight_warning}
+                </div>
+              ) : null}
               {adjustments.map((adj) => (
                 <div
                   key={`${adj.step}-${adj.size_before}-${adj.size_after}`}

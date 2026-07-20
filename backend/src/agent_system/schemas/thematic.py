@@ -19,9 +19,9 @@ Design principles:
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Optional
+from typing import Annotated, Any, List, Literal, Optional, Union
 
-from pydantic import Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from src.agent_system.schemas.common import (
     BaseSchema,
@@ -30,6 +30,20 @@ from src.agent_system.schemas.common import (
     UnitInterval,
 )
 from src.agent_system.schemas.regime import ResearchPriority
+
+
+def compute_fit_strength_from_components(
+    components: "FitStrengthComponents",
+) -> float:
+    """Compute deterministic fit_strength from the documented sub-scores."""
+
+    return round(
+        (0.40 * components.thesis_mechanism_match)
+        + (0.30 * components.consensus_anchoring_strength)
+        + (0.20 * components.catalyst_proximity)
+        + (0.10 * components.tradeability),
+        4,
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -80,6 +94,75 @@ class ResearchDepth(str, Enum):
     DEEP = "deep"            # full pipeline + extra steps (channel checks, etc.)
 
 
+class ConsensusType(str, Enum):
+    """Type of consensus claim made in a candidate's consensus_view."""
+
+    ESTIMATE = "estimate"
+    POSITIONING = "positioning"
+    NARRATIVE = "narrative"
+    MIXED = "mixed"
+
+
+class VerificationRequiredEvidence(BaseSchema):
+    """
+    Thematic-only evidence marker for claims that need unavailable source data.
+
+    The thematic agent currently has no sell-side estimates, positioning feeds,
+    short-interest datasets, or fund-flow data. When it makes an estimate- or
+    positioning-consensus claim, it must flag the missing validation source here
+    instead of presenting the claim as sourced evidence.
+    """
+
+    source_type: Literal["verification_required"] = "verification_required"
+    claim: str = Field(min_length=1, max_length=2000)
+    supports: bool = True
+    computation: str = Field(
+        default="No direct source available to the thematic agent.",
+        min_length=1,
+        max_length=500,
+    )
+    upstream_claims: List[str] = Field(
+        default_factory=lambda: ["missing external source"],
+        min_length=1,
+        max_length=20,
+    )
+    notes: str = Field(
+        min_length=1,
+        max_length=2000,
+        description="What external data would be required to validate this claim.",
+    )
+
+
+ThematicFitEvidence = Annotated[
+    Union[Evidence, VerificationRequiredEvidence],
+    Field(discriminator="source_type"),
+]
+
+
+class FitStrengthComponents(BaseModel):
+    """
+    Audit trail for fit_strength.
+
+    fit_strength is computed as:
+      40% thesis_mechanism_match
+      30% consensus_anchoring_strength
+      20% catalyst_proximity
+      10% tradeability
+    """
+
+    model_config = ConfigDict(
+        frozen=True,
+        extra="forbid",
+        str_strip_whitespace=True,
+        validate_assignment=True,
+    )
+
+    thesis_mechanism_match: UnitInterval
+    consensus_anchoring_strength: UnitInterval
+    catalyst_proximity: UnitInterval
+    tradeability: UnitInterval
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Candidate — one potential instrument under a research priority
 # ─────────────────────────────────────────────────────────────────────────────
@@ -117,13 +200,33 @@ class Candidate(BaseSchema):
         return v
 
     # Fit to the source priority
+    @model_validator(mode="before")
+    @classmethod
+    def _compute_fit_strength_from_components(cls, data):
+        if not isinstance(data, dict):
+            return data
+        raw_components = data.get("fit_strength_components")
+        if raw_components is None:
+            return data
+        components = FitStrengthComponents.model_validate(raw_components)
+        data = dict(data)
+        data["fit_strength"] = compute_fit_strength_from_components(components)
+        return data
+
     thematic_fit: str = Field(
         min_length=1,
         max_length=1000,
         description="Specific tie-back to the priority — not generic 'this is energy'.",
     )
     fit_strength: UnitInterval
-    fit_evidence: List[Evidence] = Field(default_factory=list, max_length=15)
+    fit_strength_components: Optional[FitStrengthComponents] = Field(
+        default=None,
+        description=(
+            "Named sub-scores used to compute fit_strength. Required for new "
+            "thematic-agent output; optional only for backward-compatible records."
+        ),
+    )
+    fit_evidence: List[ThematicFitEvidence] = Field(default_factory=list, max_length=15)
 
     # The variant view requirement
     consensus_view: str = Field(
@@ -131,6 +234,7 @@ class Candidate(BaseSchema):
         max_length=2000,
         description="What the market thinks. If this is blank or trivial, the candidate is unresearchable.",
     )
+    consensus_type: ConsensusType = ConsensusType.NARRATIVE
     potential_variant_view: str = Field(
         default="",
         max_length=2000,
@@ -152,6 +256,15 @@ class Candidate(BaseSchema):
         default_factory=list,
         max_length=10,
         description="Tags from existing TICKER_METADATA, e.g. 'oil_beta', 'quality_ai'.",
+    )
+    existing_position_verdicts: List[dict[str, Any]] = Field(
+        default_factory=list,
+        max_length=20,
+        description=(
+            "Conviction-stage diagnostics comparing this candidate with already "
+            "held/watched/recently closed positions. Empty unless the existing "
+            "position filter runs."
+        ),
     )
 
 
@@ -175,6 +288,24 @@ class ExclusionRecord(BaseSchema):
         min_length=10,
         max_length=1000,
         description="Specific reason for exclusion. Minimum 10 chars enforced.",
+    )
+
+
+class RejectedQuickItem(BaseModel):
+    """A quickly dismissed ticker from the broader universe audit trail."""
+
+    model_config = ConfigDict(
+        frozen=True,
+        extra="forbid",
+        str_strip_whitespace=True,
+        validate_assignment=True,
+    )
+
+    ticker: str = Field(min_length=1, max_length=20)
+    one_line_reason: str = Field(
+        min_length=5,
+        max_length=100,
+        description="Tight reason for quick dismissal; not a full exclusion record.",
     )
 
 
@@ -207,6 +338,11 @@ class ThematicMap(BaseSchema):
 
     candidates: List[Candidate] = Field(default_factory=list, max_length=30)
     excluded: List[ExclusionRecord] = Field(default_factory=list, max_length=50)
+    rejected_quick: List[RejectedQuickItem] = Field(
+        default_factory=list,
+        max_length=30,
+        description="Fast first-pass dismissals that did not warrant full exclusion records.",
+    )
 
     mapping_logic: str = Field(
         min_length=20,

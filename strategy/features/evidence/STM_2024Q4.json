@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedged forward language ('we expect', 'we anticipate') at comparable density."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1'25 decline 'well above normal seasonality' with no figure; current specifies Q1'25 revenue $2.51B, down 27.6% YoY/24.4% sequentially, and CapEx cut to $2.0-2.3B from $2.5B, and $20B ambition postponed to 2030."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Cost savings target now quantified at $300M-$360M exiting 2027 vs prior vague 'high triple-digit million-dollar range', a downward revision; also $20B+ revenue plan pushed from unspecified date to 2030."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New Silicon Carbide Campus in Catania, Geely supply agreement, STM32N6 NPU, Total PPA, and CMD 2027/28 financial model are newly detailed."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Current call emphasizes '2024 turned out to be one of the worst years in many decades' vs prior's more neutral framing of 'opportunities and challenges'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior cited 'continuing delayed recovery' and 'further deterioration'; current confirms 'delayed recovery', 'slowdown', and book-to-bill 'still below parity', with a much steeper Q1 sequential decline guided."
+  }
+}

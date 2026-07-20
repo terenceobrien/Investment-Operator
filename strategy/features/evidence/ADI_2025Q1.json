@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'expect', 'anticipate', 'believe' hedging around macro uncertainty."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q1 revenue $2.35B\u00b1$100M; current guides Q2 revenue $2.5B\u00b1$100M, a sequential step-up with double-digit YoY growth outlook."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Test content per tester was '20% additional content' prior; now 'up to 300%' signal chain/power content increase in memory test."
+  },
+  "new_topic_rate": {
+    "score": 0,
+    "evidence": "Same topic set (industrial automation, healthcare, ATE, aerospace, auto, comms, consumer) covered in both calls."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'tide has turned in our favor' and 'confidence that 2025 will be a year of growth,' more assertive than prior's cautious 'confident in continued recovery'."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior cited 'muting demand recovery' amid inventory digestion; current states 'inventory levels have largely normalized' and 'positive book to bill' with order improvement."
+  }
+}

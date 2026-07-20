@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging: 'macro uncertainty remains' / 'near-term uncertainty' echoing prior 'significant uncertainties' language."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Q3 guide of EUR6.7-7.3B is stronger sequential step-up than prior Q2 guide of EUR5.7-6.2B, both consistent with recovery trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Backlog roughly flat at EUR39B vs EUR38B prior quarter, essentially held not escalated."
+  },
+  "new_topic_rate": {
+    "score": 0,
+    "evidence": "Same topics repeated: EUV/High NA ramp, Logic digestion, Memory DRAM/HBM growth, 2025 outlook drivers unchanged."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Similar confident-but-cautious tone: 'good quarter' vs prior 'consistent with guidance', no marked superlative shift."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'strong developments in AI driving most of the industry recovery' vs prior's more general AI demand-momentum mention."
+  }
+}

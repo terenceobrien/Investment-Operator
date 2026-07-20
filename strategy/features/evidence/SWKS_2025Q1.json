@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "CEO transition and content-loss disclosure add qualifiers like 'we expect', 'disappointed', 'partially offset' versus more matter-of-fact prior tone"
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 revenue $1.05-1.08B (up 4% seq); current guides Q2 revenue $935-965M, a steep sequential decline plus disclosed 20-25% content loss at largest customer"
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "New disclosure: largest customer content position expected down 20-25% starting Q4 FY25 into FY26, a downward revision to prior implied trajectory"
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "CEO succession (Griffin stepping down, Brace incoming), new Chairman, and largest-customer content loss are all materially new topics absent from prior call"
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior call emphasized 'robust cash generation' and 'well-positioned'; current call uses 'disappointed', 'challenging', 'did not get the result we targeted'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Mobile guided down mid-to-high teens sequentially vs prior mid-single-digit growth guide, and large customer content declining 20-25%"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff/earthquake uncertainty language added: 'we understand there are uncertainties and risk from tariff policies' and 'might get a better picture in next few months'."
+  },
+  "guidance_direction": {
+    "score": 0,
+    "evidence": "Full-year 2025 revenue reiterated at 'close to mid-20s percent' in both calls; Q2 guide of $28.4-29.2B follows normal seasonal path, not a revision of a specific prior guide."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "AI accelerator 'double in 2025' and 'mid-40s% CAGR' figures reaffirmed unchanged from prior call, not revised up or down."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New $100B additional Arizona investment plan, earthquake impact, tariff discussion, and JV denial are all topics absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Language shifts from confident 'strong growth year' framing to acknowledging earthquake disruption and tariff uncertainty, less unreservedly upbeat."
+  },
+  "demand_language_delta": {
+    "score": 0,
+    "evidence": "Demand described similarly: 'robust AI-related demand' continues and 'no change in customer behavior' despite tariffs, consistent with prior strong characterization."
+  }
+}

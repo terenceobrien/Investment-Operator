@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed uncertainty ('increasingly uncertain', 'difficult to quantify'); current uses more definitive language like 'we are increasingly confident' and 'on track'."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior Q3 guide midpoint $13.1B (down 2% to up 6%); current Q4 guide midpoint $13.3B but roughly flat adjusted for Altera, a deceleration from Q3's 6% sequential growth."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Prior called for CapEx cuts of ~$5B YTD with 2025 gross CapEx ~$18B; current reiterates $18B but now expects to deploy over $27B net CapEx vs $17B in 2024, showing higher deployment confidence."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New NVIDIA NVLink partnership, Central Engineering Group, new ASIC/design service business, and U.S. government equity stake are all new vs prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current uses stronger superlatives like 'strongest PC portfolio in years,' 'uniquely positioned,' and 'my confidence in the future grow stronger every day' vs prior's more cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior cited demand tied to tariff-hedging uncertainty; current states 'customer purchasing behavior and inventory levels are healthy' and 'industry supply has tightened materially,' plus fastest TAM growth since 2021."
+  }
+}

@@ -27,7 +27,7 @@ Key design choices:
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field
 
@@ -139,6 +139,22 @@ class NarrativeAnalysis(BaseSchema):
 
     current_narrative: CurrentNarrative
     inefficiency_thesis: InefficiencyThesis
+
+    # Query-layer metadata from src.agent_system.narrative_service. These are
+    # additive so older persisted NarrativeAnalysis records still validate.
+    coverage_quality: Literal["high", "medium", "low", "absent", "stale"] = "absent"
+    snapshot_date: Optional[str] = Field(default=None, max_length=20)
+    snapshot_subject: Optional[str] = Field(default=None, max_length=20)
+    inefficiency_archetype_id: Optional[str] = Field(default=None, max_length=200)
+    price_confirmation: Optional[
+        Literal["confirming", "contradicting", "partial", "unavailable"]
+    ] = None
+    sector_etf: Optional[str] = Field(default=None, max_length=20)
+    sector_narrative_alignment: Optional[
+        Literal["aligned", "diverging", "idiosyncratic", "no_sector_signal"]
+    ] = None
+    source_narrative_indices: List[int] = Field(default_factory=list)
+    is_stale: bool = False
 
     # Narrative-level falsifiers — separate from trade falsifiers.
     # These invalidate the NARRATIVE READ, not the trade thesis.

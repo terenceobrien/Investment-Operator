@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'visibility continues to be limited' repeatedly; current gives firmer 2025 numeric guide despite similar caveats."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior Q4 guide was $810-840M (~8% YoY); current full-year 2025 guide implies only ~6.5% growth with market up just 1-3%, a softer trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior implied 2024 full-year growth guide of 4% revenue/8% EBITDA; current 2025 outperformance of 4-5 points is roughly flat to slightly lower vs prior framing."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New APS division naming, free cash flow as compensable goal, and China export restriction impact ($30-40M) are new specifics not in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current opens with 'pleased... strong performance' and 'all-time high' sales vs prior's more subdued 'below our expectations' framing."
+  },
+  "demand_language_delta": {
+    "score": 0,
+    "evidence": "Both calls describe AI/advanced logic strength offset by weak mainstream/memory/NAND demand, largely unchanged characterization."
+  }
+}

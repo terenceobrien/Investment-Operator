@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'believe', 'we forecast' language used in both calls' guidance sections."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q4 midpoint ~$13.3B; current guides Q1 midpoint $12.2B with gross margin down to 34.5% from 36.5% guide, driven by supply constraints most acute in Q1."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "CapEx previously expected 'down' for 2026; now guided to 'flat to down slightly,' a less favorable capital efficiency trajectory."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive discussion of custom ASIC run-rate exceeding $1B annualized and $100B TAM opportunity, and Investor Day announcement, both absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Current call adds more caution: 'disappointed that we are not able to fully meet the demand,' 'still below what I want them to be,' more restrained than prior's confident tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call: CPU TAM 'cautiously optimistic' will grow; current call cites supply constraints depleting buffer inventory and revenue decline in CCG guided for Q1, plus new component pricing risk from DRAM/NAND/substrates."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New emphasis on 'evolving dynamics,' tariffs, export controls, and 'uncertain macroeconomic backdrop' language not present in prior call."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q1 revenue ~$7.1B; current guides Q2 revenue ~$7.4B but includes $700M export-control cut and gross margin drops to 43% from steady 54%, versus prior call's clean 54% guide."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Full-year export control revenue impact now quantified at ~$1.5B, a new negative revision to previously unconstrained 2025 growth outlook."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New discussion of tariffs, export license requirements for China, ZT Systems integration progress, and Advancing AI event not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call used 'transformative,' 'outstanding year' broadly; current call qualifies confidence with 'despite... tariffs' and 'despite uncertain macroeconomic backdrop.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data center revenue growth decelerated to 57% YoY from 69% YoY prior quarter, and gross margin guide cut due to export curbs signals softer near-term demand capture."
+  }
+}

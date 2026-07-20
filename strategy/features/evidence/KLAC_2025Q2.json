@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New export-control caveats: 'cautious view given significant delays in processing licensing requests' add uncertainty not present prior."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Dec revenue $2.95B; current guides March revenue $3.0B but WFE 2025 growth cut to mid-single-digit from prior 'another year of growth' framing with China headwind larger."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Advanced packaging 2025 estimate raised: prior guided >$500M growing, current explicitly raises to '$800M from last estimate of $750M'."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive discussion of DeepSeek/AI compute efficiency demand-elasticity debate absent from prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Similar superlatives ('record', 'industry leading', 'market leadership') used in both calls at comparable density."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "China 2025 impact now quantified as '$500M plus or minus $100M' hit versus prior's vaguer 'expect it to drop to around 30%' outlook, and WFE growth guide cut to mid-single-digit from 'another year of growth' with leading-edge offset."
+  }
+}

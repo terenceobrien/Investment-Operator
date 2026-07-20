@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar level of hedging language ('expect', 'believe') used in forward statements in both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue $24B (implying ~9% seq growth from $22.1B); current guides Q2 at $28B (~7.7% seq growth from $26B), a slight deceleration in guided sequential growth pace."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "H200 vs H100 inference performance claim ('nearly doubles') repeated unchanged from prior call, no upward revision."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topics: Blackwell full production, NIM software, Sovereign AI high-single-digit-billions forecast, 10-for-1 stock split, dividend hike."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record quarter' and similar superlatives; confidence language density is comparable."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "YoY revenue growth decelerated slightly (265% prior vs 262% current) and data center sequential growth also slowed (27% prior vs 23% current), plus networking saw a 'modest sequential decline.'"
+  }
+}

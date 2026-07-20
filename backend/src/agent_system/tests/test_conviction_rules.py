@@ -8,6 +8,7 @@ from src.agent_system.orchestration.stub_agents import (
 )
 from src.agent_system.rules.conviction import evaluate_conviction
 from src.agent_system.schemas.common import ConvictionRating
+from src.agent_system.schemas.narrative import NarrativeAge
 from src.agent_system.schemas.thematic import VariantStrength
 
 
@@ -36,12 +37,22 @@ def _etn_setup(
     narrative = make_stub_narrative_analysis(candidate)
     narrative = narrative.model_copy_validate(
         {
+            "coverage_quality": "high",
             "conviction": narrative.conviction.model_copy_validate(
                 {"rating": narrative_rating}
             )
         }
     )
     return regime, candidate, fundamental, narrative
+
+
+def _with_active_narrative(narrative, rating: ConvictionRating):
+    return narrative.model_copy_validate(
+        {
+            "coverage_quality": "high",
+            "conviction": narrative.conviction.model_copy_validate({"rating": rating}),
+        }
+    )
 
 
 def test_unclear_variant_view_passes_at_thematic_layer():
@@ -83,10 +94,22 @@ def test_no_fundamental_variant_view_passes():
 
 def test_crowded_mature_narrative_is_weak_without_strong_variant():
     regime, candidate = _candidate("NVDA")
+    narrative = make_stub_narrative_analysis(candidate)
+    narrative = _with_active_narrative(narrative, ConvictionRating.MODERATE)
+    narrative = narrative.model_copy_validate(
+        {
+            "current_narrative": narrative.current_narrative.model_copy_validate(
+                {
+                    "narrative_age": NarrativeAge.MATURE,
+                    "narrative_strength": 9.0,
+                }
+            )
+        }
+    )
     conviction = evaluate_conviction(
         candidate=candidate,
         fundamental=make_stub_fundamental_analysis(candidate),
-        narrative=make_stub_narrative_analysis(candidate),
+        narrative=narrative,
         regime=regime,
     )
     assert conviction.rating == ConvictionRating.WEAK
@@ -95,14 +118,30 @@ def test_crowded_mature_narrative_is_weak_without_strong_variant():
 
 def test_strong_multi_layer_alignment_accepts_etn():
     regime, candidate = _candidate("ETN")
+    narrative = _with_active_narrative(
+        make_stub_narrative_analysis(candidate),
+        ConvictionRating.STRONG,
+    )
+    conviction = evaluate_conviction(
+        candidate=candidate,
+        fundamental=make_stub_fundamental_analysis(candidate),
+        narrative=narrative,
+        regime=regime,
+    )
+    assert conviction.rating == ConvictionRating.STRONG
+    assert conviction.rule_applied == "strong_multi_layer_alignment"
+
+
+def test_absent_narrative_coverage_is_neutral_not_negative():
+    regime, candidate = _candidate("ETN")
     conviction = evaluate_conviction(
         candidate=candidate,
         fundamental=make_stub_fundamental_analysis(candidate),
         narrative=make_stub_narrative_analysis(candidate),
         regime=regime,
     )
-    assert conviction.rating == ConvictionRating.STRONG
-    assert conviction.rule_applied == "strong_multi_layer_alignment"
+    assert conviction.rating == ConvictionRating.MODERATE
+    assert conviction.rule_applied == "moderate_fundamental_variant_no_narrative_signal"
 
 
 def test_strong_variant_moderate_layers_still_use_existing_moderate_rule():

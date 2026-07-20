@@ -33,6 +33,8 @@ from src.agent_system.scenarios.scorer import (
     score_trade_against_scenarios,
 )
 from src.agent_system.scenarios.types import (
+    DEFAULT_SCENARIO_PRIORS,
+    FALLBACK_SCENARIO_PRIOR_WARNING,
     FactorImplications,
     Scenario,
     ScenarioScore,
@@ -83,6 +85,31 @@ def _scenario_set() -> ScenarioSet:
             _scenario("tail", 0.20, label="Tail risk scenario"),
         ],
     )
+
+
+def _macro_scenario_set() -> ScenarioSet:
+    return ScenarioSet(
+        generated_at=datetime(2026, 6, 5, tzinfo=timezone.utc),
+        regime_id_basis="macro_forecast_regime",
+        horizon_months=3,
+        scenarios=[
+            _scenario("reopening_soft_landing", DEFAULT_SCENARIO_PRIORS["reopening_soft_landing"]),
+            _scenario("sticky_late_cycle_ai", DEFAULT_SCENARIO_PRIORS["sticky_late_cycle_ai"]),
+            _scenario("oil_inflation_tail", DEFAULT_SCENARIO_PRIORS["oil_inflation_tail"]),
+            _scenario("late_cycle_risk_off", DEFAULT_SCENARIO_PRIORS["late_cycle_risk_off"]),
+            _scenario("ai_capex_rollover", DEFAULT_SCENARIO_PRIORS["ai_capex_rollover"]),
+        ],
+    )
+
+
+def _macro_scores() -> list[ScenarioScore]:
+    return [
+        ScenarioScore(scenario_id="reopening_soft_landing", expected_pnl_pct=0.08, confidence="high", reasoning="Soft landing produces a positive payoff."),
+        ScenarioScore(scenario_id="sticky_late_cycle_ai", expected_pnl_pct=0.20, confidence="high", reasoning="Sticky AI leadership produces a strong payoff."),
+        ScenarioScore(scenario_id="oil_inflation_tail", expected_pnl_pct=-0.05, confidence="medium", reasoning="Oil inflation tail pressures the trade."),
+        ScenarioScore(scenario_id="late_cycle_risk_off", expected_pnl_pct=-0.30, confidence="medium", reasoning="Risk-off creates a material drawdown."),
+        ScenarioScore(scenario_id="ai_capex_rollover", expected_pnl_pct=-0.45, confidence="low", reasoning="Capex rollover is the worst payoff branch."),
+    ]
 
 
 def _trade():
@@ -263,6 +290,147 @@ def test_trade_scenario_analysis_metrics_fixed_input():
     assert analysis.worst_case_pnl_pct == pytest.approx(-0.20)
     assert analysis.best_case_pnl_pct == pytest.approx(0.35)
     assert analysis.scenarios_positive == 2
+
+
+def test_trade_scenario_metrics_use_dynamic_macro_weights():
+    scenario_set = _macro_scenario_set()
+    scores = _macro_scores()
+    weights = {
+        "reopening_soft_landing": 0.10,
+        "sticky_late_cycle_ai": 0.60,
+        "oil_inflation_tail": 0.10,
+        "late_cycle_risk_off": 0.15,
+        "ai_capex_rollover": 0.05,
+    }
+
+    metrics = compute_trade_scenario_metrics(
+        scores,
+        scenario_set,
+        scenario_probabilities=weights,
+        scenario_weight_source="macro_forecast",
+    )
+
+    expected = sum(score.expected_pnl_pct * weights[score.scenario_id] for score in scores)
+    assert metrics["expected_return"] == pytest.approx(expected)
+    assert metrics["scenario_weight_source"] == "macro_forecast"
+    assert metrics["scenario_weights_used"] == weights
+    assert metrics["scenario_weight_warning"] is None
+
+
+def test_score_trade_uses_current_regime_yaml_weights(monkeypatch):
+    scenario_set = _macro_scenario_set()
+    batch = _ScenarioScoreBatch(scenario_scores=_macro_scores())
+    regime = make_stub_regime_state().model_copy_validate(
+        {
+            "scenario_probabilities": {
+                "reopening_soft_landing": 0.05,
+                "sticky_late_cycle_ai": 0.70,
+                "oil_inflation_tail": 0.10,
+                "late_cycle_risk_off": 0.10,
+                "ai_capex_rollover": 0.05,
+            },
+            "scenario_probability_source": "current_regime_yaml",
+        }
+    )
+
+    monkeypatch.setattr(
+        "src.agent_system.scenarios.scorer.parse_structured",
+        lambda **_kwargs: batch,
+    )
+
+    analysis = asyncio.run(
+        score_trade_against_scenarios(_trade(), scenario_set, regime=regime)
+    )
+
+    assert analysis.scenario_weight_source == "current_regime_yaml"
+    assert analysis.expected_return != pytest.approx(
+        sum(
+            score.expected_pnl_pct * DEFAULT_SCENARIO_PRIORS[score.scenario_id]
+            for score in _macro_scores()
+        )
+    )
+
+
+def test_score_trade_uses_macro_forecast_weights(monkeypatch):
+    scenario_set = _macro_scenario_set()
+    batch = _ScenarioScoreBatch(scenario_scores=_macro_scores())
+    regime = make_stub_regime_state().model_copy_validate(
+        {
+            "scenario_probabilities": {
+                "reopening_soft_landing": 0.15,
+                "sticky_late_cycle_ai": 0.55,
+                "oil_inflation_tail": 0.15,
+                "late_cycle_risk_off": 0.10,
+                "ai_capex_rollover": 0.05,
+            },
+            "scenario_probability_source": "macro_forecast",
+        }
+    )
+
+    monkeypatch.setattr(
+        "src.agent_system.scenarios.scorer.parse_structured",
+        lambda **_kwargs: batch,
+    )
+
+    analysis = asyncio.run(
+        score_trade_against_scenarios(_trade(), scenario_set, regime=regime)
+    )
+
+    assert analysis.scenario_weight_source == "macro_forecast"
+    assert analysis.scenario_weight_warning is None
+
+
+def test_missing_dynamic_weights_warn_and_default_missing_to_zero():
+    scenario_set = _macro_scenario_set()
+    scores = _macro_scores()
+    weights = {
+        "reopening_soft_landing": 0.30,
+        "sticky_late_cycle_ai": 0.30,
+        "oil_inflation_tail": 0.20,
+        "late_cycle_risk_off": 0.20,
+    }
+
+    metrics = compute_trade_scenario_metrics(
+        scores,
+        scenario_set,
+        scenario_probabilities=weights,
+        scenario_weight_source="macro_forecast",
+    )
+
+    assert metrics["scenario_weights_used"]["ai_capex_rollover"] == 0.0
+    assert "ai_capex_rollover" in metrics["scenario_weight_warning"]
+
+
+def test_scenario_weights_sum_to_100_are_converted_to_decimals():
+    scenario_set = _macro_scenario_set()
+    scores = _macro_scores()
+
+    metrics = compute_trade_scenario_metrics(
+        scores,
+        scenario_set,
+        scenario_probabilities={
+            "reopening_soft_landing": 10,
+            "sticky_late_cycle_ai": 60,
+            "oil_inflation_tail": 10,
+            "late_cycle_risk_off": 15,
+            "ai_capex_rollover": 5,
+        },
+        scenario_weight_source="macro_forecast",
+    )
+
+    assert metrics["scenario_weights_used"]["sticky_late_cycle_ai"] == pytest.approx(0.60)
+    assert sum(metrics["scenario_weights_used"].values()) == pytest.approx(1.0)
+
+
+def test_fallback_default_priors_warn_when_macro_weights_unavailable():
+    scenario_set = _macro_scenario_set()
+    scores = _macro_scores()
+
+    metrics = compute_trade_scenario_metrics(scores, scenario_set)
+
+    assert metrics["scenario_weight_source"] == "fallback_default"
+    assert metrics["scenario_weights_used"] == DEFAULT_SCENARIO_PRIORS
+    assert metrics["scenario_weight_warning"] == FALLBACK_SCENARIO_PRIOR_WARNING
 
 
 def test_compute_robustness_known_inputs():
@@ -527,7 +695,7 @@ def test_cli_score_subcommand_scores_and_persists_analysis(tmp_path, monkeypatch
         **compute_trade_scenario_metrics(scores, scenario_set),
     )
 
-    async def fake_score_trade_against_scenarios(_trade, _scenario_set):
+    async def fake_score_trade_against_scenarios(_trade, _scenario_set, regime=None):
         return analysis
 
     monkeypatch.setattr(

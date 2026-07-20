@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New phrase 'despite the certain economic environment' and 'we may actually see an acceleration' adds conditional hedges vs. prior's firmer reaffirmations."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q2 AI revenue $4.4B; current guides Q3 AI revenue $5.1B, up 60% y/y, an acceleration versus prior 44% guide."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Prior said fiscal 2025 AI growth rate; current says growth 'to sustain into fiscal 2026' and hints at acceleration in back half 2026 from inference demand."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on inference monetization and Tomahawk 6's 2-tier cluster flattening not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record' revenue and confident superlatives at similar density."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior flagged slow non-AI recovery and cautious tone; current notes non-AI 'close to the bottom' with several segments up sequentially, and AI demand accelerating with inference upside."
+  }
+}

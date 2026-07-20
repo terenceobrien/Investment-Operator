@@ -188,6 +188,9 @@ def _llm_output(
     priority_direction: PriorityThesisDirection | None = None,
     falsifier_count: int = 3,
     alternatives: bool = True,
+    primary_description: str | None = None,
+    entry_logic: str | None = None,
+    target_derivation: dict | None = None,
 ) -> _TradeExpressionLLMOutput:
     falsifiers = [
         _FalsifierOutput(
@@ -201,9 +204,22 @@ def _llm_output(
         )
         for idx in range(falsifier_count)
     ]
+    descriptions = {
+        "long_call_spread": "long Sep 2026 $95/$100 call spread",
+        "long_put_spread": "long Sep 2026 $95/$80 put spread",
+        "long_call": "long Sep 2026 $95 calls",
+        "long_put": "long Sep 2026 $95 puts",
+        "long_stock": "long stock",
+        "covered_call": "covered call against long stock",
+        "cash_secured_put": "cash-secured put",
+        "pair_trade": "long XXX / short YYY pair trade",
+    }
     payload = {
         "chosen_instrument_type": strategy,
-        "primary_instrument_description": f"{strategy} expression for XXX",
+        "primary_instrument_description": primary_description or descriptions.get(
+            strategy,
+            f"{strategy} expression for XXX",
+        ),
         "rationale_for_instrument": (
             "This structure best matches the thesis while respecting the "
             "trader profile and computed technical anchors."
@@ -217,7 +233,17 @@ def _llm_output(
         ]
         if alternatives
         else [],
-        "entry_logic": "Enter on a pullback toward the 50-day moving average near $95.",
+        "entry_logic": entry_logic
+        or "Enter on a pullback toward the 50-day moving average near $95.",
+        "target_derivation": target_derivation
+        or {
+            "method": "technical",
+            "inputs_used": [
+                "52-week high at $115 from supplied technical anchors",
+                "Current uptrend with SMA50 support near $95",
+            ],
+            "implied_price": 115.0,
+        },
         "exit_target": "Target a move toward the 52-week high near $115.",
         "exit_stop": "Cut risk on a close below the 200-day moving average near $80.",
         "exit_time_stop": "Exit after 90 days if the thesis has not started to play out.",
@@ -665,6 +691,122 @@ def test_missing_priority_direction_field_warns_and_skips_check(monkeypatch, cap
     assert isinstance(result, TradeExpressionRejection) is False
     assert result.selected_strategy == "long_put_spread"
     assert "missing priority_thesis_direction" in caplog.text
+
+
+def test_successful_path_sets_target_derivation_and_entry_metadata(monkeypatch):
+    result = _run_with_mock(monkeypatch, _llm_output())
+
+    assert result.expression.target_derivation.method == "technical"
+    assert result.expression.target_derivation.implied_price == pytest.approx(115.0)
+    assert result.expression.entry_mode == "confirmation_required"
+    assert result.expression.entry_trigger_price == pytest.approx(95.0)
+    assert "strike_rule_validated" in (result.notes or "")
+
+
+def test_spread_strike_violation_retries_once(monkeypatch):
+    invalid = _llm_output(
+        strategy="long_put_spread",
+        priority_direction=PriorityThesisDirection.BEARISH,
+        primary_description="long Mar 2027 $17.50/$7.50 put spread",
+        entry_logic="Enter on confirmed close below $14.53.",
+        target_derivation={
+            "method": "technical",
+            "inputs_used": [
+                "Breakdown below $14.53 support from supplied technical anchors",
+                "Measured downside zone near $7.50 from spread payoff boundary",
+            ],
+            "implied_price": 7.5,
+        },
+    )
+    valid = _llm_output(
+        strategy="long_put_spread",
+        priority_direction=PriorityThesisDirection.BEARISH,
+        primary_description="long Mar 2027 $15/$7.50 put spread",
+        entry_logic="Enter on confirmed close below $14.53.",
+        target_derivation={
+            "method": "technical",
+            "inputs_used": [
+                "Breakdown below $14.53 support from supplied technical anchors",
+                "Measured downside zone near $7.50 from spread payoff boundary",
+            ],
+            "implied_price": 7.5,
+        },
+    )
+    calls = []
+
+    def fake_parse_structured(**kwargs):
+        calls.append(kwargs["user"])
+        return invalid if len(calls) == 1 else valid
+
+    monkeypatch.setattr(
+        "src.agent_system.llm.client.parse_structured",
+        fake_parse_structured,
+    )
+    result = asyncio.run(
+        express_trade(
+            candidate=_candidate(
+                variant_view="Consensus underestimates downside and margin compression."
+            ),
+            screen=_screen(),
+            fundamentals=_fundamentals(),
+            market=_market(),
+            regime=make_stub_regime_state(),
+            trader_profile=load_trader_profile(),
+        )
+    )
+
+    assert len(calls) == 2
+    assert "Previous output violated the spread upper-strike rule" in calls[1]
+    assert result.expression.primary_instrument.description == (
+        "long Mar 2027 $15/$7.50 put spread"
+    )
+    assert result.expression.entry_mode == "confirmation_required"
+    assert result.expression.entry_trigger_price == pytest.approx(14.53)
+    assert "strike_rule_validated" in (result.notes or "")
+
+
+def test_second_spread_strike_violation_returns_warning_note(monkeypatch):
+    invalid = _llm_output(
+        strategy="long_put_spread",
+        priority_direction=PriorityThesisDirection.BEARISH,
+        primary_description="long Mar 2027 $17.50/$7.50 put spread",
+        entry_logic="Enter on confirmed close below $14.53.",
+        target_derivation={
+            "method": "technical",
+            "inputs_used": [
+                "Breakdown below $14.53 support from supplied technical anchors",
+                "Measured downside zone near $7.50 from spread payoff boundary",
+            ],
+            "implied_price": 7.5,
+        },
+    )
+    calls = 0
+
+    def fake_parse_structured(**_kwargs):
+        nonlocal calls
+        calls += 1
+        return invalid
+
+    monkeypatch.setattr(
+        "src.agent_system.llm.client.parse_structured",
+        fake_parse_structured,
+    )
+    result = asyncio.run(
+        express_trade(
+            candidate=_candidate(
+                variant_view="Consensus underestimates downside and margin compression."
+            ),
+            screen=_screen(),
+            fundamentals=_fundamentals(),
+            market=_market(),
+            regime=make_stub_regime_state(),
+            trader_profile=load_trader_profile(),
+        )
+    )
+
+    assert calls == 2
+    assert result.fallback_used is False
+    assert "strike_rule_warning" in (result.notes or "")
 
 
 def test_llm_failure_returns_fallback_components(monkeypatch):

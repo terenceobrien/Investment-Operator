@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Repeated admissions 'contrary to our prior expectations' and 'did not materialize as expected' signal more uncertainty than prior call's forward-looking tone."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided FY2024 revenue $14B-$15B; current cuts to $13.2B-$13.7B, and Q3 gross margin guided ~38% vs prior Q2 guide of ~40%."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Full-year revenue range lowered from $14B-$15B to $13.2B-$13.7B, a downward revision of the same guided metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New Catania silicon carbide campus (EUR5B investment) and Geely supply agreement are substantive new topics absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call had more confident language on 'stronger position' for upcycle; current repeatedly cites unexpected weakness and 'longer, more pronounced correction.'"
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call said Automotive entering deceleration and Industrial correction stronger; current says demand 'did not improve,' 'declined,' correction 'longer and more pronounced than anticipated.'"
+  }
+}

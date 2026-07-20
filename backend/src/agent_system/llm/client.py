@@ -5,7 +5,7 @@ Provides:
 - Lazy-initialized module-scoped OpenAI client (separate from the narrative
   pipeline's client so agent-system traffic is operationally distinct)
 - Structured output via the beta parse API
-- Retry on ValidationError with the error fed back as feedback
+- Retry transient transport/rate-limit failures, but not schema errors
 - Integration with the existing assert_llm_calls_allowed runtime gate
 
 This is intentionally minimal. Each agent imports `parse_structured` and
@@ -15,9 +15,20 @@ The wrapper handles retry, validation, and gate integration.
 from __future__ import annotations
 
 import logging
+import os
+import random
+import sys
+import time
 from typing import TypeVar
 
-from openai import OpenAI
+import httpx
+from openai import (
+    APIConnectionError,
+    APITimeoutError,
+    BadRequestError,
+    OpenAI,
+    RateLimitError,
+)
 from pydantic import BaseModel, ValidationError
 from dotenv import load_dotenv
 
@@ -28,6 +39,7 @@ logger = logging.getLogger("agent_system.llm")
 
 _DEFAULT_CLIENT: OpenAI | None = None
 _MODELS_WITHOUT_TEMPERATURE_SUPPORT: set[str] = set()
+_LAST_CALL_DIAGNOSTICS: dict[str, object] = {}
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -41,8 +53,83 @@ def _get_client() -> OpenAI:
     global _DEFAULT_CLIENT
     if _DEFAULT_CLIENT is None:
         assert_llm_calls_allowed("OpenAI client initialization for agent system")
-        _DEFAULT_CLIENT = OpenAI()
+        _DEFAULT_CLIENT = OpenAI(timeout=_openai_timeout_seconds())
     return _DEFAULT_CLIENT
+
+
+def _openai_timeout_seconds() -> float:
+    try:
+        return float(os.getenv("OPENAI_TIMEOUT_SECONDS", "180"))
+    except ValueError:
+        return 180.0
+
+
+def _openai_max_retries() -> int:
+    try:
+        return max(0, int(os.getenv("OPENAI_MAX_RETRIES", "3")))
+    except ValueError:
+        return 3
+
+
+def get_last_call_diagnostics() -> dict[str, object]:
+    """Return diagnostics for the most recent structured-output call."""
+
+    return dict(_LAST_CALL_DIAGNOSTICS)
+
+
+def _message_diagnostics(messages: list, response_schema: type[BaseModel]) -> dict[str, object]:
+    lengths = [
+        len(str(message.get("content", "")))
+        for message in messages
+        if isinstance(message, dict)
+    ]
+    total_chars = sum(lengths)
+    return {
+        "message_count": len(messages),
+        "prompt_chars": total_chars,
+        "prompt_est_tokens": max(1, total_chars // 4),
+        "largest_message_chars": max(lengths) if lengths else 0,
+        "schema_name": response_schema.__name__,
+    }
+
+
+def _sanitize_error_message(exc: BaseException) -> str:
+    text = str(exc)
+    for env_name in ("OPENAI_API_KEY", "FMP_API_KEY", "FINNHUB_API_KEY", "NEWS_API_KEY"):
+        secret = os.getenv(env_name)
+        if secret and len(secret) > 3:
+            text = text.replace(secret, "***")
+    return text[:500]
+
+
+def _is_retryable_exception(exc: BaseException) -> bool:
+    return isinstance(
+        exc,
+        (
+            APIConnectionError,
+            APITimeoutError,
+            RateLimitError,
+            httpx.RemoteProtocolError,
+            httpx.ReadTimeout,
+            httpx.ConnectTimeout,
+        ),
+    )
+
+
+def _log_retryable_error(
+    *,
+    model: str,
+    purpose: str,
+    attempt: int,
+    max_attempts: int,
+    exc: BaseException,
+) -> None:
+    message = (
+        f"[OpenAI structured parse retry] model={model} purpose={purpose!r} "
+        f"attempt={attempt}/{max_attempts} exception={exc.__class__.__name__}: "
+        f"{_sanitize_error_message(exc)}"
+    )
+    print(message, file=sys.stderr)
 
 
 def _call_openai_parse(
@@ -58,8 +145,6 @@ def _call_openai_parse(
     support customization. Handles the "temperature does not support"
     error by recording the model and retrying without the parameter.
     """
-    from openai import BadRequestError
-
     if model in _MODELS_WITHOUT_TEMPERATURE_SUPPORT:
         # Known not to support; omit temperature entirely.
         return client.beta.chat.completions.parse(
@@ -124,13 +209,15 @@ def parse_structured(
         temperature: Lower is more consistent. 0.3 default for reasoning
             tasks; raise for creative tasks. Ignored for models that
             don't support custom temperature.
-        max_retries: Number of retries on ValidationError. Default 1.
+        max_retries: Deprecated compatibility argument. Validation/schema
+            errors are not retried; transient API/network failures use
+            OPENAI_MAX_RETRIES.
 
     Returns:
         Validated instance of response_schema.
 
     Raises:
-        StructuredOutputError: If validation fails after max_retries.
+        StructuredOutputError: If validation fails or OpenAI returns no parsed output.
     """
     assert_llm_calls_allowed(purpose)
     client = _get_client()
@@ -140,48 +227,86 @@ def parse_structured(
         {"role": "user", "content": user},
     ]
 
-    last_error: ValidationError | None = None
-
-    for attempt in range(max_retries + 1):
-        try:
-            resp = _call_openai_parse(
-                client=client,
-                model=model,
-                messages=messages,
-                response_schema=response_schema,
-                temperature=temperature,
-            )
-            parsed = resp.choices[0].message.parsed
-            if parsed is None:
-                # OpenAI returned a refusal or empty parse — treat as error
-                raise StructuredOutputError(
-                    f"OpenAI returned no parsed content for {purpose}; "
-                    f"refusal or empty response."
-                )
-            return parsed
-
-        except ValidationError as e:
-            last_error = e
-            logger.warning(
-                "Validation error on attempt %d for %s: %s",
-                attempt + 1,
-                purpose,
-                e,
-            )
-            if attempt < max_retries:
-                # Append the validation error to the user message and retry
-                feedback = (
-                    f"\n\n[Your previous response failed validation with these "
-                    f"errors:\n{e}\nPlease produce a response that satisfies "
-                    f"the schema. Pay attention to required fields, minimum "
-                    f"lengths, and field types.]"
-                )
-                messages = [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user + feedback},
-                ]
-
-    raise StructuredOutputError(
-        f"Failed to produce valid {response_schema.__name__} for {purpose} "
-        f"after {max_retries + 1} attempts. Last error: {last_error}"
+    network_retry_count = 0
+    diagnostics = _message_diagnostics(messages, response_schema)
+    diagnostics.update(
+        {
+            "purpose": purpose,
+            "model": model,
+            "retry_count": 0,
+            "last_error": None,
+        }
     )
+    _LAST_CALL_DIAGNOSTICS.clear()
+    _LAST_CALL_DIAGNOSTICS.update(diagnostics)
+    print(
+        "[OpenAI structured parse prompt] "
+        f"model={model} purpose={purpose!r} "
+        f"messages={diagnostics['message_count']} "
+        f"chars={diagnostics['prompt_chars']} "
+        f"est_tokens={diagnostics['prompt_est_tokens']} "
+        f"largest_message_chars={diagnostics['largest_message_chars']} "
+        f"schema={diagnostics['schema_name']}",
+        file=sys.stderr,
+    )
+
+    try:
+        resp = None
+        max_network_attempts = _openai_max_retries() + 1
+        for network_attempt in range(max_network_attempts):
+            try:
+                resp = _call_openai_parse(
+                    client=client,
+                    model=model,
+                    messages=messages,
+                    response_schema=response_schema,
+                    temperature=temperature,
+                )
+                break
+            except BadRequestError:
+                raise
+            except Exception as network_exc:
+                if not _is_retryable_exception(network_exc):
+                    raise
+                network_retry_count += 1
+                _LAST_CALL_DIAGNOSTICS.update(
+                    {
+                        "retry_count": network_retry_count,
+                        "last_error": (
+                            f"{network_exc.__class__.__name__}: "
+                            f"{_sanitize_error_message(network_exc)}"
+                        ),
+                    }
+                )
+                if network_attempt >= max_network_attempts - 1:
+                    raise
+                _log_retryable_error(
+                    model=model,
+                    purpose=purpose,
+                    attempt=network_attempt + 1,
+                    max_attempts=max_network_attempts,
+                    exc=network_exc,
+                )
+                sleep_seconds = [2.0, 5.0, 10.0][
+                    min(network_attempt, 2)
+                ] + random.uniform(0.0, 0.4)
+                time.sleep(sleep_seconds)
+        if resp is None:
+            raise StructuredOutputError(
+                f"OpenAI returned no response object for {purpose}."
+            )
+        parsed = resp.choices[0].message.parsed
+        if parsed is None:
+            # OpenAI returned a refusal or empty parse — treat as error
+            raise StructuredOutputError(
+                f"OpenAI returned no parsed content for {purpose}; "
+                f"refusal or empty response."
+            )
+        return parsed
+
+    except ValidationError as e:
+        logger.warning("Validation error for %s: %s", purpose, e)
+        raise StructuredOutputError(
+            f"Failed to produce valid {response_schema.__name__} for {purpose}. "
+            f"Validation/schema errors are not retried. Error: {e}"
+        ) from e

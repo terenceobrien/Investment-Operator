@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call stressed 'near-term uncertainties', tariff risk and FX headwinds repeatedly; current call is more matter-of-fact with fewer risk caveats."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior Q3 guide was low single-digit wafer shipment growth; current Q4 guide is flat wafer shipment, a step down in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "22/28nm share was 40% of revenue in prior call; current call cites 22nm alone over 10% of 2025 sales with 50+ tape-outs, a new upward specific detail on 22nm growth outlook."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New 55-nanometer BCD platform for automotive/industrial announced, not mentioned in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar confident language like 'industry-leading' and 'differentiation' without marked increase or decrease."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Current call cites 'demand growth across most market segments' and smartphone/notebook replenishment, versus prior call's more cautious FX/tariff-focused outlook."
+  }
+}

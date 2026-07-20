@@ -1,0 +1,43 @@
+variables:
+  activity:
+    fred_series: GDPC1
+    transform: yoy_pct
+    roles: [spine, signature]
+    signature_map: xgdp_growth_4q_pct
+    bounds: [-10.0, 15.0]
+  lur:
+    fred_series: UNRATE
+    transform: level
+    roles: [spine, signature]
+    signature_map: lur_pct
+    bounds: [1.5, 20.0]
+  core_pce:
+    fred_series: PCEPILFE
+    transform: yoy_pct
+    roles: [spine, signature]
+    signature_map: core_pce_inflation_4q_pct
+    bounds: [-3.0, 15.0]
+  credit_spread:
+    fred_components: [BAA, GS10]
+    combine: subtract
+    transform: level
+    roles: [spine, signature]
+    signature_map: rbbbp_pct
+    bounds: [0.2, 10.0]
+  fed_funds:
+    fred_series: FEDFUNDS
+    transform: level
+    roles: [spine, signature]
+    signature_map: rff_pct
+    bounds: [0.0, 25.0]
+  ten_year:
+    fred_series: GS10
+    transform: level
+    roles: [spine, signature]
+    signature_map: rg10_pct
+    bounds: [0.0, 20.0]
+  nfci:
+    fred_series: NFCI
+    transform: level
+    roles: [spine]
+    bounds: [-1.5, 6.0]

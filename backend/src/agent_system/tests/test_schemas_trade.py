@@ -28,6 +28,7 @@ from src.agent_system.schemas.trade import (
     HedgeType,
     Instrument,
     ReviewCadence,
+    TargetDerivation,
     TradeDirection,
     TradeExpression,
     TradeIdea,
@@ -116,6 +117,48 @@ class TestTradeExpression:
             exit_stop="10% trailing stop.",
         )
         assert len(e.alternatives_considered) == 1
+
+    def test_target_derivation_requires_price_for_price_methods(self):
+        with pytest.raises(ValidationError):
+            TargetDerivation(
+                method="technical",
+                inputs_used=["Prior swing low at $72 from Q4 2025"],
+                implied_price=None,
+            )
+
+    def test_target_derivation_thesis_based_has_no_price(self):
+        target = TargetDerivation(
+            method="thesis_based_no_price",
+            inputs_used=["EPS revision thesis has no independently defined price level"],
+            implied_price=None,
+        )
+
+        assert target.method == "thesis_based_no_price"
+
+    def test_trade_expression_accepts_target_derivation_and_entry_metadata(self):
+        expression = TradeExpression(
+            primary_instrument=Instrument(
+                ticker="CVX",
+                instrument_type=InstrumentType.OPTION_UNDERLYING,
+                direction=TradeDirection.SPREAD,
+                description="long Sep 2026 $95/$105 call spread",
+            ),
+            rationale_for_instrument="Defined-risk call spread matches the upside thesis.",
+            entry_logic="Enter on confirmation above resistance near $95.",
+            entry_mode="confirmation_required",
+            entry_trigger_price=95.0,
+            target_derivation=TargetDerivation(
+                method="technical",
+                inputs_used=["Prior resistance near $105 from 2025 highs"],
+                implied_price=105.0,
+            ),
+            exit_target="Target a retest of prior resistance near $105.",
+            exit_stop="Exit on a close below reclaimed support.",
+        )
+
+        assert expression.entry_mode == "confirmation_required"
+        assert expression.entry_trigger_price == 95.0
+        assert expression.target_derivation.implied_price == 105.0
 
 
 # ─────────────────────────────────────────────────────────────────────────────

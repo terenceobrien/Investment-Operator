@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'we believe', 'subject to' language across both calls."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Dec revenue ~$1B, GM 43-44%, EPS $1.65; current guides March revenue ~$925M, GM ~42%, EPS $1.20 -- lower trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Android 5G unit growth guided 'low double-digits for several years' prior vs 'growing over 10%' with total units only 'low single digits' now -- softer framing."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Anokiwave acquisition and Luxshare divestiture of Beijing/Dezhou facilities were absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'best-in-class', 'leading transition'; current is more measured, focused on 'solid quarter' and 'improving' demand."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior: revenue +70% sequential surge and 'above high end'; current: revenue +44% YoY, base station 'demand conditions to remain soft through calendar 2024' -- deceleration and continued softness."
+  }
+}

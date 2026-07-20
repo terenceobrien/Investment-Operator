@@ -46,12 +46,12 @@ class RegimeInputs:
     vix_term_slope:     Optional[float] = None   # VIX3M - VIX
     vvix_level:         Optional[float] = None
     vvix_z:             Optional[float] = None
-    put_call_ratio:     Optional[float] = None   # 5d MA equity P/C
+    put_call_ratio:     Optional[float] = None   # generic/SPY-proxy put-call, not Cboe equity PCR
     skew_index:         Optional[float] = None
 
     # Layer 4 — Breadth
     pct_above_200d:         Optional[float] = None
-    new_highs_minus_lows_z: Optional[float] = None
+    avg_dist_from_200d:     Optional[float] = None   # avg % distance of 11 sector ETFs from their 200d MA
     sectors_green:           Optional[int]   = None
     rsp_vs_spy_z:           Optional[float] = None
     adl_slope:              Optional[float] = None
@@ -108,8 +108,16 @@ def _pct_change_yoy(series: pd.Series) -> Optional[float]:
 
 # ── FRED fetcher ──────────────────────────────────────────────────────────────
 
-def _fred(series_id: str, periods: int = 520) -> pd.Series:
-    """Fetch a FRED series. Returns empty Series on failure."""
+def _fred(
+    series_id: str,
+    periods: int = 520,
+    asof_date: Optional[str] = None,
+) -> pd.Series:
+    """Fetch a FRED series. Returns empty Series on failure.
+
+    If asof_date is provided, truncate the series to that date inclusive before
+    taking the trailing observation window.
+    """
     try:
         def _lazy_fred():
             from fredapi import Fred
@@ -120,7 +128,10 @@ def _fred(series_id: str, periods: int = 520) -> pd.Series:
         data = fred.get_series(series_id)
         if data is None or data.empty:
             return pd.Series(dtype=float)
-        return data.dropna().tail(periods)
+        data = data.dropna()
+        if asof_date is not None:
+            data = data[data.index <= pd.Timestamp(asof_date)]
+        return data.tail(periods)
     except Exception as e:
         print(f"FRED fetch failed for {series_id}: {e}")
         return pd.Series(dtype=float)
@@ -128,15 +139,43 @@ def _fred(series_id: str, periods: int = 520) -> pd.Series:
 
 # ── yfinance fetcher ──────────────────────────────────────────────────────────
 
-def _yf_close(ticker: str, period: str = "2y") -> pd.Series:
-    """Fetch closing prices via yfinance."""
+def _yf_close(
+    ticker: str,
+    period: str = "2y",
+    asof_date: Optional[str] = None,
+) -> pd.Series:
+    """Fetch closing prices via yfinance.
+
+    If asof_date is provided, fetch a wider historical window and truncate to
+    that date inclusive.
+    """
     try:
         import yfinance as yf
-        data = yf.download(ticker, period=period, progress=False,
-                           auto_adjust=True, threads=False)
+        if asof_date is not None:
+            asof_ts = pd.Timestamp(asof_date)
+            start = (asof_ts - pd.Timedelta(days=365 * 3)).strftime("%Y-%m-%d")
+            # yfinance treats end as exclusive, so add one calendar day and
+            # still explicitly trim below to keep the fetch point-in-time.
+            end = (asof_ts + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
+            data = yf.download(
+                ticker,
+                start=start,
+                end=end,
+                progress=False,
+                auto_adjust=True,
+                threads=False,
+            )
+        else:
+            data = yf.download(ticker, period=period, progress=False,
+                               auto_adjust=True, threads=False)
         if data is None or data.empty:
             return pd.Series(dtype=float)
         closes = data["Close"].squeeze().dropna()
+        if asof_date is not None:
+            asof_ts = pd.Timestamp(asof_date)
+            if getattr(closes.index, "tz", None) is not None:
+                asof_ts = asof_ts.tz_localize(closes.index.tz)
+            closes = closes[closes.index <= asof_ts]
         return closes
     except Exception as e:
         print(f"yfinance fetch failed for {ticker}: {e}")
@@ -145,13 +184,16 @@ def _yf_close(ticker: str, period: str = "2y") -> pd.Series:
 
 # ── Layer 1: Monetary ─────────────────────────────────────────────────────────
 
-def _fetch_monetary(inputs: RegimeInputs) -> None:
+def _fetch_monetary(
+    inputs: RegimeInputs,
+    asof_date: Optional[str] = None,
+) -> None:
     print("  Fetching monetary & liquidity data...")
 
     # Net liquidity = Fed balance sheet - TGA - RRP
-    walcl = _fred("WALCL")      # Fed balance sheet (millions)
-    tga   = _fred("WTREGEN")    # Treasury General Account (billions)
-    rrp   = _fred("RRPONTSYD")  # Overnight reverse repo (billions)
+    walcl = _fred("WALCL", asof_date=asof_date)      # Fed balance sheet (millions)
+    tga   = _fred("WTREGEN", asof_date=asof_date)    # Treasury General Account (billions)
+    rrp   = _fred("RRPONTSYD", asof_date=asof_date)  # Overnight reverse repo (billions)
 
     if not walcl.empty and not tga.empty and not rrp.empty:
         try:
@@ -168,7 +210,7 @@ def _fetch_monetary(inputs: RegimeInputs) -> None:
             print(f"    net_liquidity calc failed: {e}")
 
     # NFCI — Chicago Fed National Financial Conditions Index
-    nfci = _fred("NFCI")
+    nfci = _fred("NFCI", asof_date=asof_date)
     if not nfci.empty:
         inputs.nfci = _safe_last(nfci)
         # Inverted z-score: negative NFCI (easy) = positive score
@@ -177,7 +219,7 @@ def _fetch_monetary(inputs: RegimeInputs) -> None:
         print(f"    nfci={inputs.nfci}  inverted_z={inputs.nfci_inverted}")
 
     # M2 growth YoY
-    m2 = _fred("M2SL")
+    m2 = _fred("M2SL", asof_date=asof_date)
     if not m2.empty:
         try:
             s = m2.dropna()
@@ -190,11 +232,14 @@ def _fetch_monetary(inputs: RegimeInputs) -> None:
 
 # ── Layer 2: Credit ───────────────────────────────────────────────────────────
 
-def _fetch_credit(inputs: RegimeInputs) -> None:
+def _fetch_credit(
+    inputs: RegimeInputs,
+    asof_date: Optional[str] = None,
+) -> None:
     print("  Fetching credit & stress data...")
 
     # HY spreads (BAMLH0A0HYM2 = ICE BofA HY OAS in %)
-    hy = _fred("BAMLH0A0HYM2")
+    hy = _fred("BAMLH0A0HYM2", asof_date=asof_date)
     if not hy.empty:
         hy_bps = hy * 100  # convert % to bps
         inputs.hy_spread_level = _safe_last(hy_bps)
@@ -210,7 +255,7 @@ def _fetch_credit(inputs: RegimeInputs) -> None:
         print(f"    hy_spread={inputs.hy_spread_level}bps  z={inputs.hy_spread_z}  chg4w={inputs.hy_spread_chg_4w}")
 
     # IG spreads (BAMLC0A0CM = ICE BofA IG OAS in %)
-    ig = _fred("BAMLC0A0CM")
+    ig = _fred("BAMLC0A0CM", asof_date=asof_date)
     if not ig.empty:
         ig_bps = ig * 100
         inputs.ig_spread_level = _safe_last(ig_bps)
@@ -218,8 +263,8 @@ def _fetch_credit(inputs: RegimeInputs) -> None:
         print(f"    ig_spread={inputs.ig_spread_level}bps  z={inputs.ig_spread_z}")
 
     # HYG/TLT ratio z-score via yfinance
-    hyg = _yf_close("HYG")
-    tlt = _yf_close("TLT")
+    hyg = _yf_close("HYG", asof_date=asof_date)
+    tlt = _yf_close("TLT", asof_date=asof_date)
     if not hyg.empty and not tlt.empty:
         try:
             ratio = (hyg / tlt).dropna()
@@ -231,13 +276,16 @@ def _fetch_credit(inputs: RegimeInputs) -> None:
 
 # ── Layer 3: Volatility ───────────────────────────────────────────────────────
 
-def _fetch_volatility(inputs: RegimeInputs) -> None:
+def _fetch_volatility(
+    inputs: RegimeInputs,
+    asof_date: Optional[str] = None,
+) -> None:
     print("  Fetching volatility structure data...")
 
-    vix   = _yf_close("^VIX",  period="1y")
-    vix3m = _yf_close("^VIX3M", period="1y")
-    vvix  = _yf_close("^VVIX", period="1y")
-    skew  = _yf_close("^SKEW", period="1y")
+    vix   = _yf_close("^VIX",  period="1y", asof_date=asof_date)
+    vix3m = _yf_close("^VIX3M", period="1y", asof_date=asof_date)
+    vvix  = _yf_close("^VVIX", period="1y", asof_date=asof_date)
+    skew  = _yf_close("^SKEW", period="1y", asof_date=asof_date)
 
     if not vix.empty:
         inputs.vix_level = _safe_last(vix)
@@ -266,25 +314,32 @@ def _fetch_volatility(inputs: RegimeInputs) -> None:
 
 # ── Layer 4: Breadth ──────────────────────────────────────────────────────────
 
-def _fetch_breadth(inputs: RegimeInputs, sectors_green: Optional[int] = None) -> None:
+def _fetch_breadth(
+    inputs: RegimeInputs,
+    sectors_green: Optional[int] = None,
+    asof_date: Optional[str] = None,
+) -> None:
     print("  Fetching breadth & participation data...")
+
+    if sectors_green is None and asof_date is not None:
+        try:
+            sector_etfs = ["XLK", "XLF", "XLV", "XLY", "XLP",
+                           "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
+            green_count = 0
+            for etf in sector_etfs:
+                closes = _yf_close(etf, asof_date=asof_date)
+                if len(closes) >= 2 and closes.iloc[-1] > closes.iloc[-2]:
+                    green_count += 1
+            sectors_green = green_count
+            print(f"    sectors_green (historical)={sectors_green}/11")
+        except Exception as e:
+            print(f"    sectors_green historical compute failed: {e}")
 
     inputs.sectors_green = sectors_green
 
-    # New highs / new lows from FRED
-    highs = _fred("HIGHNEW", periods=520)
-    lows  = _fred("LOWNEW",  periods=520)
-    if not highs.empty and not lows.empty:
-        try:
-            hl = (highs - lows).dropna()
-            inputs.new_highs_minus_lows_z = _z_score(hl, window=252)
-            print(f"    new_highs_minus_lows_z={inputs.new_highs_minus_lows_z}")
-        except Exception:
-            pass
-
     # RSP vs SPY ratio z-score
-    rsp = _yf_close("RSP")
-    spy = _yf_close("SPY")
+    rsp = _yf_close("RSP", asof_date=asof_date)
+    spy = _yf_close("SPY", asof_date=asof_date)
     if not rsp.empty and not spy.empty:
         try:
             ratio = (rsp / spy).dropna()
@@ -293,36 +348,84 @@ def _fetch_breadth(inputs: RegimeInputs, sectors_green: Optional[int] = None) ->
         except Exception:
             pass
 
-    # % stocks above 200d MA — use S&P 500 members via NYSE composite proxy
-    # Best proxy available without expensive data: use ^NYA breadth or estimate
-    # from sector ETFs vs their 200d MAs
+    # Continuous breadth proxy: average % distance from 200d MA across 11 sector ETFs.
+    # Replaces the older binary "above/below 200d" indicator which had only 12
+    # possible values. Positive = average sector is above its 200d MA.
     try:
         sector_etfs = ["XLK", "XLF", "XLV", "XLY", "XLP",
                         "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
-        above_200d = []
+        distances_pct = []
+        above_count = 0
+
         for etf in sector_etfs:
-            closes = _yf_close(etf, period="2y")
+            closes = _yf_close(etf, period="2y", asof_date=asof_date)
             if closes.empty or len(closes) < 200:
                 continue
-            above = closes.iloc[-1] > closes.rolling(200).mean().iloc[-1]
-            above_200d.append(float(above))
-        if above_200d:
-            inputs.pct_above_200d = round(np.mean(above_200d) * 100, 1)
-            print(f"    pct_above_200d (sector proxy)={inputs.pct_above_200d}%")
+            ma200 = closes.rolling(200).mean().iloc[-1]
+            if pd.isna(ma200) or ma200 == 0:
+                continue
+            current = closes.iloc[-1]
+            distance_pct = (current - ma200) / ma200 * 100
+            distances_pct.append(float(distance_pct))
+            if current > ma200:
+                above_count += 1
+
+        if distances_pct:
+            inputs.avg_dist_from_200d = round(sum(distances_pct) / len(distances_pct), 2)
+            inputs.pct_above_200d = round(above_count / len(distances_pct) * 100, 1)
+            print(
+                f"    avg_dist_from_200d={inputs.avg_dist_from_200d}%  "
+                f"pct_above_200d={inputs.pct_above_200d}%"
+            )
     except Exception as e:
-        print(f"    pct_above_200d failed: {e}")
+        print(f"    breadth distance compute failed: {e}")
+
+    # Sector-level advance/decline line approximation.
+    # True ADL uses individual stocks. This coarser proxy captures whether
+    # participation is broadening or narrowing across the 11 sector ETFs.
+    try:
+        sector_etfs = ["XLK", "XLF", "XLV", "XLY", "XLP",
+                        "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
+
+        daily_changes = {}
+        for etf in sector_etfs:
+            closes = _yf_close(etf, period="2y", asof_date=asof_date)
+            if closes.empty or len(closes) < 30:
+                continue
+            daily_changes[etf] = closes.pct_change()
+
+        if len(daily_changes) >= 6:
+            returns_df = pd.DataFrame(daily_changes).dropna(how="all")
+            ad_per_day = (returns_df > 0).sum(axis=1) - (returns_df < 0).sum(axis=1)
+            adl = ad_per_day.cumsum()
+
+            if len(adl) >= 20:
+                recent = adl.tail(20).values
+                x = np.arange(len(recent))
+                slope, _ = np.polyfit(x, recent, 1)
+                inputs.adl_slope = float(slope)
+                print(f"    adl_slope (sector-level, 20d)={inputs.adl_slope:+.3f}")
+    except Exception as e:
+        print(f"    adl_slope compute failed: {e}")
 
 
 # ── Layer 5: Positioning ──────────────────────────────────────────────────────
 
-def _fetch_cboe_pcr() -> Optional[float]:
+def _fetch_cboe_pcr(asof_date: Optional[str] = None) -> Optional[float]:
     """
-    Compute equity put/call ratio from SPY options chain via yfinance.
+    Compute a generic SPY-options put/call proxy via yfinance.
     Uses the 3 nearest-dated expirations for liquid volume.
     CBOE's CDN (cdn.cboe.com) enforces Cloudflare and blocks programmatic access;
-    SPY options data from yfinance is the most reliable free-tier substitute.
+    SPY options data from yfinance is a proxy, not Cboe's official equity PCR.
     Returns the current-session put/call ratio, or None on failure.
     """
+    if asof_date is not None:
+        print(
+            "    cboe_pcr: skipped for historical backfill "
+            "(option chains are point-in-time only)"
+        )
+        return None
+
     try:
         import yfinance as yf
         spy = yf.Ticker("SPY")
@@ -348,14 +451,14 @@ def _fetch_cboe_pcr() -> Optional[float]:
             return None
 
         result = total_put_vol / total_call_vol
-        print(f"    cboe_equity_pcr_5dma={result:.3f} (SPY options proxy, {used} expirations)")
+        print(f"    spy_options_put_call_proxy={result:.3f} ({used} expirations)")
         return result
     except Exception as e:
         print(f"    cboe_pcr: failed — {e}")
         return None
 
 
-def _fetch_cftc_cot() -> Optional[float]:
+def _fetch_cftc_cot(asof_date: Optional[str] = None) -> Optional[float]:
     """
     Fetch CFTC Commitment of Traders — large speculator net position in S&P 500 futures.
     Source: CFTC public reporting Socrata API, dataset jun7-fc8e (legacy COT).
@@ -365,8 +468,11 @@ def _fetch_cftc_cot() -> Optional[float]:
     """
     try:
         url = "https://publicreporting.cftc.gov/resource/jun7-fc8e.json"
+        where = "cftc_contract_market_code='13874A'"
+        if asof_date is not None:
+            where += f" AND report_date_as_yyyy_mm_dd <= '{asof_date}'"
         params = {
-            "$where": "cftc_contract_market_code='13874A'",
+            "$where": where,
             "$order": "report_date_as_yyyy_mm_dd DESC",
             "$limit": "120",
         }
@@ -416,29 +522,53 @@ def _fetch_cftc_cot() -> Optional[float]:
         return None
 
 
-def _fetch_positioning(inputs: RegimeInputs) -> None:
+def _fetch_positioning(
+    inputs: RegimeInputs,
+    asof_date: Optional[str] = None,
+) -> None:
     print("  Fetching positioning & sentiment data...")
 
-    # Put/call ratio from CBOE
-    cboe_pcr = _fetch_cboe_pcr()
+    # Put/call ratio proxy from SPY options via yfinance; official Cboe equity/total/index
+    # series are intentionally treated as separate inputs by the forecast audit.
+    cboe_pcr = _fetch_cboe_pcr(asof_date=asof_date)
     if cboe_pcr is not None:
         inputs.put_call_ratio = cboe_pcr
         inputs.put_call_5d_ma = cboe_pcr
     else:
-        print("    cboe_pcr: failed — positioning layer will use COT only")
+        print("    cboe_pcr: failed or unavailable for historical date")
 
     # COT large speculator positioning from CFTC
-    cot_z = _fetch_cftc_cot()
+    cot_z = _fetch_cftc_cot(asof_date=asof_date)
     if cot_z is not None:
         inputs.cot_net_large_spec_z = cot_z
     else:
         print("    cftc_cot: failed — skipping")
 
-    print("    dealer_gamma: requires SpotGamma API — skipping")
-    print("    aaii_sentiment: requires AAII feed — skipping")
+    # AAII sentiment (weekly, point-in-time correct via local XLS lookup)
+    try:
+        from src.state.sentiment_data import get_aaii_asof
 
-    populated = sum(1 for v in [inputs.put_call_ratio, inputs.cot_net_large_spec_z] if v is not None)
-    print(f"    Positioning inputs populated: {populated}/2")
+        aaii_value = get_aaii_asof(asof_date=asof_date)
+        if aaii_value is not None:
+            inputs.aaii_bull_minus_bear = aaii_value
+            print(f"    aaii_bull_minus_bear={aaii_value:+.1f}pp")
+        else:
+            print("    aaii_bull_minus_bear: no reading available on or before asof")
+    except Exception as e:
+        print(f"    aaii_bull_minus_bear: failed — {e}")
+
+    print("    dealer_gamma: requires SpotGamma API — skipping")
+
+    populated = sum(
+        1
+        for v in [
+            inputs.put_call_ratio,
+            inputs.cot_net_large_spec_z,
+            inputs.aaii_bull_minus_bear,
+        ]
+        if v is not None
+    )
+    print(f"    Positioning inputs populated: {populated}/3")
 
 
 # ── Main fetch function ───────────────────────────────────────────────────────
@@ -465,27 +595,27 @@ def fetch_regime_inputs(
     print(f"\nFetching regime inputs for {inputs.asof_date}...")
 
     try:
-        _fetch_monetary(inputs)
+        _fetch_monetary(inputs, asof_date=asof_date)
     except Exception as e:
         print(f"  Monetary fetch error: {e}")
 
     try:
-        _fetch_credit(inputs)
+        _fetch_credit(inputs, asof_date=asof_date)
     except Exception as e:
         print(f"  Credit fetch error: {e}")
 
     try:
-        _fetch_volatility(inputs)
+        _fetch_volatility(inputs, asof_date=asof_date)
     except Exception as e:
         print(f"  Volatility fetch error: {e}")
 
     try:
-        _fetch_breadth(inputs, sectors_green=sectors_green)
+        _fetch_breadth(inputs, sectors_green=sectors_green, asof_date=asof_date)
     except Exception as e:
         print(f"  Breadth fetch error: {e}")
 
     try:
-        _fetch_positioning(inputs)
+        _fetch_positioning(inputs, asof_date=asof_date)
     except Exception as e:
         print(f"  Positioning fetch error: {e}")
 

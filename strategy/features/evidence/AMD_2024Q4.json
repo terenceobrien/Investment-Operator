@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'expect'/'believe' forward language throughout guidance sections."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 revenue ~$7.5B (+22% YoY, +10% seq); current guides Q1 to ~$7.1B, down ~7% sequentially."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Data Center GPU revenue guided 'exceed $5B' in 2024 prior call; current call reports 'greater than $5B' actual, same figure not raised further."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New Dell commercial PC collaboration, client+gaming segment combination reporting change, and DeepSeek/Stargate AI infrastructure commentary are new."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized 122% DC growth and multiple 'record' superlatives; current DC growth slowed to 69% despite similar record language."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data Center revenue grew 122% YoY prior quarter vs 69% YoY current quarter, indicating decelerating growth momentum."
+  }
+}

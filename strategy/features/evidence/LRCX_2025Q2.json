@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'believe', 'anticipate' phrasing across both calls."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "March quarter revenue guide $4.65B vs Dec quarter guide of $4.3B, and EPS guide $1.00 vs prior $0.87, showing sequential raise."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "2025 WFE growth guided to ~$100B now vs prior call's 'growth from mid-$90B' with no specific number; gate-all-around/packaging shipments raised from >$1B in 2024 to >$3B combined guided for 2025."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics: Aether dry-resist production win, Dextro Cobot, digital transformation project, Semiverse education initiative not mentioned prior."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'strong', 'record', 'solid' similarly; current call still confident but not markedly more superlative."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "NAND segment revenue jumped from 11% to 24% of systems revenue and described as 'reached high point since 2022', reflecting improving demand vs prior muted characterization."
+  }
+}

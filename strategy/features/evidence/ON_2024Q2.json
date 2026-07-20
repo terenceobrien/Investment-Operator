@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of forward-looking caution ('we expect', 'anticipate', 'L-shaped curve') with no marked change."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 revenue $1.68B-$1.78B; current guides Q3 $1.7B-$1.8B, but Q2 actual $1.74B came in below prior Q1 actual $1.86B, showing continued sequential decline embedded in guide trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "AI data center content estimate given as new $2,500 to $9,500 by 2025; SiC TAM growth reiterated at 2x market with no upward revision, and Q1's 'best financial performance' SiC claim softened."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New VW Group design win, Czech Republic SiC fab investment, and SWIR Vision Systems acquisition all absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior emphasized 'best financial performance in the industry' and confident share gains; current stresses 'resilience' and 'navigating a challenging market' more cautiously."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Automotive revenue declined 11% QoQ vs 9% QoQ decline prior quarter, and industrial down 2% vs prior 4%, but overall 'inventory digestion persists' with utilization trough deepening to 65% from 66%/65%."
+  }
+}

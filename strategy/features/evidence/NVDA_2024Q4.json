@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Less caveat about export-license uncertainty; current call states China shipments already adjusted rather than 'too early to know'."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q4 revenue ~$20B; current guides Q1 revenue ~$24B, an acceleration in guided sequential growth."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Networking run-rate rose from '$10 billion annualized' to 'exceeded $13 billion annualized', an upward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New AI factories concept and $1 trillion installed base reframing, plus AWS added to DGX Cloud partners, are new emphases."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added superlatives like 'tipping point of a new computing era' and 'best-performing AI PC platforms' beyond prior call's tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Data center YoY growth accelerated from 279% to 409%, and demand for next-gen products described as 'far exceeds supply'."
+  }
+}

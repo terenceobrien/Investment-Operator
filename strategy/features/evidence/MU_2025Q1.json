@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior gave firm numeric outlooks; current avoids pricing guidance citing 'competitive reasons' and stresses 'near-term moderation'."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided fiscal Q1 revenue $8.7B and 39.5% gross margin; current cites a 100bps gross margin decline in Q2 driven by NAND weakness."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "SSD share figures (14% exiting fiscal Q1) are new specifics not directly comparable to a prior-call forward target."
+  },
+  "new_topic_rate": {
+    "score": 0,
+    "evidence": "Discussion remains centered on data center SSD, DRAM/NAND mix and HBM, same topics as prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior used 'record', 'strongest positioning'; current tempers with 'near-term issues', 'headwinds', 'lumpiness'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior called data center demand 'exceeding supply' broadly strong; current notes 'near-term moderation' in data center SSD and NAND weak commodity pricing."
+  }
+}

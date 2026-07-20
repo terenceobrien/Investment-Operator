@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call heavily hedged with 'push outs', 'cautiousness', 'reduced growth curve'; current call more matter-of-fact on results with fewer caveats on near-term numbers."
+  },
+  "guidance_direction": {
+    "score": 0,
+    "evidence": "Prior call set 2025 revenue at EUR30-35B and gross margin 51-53%; current call reiterates 2025 revenue EUR30-35B and margin 51-53%, unchanged."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "2030 revenue opportunity EUR44-60B and margins 56-66% repeated from Investor Day, not revised versus prior call's forward-looking statement."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New product mentions: NXT:870B, NXT:2150i DUV systems and eScan 1100 Multi-beam Inspection revenue, absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call states 'finished 2024 with a strong quarter' and 'extremely thankful,' more confident than prior call's cautious tone on pushouts and reduced demand."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior call cited reduced growth curve and pushouts; current call expects Logic 'up versus 2024' and Memory 'strong, similar to 2024,' a more positive characterization."
+  }
+}

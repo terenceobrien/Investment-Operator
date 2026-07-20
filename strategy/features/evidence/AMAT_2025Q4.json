@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call emphasized 'uncertainty,' 'nonlinear demand,' conservative license assumptions; current call speaks more confidently of 2026 acceleration with fewer caveats."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q4 guide was $6.7B rev/$2.11 EPS (both down sequentially); current Q1 guide is $6.85B rev/$2.18 EPS, above prior quarter's guided levels."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "DRAM leading-edge growth 'up around 50% in fiscal 2025' (prior) vs 'growing... by more than 50% over the past 4 fiscal quarters' (current) - essentially held, not escalated."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New product launches (Xtera, Kinex, PROVision 10) and reporting-structure changes (200mm move, display reclassification) not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call stressed 'record performance'; current call admits growth 'was tempered' and 'trimmed our growth rate,' more restrained framing."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call framed near-term demand issues as temporary digestion; current call cites China WFE spending 'lower' in 2026 and growth deferred to 'second half of calendar 2026,' a further delay."
+  }
+}

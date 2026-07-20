@@ -24,6 +24,7 @@ class StageName(str, Enum):
     TRADE_EXPRESSION = "trade_expression"
     SCENARIO_SCORING = "scenario_scoring"
     PORTFOLIO = "portfolio_construction"
+    MONTE_CARLO = "monte_carlo"
 
 
 class StageStatus(str, Enum):

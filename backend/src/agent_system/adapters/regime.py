@@ -93,6 +93,9 @@ def adapt_regime_state(
             curation.get("seed_research_priorities", [])
         )
         falsifiers = _build_falsifiers(curation.get("falsifiers", []))
+        scenario_probabilities = _build_scenario_probabilities(
+            curation.get("scenario_probabilities")
+        )
 
         return PydanticRegimeState(
             asof_date=_extract_asof_date(dataclass_state),
@@ -120,6 +123,10 @@ def adapt_regime_state(
             headline=curation.get("headline", "") or "",
             summary=curation.get("summary", "") or "",
             risk_summary=curation.get("risk_summary", "") or "",
+            scenario_probabilities=scenario_probabilities,
+            scenario_probability_source=(
+                "current_regime_yaml" if scenario_probabilities else None
+            ),
             key_drivers=[
                 RegimeDriver(**driver)
                 for driver in curation.get("key_drivers", [])
@@ -162,6 +169,22 @@ def _load_curation_config(path: Optional[Path]) -> dict[str, Any]:
             f"current_regime.yaml missing required fields: {', '.join(missing)}"
         )
     return data
+
+
+def _build_scenario_probabilities(value: Any) -> dict[str, float]:
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise RegimeAdapterError("scenario_probabilities must be a mapping")
+    probabilities: dict[str, float] = {}
+    for scenario_id, probability in value.items():
+        try:
+            probabilities[str(scenario_id)] = float(probability)
+        except (TypeError, ValueError) as exc:
+            raise RegimeAdapterError(
+                f"scenario_probabilities contains non-numeric value for {scenario_id!r}"
+            ) from exc
+    return probabilities
 
 
 def _build_layers(dataclass_state: "DataclassRegimeState") -> RegimeLayers:

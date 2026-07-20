@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Language slightly more definitive with concrete metrics like 98% efficiency and specific customer wins vs prior's more general commentary."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 at $3.17B (+14.6% seq); current guides Q4 at $3.28B (+2.9% seq), a marked deceleration in growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "CapEx plan cut from $2.0-2.3B (prior) to slightly below $2B (current), a downward revision of the same guided metric."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New NXP MEMS acquisition, silicon photonics R&D programs, and second LEO satellite customer are substantive new topics absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called out 'strong sequential growth' and 'strength of our product portfolio'; current is more measured, citing results 'in line with expectations.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Automotive prior grew 14% sequentially with book-to-bill 'below parity'; current grew only 10% sequentially despite book-to-bill above 1, and Industrial sequential growth slowed from 15% to 8%."
+  }
+}

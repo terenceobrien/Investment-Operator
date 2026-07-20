@@ -4,7 +4,9 @@ import { useMemo } from 'react'
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? process.env.NEXT_PUBLIC_API_URL ?? ''
 const DEBUG_AUTH = process.env.NEXT_PUBLIC_DEBUG_AUTH === 'true'
 
-type AuthFetcher = ((url: string) => Promise<any>) & {
+type AuthFetcher = ((url: string, init?: RequestInit) => Promise<any>) & {
+  fetcher: (url: string, init?: RequestInit) => Promise<any>
+  stream: (url: string, init?: RequestInit) => Promise<Response>
   isLoaded: boolean
   isSignedIn: boolean
   isReady: boolean
@@ -22,39 +24,74 @@ function debugAuth(path: string, hasToken: boolean) {
   }
 }
 
-export async function fetcher(path: string, token?: string) {
-  const res = await fetch(`${BACKEND_URL}${path}`, {
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
+function buildUrl(path: string) {
+  if (/^https?:\/\//i.test(path)) return path
+  return `${BACKEND_URL}${path}`
+}
+
+function requestHeaders(token?: string, init?: RequestInit) {
+  const headers = new Headers(init?.headers)
+  if (token) headers.set('Authorization', `Bearer ${token}`)
+  if (init?.body && !(init.body instanceof FormData) && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json')
+  }
+  return headers
+}
+
+async function requestJson(path: string, token?: string, init: RequestInit = {}) {
+  const res = await fetch(buildUrl(path), {
+    ...init,
+    headers: requestHeaders(token, init),
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
+  if (res.status === 204) return null;
   return res.json();
 }
 
-export async function postFetcher(path: string, body: any, token?: string) {
-  const res = await fetch(`${BACKEND_URL}${path}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: JSON.stringify(body),
+async function requestStream(path: string, token?: string, init: RequestInit = {}) {
+  const headers = requestHeaders(token, init)
+  if (!headers.has('Accept')) headers.set('Accept', 'text/event-stream')
+  const res = await fetch(buildUrl(path), {
+    ...init,
+    headers,
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
-  return res.json();
+  return res;
+}
+
+export async function fetcher(path: string, token?: string) {
+  return requestJson(path, token);
+}
+
+export async function postFetcher(path: string, body: any, token?: string) {
+  return requestJson(path, token, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
 }
 
 export function useAuthFetcher() {
   const { getToken, isLoaded, isSignedIn } = useAuth()
   return useMemo<AuthFetcher>(() => {
-    const authedFetcher = async (url: string) => {
+    const getAuthToken = async (url: string) => {
       if (!isLoaded) throw new Error('Auth is still loading')
       if (!isSignedIn) throw new Error('Sign-in required')
       const token = await getToken()
       debugAuth(url, !!token)
       if (!token) throw new Error('No Clerk token available')
-      return fetcher(url, token)
+      return token
+    }
+    const authedFetcher = async (url: string, init?: RequestInit) => {
+      const token = await getAuthToken(url)
+      return requestJson(url, token, init)
+    }
+    const authedStream = async (url: string, init?: RequestInit) => {
+      const token = await getAuthToken(url)
+      return requestStream(url, token, init)
     }
     return Object.assign(authedFetcher, {
+      fetcher: authedFetcher,
+      stream: authedStream,
       isLoaded,
       isSignedIn: !!isSignedIn,
       isReady: isLoaded && !!isSignedIn,

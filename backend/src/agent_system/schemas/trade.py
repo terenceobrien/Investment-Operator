@@ -119,6 +119,47 @@ class Hedge(BaseSchema):
     rationale: str = Field(min_length=10, max_length=1000)
 
 
+class TargetDerivation(BaseSchema):
+    """How the trade expression derived its stated exit target."""
+
+    method: Literal[
+        "technical",
+        "valuation",
+        "analyst_target",
+        "measured_move",
+        "volatility",
+        "thesis_based_no_price",
+    ]
+    inputs_used: List[str] = Field(
+        min_length=1,
+        max_length=10,
+        description="Specific inputs used to derive the target.",
+    )
+    implied_price: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        description="Price implied by the method, or None for thesis-based targets.",
+    )
+
+    def model_post_init(self, __context) -> None:
+        if self.method == "thesis_based_no_price" and self.implied_price is not None:
+            raise ValueError(
+                "implied_price must be None for thesis_based_no_price target derivation."
+            )
+        if self.method != "thesis_based_no_price" and self.implied_price is None:
+            raise ValueError(
+                "implied_price is required when target_derivation.method cites a price method."
+            )
+
+
+def _default_target_derivation() -> TargetDerivation:
+    return TargetDerivation(
+        method="thesis_based_no_price",
+        inputs_used=["Legacy expression did not cite a target derivation method."],
+        implied_price=None,
+    )
+
+
 class TradeExpression(BaseSchema):
     """
     How a trade idea is structured for execution.
@@ -139,6 +180,11 @@ class TradeExpression(BaseSchema):
         min_length=10,
         max_length=2000,
         description="How to enter — not just 'buy', but conditions and scaling.",
+    )
+    entry_mode: Literal["confirmation_required", "immediate"] = "immediate"
+    entry_trigger_price: Optional[float] = Field(default=None, ge=0.0)
+    target_derivation: TargetDerivation = Field(
+        default_factory=_default_target_derivation
     )
     exit_target: str = Field(min_length=10, max_length=1000)
     exit_stop: str = Field(min_length=10, max_length=1000)

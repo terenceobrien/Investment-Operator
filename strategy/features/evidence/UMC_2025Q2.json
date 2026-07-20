@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "Prior guided flat ASP; current repeatedly hedges revenue with FX caveats ('subject to foreign exchange effect', 'assuming current level')."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided wafer shipment +5-7% QoQ; current guides only 'low single-digit percentage' increase, a weaker trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior guided Q2 gross margin ~30% and utilization mid-70%; actual Q2 margin 28.7%, and Q3 guide is flat vs Q2 (~28.7%), below prior path."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New substantive FX-exposure discussion and detailed 12nm/Intel PDK timeline (2026 PDK, 2027 tape-out) not present in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called 22nm rise 'driven' with confident 46% QoQ growth stat; current tone more measured, emphasizing FX headwinds and uncertainty."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior expected 'moderate rebound in demand across all segments'; current only cites 'mild increase in wafer shipments' next quarter."
+  }
+}

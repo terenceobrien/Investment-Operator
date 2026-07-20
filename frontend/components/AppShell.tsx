@@ -62,7 +62,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <>
       <LoadingScreen loaded={loaded} />
       <NavBar />
-      {children}
+      <div style={{ paddingLeft: 'var(--helix-content-pad, 0)' }}>
+        {children}
+      </div>
     </>
   );
 }

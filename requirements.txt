@@ -9,12 +9,17 @@ httptools==0.7.1
 idna==3.11
 pydantic==2.12.5
 pydantic_core==2.41.5
+plotly>=5.18.0
+psycopg[binary]>=3.1.0
 python-dotenv==1.2.2
+python-docx==1.1.2
 python-multipart==0.0.24
 PyYAML==6.0.3
 starlette==1.0.0
+streamlit>=1.32.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
+tzdata>=2024.1
 uvicorn==0.44.0
 uvloop==0.22.1
 watchfiles==1.1.1

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior emphasized soft/uncertain markets broadly; current states lead times normalized and more definitive TAM revisions, though still notes limited visibility beyond a quarter or two."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided full-year revenue growth 'low single digit' vs 2023; current raises to 'approximately 5%' growth."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Memory TAM raised from prior $1.2-1.3B range to current $1.4B; Compute SoC SAM raised from $1.6B to $1.8B."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New items introduced: UR AI accelerator launch, MiR1200 Pallet Jack commercial shipments, 2025 OPEX/growth framework not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives used: 'record high revenue' in memory, 'record levels,' vs prior call's more measured 'above plan' language."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Memory grew ~30% H1 in prior call but current flags Q4 memory revenue will 'moderate' and Robotics growth cut to 5-10% from prior 10-20% target."
+  }
+}

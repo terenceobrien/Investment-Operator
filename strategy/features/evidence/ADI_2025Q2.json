@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'challenging macro' repeatedly; current more definitive ('exceeded expectations', 'confident') despite tariff mention."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $2.5B\u00b1$100M and EPS $1.68\u00b1$0.10; current guides Q3 revenue $2.75B\u00b1$100M and EPS $1.92\u00b1$0.10, both raised."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Robot content claim ('hundreds of dollars... to thousands') is new, no comparable figure cited in prior call."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New framing around 'five key megatrends' and humanoid robotics content not present in prior call's discussion."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current call adds superlatives like 'exceptional product portfolio,' 'record result,' '60th anniversary' milestone vs more measured prior tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior cited 4% YoY growth and cautious trough language; current reports 22% YoY growth, record automotive, bookings up across all end markets."
+  }
+}

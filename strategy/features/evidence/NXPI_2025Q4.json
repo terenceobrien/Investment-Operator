@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior repeatedly qualified with 'we do not yet see' and cautious macro framing; current uses more definitive statements like 'confident' and 'better than we anticipated'."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q4 revenue $3.3B (+6% YoY); current guides Q1 $3.15B (+11% YoY), described as 'better than our view 90 days ago', a raised trajectory despite sequential seasonal decline."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "VSMC gross margin uplift previously framed with $250M capacity fee/$350M equity Q4 investment; current Q1 equity investment of $210M and capacity fee $190M, both lower than prior quarter commitments."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: physical AI platforms with Kinara MPU, MEMS sensor business sale to STMicroelectronics, RF Power exit, and geographic reporting basis change."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds phrases like 'exceptionally strong' customer interest and 'exceptionally well positioned', more superlative than prior's 'solid' and 'compelling'."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior said 'do not yet anticipate direct customer inventory restocking'; current cites 'inventory digestion behind us' and 'demand began to accelerate', signaling improved demand trajectory."
+  }
+}

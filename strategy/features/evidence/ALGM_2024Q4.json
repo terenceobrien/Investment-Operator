@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More qualifiers on trough timing, pricing support, and 'muted' industrial recovery language vs. prior's more confident cadence."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q4 sales $230-240M/EPS $0.19-0.23; current guides Q1 sales $160-170M/EPS $0.01-0.03, a much steeper sequential cut."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Prior expected auto sales to grow high teens in FY24; actual/current commentary shows auto sales up only 2% YoY in Q4, decelerating trajectory."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New mentions of ceasing Photonics investment, medical/CGM applications, and China-for-China manufacturing initiative not discussed prior quarter."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record' and confident language; current also adds 'record annual sales' and 'record EPS' similar superlative density."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior expected Q1 FY25 as trough with recovery; current confirms Q1 as trough with deeper guided sales decline and e-mobility down 14% sequentially vs prior's 6% e-mobility sequential growth."
+  }
+}

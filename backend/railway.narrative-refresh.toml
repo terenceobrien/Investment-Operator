@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python -m src.narrative.scripts.daily_refresh"
+cronSchedule = "0 10 * * *"
+restartPolicyType = "NEVER"

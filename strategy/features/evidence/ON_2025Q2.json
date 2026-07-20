@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'uncertain,' 'cautious,' 'challenging'; current emphasizes 'stabilization' and specific customer wins with fewer qualifiers."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior Q2 guide was $1.4-1.5B/EPS $0.48-0.58; current Q3 guide $1.465-1.565B/EPS $0.54-0.64, both raised."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "UPS revenue growth 40-50% guide and Treo $1B by 2030 target repeated without updated figures this call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Nvidia 800V DC architecture collaboration, Schaeffler expansion, and next-gen wide band gap semiconductors beyond SiC introduced."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More concrete customer wins ('Xiaomi,' 'NVIDIA,' 'Schaeffler') cited confidently versus prior's more generic 'leading OEMs' language."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Automotive down 26% sequential prior vs. down only 4% and 'expected to grow in Q3' this quarter, signaling improving demand."
+  }
+}

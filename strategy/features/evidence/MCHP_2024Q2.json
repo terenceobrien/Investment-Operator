@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -2,
+    "evidence": "Prior said stabilizing conditions; current adds 'lower bookings and reduced near-term visibility' and repeated uncertainty phrasing."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Sept quarter -3% to +1% seq; current guides Dec quarter down 15% to down 20% seq, a sharp cut."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Lead times guided to continue falling 'farther' prior call; current specifies target of less than 8 weeks by end of 2023, but bookings/visibility now explicitly worse."
+  },
+  "new_topic_rate": {
+    "score": 0,
+    "evidence": "Same topics (China, inventory, lead times, cash return) discussed; no substantive new initiatives introduced."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Prior used 'outstanding results' and multiple records; current says results 'about as we expected,' fewer superlatives, no gross margin record."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior: 'business remains steady' with early weakness signs; current: 'all regions...experienced varying degrees of weakness' and guides steep Dec decline."
+  }
+}

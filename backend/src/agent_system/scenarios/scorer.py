@@ -11,9 +11,11 @@ from src.agent_system.llm.config import SCENARIO_AGENT_MODEL
 from src.agent_system.scenarios.types import (
     ScenarioScore,
     ScenarioSet,
+    ScenarioWeightSource,
     TradeScenarioAnalysis,
     compute_trade_scenario_metrics,
 )
+from src.agent_system.schemas.regime import RegimeState
 from src.agent_system.schemas.trade import TradeIdea
 
 logger = logging.getLogger("agent_system.scenarios.scorer")
@@ -82,9 +84,23 @@ def _build_analysis(
     trade: TradeIdea,
     scenario_set: ScenarioSet,
     scores: list[ScenarioScore],
+    regime: RegimeState | None = None,
+    scenario_probabilities: dict[str, float] | None = None,
     fallback_used: bool = False,
 ) -> TradeScenarioAnalysis:
-    metrics = compute_trade_scenario_metrics(scores, scenario_set)
+    scenario_weight_source: ScenarioWeightSource | None = None
+    if scenario_probabilities:
+        scenario_weight_source = "macro_forecast"
+    elif regime is not None and regime.scenario_probabilities:
+        scenario_probabilities = dict(regime.scenario_probabilities)
+        raw_source = regime.scenario_probability_source
+        scenario_weight_source = raw_source if raw_source is not None else "macro_forecast"
+    metrics = compute_trade_scenario_metrics(
+        scores,
+        scenario_set,
+        scenario_probabilities=scenario_probabilities,
+        scenario_weight_source=scenario_weight_source,
+    )
     return TradeScenarioAnalysis(
         created_at=datetime.now(timezone.utc),
         trade_id=trade.id or trade.underlying,
@@ -98,6 +114,8 @@ def _build_analysis(
 def _neutral_fallback_analysis(
     trade: TradeIdea,
     scenario_set: ScenarioSet,
+    regime: RegimeState | None = None,
+    scenario_probabilities: dict[str, float] | None = None,
 ) -> TradeScenarioAnalysis:
     scores = [
         ScenarioScore(
@@ -112,6 +130,8 @@ def _neutral_fallback_analysis(
         trade=trade,
         scenario_set=scenario_set,
         scores=scores,
+        regime=regime,
+        scenario_probabilities=scenario_probabilities,
         fallback_used=True,
     )
 
@@ -128,6 +148,8 @@ def _validate_score_ids(batch: _ScenarioScoreBatch, scenario_set: ScenarioSet) -
 async def score_trade_against_scenarios(
     trade: TradeIdea,
     scenario_set: ScenarioSet,
+    regime: RegimeState | None = None,
+    scenario_probabilities: dict[str, float] | None = None,
 ) -> TradeScenarioAnalysis:
     """
     Score a TradeIdea across all scenarios in one batched LLM call.
@@ -153,8 +175,15 @@ async def score_trade_against_scenarios(
             trade=trade,
             scenario_set=scenario_set,
             scores=batch.scenario_scores,
+            regime=regime,
+            scenario_probabilities=scenario_probabilities,
             fallback_used=False,
         )
     except Exception as exc:
         logger.warning("scenario scoring fallback for %s: %s", trade.underlying, exc)
-        return _neutral_fallback_analysis(trade, scenario_set)
+        return _neutral_fallback_analysis(
+            trade,
+            scenario_set,
+            regime=regime,
+            scenario_probabilities=scenario_probabilities,
+        )

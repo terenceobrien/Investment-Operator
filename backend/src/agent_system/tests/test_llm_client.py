@@ -10,6 +10,7 @@ from unittest.mock import MagicMock, patch
 
 import httpx
 import pytest
+from openai import APIConnectionError
 from pydantic import BaseModel, ValidationError
 
 from src.agent_system.llm import client as llm_client
@@ -64,10 +65,36 @@ def test_parse_structured_returns_parsed_instance_on_success(monkeypatch):
     parse_mock.assert_called_once()
 
 
-def test_parse_structured_retries_on_validation_error_and_succeeds(monkeypatch):
+def test_parse_structured_does_not_retry_validation_error(monkeypatch):
     parse_mock = MagicMock(side_effect=[_validation_error(), _parsed_response(9)])
     monkeypatch.setattr(llm_client, "_DEFAULT_CLIENT", _mock_client(parse_mock))
     monkeypatch.setattr(llm_client, "assert_llm_calls_allowed", MagicMock())
+
+    with pytest.raises(StructuredOutputError):
+        parse_structured(
+            system="system",
+            user="user",
+            model="test-model",
+            response_schema=DummyResponse,
+            purpose="test purpose",
+            max_retries=1,
+        )
+
+    assert parse_mock.call_count == 1
+
+
+def test_parse_structured_retries_api_connection_error_and_succeeds(monkeypatch):
+    request = httpx.Request("POST", "https://api.openai.com/test")
+    parse_mock = MagicMock(
+        side_effect=[
+            APIConnectionError(request=request),
+            _parsed_response(9),
+        ]
+    )
+    monkeypatch.setattr(llm_client, "_DEFAULT_CLIENT", _mock_client(parse_mock))
+    monkeypatch.setattr(llm_client, "assert_llm_calls_allowed", MagicMock())
+    monkeypatch.setenv("OPENAI_MAX_RETRIES", "1")
+    monkeypatch.setattr(llm_client.time, "sleep", lambda _seconds: None)
 
     result = parse_structured(
         system="system",
@@ -75,13 +102,12 @@ def test_parse_structured_retries_on_validation_error_and_succeeds(monkeypatch):
         model="test-model",
         response_schema=DummyResponse,
         purpose="test purpose",
-        max_retries=1,
     )
 
     assert result == DummyResponse(value=9)
     assert parse_mock.call_count == 2
-    retry_messages = parse_mock.call_args_list[1].kwargs["messages"]
-    assert "failed validation" in retry_messages[1]["content"]
+    diagnostics = llm_client.get_last_call_diagnostics()
+    assert diagnostics["retry_count"] == 1
 
 
 def test_parse_structured_raises_after_retries_exhausted(monkeypatch):
@@ -106,7 +132,7 @@ def test_assert_llm_calls_allowed_called_before_client_init(monkeypatch):
     def fake_guard(_context: str = "") -> None:
         events.append("guard")
 
-    def fake_openai():
+    def fake_openai(**_kwargs):
         events.append("client")
         return _mock_client(MagicMock(return_value=_parsed_response(3)))
 

@@ -104,6 +104,7 @@ class EvidenceSourceType(str, Enum):
     PRICE = "price"
     POSITIONING = "positioning"
     DERIVED = "derived"  # computed from other evidence; must cite inputs
+    VERIFICATION_REQUIRED = "verification_required"
 
 
 class FalsifierObservable(str, Enum):

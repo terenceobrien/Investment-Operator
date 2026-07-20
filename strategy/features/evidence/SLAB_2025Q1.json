@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff/trade uncertainty language added: 'too early to quantify,' 'outstanding questions' about indirect demand impact, absent from prior call."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided March quarter at midpoint 67% YoY/7% sequential growth; current guides June quarter at midpoint 32% YoY growth, a clear deceleration in guided trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CGM ~10% of revenue in 12-18 months claim not repeated or updated with a comparable figure in current call."
+  },
+  "new_topic_rate": {
+    "score": -1,
+    "evidence": "Tariff/trade policy discussion is new, but Works With Conference, matter/thread ecosystem depth, and CES launches from prior call are dropped."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call used stronger superlatives like 'preeminent thought leader' and 'record momentum'; current call is more measured despite 'strong' results."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call cited 91% YoY trough growth and 67% guided growth; current cites 67% YoY actual and only 32% guided growth, indicating deceleration."
+  }
+}

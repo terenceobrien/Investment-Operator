@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar levels of 'we expect', 'believe', 'anticipate' hedging language throughout."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided June revenue $3.8B midpoint; current guides September revenue $4.05B midpoint, a raise in sequential trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "WFE outlook held at 'mid $90 billion range' both calls, essentially unchanged trajectory."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New DIRECTDRIVE conductor etch tool and Cryo 3.0 product announcements not present in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar 'strong results', 'solid execution', 'highest gross margin' superlatives."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call cited NAND spares 'double digit percent growth quarter-over-quarter'; current says CSBG will 'grow modestly' and NAND revenue 'at a low point.'"
+  }
+}

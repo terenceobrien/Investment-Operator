@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New qualifiers like 'we don't expect this mix shift... will reverse' and 'evaluate strategic alternatives' signal more caution than prior confident tone."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q(next) revenue ~$1.025B and EPS $1.75-$1.95; current guides next quarter to only ~$900M and EPS $1.10-$1.30, a clear cut."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "Mid-tier Android 5G share described as 'approximately half' prior quarters vs now 'less than a third,' a downward revision of same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New disclosures: silicon carbide strategic review, GaAs fab transfer to Oregon, and new PMIC/DC-DC mobile contract not discussed previously."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior called BOM savings 'best-in-class' and emphasized broad wins; current adds cautionary language about margin/revenue pressure and cost-cutting actions."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior call had no mid-tier weakness mention; current explicitly cites 'unfavorable mix' and mid-to-entry tier shift 'we do not expect... to reverse,' pressuring revenue/margins."
+  }
+}

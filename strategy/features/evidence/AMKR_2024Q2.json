@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar hedging language ('may', 'expect', 'we believe') used in both calls at comparable density."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue ~$1.45B (6% seq growth); current guides Q3 revenue ~$1.835B (26% seq growth), a much stronger sequential guide."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Prior call had no full-year 2.5D revenue figure; current raises to expecting full-year 2.5D revenue to quadruple vs 2023, up from prior plan of capacity coming online."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topic: $400M CHIPS Act preliminary memorandum with US Dept of Commerce for Arizona facility, absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More confident language: 'excited,' 'significant milestone,' 'proud to be the leading' vs more cautious prior tone."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Communications grew 10% sequentially and computing 20% sequentially now vs prior call's more muted 'muted first half' framing, though auto/industrial demand still described as weak/slower-than-expected."
+  }
+}

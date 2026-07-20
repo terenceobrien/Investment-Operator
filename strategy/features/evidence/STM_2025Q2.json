@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior stressed 'persistently uncertain environment' and declined to give FY guide; current gives affirmative Q3 guide and confirms Q1 as bottom more definitively."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $2.71B (+/-350bps, +7.7% seq); current guides Q3 at $3.17B (+/-350bps, +14.6% seq), a clear sequential acceleration and raise in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "STM32 ecosystem users grew from 1.3M (2024, cited prior) to 'close to 1.5 million' now, an upward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New NVIDIA 800-volt DC-DC data center collaboration is a substantive new topic absent from prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds phrases like 'confirms the strength of our product portfolio' and highlights back-to-growth MCUs, more affirming than prior's cautious tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Prior: Industrial/Auto expected low point with book-to-bill just above 1; current: Industrial/Auto grew sequentially, book-to-bill above 1 with rising bookings, confirming recovery."
+  }
+}

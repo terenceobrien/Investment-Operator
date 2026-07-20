@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedging language ('we expect', 'if', forward-looking caveats) at comparable density."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q3 at ~8% sequential growth midpoint; current guides Q4 at only ~1% sequential growth."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No comparable specific forward figure (e.g., $4B SAM) revisited with new number in current call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Tier 1 ADAS automotive win and first BMS robotics design win are new substantive topics not in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized 'strong customer focus' and clear excitement; current adds 'relentless' but Hsing sounds more defensive re: AI distraction."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior guided 20-30% sequential enterprise data growth; current discusses enterprise data as previously 'flat to down 20%', now only modestly better than anticipated."
+  }
+}

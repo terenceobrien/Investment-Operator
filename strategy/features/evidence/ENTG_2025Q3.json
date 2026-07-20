@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New CEO adds 'wait-and-see approach' and cautious language on translating optimism into orders, more hedged than prior's firmer 'expect stronger second half.'"
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q3 sales $780-820M and gross margin in line with Q2 (44.4%); current guides Q4 $790-830M but gross margin only 43-44%, below prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "No comparable specific forward numeric target (e.g. TAM, capacity) revised between calls; commentary stays qualitative."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New CEO priorities framework and Investor Day announcement for 60th anniversary are new elements absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call touted being 'above guidance' and 'proudest' legacy language; current call is more measured, citing margin miss and underutilization."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior said 'fully expect a stronger second half'; current admits mainstream logic demand 'still mixed and well below prior peak' and adopts wait-and-see stance."
+  }
+}

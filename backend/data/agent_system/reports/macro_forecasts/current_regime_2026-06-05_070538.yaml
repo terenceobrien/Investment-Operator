@@ -1,0 +1,176 @@
+regime_id: two_sided_oil_shock_broadening_watch
+regime_label: Reopening / Soft Landing leads; top macro-supported themes are Grid and power infrastructure,
+  Quality ex-AI cash flow, Quality AI leaders.
+regime_call_confidence: 0.790625
+headline: Forecast favors reopening soft landing and broader market participation.
+summary: 'The model assigns the highest probability to Reopening / Soft Landing at 37.7%; runner-up sticky_late_cycle_ai
+  at 31.9%. The largest displayed deterministic driver is Breadth and participation (-0.297). Healthy
+  credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing,
+  and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities
+  are historically calibrated after the deterministic update. Dominant scenario: Reopening / Soft Landing
+  (38%); runner-up scenario: Sticky Late Cycle AI (32%). Probability mode: historically_calibrated. Key
+  macro tension: Credit is healthy but breadth is weak or narrow.'
+risk_summary: 'Credit is healthy but breadth is weak or narrow. Fed path remains restrictive despite some
+  monetary-layer improvement. Reopening / Soft Landing could fade if Breadth narrows further. Sticky Late
+  Cycle AI could fade if Breadth broadens materially with equal-weight and small-cap leadership. Tail
+  probabilities remain visible: risk-off 12%, AI capex rollover 8%.'
+scenario_probabilities:
+  reopening_soft_landing: 0.3766809534526288
+  sticky_late_cycle_ai: 0.3189023072571924
+  oil_inflation_tail: 0.10310646136127671
+  ai_capex_rollover: 0.08206634437892787
+  late_cycle_risk_off: 0.11924393354997417
+key_drivers:
+- name: AI earnings resilience
+  status: bullish/stable
+  explanation: bullish/stable data-center-tied capital spending remains durable and revision-supported
+    ai infrastructure leaders can keep working even if the broader backdrop is fragile. this is the main
+    force keeping sticky late-cycle ai a near-equal runner-up.
+- name: Breadth / participation
+  status: bearish/deteriorating
+  explanation: Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing
+    Breadth remains weak on an absolute basis.
+- name: Credit conditions
+  status: bullish/stable
+  explanation: HY spreads tight (275bps) — credit healthy
+- name: Fed path / monetary policy
+  status: mixed/mixed
+  explanation: Composite reconciles layer score 5.59, layer signal mixed with Fed hold/hike probability
+    80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability
+    updates. High hold/hike odds keep policy from being treated as outright bullish.
+- name: Oil shock and reopening optionality
+  status: mixed/mixed
+  explanation: mixed/mixed still inflationary but now two-sided. oil remains elevated versus pre-shock
+    levels, but reopening and de-escalation headlines have reduced one-way upside pressure (uso -17.3%
+    over 3m). energy remains a useful hedge, but the trade is tactical and headline-sensitive.
+- name: Volatility / hedging
+  status: bullish/stable
+  explanation: Put/call ratio elevated (1.15) — fear-driven hedging, contrarian bullish
+portfolio_implications:
+- Favor themes with positive macro support across the highest-probability scenarios.
+- Maintain hedges or cash-like exposure while risk-off analogue probability remains elevated.
+- Distinguish quality AI and grid beneficiaries from high-beta crowded semiconductor beta.
+- Best supported exposures include Grid and power infrastructure, Quality ex-AI cash flow, Quality AI
+  leaders, Cash and short duration.
+- Be cautious with Small caps, High-beta AI semiconductors, Long-duration growth, High beta growth.
+- Treat oil and energy exposure as tactical because oil-shock risk remains two-sided.
+best_positioned:
+- Grid and power infrastructure
+- Quality ex-AI cash flow
+- Quality AI leaders
+- Cash and short duration
+- Commodities and real assets
+- Quality
+- Defensive factor
+- Cash and carry
+most_vulnerable:
+- Small caps
+- High-beta AI semiconductors
+- Long-duration growth
+- High beta growth
+- Duration sensitivity
+- Small-cap beta
+- Energy and oil beta
+- Weak balance sheets
+- Crowded capex beta if capex rollover risk rises
+falsifiers:
+- condition: Hyperscaler capex guidance weakens materially.
+  observable_in: earnings
+  check_frequency: event_driven
+- condition: Breadth narrows further.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Fed hold/hike odds rise.
+  observable_in: data_series
+  check_frequency: weekly
+- condition: RSP begins outperforming SPY and small caps outperform.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Breadth broadens materially with equal-weight and small-cap leadership.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Fed cut probabilities rise.
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Breadth remains weak while AI earnings revisions stay positive.
+  observable_in: price_action
+  check_frequency: event_driven
+- condition: Credit stays tight.
+  observable_in: data_series
+  check_frequency: daily
+- condition: Breadth improves and volatility remains contained.
+  observable_in: price_action
+  check_frequency: daily
+- condition: HY spreads widen or credit-sensitive equities underperform.
+  observable_in: price_action
+  check_frequency: daily
+seed_research_priorities:
+- theme: Second-order grid and power infrastructure beneficiaries with cross-scenario support
+  rationale: 'Grid/power ranks highly because it has positive macro support across Sticky Late Cycle AI,
+    Reopening / Soft Landing, Oil Inflation Tail. Research should now test whether the best expressions
+    are obvious AI-grid leaders or less-obvious second-order beneficiaries. Crowding, valuation, and narrative
+    maturity should be evaluated downstream. Worst scenarios to underwrite: AI Capex Rollover, Late Cycle
+    Risk-Off. Current regime: Reopening / Soft Landing narrowly leads a contested tape; sticky AI leadership
+    remains a near-equal runner-up. Top macro-supported themes are Grid and power infrastructure, Quality
+    ex-AI cash flow, Cash and short duration.. Key drivers: Breadth / participation, AI earnings resilience,
+    Credit conditions.'
+  edge_hypothesis: Macro support for grid and power infrastructure may create attractive research paths,
+    but the edge depends on finding specific suppliers, service providers, or infrastructure names where
+    ownership, valuation, revisions, and narrative maturity still leave room for upside.
+  sub_questions:
+  - Which names have direct but under-discussed data-center, grid, or power exposure?
+  - Which names have positive estimate revision potential without extreme AI-infrastructure crowding?
+  - Which names remain resilient if AI capex continues but rates stay restrictive?
+  - Which names would fail if AI capex rollover probability rises?
+  priority_rank: 1
+  expected_edge_decay: quarters
+  source_theme_id: grid_power_infrastructure
+  source_scenario_ids:
+  - sticky_late_cycle_ai
+  - reopening_soft_landing
+  - oil_inflation_tail
+  source_macro_forecast_id: null
+- theme: Quality ex-AI cash-flow compounders with soft-landing and sticky-cycle resilience
+  rationale: 'Quality ex-AI ranks highly because it performs well across Sticky Late Cycle AI, Reopening
+    / Soft Landing, Late Cycle Risk-Off. Downstream research should test whether specific names are genuinely
+    under-owned, attractively valued, and supported by revisions. Current regime: Reopening / Soft Landing
+    narrowly leads a contested tape; sticky AI leadership remains a near-equal runner-up. Top macro-supported
+    themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.. Key drivers:
+    Breadth / participation, AI earnings resilience, Credit conditions.'
+  edge_hypothesis: Macro support may favor high-ROIC cash-generative businesses outside explicit AI leadership,
+    but the actionable edge depends on downstream proof of under-ownership, valuation support, and durable
+    estimate revisions.
+  sub_questions:
+  - Which non-AI cash-flow compounders have positive estimate revision potential?
+  - Where are balance-sheet quality and free-cash-flow durability mispriced versus AI-led scarcity names?
+  - Which candidates still work if policy stays restrictive and broad beta remains uneven?
+  - Which names have hidden cyclicality that would fail in a late-cycle risk-off scenario?
+  priority_rank: 2
+  expected_edge_decay: quarters
+  source_theme_id: quality_ex_ai_cash_flow
+  source_scenario_ids:
+  - sticky_late_cycle_ai
+  - reopening_soft_landing
+  - late_cycle_risk_off
+  source_macro_forecast_id: null
+- theme: Quality AI leaders with downside discipline under capex-rollover tails
+  rationale: 'Quality AI ranks highly because AI earnings resilience supports Sticky Late Cycle AI, Reopening
+    / Soft Landing. Downstream research should distinguish quality leaders with durable estimate support
+    from crowded high-beta expressions. Current regime: Reopening / Soft Landing narrowly leads a contested
+    tape; sticky AI leadership remains a near-equal runner-up. Top macro-supported themes are Grid and
+    power infrastructure, Quality ex-AI cash flow, Cash and short duration.. Key drivers: Breadth / participation,
+    AI earnings resilience, Credit conditions.'
+  edge_hypothesis: AI leadership remains supported, but the highest-EV expressions may be quality leaders
+    with estimate support and lower downside asymmetry rather than high-beta crowded semis.
+  sub_questions:
+  - Which AI leaders have estimate support that is not solely multiple expansion?
+  - Which names have the least downside asymmetry if capex rollover odds rise?
+  - Where does valuation still leave room for positive revisions?
+  - Which crowded AI expressions should be avoided despite positive macro fit?
+  priority_rank: 3
+  expected_edge_decay: quarters
+  source_theme_id: quality_ai
+  source_scenario_ids:
+  - sticky_late_cycle_ai
+  - reopening_soft_landing
+  source_macro_forecast_id: null

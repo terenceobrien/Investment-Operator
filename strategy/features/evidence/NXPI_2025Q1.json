@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff-uncertainty language ('unknown indirect impacts', 'very uncertain environment') added versus prior call's more standard demand-visibility caveats."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q1 revenue $2.825B (down 9% YoY); current guides Q2 $2.9B (down 7% YoY) but company now only guides one quarter and flags unknown tariff risk, versus prior's fuller-year commentary."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Distribution inventory weeks guided 8-9 weeks prior vs realized/guided 9 weeks current, roughly flat versus long-term 11-week target."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New tariff impact discussion, Kinara AI-edge acquisition, and CEO retirement/succession announcement are all absent from prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call emphasized 'poor forward visibility' but current stresses 'very uncertain environment influenced by tariffs' repeated twice, more subdued framing."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Current call cites 'improving distribution customer backlog,' 'stabilized order signals,' and 'early innings of improving cycle dynamics,' versus prior's 'cloudy auto demand environment' with no improvement signals."
+  }
+}

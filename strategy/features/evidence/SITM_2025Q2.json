@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar level of standard forward-looking disclaimers and confident phrasing like 'we expect' in both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue growth of 45-50% (~$64.7M midpoint) and EPS $0.25-$0.31; current guides Q3 to $77-79M and EPS $0.67-$0.75, well above prior trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "Timing market TAM cited as $10 billion prior call, now $11 billion current call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New emphasis on robotaxis, warehouse robots, NATO defense spending, and follow-on equity offering not discussed in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Both calls use superlatives, but current adds 'phenomenal job,' 'exceptional quarter,' and highlights bookings/funnel strength more than prior."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "CED grew 198% YoY prior call vs 137% YoY current call, a deceleration despite still-strong absolute growth."
+  }
+}

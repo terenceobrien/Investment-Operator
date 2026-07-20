@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior repeatedly stressed tariff uncertainty and 'dynamic' environment; current mentions tariffs only briefly in guidance assumptions."
+  },
+  "guidance_direction": {
+    "score": 0,
+    "evidence": "Prior guided Sept-quarter-equivalent June revenue $5.0B, gross margin 49.5%, EPS $1.20; current guides Sept revenue $5.2B, gross margin 50%, but EPS held at $1.20 -> mixed/roughly reiterated."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "CY2025 WFE raised from prior view of ~$100B to ~$105B in current call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive topics: Dextro cobots/autonomous fab, SABRE 3D advanced packaging share stats, and detailed moly SAM math not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current adds superlatives like 'another great quarter,' 'new high,' 'best-in-class' more densely than prior's steadier record-focused language."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "WFE view raised from ~$100B to ~$105B and foundry hit second consecutive record, though H2 now seen flat vs H1, a slight tempering."
+  }
+}

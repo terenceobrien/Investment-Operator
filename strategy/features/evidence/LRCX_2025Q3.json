@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff/macro uncertainty language ('dynamic environment', 'closely monitoring') added versus prior call's more definitive tone."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided March revenue $4.65B midpoint/48% GM/32% OM/$1.00 EPS; current guides June $5.0B/49.5% GM/33.5% OM/$1.20 EPS, a raise in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Prior called for 2025 gate-all-around plus advanced packaging shipments 'well over $3 billion'; current call doesn't restate or revise this figure."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New tariff impact discussion and new specific product wins (ACARA, Altus Halo, Simulator 3D licensing) not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlatives: 'record foundry revenues', 'strongest product portfolio in company's history', 'all-time record level of profit'."
+  },
+  "demand_language_delta": {
+    "score": 0,
+    "evidence": "Both calls describe WFE at ~$100B for 2025 and steady tech-driven demand, though tariff monitoring adds slight caution."
+  }
+}

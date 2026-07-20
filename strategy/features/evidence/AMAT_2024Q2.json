@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar mix of 'we expect', 'believe' style forward language across both calls."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Q2 revenue $6.5B\u00b10.4B/EPS $1.97\u00b10.18; current guides Q3 revenue $6.65B\u00b10.4B/EPS $2.01\u00b10.18, a smaller sequential step than prior quarter's implied growth trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "HBM packaging revenue raised from '4 times larger' (~$0.5B) prior call to 'now 6 times higher... more than $600 million' current call."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on data center becoming #1 driver of foundry-logic wafer starts and OLED adoption in notebooks/tablets, not discussed prior."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar superlatives like 'record', 'leadership', 'strong position' at comparable density."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Advanced packaging TAM raised from $1.5B to $1.7B and HBM outlook raised from 4x to 6x, signaling stronger demand than prior call."
+  }
+}

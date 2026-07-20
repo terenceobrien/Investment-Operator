@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar hedges like 'we expect', 'caution not to over index', 'limited visibility'."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior Q4 guide midpoint implied ~90% YoY growth flat sequential; current Q1 guide midpoint implies only 67% YoY growth despite 7% sequential, a deceleration in guided trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "CGM 'nearly 10% of revenue in 12-18 months' and India '250 million unit deployment' are new figures not present in prior call, so not comparable."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New specifics added: India smart metering rollout, CGM revenue-share target, and Japan metering refresh cycle not detailed in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call emphasizes 'record momentum', 'unique position', 'preeminent thought leader', more superlatives than prior call's more cautious tone."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call said POS 'modestly improved' but recovery 'more gradual than expected'; current call still cautions 'not to over index' and Industrial revenue fell 8% sequentially, showing continued uneven, cautious demand recovery."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of forward-looking hedged language (\"we expect\", \"on track\") in both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call raised 2024 data center GPU guide to $4B (from $3.5B); current call raises it again to exceed $4.5B, and Q3 revenue guide of $6.7B implies stronger sequential growth (~15%) vs prior Q2 guide of $5.7B (~3.6% growth)."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "Data center GPU 2024 revenue outlook raised from prior call's $4B guide to $4.5B now, an upward revision of the same metric."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New topics introduced: Silo AI acquisition, Ultra Accelerator Link consortium, MI325X/MI350/MI400 roadmap, Victor Peng retirement."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "More superlative language: \"overwhelmingly positive,\" \"unprecedented opportunities,\" \"steep growth trajectory\" vs prior's more measured \"executing well.\""
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Data center revenue growth accelerated to 115% YoY from 80% YoY prior quarter, and embedded described as bottoming with improving order patterns vs prior quarter's flat outlook."
+  }
+}

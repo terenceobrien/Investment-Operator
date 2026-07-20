@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "New tariff uncertainty language ('rapidly evolving', 'harder to predict', 'quantifying... challenging') added versus prior call's minimal hedging."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q4 sales $180-190M (up 4% seq); current guides Q1 $192-202M, an 18% YoY increase and first YoY growth since Q3 FY24."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "SAM figures ($12B, $5B e-mobility, $3B industrial, $3B gate driver) are newly detailed and not directly comparable to prior call's figures."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New CEO introduces robotics/humanoid SAM (>$10B), Onsemi acquisition proposal discussion, and restructuring program not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "New CEO uses more superlatives like 'thrilled', 'excited', 'truly an honor', 'record level design wins' versus more measured prior tone."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Bookings up 20% sequentially (5th consecutive increase, highest in two years) vs prior's 50% YoY bookings growth with only 'cancellations abated'; distributor inventory down 25% and 'beginning of an up cycle' language stronger than prior's cautious optimism."
+  }
+}

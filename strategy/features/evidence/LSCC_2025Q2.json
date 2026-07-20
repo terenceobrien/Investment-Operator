@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior repeatedly stressed tariff uncertainty and 'cautious on second half'; current only briefly notes tariffs as a base assumption."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue $118.5M-$128.5M and EPS $0.22-$0.26; current guides Q3 revenue $128M-$138M and EPS $0.26-$0.30, a clear raise."
+  },
+  "quant_claim_escalation": {
+    "score": 1,
+    "evidence": "New product revenue goal 'high teens percentage for 2025' in prior is now expected to be exceeded in current call."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New emphasis on 'companion chip' opportunity, humanoids, Asia Tech Summit, and 2026 Industrial growth driver commentary absent in prior call."
+  },
+  "tone_delta": {
+    "score": 2,
+    "evidence": "Current cites 'record design wins,' 'largest sequential growth in 3 years,' and 'we told you what we're going to do, and we did,' more confident than prior's cautious framing."
+  },
+  "demand_language_delta": {
+    "score": 2,
+    "evidence": "Comms/Computing grew 20% sequentially (highest in 5 years) vs prior's modest 'first year-on-year growth in two years,' signaling stronger demand."
+  }
+}

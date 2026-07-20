@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar levels of 'expect', 'anticipate', 'currently believe' language across both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior call guided next quarter (June) revenue ~$850M \u00b1$25M, GM 40-41%, EPS $0.60-0.80; current guides next quarter (Sept) revenue ~$1.025B \u00b1$25M, GM 46-47%, EPS $1.75-1.95."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Digital transformation project cost still ~$40M for fiscal '25 in both calls, unchanged."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New end-market organization plus new topics: solid-state circuit breakers, Aliro standard, silicon carbide JFET, MediaTek DX4 exclusivity."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar confident language like 'best-in-class' and 'confident in our long-term growth'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call cited Android 5G growth broadly strong; current call cites 'Android 5G unit volumes to grow greater than 10%' with more measured framing and sequential revenue decline of 6%."
+  }
+}

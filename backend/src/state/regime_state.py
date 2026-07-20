@@ -31,6 +31,9 @@ class RegimeState:
     """
     Stable daily regime reading. Computed once at close.
     Never changes intraday.
+
+    Backend storage uses asof_date as the natural primary key. Re-running the
+    daily cron for the same date intentionally overwrites that date's record.
     """
     asof_date: str = ""
     asof_utc: str = ""
@@ -64,7 +67,7 @@ class RegimeState:
     hy_spread_level: Optional[float] = None
     net_liquidity_z: Optional[float] = None
     pct_above_200d: Optional[float] = None
-    new_highs_minus_lows_z: Optional[float] = None
+    avg_dist_from_200d: Optional[float] = None
     # Raw count of sectors with positive 1D return (out of 11). Distinct from
     # layer_breadth (a 0–100 score). Carried through so the analogues /
     # conditional engines — which still take a raw sector count — can use it.
@@ -73,10 +76,27 @@ class RegimeState:
     def to_dict(self) -> dict:
         return asdict(self)
 
-    def save_snapshot(self, directory: Path = SNAPSHOT_DIR) -> Path:
+    def save_snapshot(
+        self,
+        directory: Path = SNAPSHOT_DIR,
+        save_via_backend: bool = True,
+    ) -> Path:
+        """Save a local snapshot and optionally persist through the backend."""
+
         directory.mkdir(parents=True, exist_ok=True)
         path = directory / f"regime_state_{self.asof_date}.json"
         path.write_text(json.dumps(self.to_dict(), indent=2))
+
+        if save_via_backend:
+            try:
+                from src.agent_system.storage.repository import save_regime_state
+
+                save_regime_state(self.to_dict())
+            except Exception as e:
+                print(
+                    f"Warning: backend persistence failed: {e}. "
+                    "Local snapshot saved."
+                )
         return path
 
     @classmethod
@@ -166,29 +186,33 @@ class IntradayTape:
 def build_regime_state(
     horizon: str = "default",
     save: bool = True,
+    asof_date: Optional[str] = None,
 ) -> RegimeState:
     """
     Build and optionally save the daily regime state.
-    Call this once after market close (4:30pm ET or later).
 
-    Uses the new five-layer scoring system from regime_layers.py
-    and fetches inputs from regime_data.py.
+    Args:
+        horizon: scoring horizon weighting
+        save: whether to persist the resulting snapshot
+        asof_date: optional historical date. When provided, fetches are
+            point-in-time truncated to that date.
     """
     from src.state.regime_data import fetch_regime_inputs
     from src.state.regime_layers import score_all_layers
 
-    # First: get current market state to extract sectors_green
-    # (reuses your existing market_state.py build for price data)
     sectors_green = None
-    try:
-        from src.state.market_state import build_market_state
-        ms = build_market_state()
-        sectors_green = ms.sectors_green
-    except Exception as e:
-        print(f"Could not get sectors_green from market_state: {e}")
+    if asof_date is None:
+        # Live mode: reuse the existing market_state path for current sector breadth.
+        # Historical mode computes sectors_green inside regime_data from yfinance.
+        try:
+            from src.state.market_state import build_market_state
+            ms = build_market_state()
+            sectors_green = ms.sectors_green
+        except Exception as e:
+            print(f"Could not get sectors_green from market_state: {e}")
 
     # Fetch all regime inputs
-    raw = fetch_regime_inputs(sectors_green=sectors_green)
+    raw = fetch_regime_inputs(sectors_green=sectors_green, asof_date=asof_date)
 
     # Score all five layers
     scores = score_all_layers(
@@ -214,7 +238,7 @@ def build_regime_state(
         skew_index=raw.skew_index,
         # Breadth
         pct_above_200d=raw.pct_above_200d,
-        new_highs_minus_lows_z=raw.new_highs_minus_lows_z,
+        avg_dist_from_200d=raw.avg_dist_from_200d,
         sectors_green=raw.sectors_green,
         rsp_vs_spy_z=raw.rsp_vs_spy_z,
         adl_slope=raw.adl_slope,
@@ -228,18 +252,18 @@ def build_regime_state(
     )
 
     now = datetime.utcnow()
-    asof_date = raw.asof_date or now.strftime("%Y-%m-%d")
+    final_asof = asof_date or raw.asof_date or now.strftime("%Y-%m-%d")
 
     # Load prior snapshot for score delta
     prior_score = None
     try:
         from datetime import date, timedelta
-        yesterday = (date.fromisoformat(asof_date) - timedelta(days=1)).isoformat()
+        yesterday = (date.fromisoformat(final_asof) - timedelta(days=1)).isoformat()
         prior = RegimeState.load_snapshot(yesterday)
         if prior is None:
             # Try going back further (weekends)
             for days_back in range(2, 6):
-                d = (date.fromisoformat(asof_date) - timedelta(days=days_back)).isoformat()
+                d = (date.fromisoformat(final_asof) - timedelta(days=days_back)).isoformat()
                 prior = RegimeState.load_snapshot(d)
                 if prior:
                     break
@@ -249,7 +273,7 @@ def build_regime_state(
         pass
 
     state = RegimeState(
-        asof_date=asof_date,
+        asof_date=final_asof,
         asof_utc=now.isoformat(),
         signal_time="close",
         horizon=horizon,
@@ -299,8 +323,8 @@ def build_regime_state(
         hy_spread_level=raw.hy_spread_level,
         net_liquidity_z=raw.net_liquidity_z,
         pct_above_200d=raw.pct_above_200d,
-        new_highs_minus_lows_z=raw.new_highs_minus_lows_z,
-        sectors_green=sectors_green,
+        avg_dist_from_200d=raw.avg_dist_from_200d,
+        sectors_green=raw.sectors_green,
     )
 
     if save:

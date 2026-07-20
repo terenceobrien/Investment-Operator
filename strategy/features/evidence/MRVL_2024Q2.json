@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar use of 'expect', 'anticipate', 'we believe' language across both calls."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q2 revenue ~$1.33B; current guides Q3 to $1.4B plus reaffirms accelerating growth and margin expansion, an improved trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "AI revenue run-rate raised: prior expected 'double again' next year, current now guides >$200M quarterly ($800M annualized) exit rate, 'well above what we had outlined last quarter'."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New product launches: Orion 800G coherent DSP, COLORZ 800, 5nm multi-gig PHY, automotive Ethernet switch not detailed previously."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similarly confident language like 'uniquely positioned' and 'leadership'; current adds 'challenging macro' caveat."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "AI demand described as 'growing faster than our prior forecast' and 'extraordinary rate', an acceleration versus prior call's 'at least double' framing."
+  }
+}

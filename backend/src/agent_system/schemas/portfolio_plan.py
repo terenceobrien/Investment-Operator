@@ -37,6 +37,14 @@ class PortfolioTradeDecision(BaseModel):
     proposed_size_pct: float
     robustness_score: float | None
     robustness_quartile: int | None
+    scenario_weighted_expected_return: float | None = None
+    scenario_weight_source: Literal[
+        "macro_forecast",
+        "current_regime_yaml",
+        "fallback_default",
+    ] | None = None
+    scenario_weights_used: dict[str, float] = Field(default_factory=dict)
+    scenario_weight_warning: str | None = None
     existing_position_pct: float = 0.0
     final_size_pct: float
     sizing_adjustments: list[SizingAdjustment] = Field(default_factory=list)

@@ -10,9 +10,15 @@ Data file: backend/data/backtest_master_file.csv
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional, Sequence
 import numpy as np
 import pandas as pd
+
+from .detailed_analogue_similarity import (
+    FeatureSpec,
+    compute_detailed_similarity,
+    result_to_dict,
+)
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
@@ -65,7 +71,144 @@ SECTOR_MAP = {
     "ret_XLY_1d": "Discretionary",
 }
 
+TACTICAL_FORWARD_HORIZONS = ["1d", "5d", "10d"]
+MACRO_FORWARD_HORIZONS = ["21d", "63d", "126d", "252d"]
+FORWARD_RETURN_HORIZONS = TACTICAL_FORWARD_HORIZONS + MACRO_FORWARD_HORIZONS
+FORWARD_RETURN_COLUMNS = {
+    "1d": "fwd_ret_cc_1d",
+    "5d": "fwd_ret_cc_5d",
+    "10d": "fwd_ret_cc_10d",
+    "21d": "fwd_ret_cc_21d",
+    "63d": "fwd_ret_cc_63d",
+    "126d": "fwd_ret_cc_126d",
+    "252d": "fwd_ret_cc_252d",
+}
+MACRO_RISK_COLUMNS = {
+    "21d": ("fwd_21d_max_drawdown_pct", "fwd_21d_max_upside_pct"),
+    "63d": ("fwd_63d_max_drawdown_pct", "fwd_63d_max_upside_pct"),
+    "126d": ("fwd_126d_max_drawdown_pct", "fwd_126d_max_upside_pct"),
+    "252d": ("fwd_252d_max_drawdown_pct", "fwd_252d_max_upside_pct"),
+}
+MACRO_RISK_UNAVAILABLE_WARNING = (
+    "Macro-horizon drawdown/upside columns unavailable; only return-distribution risk shown."
+)
+DEFAULT_SHOCK_WINDOWS: List[Dict[str, str]] = [
+    {
+        "name": "covid_crash",
+        "start_date": "2020-02-19",
+        "end_date": "2020-04-30",
+        "default_action": "exclude_forward_window_overlap",
+    }
+]
+HORIZON_BUSINESS_DAYS = {
+    "1d": 1,
+    "5d": 5,
+    "10d": 10,
+    "21d": 21,
+    "63d": 63,
+    "126d": 126,
+    "252d": 252,
+}
+
 _df_cache: Optional[pd.DataFrame] = None
+
+
+def _normalize_shock_windows(
+    shock_windows: Optional[Sequence[Dict[str, Any]]],
+) -> List[Dict[str, Any]]:
+    windows = list(shock_windows) if shock_windows is not None else list(DEFAULT_SHOCK_WINDOWS)
+    normalized: List[Dict[str, Any]] = []
+    for idx, window in enumerate(windows):
+        name = str(window.get("name") or f"shock_window_{idx + 1}")
+        start = pd.to_datetime(window.get("start_date"), errors="coerce")
+        end = pd.to_datetime(window.get("end_date"), errors="coerce")
+        if pd.isna(start) or pd.isna(end):
+            continue
+        if end < start:
+            start, end = end, start
+        normalized.append(
+            {
+                "name": name,
+                "start_date": pd.Timestamp(start).strftime("%Y-%m-%d"),
+                "end_date": pd.Timestamp(end).strftime("%Y-%m-%d"),
+                "default_action": str(window.get("default_action") or "exclude_forward_window_overlap"),
+            }
+        )
+    return normalized
+
+
+def _forward_window(date_value: Any, horizon: str) -> tuple[pd.Timestamp, pd.Timestamp] | None:
+    days = HORIZON_BUSINESS_DAYS.get(str(horizon).lower())
+    if days is None:
+        return None
+    date = pd.to_datetime(date_value, errors="coerce")
+    if pd.isna(date):
+        return None
+    start = pd.Timestamp(date) + pd.tseries.offsets.BDay(1)
+    end = pd.Timestamp(date) + pd.tseries.offsets.BDay(days)
+    return pd.Timestamp(start).normalize(), pd.Timestamp(end).normalize()
+
+
+def forward_window_overlaps_shock(
+    analogue_date: Any,
+    horizon: str,
+    shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
+) -> bool:
+    window = _forward_window(analogue_date, horizon)
+    if window is None:
+        return False
+    fwd_start, fwd_end = window
+    for shock in _normalize_shock_windows(shock_windows):
+        shock_start = pd.Timestamp(shock["start_date"])
+        shock_end = pd.Timestamp(shock["end_date"])
+        if fwd_start <= shock_end and fwd_end >= shock_start:
+            return True
+    return False
+
+
+def shock_overlap_horizons(
+    analogue_date: Any,
+    horizons: Optional[Sequence[str]] = None,
+    shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
+) -> List[str]:
+    return [
+        horizon
+        for horizon in (list(horizons) if horizons is not None else FORWARD_RETURN_HORIZONS)
+        if forward_window_overlaps_shock(analogue_date, horizon, shock_windows)
+    ]
+
+
+def shock_window_diagnostics_for_analogues(
+    analogues: Sequence[Dict[str, Any]],
+    horizons: Optional[Sequence[str]] = None,
+    shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
+    shock_window_mode: Literal["exclude", "downweight", "tag_only"] = "exclude",
+) -> Dict[str, Any]:
+    horizons = list(horizons) if horizons is not None else list(FORWARD_RETURN_HORIZONS)
+    windows = _normalize_shock_windows(shock_windows)
+    tagged: Dict[str, List[str]] = {horizon: [] for horizon in horizons}
+    excluded: Dict[str, List[str]] = {horizon: [] for horizon in horizons}
+    for analogue in analogues:
+        date = analogue.get("date")
+        if not date:
+            continue
+        for horizon in horizons:
+            if not forward_window_overlaps_shock(date, horizon, windows):
+                continue
+            date_text = str(date)
+            if date_text not in tagged[horizon]:
+                tagged[horizon].append(date_text)
+            if shock_window_mode == "exclude" and analogue.get("forward_returns", {}).get(horizon) is not None:
+                excluded[horizon].append(date_text)
+    return {
+        "enabled": bool(windows),
+        "mode": shock_window_mode,
+        "windows": windows,
+        "tagged_dates_by_horizon": {h: sorted(v) for h, v in tagged.items() if v},
+        "excluded_dates_by_horizon": {h: sorted(v) for h, v in excluded.items() if v},
+        "rows_tagged_by_horizon": {h: len(v) for h, v in tagged.items()},
+        "rows_excluded_by_horizon": {h: len(v) for h, v in excluded.items()},
+    }
 
 
 # ── Data loading ──────────────────────────────────────────────────────────────
@@ -201,6 +344,18 @@ def _enrich_row(row: pd.Series, df: pd.DataFrame, similarity: float) -> Dict[str
     def _f(val, d=2):
         return round(float(val), d) if pd.notna(val) else None
 
+    forward_returns = {
+        horizon: _pct(row.get(column))
+        for horizon, column in FORWARD_RETURN_COLUMNS.items()
+    }
+    risk_profile = {
+        "max_drawdown_5d": _pct(row.get("fwd_5d_max_drawdown_pct")),
+        "max_upside_5d": _pct(row.get("fwd_5d_max_upside_pct")),
+    }
+    for horizon, (drawdown_col, upside_col) in MACRO_RISK_COLUMNS.items():
+        risk_profile[f"max_drawdown_{horizon}"] = _pct(row.get(drawdown_col))
+        risk_profile[f"max_upside_{horizon}"] = _pct(row.get(upside_col))
+
     return {
         "date": date.strftime("%Y-%m-%d"),
         "similarity_score": similarity,
@@ -215,16 +370,8 @@ def _enrich_row(row: pd.Series, df: pd.DataFrame, similarity: float) -> Dict[str
         "spy_close": _f(row.get("spy_close"), 2),
         "score_components": components,
         "sector_returns": sectors,
-        "forward_returns": {
-            "1d":  _pct(row.get("fwd_ret_cc_1d")),
-            "5d":  _pct(row.get("fwd_ret_cc_5d")),
-            "10d": _pct(row.get("fwd_ret_cc_10d")),
-            "21d": _pct(row.get("fwd_ret_cc_21d")),
-        },
-        "risk_profile": {
-            "max_drawdown_5d": _pct(row.get("fwd_5d_max_drawdown_pct")),
-            "max_upside_5d":   _pct(row.get("fwd_5d_max_upside_pct")),
-        },
+        "forward_returns": forward_returns,
+        "risk_profile": risk_profile,
         "forward_path": fwd_path,
         "layer_agreement": _f(row.get("layer_agreement"), 2),
         "environment_drivers": [],  # not stored per-row in CSV
@@ -233,15 +380,106 @@ def _enrich_row(row: pd.Series, df: pd.DataFrame, similarity: float) -> Dict[str
 
 # ── Aggregate stats ───────────────────────────────────────────────────────────
 
-def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
+def _empty_horizon_stats(n: int, *, weight_sum: float | None = None) -> Dict[str, Any]:
+    stats: Dict[str, Any] = {
+        "n": int(n),
+        "median": None,
+        "mean": None,
+        "pct_positive": None,
+        "p10": None,
+        "p25": None,
+        "p75": None,
+        "p90": None,
+        "worst": None,
+        "best": None,
+    }
+    if weight_sum is not None:
+        stats["weight_sum"] = round(float(weight_sum), 3)
+    return stats
+
+
+def _available_and_missing_horizons(columns: Sequence[str]) -> tuple[List[str], List[str]]:
+    column_set = set(columns)
+    available = [
+        horizon
+        for horizon, column in FORWARD_RETURN_COLUMNS.items()
+        if column in column_set
+    ]
+    missing = [
+        horizon
+        for horizon, column in FORWARD_RETURN_COLUMNS.items()
+        if column not in column_set
+    ]
+    return available, missing
+
+
+def _column_warnings(missing_horizons: Sequence[str]) -> List[str]:
+    return [
+        f"Forward return column {FORWARD_RETURN_COLUMNS[horizon]} unavailable; {horizon} stats set to n=0."
+        for horizon in missing_horizons
+        if horizon in FORWARD_RETURN_COLUMNS
+    ]
+
+
+def _risk_distribution_stats(values: List[float], horizon: str) -> Dict[str, Any]:
+    if not values:
+        return {
+            f"win_rate_{horizon}": None,
+            f"median_up_{horizon}": None,
+            f"median_down_{horizon}": None,
+            f"expected_value_{horizon}": None,
+            f"worst_forward_return_{horizon}": None,
+            f"p10_forward_return_{horizon}": None,
+            f"p90_forward_return_{horizon}": None,
+        }
+
+    arr = np.array(values, dtype=float)
+    up = arr[arr > 0]
+    down = arr[arr <= 0]
+    win_rate = float((arr > 0).mean())
+    median_up = float(np.median(up)) if len(up) else 0.0
+    median_down = float(np.median(down)) if len(down) else 0.0
+    expected_value = (win_rate * median_up) + ((1.0 - win_rate) * median_down)
+    return {
+        f"win_rate_{horizon}": round(win_rate * 100.0, 1),
+        f"median_up_{horizon}": round(median_up, 2),
+        f"median_down_{horizon}": round(median_down, 2),
+        f"expected_value_{horizon}": round(float(expected_value), 2),
+        f"worst_forward_return_{horizon}": round(float(arr.min()), 2),
+        f"p10_forward_return_{horizon}": round(float(np.percentile(arr, 10)), 2),
+        f"p90_forward_return_{horizon}": round(float(np.percentile(arr, 90)), 2),
+        # Backward-compatible alias, now explicitly derived from forward returns.
+        f"worst_drawdown_{horizon}": round(float(arr.min()), 2),
+    }
+
+
+def _aggregate_stats(
+    analogues: List[Dict],
+    data_columns: Sequence[str] | None = None,
+    *,
+    shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
+    shock_window_mode: Literal["exclude", "downweight", "tag_only"] = "exclude",
+) -> Dict[str, Any]:
+    shock_diagnostics = shock_window_diagnostics_for_analogues(
+        analogues,
+        horizons=FORWARD_RETURN_HORIZONS,
+        shock_windows=shock_windows,
+        shock_window_mode=shock_window_mode,
+    )
+
+    def _is_excluded_for_horizon(analogue: Dict[str, Any], horizon: str) -> bool:
+        if shock_window_mode != "exclude":
+            return False
+        return forward_window_overlaps_shock(analogue.get("date"), horizon, shock_diagnostics.get("windows") or [])
+
     def _horizon_stats(key: str) -> Dict:
         vals = [
-            a["forward_returns"][key]
+            a.get("forward_returns", {}).get(key)
             for a in analogues
-            if a["forward_returns"].get(key) is not None
+            if a.get("forward_returns", {}).get(key) is not None and not _is_excluded_for_horizon(a, key)
         ]
         if len(vals) < 3:
-            return {"n": len(vals)}
+            return _empty_horizon_stats(len(vals))
         arr = np.array(vals)
         return {
             "n": len(arr),
@@ -257,15 +495,21 @@ def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
             "distribution": [round(float(v), 2) for v in sorted(arr)],
         }
 
+    if data_columns is None:
+        available_horizons, missing_horizons = list(FORWARD_RETURN_HORIZONS), []
+    else:
+        available_horizons, missing_horizons = _available_and_missing_horizons(data_columns)
+    warnings = _column_warnings(missing_horizons)
+
     drawdowns = [
-        a["risk_profile"]["max_drawdown_5d"]
+        a.get("risk_profile", {}).get("max_drawdown_5d")
         for a in analogues
-        if a["risk_profile"].get("max_drawdown_5d") is not None
+        if a.get("risk_profile", {}).get("max_drawdown_5d") is not None
     ]
     upsides = [
-        a["risk_profile"]["max_upside_5d"]
+        a.get("risk_profile", {}).get("max_upside_5d")
         for a in analogues
-        if a["risk_profile"].get("max_upside_5d") is not None
+        if a.get("risk_profile", {}).get("max_upside_5d") is not None
     ]
 
     risk = {}
@@ -275,61 +519,266 @@ def _aggregate_stats(analogues: List[Dict]) -> Dict[str, Any]:
 
         risk["median_max_drawdown_5d"] = round(float(np.median(drawdowns)), 2)
         risk["median_max_upside_5d"] = round(float(med_up), 2)
-        # Compatibility aliases for the frontend's aggregate 21D risk panel. The
-        # current research file stores max excursion columns over 5D, while 21D
-        # risk uses realized 21D return distribution below.
-        risk["median_max_drawdown_21d"] = risk["median_max_drawdown_5d"]
-        risk["median_max_upside_21d"] = risk["median_max_upside_5d"]
 
         # Raw reward/risk (unweighted, based on 5d max range)
         risk["reward_risk_ratio"] = round(float(med_up / med_dd), 2) if med_dd > 0 else None
 
-        # Win rate from 21d forward returns
-        fwd_21d_vals = [
-            a["forward_returns"]["21d"]
+    available_macro_risk_horizons = []
+    for horizon in MACRO_FORWARD_HORIZONS:
+        fwd_vals = [
+            a.get("forward_returns", {}).get(horizon)
             for a in analogues
-            if a["forward_returns"].get("21d") is not None
+            if a.get("forward_returns", {}).get(horizon) is not None and not _is_excluded_for_horizon(a, horizon)
         ]
-        if fwd_21d_vals:
-            win_rate = float(sum(1 for v in fwd_21d_vals if v > 0) / len(fwd_21d_vals))
-            loss_rate = 1.0 - win_rate
+        risk.update(_risk_distribution_stats(fwd_vals, horizon))
 
-            # Expected value using 21d forward return magnitude
-            med_fwd_21d_up = float(np.median([v for v in fwd_21d_vals if v > 0])) if any(v > 0 for v in fwd_21d_vals) else 0.0
-            med_fwd_21d_dn = float(np.median([v for v in fwd_21d_vals if v <= 0])) if any(v <= 0 for v in fwd_21d_vals) else 0.0
+        horizon_drawdowns = [
+            a.get("risk_profile", {}).get(f"max_drawdown_{horizon}")
+            for a in analogues
+            if a.get("risk_profile", {}).get(f"max_drawdown_{horizon}") is not None
+            and not _is_excluded_for_horizon(a, horizon)
+        ]
+        horizon_upsides = [
+            a.get("risk_profile", {}).get(f"max_upside_{horizon}")
+            for a in analogues
+            if a.get("risk_profile", {}).get(f"max_upside_{horizon}") is not None
+            and not _is_excluded_for_horizon(a, horizon)
+        ]
+        if horizon_drawdowns and horizon_upsides:
+            available_macro_risk_horizons.append(horizon)
+            risk[f"median_max_drawdown_{horizon}"] = round(float(np.median(horizon_drawdowns)), 2)
+            risk[f"median_max_upside_{horizon}"] = round(float(np.median(horizon_upsides)), 2)
 
-            ev = (win_rate * med_fwd_21d_up) + (loss_rate * med_fwd_21d_dn)
-            risk["expected_value_21d"] = round(float(ev), 2)
-            risk["win_rate_21d"] = round(win_rate * 100, 1)
-            risk["worst_drawdown_21d"] = round(float(min(fwd_21d_vals)), 2)
+    risk["drawdown_upside_available_horizons"] = available_macro_risk_horizons
+    if not available_macro_risk_horizons:
+        warnings.append(MACRO_RISK_UNAVAILABLE_WARNING)
 
-            # Probability-weighted reward/risk using 21d realized returns
-            if loss_rate > 0 and med_fwd_21d_dn != 0:
-                weighted_rr = (win_rate * med_fwd_21d_up) / (loss_rate * abs(med_fwd_21d_dn))
-                risk["weighted_reward_risk_21d"] = round(float(weighted_rr), 2)
-            else:
-                risk["weighted_reward_risk_21d"] = None
-                
     # Environment transition counts
     env_counts = {}
     for a in analogues:
         e = a.get("environment", "Unknown")
         env_counts[e] = env_counts.get(e, 0) + 1
 
+    forward_returns = {
+        horizon: _horizon_stats(horizon)
+        for horizon in FORWARD_RETURN_HORIZONS
+    }
     return {
         "n_analogues": len(analogues),
-        "forward_returns": {
-            "1d":  _horizon_stats("1d"),
-            "5d":  _horizon_stats("5d"),
-            "10d": _horizon_stats("10d"),
-            "21d": _horizon_stats("21d"),
+        "forward_returns": forward_returns,
+        "tactical_forward_returns": {
+            horizon: forward_returns[horizon]
+            for horizon in TACTICAL_FORWARD_HORIZONS
+        },
+        "macro_forward_returns": {
+            horizon: forward_returns[horizon]
+            for horizon in MACRO_FORWARD_HORIZONS
         },
         "risk_profile": risk,
         "environment_distribution": env_counts,
+        "available_horizons": available_horizons,
+        "missing_horizons": missing_horizons,
+        "horizon_sample_sizes": {
+            horizon: int(stats.get("n") or 0)
+            for horizon, stats in forward_returns.items()
+        },
+        "shock_window_diagnostics": shock_diagnostics,
+        "warnings": warnings,
     }
 
 
 # ── Main public function ──────────────────────────────────────────────────────
+
+def _candidate_pool(
+    df: pd.DataFrame,
+    *,
+    environment: str,
+    score_total: float,
+    vix_level: Optional[float],
+    sectors_green: Optional[int],
+    score_delta: Optional[float],
+    top_n: int,
+    min_score_window: float,
+    exclude_before: Optional[str],
+) -> pd.DataFrame:
+    inputs = {
+        "environment": environment,
+        "score_total": score_total,
+        "vix_level": vix_level,
+        "sectors_green": sectors_green,
+        "score_delta": score_delta,
+    }
+    exclude_dt = pd.to_datetime(exclude_before) if exclude_before else None
+    pool = df[df["environment"] == environment].copy()
+    if exclude_dt is not None:
+        pool = pool[pool["date"] < exclude_dt]
+    pool = pool[
+        (pool["score_total"] >= score_total - min_score_window) &
+        (pool["score_total"] <= score_total + min_score_window)
+    ]
+    if pool.empty:
+        pool = df[
+            (df["score_total"] >= score_total - min_score_window) &
+            (df["score_total"] <= score_total + min_score_window)
+        ].copy()
+        if exclude_dt is not None:
+            pool = pool[pool["date"] < exclude_dt]
+    pool = pool.copy()
+    pool["_similarity"] = pool.apply(
+        lambda row: _similarity_score(row, inputs),
+        axis=1,
+    )
+    return pool.nsmallest(max(1, int(top_n)), "_similarity")
+
+
+def _group_similarity_summary(analogues: List[Dict[str, Any]]) -> Dict[str, Any]:
+    grouped: Dict[str, List[float]] = {}
+    missing: Dict[str, int] = {}
+    used: Dict[str, int] = {}
+    for analogue in analogues:
+        for group in (analogue.get("group_match_summary") or {}).get("group_results", []):
+            name = str(group.get("group"))
+            if group.get("similarity") is not None:
+                grouped.setdefault(name, []).append(float(group["similarity"]))
+            used[name] = used.get(name, 0) + int(group.get("features_used") or 0)
+            missing[name] = missing.get(name, 0) + int(group.get("features_missing") or 0)
+    out: Dict[str, Any] = {}
+    for group, values in grouped.items():
+        features_used = used.get(group, 0)
+        features_missing = missing.get(group, 0)
+        total = features_used + features_missing
+        out[group] = {
+            "avg_similarity": round(float(np.mean(values)), 2) if values else None,
+            "features_used": features_used,
+            "features_missing": features_missing,
+            "coverage": round(features_used / total, 3) if total else 0.0,
+        }
+    return dict(sorted(out.items()))
+
+
+def get_historical_analogues_v2(
+    current_features: Dict[str, Any],
+    environment: str,
+    score_total: float,
+    vix_level: Optional[float] = None,
+    sectors_green: Optional[int] = None,
+    score_delta: Optional[float] = None,
+    top_n: int = 50,
+    candidate_pool_n: int = 300,
+    min_score_window: float = 20.0,
+    exclude_before: Optional[str] = None,
+    feature_specs: Optional[List[FeatureSpec]] = None,
+    group_weights: Optional[Dict[str, float]] = None,
+    mode: Literal["rerank", "blend", "replace"] = "blend",
+    v1_weight: float = 0.40,
+    v2_weight: float = 0.60,
+    shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
+    shock_window_mode: Literal["exclude", "downweight", "tag_only"] = "exclude",
+) -> Dict[str, Any]:
+    """Find analogues using broad-state candidates plus detailed raw-input similarity."""
+
+    df = _load_df()
+    candidate_n = max(int(top_n), int(candidate_pool_n))
+    top = _candidate_pool(
+        df,
+        environment=environment,
+        score_total=score_total,
+        vix_level=vix_level,
+        sectors_green=sectors_green,
+        score_delta=score_delta,
+        top_n=candidate_n,
+        min_score_window=min_score_window,
+        exclude_before=exclude_before,
+    )
+
+    warnings: List[str] = []
+    enriched: List[Dict[str, Any]] = []
+    total_weight = max(v1_weight + v2_weight, 1e-9)
+    v1_w = v1_weight / total_weight
+    v2_w = v2_weight / total_weight
+    for _, row in top.iterrows():
+        v1_distance = float(row["_similarity"])
+        v1_similarity = max(0.0, 100.0 - v1_distance)
+        detailed = compute_detailed_similarity(
+            current_features,
+            row,
+            feature_specs=feature_specs,
+            group_weights=group_weights,
+        )
+        warnings.extend(detailed.warnings)
+        if mode in {"replace", "rerank"}:
+            blended_similarity = detailed.overall_similarity
+        else:
+            blended_similarity = (v1_w * v1_similarity) + (v2_w * detailed.overall_similarity)
+        analogue = _enrich_row(row, df, similarity=round(100.0 - blended_similarity, 2))
+        group_summary = result_to_dict(detailed)
+        group_results = group_summary.get("group_results", [])
+        sorted_groups = sorted(
+            group_results,
+            key=lambda item: float(item.get("similarity") or 0.0),
+            reverse=True,
+        )
+        features_used = int(group_summary.get("features_used") or 0)
+        features_missing = len(group_summary.get("features_missing") or [])
+        total_features = features_used + features_missing
+        analogue.update(
+            {
+                "v1_similarity": round(v1_similarity, 2),
+                "detailed_similarity": detailed.overall_similarity,
+                "blended_similarity": round(float(blended_similarity), 2),
+                "detailed_distance": detailed.overall_distance,
+                "group_match_summary": group_summary,
+                "strongest_matching_groups": [item["group"] for item in sorted_groups[:3]],
+                "weakest_matching_groups": [item["group"] for item in sorted_groups[-3:]][::-1],
+                "feature_coverage": {
+                    "features_used": features_used,
+                    "features_missing": features_missing,
+                    "coverage": round(features_used / total_features, 3) if total_features else 0.0,
+                },
+            }
+        )
+        enriched.append(analogue)
+
+    enriched.sort(key=lambda item: item.get("blended_similarity") or 0.0, reverse=True)
+    analogues = enriched[:top_n]
+    aggregate = _aggregate_stats(
+        analogues,
+        data_columns=df.columns,
+        shock_windows=shock_windows,
+        shock_window_mode=shock_window_mode,
+    )
+    group_summary = _group_similarity_summary(analogues)
+    detailed_values = [float(a.get("detailed_similarity")) for a in analogues if a.get("detailed_similarity") is not None]
+    blended_values = [float(a.get("blended_similarity")) for a in analogues if a.get("blended_similarity") is not None]
+
+    return {
+        "analogues": analogues,
+        "aggregate_stats": aggregate,
+        "inputs": {
+            "environment": environment,
+            "score_total": score_total,
+            "vix_level": vix_level,
+            "sectors_green": sectors_green,
+            "score_delta": score_delta,
+        },
+        "conditions_matched": f"environment={environment} · score≈{score_total:.0f} · detailed_similarity={mode}",
+        "analogue_version": "v2_detailed",
+        "candidate_pool_n": int(len(top)),
+        "v1_weight": round(v1_w, 3),
+        "v2_weight": round(v2_w, 3),
+        "average_detailed_similarity": round(float(np.mean(detailed_values)), 2) if detailed_values else None,
+        "average_blended_similarity": round(float(np.mean(blended_values)), 2) if blended_values else None,
+        "group_similarity_summary": group_summary,
+        "feature_coverage_summary": {
+            "features_used": int(sum((a.get("feature_coverage") or {}).get("features_used") or 0 for a in analogues)),
+            "features_missing": int(sum((a.get("feature_coverage") or {}).get("features_missing") or 0 for a in analogues)),
+        },
+        "shock_window_diagnostics": aggregate.get("shock_window_diagnostics") or {},
+        "warnings": list(dict.fromkeys([*(aggregate.get("warnings") or []), *warnings])),
+        "available_horizons": list(aggregate.get("available_horizons") or []),
+        "missing_horizons": list(aggregate.get("missing_horizons") or []),
+    }
+
 
 def get_historical_analogues(
     environment: str,
@@ -341,6 +790,8 @@ def get_historical_analogues(
     top_n: int = 15,
     min_score_window: float = 15.0,
     exclude_before: Optional[str] = None,
+    shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
+    shock_window_mode: Literal["exclude", "downweight", "tag_only"] = "exclude",
 ) -> Dict[str, Any]:
     """
     Find the top_n most similar historical market states and return
@@ -376,35 +827,17 @@ def get_historical_analogues(
         "confidence": confidence,
     }
 
-    # ── Filter to same environment first ──
-    exclude_dt = pd.to_datetime(exclude_before) if exclude_before else None
-    pool = df[df["environment"] == environment].copy()
-    if exclude_dt is not None:
-        pool = pool[pool["date"] < exclude_dt]
-
-    # ── Score window filter ──
-    pool = pool[
-        (pool["score_total"] >= score_total - min_score_window) &
-        (pool["score_total"] <= score_total + min_score_window)
-    ]
-
-    # ── Compute similarity for every candidate ──
-    if pool.empty:
-        # Fallback: relax to any environment if no matches
-        pool = df[
-            (df["score_total"] >= score_total - min_score_window) &
-            (df["score_total"] <= score_total + min_score_window)
-        ].copy()
-        if exclude_dt is not None:
-            pool = pool[pool["date"] < exclude_dt]
-
-    pool = pool.copy()
-    pool["_similarity"] = pool.apply(
-        lambda row: _similarity_score(row, inputs), axis=1
+    top = _candidate_pool(
+        df,
+        environment=environment,
+        score_total=score_total,
+        vix_level=vix_level,
+        sectors_green=sectors_green,
+        score_delta=score_delta,
+        top_n=top_n,
+        min_score_window=min_score_window,
+        exclude_before=exclude_before,
     )
-
-    # ── Select top N most similar ──
-    top = pool.nsmallest(top_n, "_similarity")
 
     # ── Enrich each row ──
     analogues = [
@@ -416,7 +849,12 @@ def get_historical_analogues(
     analogues.sort(key=lambda x: x["date"], reverse=True)
 
     # ── Aggregate stats ──
-    agg = _aggregate_stats(analogues)
+    agg = _aggregate_stats(
+        analogues,
+        data_columns=df.columns,
+        shock_windows=shock_windows,
+        shock_window_mode=shock_window_mode,
+    )
 
     # ── Conditions description ──
     conditions = [f"environment={environment}", f"score≈{score_total:.0f}"]
@@ -436,6 +874,10 @@ def get_historical_analogues(
         "aggregate_stats": agg,
         "inputs": inputs,
         "conditions_matched": " · ".join(conditions),
+        "shock_window_diagnostics": agg.get("shock_window_diagnostics") or {},
+        "warnings": list(agg.get("warnings") or []),
+        "available_horizons": list(agg.get("available_horizons") or []),
+        "missing_horizons": list(agg.get("missing_horizons") or []),
     }
 
 

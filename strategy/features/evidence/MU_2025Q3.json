@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior call had heavy 'expect/anticipate/subject to' hedging on tariffs and supply; current call states demand as 'robust' and 'constructive' more assertively."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue $8.8B (+/-$200M) and 36.5% GM; current guides Q4 revenue $10.7B (+/-$300M, +15% seq) and 42% GM, both raised in trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "HBM TAM 'over $35B' not repeated/updated this call; HBM4 bandwidth '>60% higher' cited in both calls with same figure, held not escalated."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New $200B U.S. investment plan, business unit reorganization, and D4/LP4 EOL allocation discussion are new substantive topics vs prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use similar superlatives like 'record,' 'leading,' 'uniquely positioned' at comparable density."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior called NAND demand 'moderated' due to inventory; current describes 'robust demand environment' and 'constructive demand' with healthy inventories."
+  }
+}

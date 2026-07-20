@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'guarded optimism' framing and cite economic/geopolitical uncertainty limiting recovery."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided Q3 revenue $2.27B (+5% seq); current guided Q4 $2.4B (+4% seq), continuing sequential growth trajectory slightly raised in dollar terms with EPS guide up to $1.63 from $1.50."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Grid TAM 'over $10 billion' and robotics 'doubling' are new figures without directly comparable prior-call numbers."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New substantive discussion of humanoid robots, ETD grid TAM >$10B, and Apollo RF platform 5x sound opportunity absent in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Current call adds 'stronger demand', 'extraordinary opportunities', 'robust growth year' claims beyond prior's more cautious framing."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior said bookings improved for third consecutive quarter; current cites 'stronger demand' and order momentum across most markets plus book-to-bill improvements continuing."
+  }
+}

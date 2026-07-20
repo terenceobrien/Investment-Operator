@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 1,
+    "evidence": "Prior called timing 'uncertain'; current states business 'bottomed' and growth 'resuming' more definitively."
+  },
+  "guidance_direction": {
+    "score": 1,
+    "evidence": "Prior guided June quarter growth qualitatively; current guides June revenue $2.5B vs March guide of $2.3B, consistent with prior implied trajectory but confirmed with firmer numbers."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "FY24 WFE outlook 'roughly flat to modestly up' unchanged from prior call's 'mid-to-high $80B roughly flat to modestly up'."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New market share report discussion and advanced packaging $400M run-rate figure not present in prior call."
+  },
+  "tone_delta": {
+    "score": 1,
+    "evidence": "Added phrases like 'confident,' 'consistent market leadership,' more assertive than prior's 'still challenging near-term demand'."
+  },
+  "demand_language_delta": {
+    "score": 1,
+    "evidence": "Prior said demand 'stabilizing' with uncertain timing; current says 'market conditions have stabilized' and demand 'continuing to improve'."
+  }
+}

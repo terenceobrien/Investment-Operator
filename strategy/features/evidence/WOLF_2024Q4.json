@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More conditional language on device fab closure timing, PMT terms, and 'no assurance' caveats vs prior call's firmer commitments."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Prior guided Mohawk Valley $40-50M for Q4; actual came in at $41M (low end) with deferral; FQ2025 CapEx cut to $1.2-1.4B from prior $1.4-1.6B range."
+  },
+  "quant_claim_escalation": {
+    "score": -1,
+    "evidence": "FY2025 gross CapEx now $1.2-1.4B vs prior guide of $1.4-1.6B; also FY2024 cash of $2.2B vs prior guided $2.2-2.4B range, at low end."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New emphasis on 800-volt EV architectures (70% of design-ins) and 150mm device fab closure evaluation, absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Less superlative language; prior call's 'strongest value proposition ever' language replaced with more measured 'encouraged by positive results.'"
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Prior call: EV device revenue up ~48% YoY; current call cites EV revenue up 100% YoY but design-in growth slowing ($2.8B prior single quarter vs $2B this quarter) and I&E still weak with inventory reduction needed."
+  }
+}

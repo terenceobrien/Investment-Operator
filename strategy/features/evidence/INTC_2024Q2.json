@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More qualifiers on outlook: 'slower than expected,' 'modest inventory digestion,' 'below seasonal' replace prior's more definitive recovery framing."
+  },
+  "guidance_direction": {
+    "score": -2,
+    "evidence": "Prior guided Q2 revenue $12.5-13.5B/43.5% GM/EPS $0.10; current Q3 guide is $12.5-13.5B/38% GM/EPS -$0.03, and CapEx/margin trajectory cut sharply."
+  },
+  "quant_claim_escalation": {
+    "score": -2,
+    "evidence": "Prior 2024 gross CapEx implied mid-30s capital intensity; current cuts gross CapEx to $25-27B (down >20%) and 2025 OpEx to $17.5B from prior higher plan."
+  },
+  "new_topic_rate": {
+    "score": 1,
+    "evidence": "New disclosures: >15% headcount cuts, dividend suspension, new Foundry/Manufacturing execs, NCI accounting impact not discussed before."
+  },
+  "tone_delta": {
+    "score": -2,
+    "evidence": "Pat opens with 'Q2 profitability was disappointing' and Dave says 'not satisfied with our results,' contrasting prior call's 'solid results' framing."
+  },
+  "demand_language_delta": {
+    "score": -2,
+    "evidence": "Prior expected 'strengthen throughout the year'; current cites 'reduced our TAM expectations,' 'weaker spending,' 'slower than expected' recovery."
+  }
+}

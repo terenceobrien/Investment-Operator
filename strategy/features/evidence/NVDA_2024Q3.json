@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": 0,
+    "evidence": "Similar mix of 'expect', 'believe', 'is expected to be' framing in both calls' outlooks."
+  },
+  "guidance_direction": {
+    "score": 2,
+    "evidence": "Prior guided Q3 revenue ~$16B; current guides Q4 to ~$20B, a larger sequential step-up implying accelerating trajectory."
+  },
+  "quant_claim_escalation": {
+    "score": 2,
+    "evidence": "China/affected revenue share held at '20% to 25%' both calls, but new software run-rate ($1B) and networking ($10B annualized) targets raised vs no prior comparable figures; Data Center China share flat while networking run-rate escalated."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New export control specifics, H200/HBM3e launch, AI foundry service, sovereign AI infrastructure theme absent in prior call."
+  },
+  "tone_delta": {
+    "score": 0,
+    "evidence": "Both calls use 'record', 'exceptional' language similarly ('exceptional quarter' vs 'another record quarter')."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Data Center YoY growth decelerated from 171% prior to 279% current is actually higher, but new export curbs signal 'sales... will decline significantly' in China, a new demand headwind not present before."
+  }
+}

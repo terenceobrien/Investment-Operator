@@ -1,0 +1,26 @@
+{
+  "hedging_delta": {
+    "score": -1,
+    "evidence": "More conditional language on enterprise data timing ('we're not going to forecast', 'let's leave it wide open') vs prior's firmer framing."
+  },
+  "guidance_direction": {
+    "score": -1,
+    "evidence": "Q2 gross margin guided down ~20bps at midpoint; prior call had no such explicit margin cut noted."
+  },
+  "quant_claim_escalation": {
+    "score": 0,
+    "evidence": "Enterprise data range 'flat plus or minus 20%' referenced but not revised with new comparable figure, left 'wide open'."
+  },
+  "new_topic_rate": {
+    "score": 2,
+    "evidence": "New Investor Day topics: robotics, building automation, medical, audio, plus explicit tariff/supply-chain discussion absent in prior call."
+  },
+  "tone_delta": {
+    "score": -1,
+    "evidence": "Prior call used 'MPS will be always have the best solutions'; current tone more hedged: 'we feel a lot better... not forecasting'."
+  },
+  "demand_language_delta": {
+    "score": -1,
+    "evidence": "Automotive grew 13% sequentially vs 28% prior quarter; enterprise data still flat/no ramp yet, described as second-half weighted."
+  }
+}

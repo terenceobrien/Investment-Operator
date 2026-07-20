@@ -1,162 +1,173 @@
-regime_id: two_sided_oil_shock_late_cycle_ai
-regime_label: Late-cycle tightening with two-sided oil risk and AI leadership
-regime_call_confidence: 0.62
-headline: Oil remains an inflation risk, but reopening headlines have made the shock more
-  two-sided while AI earnings and infrastructure leadership remain intact.
-summary: 'This is a fractured regime: broad beta remains less attractive while rates and liquidity
-  are restrictive, but quality AI, grid/infrastructure, defense, cash-like exposure, and selective
-  real-asset hedges can still work. The oil shock is no longer a clean one-way driver because
-  de-escalation or Hormuz reopening headlines could compress the energy risk premium quickly.'
-risk_summary: The key risk is mistaking narrow AI leadership for a clean risk-on environment
-  while rates and liquidity remain restrictive. A second risk is overcommitting to oil beta
-  after a large supply-shock repricing if reopening or de-escalation headlines continue to
-  build.
+regime_id: two_sided_oil_shock_broadening_watch
+regime_label: Reopening / Soft Landing narrowly leads a contested tape; sticky AI leadership remains a
+  near-equal runner-up. Top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash
+  flow, Cash and short duration.
+regime_call_confidence: 0.36
+regime_call_confidence_note: Low. Top two scenarios are separated by ~2 points (36.2% vs 34.1%) after
+  historical calibration; tail scenarios are held up by probability floors. Treat the dominant scenario
+  as provisional, not settled.
+headline: Forecast narrowly favors broadening soft-landing participation over sticky late-cycle AI leadership,
+  but the two are effectively a coin-flip.
+summary: 'The model assigns the highest probability to Reopening / Soft Landing at 36.2%; runner-up sticky_late_cycle_ai
+  at 34.1%. The gap is only ~2 points, so leadership direction is genuinely contested rather than resolved.
+  The largest displayed deterministic driver is weak equal-weight-vs-cap-weight breadth (-0.30), which
+  cuts against broadening, while resilient AI earnings (+0.52 into sticky AI) and healthy credit keep
+  narrow leadership viable. Reported scenario probabilities are historically calibrated after the deterministic
+  update; note that calibration narrowed a large deterministic soft-landing lead (47%) down to a near-tie,
+  so the blended call rests heavily on the analogue layer. Dominant scenario: Reopening / Soft Landing
+  (36%); runner-up scenario: Sticky Late Cycle AI (34%). Probability mode: historically_calibrated. Key
+  macro tension: breadth signals conflict - cap-weight concentration says narrow, but advance-decline,
+  percent-above-200D, and small-cap leadership say participation is improving.'
+risk_summary: 'Credit is healthy and volatility is orderly, which keeps the regime from becoming fully
+  risk-off. The decisive question is breadth: equal-weight still lags cap-weight, but ADL slope, percent-above-200D,
+  and IWM-over-SPY leadership are improving - a broadening confirmation would tip the balance toward soft
+  landing, while renewed narrowing would restore sticky AI. Fed path remains restrictive (hold/hike ~80%,
+  though that read is dated 05/19 and should be refreshed). Historical analogues disagree with the deterministic
+  engine on downside: analogues map materially more weight to Late Cycle Risk-Off than the rule-based
+  layer does, so the risk-off tail is likely understated by the blended 12%. Tail probabilities remain
+  visible: risk-off 12%, oil inflation tail 10%, AI capex rollover 7% (floored).'
 key_drivers:
-- name: Oil supply shock / reopening optionality
-  status: still inflationary, but risk premium is now two-sided
-  explanation: Oil remains elevated versus pre-shock levels, but reopening and de-escalation
-    headlines have reduced the one-way upside pressure. Energy remains a useful hedge, but
-    the trade is more tactical and headline-sensitive.
-- name: Hormuz reopening optionality
-  status: bearish for crowded energy hedges / bullish for broad risk if confirmed
-  explanation: Reports or evidence of a reopening framework would reduce the oil risk premium,
-    ease inflation pressure, and potentially support broader risk appetite. Until shipping
-    normalizes, uncertainty remains high.
+- name: Breadth / participation
+  status: mixed/improving
+  explanation: Genuinely conflicting. Equal weight (RSP) still lags cap weight (SPY) over 3M (RSP +11.9%
+    vs SPY +14.8%; rsp_vs_spy_z -0.70), which supports narrow leadership. But percent-above-200D is 81.8
+    and improving, ADL slope is +0.62 and improving, and small caps are leading (IWM minus SPY +5.8pp
+    over 3M). Broadening is not yet confirmed by equal-weight, but the internals are no longer uniformly
+    weak. This split is the swing factor between the top two scenarios.
 - name: AI earnings resilience
-  status: bullish for quality AI infrastructure
-  explanation: Capital spending tied to data-center demand remains durable, and revision-supported
-    AI infrastructure leaders can continue working even if the broader macro backdrop is fragile.
-- name: Narrow market leadership
-  status: mixed
-  explanation: Index-level performance can remain supported by AI leaders, but weak breadth
-    raises fragility and makes broad beta less attractive.
+  status: bullish/stable
+  explanation: Data-center-tied capital spending remains durable and revision-supported AI infrastructure
+    leaders can keep working even if the broader backdrop is fragile. This is the main force keeping sticky
+    late-cycle AI a near-equal runner-up.
+- name: Credit conditions
+  status: bullish/stable
+  explanation: HY OAS tight at 276bps (z -0.77, 4W change -6bps), IG at 74bps. Healthy credit reduces
+    near-term risk-off odds and is a prerequisite for any broadening.
+- name: Fed path / monetary policy
+  status: mixed/restrictive
+  explanation: Monetary layer score 5.59, mixed/improving, but the composite reconciles it against Fed
+    hold/hike pricing of ~80% (cut ~20%), which keeps policy from being treated as outright bullish. Caveat
+    - the FedWatch read is dated 2026-05-19, roughly two weeks stale versus the 06-05 as-of date, and
+    should be refreshed before the cycle.
+- name: Oil shock and reopening optionality
+  status: mixed/mixed
+  explanation: Still inflationary but now two-sided. Oil remains elevated versus pre-shock levels, but
+    reopening and de-escalation headlines have reduced one-way upside pressure (USO -17.3% over 3M). Energy
+    remains a useful hedge, but the trade is tactical and headline-sensitive.
+- name: Volatility / hedging
+  status: mixed/stable
+  explanation: VIX 21.5 with an elevated 20-day z-score (+3.07) and elevated SKEW (152), pointing to some
+    tail hedging, but term structure is mildly upward (slope +0.31) and VVIX is unremarkable (102). Structure
+    is orderly rather than stressed. Note - the equity put/call input was unresolved this run and is intentionally
+    omitted rather than asserted.
 portfolio_implications:
-- Favor selective energy and real-asset hedges, but avoid treating oil beta as a one-way trade
-  while reopening risk is rising.
-- Favor short-duration cash-like exposure while rates and policy expectations remain restrictive.
-- Keep AI/grid exposure, but distinguish high-quality revision-supported beneficiaries from
-  crowded priced-for-perfection momentum.
-- Be cautious with small caps, long-duration bonds, unprofitable growth, and weak balance
-  sheets.
-- Hold more optionality than usual to handle sharp rotations across oil, rates, and AI leadership.
+- Favor themes with positive macro support across the two near-equal lead scenarios, since leadership
+  direction is unresolved - prioritize exposures that work in both broadening and sticky-AI outcomes.
+- Grid and power infrastructure and Quality ex-AI cash flow rank highest precisely because they carry
+  positive support across both leads; weight them over single-scenario bets.
+- Maintain hedges or cash-like exposure while the risk-off analogue signal remains elevated relative to
+  the deterministic read.
+- Distinguish quality AI and grid beneficiaries from high-beta crowded semiconductor beta.
+- 'Treat the broadening call as provisional: a confirmed equal-weight / small-cap breakout strengthens
+  it, renewed narrowing reverses it.'
+- Treat oil and energy exposure as tactical because oil-shock risk remains two-sided.
+- Small caps remain macro-unsupported on the theme score despite improving breadth internals; this tension
+  is deliberate and should be tested downstream rather than assumed resolved.
 best_positioned:
-- Selective energy / oil beta hedges
-- Commodities / real assets
-- Short-duration cash-like instruments
+- Grid and power infrastructure
+- Quality ex-AI cash flow
+- Cash and short duration
 - Quality AI leaders
-- Defense / geopolitics
-- Infrastructure / grid
+- Commodities and real assets
+- Healthcare defensives
+- Quality
+- Defensive factor
 most_vulnerable:
 - Small caps
-- Long-duration bonds
-- Unprofitable growth
+- Long-duration growth
+- High beta growth
+- High-beta AI semiconductors
+- Duration sensitivity
+- Small-cap beta
 - Weak balance sheets
-- Consumer discretionary exposed to energy costs
-- Crowded oil-shock trades if reopening headlines are confirmed
-- Priced-for-perfection AI momentum if hyperscaler capex guidance disappoints
+- Crowded capex beta if capex rollover risk rises
 falsifiers:
-- condition: Oil falls below $90 and stays for 5+ sessions
+- condition: Breadth broadens materially with equal-weight and small-cap leadership confirming.
   observable_in: price_action
   check_frequency: daily
-- condition: Hormuz reopening is confirmed and tanker traffic normalizes
-  observable_in: news
-  check_frequency: daily
-- condition: Oil falls below $70 and stays for 5+ sessions
+- condition: Equal weight (RSP) begins outperforming cap weight (SPY) on a sustained basis.
   observable_in: price_action
   check_frequency: daily
-- condition: Inflation breakevens stop rising or roll over for 2+ weeks
-  observable_in: data_series
-  check_frequency: daily
-- condition: Fed hike odds fade meaningfully
-  observable_in: data_series
-  check_frequency: weekly
-- condition: Credit spreads tighten materially despite oil/rate pressure
-  observable_in: data_series
-  check_frequency: daily
-- condition: Market breadth improves significantly with small caps outperforming
+- condition: Breadth narrows further and equal-weight lag deepens.
   observable_in: price_action
-  check_frequency: weekly
-- condition: Hyperscaler capex guidance weakens materially
+  check_frequency: daily
+- condition: Hyperscaler capex guidance weakens materially.
   observable_in: earnings
   check_frequency: event_driven
+- condition: AI infrastructure leaders lose relative strength.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Fed cut probabilities rise (refresh FedWatch; current read is stale).
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Fed hold/hike odds rise further.
+  observable_in: data_series
+  check_frequency: weekly
+- condition: HY or IG spreads widen from tight levels.
+  observable_in: data_series
+  check_frequency: daily
+- condition: Historical risk-off analogue signal converges with or is confirmed by deteriorating credit
+    and breadth.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Hormuz reopening is confirmed and oil risk premium compresses.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Oil breaks higher or supply-risk headlines worsen.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Breakevens roll over.
+  observable_in: data_series
+  check_frequency: daily
 seed_research_priorities:
-- theme: 2027-2028 maturity-wall equities with understated refinancing EPS drag
-  rationale: 'Credit conditions look healthy rather than distressed: the credit layer is bullish
-    at 8.1 and HY spreads are tight at 272bps. That is precisely why the better research angle
-    is not broad default risk, but understated EPS pressure from refinancing legacy debt at
-    materially higher rates. The monetary backdrop does not give much near-term relief: the
-    Fed path shows a 70% hold probability at the June 17 FOMC and 55% hold probability at
-    the July 29 meeting, so companies facing 2027-2028 walls cannot rely on imminent cuts
-    being pulled forward. The regime also explicitly lists weak balance sheets and small caps
-    as most vulnerable, which points the screen toward levered issuers where interest expense
-    revisions can matter more than revenue revisions. May CPI and the June FOMC are near-term
-    catalysts for rate assumptions, but the edge should decay over quarters because the mispricing
-    is resolved through refinancing transactions, credit agreement amendments, and multi-quarter
-    EPS estimate revisions rather than a single data print.'
-  edge_hypothesis: "The mispricing is that equity consensus appears to be modeling refinancing\
-    \ risk as a solvency issue only, while the more likely near-term damage is EPS dilution\
-    \ from coupon step-ups. Because HY spreads are tight, default risk screens may look benign;\
-    \ because the forward Fed path still prices mostly holds at the next two meetings, assuming\
-    \ rapid rate relief in 2027-2028 interest expense models may be too generous. Our prior\
-    \ is that sell-side estimates for levered issuers with large 2027-2028 maturities still\
-    \ anchor to current blended cash interest costs rather than refinancing those maturities\
-    \ at today\u2019s all-in yield curve. The edge is in finding companies where debt is refinanceable\
-    \ but EPS estimates do not yet reflect the higher cash interest burden."
+- theme: Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet
+    risk
+  rationale: "The relevant swing factor is the regime\u2019s explicit breadth conflict: equal\
+    \ weight is still lagging cap weight, with RSP up 11.9% over 3M versus SPY up 14.8%, but\
+    \ the internal breadth measures are improving \u2014 81.8% of stocks are above their 200-day\
+    \ moving average, ADL slope is +0.62, and IWM has led SPY by 5.8 percentage points over\
+    \ 3M. That makes a broadening-away-from-AI thesis plausible, but not clean enough to simply\
+    \ buy all beta. Credit is supportive, with the credit layer bullish at 8.3 and HY OAS\
+    \ tight around 276bps, which helps non-AI cyclicals and quality cash-flow compounders\
+    \ participate. The constraint is that sticky AI leadership remains a near-equal regime\
+    \ runner-up, with Reopening / Soft Landing at 36.2% versus Sticky Late Cycle AI at 34.1%,\
+    \ and AI earnings resilience is still a named bullish driver. This priority therefore\
+    \ focuses on quality ex-AI broadening beneficiaries rather than duplicating the existing\
+    \ small-cap priority or chasing high-beta cyclicals. Edge should decay over weeks because\
+    \ the thesis is tied to leadership rotation, breadth confirmation/falsification, and near-term\
+    \ macro catalysts: May CPI on 2026-06-11 and the June FOMC on 2026-06-17, where the stale\
+    \ Fed path still showed 70% hold and roughly 80% hold/hike odds."
+  edge_hypothesis: >-
+    The market may be mispricing broadening as either an AI-continuation trade or a generic
+    small-cap/high-beta catch-up trade. The regime data points to a narrower opportunity:
+    profitable ex-AI large- and mid-cap companies with durable free cash flow, improving relative
+    breadth, and limited balance-sheet sensitivity. Consensus appears still anchored to cap-weight
+    AI leadership because RSP continues to lag SPY and AI earnings resilience remains a major
+    regime driver, while the improving ADL, high percent-above-200D, and small-cap relative
+    strength indicate participation is broadening underneath the index. The mispricing is
+    that quality ex-AI beneficiaries of broad participation are not being credited for soft-landing
+    breadth improvement, while lower-quality beta may already be too vulnerable to the still-restrictive
+    Fed path.
   sub_questions:
-  - Which public companies have 2027-2028 debt maturities exceeding 25% of current market
-    capitalization or 3x trailing free cash flow, and what is the EPS impact if those maturities
-    refinance at current market yields?
-  - Where do consensus 2026-2028 interest expense estimates imply refinancing rates below
-    current bond yields, term loan spreads, or comparable new-issue coupons?
-  - Which companies have large fixed-rate debt walls with coupons materially below current
-    secondary yields, but equity multiples that still screen as if interest expense will remain
-    near the historical run-rate?
-  - Which sectors have the largest mismatch between tight credit-spread signals and equity
-    EPS sensitivity to higher cash interest costs?
-  - Which levered issuers have enough liquidity to avoid distress but insufficient free cash
-    flow growth to absorb refinancing-driven interest expense without margin or EPS estimate
-    cuts?
+    - Which ex-AI sectors and industries have outperformed the S&P 500 equal-weight index
+      over the last 4-8 weeks while also showing positive earnings-revision breadth?
+    - Which profitable large- and mid-cap ex-AI companies combine positive free-cash-flow
+      yield, net debt/EBITDA below sector median, and improving relative strength versus SPY?
+    - Is recent broadening being led by quality factors or by lower-quality/high-beta short-covering,
+      as measured by factor returns, balance-sheet quality, and short-interest changes?
+    - Which non-AI cyclicals have the strongest sensitivity to tight credit spreads but the
+      least sensitivity to a renewed rise in Fed hold/hike probabilities?
+    - Where do ETF flows and active-fund holdings show under-ownership of ex-AI quality cash-flow
+      beneficiaries relative to their improving price and revision trends?
   priority_rank: 2
-  expected_edge_decay: quarters
-  supporting_evidence:
-  - claim: Credit layer is bullish at 8.1 and HY spreads are tight at 272bps, indicating healthy
-      credit-market access rather than immediate broad distress.
-    supports: true
-    source_type: derived
-    computation: Drawn from current regime layer scores and credit signal.
-    upstream_claims:
-    - 'regime state: layers.credit.score=8.1'
-    - 'regime state: layers.credit.status=''bullish'''
-    - "regime state: credit signal='HY spreads tight (272bps) \u2014 credit healthy'"
-  - claim: Fed path shows 70% hold probability at the June 17 2026 FOMC and 55% hold probability
-      at the July 29 2026 FOMC.
-    supports: true
-    source_type: derived
-    computation: Drawn from forward-context FedWatch readings.
-    upstream_claims:
-    - 'forward_context.fed_path.2026-06-17: hold=70%, cut25=18%, cut50=2%, hike25=9%, hike50=1%'
-    - 'forward_context.fed_path.2026-07-29: hold=55%, cut25=30%, cut50=5%, hike25=9%, hike50=1%'
-  - claim: Monetary layer is neutral at 6.1, so the regime does not support an aggressive
-      near-term easing assumption.
-    supports: true
-    source_type: derived
-    computation: Drawn from current regime layer scores.
-    upstream_claims:
-    - 'regime state: layers.monetary.score=6.1'
-    - 'regime state: layers.monetary.status=''neutral'''
-  - claim: Weak balance sheets and small caps are explicitly listed as most vulnerable in
-      the current regime.
-    supports: true
-    source_type: derived
-    computation: Drawn from current regime vulnerability list.
-    upstream_claims:
-    - 'regime state: most_vulnerable includes ''Weak balance sheets'''
-    - 'regime state: most_vulnerable includes ''Small caps'''
-  - claim: Near-term catalysts include May CPI on June 11 2026 and the June FOMC meeting on
-      June 17 2026.
-    supports: true
-    source_type: derived
-    computation: Drawn from forward-context catalyst calendar.
-    upstream_claims:
-    - 'forward_context.upcoming_catalysts: 2026-06-11 May CPI Release, high significance'
-    - 'forward_context.upcoming_catalysts: 2026-06-17 FOMC June Meeting, high significance'
+  expected_edge_decay: weeks
