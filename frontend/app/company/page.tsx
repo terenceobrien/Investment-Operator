@@ -340,7 +340,17 @@ function VariantBox({ title, text, color }: { title: string; text: string; color
 }
 
 const SAMPLE_COVERAGE: CoverageEntry[] = [
+  { ticker: 'AAPL', name: 'Apple Inc.', as_of_date: '2026-06-30' },
+  { ticker: 'ETN', name: 'Eaton', as_of_date: '2026-06-30' },
+  { ticker: 'GE', name: 'GE Aerospace', as_of_date: '2026-07-01' },
   { ticker: 'GEV', name: 'GE Vernova Inc.', as_of_date: '2026-07-01' },
+  { ticker: 'JPM', name: 'JPMorgan Chase & Co.', as_of_date: '2026-06-30' },
+  { ticker: 'MU', name: 'Micron Technology', as_of_date: '2026-07-01' },
+  { ticker: 'PLTR', name: 'Palantir Technologies Inc.', as_of_date: '2026-07-16' },
+  { ticker: 'UAL', name: 'UAL', as_of_date: '2026-06-26' },
+  { ticker: 'UNH', name: 'UnitedHealth Group Incorporated', as_of_date: '2026-07-02' },
+  { ticker: 'V', name: 'Visa Inc.', as_of_date: '2026-07-02' },
+  { ticker: 'XOM', name: 'XOM', as_of_date: '2026-06-27' },
 ];
 
 // TODO: real schema fallback sample. Live data comes from /api/research/fundamental/{ticker}.
