@@ -93,6 +93,10 @@ function firstText(...values: unknown[]): string {
   }
   return '—';
 }
+function reportTicker(raw: unknown): string {
+  const r = unwrapPayload(raw);
+  return safeStr(r.ticker, '').toUpperCase();
+}
 
 function normalizeCoverage(raw: unknown): CoverageEntry[] {
   const obj = unwrapPayload(raw);
@@ -201,7 +205,7 @@ function Meter({ value, color = M.accent }: { value: number | null; color?: stri
 export default function CompanyPage() {
   const authFetcher = useAuthFetcher();
   const { data: coverageRaw } = useSWR<unknown>(
-    authFetcher.isSignedIn ? COVERAGE_ENDPOINT : null,
+    authFetcher.isReady ? COVERAGE_ENDPOINT : null,
     authFetcher.fetcher,
     { onError: () => null, revalidateOnFocus: false },
   );
@@ -218,11 +222,23 @@ export default function CompanyPage() {
   }, [coverage, ticker]);
 
   const { data: reportRaw } = useSWR<unknown>(
-    authFetcher.isSignedIn && ticker ? REPORT_ENDPOINT(ticker) : null,
+    authFetcher.isReady && ticker ? REPORT_ENDPOINT(ticker) : null,
     authFetcher.fetcher,
     { onError: () => null, revalidateOnFocus: false },
   );
-  const report = useMemo(() => normalizeReport(reportRaw ?? SAMPLE_REPORT, ticker), [reportRaw, ticker]);
+  const selectedCoverage = useMemo(
+    () => coverage.find((entry) => entry.ticker === ticker),
+    [coverage, ticker],
+  );
+  const matchingReportRaw = reportRaw && reportTicker(reportRaw) === ticker ? reportRaw : undefined;
+  const fallbackReport = useMemo(
+    () => fallbackReportForTicker(ticker, selectedCoverage),
+    [ticker, selectedCoverage],
+  );
+  const report = useMemo(
+    () => normalizeReport(matchingReportRaw ?? fallbackReport, ticker),
+    [matchingReportRaw, fallbackReport, ticker],
+  );
 
   if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
     return <AuthRequired isLoaded={authFetcher.isLoaded} />;
@@ -397,3 +413,43 @@ const SAMPLE_REPORT: FundamentalReport = {
     valuation_falsifiers: ['Multiple expansion continues while estimate revisions flatten.'],
   },
 };
+
+function fallbackReportForTicker(ticker: string, coverage?: CoverageEntry): FundamentalReport {
+  if (ticker === SAMPLE_REPORT.ticker) return SAMPLE_REPORT;
+  return {
+    ticker,
+    as_of_date: coverage?.as_of_date,
+    verdict: 'loading',
+    data_confidence: '—',
+    company_profile: {
+      company_name: coverage?.name ?? ticker,
+      sector: '—',
+      industry: undefined,
+    },
+    scores: {},
+    financial_trend_analysis: {
+      revenue_growth_trend: 'Awaiting live report',
+      gross_margin_trend: 'Awaiting live report',
+      operating_margin_trend: 'Awaiting live report',
+      fcf_trend: 'Awaiting live report',
+      estimate_revision_trend: 'Loading the latest deep fundamental report for the selected company.',
+    },
+    llm_synthesis: {
+      underwriting_summary: 'Loading the latest deep fundamental report for the selected company.',
+      confidence: '—',
+      qualitative_conviction: 'loading',
+      key_risks: [],
+      key_metrics_to_monitor: [],
+    },
+    falsification_framework: {
+      fundamental_falsifiers: [],
+      macro_falsifiers: [],
+      valuation_falsifiers: [],
+      timing_falsifiers: [],
+    },
+    variant_view: {
+      variant_view_direction: '—',
+      variant_view_strength: '—',
+    },
+  };
+}
