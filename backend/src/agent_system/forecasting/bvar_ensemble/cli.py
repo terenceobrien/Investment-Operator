@@ -74,19 +74,19 @@ def build_parser() -> argparse.ArgumentParser:
     fit.set_defaults(func=_cmd_fit)
 
     fit_garch = subparsers.add_parser("fit-garch", parents=[common])
-    fit_garch.add_argument("--posterior", default=None)
+    _add_artifact_flags(fit_garch, garch=False, regime=False)
     fit_garch.set_defaults(func=_cmd_fit_garch)
 
     label_regimes_cmd = subparsers.add_parser("label-regimes", parents=[common])
-    label_regimes_cmd.add_argument("--posterior", default=None)
+    _add_artifact_flags(label_regimes_cmd, garch=False, regime=False)
     label_regimes_cmd.set_defaults(func=_cmd_label_regimes)
 
     fit_regime = subparsers.add_parser("fit-regime", parents=[common])
-    fit_regime.add_argument("--posterior", default=None)
+    _add_artifact_flags(fit_regime, garch=False, regime=False)
     fit_regime.set_defaults(func=_cmd_fit_regime)
 
     validate = subparsers.add_parser("validate", parents=[common])
-    validate.add_argument("--posterior", default=None)
+    _add_artifact_flags(validate)
     validate.add_argument("--horizon", type=int, default=None)
     validate.set_defaults(func=_cmd_validate)
 
@@ -130,6 +130,7 @@ def build_parser() -> argparse.ArgumentParser:
     compare.set_defaults(func=_cmd_compare)
 
     report = subparsers.add_parser("report", parents=[common])
+    _add_artifact_flags(report)
     report.add_argument(
         "--forecast",
         default=None,
@@ -144,8 +145,23 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _add_artifact_flags(
+    parser: argparse.ArgumentParser,
+    *,
+    posterior: bool = True,
+    garch: bool = True,
+    regime: bool = True,
+) -> None:
+    if posterior:
+        parser.add_argument("--posterior", default=None)
+    if garch:
+        parser.add_argument("--garch", "--garch-artifact", dest="garch_artifact", default=None)
+    if regime:
+        parser.add_argument("--regime", "--regime-artifact", dest="regime_artifact", default=None)
+
+
 def _add_simulation_flags(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--posterior", default=None)
+    _add_artifact_flags(parser)
     parser.add_argument("--n-paths", type=int, default=None)
     parser.add_argument("--horizon", type=int, default=None)
     parser.add_argument("--asof", default=None, help="Anchor quarter, e.g. 2007Q4.")
@@ -153,9 +169,7 @@ def _add_simulation_flags(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--shock-dist", choices=["gaussian", "student_t"], default=None)
     parser.add_argument("--t-dof", type=int, default=None)
     parser.add_argument("--vol-model", choices=["constant", "garch"], default=None)
-    parser.add_argument("--garch-artifact", default=None)
     parser.add_argument("--regime-model", choices=["none", "markov"], default=None)
-    parser.add_argument("--regime-artifact", default=None)
     parser.add_argument("--draw-coefficients", action="store_true")
 
 
@@ -229,7 +243,10 @@ def _cmd_label_regimes(args: argparse.Namespace) -> int:
     print(f"  stress quarters: {labels.stress_count}/{len(labels.labels)} ({labels.stress_fraction:.1%})")
     print("  thresholds:")
     for key, value in labels.thresholds.items():
-        print(f"    {key}: {value:.4f}")
+        if key == "stress_min_conditions":
+            print(f"    {key}: {int(value)}")
+        else:
+            print(f"    {key}: {value:.4f}")
     print("  contiguous stress episodes:")
     for episode in labels.stress_episodes:
         print(f"    {episode['start']}..{episode['end']}")
@@ -265,8 +282,33 @@ def _cmd_fit_regime(args: argparse.Namespace) -> int:
     print(
         "Average off-diagonal correlation: "
         f"calm={artifact.calm_avg_offdiag_correlation:.3f} "
-        f"stress={artifact.stress_avg_offdiag_correlation:.3f}"
+        f"empirical_stress={artifact.empirical_stress_avg_offdiag_correlation:.3f} "
+        f"final_stress={artifact.stress_avg_offdiag_correlation:.3f}"
     )
+    print(
+        "Stress correlation imposition: "
+        f"target={float(artifact.summary.get('crisis_correlation_target', 0.0)):.3f} "
+        f"weight={float(artifact.summary.get('stress_correlation_impose_weight', 0.0)):.3f} "
+        f"pre_repair_abs={float(artifact.summary.get('pre_repair_stress_avg_offdiag_magnitude', 0.0)):.3f} "
+        f"post_repair_abs={artifact.stress_avg_offdiag_magnitude:.3f} "
+        f"repaired={bool(artifact.summary.get('stress_correlation_psd_repaired', False))}"
+    )
+    print(
+        "Stress concentration effect: "
+        f"avg_vol_multiplier={artifact.average_stress_vol_multiplier:.3f} "
+        f"avg_corr_delta={artifact.stress_avg_offdiag_correlation - artifact.calm_avg_offdiag_correlation:+.3f}"
+    )
+    for warning in artifact.summary.get("stress_correlation_warnings", []):
+        print(warning)
+    if artifact.expected_stress_duration <= 1.25:
+        print(
+            "WARNING: count-estimated stress persistence implies roughly one-quarter "
+            "stress duration; this is a method limitation, not a fitted floor."
+        )
+    print("Imposed stress correlation matrix:")
+    _print_correlation_matrix(artifact.variable_order, artifact.imposed_stress_correlation)
+    print("Final PSD-repaired stress correlation matrix:")
+    _print_correlation_matrix(artifact.variable_order, artifact.stress_correlation)
     print("Binned calm->stress transition rates:")
     for row in artifact.binned_transition_table:
         rate = row.get("transition_rate")
@@ -751,6 +793,14 @@ def _load_regime_for_args(
     )
     validate_regime_matches_posterior(artifact, posterior)
     return artifact
+
+
+def _print_correlation_matrix(variable_order: list[str], matrix) -> None:
+    labels = [variable[:10] for variable in variable_order]
+    print(" " * 13 + " ".join(f"{label:>10}" for label in labels))
+    for row_label, row in zip(labels, matrix):
+        values = " ".join(f"{float(value):>10.3f}" for value in row)
+        print(f"  {row_label:<10} {values}")
 
 
 if __name__ == "__main__":

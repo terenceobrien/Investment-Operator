@@ -13,8 +13,10 @@ import numpy as np
 from src.agent_system.forecasting.bvar_ensemble.estimation import (
     BVARFitError,
     PosteriorArtifact,
+    artifact_candidate_paths,
     default_bvar_cache_dir,
     posterior_artifact_fingerprint,
+    print_archive_resolution_note,
     require_posterior_residuals,
 )
 
@@ -241,17 +243,16 @@ def newest_garch_artifact(
     if not target_dir.is_dir():
         raise GarchError(f"BVAR cache directory not found: {target_dir}; run fit-garch first.")
     posterior_fp = posterior_artifact_fingerprint(posterior.path)
-    matches: list[GarchArtifact] = []
-    for path in sorted(target_dir.glob("garch_*.npz"), key=lambda item: item.stat().st_mtime, reverse=True):
+    for path in artifact_candidate_paths("garch_*.npz", bvar_cache_dir=bvar_cache_dir):
         artifact = load_garch_artifact(path)
         if artifact.posterior_fingerprint == posterior_fp:
-            matches.append(artifact)
-    if not matches:
-        raise GarchError(
-            f"No garch_*.npz artifact in {target_dir} matches posterior fingerprint "
-            f"{posterior_fp}; run fit-garch for {posterior.path}."
-        )
-    return matches[0]
+            print_archive_resolution_note("garch", artifact.path, bvar_cache_dir=bvar_cache_dir)
+            return artifact
+    raise GarchError(
+        f"No garch_*.npz artifact in {target_dir} or {target_dir / 'archive'} "
+        f"matches posterior fingerprint {posterior_fp}; run fit-garch for "
+        f"{posterior.path} or pass --garch."
+    )
 
 
 def validate_garch_matches_posterior(

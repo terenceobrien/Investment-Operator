@@ -53,12 +53,19 @@ def label_regimes(
     spread_level_threshold = float(np.percentile(full_credit.dropna(), spread_level_pctile))
     spread_change_threshold = float(config["spread_change_threshold"])
     nfci_threshold = float(config["nfci_threshold"])
+    stress_min_conditions = int(config.get("stress_min_conditions", 2))
+    if not 1 <= stress_min_conditions <= 3:
+        raise RegimeLabelingError("stress_min_conditions must be between 1 and 3")
 
-    stress = (
-        (credit > spread_level_threshold)
-        | (spread_change_1q > spread_change_threshold)
-        | (nfci > nfci_threshold)
+    conditions = pd.DataFrame(
+        {
+            "spread_level_high": credit > spread_level_threshold,
+            "spread_change_high": spread_change_1q > spread_change_threshold,
+            "nfci_high": nfci > nfci_threshold,
+        },
+        index=aligned.index,
     ).fillna(False)
+    stress = conditions.sum(axis=1) >= stress_min_conditions
     labels = stress.astype(int).to_numpy(dtype=int)
     min_stress = int(config["regime_min_stress_quarters"])
     stress_count = int(np.sum(labels))
@@ -89,6 +96,7 @@ def label_regimes(
             "spread_level_threshold": spread_level_threshold,
             "spread_change_threshold": spread_change_threshold,
             "nfci_threshold": nfci_threshold,
+            "stress_min_conditions": float(stress_min_conditions),
         },
         stress_episodes=episodes,
         stress_count=stress_count,

@@ -4,6 +4,8 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os
+import re
 import traceback
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
@@ -45,6 +47,7 @@ _STAGE_INDEX: dict[StageName, int] = {
     StageName.PORTFOLIO: 6,
 }
 _DONE_STATUSES = {StageStatus.COMPLETE, StageStatus.SKIPPED, StageStatus.FAILED}
+_TICKER_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 
 
 class GeneratePrioritiesRequest(BaseModel):
@@ -57,6 +60,48 @@ class CommitPriorityRequest(BaseModel):
 
 class RunCycleResponse(BaseModel):
     job_id: str
+
+
+def _deep_fundamental_root() -> Path:
+    default_root = (
+        Path(__file__).resolve().parents[2]
+        / "data"
+        / "deep_fundamental_reports"
+        / "standalone"
+    )
+    return Path(os.getenv("DEEP_FUNDAMENTAL_DIR", str(default_root))).expanduser()
+
+
+def _load_json_file(path: Path) -> dict[str, Any]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"report JSON is invalid: {path}: {exc}") from exc
+    if not isinstance(payload, dict):
+        raise ValueError(f"report JSON must contain an object: {path}")
+    return payload
+
+
+def _latest_report_file(ticker_dir: Path) -> tuple[Path, dict[str, Any]]:
+    candidates = sorted(ticker_dir.glob("*.json"))
+    if not candidates:
+        raise FileNotFoundError(f"No report JSON files found in {ticker_dir}")
+    best: tuple[str, str, Path, dict[str, Any]] | None = None
+    for path in candidates:
+        payload = _load_json_file(path)
+        as_of = str(payload.get("as_of_date") or path.stem)
+        key = (as_of, path.stem, path, payload)
+        if best is None or key[:2] > best[:2]:
+            best = key
+    assert best is not None
+    return best[2], best[3]
+
+
+def _ticker_dir(ticker: str) -> Path:
+    normalized = ticker.strip().upper()
+    if not normalized or not _TICKER_RE.fullmatch(normalized):
+        raise ValueError("ticker must contain only letters, numbers, '.', '_' or '-'")
+    return _deep_fundamental_root() / normalized
 
 
 def _run_research_cycle_process(cycle_id: str) -> None:
@@ -121,6 +166,65 @@ def _priority_payload(priority: Any) -> dict[str, Any]:
     payload = priority.model_dump(mode="json")
     if not payload.get("source_theme_id"):
         payload["source_theme_id"] = "free_text"
+    return payload
+
+
+@research_router.get("/fundamental/coverage")
+def fundamental_coverage(
+    user: dict = Depends(verify_agent_system_access),
+) -> dict[str, Any]:
+    """List tickers with standalone deep fundamental reports."""
+    del user
+    root = _deep_fundamental_root()
+    if not root.is_dir():
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"Deep fundamental report directory not found: {root}. "
+                "Set DEEP_FUNDAMENTAL_DIR to the standalone reports directory."
+            ),
+        )
+    coverage: list[dict[str, Any]] = []
+    for ticker_dir in sorted(path for path in root.iterdir() if path.is_dir()):
+        try:
+            latest_path, payload = _latest_report_file(ticker_dir)
+        except Exception as exc:
+            logger.warning("Skipping malformed fundamental coverage entry %s: %s", ticker_dir, exc)
+            continue
+        profile = payload.get("company_profile") if isinstance(payload.get("company_profile"), dict) else {}
+        coverage.append(
+            {
+                "ticker": str(payload.get("ticker") or ticker_dir.name).upper(),
+                "name": profile.get("company_name") or payload.get("company_name") or ticker_dir.name,
+                "as_of_date": payload.get("as_of_date") or latest_path.stem,
+            }
+        )
+    coverage.sort(key=lambda item: item["ticker"])
+    return {"coverage": coverage}
+
+
+@research_router.get("/fundamental/{ticker}")
+def latest_fundamental_report(
+    ticker: str,
+    user: dict = Depends(verify_agent_system_access),
+) -> dict[str, Any]:
+    """Return the latest standalone deep fundamental report JSON for a ticker."""
+    del user
+    try:
+        ticker_dir = _ticker_dir(ticker)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if not ticker_dir.is_dir():
+        raise HTTPException(
+            status_code=404,
+            detail=f"No deep fundamental report directory found for {ticker.upper()}",
+        )
+    try:
+        _path, payload = _latest_report_file(ticker_dir)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
     return payload
 
 

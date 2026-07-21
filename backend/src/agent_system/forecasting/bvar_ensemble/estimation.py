@@ -54,6 +54,34 @@ def default_bvar_cache_dir() -> Path:
     return agent_system_data_root() / "bvar_cache"
 
 
+def artifact_candidate_paths(
+    pattern: str,
+    *,
+    bvar_cache_dir: str | Path | None = None,
+) -> list[Path]:
+    target_dir = Path(bvar_cache_dir) if bvar_cache_dir is not None else default_bvar_cache_dir()
+    if not target_dir.is_dir():
+        return []
+    candidates = list(target_dir.glob(pattern))
+    archive_dir = target_dir / "archive"
+    if archive_dir.is_dir():
+        candidates.extend(archive_dir.glob(pattern))
+    return sorted(candidates, key=_artifact_sort_key, reverse=True)
+
+
+def print_archive_resolution_note(
+    artifact_label: str,
+    path: str | Path,
+    *,
+    bvar_cache_dir: str | Path | None = None,
+) -> None:
+    target_dir = Path(bvar_cache_dir) if bvar_cache_dir is not None else default_bvar_cache_dir()
+    archive_dir = target_dir / "archive"
+    artifact_path = Path(path)
+    if artifact_path.parent == archive_dir:
+        print(f"resolved {artifact_label} from archive/: {artifact_path.name}")
+
+
 def default_bvar_config_path() -> Path:
     return Path(__file__).resolve().parents[2] / "config" / "bvar_config.yaml"
 
@@ -85,10 +113,16 @@ def load_bvar_config(path: str | Path | None = None) -> dict[str, Any]:
         "garch_t_dof": int(payload.get("garch_t_dof", 6)),
         "garch_max_iter": int(payload.get("garch_max_iter", 500)),
         "garch_persistence_warn": float(payload.get("garch_persistence_warn", 0.99)),
-        "spread_level_pctile": float(payload.get("spread_level_pctile", 80.0)),
+        "spread_level_pctile": float(payload.get("spread_level_pctile", 90.0)),
         "spread_change_threshold": float(payload.get("spread_change_threshold", 0.50)),
         "nfci_threshold": float(payload.get("nfci_threshold", 0.5)),
+        "stress_min_conditions": int(payload.get("stress_min_conditions", 2)),
         "regime_min_stress_quarters": int(payload.get("regime_min_stress_quarters", 8)),
+        "crisis_correlation_target": float(payload.get("crisis_correlation_target", 0.8)),
+        "stress_correlation_impose_weight": float(
+            payload.get("stress_correlation_impose_weight", 1.0)
+        ),
+        "psd_repair_warn_delta": float(payload.get("psd_repair_warn_delta", 0.1)),
         "regime_proxy_weights": dict(payload.get("regime_proxy_weights") or {}),
         "max_redraws_per_path": int(payload.get("max_redraws_per_path")),
         "rejection_warn_pct": float(payload.get("rejection_warn_pct")),
@@ -283,13 +317,13 @@ def newest_posterior_artifact(
     target_dir = Path(bvar_cache_dir) if bvar_cache_dir is not None else default_bvar_cache_dir()
     if not target_dir.is_dir():
         raise BVARFitError(f"BVAR cache directory not found: {target_dir}; run fit first.")
-    candidates = sorted(
-        target_dir.glob("posterior_*.npz"),
-        key=lambda path: (path.stat().st_mtime, path.name),
-        reverse=True,
-    )
+    candidates = artifact_candidate_paths("posterior_*.npz", bvar_cache_dir=bvar_cache_dir)
     if not candidates:
-        raise BVARFitError(f"No posterior_*.npz found in {target_dir}; run fit first.")
+        raise BVARFitError(
+            f"No posterior_*.npz found in {target_dir} or {target_dir / 'archive'}; "
+            "run fit first or pass --posterior."
+        )
+    print_archive_resolution_note("posterior", candidates[0], bvar_cache_dir=bvar_cache_dir)
     return load_posterior_artifact(candidates[0])
 
 
@@ -532,8 +566,18 @@ def _validate_config(config: dict[str, Any]) -> None:
         raise BVARFitError("bvar_config report_output_dir must be non-empty")
     if not 0.0 < float(config["spread_level_pctile"]) < 100.0:
         raise BVARFitError("bvar_config spread_level_pctile must be between 0 and 100")
+    if not 1 <= int(config["stress_min_conditions"]) <= 3:
+        raise BVARFitError("bvar_config stress_min_conditions must be between 1 and 3")
     if int(config["regime_min_stress_quarters"]) < 1:
         raise BVARFitError("bvar_config regime_min_stress_quarters must be positive")
+    if not 0.0 < float(config["crisis_correlation_target"]) < 1.0:
+        raise BVARFitError("bvar_config crisis_correlation_target must be between 0 and 1")
+    if not 0.0 <= float(config["stress_correlation_impose_weight"]) <= 1.0:
+        raise BVARFitError(
+            "bvar_config stress_correlation_impose_weight must be between 0 and 1"
+        )
+    if float(config["psd_repair_warn_delta"]) < 0.0:
+        raise BVARFitError("bvar_config psd_repair_warn_delta must be non-negative")
     weights = config.get("regime_proxy_weights")
     if not isinstance(weights, dict):
         raise BVARFitError("bvar_config regime_proxy_weights must be a mapping")
@@ -570,3 +614,11 @@ def _parse_quarter(value: str) -> pd.Period:
 
 def _utc_timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _artifact_sort_key(path: Path) -> tuple[str, float, str]:
+    try:
+        mtime = path.stat().st_mtime
+    except OSError:
+        mtime = 0.0
+    return (path.name, mtime, str(path))

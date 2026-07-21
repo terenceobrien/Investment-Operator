@@ -17,9 +17,11 @@ import numpy as np
 from src.agent_system.forecasting.bvar_ensemble.estimation import (
     BVARFitError,
     PosteriorArtifact,
+    artifact_candidate_paths,
     default_bvar_cache_dir,
     load_spine_history_frame,
     posterior_artifact_fingerprint,
+    print_archive_resolution_note,
     require_posterior_residuals,
 )
 from src.agent_system.forecasting.bvar_ensemble.regime_labeling import (
@@ -53,10 +55,16 @@ class RegimeArtifact:
     p_stay: float
     expected_stress_duration: float
     stress_vol_multiplier: np.ndarray
+    average_stress_vol_multiplier: float
     calm_correlation: np.ndarray
     stress_correlation: np.ndarray
+    empirical_stress_correlation: np.ndarray
+    imposed_stress_correlation: np.ndarray
+    pre_repair_stress_correlation: np.ndarray
     calm_avg_offdiag_correlation: float
     stress_avg_offdiag_correlation: float
+    empirical_stress_avg_offdiag_correlation: float
+    stress_avg_offdiag_magnitude: float
     posterior_fingerprint: str
     fit_timestamp: str
     summary: dict[str, Any]
@@ -129,9 +137,22 @@ def fit_regime_artifact(
         variable_order=posterior.variable_order,
     )
     calm_corr = _correlation_from_residuals(calm_residuals)
-    stress_corr = _correlation_from_residuals(stress_residuals)
+    empirical_stress_corr = _correlation_from_residuals(stress_residuals)
+    correlation_build = _build_active_stress_correlation(
+        calm_corr,
+        empirical_stress_corr,
+        variable_order=list(posterior.variable_order),
+        config=config,
+    )
+    stress_corr = correlation_build["stress_correlation"]
+    imposed_stress_corr = correlation_build["imposed_correlation"]
+    pre_repair_stress_corr = correlation_build["pre_repair_correlation"]
     calm_offdiag = _avg_offdiag_correlation(calm_corr)
+    empirical_stress_offdiag = _avg_offdiag_correlation(empirical_stress_corr)
     stress_offdiag = _avg_offdiag_correlation(stress_corr)
+    empirical_stress_magnitude = _avg_offdiag_magnitude(empirical_stress_corr)
+    stress_magnitude = _avg_offdiag_magnitude(stress_corr)
+    avg_multiplier = float(np.mean(multipliers))
 
     proxy_means, proxy_stds = proxy_scalers(history)
     proxy_weights = proxy_weights_from_config(config)
@@ -158,8 +179,30 @@ def fit_regime_artifact(
         "logistic_diagnostics": logistic_diagnostics,
         "p_stay": float(p_stay),
         "expected_stress_duration": float(expected_duration),
+        "average_stress_vol_multiplier": float(avg_multiplier),
         "calm_avg_offdiag_correlation": float(calm_offdiag),
+        "empirical_stress_avg_offdiag_correlation": float(empirical_stress_offdiag),
+        "empirical_stress_avg_offdiag_magnitude": float(empirical_stress_magnitude),
         "stress_avg_offdiag_correlation": float(stress_offdiag),
+        "stress_avg_offdiag_magnitude": float(stress_magnitude),
+        "crisis_correlation_target": float(correlation_build["target_magnitude"]),
+        "stress_correlation_impose_weight": float(correlation_build["blend_weight"]),
+        "psd_repair_warn_delta": float(correlation_build["repair_warn_delta"]),
+        "pre_repair_stress_avg_offdiag_magnitude": float(
+            correlation_build["pre_repair_avg_offdiag_magnitude"]
+        ),
+        "post_repair_stress_avg_offdiag_magnitude": float(
+            correlation_build["post_repair_avg_offdiag_magnitude"]
+        ),
+        "stress_correlation_psd_repaired": bool(correlation_build["psd_repaired"]),
+        "stress_correlation_psd_repair_delta": float(correlation_build["repair_delta"]),
+        "stress_correlation_min_eigenvalue_pre_repair": float(
+            correlation_build["min_eigenvalue_pre_repair"]
+        ),
+        "stress_correlation_min_eigenvalue_post_repair": float(
+            correlation_build["min_eigenvalue_post_repair"]
+        ),
+        "stress_correlation_warnings": list(correlation_build["warnings"]),
         "stress_count": int(labels.stress_count),
         "stress_fraction": float(labels.stress_fraction),
     }
@@ -170,6 +213,9 @@ def fit_regime_artifact(
         stress_vol_multiplier=multipliers.astype(float),
         calm_correlation=calm_corr.astype(float),
         stress_correlation=stress_corr.astype(float),
+        empirical_stress_correlation=empirical_stress_corr.astype(float),
+        imposed_stress_correlation=imposed_stress_corr.astype(float),
+        pre_repair_stress_correlation=pre_repair_stress_corr.astype(float),
         metadata_json=np.asarray(json.dumps(metadata, sort_keys=True)),
     )
     artifact = load_regime_artifact(artifact_path)
@@ -181,11 +227,38 @@ def fit_regime_artifact(
             variable: float(multipliers[index])
             for index, variable in enumerate(posterior.variable_order)
         },
+        "stress_regime_concentration_effect": {
+            "average_stress_vol_multiplier": float(avg_multiplier),
+            "avg_offdiag_correlation_delta": float(stress_offdiag - calm_offdiag),
+            "empirical_stress_avg_offdiag_correlation": float(empirical_stress_offdiag),
+            "post_repair_stress_avg_offdiag_magnitude": float(stress_magnitude),
+        },
         "calm_correlation": _matrix_to_nested(calm_corr, posterior.variable_order),
+        "empirical_stress_correlation": _matrix_to_nested(
+            empirical_stress_corr,
+            posterior.variable_order,
+        ),
+        "imposed_stress_correlation": _matrix_to_nested(
+            imposed_stress_corr,
+            posterior.variable_order,
+        ),
+        "pre_repair_stress_correlation": _matrix_to_nested(
+            pre_repair_stress_corr,
+            posterior.variable_order,
+        ),
         "stress_correlation": _matrix_to_nested(stress_corr, posterior.variable_order),
         "notes": [
             "Phase 1 regime estimation uses hard labels plus a lagged proxy logistic transition.",
+            "Stress-regime correlation is imposed from calm signs plus documented economic fallback signs, then PSD-repaired before simulation.",
             "Simulation consumes only the stable artifact interface so Phase 2 latent-regime inference can swap in later.",
+            *correlation_build["warnings"],
+            *(
+                [
+                    "WARNING: count-estimated stress persistence implies roughly one-quarter stress duration; this is a method limitation, not a fitted floor."
+                ]
+                if np.isfinite(expected_duration) and expected_duration <= 1.25
+                else []
+            ),
         ],
     }
     summary_path.write_text(
@@ -212,6 +285,24 @@ def load_regime_artifact(path: str | Path) -> RegimeArtifact:
     stress_vol_multiplier = np.asarray(data["stress_vol_multiplier"], dtype=float)
     calm_correlation = np.asarray(data["calm_correlation"], dtype=float)
     stress_correlation = np.asarray(data["stress_correlation"], dtype=float)
+    empirical_stress_correlation = np.asarray(
+        data["empirical_stress_correlation"]
+        if "empirical_stress_correlation" in data.files
+        else data["stress_correlation"],
+        dtype=float,
+    )
+    imposed_stress_correlation = np.asarray(
+        data["imposed_stress_correlation"]
+        if "imposed_stress_correlation" in data.files
+        else data["stress_correlation"],
+        dtype=float,
+    )
+    pre_repair_stress_correlation = np.asarray(
+        data["pre_repair_stress_correlation"]
+        if "pre_repair_stress_correlation" in data.files
+        else data["stress_correlation"],
+        dtype=float,
+    )
     n_obs = len(residual_quarters)
     n_vars = len(variable_order)
     if labels.shape != (n_obs,):
@@ -229,6 +320,9 @@ def load_regime_artifact(path: str | Path) -> RegimeArtifact:
     for label, matrix in [
         ("calm_correlation", calm_correlation),
         ("stress_correlation", stress_correlation),
+        ("empirical_stress_correlation", empirical_stress_correlation),
+        ("imposed_stress_correlation", imposed_stress_correlation),
+        ("pre_repair_stress_correlation", pre_repair_stress_correlation),
     ]:
         if matrix.shape != (n_vars, n_vars):
             raise RegimeParamsError(f"{label} must have shape {(n_vars, n_vars)}; got {matrix.shape}")
@@ -249,10 +343,28 @@ def load_regime_artifact(path: str | Path) -> RegimeArtifact:
         p_stay=float(metadata["p_stay"]),
         expected_stress_duration=float(metadata["expected_stress_duration"]),
         stress_vol_multiplier=stress_vol_multiplier,
+        average_stress_vol_multiplier=float(
+            metadata.get("average_stress_vol_multiplier", np.mean(stress_vol_multiplier))
+        ),
         calm_correlation=calm_correlation,
         stress_correlation=stress_correlation,
+        empirical_stress_correlation=empirical_stress_correlation,
+        imposed_stress_correlation=imposed_stress_correlation,
+        pre_repair_stress_correlation=pre_repair_stress_correlation,
         calm_avg_offdiag_correlation=float(metadata["calm_avg_offdiag_correlation"]),
         stress_avg_offdiag_correlation=float(metadata["stress_avg_offdiag_correlation"]),
+        empirical_stress_avg_offdiag_correlation=float(
+            metadata.get(
+                "empirical_stress_avg_offdiag_correlation",
+                _avg_offdiag_correlation(empirical_stress_correlation),
+            )
+        ),
+        stress_avg_offdiag_magnitude=float(
+            metadata.get(
+                "stress_avg_offdiag_magnitude",
+                _avg_offdiag_magnitude(stress_correlation),
+            )
+        ),
         posterior_fingerprint=str(metadata["posterior_fingerprint"]),
         fit_timestamp=str(metadata["fit_timestamp"]),
         summary=metadata,
@@ -268,17 +380,16 @@ def newest_regime_artifact(
     if not target_dir.is_dir():
         raise RegimeParamsError(f"BVAR cache directory not found: {target_dir}; run fit-regime first.")
     posterior_fp = posterior_artifact_fingerprint(posterior.path)
-    matches: list[RegimeArtifact] = []
-    for path in sorted(target_dir.glob("regime_*.npz"), key=lambda item: item.stat().st_mtime, reverse=True):
+    for path in artifact_candidate_paths("regime_*.npz", bvar_cache_dir=bvar_cache_dir):
         artifact = load_regime_artifact(path)
         if artifact.posterior_fingerprint == posterior_fp:
-            matches.append(artifact)
-    if not matches:
-        raise RegimeParamsError(
-            f"No regime_*.npz artifact in {target_dir} matches posterior fingerprint "
-            f"{posterior_fp}; run fit-regime for {posterior.path}."
-        )
-    return matches[0]
+            print_archive_resolution_note("regime", artifact.path, bvar_cache_dir=bvar_cache_dir)
+            return artifact
+    raise RegimeParamsError(
+        f"No regime_*.npz artifact in {target_dir} or {target_dir / 'archive'} "
+        f"matches posterior fingerprint {posterior_fp}; run fit-regime for "
+        f"{posterior.path} or pass --regime."
+    )
 
 
 def validate_regime_matches_posterior(
@@ -316,7 +427,20 @@ def regime_metadata_for_forecast(artifact: RegimeArtifact | None) -> dict[str, A
         "stress_episodes": artifact.stress_episodes,
         "binned_transition_table": artifact.binned_transition_table,
         "calm_avg_offdiag_correlation": artifact.calm_avg_offdiag_correlation,
+        "empirical_stress_avg_offdiag_correlation": artifact.empirical_stress_avg_offdiag_correlation,
         "stress_avg_offdiag_correlation": artifact.stress_avg_offdiag_correlation,
+        "stress_avg_offdiag_magnitude": artifact.stress_avg_offdiag_magnitude,
+        "crisis_correlation_target": artifact.summary.get("crisis_correlation_target"),
+        "stress_correlation_impose_weight": artifact.summary.get(
+            "stress_correlation_impose_weight"
+        ),
+        "stress_correlation_psd_repaired": artifact.summary.get(
+            "stress_correlation_psd_repaired"
+        ),
+        "stress_correlation_psd_repair_delta": artifact.summary.get(
+            "stress_correlation_psd_repair_delta"
+        ),
+        "average_stress_vol_multiplier": artifact.average_stress_vol_multiplier,
         "stress_vol_multiplier_by_variable": {
             variable: float(artifact.stress_vol_multiplier[index])
             for index, variable in enumerate(artifact.variable_order)
@@ -454,6 +578,136 @@ def _binned_transition_table(
     return out
 
 
+def _build_active_stress_correlation(
+    calm_corr: np.ndarray,
+    empirical_stress_corr: np.ndarray,
+    *,
+    variable_order: list[str],
+    config: dict[str, Any],
+) -> dict[str, Any]:
+    target_magnitude = float(config.get("crisis_correlation_target", 0.8))
+    blend_weight = float(config.get("stress_correlation_impose_weight", 1.0))
+    repair_warn_delta = float(config.get("psd_repair_warn_delta", 0.1))
+    if not 0.0 < target_magnitude < 1.0:
+        raise RegimeParamsError("crisis_correlation_target must be between 0 and 1")
+    if not 0.0 <= blend_weight <= 1.0:
+        raise RegimeParamsError("stress_correlation_impose_weight must be between 0 and 1")
+    if repair_warn_delta < 0.0:
+        raise RegimeParamsError("psd_repair_warn_delta must be non-negative")
+
+    imposed = _imposed_stress_correlation(
+        calm_corr,
+        variable_order=variable_order,
+        target_magnitude=target_magnitude,
+    )
+    pre_repair = (1.0 - blend_weight) * empirical_stress_corr + blend_weight * imposed
+    pre_repair = _normalize_correlation_shell(pre_repair)
+    pre_repair_magnitude = _avg_offdiag_magnitude(pre_repair)
+    min_eigen_pre = _min_eigenvalue(pre_repair)
+    psd_repaired = not _is_valid_correlation(pre_repair)
+    if psd_repaired:
+        stress_corr = _nearest_psd_correlation(pre_repair)
+    else:
+        stress_corr = pre_repair.copy()
+    stress_corr = _normalize_correlation_shell(stress_corr)
+    min_eigen_post = _min_eigenvalue(stress_corr)
+    if not _is_valid_correlation(stress_corr):
+        raise RegimeParamsError(
+            "imposed stress correlation could not be repaired to a valid PSD "
+            f"correlation matrix; min_eigen_post={min_eigen_post:.6g}"
+        )
+    post_magnitude = _avg_offdiag_magnitude(stress_corr)
+    repair_delta = abs(post_magnitude - pre_repair_magnitude)
+    warnings: list[str] = []
+    if psd_repaired and repair_delta > repair_warn_delta:
+        warnings.append(
+            "WARNING: PSD repair changed stress correlation average off-diagonal "
+            f"magnitude by {repair_delta:.3f}, above psd_repair_warn_delta="
+            f"{repair_warn_delta:.3f}; crisis_correlation_target={target_magnitude:.3f} "
+            "may be too aggressive for the variable set."
+        )
+    return {
+        "stress_correlation": stress_corr,
+        "imposed_correlation": imposed,
+        "pre_repair_correlation": pre_repair,
+        "target_magnitude": target_magnitude,
+        "blend_weight": blend_weight,
+        "repair_warn_delta": repair_warn_delta,
+        "pre_repair_avg_offdiag_magnitude": pre_repair_magnitude,
+        "post_repair_avg_offdiag_magnitude": post_magnitude,
+        "psd_repaired": psd_repaired,
+        "repair_delta": repair_delta,
+        "min_eigenvalue_pre_repair": min_eigen_pre,
+        "min_eigenvalue_post_repair": min_eigen_post,
+        "warnings": warnings,
+    }
+
+
+def _imposed_stress_correlation(
+    calm_corr: np.ndarray,
+    *,
+    variable_order: list[str],
+    target_magnitude: float,
+) -> np.ndarray:
+    n_vars = len(variable_order)
+    imposed = np.eye(n_vars, dtype=float)
+    for left_index in range(n_vars):
+        for right_index in range(left_index + 1, n_vars):
+            calm_value = float(calm_corr[left_index, right_index])
+            sign = _stress_correlation_sign(
+                variable_order[left_index],
+                variable_order[right_index],
+                calm_value,
+            )
+            if sign == 0:
+                value = calm_value
+            else:
+                value = float(sign) * target_magnitude
+            imposed[left_index, right_index] = value
+            imposed[right_index, left_index] = value
+    return _normalize_correlation_shell(imposed)
+
+
+def _stress_correlation_sign(left: str, right: str, calm_value: float) -> int:
+    prior_sign = _ECONOMIC_STRESS_SIGN_PRIOR.get(tuple(sorted((left, right))))
+    if prior_sign is not None:
+        calm_sign = 1 if calm_value > 0 else -1 if calm_value < 0 else 0
+        if abs(calm_value) < 0.02 or calm_sign != prior_sign:
+            return prior_sign
+    if abs(calm_value) >= 0.02:
+        return 1 if calm_value > 0 else -1
+    return prior_sign or 0
+
+
+# Economic sign prior for known spine-variable pairs. It is used when the calm
+# residual correlation is near zero, and also when a calm sign conflicts with
+# recessionary crisis economics for a documented pair. Pairs outside this map
+# preserve the calm sign, or remain near zero if calm has no clear sign.
+_ECONOMIC_STRESS_SIGN_PRIOR: dict[tuple[str, str], int] = {
+    ("activity", "core_pce"): 1,
+    ("activity", "credit_spread"): -1,
+    ("activity", "fed_funds"): 1,
+    ("activity", "lur"): -1,
+    ("activity", "nfci"): -1,
+    ("activity", "ten_year"): 1,
+    ("core_pce", "credit_spread"): -1,
+    ("core_pce", "fed_funds"): 1,
+    ("core_pce", "lur"): -1,
+    ("core_pce", "nfci"): -1,
+    ("core_pce", "ten_year"): 1,
+    ("credit_spread", "fed_funds"): -1,
+    ("credit_spread", "lur"): 1,
+    ("credit_spread", "nfci"): 1,
+    ("credit_spread", "ten_year"): -1,
+    ("fed_funds", "lur"): -1,
+    ("fed_funds", "nfci"): -1,
+    ("fed_funds", "ten_year"): 1,
+    ("lur", "nfci"): 1,
+    ("lur", "ten_year"): -1,
+    ("nfci", "ten_year"): -1,
+}
+
+
 def _stress_persistence(labels: np.ndarray) -> tuple[float, float]:
     prev_stress = labels[:-1] == 1
     denominator = int(np.sum(prev_stress))
@@ -461,8 +715,7 @@ def _stress_persistence(labels: np.ndarray) -> tuple[float, float]:
         raise RegimeParamsError("cannot estimate p_stay with no stress quarters before final observation")
     stays = int(np.sum((labels[:-1] == 1) & (labels[1:] == 1)))
     p_stay = float(stays / denominator)
-    p_stay = min(max(p_stay, 0.0), 0.995)
-    expected = float(1.0 / max(1.0 - p_stay, 1e-12))
+    expected = float("inf") if p_stay >= 1.0 else float(1.0 / (1.0 - p_stay))
     return p_stay, expected
 
 
@@ -494,6 +747,44 @@ def _correlation_from_residuals(residuals: np.ndarray) -> np.ndarray:
     return _make_positive_definite_correlation(corr)
 
 
+def _normalize_correlation_shell(matrix: np.ndarray) -> np.ndarray:
+    candidate = np.asarray(matrix, dtype=float)
+    if candidate.ndim != 2 or candidate.shape[0] != candidate.shape[1]:
+        raise RegimeParamsError(f"correlation matrix must be square; got {candidate.shape}")
+    candidate = np.nan_to_num(candidate, nan=0.0, posinf=0.0, neginf=0.0)
+    candidate = (candidate + candidate.T) / 2.0
+    np.fill_diagonal(candidate, 1.0)
+    return candidate
+
+
+def _nearest_psd_correlation(matrix: np.ndarray) -> np.ndarray:
+    sym = _normalize_correlation_shell(matrix)
+    eigenvalues, eigenvectors = np.linalg.eigh(sym)
+    clipped = np.maximum(eigenvalues, 1e-8)
+    repaired = (eigenvectors * clipped) @ eigenvectors.T
+    repaired = (repaired + repaired.T) / 2.0
+    diagonal = np.sqrt(np.maximum(np.diag(repaired), 1e-12))
+    repaired = repaired / np.outer(diagonal, diagonal)
+    return _normalize_correlation_shell(repaired)
+
+
+def _is_valid_correlation(matrix: np.ndarray, *, epsilon: float = 1e-8) -> bool:
+    candidate = _normalize_correlation_shell(matrix)
+    if not np.isfinite(candidate).all():
+        return False
+    if not np.allclose(np.diag(candidate), 1.0, atol=1e-8):
+        return False
+    offdiag = candidate[~np.eye(candidate.shape[0], dtype=bool)]
+    if np.any(offdiag < -1.0 - epsilon) or np.any(offdiag > 1.0 + epsilon):
+        return False
+    return _min_eigenvalue(candidate) >= -epsilon
+
+
+def _min_eigenvalue(matrix: np.ndarray) -> float:
+    candidate = _normalize_correlation_shell(matrix)
+    return float(np.min(np.linalg.eigvalsh(candidate)))
+
+
 def _make_positive_definite_correlation(matrix: np.ndarray) -> np.ndarray:
     sym = (matrix + matrix.T) / 2.0
     jitter = 1e-10
@@ -515,6 +806,13 @@ def _avg_offdiag_correlation(matrix: np.ndarray) -> float:
         return 0.0
     mask = ~np.eye(matrix.shape[0], dtype=bool)
     return float(np.mean(matrix[mask]))
+
+
+def _avg_offdiag_magnitude(matrix: np.ndarray) -> float:
+    if matrix.shape[0] < 2:
+        return 0.0
+    mask = ~np.eye(matrix.shape[0], dtype=bool)
+    return float(np.mean(np.abs(matrix[mask])))
 
 
 def _matrix_to_nested(matrix: np.ndarray, variable_order: list[str]) -> dict[str, dict[str, float]]:

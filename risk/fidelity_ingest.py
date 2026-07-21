@@ -2,7 +2,7 @@
 Fidelity positions CSV -> weights dict for portfolio_beta.
 
 Handles the real-world mess in a Fidelity "Positions" export:
-  - 'Percent Of Account' is a string like '11.91%'
+  - 'Percent Of account' is a string like '11.91%'
   - dollar columns like '$1,428.42' (dollar sign + thousands commas)
   - MULTIPLE accounts stacked in one file (per-account percentages that
     do NOT sum to 100% across the file)
@@ -10,9 +10,9 @@ Handles the real-world mess in a Fidelity "Positions" export:
   - non-equity rows: core cash (SPAXX/FDRXX), 'Pending Activity', money-market,
     and rows with no usable ticker
 
-Weighting: by default we compute weights from Current Value (dollar value /
+Weighting: by default we compute weights from Current value (dollar value /
 total invested dollars), which is correct across any number of accounts. The
-Fidelity 'Percent Of Account' column is only meaningful within a single
+Fidelity 'Percent Of account' column is only meaningful within a single
 account, so it's offered as an option but not the default.
 
 Fail-loud: raises on missing required columns, an empty position set, or a
@@ -96,7 +96,7 @@ def load_fidelity_positions(
 
     csv_path: path to the downloaded Fidelity positions export.
     use_fidelity_percent: if True AND the file is a single account, weight by
-        the 'Percent Of Account' column instead of Current Value. Ignored
+        the 'Percent Of account' column instead of Current value. Ignored
         (with a raised error) for multi-account files, where it's ambiguous.
     min_weight: drop positions below this invested-sleeve weight (e.g. 0.005 to
         ignore sub-0.5% dust). Dropped weight is redistributed by renormalizing.
@@ -188,15 +188,15 @@ def load_fidelity_positions(
     df = pd.DataFrame(keep_rows).reset_index(drop=True)
 
     # 2) Clean numeric columns
-    df["_value"] = _clean_money(df["Current Value"])
-    if "Percent Of Account" in df.columns:
-        df["_pct"] = _clean_percent(df["Percent Of Account"])
+    df["_value"] = _clean_money(df["Current value"])
+    if "Percent Of account" in df.columns:
+        df["_pct"] = _clean_percent(df["Percent Of account"])
     df["_symbol"] = df["Symbol"].map(_normalize_symbol)
 
     # Rows with unparseable value are dropped (but reported)
     bad_val = df["_value"].isna()
     for _, r in df[bad_val].iterrows():
-        excluded.append({"symbol": r["_symbol"], "reason": "unparseable Current Value"})
+        excluded.append({"symbol": r["_symbol"], "reason": "unparseable Current value"})
     df = df[~bad_val].reset_index(drop=True)
 
     # 3) Account count
