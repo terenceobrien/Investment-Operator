@@ -29,14 +29,24 @@ import { M } from '../lib/researchOsTheme';
 // ═══════════════════════════════════════════════════════════════════
 
 const FORECAST_ENDPOINT = '/api/macro/forecast/latest';
+const REGIME_ENDPOINT = '/api/market/regime';
+const INDICATOR_HISTORY_ENDPOINT = '/api/macro/indicator-history';
 const NARRATIVE_TICKER = 'SPY';
 const NARRATIVE_ENDPOINT = (ticker: string) => `/api/narrative/latest?ticker=${ticker}`;
 
 type AnyRecord = Record<string, unknown>;
+type HistoryPoint = { date: string; value: number };
+type IndicatorHistorySeries = {
+  column: string;
+  source: string;
+  points: HistoryPoint[];
+};
+type IndicatorHistoryMap = Record<string, IndicatorHistorySeries>;
 
 // ─────────────────────────────────────────────────────────────
 // Generic safe accessors (mirrors the narrative page conventions)
 // ─────────────────────────────────────────────────────────────
+function safeObj(v: unknown): AnyRecord { return v && typeof v === 'object' ? (v as AnyRecord) : {}; }
 function safeArray<X>(v: unknown): X[] { return Array.isArray(v) ? (v as X[]) : []; }
 function safeStr(v: unknown, fallback = ''): string { return typeof v === 'string' ? v : fallback; }
 function safeNum(v: unknown): number | null {
@@ -53,6 +63,131 @@ function firstNonEmpty(...vals: unknown[]): string {
   return '';
 }
 const pct1 = (v: number | null | undefined) => (v === null || v === undefined ? '—' : `${(v * 100).toFixed(1)}%`);
+
+function normalizeIndicatorHistory(raw: unknown): IndicatorHistoryMap {
+  const payload = safeObj(raw);
+  const rawSeries = safeObj(payload.series);
+  const out: IndicatorHistoryMap = {};
+
+  for (const [column, value] of Object.entries(rawSeries)) {
+    const series = safeObj(value);
+    const points = safeArray<AnyRecord>(series.points)
+      .map((point) => {
+        const date = safeStr(point.date);
+        const numeric = safeNum(point.value);
+        return date && numeric !== null ? { date, value: numeric } : null;
+      })
+      .filter((point): point is HistoryPoint => point !== null);
+
+    if (points.length) {
+      out[column] = {
+        column: safeStr(series.column, column),
+        source: safeStr(series.source, 'unknown'),
+        points,
+      };
+    }
+  }
+
+  return out;
+}
+
+function compactHistoryKey(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+const HISTORY_COLUMN_BY_LABEL: Record<string, string[]> = {
+  [compactHistoryKey('Monetary layer')]: ['layer_monetary'],
+  [compactHistoryKey('Credit layer health')]: ['layer_credit'],
+  [compactHistoryKey('Volatility layer summary')]: ['layer_volatility'],
+  [compactHistoryKey('Breadth and participation')]: ['layer_breadth'],
+  [compactHistoryKey('Positioning and hedging')]: ['layer_positioning'],
+  [compactHistoryKey('Net liquidity z-score')]: ['net_liquidity_z'],
+  [compactHistoryKey('NFCI inverted')]: ['nfci_inverted'],
+  [compactHistoryKey('M2 growth YoY')]: ['m2_growth_yoy'],
+  [compactHistoryKey('Hy Spread Level')]: ['hy_spread_level'],
+  [compactHistoryKey('Hy Spread Z')]: ['hy_spread_z'],
+  [compactHistoryKey('Hy Spread Chg 4W')]: ['hy_spread_chg_4w'],
+  [compactHistoryKey('Ig Spread Level')]: ['ig_spread_level'],
+  [compactHistoryKey('Ig Spread Z')]: ['ig_spread_z'],
+  [compactHistoryKey('Baa Spread Level')]: ['baa_spread_level'],
+  [compactHistoryKey('Baa Spread Z')]: ['baa_spread_z'],
+  [compactHistoryKey('Aaa Spread Level')]: ['aaa_spread_level'],
+  [compactHistoryKey('Aaa Spread Z')]: ['aaa_spread_z'],
+  [compactHistoryKey('Hyg Tlt Ratio Z')]: ['hyg_tlt_ratio_z'],
+  [compactHistoryKey('Vix Level')]: ['vix_level'],
+  [compactHistoryKey('Vix Z 20D')]: ['vix_z_20d'],
+  [compactHistoryKey('Vix Term Slope')]: ['vix_term_slope'],
+  [compactHistoryKey('Vix Change Pct 1D')]: ['vix_change_pct_1d'],
+  [compactHistoryKey('Vvix Level')]: ['vvix_level'],
+  [compactHistoryKey('Vvix Z')]: ['vvix_z'],
+  [compactHistoryKey('Skew Index')]: ['skew_level'],
+  [compactHistoryKey('Pct Above 200D')]: ['pct_above_200d'],
+  [compactHistoryKey('Sectors Green')]: ['sectors_green'],
+  [compactHistoryKey('Rsp Vs Spy Z')]: ['rsp_vs_spy_z'],
+  [compactHistoryKey('RSP minus SPY participation proxy')]: ['rsp_minus_spy', 'rsp_vs_spy_z'],
+  [compactHistoryKey('New Highs Minus Lows Z')]: ['new_highs_minus_lows_z'],
+  [compactHistoryKey('Market tape sector dispersion')]: ['dispersion'],
+  [compactHistoryKey('Cot Net Large Spec Z')]: ['cot_net_large_spec_z'],
+  [compactHistoryKey('Aaii Bull Minus Bear')]: ['aaii_bull_minus_bear'],
+  [compactHistoryKey('SPY return')]: ['ret_SPY_21d', 'ret_SPY_5d', 'ret_SPY_1d'],
+  [compactHistoryKey('QQQ return')]: ['ret_QQQ_21d', 'ret_QQQ_5d', 'ret_QQQ_1d'],
+  [compactHistoryKey('IWM return')]: ['ret_IWM_21d', 'ret_IWM_5d', 'ret_IWM_1d'],
+  [compactHistoryKey('TLT return')]: ['ret_TLT_21d', 'ret_TLT_5d', 'ret_TLT_1d'],
+  [compactHistoryKey('HYG return')]: ['ret_HYG_21d', 'ret_HYG_5d', 'ret_HYG_1d'],
+  [compactHistoryKey('GLD return')]: ['ret_GLD_21d', 'ret_GLD_5d', 'ret_GLD_1d'],
+  [compactHistoryKey('USO return')]: ['ret_USO_21d', 'ret_USO_5d', 'ret_USO_1d'],
+  [compactHistoryKey('BTC return')]: ['ret_BTC-USD_21d', 'ret_BTC-USD_5d', 'ret_BTC-USD_1d'],
+  [compactHistoryKey('RSP return')]: ['ret_RSP_21d', 'ret_RSP_5d', 'ret_RSP_1d'],
+  [compactHistoryKey('HYG minus TLT risk-on proxy')]: ['hyg_tlt_ratio_z'],
+  [compactHistoryKey('Spy Clv')]: ['spy_clv'],
+  [compactHistoryKey('Spy Range Pct')]: ['spy_range_pct'],
+  [compactHistoryKey('Spy Vol Z 20D')]: ['spy_vol_z_20d'],
+  [compactHistoryKey('Volume Confirmation')]: ['volume_confirmation', 'spy_vol_z_20d'],
+};
+
+function snakeHistoryKey(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+}
+
+function historyCandidatesForSignal(signal: {
+  label: string;
+  name: string;
+  role: string;
+  parentLayer: string;
+}): string[] {
+  const candidates: string[] = [];
+  const add = (items: string[] | undefined) => {
+    for (const item of items ?? []) {
+      if (item && !candidates.includes(item)) candidates.push(item);
+    }
+  };
+
+  if (signal.role === 'layer_summary' && signal.parentLayer) {
+    add([`layer_${signal.parentLayer}`]);
+  }
+  add(HISTORY_COLUMN_BY_LABEL[compactHistoryKey(signal.label)]);
+  add(HISTORY_COLUMN_BY_LABEL[compactHistoryKey(signal.name)]);
+  add([snakeHistoryKey(signal.label), snakeHistoryKey(signal.name)]);
+
+  return candidates;
+}
+
+function resolveHistoryForSignal(
+  history: IndicatorHistoryMap,
+  signal: { label: string; name: string; role: string; parentLayer: string },
+): IndicatorHistorySeries | null {
+  for (const column of historyCandidatesForSignal(signal)) {
+    const series = history[column];
+    if (series?.points?.length) return series;
+  }
+  return null;
+}
+
+function formatHistorySource(source: string): string {
+  if (source === 'regime_timeseries') return 'regime states';
+  if (source === 'backtest_master_file') return 'backtest master';
+  return source || 'not available';
+}
 
 const SCENARIO_LABELS: Record<string, string> = {
   reopening_soft_landing: 'Reopening / Soft Landing',
@@ -77,6 +212,7 @@ const LAYER_NAMES: Record<string, string> = {
   commodities: 'Commodities',
   earnings: 'Earnings',
 };
+const REGIME_LAYER_KEYS = ['monetary', 'credit', 'volatility', 'breadth', 'positioning'] as const;
 
 function signalColor(sig: string): string {
   return sig === 'bullish' ? M.pos : sig === 'bearish' ? M.neg : M.warn;
@@ -87,7 +223,7 @@ function signalColor(sig: string): string {
 // flat shape the components render from. This is deliberately defensive:
 // every field is optional so a partial payload still renders.
 // ─────────────────────────────────────────────────────────────
-function normalizeForecast(raw: AnyRecord) {
+function normalizeForecast(raw: AnyRecord, history: IndicatorHistoryMap = {}) {
   const fi = (raw.forecast_interpretation ?? {}) as AnyRecord;
   const sp = (raw.scenario_probabilities ?? {}) as AnyRecord;
   const det = (raw.scenario_probabilities_deterministic ?? {}) as AnyRecord;
@@ -129,16 +265,24 @@ function normalizeForecast(raw: AnyRecord) {
   // Indicators — every input signal, grouped by category
   const indicators = signals.map((s) => {
     const cv = s.current_value;
+    const label = safeStr(s.label) || safeStr(s.name);
+    const name = safeStr(s.name);
+    const role = safeStr(s.role);
+    const parentLayer = safeStr(s.parent_layer);
+    const historySeries = resolveHistoryForSignal(history, { label, name, role, parentLayer });
     return {
-      label: safeStr(s.label) || safeStr(s.name),
+      label,
       cat: safeStr(s.category),
       layer: LAYER_NAMES[safeStr(s.category)] ?? safeStr(s.category),
       val: typeof cv === 'number' ? cv : safeStr(cv),
       signal: safeStr(s.signal),
       trend: safeStr(s.trend),
       conf: safeNum(s.confidence),
-      role: safeStr(s.role),
+      role,
       unit: safeStr(s.unit),
+      historyKey: historySeries?.column ?? '',
+      historySource: historySeries?.source ?? '',
+      history: historySeries?.points ?? [],
     };
   });
 
@@ -189,6 +333,61 @@ function normalizeForecast(raw: AnyRecord) {
   };
 }
 type Forecast = ReturnType<typeof normalizeForecast>;
+
+type LiveRegimeLayer = {
+  key: string;
+  name: string;
+  score: number | null;
+  status: string;
+};
+type LiveRegime = {
+  scoreTotal: number | null;
+  layers: LiveRegimeLayer[];
+  environment: string;
+  confidence: number | null;
+  asof: string;
+  vixLevel: number | null;
+};
+
+function normalizeRegime(raw: unknown): LiveRegime | null {
+  const regime = safeObj(raw);
+  if (!Object.keys(regime).length) return null;
+
+  const scoreComponents = safeObj(regime.score_components);
+  const statuses = safeObj(regime.layer_statuses);
+
+  const layers: LiveRegimeLayer[] = REGIME_LAYER_KEYS.map((key) => {
+    const flatScore = safeNum(regime[`layer_${key}`]);
+    const fallbackScore = safeNum(scoreComponents[key]);
+    return {
+      key,
+      name: LAYER_NAMES[key],
+      score: flatScore ?? fallbackScore,
+      status: safeStr(statuses[key], 'neutral') || 'neutral',
+    };
+  });
+
+  const layerScores = layers.map((layer) => layer.score).filter((score): score is number => score !== null);
+  const inferredScoreTotal = layerScores.length
+    ? (layerScores.reduce((sum, score) => sum + score, 0) / layerScores.length) * 10
+    : null;
+  const scoreTotal = safeNum(regime.score_total) ?? inferredScoreTotal;
+  const hasLiveSignal =
+    scoreTotal !== null ||
+    layers.some((layer) => layer.score !== null) ||
+    Boolean(safeStr(regime.environment)) ||
+    Boolean(safeStr(regime.asof_date));
+  if (!hasLiveSignal) return null;
+
+  return {
+    scoreTotal,
+    layers,
+    environment: safeStr(regime.environment),
+    confidence: safeNum(regime.confidence),
+    asof: safeStr(regime.asof_date),
+    vixLevel: safeNum(regime.vix_level),
+  };
+}
 
 // ─────────────────────────────────────────────────────────────
 // Narrative extraction (SPY) — reads the same synthesis `result`
@@ -371,18 +570,23 @@ function formatIndicatorValue(v: string | number): string {
 // ─────────────────────────────────────────────────────────────
 // Section 1: Market pulse + current regime
 // ─────────────────────────────────────────────────────────────
-function MarketPulse({ f }: { f: Forecast }) {
+function MarketPulse({ f, regime }: { f: Forecast; regime: LiveRegime | null }) {
+  const composite = regime?.scoreTotal ?? f.composite;
+  const pulseLabel =
+    regime?.environment ||
+    (f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful');
+  const pulseMeta = regime ? `Regime · ${regime.asof || '—'}` : `Forecast fallback · ${f.asof || '—'}`;
   return (
-    <Panel title="Market pulse" meta={`${f.horizon.toUpperCase()} · ${f.probMode.replace(/_/g, ' ')}`} prominent>
+    <Panel title="Market pulse" meta={pulseMeta} prominent>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', flexWrap: 'wrap' }}>
         <h2 style={{ fontFamily: M.serif, fontSize: '26px', fontWeight: 500, color: M.ink, margin: 0, lineHeight: 1.12 }}>
-          {f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful'}
+          {pulseLabel}
         </h2>
         <Chip label={`${pct1(f.dominantProb)} dominant`} color={M.accent} />
       </div>
-      {f.composite !== null ? (
+      {composite !== null ? (
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', margin: '18px 0 8px' }}>
-          <ValueText value={f.composite.toFixed(1)} size={44} />
+          <ValueText value={composite.toFixed(1)} size={44} />
           <span style={{ fontFamily: M.mono, fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', color: M.accentBright, textTransform: 'uppercase' }}>composite regime score</span>
         </div>
       ) : null}
@@ -393,22 +597,35 @@ function MarketPulse({ f }: { f: Forecast }) {
   );
 }
 
-function CurrentRegime({ f }: { f: Forecast }) {
+function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }) {
+  const heading = regime?.environment || f.dominantLabel;
+  const layers = regime
+    ? regime.layers
+    : f.layers.map((l) => ({
+        key: l.layer,
+        name: l.name,
+        score: l.score,
+        status: l.signal || l.trend || 'neutral',
+      }));
   return (
     <Panel title="Current regime">
-      <h2 style={{ fontFamily: M.serif, fontSize: '24px', fontWeight: 500, color: M.ink, lineHeight: 1.12, margin: '0 0 10px' }}>{f.dominantLabel}</h2>
+      <h2 style={{ fontFamily: M.serif, fontSize: '24px', fontWeight: 500, color: M.ink, lineHeight: 1.12, margin: '0 0 10px' }}>{heading}</h2>
       <p style={{ margin: '0 0 22px', fontFamily: M.sans, fontSize: '13.5px', color: M.inkDim, lineHeight: 1.6 }}>{f.regimeRead}</p>
-      {f.layers.map((l) => (
-        <div key={l.layer} style={{ marginBottom: '15px' }}>
+      {layers.map((l) => {
+        const score = l.score;
+        const status = l.status || 'neutral';
+        return (
+        <div key={l.key} style={{ marginBottom: '15px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginBottom: '7px' }}>
             <span style={{ fontFamily: M.sans, fontSize: '13px', fontWeight: 600, color: M.ink }}>{l.name}</span>
-            <span style={{ fontFamily: M.mono, fontSize: '11.5px', color: M.inkFaint }}>{l.score.toFixed(1)} · {l.trend}</span>
+            <span style={{ fontFamily: M.mono, fontSize: '11.5px', color: M.inkFaint }}>{score === null ? '—' : score.toFixed(1)} · {status}</span>
           </div>
           <div style={{ height: '6px', background: M.well, borderRadius: '999px', overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${Math.min(100, l.score * 10)}%`, background: signalColor(l.signal), borderRadius: '999px' }} />
+            <div style={{ height: '100%', width: `${score === null ? 0 : Math.min(100, score * 10)}%`, background: signalColor(status), borderRadius: '999px' }} />
           </div>
         </div>
-      ))}
+        );
+      })}
     </Panel>
   );
 }
@@ -711,12 +928,13 @@ function IndicatorDetail({ ind }: { ind: Indicator }) {
         <Chip label={ind.signal || 'neutral'} color={signalColor(ind.signal)} />
       </div>
       <ValueText value={value} size={42} color={signalColor(ind.signal)} />
-      <Sparkline seed={hashStr(ind.label)} color={signalColor(ind.signal)} tall />
+      <Sparkline seed={hashStr(ind.label)} color={signalColor(ind.signal)} tall points={ind.history} />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', marginTop: '16px' }}>
         <StatBox label="Trend" value={ind.trend || '—'} />
         <StatBox label="Confidence" value={ind.conf === null ? '—' : ind.conf.toFixed(2)} />
         <StatBox label="Layer" value={ind.layer || '—'} />
         <StatBox label="Unit" value={ind.unit || '—'} />
+        <StatBox label="History" value={ind.history.length ? `${ind.history.length} pts · ${formatHistorySource(ind.historySource)}` : '—'} />
       </div>
     </div>
   );
@@ -730,16 +948,27 @@ function StatBox({ label, value }: { label: string; value: string }) {
   );
 }
 function hashStr(s: string): number { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 99991; return h + 1; }
-function Sparkline({ seed, color, tall }: { seed: number; color: string; tall?: boolean }) {
-  const n = 24; let x = (seed * 9301) % 233280 / 233280; const pts: number[] = [];
-  for (let i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280 / 233280; pts.push((x - 0.5) * 1); }
-  let acc = 0; const series = pts.map((p) => { acc = acc * 0.7 + p; return acc; });
+function Sparkline({ seed, color, tall, points }: { seed: number; color: string; tall?: boolean; points?: HistoryPoint[] }) {
+  const historySeries = points?.map((point) => point.value).filter((value) => Number.isFinite(value)) ?? [];
+  let series: number[];
+  if (historySeries.length >= 2) {
+    series = historySeries.slice(-180);
+  } else {
+    const n = 24; let x = (seed * 9301) % 233280 / 233280; const pts: number[] = [];
+    for (let i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280 / 233280; pts.push((x - 0.5) * 1); }
+    let acc = 0; series = pts.map((p) => { acc = acc * 0.7 + p; return acc; });
+  }
   const mn = Math.min(...series), mx = Math.max(...series), rng = (mx - mn) || 1;
   const W = 200, H = tall ? 120 : 44;
-  const d = series.map((p, i) => `${(i / (n - 1)) * W},${H - ((p - mn) / rng) * (H - 10) - 5}`).join(' L');
+  const d = series.map((p, i) => `${(i / Math.max(1, series.length - 1)) * W},${H - ((p - mn) / rng) * (H - 10) - 5}`).join(' L');
+  const last = series[series.length - 1];
+  const first = series[0];
+  const realHistory = historySeries.length >= 2;
   return (
     <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{ width: '100%', height: tall ? '120px' : '44px', marginTop: '14px', background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px' }}>
+      {realHistory && mn < 0 && mx > 0 ? <line x1={0} x2={W} y1={H - ((0 - mn) / rng) * (H - 10) - 5} y2={H - ((0 - mn) / rng) * (H - 10) - 5} stroke={M.line2} strokeDasharray="3 3" /> : null}
       <path d={`M${d}`} fill="none" stroke={color} strokeWidth={2} />
+      {realHistory ? <circle cx={W} cy={H - ((last - mn) / rng) * (H - 10) - 5} r={3} fill={last >= first ? M.pos : M.neg} /> : null}
     </svg>
   );
 }
@@ -885,9 +1114,29 @@ export default function MacroPage() {
     authFetcher.fetcher,
     { onError: () => null, revalidateOnFocus: false },
   );
+  const { data: indicatorHistoryRaw } = useSWR<AnyRecord>(
+    authFetcher.isSignedIn ? `${INDICATOR_HISTORY_ENDPOINT}?days=730` : null,
+    authFetcher.fetcher,
+    { onError: () => null, revalidateOnFocus: false },
+  );
+  const indicatorHistory = useMemo<IndicatorHistoryMap>(
+    () => normalizeIndicatorHistory(indicatorHistoryRaw),
+    [indicatorHistoryRaw],
+  );
   const forecast = useMemo<Forecast>(
-    () => normalizeForecast((forecastRaw as AnyRecord) ?? SAMPLE_FORECAST),
-    [forecastRaw],
+    () => normalizeForecast((forecastRaw as AnyRecord) ?? SAMPLE_FORECAST, indicatorHistory),
+    [forecastRaw, indicatorHistory],
+  );
+
+  // Current daily regime read — only the top pulse/layer cards use this.
+  const { data: regimeRaw } = useSWR<AnyRecord>(
+    authFetcher.isSignedIn ? REGIME_ENDPOINT : null,
+    authFetcher.fetcher,
+    { refreshInterval: 300000, revalidateOnFocus: false, onError: () => null },
+  );
+  const regime = useMemo<LiveRegime | null>(
+    () => normalizeRegime(regimeRaw),
+    [regimeRaw],
   );
 
   // SPY narrative — same endpoint the /narrative page uses.
@@ -921,7 +1170,7 @@ export default function MacroPage() {
             <Eyebrow>01 / MACRO &amp; REGIME</Eyebrow>
             <h1 style={{ fontFamily: M.serif, fontSize: '38px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>What matters now</h1>
           </div>
-          <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.canvasInkFaint}55`, borderRadius: '999px' }}>Model run · {forecast.asof || '—'}</div>
+          <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.canvasInkFaint}55`, borderRadius: '999px' }}>Regime · {regime?.asof || '—'} · Forecast · {forecast.asof || '—'}</div>
         </div>
 
         <div style={{ fontFamily: M.sans, fontSize: '15px', color: M.canvasInkDim, lineHeight: 1.55, maxWidth: '760px', marginTop: '-8px' }}>
@@ -930,8 +1179,8 @@ export default function MacroPage() {
 
         {/* 1 — pulse + regime */}
         <div style={twoCol}>
-          <MarketPulse f={forecast} />
-          <CurrentRegime f={forecast} />
+          <MarketPulse f={forecast} regime={regime} />
+          <CurrentRegime f={forecast} regime={regime} />
         </div>
 
         {/* 2 — dominant banner */}
