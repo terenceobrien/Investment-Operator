@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import JSONResponse
 
@@ -15,10 +16,20 @@ from api.auth import verify_clerk_token
 
 macro_router = APIRouter(prefix="/api/macro", tags=["macro"])
 
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = BACKEND_ROOT.parent
+
+# Uvicorn does not automatically load local env files. Loading them here keeps
+# the history endpoint aligned with the storage/backfill scripts without
+# hardcoding secrets or filesystem-specific paths in code.
+load_dotenv()
+load_dotenv(REPO_ROOT / ".env.local")
+load_dotenv(BACKEND_ROOT / ".env")
+
 
 def _forecast_root() -> Path:
     default_root = (
-        Path(__file__).resolve().parents[1]
+        BACKEND_ROOT
         / "data"
         / "agent_system"
         / "reports"
@@ -54,21 +65,36 @@ def _latest_forecast_path() -> Path:
 
 def _backtest_master_candidates() -> list[Path]:
     """Return candidate paths for the historical backtest master file."""
-    backend_root = Path(__file__).resolve().parents[1]
-    repo_root = backend_root.parent
     env_path = os.environ.get("RESEARCH_DATA_PATH")
+    explicit_path = os.environ.get("BACKTEST_MASTER_FILE") or os.environ.get(
+        "BACKTEST_MASTER_PATH"
+    )
     paths: list[Path] = []
+    if explicit_path:
+        paths.append(Path(explicit_path))
     if env_path:
         paths.append(Path(env_path))
+    cwd = Path.cwd()
     paths.extend(
         [
-            backend_root / "data" / "operator_research_v3.csv",
-            backend_root / "data" / "backtest_master_file.csv",
-            repo_root / "data" / "operator_research_v3.csv",
-            repo_root / "data" / "backtest_master_file.csv",
+            BACKEND_ROOT / "data" / "operator_research_v3.csv",
+            BACKEND_ROOT / "data" / "backtest_master_file.csv",
+            REPO_ROOT / "data" / "operator_research_v3.csv",
+            REPO_ROOT / "data" / "backtest_master_file.csv",
+            cwd / "data" / "operator_research_v3.csv",
+            cwd / "data" / "backtest_master_file.csv",
+            cwd.parent / "data" / "operator_research_v3.csv",
+            cwd.parent / "data" / "backtest_master_file.csv",
         ]
     )
-    return paths
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        resolved = str(path.expanduser())
+        if resolved not in seen:
+            seen.add(resolved)
+            unique.append(Path(resolved))
+    return unique
 
 
 def _resolve_backtest_master_path() -> Path | None:
@@ -76,6 +102,11 @@ def _resolve_backtest_master_path() -> Path | None:
         if path.exists():
             return path
     return None
+
+
+def _backtest_not_found_warning() -> str:
+    checked = ", ".join(str(path) for path in _backtest_master_candidates())
+    return f"backtest master file not found; checked: {checked}"
 
 
 def _empty_history_frame() -> pd.DataFrame:
@@ -107,7 +138,7 @@ def _load_regime_history_frame(days: int) -> tuple[pd.DataFrame, str | None]:
 def _load_backtest_history_frame(days: int) -> tuple[pd.DataFrame, str | None]:
     path = _resolve_backtest_master_path()
     if path is None:
-        return _empty_history_frame(), "backtest master file not found"
+        return _empty_history_frame(), _backtest_not_found_warning()
 
     try:
         df = pd.read_csv(path)
