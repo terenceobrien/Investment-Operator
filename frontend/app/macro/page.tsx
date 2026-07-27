@@ -592,6 +592,11 @@ function appendHistoryPoint(points: HistoryPoint[], point: HistoryPoint | null):
 
 function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveRegime | null; scoreHistory: HistoryPoint[] }) {
   const composite = regime?.scoreTotal ?? f.composite;
+  const runnerUp = f.scenarios[1];
+  const probabilityGap = runnerUp ? f.dominantProb - runnerUp.blended : null;
+  const topDeterministic = f.scenarios
+    .filter((scenario) => scenario.det !== null && scenario.det !== undefined)
+    .sort((a, b) => (b.det ?? 0) - (a.det ?? 0))[0];
   const pulseLabel =
     regime?.environment ||
     (f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful');
@@ -629,15 +634,28 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
           <HistoryLineChart
             points={chartPoints}
             color={M.accentBright}
-            height={118}
+            height={205}
             yLabel="score"
           />
-          <p style={{ margin: '10px 0 0', fontFamily: M.sans, fontSize: '12.5px', color: M.inkDim, lineHeight: 1.5 }}>
-            {truncate(f.summary || f.regimeRead || f.headline, 210)}
-          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 10 }} className="macro-stat-list">
+            <MiniStat label="Dominant" value={f.dominantLabel || '—'} sub={pct1(f.dominantProb)} color={M.accentBright} />
+            <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
+            <MiniStat label="Gap" value={probabilityGap === null ? '—' : pct1(probabilityGap)} sub="dominant spread" color={probabilityGap !== null && probabilityGap > 0.08 ? M.pos : M.warn} />
+            <MiniStat label="Deterministic" value={topDeterministic?.label ?? '—'} sub={topDeterministic?.det !== null && topDeterministic?.det !== undefined ? pct1(topDeterministic.det) : '—'} />
+          </div>
         </div>
       </div>
     </Panel>
+  );
+}
+
+function MiniStat({ label, value, sub, color = M.ink }: { label: string; value: string; sub: string; color?: string }) {
+  return (
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: '9px 10px', minWidth: 0 }}>
+      <div style={{ ...labelStyleSmall, marginBottom: 5 }}>{label}</div>
+      <div style={{ color, fontFamily: M.serif, fontSize: 15.5, lineHeight: 1.05, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</div>
+      <div style={{ color: M.inkFaint, fontFamily: M.mono, fontSize: 10.5, marginTop: 5 }}>{sub}</div>
+    </div>
   );
 }
 
@@ -781,9 +799,10 @@ function FanChart({ f }: { f: Forecast }) {
 }
 
 function ForwardReturnDistribution({ f }: { f: Forecast }) {
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const fan = f.fan;
   if (!fan.length) return <Panel title="Forward return distribution" meta="analogue-weighted SPY paths"><EmptyMini message="No fan-chart distribution in this forecast." /></Panel>;
-  const W = 620, H = 188, padL = 44, padR = 14, padT = 14, padB = 26;
+  const W = 620, H = 236, padL = 44, padR = 14, padT = 14, padB = 28;
   const xs = fan.map((_, i) => padL + (i / (fan.length - 1)) * (W - padL - padR));
   const all = fan.flatMap((d) => [d.p10, d.p90]);
   const mn = Math.min(...all, -2), mx = Math.max(...all);
@@ -794,14 +813,39 @@ function ForwardReturnDistribution({ f }: { f: Forecast }) {
     return <path d={`M${top} L${bot} Z`} fill={M.accent} opacity={op} />;
   };
   const medPath = `M${fan.map((d, i) => `${xs[i]},${y(d.med)}`).join(' L')}`;
+  const activeIndex = hoverIndex === null ? null : Math.max(0, Math.min(fan.length - 1, hoverIndex));
+  const active = activeIndex === null ? null : fan[activeIndex];
+  const handlePointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const svgX = ((event.clientX - rect.left) / rect.width) * W;
+    const pct = (svgX - padL) / Math.max(1, W - padL - padR);
+    setHoverIndex(Math.round(Math.max(0, Math.min(1, pct)) * (fan.length - 1)));
+  };
   return (
     <Panel title="Forward return distribution" meta="Analogue-weighted SPY paths">
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 188, background: M.well, borderRadius: '12px', border: `1px solid ${M.line}` }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={() => setHoverIndex(null)}
+        style={{ width: '100%', height: 236, background: M.well, borderRadius: '12px', border: `1px solid ${M.line}`, cursor: 'crosshair', touchAction: 'none' }}
+      >
         <line x1={padL} y1={y(0)} x2={W - padR} y2={y(0)} stroke={M.line2} strokeDasharray="3 3" />
         {band('p10', 'p90', 0.18)}
         {band('p25', 'p75', 0.32)}
         <path d={medPath} fill="none" stroke={M.accentBright} strokeWidth={2} />
         {fan.map((d, i) => <circle key={d.h} cx={xs[i]} cy={y(d.med)} r={2.4} fill={M.accentBright} />)}
+        {active && activeIndex !== null ? (
+          <g pointerEvents="none">
+            <line x1={xs[activeIndex]} x2={xs[activeIndex]} y1={padT} y2={H - padB} stroke={M.accentBright} strokeWidth={0.9} opacity={0.72} strokeDasharray="3 3" />
+            <circle cx={xs[activeIndex]} cy={y(active.med)} r={4} fill={M.well} stroke={M.accentBright} strokeWidth={1.5} />
+            <g transform={`translate(${Math.min(W - 166, Math.max(padL + 8, xs[activeIndex] + 9))}, ${Math.max(padT + 5, y(active.med) - 44)})`}>
+              <rect width={152} height={50} rx={7} fill={M.cardElev} stroke={M.line2} />
+              <text x={9} y={13} fill={M.inkFaint} fontSize={9.5} fontFamily={M.mono}>{active.h}</text>
+              <text x={9} y={28} fill={M.accentBright} fontSize={12} fontFamily={M.mono}>median {active.med > 0 ? '+' : ''}{active.med}%</text>
+              <text x={9} y={43} fill={M.inkDim} fontSize={10} fontFamily={M.mono}>p10 {active.p10 > 0 ? '+' : ''}{active.p10}% · p90 {active.p90 > 0 ? '+' : ''}{active.p90}%</text>
+            </g>
+          </g>
+        ) : null}
         {[mn, 0, mx].map((t) => (
           <text key={t} x={7} y={y(t) + 4} fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{t > 0 ? '+' : ''}{t.toFixed(0)}%</text>
         ))}
@@ -927,7 +971,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
 
   return (
     <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
-      <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '250px minmax(0, 1fr) 380px', minHeight: 258 }}>
+      <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '250px minmax(0, 1fr) 380px', minHeight: 342 }}>
         <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: M.cardElev, padding: '14px 10px' }}>
           <div style={{ ...labelStyleSmall, padding: '0 10px 10px' }}>Macro indicators explorer</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
@@ -961,7 +1005,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
                   {categoryItems.map((ind) => <option key={indicatorKey(ind)} value={indicatorKey(ind)}>{ind.label}</option>)}
                 </select>
               </div>
-              <HistoryLineChart points={selectedIndicator.history} color={signalColor(selectedIndicator.signal)} height={150} yLabel={selectedIndicator.unit || 'value'} />
+              <HistoryLineChart points={selectedIndicator.history} color={signalColor(selectedIndicator.signal)} height={220} yLabel={selectedIndicator.unit || 'value'} />
             </>
           ) : <EmptyMini message="Select an indicator category." />}
         </div>
@@ -1041,7 +1085,7 @@ function IndicatorDetail({ ind }: { ind: Indicator }) {
       <HistoryLineChart
         points={ind.history}
         color={signalColor(ind.signal)}
-        height={150}
+        height={220}
         yLabel={ind.unit || 'value'}
       />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', marginTop: '16px' }}>
@@ -1093,6 +1137,7 @@ function HistoryLineChart({
   height?: number;
   yLabel?: string;
 }) {
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const data = (points ?? [])
     .filter((point) => point.date && Number.isFinite(point.value))
     .slice(-180);
@@ -1127,8 +1172,24 @@ function HistoryLineChart({
     new Set([0, Math.floor((data.length - 1) / 2), data.length - 1]),
   );
   const last = data[data.length - 1];
+  const activeIndex = hoverIndex === null ? null : Math.max(0, Math.min(data.length - 1, hoverIndex));
+  const activePoint = activeIndex === null ? null : data[activeIndex];
+  const activeX = activeIndex === null ? null : x(activeIndex);
+  const activeY = activePoint ? y(activePoint.value) : null;
+  const handlePointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const svgX = ((event.clientX - rect.left) / rect.width) * W;
+    const pct = (svgX - padL) / Math.max(1, W - padL - padR);
+    const index = Math.round(Math.max(0, Math.min(1, pct)) * (data.length - 1));
+    setHoverIndex(index);
+  };
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12 }}>
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setHoverIndex(null)}
+      style={{ width: '100%', height, marginTop: 8, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, cursor: 'crosshair', touchAction: 'none' }}
+    >
       <rect x={0} y={0} width={W} height={H} fill="transparent" />
       {yTicks.map((tick) => (
         <g key={tick}>
@@ -1141,6 +1202,17 @@ function HistoryLineChart({
       <line x1={padL} x2={W - padR} y1={H - padB} y2={H - padB} stroke={M.line2} strokeWidth={0.9} />
       <path d={`M${path}`} fill="none" stroke={color} strokeWidth={1.45} strokeLinecap="round" strokeLinejoin="round" />
       <circle cx={x(data.length - 1)} cy={y(last.value)} r={2.6} fill={color} />
+      {activePoint && activeX !== null && activeY !== null ? (
+        <g pointerEvents="none">
+          <line x1={activeX} x2={activeX} y1={padT} y2={H - padB} stroke={color} strokeWidth={0.9} opacity={0.72} strokeDasharray="3 3" />
+          <circle cx={activeX} cy={activeY} r={4} fill={M.well} stroke={color} strokeWidth={1.5} />
+          <g transform={`translate(${Math.min(W - 152, Math.max(padL + 8, activeX + 9))}, ${Math.max(padT + 5, activeY - 38)})`}>
+            <rect width={138} height={34} rx={7} fill={M.cardElev} stroke={M.line2} />
+            <text x={9} y={13} fill={M.inkFaint} fontSize={9.5} fontFamily={M.mono}>{activePoint.date}</text>
+            <text x={9} y={27} fill={color} fontSize={12} fontFamily={M.mono}>{formatAxisNumber(activePoint.value)}</text>
+          </g>
+        </g>
+      ) : null}
       {xTickIndexes.map((index) => (
         <g key={index}>
           <line x1={x(index)} x2={x(index)} y1={H - padB} y2={H - padB + 4} stroke={M.line2} />
@@ -1404,7 +1476,7 @@ export default function MacroPage() {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '4px' }}>
           <div>
             <Eyebrow>MACRO &amp; REGIME &gt; CURRENT READ</Eyebrow>
-            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>What matters now</h1>
+            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>Macro Analysis</h1>
             <div style={{ fontFamily: M.sans, fontSize: '13px', color: M.canvasInkDim, lineHeight: 1.45, maxWidth: '960px', marginTop: 10 }}>
               {forecast.regimeRead || forecast.headline}
             </div>
