@@ -62,6 +62,9 @@ function firstNonEmpty(...vals: unknown[]): string {
   for (const v of vals) if (typeof v === 'string' && v.trim()) return v.trim();
   return '';
 }
+function titleCase(value: string): string {
+  return value.replace(/[_-]+/g, ' ').replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
 const pct1 = (v: number | null | undefined) => (v === null || v === undefined ? '—' : `${(v * 100).toFixed(1)}%`);
 
 function normalizeIndicatorHistory(raw: unknown): IndicatorHistoryMap {
@@ -510,15 +513,15 @@ type Indicator = Forecast['indicators'][number];
 function Panel({ title, meta, children, prominent }: { title?: string; meta?: string; children: React.ReactNode; prominent?: boolean }) {
   return (
     <section style={{
-      background: prominent ? '#182541' : M.card,
+      background: prominent ? '#0A1E36' : M.card,
       border: `1px solid ${prominent ? M.line2 : M.line}`,
       borderRadius: '16px',
       overflow: 'hidden',
       boxShadow: M.shadow,
     }}>
-      <div style={{ padding: '24px' }}>
+      <div style={{ padding: '18px' }}>
         {title ? (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginBottom: '18px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginBottom: '12px' }}>
             <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.18em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 600 }}>{title}</span>
             {meta ? <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.08em', color: M.inkFaint }}>{meta}</span> : null}
           </div>
@@ -552,6 +555,14 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function MutedLabel({ children }: { children: React.ReactNode }) {
   return <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.14em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 600, marginBottom: '10px' }}>{children}</div>;
 }
+const labelStyleSmall: React.CSSProperties = {
+  fontFamily: M.mono,
+  fontSize: 10,
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase',
+  color: M.inkFaint,
+  fontWeight: 600,
+};
 function ValueText({ value, size = 32, color = M.ink }: { value: string; size?: number; color?: string }) {
   return <span style={{ fontFamily: M.mono, fontSize: `${size}px`, fontWeight: 500, letterSpacing: '0', color }}>{value}</span>;
 }
@@ -593,27 +604,39 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
   );
   return (
     <Panel title="Market pulse" meta={pulseMeta} prominent>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', flexWrap: 'wrap' }}>
-        <h2 style={{ fontFamily: M.serif, fontSize: '26px', fontWeight: 500, color: M.ink, margin: 0, lineHeight: 1.12 }}>
-          {pulseLabel}
-        </h2>
-        <Chip label={`${pct1(f.dominantProb)} dominant`} color={M.accent} />
-      </div>
-      {composite !== null ? (
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', margin: '18px 0 8px' }}>
-          <ValueText value={composite.toFixed(1)} size={44} />
-          <span style={{ fontFamily: M.mono, fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', color: M.accentBright, textTransform: 'uppercase' }}>composite regime score</span>
+      <div style={{ display: 'grid', gridTemplateColumns: '230px minmax(0, 1fr)', gap: 24, alignItems: 'start' }} className="macro-top-card-grid">
+        <div>
+          <h2 style={{ fontFamily: M.serif, fontSize: '27px', fontWeight: 500, color: M.ink, margin: 0, lineHeight: 1.03 }}>
+            {pulseLabel}
+          </h2>
+          <div style={{ marginTop: 10 }}>
+            <Chip label={`${pct1(f.dominantProb)} probability`} color={M.accent} />
+          </div>
+          {composite !== null ? (
+            <div style={{ margin: '13px 0 2px' }}>
+              <ValueText value={composite.toFixed(1)} size={38} />
+              <div style={{ fontFamily: M.mono, fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase', marginTop: 2 }}>composite regime score</div>
+            </div>
+          ) : null}
+          <div style={{ color: M.pos, fontFamily: M.mono, fontSize: 12, marginTop: 10 }}>
+            {regime?.confidence !== null && regime?.confidence !== undefined ? `${regime.confidence.toFixed(2)} confidence` : regime?.vixLevel !== null && regime?.vixLevel !== undefined ? `VIX ${regime.vixLevel.toFixed(1)}` : f.confLevel || '—'}
+          </div>
+          <div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 3 }}>current read</div>
+          <a href="/how-it-works" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 9 }}>View methodology →</a>
         </div>
-      ) : null}
-      <HistoryLineChart
-        points={chartPoints}
-        color={M.accentBright}
-        height={132}
-        yLabel="score"
-      />
-      <p style={{ margin: '18px 0 0', paddingTop: '18px', borderTop: `1px solid ${M.line}`, fontFamily: M.sans, fontSize: '14px', color: M.inkDim, lineHeight: 1.65 }}>
-        {f.summary.split('. ').slice(0, 2).join('. ')}.
-      </p>
+        <div>
+          <div style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint, marginBottom: 5 }}>Regime score (90D)</div>
+          <HistoryLineChart
+            points={chartPoints}
+            color={M.accentBright}
+            height={118}
+            yLabel="score"
+          />
+          <p style={{ margin: '10px 0 0', fontFamily: M.sans, fontSize: '12.5px', color: M.inkDim, lineHeight: 1.5 }}>
+            {truncate(f.summary || f.regimeRead || f.headline, 210)}
+          </p>
+        </div>
+      </div>
     </Panel>
   );
 }
@@ -629,24 +652,23 @@ function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }
         status: l.signal || l.trend || 'neutral',
       }));
   return (
-    <Panel title="Current regime">
-      <h2 style={{ fontFamily: M.serif, fontSize: '24px', fontWeight: 500, color: M.ink, lineHeight: 1.12, margin: '0 0 10px' }}>{heading}</h2>
-      <p style={{ margin: '0 0 22px', fontFamily: M.sans, fontSize: '13.5px', color: M.inkDim, lineHeight: 1.6 }}>{f.regimeRead}</p>
+    <Panel title="Current regime read" meta={heading}>
       {layers.map((l) => {
         const score = l.score;
         const status = l.status || 'neutral';
         return (
-        <div key={l.key} style={{ marginBottom: '15px' }}>
+        <div key={l.key} style={{ marginBottom: '14px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginBottom: '7px' }}>
             <span style={{ fontFamily: M.sans, fontSize: '13px', fontWeight: 600, color: M.ink }}>{l.name}</span>
-            <span style={{ fontFamily: M.mono, fontSize: '11.5px', color: M.inkFaint }}>{score === null ? '—' : score.toFixed(1)} · {status}</span>
+            <span style={{ fontFamily: M.mono, fontSize: '11.5px', color: signalColor(status) }}>{score === null ? '—' : score.toFixed(1)}&nbsp;&nbsp;{titleCase(status)}</span>
           </div>
-          <div style={{ height: '6px', background: M.well, borderRadius: '999px', overflow: 'hidden' }}>
+          <div style={{ height: '5px', background: M.well, borderRadius: '999px', overflow: 'hidden' }}>
             <div style={{ height: '100%', width: `${score === null ? 0 : Math.min(100, score * 10)}%`, background: signalColor(status), borderRadius: '999px' }} />
           </div>
         </div>
         );
       })}
+      <a href="/state" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 3 }}>View factor detail →</a>
     </Panel>
   );
 }
@@ -681,19 +703,19 @@ function DominantBanner({ f }: { f: Forecast }) {
 // ─────────────────────────────────────────────────────────────
 function ScenarioCards({ f }: { f: Forecast }) {
   return (
-    <Panel title="Scenario distribution" meta={`${f.scenarios.length} scenarios · blended vs deterministic vs historical`}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px' }}>
+    <Panel title="Scenario explorer" meta="Probability of next regime (blend)">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(118px, 1fr))', gap: '8px' }} className="scenario-card-grid">
         {f.scenarios.map((s, i) => {
           const top = i === 0 ? M.accentBright : s.blended >= 0.15 ? M.pos : M.neg;
           return (
-            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '14px', padding: '18px' }}>
-              <ValueText value={pct1(s.blended)} size={31} />
-              <h3 style={{ fontFamily: M.serif, fontSize: '20px', fontWeight: 500, color: M.ink, margin: '10px 0 9px', lineHeight: 1.1 }}>{s.label}</h3>
-              <p style={{ margin: '0 0 14px', fontFamily: M.sans, fontSize: '12.5px', color: M.inkDim, lineHeight: 1.5, minHeight: '76px' }}>{s.desc}</p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '10.5px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '10px' }}>
+            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '10px', padding: '12px 11px' }}>
+              <ValueText value={pct1(s.blended)} size={19} color={top} />
+              <h3 style={{ fontFamily: M.serif, fontSize: '15px', fontWeight: 500, color: M.ink, margin: '8px 0 7px', lineHeight: 1.12 }}>{s.label}</h3>
+              <p style={{ margin: '0 0 11px', fontFamily: M.sans, fontSize: '10.5px', color: M.inkDim, lineHeight: 1.42, minHeight: '44px' }}>{truncate(s.desc, 86)}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '8px' }}>
                 <span>det {pct1(s.det)}</span><span>hist {pct1(s.hist)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '10.5px', color: M.inkFaint, paddingTop: '6px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, paddingTop: '5px' }}>
                 <span>conf {s.conf?.toFixed(2) ?? '—'}</span><span>n={s.n ?? '—'}</span>
               </div>
             </div>
@@ -757,15 +779,68 @@ function FanChart({ f }: { f: Forecast }) {
     </div>
   );
 }
+
+function ForwardReturnDistribution({ f }: { f: Forecast }) {
+  const fan = f.fan;
+  if (!fan.length) return <Panel title="Forward return distribution" meta="analogue-weighted SPY paths"><EmptyMini message="No fan-chart distribution in this forecast." /></Panel>;
+  const W = 620, H = 188, padL = 44, padR = 14, padT = 14, padB = 26;
+  const xs = fan.map((_, i) => padL + (i / (fan.length - 1)) * (W - padL - padR));
+  const all = fan.flatMap((d) => [d.p10, d.p90]);
+  const mn = Math.min(...all, -2), mx = Math.max(...all);
+  const y = (v: number) => padT + (1 - (v - mn) / (mx - mn)) * (H - padT - padB);
+  const band = (lo: 'p10' | 'p25', hi: 'p90' | 'p75', op: number) => {
+    const top = fan.map((d, i) => `${xs[i]},${y(d[hi])}`).join(' L');
+    const bot = fan.slice().reverse().map((d, i) => `${xs[fan.length - 1 - i]},${y(d[lo])}`).join(' L');
+    return <path d={`M${top} L${bot} Z`} fill={M.accent} opacity={op} />;
+  };
+  const medPath = `M${fan.map((d, i) => `${xs[i]},${y(d.med)}`).join(' L')}`;
+  return (
+    <Panel title="Forward return distribution" meta="Analogue-weighted SPY paths">
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 188, background: M.well, borderRadius: '12px', border: `1px solid ${M.line}` }}>
+        <line x1={padL} y1={y(0)} x2={W - padR} y2={y(0)} stroke={M.line2} strokeDasharray="3 3" />
+        {band('p10', 'p90', 0.18)}
+        {band('p25', 'p75', 0.32)}
+        <path d={medPath} fill="none" stroke={M.accentBright} strokeWidth={2} />
+        {fan.map((d, i) => <circle key={d.h} cx={xs[i]} cy={y(d.med)} r={2.4} fill={M.accentBright} />)}
+        {[mn, 0, mx].map((t) => (
+          <text key={t} x={7} y={y(t) + 4} fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{t > 0 ? '+' : ''}{t.toFixed(0)}%</text>
+        ))}
+        {fan.map((d, i) => (
+          <text key={d.h} x={xs[i]} y={H - 8} fill={M.inkFaint} fontSize={10} textAnchor="middle" fontFamily={M.mono}>{d.h}</text>
+        ))}
+      </svg>
+    </Panel>
+  );
+}
+
+function RiskProfileCompact({ f }: { f: Forecast }) {
+  const fan63 = f.fan.find((d) => d.h === '63d');
+  const fan252 = f.fan.find((d) => d.h === '252d');
+  return (
+    <Panel title="Risk profile / analogue set" meta={`${f.scenarios.reduce((sum, s) => sum + (s.n ?? 0), 0)} scenarios`}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+        <RiskCell k="MEDIAN / 63D" v={fan63?.med} suffix="%" sub={`win ${fan63?.win ?? '—'}%`} />
+        <RiskCell k="MEDIAN / 252D" v={fan252?.med} suffix="%" sub={`win ${fan252?.win ?? '—'}%`} />
+        <RiskCell k="P10 / 63D" v={fan63?.p10} suffix="%" sub="downside tail" />
+        <RiskCell k="P90 / 252D" v={fan252?.p90} suffix="%" sub="upside tail" />
+      </div>
+      <a href="#macro-risk" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 10 }}>View full risk register →</a>
+    </Panel>
+  );
+}
+
+function EmptyMini({ message }: { message: string }) {
+  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.inkFaint, fontSize: 12, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12 }}>{message}</div>;
+}
 function LegendSwatch({ color, label }: { color: string; label: string }) {
   return <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ width: '12px', height: '12px', borderRadius: '3px', background: color, border: `1px solid ${M.line2}` }} />{label}</span>;
 }
 function RiskCell({ k, v, suffix, sub }: { k: string; v?: number; suffix: string; sub: string }) {
   const color = v === undefined ? M.ink : v > 0 ? M.pos : M.neg;
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '14px', padding: '16px' }}>
-      <div style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.1em', color: M.inkFaint, marginBottom: '8px' }}>{k}</div>
-      <ValueText value={v === undefined ? '—' : `${v > 0 ? '+' : ''}${v}${suffix}`} size={26} color={color} />
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px', padding: '13px' }}>
+      <div style={{ fontFamily: M.mono, fontSize: '9.5px', letterSpacing: '0.1em', color: M.inkFaint, marginBottom: '7px' }}>{k}</div>
+      <ValueText value={v === undefined ? '—' : `${v > 0 ? '+' : ''}${v}${suffix}`} size={22} color={color} />
       <div style={{ fontFamily: M.sans, fontSize: '11px', color: M.inkFaint, marginTop: '5px' }}>{sub}</div>
     </div>
   );
@@ -833,16 +908,17 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
     });
   }, [f.indicators]);
 
-  const category = categories.find((c) => c.name === selectedCategory) ?? null;
+  const activeCategoryName = selectedCategory ?? categories[0]?.name ?? null;
+  const category = categories.find((c) => c.name === activeCategoryName) ?? null;
   const categoryItems = category?.items ?? [];
   const selectedIndicator = categoryItems.find((ind) => indicatorKey(ind) === selectedIndicatorKey) ?? null;
 
   useEffect(() => {
-    if (!selectedCategory || !categoryItems.length) return;
+    if (!activeCategoryName || !categoryItems.length) return;
     if (!selectedIndicator) {
       setSelectedIndicatorKey(indicatorKey(categoryItems[0]));
     }
-  }, [selectedCategory, categoryItems, selectedIndicator]);
+  }, [activeCategoryName, categoryItems, selectedIndicator]);
 
   const selectCategory = (name: string, items: Indicator[]) => {
     setSelectedCategory(name);
@@ -850,55 +926,68 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
   };
 
   return (
-    <Panel title="Macro indicators" meta={`${f.indicators.length} model inputs`}>
-      <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '230px minmax(0, 1fr)', minHeight: '360px', border: `1px solid ${M.line}`, borderRadius: '14px', overflow: 'hidden', background: M.well }}>
-        <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: M.cardElev, padding: '12px' }}>
-          {!category ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {categories.map((cat) => (
-                <button key={cat.name} type="button" onClick={() => selectCategory(cat.name, cat.items)} style={railRowStyle(false)}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: 0 }}>
+    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
+      <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '250px minmax(0, 1fr) 380px', minHeight: 258 }}>
+        <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: M.cardElev, padding: '14px 10px' }}>
+          <div style={{ ...labelStyleSmall, padding: '0 10px 10px' }}>Macro indicators explorer</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {categories.map((cat) => {
+              const active = cat.name === category?.name;
+              return (
+                <button key={cat.name} type="button" onClick={() => selectCategory(cat.name, cat.items)} style={railRowStyle(active)}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 9, minWidth: 0 }}>
                     <SignalDot signal={cat.signal} />
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cat.name}</span>
                   </span>
-                  <span style={{ fontFamily: M.mono, color: M.inkFaint }}>{cat.count}</span>
+                  <span style={{ fontFamily: M.mono, color: M.inkDim }}>{cat.count}</span>
                 </button>
-              ))}
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <button type="button" onClick={() => { setSelectedCategory(null); setSelectedIndicatorKey(null); }} style={backRowStyle}>
-                ← All categories
-              </button>
-              <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase', padding: '8px 10px 4px' }}>
-                {category.name} · {category.count}
-              </div>
-              {categoryItems.map((ind) => {
-                const active = indicatorKey(ind) === selectedIndicatorKey;
-                return (
-                  <button key={indicatorKey(ind)} type="button" onClick={() => setSelectedIndicatorKey(indicatorKey(ind))} style={railRowStyle(active)}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '9px', minWidth: 0 }}>
-                      <SignalDot signal={ind.signal} />
-                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{ind.label}</span>
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+              );
+            })}
+          </div>
         </div>
-        <div style={{ padding: '22px' }}>
-          {selectedIndicator ? <IndicatorDetail ind={selectedIndicator} /> : (
-            <div style={{ height: '100%', minHeight: '300px', display: 'grid', placeItems: 'center', textAlign: 'center' }}>
-              <div>
-                <h3 style={{ margin: '0 0 8px', fontFamily: M.serif, fontSize: '24px', fontWeight: 500, color: M.ink }}>Select a category, then an indicator</h3>
-                <p style={{ margin: 0, fontFamily: M.sans, fontSize: '13px', color: M.inkDim }}>The detail pane will show the signal, trend, confidence, value, and chart.</p>
+        <div style={{ padding: '18px 22px', borderRight: `1px solid ${M.line}` }}>
+          {selectedIndicator ? (
+            <>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, alignItems: 'start', marginBottom: 6 }}>
+                <div>
+                  <div style={labelStyleSmall}>Selected indicator</div>
+                  <h3 style={{ margin: '8px 0 0', fontFamily: M.serif, fontSize: 20, fontWeight: 500, color: M.ink, lineHeight: 1.05 }}>{selectedIndicator.label}</h3>
+                </div>
+                <select
+                  value={indicatorKey(selectedIndicator)}
+                  onChange={(event) => setSelectedIndicatorKey(event.target.value)}
+                  style={{ maxWidth: 230, background: M.well, border: `1px solid ${M.line2}`, color: M.inkDim, borderRadius: 9, padding: '7px 9px', fontSize: 11.5, outline: 'none' }}
+                >
+                  {categoryItems.map((ind) => <option key={indicatorKey(ind)} value={indicatorKey(ind)}>{ind.label}</option>)}
+                </select>
               </div>
-            </div>
-          )}
+              <HistoryLineChart points={selectedIndicator.history} color={signalColor(selectedIndicator.signal)} height={150} yLabel={selectedIndicator.unit || 'value'} />
+            </>
+          ) : <EmptyMini message="Select an indicator category." />}
+        </div>
+        <div style={{ padding: '28px 24px 18px' }}>
+          {selectedIndicator ? (
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 12, borderBottom: `1px solid ${M.line}`, paddingBottom: 18 }} className="indicator-stat-grid">
+                <IndicatorStat label="Signal" value={titleCase(selectedIndicator.signal || 'neutral')} color={signalColor(selectedIndicator.signal)} />
+                <IndicatorStat label="Trend (3M)" value={titleCase(selectedIndicator.trend || '—')} color={selectedIndicator.trend === 'improving' ? M.pos : selectedIndicator.trend === 'deteriorating' ? M.neg : M.warn} />
+                <IndicatorStat label="Confidence" value={selectedIndicator.conf === null ? '—' : selectedIndicator.conf >= 0.75 ? 'High' : selectedIndicator.conf >= 0.5 ? 'Medium' : 'Low'} />
+                <IndicatorStat label="Value" value={formatIndicatorValue(selectedIndicator.val)} />
+              </div>
+              <div style={{ marginTop: 17 }}>
+                <MutedLabel>Interpretation</MutedLabel>
+                <p style={{ margin: 0, color: M.inkDim, fontSize: 12.5, lineHeight: 1.55 }}>
+                  {selectedIndicator.label} is {selectedIndicator.signal || 'neutral'} with a {selectedIndicator.trend || 'stable'} trend in {selectedIndicator.layer || selectedIndicator.cat || 'the macro model'}.
+                </p>
+              </div>
+              <div style={{ marginTop: 18, textAlign: 'right' }}>
+                <span style={{ color: M.accentBright, fontSize: 12.5 }}>View indicator detail →</span>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
-    </Panel>
+    </section>
   );
 }
 const backRowStyle: React.CSSProperties = {
@@ -970,6 +1059,14 @@ function StatBox({ label, value }: { label: string; value: string }) {
     <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: '12px', padding: '12px' }}>
       <div style={{ fontFamily: M.mono, fontSize: '9.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, marginBottom: '6px' }}>{label}</div>
       <div style={{ fontFamily: M.sans, fontSize: '13px', color: M.ink, fontWeight: 600, lineHeight: 1.35 }}>{value}</div>
+    </div>
+  );
+}
+function IndicatorStat({ label, value, color = M.ink }: { label: string; value: string; color?: string }) {
+  return (
+    <div>
+      <div style={{ ...labelStyleSmall, marginBottom: 8 }}>{label}</div>
+      <div style={{ color, fontFamily: label === 'Value' ? M.mono : M.sans, fontSize: label === 'Value' ? 15 : 13, fontWeight: 600, lineHeight: 1.35 }}>{value}</div>
     </div>
   );
 }
@@ -1060,86 +1157,149 @@ function HistoryLineChart({
 // ─────────────────────────────────────────────────────────────
 // Section 7: Market narrative (SPY)
 // ─────────────────────────────────────────────────────────────
-function NarrativeSection({ result }: { result: AnyRecord | null }) {
-  if (!result) {
-    return (
-      <Panel title="Market narrative · SPY">
-        <div style={{ padding: '28px 8px', fontFamily: M.sans, fontSize: '13px', color: M.inkDim }}>
-          No cached SPY narrative read available yet. It will appear here once generated.
-        </div>
-      </Panel>
-    );
-  }
-  const snap = extractSnapshot(result);
-  const themes = normalizeThemes(result);
-  const inefficiency = extractInefficiency(result, themes);
-  const watch = extractWatchpoints(result, themes);
+type NarrativeTab = 'narrative' | 'themes' | 'inefficiencies' | 'tensions' | 'positioning';
+const NARRATIVE_TABS: { key: NarrativeTab; label: string }[] = [
+  { key: 'narrative', label: 'Narrative' },
+  { key: 'themes', label: 'Themes' },
+  { key: 'inefficiencies', label: 'Inefficiencies' },
+  { key: 'tensions', label: 'Tensions' },
+  { key: 'positioning', label: 'Positioning' },
+];
 
-  return (
-    <>
-      <Panel title="Market narrative · SPY" meta="Reality · story · price">
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: snap.bullets.length ? '18px' : 0 }}>
-          {snap.regimeTone ? <SnapChip label="Regime Tone" value={snap.regimeTone} accent={STANCE_COLOR[snap.regimeTone.toLowerCase()] ?? M.inkFaint} /> : null}
-          {snap.primaryGap ? <SnapChip label="Primary Gap" value={snap.primaryGap} accent={M.warn} /> : null}
-          {snap.primaryArchetype ? <SnapChip label="Primary Archetype" value={snap.primaryArchetype} accent={M.accentBright} /> : null}
-          {snap.priceConfirmation ? <SnapChip label="Price Confirmation" value={snap.priceConfirmation} /> : null}
-          {snap.confidence !== null ? <SnapChip label="Confidence" value={`${snap.confidence}/100`} /> : null}
-        </div>
-        {snap.bullets.map((b) => (
-          <div key={b.label} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '11px' }}>
-            <span style={{ flexShrink: 0, width: '68px', fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginTop: '4px', color: b.label === 'Reality' ? M.pos : b.label === 'Story' ? M.accentBright : M.inkFaint }}>{b.label}</span>
-            <p style={{ margin: 0, fontFamily: M.sans, fontSize: '14px', color: M.inkDim, lineHeight: 1.65 }}>{b.text}</p>
+function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast }) {
+  const [active, setActive] = useState<NarrativeTab>('narrative');
+  const [expanded, setExpanded] = useState(false);
+  const snap = result ? extractSnapshot(result) : { bullets: [], regimeTone: '', primaryGap: '', primaryArchetype: '', priceConfirmation: '', confidence: null, fullSummary: '' };
+  const themes = result ? normalizeThemes(result) : [];
+  const inefficiency = result ? extractInefficiency(result, themes) : [];
+  const watch = result ? extractWatchpoints(result, themes) : [];
+
+  const narrativeRows = snap.bullets.length
+    ? snap.bullets
+    : [
+        { label: 'Reality', text: f.regimeRead || f.headline },
+        { label: 'Story', text: f.summary },
+        { label: 'Price', text: f.confRationale },
+      ].filter((row) => row.text);
+
+  const renderNarrative = () => (
+    <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.95fr 0.85fr', gap: 18 }} className="macro-narrative-grid">
+      <div>
+        {narrativeRows.slice(0, 3).map((row) => (
+          <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '70px minmax(0, 1fr)', gap: 12, marginBottom: 9 }}>
+            <span style={{ fontFamily: M.mono, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: row.label === 'Reality' ? M.pos : row.label === 'Story' ? M.accentBright : M.inkFaint, fontWeight: 600 }}>{row.label}</span>
+            <p style={{ margin: 0, color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{truncate(row.text, 150)}</p>
           </div>
         ))}
-      </Panel>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '20px' }} className="helix-fan-grid">
-        <Panel title="Dominant themes" meta={`${themes.length} theme${themes.length !== 1 ? 's' : ''}`}>
-          {themes.length === 0 ? (
-            <div style={{ padding: '20px 4px', fontFamily: M.sans, fontSize: '13px', color: M.inkDim }}>No dominant themes identified.</div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {themes.slice(0, 4).map((t, i) => <ThemeCard key={i} theme={t} />)}
-            </div>
-          )}
-        </Panel>
-        <Panel title="Inefficiency map">
-          {inefficiency.length === 0 ? (
-            <div style={{ padding: '20px 4px', fontFamily: M.sans, fontSize: '13px', color: M.inkDim }}>No explicit inefficiency classifications in this run.</div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {inefficiency.map((row, i) => (
-                <div key={i} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: '12px', padding: '13px 14px' }}>
-                  <div style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
-                    <span style={{ fontFamily: M.mono, fontSize: '11px', color: M.inkFaint, paddingTop: '2px' }}>{i + 1}.</span>
-                    <span style={{ fontFamily: M.serif, fontSize: '17px', fontWeight: 500, color: M.ink, lineHeight: 1.18 }}>{row.subject}</span>
-                  </div>
-                  {row.gap ? <div style={{ fontFamily: M.sans, fontSize: '12.5px', color: M.inkDim, lineHeight: 1.55, marginBottom: row.archetype || row.confidence !== null ? '8px' : 0 }}>{row.gap}</div> : null}
-                  {(row.archetype || row.confidence !== null) ? (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {row.archetype ? <Chip label={truncate(row.archetype, 40)} color={M.accentBright} /> : null}
-                      {row.underlyingGapType ? <Chip label={row.underlyingGapType.replace(/_/g, ' ')} /> : null}
-                      {row.confidence !== null ? <Chip label={`${row.confidence}/100`} /> : null}
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          )}
-        </Panel>
       </div>
+      <div style={{ borderLeft: `1px solid ${M.line}`, paddingLeft: 18 }}>
+        <ChipCloud label="Preferred" color={M.pos} items={f.preferred} />
+        <div style={{ height: 10 }} />
+        <ChipCloud label="Avoid" color={M.neg} items={f.avoid} />
+      </div>
+      <div style={{ borderLeft: `1px solid ${M.line}`, paddingLeft: 18 }}>
+        <MutedLabel>Key tensions</MutedLabel>
+        {f.tensions.slice(0, 4).map((item, index) => (
+          <div key={`${item}-${index}`} style={{ display: 'grid', gridTemplateColumns: '24px minmax(0, 1fr)', gap: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.35, marginBottom: 6 }}>
+            <span style={{ fontFamily: M.mono, color: M.accentBright }}>0{index + 1}</span>
+            <span>{truncate(item, 88)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
-      {watch.length ? (
-        <Panel title="Watchpoints">
-          <MutedLabel>Top watchpoints</MutedLabel>
-          <ol style={{ margin: 0, paddingLeft: '20px' }}>
-            {watch.map((w, i) => (
-              <li key={i} style={{ fontFamily: M.sans, fontSize: '13.5px', color: M.inkDim, lineHeight: 1.6, marginBottom: '7px' }}>{w}</li>
-            ))}
-          </ol>
-        </Panel>
-      ) : null}
-    </>
+  const renderThemes = () => themes.length ? (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
+      {themes.slice(0, expanded ? 6 : 3).map((theme, index) => <ThemeCard key={`${theme.title}-${index}`} theme={theme} />)}
+    </div>
+  ) : <EmptyMini message={result ? 'No dominant themes identified.' : 'No cached SPY narrative read available yet.'} />;
+
+  const renderInefficiencies = () => inefficiency.length ? (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
+      {inefficiency.slice(0, expanded ? 6 : 3).map((row, index) => (
+        <div key={`${row.subject}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: 12, padding: 13 }}>
+          <div style={{ fontFamily: M.serif, fontSize: 16, color: M.ink, lineHeight: 1.15 }}>{row.subject}</div>
+          <div style={{ marginTop: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.45 }}>{truncate(row.gap || row.archetype, 150)}</div>
+        </div>
+      ))}
+    </div>
+  ) : <EmptyMini message="No explicit inefficiency classifications in this run." />;
+
+  const renderTensions = () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
+      {(f.tensions.length ? f.tensions : watch).slice(0, expanded ? 8 : 4).map((item, index) => (
+        <div key={`${item}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 13 }}>
+          <div style={{ fontFamily: M.mono, fontSize: 10, color: M.accentBright, marginBottom: 8 }}>0{index + 1}</div>
+          <div style={{ color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{item}</div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderPositioning = () => (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }} className="macro-narrative-grid">
+      <ChipCloud label="Preferred" color={M.pos} items={f.preferred} />
+      <ChipCloud label="Avoid" color={M.neg} items={f.avoid} />
+    </div>
+  );
+
+  const renderActive = () => {
+    if (active === 'themes') return renderThemes();
+    if (active === 'inefficiencies') return renderInefficiencies();
+    if (active === 'tensions') return renderTensions();
+    if (active === 'positioning') return renderPositioning();
+    return renderNarrative();
+  };
+
+  return (
+    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: `1px solid ${M.line}`, padding: '0 14px' }}>
+        {NARRATIVE_TABS.map((tab) => (
+          <button key={tab.key} type="button" onClick={() => setActive(tab.key)} style={narrativeTabStyle(active === tab.key)}>
+            {tab.label}
+          </button>
+        ))}
+        <button type="button" onClick={() => setExpanded((value) => !value)} style={{ marginLeft: 'auto', border: 0, background: 'transparent', color: M.accentBright, fontFamily: M.sans, fontSize: 12.5, cursor: 'pointer' }}>
+          {expanded ? 'Collapse view' : 'Expand all'} →
+        </button>
+      </div>
+      <div style={{ padding: 16 }}>
+        {expanded ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {renderNarrative()}
+            {renderThemes()}
+            {renderInefficiencies()}
+            {renderTensions()}
+          </div>
+        ) : renderActive()}
+      </div>
+    </section>
+  );
+}
+
+function narrativeTabStyle(active: boolean): React.CSSProperties {
+  return {
+    border: 0,
+    borderBottom: `2px solid ${active ? M.accent : 'transparent'}`,
+    background: active ? M.accentSoft : 'transparent',
+    color: active ? M.ink : M.inkDim,
+    padding: '11px 12px',
+    fontFamily: M.sans,
+    fontSize: 12.5,
+    fontWeight: 600,
+    cursor: 'pointer',
+  };
+}
+
+function ChipCloud({ label, color, items }: { label: string; color: string; items: string[] }) {
+  return (
+    <div>
+      <div style={{ ...labelStyleSmall, color }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 7 }}>
+        {(items.length ? items : ['—']).map((item) => <Chip key={item} label={item} color={color === M.pos || color === M.neg ? color : M.accentBright} />)}
+      </div>
+    </div>
   );
 }
 function SnapChip({ label, value, accent }: { label: string; value: string; accent?: string }) {
@@ -1183,14 +1343,6 @@ function ThemeCard({ theme }: { theme: NarrTheme }) {
 // ═══════════════════════════════════════════════════════════════════
 export default function MacroPage() {
   const authFetcher = useAuthFetcher();
-  const [stacked, setStacked] = useState(false);
-
-  useEffect(() => {
-    const update = () => setStacked(window.innerWidth < 980);
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
 
   // Forecast — falls back to embedded sample until the endpoint exists.
   const { data: forecastRaw } = useSWR<AnyRecord>(
@@ -1246,58 +1398,59 @@ export default function MacroPage() {
     return <AuthRequired isLoaded={authFetcher.isLoaded} />;
   }
 
-  const twoCol: React.CSSProperties = stacked
-    ? { display: 'flex', flexDirection: 'column', gap: '20px' }
-    : { display: 'grid', gridTemplateColumns: 'minmax(0, 1.9fr) minmax(0, 1fr)', gap: '20px' };
-
   return (
     <main style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1440px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '2px' }}>
+      <div style={{ width: 'min(1460px, calc(100% - 44px))', margin: '0 auto', padding: '26px 0 46px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '4px' }}>
           <div>
             <Eyebrow>MACRO &amp; REGIME &gt; CURRENT READ</Eyebrow>
             <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>What matters now</h1>
+            <div style={{ fontFamily: M.sans, fontSize: '13px', color: M.canvasInkDim, lineHeight: 1.45, maxWidth: '960px', marginTop: 10 }}>
+              {forecast.regimeRead || forecast.headline}
+            </div>
           </div>
-          <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.canvasInkFaint}55`, borderRadius: '999px' }}>Regime · {regime?.asof || '—'} · Forecast · {forecast.asof || '—'}</div>
-        </div>
-
-        <div style={{ fontFamily: M.sans, fontSize: '15px', color: M.canvasInkDim, lineHeight: 1.55, maxWidth: '760px', marginTop: '-8px' }}>
-          {forecast.regimeRead || forecast.headline}
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Regime · {regime?.asof || '—'}</div>
+            <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Forecast · {forecast.asof || '—'}</div>
+          </div>
         </div>
 
         {/* 1 — pulse + regime */}
-        <div style={twoCol}>
+        <div className="macro-top-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2.08fr) minmax(360px, 1fr)', gap: 10 }}>
           <MarketPulse f={forecast} regime={regime} scoreHistory={compositeScoreHistory} />
           <CurrentRegime f={forecast} regime={regime} />
         </div>
 
-        {/* 2 — dominant banner */}
-        <DominantBanner f={forecast} />
+        {/* 2 — scenarios + return distribution + risk */}
+        <div className="macro-mid-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(380px, 0.8fr) minmax(270px, 0.48fr)', gap: 10 }}>
+          <ScenarioCards f={forecast} />
+          <ForwardReturnDistribution f={forecast} />
+          <RiskProfileCompact f={forecast} />
+        </div>
 
-        {/* 3 — scenarios */}
-        <ScenarioCards f={forecast} />
+        {/* 3 — compressed narrative */}
+        <NarrativeSection result={narrResult} f={forecast} />
 
-        {/* 4 — fan + risk */}
-        <FanChart f={forecast} />
-
-        {/* 5 — positioning + tensions */}
-        <PositioningTensions f={forecast} />
-
-        {/* 6 — indicators */}
+        {/* 4 — indicators */}
         <IndicatorExplorer f={forecast} />
-
-        {/* 7 — SPY narrative */}
-        <NarrativeSection result={narrResult} />
       </div>
 
       {/* Responsive grid collapse */}
       <style>{`
-        @media (max-width: 980px) {
-          .helix-fan-grid { grid-template-columns: 1fr !important; }
+        @media (max-width: 1280px) {
+          .macro-mid-grid { grid-template-columns: 1fr !important; }
+          .scenario-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
         }
-        @media (max-width: 720px) {
+        @media (max-width: 980px) {
+          .macro-top-grid, .macro-top-card-grid, .macro-narrative-grid { grid-template-columns: 1fr !important; }
+          .helix-fan-grid { grid-template-columns: 1fr !important; }
           .macro-indicator-shell { grid-template-columns: 1fr !important; }
           .macro-indicator-rail { border-right: none !important; border-bottom: 1px solid ${M.line} !important; }
+          .indicator-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 720px) {
+          .scenario-card-grid { grid-template-columns: 1fr !important; }
+          .indicator-stat-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </main>
