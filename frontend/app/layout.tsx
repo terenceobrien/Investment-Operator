@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import AppShell from '../components/AppShell';
 import { T } from '@/lib/tokens';
+import { M } from './lib/researchOsTheme';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 
@@ -121,32 +122,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider appearance={clerkAppearance}>
       <html lang="en">
-        <body style={{ margin: 0, background: T.pageBg, color: T.text }}>
+        <body style={{ margin: 0, background: M.canvas, color: M.canvasInk }}>
           <AppShell>
             <div className="temper-page-shell" style={{ minHeight: '100vh' }}>
               {children}
             </div>
             <footer
               style={{
-                borderTop: `0.5px solid ${T.border}`,
-                background: 'rgba(255,255,255,0.78)',
+                borderTop: `0.5px solid ${M.line}`,
+                background: M.sidebar,
                 padding: '22px 24px 24px',
-                fontFamily: T.mono,
+                fontFamily: M.mono,
                 fontSize: '11px',
                 fontWeight: 300,
                 letterSpacing: '0.3px',
-                color: T.textMuted,
+                color: M.inkFaint,
                 textAlign: 'center',
               }}
             >
               <div>
-                <strong style={{ color: T.text, fontFamily: T.sans, letterSpacing: '0.16em', textTransform: 'uppercase' }}>Helix</strong>
+                <strong style={{ color: M.ink, fontFamily: M.sans, letterSpacing: '0.16em', textTransform: 'uppercase' }}>Helix</strong>
                 {' '}is for informational purposes only and does not constitute financial advice.{' '}
-                <a href="/legal/helix_privacy_policy.docx" target="_blank" rel="noreferrer" style={{ color: T.textMuted, textDecoration: 'underline' }}>
+                <a href="/legal/helix_privacy_policy.docx" target="_blank" rel="noreferrer" style={{ color: M.inkDim, textDecoration: 'underline' }}>
                   Privacy Policy
                 </a>{' '}
                 ·{' '}
-                <a href="/legal/helix_terms_of_service.docx" target="_blank" rel="noreferrer" style={{ color: T.textMuted, textDecoration: 'underline' }}>
+                <a href="/legal/helix_terms_of_service.docx" target="_blank" rel="noreferrer" style={{ color: M.inkDim, textDecoration: 'underline' }}>
                   Terms of Service
                 </a>
               </div>

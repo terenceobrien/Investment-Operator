@@ -75,9 +75,11 @@ function unwrapPayload(raw: unknown): AnyRecord {
   const obj = safeObj(raw);
   if (obj.output) return safeObj(obj.output);
   if (obj.result) return safeObj(obj.result);
+  if (obj.report) return safeObj(obj.report);
   const cached = safeObj(obj.last_cached_result);
   if (cached.output) return safeObj(cached.output);
   if (cached.result) return safeObj(cached.result);
+  if (cached.report) return safeObj(cached.report);
   return obj;
 }
 function titleCase(value: string): string {
@@ -96,6 +98,16 @@ function firstText(...values: unknown[]): string {
 function reportTicker(raw: unknown): string {
   const r = unwrapPayload(raw);
   return safeStr(r.ticker, '').toUpperCase();
+}
+function isReportLike(raw: unknown): boolean {
+  const r = unwrapPayload(raw);
+  return Boolean(
+    r.ticker ||
+    r.company_profile ||
+    r.scores ||
+    r.llm_synthesis ||
+    r.financial_trend_analysis,
+  );
 }
 
 function normalizeCoverage(raw: unknown): CoverageEntry[] {
@@ -180,10 +192,10 @@ const labelStyle: React.CSSProperties = {
 };
 
 function Panel({ label, meta, children, tone }: { label: string; meta?: string; children: React.ReactNode; tone?: 'accent' | 'risk' }) {
-  const bg = tone === 'accent' ? M.accentSoft : tone === 'risk' ? '#3B263C' : M.card;
+  const bg = tone === 'accent' ? M.accentSoft : tone === 'risk' ? M.dangerWell : M.card;
   const border = tone === 'risk' ? `${M.neg}66` : M.line;
   return (
-    <section style={{ background: bg, border: `1px solid ${border}`, borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 70px rgba(26,37,64,0.16)' }}>
+    <section style={{ background: bg, border: `1px solid ${border}`, borderRadius: 16, overflow: 'hidden', boxShadow: M.shadow }}>
       <div style={{ padding: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, marginBottom: 18 }}>
           <span style={labelStyle}>{label}</span>
@@ -221,19 +233,31 @@ export default function CompanyPage() {
     setTicker((coverage.find((entry) => entry.ticker === 'GEV') ?? coverage[0]).ticker);
   }, [coverage, ticker]);
 
-  const { data: reportRaw } = useSWR<unknown>(
-    authFetcher.isReady && ticker ? REPORT_ENDPOINT(ticker) : null,
+  const reportKey = authFetcher.isReady && ticker ? REPORT_ENDPOINT(ticker) : null;
+  const { data: reportRaw, error: reportError, isLoading: reportLoading } = useSWR<unknown>(
+    reportKey,
     authFetcher.fetcher,
-    { onError: () => null, revalidateOnFocus: false },
+    {
+      onError: () => null,
+      revalidateOnFocus: false,
+      keepPreviousData: false,
+      dedupingInterval: 0,
+    },
   );
   const selectedCoverage = useMemo(
     () => coverage.find((entry) => entry.ticker === ticker),
     [coverage, ticker],
   );
-  const matchingReportRaw = reportRaw && reportTicker(reportRaw) === ticker ? reportRaw : undefined;
+  const rawTicker = reportTicker(reportRaw);
+  const matchingReportRaw = reportRaw && isReportLike(reportRaw) && (!rawTicker || rawTicker === ticker)
+    ? reportRaw
+    : undefined;
   const fallbackReport = useMemo(
-    () => fallbackReportForTicker(ticker, selectedCoverage),
-    [ticker, selectedCoverage],
+    () => fallbackReportForTicker(ticker, selectedCoverage, {
+      loading: reportLoading,
+      error: reportError,
+    }),
+    [ticker, selectedCoverage, reportLoading, reportError],
   );
   const report = useMemo(
     () => normalizeReport(matchingReportRaw ?? fallbackReport, ticker),
@@ -246,63 +270,78 @@ export default function CompanyPage() {
 
   return (
     <main style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1280px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 22 }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'end', flexWrap: 'wrap' }}>
+      <div style={{ width: 'min(1440px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <header style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(330px, 0.34fr)', gap: 28, alignItems: 'start' }} className="research-header-grid">
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.2em', color: M.canvasInkFaint, marginBottom: 10 }}>02 / COMPANY RESEARCH</div>
-            <h1 style={{ fontFamily: M.serif, fontSize: 38, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Single-name conviction</h1>
+            <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 12 }}>COMPANY RESEARCH &gt; {report.ticker}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 13, flexWrap: 'wrap' }}>
+              <h1 style={{ fontFamily: M.serif, fontSize: 42, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>{report.name}</h1>
+              <Chip>{report.ticker}</Chip>
+            </div>
+            <div style={{ marginTop: 16, display: 'flex', gap: 14, flexWrap: 'wrap', color: M.canvasInkDim, fontSize: 14 }}>
+              {report.sector.split(' / ').filter(Boolean).map((item) => <span key={item}>{item}</span>)}
+            </div>
           </div>
-          <label style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-            <span style={{ ...labelStyle, color: M.canvasInkFaint }}>Coverage</span>
-            <select value={ticker} onChange={(event) => setTicker(event.target.value)} style={{ minWidth: 300, maxWidth: 'min(460px, 86vw)', background: M.card, border: `1px solid ${M.line}`, borderRadius: 12, color: M.ink, padding: '11px 12px', fontFamily: M.sans, fontSize: 14, outline: 'none' }}>
-              {coverage.map((entry) => (
-                <option key={entry.ticker} value={entry.ticker}>{entry.ticker} — {entry.name || entry.ticker}</option>
-              ))}
-            </select>
-          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 20, alignItems: 'end' }}>
+            <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <span style={{ ...labelStyle, color: M.canvasInkFaint }}>Coverage</span>
+              <select value={ticker} onChange={(event) => setTicker(event.target.value)} style={{ width: '100%', background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 10, color: M.ink, padding: '12px 14px', fontFamily: M.sans, fontSize: 14, outline: 'none', boxShadow: '0 10px 34px rgba(0,0,0,0.16)' }}>
+                {coverage.map((entry) => (
+                  <option key={entry.ticker} value={entry.ticker}>{entry.ticker} — {entry.name || entry.ticker}</option>
+                ))}
+              </select>
+            </label>
+            <div style={{ borderLeft: `1px solid ${M.line}`, paddingLeft: 20, minWidth: 116 }}>
+              <div style={{ ...labelStyle, color: M.canvasInkFaint }}>Last updated</div>
+              <div style={{ marginTop: 10, fontFamily: M.mono, fontSize: 12, color: M.canvasInkDim }}>{report.asOf}</div>
+            </div>
+          </div>
         </header>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.15fr)', gap: 20 }} className="research-grid">
-          <Panel label="Scorecard" meta={report.asOf}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
-              <div style={{ width: 56, height: 56, borderRadius: 15, background: M.accent, color: '#07142B', display: 'grid', placeItems: 'center', fontFamily: M.serif, fontSize: 28, fontWeight: 600 }}>{report.ticker[0]}</div>
-              <div style={{ flex: 1 }}>
-                <div style={labelStyle}>{report.sector}</div>
-                <h2 style={{ margin: '7px 0 8px', fontFamily: M.serif, fontSize: 28, fontWeight: 500, color: M.ink, lineHeight: 1.05 }}>{report.name}</h2>
-                <div style={{ color: M.inkFaint, fontSize: 12.5 }}>
-                  {/* TODO: live quote source. Deep fundamental files do not contain price or daily-change fields. */}
-                  Live quote not included in report
-                </div>
-              </div>
-            </div>
-            <div style={{ marginTop: 22, background: M.well, border: `1px solid ${M.line}`, borderRadius: 15, padding: 18 }}>
-              <div style={labelStyle}>Helix research score</div>
-              <div style={{ margin: '8px 0 10px', fontFamily: M.serif, color: M.ink, fontSize: 48, lineHeight: 1 }}>{report.score === null ? '—' : report.score.toFixed(1)} <span style={{ fontFamily: M.mono, fontSize: 15, color: M.inkFaint }}>/ 100</span></div>
-              <Chip>{report.conviction}</Chip>
-            </div>
-          </Panel>
+        <ScoreSummary report={report} />
 
-          <Panel label="Investment thesis" meta={report.ticker} tone="accent">
-            <p style={{ margin: 0, fontFamily: M.serif, fontSize: 21, lineHeight: 1.28, color: M.ink }}>{report.thesis}</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginTop: 22 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 0.55fr) minmax(0, 1fr)', gap: 10 }} className="research-grid">
+          <Panel label="Investment thesis">
+            <p style={{ margin: 0, fontFamily: M.serif, fontSize: 19.5, lineHeight: 1.32, color: M.ink }}>{report.thesis}</p>
+            <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 9 }}>
+              {(report.monitoring.length ? report.monitoring : report.keyRisks).slice(0, 3).map((item, index) => (
+                <div key={`${item}-${index}`} style={{ display: 'flex', gap: 9, color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>
+                  <span style={{ color: M.accentBright, fontFamily: M.mono }}>◎</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: `1px solid ${M.line}`, margin: '18px -24px -24px' }}>
               <Meta label="Horizon" value={report.horizon} />
               <Meta label="Verdict" value={report.verdict} />
-              <Meta label="Confidence" value={report.confidence} />
+              <Meta label="Last updated" value={report.asOf} />
+            </div>
+          </Panel>
+
+          <Panel label="Key qualitative trends">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 10 }} className="kpi-strip">
+              {report.kpis.map((kpi, index) => <TrendCard key={kpi.label} kpi={kpi} index={index} />)}
             </div>
           </Panel>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', border: `1px solid ${M.line2}`, borderRadius: 16, overflow: 'hidden', background: M.cardElev }} className="kpi-strip">
-          {report.kpis.map((kpi) => (
-            <div key={kpi.label} style={{ padding: 18, borderRight: `1px solid ${M.line}` }}>
-              <div style={labelStyle}>{kpi.label}</div>
-              <div style={{ fontFamily: M.serif, fontSize: 23, color: M.ink, marginTop: 8, lineHeight: 1.08 }}>{kpi.value}</div>
-              <div style={{ fontFamily: M.sans, fontSize: 12, color: M.inkFaint, marginTop: 8 }}>{kpi.sub}</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1fr 1.1fr', gap: 10 }} className="bottom-grid">
+          <Panel label="Conviction by factor">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {report.factors.map((factor) => <FactorRow key={factor.label} label={factor.label} value={factor.value} />)}
             </div>
-          ))}
+          </Panel>
+          <Panel label="Key metrics to monitor">
+            <MetricWatchlist items={report.monitoring.length ? report.monitoring : ['—']} />
+          </Panel>
+          <Panel label="What breaks the thesis?" tone="risk">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {(report.falsifiers.length ? report.falsifiers : report.keyRisks).slice(0, 3).map((item, index) => <RiskItem key={`${item}-${index}`} text={item} index={index} />)}
+            </div>
+          </Panel>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 20 }} className="bottom-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '0.72fr 1fr', gap: 10 }} className="research-grid">
           <Panel label="Estimate momentum">
             <TextCallout>{report.estimateTrend}</TextCallout>
             <p style={{ margin: '12px 0 0', color: M.inkDim, fontSize: 12.5, lineHeight: 1.5 }}>
@@ -310,29 +349,16 @@ export default function CompanyPage() {
               Text-only estimate trend from the fundamental report.
             </p>
           </Panel>
-          <Panel label="Conviction by factor">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {report.factors.map((factor) => <FactorRow key={factor.label} label={factor.label} value={factor.value} />)}
-            </div>
-          </Panel>
-          <Panel label="Key metrics to monitor">
-            <BulletList items={report.monitoring.length ? report.monitoring : ['—']} />
-          </Panel>
-          <Panel label="What breaks the thesis?" tone="risk">
-            <Chip color={M.neg}>Active falsifier</Chip>
-            <BulletList items={(report.falsifiers.length ? report.falsifiers : report.keyRisks).slice(0, 3)} />
-          </Panel>
-        </div>
-
-        <Panel label="Variant view" meta={`${report.variantDirection} · ${report.variantStrength}`}>
+          <Panel label="Variant view" meta={`${report.variantDirection} · ${report.variantStrength}`}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="research-grid">
             <VariantBox title="Bull case variant" text={report.bullVariant} color={M.pos} />
             <VariantBox title="Bear case variant" text={report.bearVariant} color={M.neg} />
           </div>
-        </Panel>
+          </Panel>
+        </div>
       </div>
       <style>{`
-        @media (max-width: 980px) { .research-grid, .bottom-grid { grid-template-columns: 1fr !important; } .kpi-strip { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 1120px) { .research-header-grid, .research-grid, .bottom-grid { grid-template-columns: 1fr !important; } .kpi-strip { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 620px) { .kpi-strip { grid-template-columns: 1fr !important; } }
       `}</style>
     </main>
@@ -340,7 +366,7 @@ export default function CompanyPage() {
 }
 
 function Meta({ label, value }: { label: string; value: string }) {
-  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 12 }}><div style={labelStyle}>{label}</div><div style={{ marginTop: 6, color: M.ink, fontSize: 13, fontWeight: 600 }}>{value}</div></div>;
+  return <div style={{ padding: '12px 18px', borderRight: `1px solid ${M.line}` }}><div style={labelStyle}>{label}</div><div style={{ marginTop: 6, color: M.ink, fontSize: 13, fontWeight: 600 }}>{value}</div></div>;
 }
 function TextCallout({ children }: { children: React.ReactNode }) {
   return <div style={{ minHeight: 116, background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: 16, color: M.ink, fontFamily: M.serif, fontSize: 20, lineHeight: 1.25 }}>{children}</div>;
@@ -353,6 +379,102 @@ function BulletList({ items }: { items: string[] }) {
 }
 function VariantBox({ title, text, color }: { title: string; text: string; color: string }) {
   return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 10 }}>{title}</div><p style={{ margin: 0, color: M.inkDim, lineHeight: 1.5, fontSize: 13.5 }}>{text}</p></div>;
+}
+
+function ScoreSummary({ report }: { report: ViewReport }) {
+  const score = report.score ?? 0;
+  const confidenceLevel = report.confidence.toLowerCase();
+  const confidenceBlocks = confidenceLevel.includes('high') ? 4 : confidenceLevel.includes('medium') ? 3 : confidenceLevel.includes('low') ? 2 : 1;
+  return (
+    <section style={{ background: 'linear-gradient(180deg, #102946 0%, #0C213A 100%)', border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden', marginTop: 10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr 1fr 0.68fr' }} className="score-strip">
+        <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
+          <div style={labelStyle}>Helix research score</div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, margin: '10px 0 8px' }}>
+            <span style={{ fontFamily: M.serif, fontSize: 48, lineHeight: 1, color: M.ink }}>{report.score === null ? '—' : report.score.toFixed(1)}</span>
+            <span style={{ fontFamily: M.mono, fontSize: 13, color: M.inkFaint }}>/ 100</span>
+          </div>
+          <Meter value={report.score} color={M.accentBright} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, color: M.inkFaint, fontSize: 12 }}>
+            <span>Underwriting score</span>
+            <span style={{ fontFamily: M.mono }}>{Math.max(0, Math.min(100, score)).toFixed(0)}/100</span>
+          </div>
+        </div>
+        <SummaryCell label="Verdict" title={report.verdict} sub={report.score !== null ? 'Reassess if score ≥ 80' : 'Latest report verdict'} accent={M.pos} />
+        <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
+          <div style={labelStyle}>Confidence</div>
+          <div style={{ marginTop: 12, fontFamily: M.serif, fontSize: 25, color: M.ink, lineHeight: 1.05 }}>{titleCase(report.confidence)}</div>
+          <div style={{ color: M.inkFaint, fontSize: 12, marginTop: 8 }}>Conviction in thesis</div>
+          <div style={{ display: 'flex', gap: 5, marginTop: 16 }}>
+            {[0, 1, 2, 3].map((idx) => <span key={idx} style={{ width: 14, height: 8, borderRadius: 2, background: idx < confidenceBlocks ? M.pos : M.line2 }} />)}
+          </div>
+        </div>
+        <div style={{ padding: '22px 28px' }}>
+          <div style={labelStyle}>As of</div>
+          <div style={{ marginTop: 15, color: M.pos, fontFamily: M.mono, fontSize: 14 }}>{report.asOf}</div>
+          <div style={{ color: M.inkFaint, fontFamily: M.mono, fontSize: 11, marginTop: 18 }}>{report.horizon} horizon</div>
+        </div>
+      </div>
+      <style>{`
+        @media (max-width: 960px) { .score-strip { grid-template-columns: 1fr 1fr !important; } }
+        @media (max-width: 620px) { .score-strip { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+function SummaryCell({ label, title, sub, accent }: { label: string; title: string; sub: string; accent: string }) {
+  return (
+    <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
+      <div style={labelStyle}>{label}</div>
+      <div style={{ marginTop: 12, fontFamily: M.serif, fontSize: 25, color: M.ink, lineHeight: 1.05 }}>{title}</div>
+      <div style={{ color: M.inkFaint, fontSize: 12, marginTop: 8 }}>{sub}</div>
+      <div style={{ width: 38, height: 3, borderRadius: 999, background: accent, marginTop: 20 }} />
+    </div>
+  );
+}
+
+function TrendCard({ kpi, index }: { kpi: ViewReport['kpis'][number]; index: number }) {
+  const lower = kpi.value.toLowerCase();
+  const color = lower.includes('improv') || lower.includes('positive') || lower.includes('favorable') ? M.pos : lower.includes('deterior') || lower.includes('negative') || lower.includes('pressure') ? M.neg : M.accentBright;
+  return (
+    <div style={{ minHeight: 182, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'center' }}>
+          <div style={{ width: 42, height: 42, borderRadius: '50%', background: M.accentSoft, color: M.accentBright, display: 'grid', placeItems: 'center', fontFamily: M.mono, fontSize: 14 }}>{String(index + 1).padStart(2, '0')}</div>
+          <div style={{ color: M.inkDim, fontSize: 12, textAlign: 'right' }}>{kpi.label}</div>
+        </div>
+        <div style={{ fontFamily: M.serif, fontSize: 23, color: M.ink, marginTop: 14, lineHeight: 1.05 }}>{kpi.value}</div>
+      </div>
+      <div>
+        <div style={{ width: 42, height: 3, borderRadius: 999, background: color, marginTop: 14 }} />
+        <div style={{ fontSize: 12, color: M.inkFaint, lineHeight: 1.35, marginTop: 11 }}>{kpi.sub}</div>
+      </div>
+    </div>
+  );
+}
+
+function MetricWatchlist({ items }: { items: string[] }) {
+  return (
+    <div style={{ margin: '0 -24px -24px' }}>
+      {items.slice(0, 7).map((item, index) => (
+        <div key={`${item}-${index}`} style={{ display: 'grid', gridTemplateColumns: '34px minmax(0, 1fr)', gap: 12, padding: '11px 24px', borderTop: index ? `1px solid ${M.line}` : 'none', alignItems: 'center' }}>
+          <span style={{ color: M.accentBright, fontFamily: M.mono, fontSize: 11 }}>{String(index + 1).padStart(2, '0')}</span>
+          <span style={{ color: M.inkDim, fontSize: 13, lineHeight: 1.35 }}>{item}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RiskItem({ text, index }: { text: string; index: number }) {
+  return (
+    <div style={{ background: 'rgba(241, 109, 100, 0.08)', border: `1px solid ${M.neg}22`, borderRadius: 12, padding: '15px 16px', display: 'grid', gridTemplateColumns: '38px minmax(0, 1fr) auto', gap: 12, alignItems: 'center' }}>
+      <div style={{ width: 32, height: 32, borderRadius: '50%', border: `1px solid ${M.neg}88`, color: M.neg, display: 'grid', placeItems: 'center', fontFamily: M.mono, fontSize: 12 }}>!</div>
+      <div style={{ color: M.ink, fontSize: 13, lineHeight: 1.42 }}>{text}</div>
+      <Chip color={index === 0 ? M.neg : M.warn}>{index === 0 ? 'Active falsifier' : 'Risk'}</Chip>
+    </div>
+  );
 }
 
 const SAMPLE_COVERAGE: CoverageEntry[] = [
@@ -414,12 +536,23 @@ const SAMPLE_REPORT: FundamentalReport = {
   },
 };
 
-function fallbackReportForTicker(ticker: string, coverage?: CoverageEntry): FundamentalReport {
+function fallbackReportForTicker(
+  ticker: string,
+  coverage?: CoverageEntry,
+  state?: { loading?: boolean; error?: unknown },
+): FundamentalReport {
   if (ticker === SAMPLE_REPORT.ticker) return SAMPLE_REPORT;
+  const isLoading = state?.loading ?? false;
+  const errorMessage = state?.error instanceof Error ? state.error.message : '';
+  const statusText = isLoading
+    ? 'Loading live report'
+    : errorMessage
+      ? `Unable to load report: ${errorMessage}`
+      : 'Awaiting live report';
   return {
     ticker,
     as_of_date: coverage?.as_of_date,
-    verdict: 'loading',
+    verdict: isLoading ? 'loading' : 'unavailable',
     data_confidence: '—',
     company_profile: {
       company_name: coverage?.name ?? ticker,
@@ -428,16 +561,16 @@ function fallbackReportForTicker(ticker: string, coverage?: CoverageEntry): Fund
     },
     scores: {},
     financial_trend_analysis: {
-      revenue_growth_trend: 'Awaiting live report',
-      gross_margin_trend: 'Awaiting live report',
-      operating_margin_trend: 'Awaiting live report',
-      fcf_trend: 'Awaiting live report',
-      estimate_revision_trend: 'Loading the latest deep fundamental report for the selected company.',
+      revenue_growth_trend: statusText,
+      gross_margin_trend: statusText,
+      operating_margin_trend: statusText,
+      fcf_trend: statusText,
+      estimate_revision_trend: statusText,
     },
     llm_synthesis: {
-      underwriting_summary: 'Loading the latest deep fundamental report for the selected company.',
+      underwriting_summary: statusText,
       confidence: '—',
-      qualitative_conviction: 'loading',
+      qualitative_conviction: isLoading ? 'loading' : 'unavailable',
       key_risks: [],
       key_metrics_to_monitor: [],
     },

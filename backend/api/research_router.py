@@ -13,6 +13,7 @@ from threading import Lock
 from typing import Any, AsyncIterator
 from uuid import uuid4
 
+from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -31,6 +32,13 @@ from src.agent_system.paths import cycles_dir
 
 logger = logging.getLogger("api.research")
 research_router = APIRouter(prefix="/api/research", tags=["research"])
+
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = BACKEND_ROOT.parent
+
+load_dotenv()
+load_dotenv(REPO_ROOT / ".env.local")
+load_dotenv(BACKEND_ROOT / ".env")
 
 _executor: ProcessPoolExecutor | None = None
 _executor_lock = Lock()
@@ -62,14 +70,46 @@ class RunCycleResponse(BaseModel):
     job_id: str
 
 
-def _deep_fundamental_root() -> Path:
-    default_root = (
-        Path(__file__).resolve().parents[2]
-        / "data"
-        / "deep_fundamental_reports"
-        / "standalone"
+def _deep_fundamental_candidates() -> list[Path]:
+    env_root = os.getenv("DEEP_FUNDAMENTAL_DIR")
+    paths: list[Path] = []
+    if env_root:
+        paths.append(Path(env_root))
+    cwd = Path.cwd()
+    paths.extend(
+        [
+            REPO_ROOT / "data" / "deep_fundamental_reports" / "standalone",
+            BACKEND_ROOT / "data" / "deep_fundamental_reports" / "standalone",
+            cwd / "data" / "deep_fundamental_reports" / "standalone",
+            cwd.parent / "data" / "deep_fundamental_reports" / "standalone",
+            Path("/app/data/deep_fundamental_reports/standalone"),
+            Path("/data/deep_fundamental_reports/standalone"),
+        ]
     )
-    return Path(os.getenv("DEEP_FUNDAMENTAL_DIR", str(default_root))).expanduser()
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        expanded = str(path.expanduser())
+        if expanded not in seen:
+            seen.add(expanded)
+            unique.append(Path(expanded))
+    return unique
+
+
+def _deep_fundamental_root() -> Path:
+    for path in _deep_fundamental_candidates():
+        if path.is_dir():
+            return path
+    return _deep_fundamental_candidates()[0]
+
+
+def _deep_fundamental_missing_detail() -> str:
+    checked = ", ".join(str(path) for path in _deep_fundamental_candidates())
+    return (
+        "Deep fundamental report directory not found. "
+        "Set DEEP_FUNDAMENTAL_DIR to the standalone reports directory. "
+        f"Checked: {checked}"
+    )
 
 
 def _load_json_file(path: Path) -> dict[str, Any]:
@@ -179,10 +219,7 @@ def fundamental_coverage(
     if not root.is_dir():
         raise HTTPException(
             status_code=404,
-            detail=(
-                f"Deep fundamental report directory not found: {root}. "
-                "Set DEEP_FUNDAMENTAL_DIR to the standalone reports directory."
-            ),
+            detail=_deep_fundamental_missing_detail(),
         )
     coverage: list[dict[str, Any]] = []
     for ticker_dir in sorted(path for path in root.iterdir() if path.is_dir()):
@@ -217,7 +254,10 @@ def latest_fundamental_report(
     if not ticker_dir.is_dir():
         raise HTTPException(
             status_code=404,
-            detail=f"No deep fundamental report directory found for {ticker.upper()}",
+            detail=(
+                f"No deep fundamental report directory found for {ticker.upper()} "
+                f"under {_deep_fundamental_root()}"
+            ),
         )
     try:
         _path, payload = _latest_report_file(ticker_dir)

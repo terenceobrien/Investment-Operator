@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAuthFetcher } from '../../lib/api';
 import AuthRequired from '@/components/AuthRequired';
-import { T, sx } from '@/lib/tokens';
+import { M } from '../lib/researchOsTheme';
 
 // ═══════════════════════════════════════════════════════════════════
 // Research cycle
@@ -229,11 +229,17 @@ export default function ResearchCyclePage() {
   };
 
   return (
-    <main style={sx.main}>
-      <div style={{ ...sx.pageShell, maxWidth: 'min(1080px, calc(100% - 48px))', margin: '0 auto', width: 'min(1080px, calc(100% - 48px))' }}>
-        <div>
-          <div style={{ fontFamily: T.mono, fontSize: '12px', letterSpacing: '0.2em', color: T.textMuted, marginBottom: '10px' }}>03 / RESEARCH CYCLE</div>
-          <h1 style={{ fontFamily: T.sans, fontSize: '32px', fontWeight: 700, color: T.text, margin: 0 }}>Run a full cycle</h1>
+    <main style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
+      <div style={{ width: 'min(1180px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; FULL RUN</div>
+            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Run a full cycle</h1>
+          </div>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <StatusPill label={phase} />
+            <StatusPill label={`${stageState.filter((s) => s === 'done').length}/7 stages`} />
+          </div>
         </div>
 
         {/* Step 1 */}
@@ -244,34 +250,35 @@ export default function ResearchCyclePage() {
             placeholder="Describe a thesis or edge hypothesis to explore…"
             style={{
               width: '100%', minHeight: '120px', resize: 'vertical',
-              background: T.surfaceMuted, border: `1px solid ${T.border}`, borderRadius: '12px',
-              padding: '16px', fontFamily: T.sans, fontSize: '15px', color: T.text, lineHeight: 1.6,
+              background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px',
+              padding: '16px', fontFamily: M.sans, fontSize: '15px', color: M.ink, lineHeight: 1.6,
+              outline: 'none',
             }}
           />
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '14px' }}>
             <button onClick={generate} disabled={busy || phase !== 'input'} style={btnPrimary(busy || phase !== 'input')}>
               {busy && phase === 'input' ? 'Generating…' : 'Generate priorities'}
             </button>
-            <span style={{ fontFamily: T.mono, fontSize: '11px', letterSpacing: '0.1em', color: T.textMuted }}>triggers generate_priorities_from_text</span>
+            <span style={{ fontFamily: M.mono, fontSize: '11px', letterSpacing: '0.1em', color: M.inkFaint }}>triggers generate_priorities_from_text</span>
           </div>
         </StepShell>
 
         {/* Step 2 */}
         <StepShell n={2} title="Review proposed ResearchPriority" active={stepActive(2)} status={priority ? 'generated' : undefined}>
           {priority ? (
-            <div style={{ ...sx.subPanel, padding: '18px' }}>
-              <div style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 600, color: T.text, marginBottom: '8px' }}>
+            <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: '18px' }}>
+              <div style={{ fontFamily: M.serif, fontSize: '21px', fontWeight: 500, color: M.ink, marginBottom: '8px' }}>
                 #{priority.priority_rank} · {priority.source_theme_id}
               </div>
-              <p style={{ margin: '0 0 12px', fontFamily: T.sans, fontSize: '13.5px', color: T.textSub, lineHeight: 1.55 }}>
-                <b style={{ color: T.text }}>Edge hypothesis.</b> {priority.edge_hypothesis}
+              <p style={{ margin: '0 0 12px', fontFamily: M.sans, fontSize: '13.5px', color: M.inkDim, lineHeight: 1.55 }}>
+                <b style={{ color: M.ink }}>Edge hypothesis.</b> {priority.edge_hypothesis}
               </p>
-              <div style={{ fontFamily: T.sans, fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: T.textMuted, fontWeight: 700, marginBottom: '8px' }}>Sub-questions</div>
-              <ul style={{ margin: 0, paddingLeft: '18px', fontFamily: T.sans, fontSize: '13px', color: T.textSub, lineHeight: 1.6 }}>
+              <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 700, marginBottom: '8px' }}>Sub-questions</div>
+              <ul style={{ margin: 0, paddingLeft: '18px', fontFamily: M.sans, fontSize: '13px', color: M.inkDim, lineHeight: 1.6 }}>
                 {priority.sub_questions.map((q, i) => <li key={i} style={{ marginBottom: '5px' }}>{q}</li>)}
               </ul>
-              <div style={{ marginTop: '14px', fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
-                Expected edge decay: <b style={{ color: T.textSub }}>{priority.expected_edge_decay}</b>
+              <div style={{ marginTop: '14px', fontFamily: M.sans, fontSize: '12px', color: M.inkFaint }}>
+                Expected edge decay: <b style={{ color: M.inkDim }}>{priority.expected_edge_decay}</b>
               </div>
               {phase === 'review' ? (
                 <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
@@ -310,10 +317,10 @@ export default function ResearchCyclePage() {
           {(phase === 'running' || phase === 'done') ? (
             <div>
               {STAGES.map(([name, detail], i) => (
-                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '9px 0', borderTop: i ? `1px solid ${T.borderSub}` : 'none' }}>
+                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0', borderTop: i ? `1px solid ${M.line}` : 'none' }}>
                   <StageIcon state={stageState[i]} />
-                  <span style={{ fontFamily: T.sans, fontSize: '13.5px', fontWeight: 500, color: T.text }}>{name}</span>
-                  <span style={{ marginLeft: 'auto', fontFamily: T.mono, fontSize: '12px', color: T.textMuted }}>
+                  <span style={{ fontFamily: M.sans, fontSize: '13.5px', fontWeight: 600, color: M.ink }}>{name}</span>
+                  <span style={{ marginLeft: 'auto', fontFamily: M.mono, fontSize: '12px', color: M.inkFaint }}>
                     {stageState[i] === 'done' ? detail : stageState[i] === 'running' ? 'running…' : 'queued'}
                   </span>
                 </div>
@@ -338,40 +345,57 @@ export default function ResearchCyclePage() {
 // ── step shell ──
 function StepShell({ n, title, active, status, children }: { n: number; title: string; active: boolean; status?: string; children?: React.ReactNode }) {
   return (
-    <section style={{ ...sx.panel, opacity: active ? 1 : 0.5, transition: 'opacity 0.3s' }}>
-      <div style={{ ...sx.panelHeader, borderLeft: `3px solid ${active ? T.accent : T.border}` }}>
+    <section style={{ background: M.card, border: `1px solid ${active ? M.line2 : M.line}`, borderRadius: 16, overflow: 'hidden', boxShadow: M.shadow, opacity: active ? 1 : 0.48, transition: 'opacity 0.3s, border-color 0.3s' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '17px 22px', borderBottom: `1px solid ${M.line}`, background: 'linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0))' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <span style={{ width: '28px', height: '28px', borderRadius: '8px', background: T.surfaceMuted, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.mono, fontSize: '13px', fontWeight: 600, color: T.textSub }}>{n}</span>
-          <span style={{ fontFamily: T.sans, fontSize: '15px', fontWeight: 600, color: T.text }}>{title}</span>
+          <span style={{ width: '30px', height: '30px', borderRadius: '50%', background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: M.mono, fontSize: '12px', fontWeight: 600, color: active ? M.accentBright : M.inkFaint }}>{String(n).padStart(2, '0')}</span>
+          <span style={{ fontFamily: M.serif, fontSize: '20px', fontWeight: 500, color: M.ink }}>{title}</span>
         </span>
-        {status ? <span style={sx.sectionMeta}>{status}</span> : null}
+        {status ? <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.1em', color: M.inkFaint, textTransform: 'uppercase' }}>{status}</span> : null}
       </div>
-      {children ? <div style={sx.panelBody}>{children}</div> : null}
+      {children ? <div style={{ padding: 22 }}>{children}</div> : null}
     </section>
   );
 }
 
 function StageIcon({ state }: { state: 'queued' | 'running' | 'done' }) {
-  if (state === 'done') return <span style={{ width: '20px', height: '20px', borderRadius: '50%', background: T.up, flexShrink: 0 }} />;
-  if (state === 'running') return <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: `2px solid ${T.accent}`, borderTopColor: 'transparent', flexShrink: 0, animation: 'helixSpin 0.8s linear infinite' }} />;
-  return <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: `2px solid ${T.border}`, flexShrink: 0 }} />;
+  if (state === 'done') return <span style={{ width: '20px', height: '20px', borderRadius: '50%', background: M.pos, flexShrink: 0 }} />;
+  if (state === 'running') return <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: `2px solid ${M.accent}`, borderTopColor: 'transparent', flexShrink: 0, animation: 'helixSpin 0.8s linear infinite' }} />;
+  return <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: `2px solid ${M.line2}`, flexShrink: 0 }} />;
 }
 
 // ── styles ──
 function btnPrimary(disabled: boolean): React.CSSProperties {
-  return { background: disabled ? T.mid : T.accent, color: '#04121F', border: 'none', borderRadius: '10px', padding: '10px 18px', fontFamily: T.sans, fontSize: '13px', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
+  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkFaint : '#06172A', border: 'none', borderRadius: '10px', padding: '10px 18px', fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
 }
 function btnGhost(): React.CSSProperties {
-  return { background: T.surface, color: T.textSub, border: `1px solid ${T.border}`, borderRadius: '10px', padding: '10px 18px', fontFamily: T.sans, fontSize: '13px', fontWeight: 600, cursor: 'pointer' };
+  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: '10px', padding: '10px 18px', fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
 }
 function warnBanner(): React.CSSProperties {
-  return { background: `${T.wa}14`, border: `1px solid ${T.wa}44`, borderRadius: '10px', padding: '12px 16px', fontFamily: T.sans, fontSize: '13px', color: T.wa, marginBottom: '12px' };
+  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: '10px', padding: '12px 16px', fontFamily: M.sans, fontSize: '13px', color: M.warn, marginBottom: '12px' };
 }
 function successBanner(): React.CSSProperties {
-  return { background: `${T.up}14`, border: `1px solid ${T.up}44`, borderRadius: '10px', padding: '12px 16px', fontFamily: T.sans, fontSize: '13px', color: T.up };
+  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: '10px', padding: '12px 16px', fontFamily: M.sans, fontSize: '13px', color: M.pos };
 }
 function yamlBox(): React.CSSProperties {
-  return { background: T.navy, border: `1px solid ${T.navySoft}`, borderRadius: '10px', padding: '16px', fontFamily: T.mono, fontSize: '12.5px', lineHeight: 1.7, color: '#C6D2E0', margin: 0, whiteSpace: 'pre-wrap' };
+  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: '10px', padding: '16px', fontFamily: M.mono, fontSize: '12.5px', lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
+}
+
+function StatusPill({ label }: { label: string }) {
+  return (
+    <span style={{
+      fontFamily: M.mono,
+      fontSize: 10.5,
+      letterSpacing: '0.12em',
+      textTransform: 'uppercase',
+      color: M.accentBright,
+      background: M.accentSoft,
+      border: `1px solid ${M.line2}`,
+      borderRadius: 999,
+      padding: '7px 11px',
+      fontWeight: 600,
+    }}>{label}</span>
+  );
 }
 
 // ── helpers ──

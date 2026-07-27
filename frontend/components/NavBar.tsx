@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { SignInButton, UserButton, useAuth } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import { T } from '@/lib/tokens';
+import { M } from '@/app/lib/researchOsTheme';
 
 // ─────────────────────────────────────────────────────────────
 // Sidebar navigation.
@@ -70,14 +71,14 @@ export default function NavBar() {
     left: 0,
     bottom: 0,
     width: T.sidebarWidth,
-    background: T.railBg,
-    borderRight: `1px solid ${T.railBorder}`,
+    background: `linear-gradient(180deg, ${M.sidebar} 0%, #061426 100%)`,
+    borderRight: `1px solid ${M.line}`,
     display: 'flex',
     flexDirection: 'column',
     padding: '26px 20px',
     zIndex: 40,
     transform: mobileOpen ? 'translateX(0)' : undefined,
-    fontFamily: T.sans,
+    fontFamily: M.sans,
   };
 
   return (
@@ -86,7 +87,7 @@ export default function NavBar() {
       <div style={mobileBarStyle} className="helix-rail-mobilebar">
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <span style={brandMarkStyle}>H</span>
-          <span style={{ color: T.railActive, fontWeight: 700, letterSpacing: '0.14em', fontSize: '14px' }}>HELIX</span>
+          <span style={{ color: M.ink, fontWeight: 800, letterSpacing: '0.18em', fontSize: '14px' }}>HELIX</span>
         </Link>
         <button
           type="button"
@@ -107,10 +108,10 @@ export default function NavBar() {
         >
           <span style={brandMarkStyle}>H</span>
           <span>
-            <span style={{ display: 'block', color: T.railActive, fontWeight: 700, letterSpacing: '0.18em', fontSize: '15px' }}>
+            <span style={{ display: 'block', color: M.ink, fontWeight: 800, letterSpacing: '0.22em', fontSize: '15px' }}>
               HELIX
             </span>
-            <span style={{ display: 'block', color: T.railTextDim, fontSize: '10.5px', letterSpacing: '0.22em', marginTop: '3px' }}>
+            <span style={{ display: 'block', color: M.inkFaint, fontSize: '10.5px', letterSpacing: '0.22em', marginTop: '4px' }}>
               RESEARCH OS
             </span>
           </span>
@@ -122,7 +123,7 @@ export default function NavBar() {
             const active = itemIsActive(pathname, item.href);
             return (
               <Link key={item.href} href={item.href} style={railItemStyle(active)}>
-                <span style={{ fontFamily: T.mono, fontSize: '12px', color: active ? T.railAccent : T.railTextDim }}>
+                <span style={{ fontFamily: M.mono, fontSize: '12px', color: active ? M.accentBright : M.inkFaint }}>
                   {item.num}
                 </span>
                 {item.label}
@@ -131,7 +132,7 @@ export default function NavBar() {
           })}
         </div>
 
-        <div style={{ height: '1px', background: T.railBorder, margin: '26px 0' }} />
+        <div style={{ height: '1px', background: M.line, margin: '26px 0' }} />
 
         <div style={railLabelStyle}>MORE</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -157,15 +158,15 @@ export default function NavBar() {
               <UserButton
                 appearance={{
                   elements: {
-                    avatarBox: { width: '32px', height: '32px', border: '1px solid rgba(79,163,165,0.35)' },
+                    avatarBox: { width: '32px', height: '32px', border: `1px solid ${M.line2}` },
                   },
                 }}
               />
-              <span style={{ color: T.railTextDim, fontSize: '12px' }}>Account</span>
+              <span style={{ color: M.inkDim, fontSize: '12px' }}>Account</span>
             </div>
           )}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '9px', color: T.railTextDim, fontSize: '11px', letterSpacing: '0.12em', fontWeight: 600 }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: T.up, boxShadow: '0 0 0 3px rgba(22,138,90,0.18)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '9px', color: M.inkFaint, fontSize: '11px', letterSpacing: '0.12em', fontWeight: 600 }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: M.pos, boxShadow: `0 0 0 3px ${M.pos}24` }} />
             DATA SYNCED
           </div>
         </div>
@@ -175,7 +176,7 @@ export default function NavBar() {
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(11,31,51,0.4)', zIndex: 39 }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,8,18,0.64)', zIndex: 39 }}
           className="helix-rail-backdrop"
         />
       )}
@@ -199,12 +200,12 @@ const brandMarkStyle: React.CSSProperties = {
   width: '42px',
   height: '42px',
   borderRadius: '50%',
-  border: `1.5px solid ${T.railBorder}`,
+  border: `1.5px solid ${M.line2}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: T.railAccent,
-  fontFamily: 'Georgia, serif',
+  color: M.accentBright,
+  fontFamily: M.serif,
   fontSize: '19px',
   flexShrink: 0,
 };
@@ -212,7 +213,7 @@ const brandMarkStyle: React.CSSProperties = {
 const railLabelStyle: React.CSSProperties = {
   fontSize: '10.5px',
   letterSpacing: '0.24em',
-  color: T.railTextDim,
+  color: M.inkFaint,
   fontWeight: 600,
   marginBottom: '14px',
 };
@@ -227,10 +228,10 @@ function railItemStyle(active: boolean): React.CSSProperties {
     fontSize: '14.5px',
     fontWeight: 500,
     textDecoration: 'none',
-    color: active ? T.railActive : T.railText,
-    background: active ? T.railBgElev : 'transparent',
-    border: `1px solid ${active ? T.railAccent : 'transparent'}`,
-    boxShadow: active ? `0 0 0 1px ${T.railAccent}, 0 10px 28px -14px rgba(79,163,165,0.6)` : undefined,
+    color: active ? M.ink : M.inkDim,
+    background: active ? 'rgba(47, 125, 255, 0.16)' : 'transparent',
+    border: `1px solid ${active ? M.accent : 'transparent'}`,
+    boxShadow: active ? `0 0 0 1px ${M.accent}55, 0 18px 42px -24px ${M.accent}` : undefined,
   };
 }
 
@@ -242,19 +243,19 @@ function railSubItemStyle(active: boolean): React.CSSProperties {
     fontSize: '13.5px',
     fontWeight: 500,
     textDecoration: 'none',
-    color: active ? T.railActive : T.railTextDim,
-    background: active ? T.railBgElev : 'transparent',
+    color: active ? M.ink : M.inkDim,
+    background: active ? 'rgba(47, 125, 255, 0.12)' : 'transparent',
   };
 }
 
 const signInStyle: React.CSSProperties = {
   width: '100%',
-  background: T.railAccent,
-  color: '#04121F',
+  background: M.accent,
+  color: '#06172A',
   border: 'none',
   borderRadius: '10px',
   padding: '10px 0',
-  fontFamily: T.sans,
+  fontFamily: M.sans,
   fontSize: '13px',
   fontWeight: 700,
   cursor: 'pointer',
@@ -269,14 +270,14 @@ const mobileBarStyle: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: '12px 18px',
-  background: T.railBg,
-  borderBottom: `1px solid ${T.railBorder}`,
+  background: M.sidebar,
+  borderBottom: `1px solid ${M.line}`,
 };
 
 const mobileToggleStyle: React.CSSProperties = {
   background: 'transparent',
-  color: T.railText,
-  border: `1px solid ${T.railBorder}`,
+  color: M.inkDim,
+  border: `1px solid ${M.line2}`,
   borderRadius: '8px',
   padding: '7px 14px',
   fontSize: '13px',

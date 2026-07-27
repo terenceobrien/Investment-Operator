@@ -112,6 +112,7 @@ def generate_forecast_report(
     doc.add_heading("BVAR Ensemble Forecast", level=0)
     _add_header_table(doc, forecast)
     _add_shock_note(doc, forecast)
+    _add_model_limitations(doc, forecast)
     _add_scenario_section(doc, forecast, Inches)
 
     with tempfile.TemporaryDirectory(prefix="bvar_report_") as tmp:
@@ -200,6 +201,7 @@ def _generate_comparison_report(
         f"Primary: {primary_label}. Comparison: {comparison_label}."
     )
     _add_comparison_header_table(doc, primary, comparison)
+    _add_model_limitations(doc, primary)
     _add_scenario_comparison_section(doc, primary, comparison)
     _add_regime_comparison_summary(doc, primary, comparison)
 
@@ -324,6 +326,22 @@ def _add_shock_note(doc: Any, forecast: dict[str, Any]) -> None:
         doc.add_paragraph(
             "Note: this run used Gaussian shocks."
         )
+
+
+def _add_model_limitations(doc: Any, forecast: dict[str, Any]) -> None:
+    limitations = forecast.get("model_limitations") or {}
+    if not isinstance(limitations, dict) or not limitations:
+        return
+    magnitude = limitations.get("credit_tail_magnitude")
+    detail = limitations.get("detail")
+    doc.add_heading("Model Limitations", level=1)
+    if magnitude:
+        paragraph = doc.add_paragraph()
+        run = paragraph.add_run("Credit tail magnitude: ")
+        run.bold = True
+        paragraph.add_run(str(magnitude))
+    if detail:
+        doc.add_paragraph(str(detail))
 
 
 def _add_scenario_section(doc: Any, forecast: dict[str, Any], Inches: Any) -> None:

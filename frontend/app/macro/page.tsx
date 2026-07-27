@@ -514,7 +514,7 @@ function Panel({ title, meta, children, prominent }: { title?: string; meta?: st
       border: `1px solid ${prominent ? M.line2 : M.line}`,
       borderRadius: '16px',
       overflow: 'hidden',
-      boxShadow: '0 24px 70px rgba(26,37,64,0.16)',
+      boxShadow: M.shadow,
     }}>
       <div style={{ padding: '24px' }}>
         {title ? (
@@ -570,12 +570,27 @@ function formatIndicatorValue(v: string | number): string {
 // ─────────────────────────────────────────────────────────────
 // Section 1: Market pulse + current regime
 // ─────────────────────────────────────────────────────────────
-function MarketPulse({ f, regime }: { f: Forecast; regime: LiveRegime | null }) {
+function appendHistoryPoint(points: HistoryPoint[], point: HistoryPoint | null): HistoryPoint[] {
+  if (!point) return points;
+  const next = points.slice();
+  const existingIndex = next.findIndex((item) => item.date === point.date);
+  if (existingIndex >= 0) next[existingIndex] = point;
+  else next.push(point);
+  return next.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveRegime | null; scoreHistory: HistoryPoint[] }) {
   const composite = regime?.scoreTotal ?? f.composite;
   const pulseLabel =
     regime?.environment ||
     (f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful');
   const pulseMeta = regime ? `Regime · ${regime.asof || '—'}` : `Forecast fallback · ${f.asof || '—'}`;
+  const chartPoints = appendHistoryPoint(
+    scoreHistory,
+    regime?.scoreTotal !== null && regime?.scoreTotal !== undefined && regime?.asof
+      ? { date: regime.asof, value: regime.scoreTotal }
+      : null,
+  );
   return (
     <Panel title="Market pulse" meta={pulseMeta} prominent>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', flexWrap: 'wrap' }}>
@@ -590,6 +605,12 @@ function MarketPulse({ f, regime }: { f: Forecast; regime: LiveRegime | null }) 
           <span style={{ fontFamily: M.mono, fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', color: M.accentBright, textTransform: 'uppercase' }}>composite regime score</span>
         </div>
       ) : null}
+      <HistoryLineChart
+        points={chartPoints}
+        color={M.accentBright}
+        height={132}
+        yLabel="score"
+      />
       <p style={{ margin: '18px 0 0', paddingTop: '18px', borderTop: `1px solid ${M.line}`, fontFamily: M.sans, fontSize: '14px', color: M.inkDim, lineHeight: 1.65 }}>
         {f.summary.split('. ').slice(0, 2).join('. ')}.
       </p>
@@ -635,7 +656,7 @@ function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }
 // ─────────────────────────────────────────────────────────────
 function DominantBanner({ f }: { f: Forecast }) {
   return (
-    <section style={{ background: '#182541', border: `1px solid ${M.line2}`, borderRadius: '16px', overflow: 'hidden', boxShadow: '0 28px 80px rgba(24,37,65,0.22)' }}>
+    <section style={{ background: '#0A1E36', border: `1px solid ${M.line2}`, borderRadius: '16px', overflow: 'hidden', boxShadow: M.shadow }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '30px', padding: '32px', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 520px' }}>
           <div style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.18em', color: M.inkFaint, textTransform: 'uppercase' }}>Dominant scenario</div>
@@ -831,7 +852,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
   return (
     <Panel title="Macro indicators" meta={`${f.indicators.length} model inputs`}>
       <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '230px minmax(0, 1fr)', minHeight: '360px', border: `1px solid ${M.line}`, borderRadius: '14px', overflow: 'hidden', background: M.well }}>
-        <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: '#1A2746', padding: '12px' }}>
+        <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: M.cardElev, padding: '12px' }}>
           {!category ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {categories.map((cat) => (
@@ -928,7 +949,12 @@ function IndicatorDetail({ ind }: { ind: Indicator }) {
         <Chip label={ind.signal || 'neutral'} color={signalColor(ind.signal)} />
       </div>
       <ValueText value={value} size={42} color={signalColor(ind.signal)} />
-      <Sparkline seed={hashStr(ind.label)} color={signalColor(ind.signal)} tall points={ind.history} />
+      <HistoryLineChart
+        points={ind.history}
+        color={signalColor(ind.signal)}
+        height={150}
+        yLabel={ind.unit || 'value'}
+      />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', marginTop: '16px' }}>
         <StatBox label="Trend" value={ind.trend || '—'} />
         <StatBox label="Confidence" value={ind.conf === null ? '—' : ind.conf.toFixed(2)} />
@@ -947,28 +973,86 @@ function StatBox({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
-function hashStr(s: string): number { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 99991; return h + 1; }
-function Sparkline({ seed, color, tall, points }: { seed: number; color: string; tall?: boolean; points?: HistoryPoint[] }) {
-  const historySeries = points?.map((point) => point.value).filter((value) => Number.isFinite(value)) ?? [];
-  let series: number[];
-  if (historySeries.length >= 2) {
-    series = historySeries.slice(-180);
-  } else {
-    const n = 24; let x = (seed * 9301) % 233280 / 233280; const pts: number[] = [];
-    for (let i = 0; i < n; i++) { x = (x * 9301 + 49297) % 233280 / 233280; pts.push((x - 0.5) * 1); }
-    let acc = 0; series = pts.map((p) => { acc = acc * 0.7 + p; return acc; });
+function formatAxisNumber(value: number): string {
+  const abs = Math.abs(value);
+  if (abs >= 1000) return value.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  if (abs >= 100) return value.toFixed(0);
+  if (abs >= 10) return value.toFixed(1);
+  return value.toFixed(2).replace(/\.00$/, '');
+}
+function formatAxisDate(date: string): string {
+  const parsed = new Date(`${date}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return date.slice(5) || date;
+  return parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+function HistoryLineChart({
+  points,
+  color,
+  height = 150,
+  yLabel,
+}: {
+  points?: HistoryPoint[];
+  color: string;
+  height?: number;
+  yLabel?: string;
+}) {
+  const data = (points ?? [])
+    .filter((point) => point.date && Number.isFinite(point.value))
+    .slice(-180);
+  const W = 640;
+  const H = height;
+  const padL = 54;
+  const padR = 18;
+  const padT = 16;
+  const padB = 34;
+  if (data.length < 2) {
+    return (
+      <div style={{ height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, display: 'grid', placeItems: 'center', color: M.inkFaint, fontFamily: M.sans, fontSize: 12 }}>
+        No historical series mapped for this indicator.
+      </div>
+    );
   }
-  const mn = Math.min(...series), mx = Math.max(...series), rng = (mx - mn) || 1;
-  const W = 200, H = tall ? 120 : 44;
-  const d = series.map((p, i) => `${(i / Math.max(1, series.length - 1)) * W},${H - ((p - mn) / rng) * (H - 10) - 5}`).join(' L');
-  const last = series[series.length - 1];
-  const first = series[0];
-  const realHistory = historySeries.length >= 2;
+  const values = data.map((point) => point.value);
+  let mn = Math.min(...values);
+  let mx = Math.max(...values);
+  if (mn === mx) {
+    mn -= 1;
+    mx += 1;
+  }
+  const pad = (mx - mn) * 0.08;
+  mn -= pad;
+  mx += pad;
+  const x = (index: number) => padL + (index / Math.max(1, data.length - 1)) * (W - padL - padR);
+  const y = (value: number) => padT + (1 - (value - mn) / (mx - mn)) * (H - padT - padB);
+  const path = data.map((point, index) => `${x(index)},${y(point.value)}`).join(' L');
+  const yTicks = [mn, (mn + mx) / 2, mx];
+  const xTickIndexes = Array.from(
+    new Set([0, Math.floor((data.length - 1) / 2), data.length - 1]),
+  );
+  const last = data[data.length - 1];
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{ width: '100%', height: tall ? '120px' : '44px', marginTop: '14px', background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px' }}>
-      {realHistory && mn < 0 && mx > 0 ? <line x1={0} x2={W} y1={H - ((0 - mn) / rng) * (H - 10) - 5} y2={H - ((0 - mn) / rng) * (H - 10) - 5} stroke={M.line2} strokeDasharray="3 3" /> : null}
-      <path d={`M${d}`} fill="none" stroke={color} strokeWidth={2} />
-      {realHistory ? <circle cx={W} cy={H - ((last - mn) / rng) * (H - 10) - 5} r={3} fill={last >= first ? M.pos : M.neg} /> : null}
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12 }}>
+      <rect x={0} y={0} width={W} height={H} fill="transparent" />
+      {yTicks.map((tick) => (
+        <g key={tick}>
+          <line x1={padL} x2={W - padR} y1={y(tick)} y2={y(tick)} stroke={M.line2} strokeWidth={0.8} opacity={0.55} />
+          <text x={padL - 9} y={y(tick) + 4} textAnchor="end" fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{formatAxisNumber(tick)}</text>
+        </g>
+      ))}
+      {mn < 0 && mx > 0 ? <line x1={padL} x2={W - padR} y1={y(0)} y2={y(0)} stroke={M.inkFaint} strokeWidth={0.8} strokeDasharray="4 4" opacity={0.75} /> : null}
+      <line x1={padL} x2={padL} y1={padT} y2={H - padB} stroke={M.line2} strokeWidth={0.9} />
+      <line x1={padL} x2={W - padR} y1={H - padB} y2={H - padB} stroke={M.line2} strokeWidth={0.9} />
+      <path d={`M${path}`} fill="none" stroke={color} strokeWidth={1.45} strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx={x(data.length - 1)} cy={y(last.value)} r={2.6} fill={color} />
+      {xTickIndexes.map((index) => (
+        <g key={index}>
+          <line x1={x(index)} x2={x(index)} y1={H - padB} y2={H - padB + 4} stroke={M.line2} />
+          <text x={x(index)} y={H - 11} textAnchor="middle" fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{formatAxisDate(data[index].date)}</text>
+        </g>
+      ))}
+      {yLabel ? (
+        <text x={padL} y={11} fill={M.inkFaint} fontSize={9.5} fontFamily={M.mono} letterSpacing={1}>{truncate(yLabel, 28)}</text>
+      ) : null}
     </svg>
   );
 }
@@ -1127,6 +1211,10 @@ export default function MacroPage() {
     () => normalizeForecast((forecastRaw as AnyRecord) ?? SAMPLE_FORECAST, indicatorHistory),
     [forecastRaw, indicatorHistory],
   );
+  const compositeScoreHistory = useMemo(
+    () => indicatorHistory.score_total?.points ?? [],
+    [indicatorHistory],
+  );
 
   // Current daily regime read — only the top pulse/layer cards use this.
   const { data: regimeRaw } = useSWR<AnyRecord>(
@@ -1164,11 +1252,11 @@ export default function MacroPage() {
 
   return (
     <main style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1280px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ width: 'min(1440px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '2px' }}>
           <div>
-            <Eyebrow>01 / MACRO &amp; REGIME</Eyebrow>
-            <h1 style={{ fontFamily: M.serif, fontSize: '38px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>What matters now</h1>
+            <Eyebrow>MACRO &amp; REGIME &gt; CURRENT READ</Eyebrow>
+            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>What matters now</h1>
           </div>
           <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.canvasInkFaint}55`, borderRadius: '999px' }}>Regime · {regime?.asof || '—'} · Forecast · {forecast.asof || '—'}</div>
         </div>
@@ -1179,7 +1267,7 @@ export default function MacroPage() {
 
         {/* 1 — pulse + regime */}
         <div style={twoCol}>
-          <MarketPulse f={forecast} regime={regime} />
+          <MarketPulse f={forecast} regime={regime} scoreHistory={compositeScoreHistory} />
           <CurrentRegime f={forecast} regime={regime} />
         </div>
 

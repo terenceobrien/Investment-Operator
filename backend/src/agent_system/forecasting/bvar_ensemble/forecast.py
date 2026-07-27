@@ -61,6 +61,30 @@ class ForecastError(RuntimeError):
     """Raised when the BVAR forecast pipeline cannot proceed."""
 
 
+MODEL_LIMITATIONS = {
+    "credit_tail_magnitude": "conservative",
+    "detail": (
+        "credit_led_recession probability is directionally correct and correctly "
+        "ordered across anchors (elevated at pre-crisis configurations vs benign "
+        "calm), but magnitudes are conservative. The crisis-honest regime labeling "
+        "(~6% stress fraction) limits transition events available to the "
+        "entry-probability logistic, lowering stress entry rates. Operator judgment "
+        "should lean against the model on acute credit-stress setups the model may "
+        "under-weight."
+    ),
+    "known_future_fix": (
+        "decouple entry-threshold (looser, more transition events) from "
+        "dynamics-threshold (tight, crisis-pure) so p_enter is estimated from a "
+        "broader pre-stress configuration while stress vol/correlation stay "
+        "crisis-specific."
+    ),
+    "quarterly_frequency_note": (
+        "fast crash-and-rebound events (e.g. 2020Q2) are smoothed by quarterly "
+        "frequency and may be underrepresented."
+    ),
+}
+
+
 def build_classifier_for_forecast(
     registry: VariableRegistry,
     *,
@@ -307,6 +331,7 @@ def run_forecast(
         "shock_dist": shock_dist,
         "vol_model": vol_model,
         "regime_model": regime_model,
+        "model_limitations": dict(MODEL_LIMITATIONS),
         "seed": int(seed),
         "garch_init_vol_by_variable": sim.metadata.get("garch_init_vol_by_variable"),
         "regime_artifact": sim.metadata.get("regime_artifact"),

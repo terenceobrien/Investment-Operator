@@ -102,7 +102,7 @@ const labelStyle: React.CSSProperties = {
 
 function Panel({ label, meta, children, elevated }: { label: string; meta?: string; children: React.ReactNode; elevated?: boolean }) {
   return (
-    <section style={{ background: elevated ? M.cardElev : M.card, border: `1px solid ${M.line}`, borderRadius: 16, overflow: 'hidden', boxShadow: '0 24px 70px rgba(26,37,64,0.16)' }}>
+    <section style={{ background: elevated ? M.cardElev : M.card, border: `1px solid ${M.line}`, borderRadius: 16, overflow: 'hidden', boxShadow: M.shadow }}>
       <div style={{ padding: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, marginBottom: 18 }}>
           <span style={labelStyle}>{label}</span>
@@ -169,11 +169,11 @@ export default function PortfolioMonitorPage() {
 
   return (
     <main style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1280px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 22 }}>
+      <div style={{ width: 'min(1440px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 18 }}>
         <header style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'end', flexWrap: 'wrap' }}>
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.2em', color: M.canvasInkFaint, marginBottom: 10 }}>04 / PORTFOLIO MONITOR</div>
-            <h1 style={{ fontFamily: M.serif, fontSize: 38, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Risk, alignment, and breadth</h1>
+            <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 10 }}>PORTFOLIO MONITOR &gt; RISK STACK</div>
+            <h1 style={{ fontFamily: M.serif, fontSize: 42, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Risk, alignment, and breadth</h1>
           </div>
           <button type="button" onClick={handleExport} style={{ border: `1px solid ${M.canvasInkFaint}77`, background: 'transparent', color: M.canvasInkDim, borderRadius: 999, padding: '9px 14px', fontFamily: M.mono, fontSize: 11.5, cursor: 'pointer' }}>Export to Excel</button>
         </header>
