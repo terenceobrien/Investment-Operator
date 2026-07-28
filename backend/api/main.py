@@ -147,6 +147,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "https://helixintel.io",
         "https://www.helixintel.io",
         "https://ai-financial-operator.vercel.app",
         "https://ai-financial-operator-*.vercel.app",

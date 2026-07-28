@@ -1,0 +1,2423 @@
+{
+  "ticker": "ETN",
+  "as_of_date": "2026-06-29",
+  "created_at": "2026-06-29T17:02:11.886588",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-05",
+    "created_at": "2026-06-12T16:59:50.064967Z",
+    "regime_id": null,
+    "regime_label": "Sticky Late Cycle AI leads; top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.36240265879628086,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.3107222840217003,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.1502536969955016,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.13173991765464557,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.04488144253187162,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.26,
+        "notes": "HY spreads tight (275bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "bearish",
+        "signal_strength": 0.6,
+        "level_status": "bearish",
+        "trend_status": "deteriorating",
+        "current_value": 4.39,
+        "notes": "Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing Breadth remains weak on an absolute basis.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "high_beta_ai_semis",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "bullish",
+        "signal_strength": 0.3,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 7.26,
+        "notes": "Put/call ratio elevated (1.15) — fear-driven hedging, contrarian bullish",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.59; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.59, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.25,
+        "notes": "Equity put/call elevated (1.15) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.59,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.545320782416292,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +1.06, Quality ex-AI cash flow +0.31, Cash and short duration +0.17."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 1.4070391876971877,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.90, Quality ex-AI cash flow +0.31, Defense and geopolitics +0.20."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 1.154691623057673,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 1.0005192299704084,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.62, Quality ex-AI cash flow +0.38."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.7726430316381337,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.66, Energy and oil beta +0.11."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.5142520779391876,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Energy and oil beta +0.28, Commodities and real assets +0.24."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": 0.3796309856404655,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.46, Long-duration growth -0.07, High-beta AI semiconductors -0.04."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": 0.20398355281113664,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.26, High-beta AI semiconductors -0.09, Memory semiconductors +0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.8146079241839199,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.72, Long-duration growth -0.09."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 1.154691623057673,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 1.1441245129776911,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.54, Quality AI leaders +0.36, Healthcare defensives +0.25."
+      },
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 1.0814048070015705,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.40, Healthcare defensives +0.37, Quality ex-AI cash flow +0.31."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.686512713738485,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.52, Energy and oil beta +0.17."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.2620979316513681,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: Small caps -0.14, Long-duration growth -0.11, High-beta AI semiconductors -0.06."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": -0.5899773572243925,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth -0.32, Small caps -0.27."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.9044601509677309,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.90."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Sticky Late Cycle AI at 36.2%; runner-up reopening_soft_landing at 31.1%. The largest displayed deterministic driver is AI earnings resilience (+0.403). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically calibrated after the deterministic update.",
+    "source_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "ETN",
+    "selected_theme_ids": [
+      "grid_power_infrastructure",
+      "quality_ex_ai_cash_flow"
+    ],
+    "theme_mapping": {
+      "ticker": "ETN",
+      "mapped_themes": [
+        {
+          "theme_id": "grid_power_infrastructure",
+          "theme_label": "Grid and power infrastructure",
+          "fit": "primary",
+          "confidence": 0.9,
+          "rationale": "Shared terms: grid.; Company text directly references grid, power, or electrification demand."
+        },
+        {
+          "theme_id": "quality_ex_ai_cash_flow",
+          "theme_label": "Quality ex-AI cash flow",
+          "fit": "partial",
+          "confidence": 0.52,
+          "rationale": "Company text points to quality, pricing power, or cash-flow resilience."
+        }
+      ],
+      "rejected_themes": [
+        {
+          "theme_id": "cash_short_duration",
+          "theme_label": "Cash and short duration",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "high_beta_ai_semis",
+          "theme_label": "High-beta AI semiconductors",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "long_duration_growth",
+          "theme_label": "Long-duration growth",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "memory_semis",
+          "theme_label": "Memory semiconductors",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "quality_ai",
+          "theme_label": "Quality AI leaders",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "small_caps",
+          "theme_label": "Small caps",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        }
+      ],
+      "mapping_summary": "Mapped 2 of 12 available macro-forecast themes using deterministic exposure-gated keyword/semantic fallback.",
+      "data_confidence": "medium",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [
+      {
+        "theme_id": "grid_power_infrastructure",
+        "label": "Grid and power infrastructure",
+        "score": 1.637403438709356,
+        "fit": "primary",
+        "fit_confidence": 0.9,
+        "weighted_score": 1.4736630948384204,
+        "rationale": "Grid and power infrastructure has macro support score 1.64; best in sticky_late_cycle_ai, reopening_soft_landing, oil_inflation_tail and worst in late_cycle_risk_off, ai_capex_rollover. Contribution breakdown: Sticky Late Cycle AI +1.09; Reopening / Soft Landing +0.62; Oil Inflation Tail +0.15; Late Cycle Risk-Off -0.13; AI Capex Rollover -0.09."
+      },
+      {
+        "theme_id": "quality_ex_ai_cash_flow",
+        "label": "Quality ex-AI cash flow",
+        "score": 1.539024018982798,
+        "fit": "partial",
+        "fit_confidence": 0.52,
+        "weighted_score": 0.3601316204419747,
+        "rationale": "Quality ex-AI cash flow has macro support score 1.54; best in sticky_late_cycle_ai, reopening_soft_landing, late_cycle_risk_off and worst in no negative scenarios. Contribution breakdown: Sticky Late Cycle AI +0.72; Reopening / Soft Landing +0.31; Late Cycle Risk-Off +0.26; Oil Inflation Tail +0.15; AI Capex Rollover +0.09."
+      }
+    ],
+    "relevant_theme_impacts": [
+      {
+        "theme_id": "quality_ex_ai_cash_flow",
+        "theme_label": "Quality ex-AI cash flow",
+        "direction": "positive",
+        "strength": 0.15,
+        "rationale": "Mixed policy favors durable cash flow.",
+        "source_input_id": "monetary_policy_composite",
+        "source_label": "Monetary policy composite",
+        "category": "monetary"
+      },
+      {
+        "theme_id": "grid_power_infrastructure",
+        "theme_label": "Grid and power infrastructure",
+        "direction": "positive",
+        "strength": 0.45,
+        "rationale": "AI capex resilience supports power demand.",
+        "source_input_id": "ai_earnings_resilience",
+        "source_label": "AI earnings resilience",
+        "category": "earnings"
+      },
+      {
+        "theme_id": "grid_power_infrastructure",
+        "theme_label": "Grid and power infrastructure",
+        "direction": "positive",
+        "strength": 0.2,
+        "rationale": "Untriggered capex risk supports grid demand.",
+        "source_input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "source_label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings"
+      }
+    ],
+    "linked_scenarios": [
+      "oil_inflation_tail",
+      "reopening_soft_landing",
+      "sticky_late_cycle_ai",
+      "ai_capex_rollover"
+    ],
+    "positive_drivers": [
+      "Monetary policy composite: Mixed policy favors durable cash flow.",
+      "AI earnings resilience: AI capex resilience supports power demand.",
+      "Hyperscaler capex rollover falsifier: Untriggered capex risk supports grid demand."
+    ],
+    "negative_drivers": [],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": 1.617102923527685,
+    "theme_fit_summary": "ETN maps to macro-forecast themes grid_power_infrastructure, quality_ex_ai_cash_flow. Aggregate theme support score is 1.62.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "research_context": {
+    "ticker": "ETN",
+    "as_of_date": "2026-06-29",
+    "created_at": "2026-06-29T15:50:52.263310",
+    "source_coverage": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "unknown",
+        "status": "not_found",
+        "source_name": "SEC EDGAR",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "No recent SEC 8-K exhibit confidently classified as earnings release."
+      },
+      {
+        "source_type": "company_ir",
+        "document_purpose": "other",
+        "status": "not_found",
+        "source_name": "Company investor relations",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Automated company IR retrieval not implemented in v1."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-11",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index-headers.html",
+        "accession_number": "0000950142-26-001733",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-11",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index.html",
+        "accession_number": "0000950142-26-001733",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-11",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-11",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+        "accession_number": "0000950142-26-001733",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "strategic_transaction",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-11",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_ex9901.htm",
+        "accession_number": "0000950142-26-001733",
+        "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-05",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/0001551182-26-000010-index-headers.html",
+        "accession_number": "0001551182-26-000010",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-05",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/0001551182-26-000010-index.html",
+        "accession_number": "0001551182-26-000010",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-05",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/0001551182-26-000010.txt",
+        "accession_number": "0001551182-26-000010",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-05",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/etn-20260505.htm",
+        "accession_number": "0001551182-26-000010",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "strategic_transaction",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-05",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/etn03312026exhibit99.htm",
+        "accession_number": "0001551182-26-000010",
+        "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-04-23",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/0001140361-26-016399-index-headers.html",
+        "accession_number": "0001140361-26-016399",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-04-23",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/0001140361-26-016399-index.html",
+        "accession_number": "0001140361-26-016399",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-04-23",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/0001140361-26-016399.txt",
+        "accession_number": "0001140361-26-016399",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-04-23",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/ef20071273_8k.htm",
+        "accession_number": "0001140361-26-016399",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/0001140361-26-008836-index-headers.html",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/0001140361-26-008836-index.html",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/0001140361-26-008836.txt",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_8k.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex4-2.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex4-3.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-1.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-10.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-2.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-3.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-4.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-5.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-6.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-7.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-8.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-03-10",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-9.htm",
+        "accession_number": "0001140361-26-008836",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "filing",
+        "document_purpose": "quarterly_filing",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-05",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000013/etn-20260331.htm",
+        "accession_number": "0001551182-26-000013",
+        "notes": "SEC filing form type is 10-Q."
+      },
+      {
+        "source_type": "transcript",
+        "document_purpose": "transcript",
+        "status": "not_found",
+        "source_name": "Earnings call transcript",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+      }
+    ],
+    "source_coverage_summary": "company_ir:not_found=1; filing:found=1; other:found=28; sec_8k_exhibit:not_found=1; strategic_transaction:found=2; transcript:not_found=1",
+    "earnings_release_evidence": [],
+    "filing_evidence": [],
+    "transcript_evidence": [],
+    "news_evidence": [],
+    "estimate_evidence": [],
+    "peer_commentary_evidence": [],
+    "strategic_transaction_evidence": [],
+    "regulatory_capital_evidence": [],
+    "stress_test_evidence": [],
+    "investor_presentation_evidence": [],
+    "other_sec_8k_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton announced it entered into a definitive agreement with Dana Incorporated regarding separation of Eaton's mobility business.",
+        "summary": "The 8-K discloses a definitive agreement with Dana tied to Eaton's mobility business separation.",
+        "excerpt": "On June 11, 2026, Eaton Corporation plc (the “Company”) issued a press release announcing the Company’s entry into a definitive agreement with Dana Incorporated, a Delaware corporation (“Merger Partner”), regarding the separation of the Company’s mobility business.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "Mobility segment",
+          "Dana Incorporated",
+          "strategic transaction",
+          "portfolio separation"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "definitive_agreement",
+          "mobility_separation",
+          "8k_item_7_01"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton will separate its Mobility segment and combine it with Dana in a Reverse Morris Trust transaction.",
+        "summary": "The filing specifies the planned structure as a Mobility separation followed by a combination with Dana through a Reverse Morris Trust.",
+        "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the “SpinCo Business”) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "Mobility segment",
+          "Reverse Morris Trust",
+          "Dana Incorporated",
+          "portfolio restructuring"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "reverse_morris_trust",
+          "segment_separation",
+          "portfolio_action"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Immediately before the merger, Eaton plans to transfer the Mobility business to SpinCo and distribute SpinCo common stock to Eaton shareholders.",
+        "summary": "Eaton describes the pre-merger separation mechanics, including transfer of the Mobility business to SpinCo and distribution of SpinCo shares to shareholders.",
+        "excerpt": "the Company will, among other things and subject to the terms and conditions of the Separation Agreement, transfer the SpinCo Business to SpinCo and its subsidiaries and, in connection therewith, will distribute to the Company shareholders shares of common stock of SpinCo (the “Distribution”).",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "SpinCo",
+          "Mobility segment",
+          "shareholder distribution",
+          "transaction structure"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "spinco",
+          "distribution",
+          "shareholder_distribution",
+          "transaction_structure"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "After the distribution, a SpinCo subsidiary will merge with Dana, with Dana surviving as a direct wholly owned subsidiary of SpinCo.",
+        "summary": "The filing details the post-distribution merger mechanics and surviving entity.",
+        "excerpt": "Immediately following the Distribution and pursuant to an Agreement and Plan of Merger (the “Merger Agreement”) with Eaton Ohio, SpinCo, Atlas Mobility Sub, Inc., a Delaware corporation and wholly owned subsidiary of SpinCo (“Merger Sub”), Merger Sub will be merged with and into Merger Partner (the “Merger”), with Merger Partner surviving and continuing as the surviving corporation of the Merger and as a direct, wholly owned subsidiary of SpinCo.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "Dana Incorporated",
+          "SpinCo",
+          "merger mechanics",
+          "transaction structure"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "merger_structure",
+          "spinco",
+          "dana_surviving_entity"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Dana shareholders will receive SpinCo shares based on an exchange ratio specified in the merger agreement, subject to adjustment.",
+        "summary": "The consideration to Dana shareholders is SpinCo shares using an exchange ratio in the merger agreement.",
+        "excerpt": "Subject to the terms and conditions of the Merger Agreement, at closing, each share of common stock of Merger Partner that is outstanding as of immediately prior to the closing will be converted into the right to receive a number of SpinCo shares equal to the exchange ratio specified in the Merger Agreement, subject to adjustment.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "Dana Incorporated",
+          "SpinCo",
+          "share consideration",
+          "merger terms"
+        ],
+        "related_metrics": [
+          "exchange ratio"
+        ],
+        "evidence_tags": [
+          "exchange_ratio",
+          "share_consideration",
+          "merger_terms"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton expects to receive approximately $1.1 billion in cash distribution from the transaction.",
+        "summary": "The filing states Eaton will receive about $1.1 billion in cash distribution under the merger agreement.",
+        "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "transaction proceeds",
+          "capital allocation",
+          "Reverse Morris Trust"
+        ],
+        "related_metrics": [
+          "$1.1 billion cash distribution"
+        ],
+        "evidence_tags": [
+          "cash_distribution",
+          "transaction_proceeds",
+          "capital_allocation"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton shareholders are expected to own at least 50.1% of the combined company after the transaction closes.",
+        "summary": "The filing specifies intended majority ownership of the combined company by Eaton shareholders.",
+        "excerpt": "the Company shareholders will receive newly issued shares of the combined company such that the Company shareholders will own at least 50.1% of the combined company’s outstanding shares following the consummation of the transaction.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.94,
+        "related_topics": [
+          "combined company",
+          "shareholder ownership",
+          "transaction terms"
+        ],
+        "related_metrics": [
+          "at least 50.1% ownership"
+        ],
+        "evidence_tags": [
+          "ownership",
+          "combined_company",
+          "shareholder_value"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index-headers.html",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733-index-headers.html",
+        "claim": "The 8-K was filed under Item 7.01 Regulation FD Disclosure, Item 8.01 Other Events, and Item 9.01 Financial Statements and Exhibits.",
+        "summary": "The EDGAR header identifies the 8-K items used for the disclosure.",
+        "excerpt": "ITEM INFORMATION: Regulation FD Disclosure ITEM INFORMATION: Other Events ITEM INFORMATION: Financial Statements and Exhibits",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.55,
+        "related_topics": [
+          "SEC filing",
+          "Regulation FD",
+          "Other Events"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "8k_items",
+          "regulation_fd",
+          "other_events",
+          "exhibits"
+        ],
+        "notes": "This is filing metadata, included because it identifies the disclosure framework for the transaction filing."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index.html",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733-index.html",
+        "claim": "The SEC filing detail page lists a Form 8-K and Exhibit 99.1 press release for the June 2026 filing.",
+        "summary": "The filing index confirms the presence of the Form 8-K and Exhibit 99.1 press release document.",
+        "excerpt": "Interactive Data Document Format Files Seq Description Document Type Size 1 FORM 8-K eh260792115_8k.htm iXBRL 8-K 61136 2 EXHIBIT 99.1 eh260792115_ex9901.htm EX-99.1 38102",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.5,
+        "related_topics": [
+          "SEC filing",
+          "Exhibit 99.1",
+          "press release"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "exhibit_99_1",
+          "press_release",
+          "filing_documents"
+        ],
+        "notes": "The source is an EDGAR filing index and does not include the substantive press release text in the supplied input."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: eh260792115_8k.htm",
+        "claim": "Eaton's Form 8-K states the company entered definitive agreements with Dana on June 10, 2026 for a Mobility segment separation and combination.",
+        "summary": "The primary Form 8-K repeats the central transaction announcement and structure.",
+        "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the “SpinCo Business”) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "Mobility segment",
+          "Dana Incorporated",
+          "Reverse Morris Trust"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "definitive_agreements",
+          "mobility_segment",
+          "reverse_morris_trust"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: eh260792115_8k.htm",
+        "claim": "The Form 8-K says Eaton will receive about $1.1 billion in cash and Eaton shareholders will own at least 50.1% of the combined company after consummation.",
+        "summary": "The primary Form 8-K provides key economic terms for Eaton and its shareholders.",
+        "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution and the Company shareholders will receive newly issued shares of the combined company such that the Company shareholders will own at least 50.1% of the combined company’s outstanding shares following the consummation of the transaction.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "transaction proceeds",
+          "combined company ownership",
+          "capital allocation"
+        ],
+        "related_metrics": [
+          "$1.1 billion cash distribution",
+          "at least 50.1% ownership"
+        ],
+        "evidence_tags": [
+          "cash_distribution",
+          "ownership",
+          "transaction_terms"
+        ],
+        "notes": null
+      }
+    ],
+    "management_guidance": [],
+    "segment_kpis": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton announced it entered into a definitive agreement with Dana Incorporated regarding separation of Eaton's mobility business.",
+        "summary": "The 8-K discloses a definitive agreement with Dana tied to Eaton's mobility business separation.",
+        "excerpt": "On June 11, 2026, Eaton Corporation plc (the “Company”) issued a press release announcing the Company’s entry into a definitive agreement with Dana Incorporated, a Delaware corporation (“Merger Partner”), regarding the separation of the Company’s mobility business.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "Mobility segment",
+          "Dana Incorporated",
+          "strategic transaction",
+          "portfolio separation"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "definitive_agreement",
+          "mobility_separation",
+          "8k_item_7_01"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton will separate its Mobility segment and combine it with Dana in a Reverse Morris Trust transaction.",
+        "summary": "The filing specifies the planned structure as a Mobility separation followed by a combination with Dana through a Reverse Morris Trust.",
+        "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the “SpinCo Business”) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "Mobility segment",
+          "Reverse Morris Trust",
+          "Dana Incorporated",
+          "portfolio restructuring"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "reverse_morris_trust",
+          "segment_separation",
+          "portfolio_action"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Immediately before the merger, Eaton plans to transfer the Mobility business to SpinCo and distribute SpinCo common stock to Eaton shareholders.",
+        "summary": "Eaton describes the pre-merger separation mechanics, including transfer of the Mobility business to SpinCo and distribution of SpinCo shares to shareholders.",
+        "excerpt": "the Company will, among other things and subject to the terms and conditions of the Separation Agreement, transfer the SpinCo Business to SpinCo and its subsidiaries and, in connection therewith, will distribute to the Company shareholders shares of common stock of SpinCo (the “Distribution”).",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "SpinCo",
+          "Mobility segment",
+          "shareholder distribution",
+          "transaction structure"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "spinco",
+          "distribution",
+          "shareholder_distribution",
+          "transaction_structure"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: eh260792115_8k.htm",
+        "claim": "Eaton's Form 8-K states the company entered definitive agreements with Dana on June 10, 2026 for a Mobility segment separation and combination.",
+        "summary": "The primary Form 8-K repeats the central transaction announcement and structure.",
+        "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the “SpinCo Business”) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "Mobility segment",
+          "Dana Incorporated",
+          "Reverse Morris Trust"
+        ],
+        "related_metrics": [],
+        "evidence_tags": [
+          "definitive_agreements",
+          "mobility_segment",
+          "reverse_morris_trust"
+        ],
+        "notes": null
+      }
+    ],
+    "consensus_narrative": [],
+    "bullish_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: 0000950142-26-001733.txt",
+        "claim": "Eaton expects to receive approximately $1.1 billion in cash distribution from the transaction.",
+        "summary": "The filing states Eaton will receive about $1.1 billion in cash distribution under the merger agreement.",
+        "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "transaction proceeds",
+          "capital allocation",
+          "Reverse Morris Trust"
+        ],
+        "related_metrics": [
+          "$1.1 billion cash distribution"
+        ],
+        "evidence_tags": [
+          "cash_distribution",
+          "transaction_proceeds",
+          "capital_allocation"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "ETN",
+        "document_purpose": "other",
+        "source_date": "2026-06-11",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+        "accession_number": "0000950142-26-001733",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: eh260792115_8k.htm",
+        "claim": "The Form 8-K says Eaton will receive about $1.1 billion in cash and Eaton shareholders will own at least 50.1% of the combined company after consummation.",
+        "summary": "The primary Form 8-K provides key economic terms for Eaton and its shareholders.",
+        "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution and the Company shareholders will receive newly issued shares of the combined company such that the Company shareholders will own at least 50.1% of the combined company’s outstanding shares following the consummation of the transaction.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "transaction proceeds",
+          "combined company ownership",
+          "capital allocation"
+        ],
+        "related_metrics": [
+          "$1.1 billion cash distribution",
+          "at least 50.1% ownership"
+        ],
+        "evidence_tags": [
+          "cash_distribution",
+          "ownership",
+          "transaction_terms"
+        ],
+        "notes": null
+      }
+    ],
+    "bearish_evidence": [],
+    "mixed_evidence": [],
+    "unresolved_questions": [
+      "The SEC index/header source documents contain only filing metadata and document lists, not substantive transaction detail.",
+      "The complete submission text and Form 8-K source text are truncated in the supplied input, so extraction is limited to visible source text."
+    ],
+    "data_gaps": [
+      "Earnings release not confidently retrieved via SEC 8-K exhibit.",
+      "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+      "The SEC index/header source documents contain only filing metadata and document lists, not substantive transaction detail.",
+      "The complete submission text and Form 8-K source text are truncated in the supplied input, so extraction is limited to visible source text."
+    ],
+    "warnings": [
+      "The provided classification labels the documents as document_purpose='other'; this value is preserved in every evidence item even though the visible text describes a strategic transaction.",
+      "No investment recommendation is made."
+    ],
+    "raw_source_count": 34,
+    "evidence_item_count": 11
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "ETN",
+    "as_of_date": "2026-06-29",
+    "financial_trend": {
+      "latest": {
+        "revenue": 28522000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.3689082112053853,
+        "operating_margin": 0.18164925320804992,
+        "ebitda_margin": 0.21818245564827152,
+        "net_margin": 0.13989201318280625,
+        "free_cash_flow": 3776000000.0,
+        "free_cash_flow_margin": 0.13238903302713695,
+        "total_debt": 21833000000.0,
+        "cash_and_equivalents": 565000000.0,
+        "net_debt": 21268000000.0,
+        "net_debt_to_ebitda": 3.417644223043548,
+        "capex": -965000000.0,
+        "capex_as_pct_revenue": 0.033833532010377955,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 24878000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.38198408232173003,
+        "operating_margin": 0.18618860036980464,
+        "ebitda_margin": 0.2257818152584613,
+        "net_margin": 0.15250422059651098,
+        "free_cash_flow": 3519000000.0,
+        "free_cash_flow_margin": 0.141450277353485,
+        "total_debt": 9821000000.0,
+        "cash_and_equivalents": 555000000.0,
+        "net_debt": 9266000000.0,
+        "net_debt_to_ebitda": 1.6496350364963503,
+        "capex": -808000000.0,
+        "capex_as_pct_revenue": 0.03247849505587266,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "deteriorating",
+      "fcf_direction": "improving",
+      "leverage_direction": "deteriorating",
+      "notes": [
+        "financial_trend.latest is derived from trailing four quarters.",
+        "financial_trend.prior_year uses prior fiscal year because previous trailing four-quarter window is unavailable.",
+        "Latest quarter annualized revenue is +4.5% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 35.6% versus 36.9% LTM.",
+        "Latest quarter operating margin is 15.7% versus 18.2% LTM."
+      ]
+    },
+    "quarterly_financial_trend": {
+      "latest_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-0",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 7451000000.0,
+        "revenue_growth_yoy": 0.16841775129371178,
+        "revenue_growth_qoq": 0.05613040396881644,
+        "gross_profit": 2652000000.0,
+        "gross_margin": 0.3559253791437391,
+        "operating_income": 1172000000.0,
+        "operating_margin": 0.15729432290967654,
+        "ebitda": 1485000000.0,
+        "ebitda_margin": 0.19930210709971816,
+        "net_income": 866000000.0,
+        "net_margin": 0.11622600993155281,
+        "operating_cash_flow": 507000000.0,
+        "free_cash_flow": 314000000.0,
+        "free_cash_flow_margin": 0.04214199436317273,
+        "capex": -193000000.0,
+        "capex_as_pct_revenue": 0.025902563414306804,
+        "total_debt": 21833000000.0,
+        "cash_and_equivalents": 565000000.0,
+        "net_debt": 21268000000.0,
+        "net_debt_to_ebitda": 14.321885521885521,
+        "return_on_invested_capital": null
+      },
+      "prior_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-1",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 7055000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": 0.009587864911276474,
+        "gross_profit": 2598000000.0,
+        "gross_margin": 0.3682494684620836,
+        "operating_income": 1386000000.0,
+        "operating_margin": 0.19645641389085755,
+        "ebitda": 1620000000.0,
+        "ebitda_margin": 0.2296243798724309,
+        "net_income": 1132000000.0,
+        "net_margin": 0.16045357902197024,
+        "operating_cash_flow": 1965000000.0,
+        "free_cash_flow": 1573000000.0,
+        "free_cash_flow_margin": 0.22296243798724308,
+        "capex": -392000000.0,
+        "capex_as_pct_revenue": 0.05556343019135365,
+        "total_debt": 10532000000.0,
+        "cash_and_equivalents": 622000000.0,
+        "net_debt": 9910000000.0,
+        "net_debt_to_ebitda": 6.117283950617284,
+        "return_on_invested_capital": null
+      },
+      "year_ago_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-4",
+        "period_end_date": "2025-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 6377000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 2447000000.0,
+        "gross_margin": 0.383722753645915,
+        "operating_income": 1201000000.0,
+        "operating_margin": 0.18833307197741886,
+        "ebitda": 1442000000.0,
+        "ebitda_margin": 0.2261251372118551,
+        "net_income": 964000000.0,
+        "net_margin": 0.15116826093774502,
+        "operating_cash_flow": 238000000.0,
+        "free_cash_flow": 91000000.0,
+        "free_cash_flow_margin": 0.014270032930845226,
+        "capex": -147000000.0,
+        "capex_as_pct_revenue": 0.02305159165751921,
+        "total_debt": 10749000000.0,
+        "cash_and_equivalents": 1777000000.0,
+        "net_debt": 8972000000.0,
+        "net_debt_to_ebitda": 6.221914008321775,
+        "return_on_invested_capital": null
+      },
+      "trailing_four_quarters": {
+        "period_type": "ltm",
+        "fiscal_period": "trailing_four_quarters",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 28522000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 10522000000.0,
+        "gross_margin": 0.3689082112053853,
+        "operating_income": 5181000000.0,
+        "operating_margin": 0.18164925320804992,
+        "ebitda": 6223000000.0,
+        "ebitda_margin": 0.21818245564827152,
+        "net_income": 3990000000.0,
+        "net_margin": 0.13989201318280625,
+        "operating_cash_flow": 4741000000.0,
+        "free_cash_flow": 3776000000.0,
+        "free_cash_flow_margin": 0.13238903302713695,
+        "capex": -965000000.0,
+        "capex_as_pct_revenue": 0.033833532010377955,
+        "total_debt": 21833000000.0,
+        "cash_and_equivalents": 565000000.0,
+        "net_debt": 21268000000.0,
+        "net_debt_to_ebitda": 3.417644223043548,
+        "return_on_invested_capital": null
+      },
+      "trailing_eight_quarters": [
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-0",
+          "period_end_date": "2026-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 7451000000.0,
+          "revenue_growth_yoy": 0.16841775129371178,
+          "revenue_growth_qoq": 0.05613040396881644,
+          "gross_profit": 2652000000.0,
+          "gross_margin": 0.3559253791437391,
+          "operating_income": 1172000000.0,
+          "operating_margin": 0.15729432290967654,
+          "ebitda": 1485000000.0,
+          "ebitda_margin": 0.19930210709971816,
+          "net_income": 866000000.0,
+          "net_margin": 0.11622600993155281,
+          "operating_cash_flow": 507000000.0,
+          "free_cash_flow": 314000000.0,
+          "free_cash_flow_margin": 0.04214199436317273,
+          "capex": -193000000.0,
+          "capex_as_pct_revenue": 0.025902563414306804,
+          "total_debt": 21833000000.0,
+          "cash_and_equivalents": 565000000.0,
+          "net_debt": 21268000000.0,
+          "net_debt_to_ebitda": 14.321885521885521,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-1",
+          "period_end_date": "2025-12-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 7055000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.009587864911276474,
+          "gross_profit": 2598000000.0,
+          "gross_margin": 0.3682494684620836,
+          "operating_income": 1386000000.0,
+          "operating_margin": 0.19645641389085755,
+          "ebitda": 1620000000.0,
+          "ebitda_margin": 0.2296243798724309,
+          "net_income": 1132000000.0,
+          "net_margin": 0.16045357902197024,
+          "operating_cash_flow": 1965000000.0,
+          "free_cash_flow": 1573000000.0,
+          "free_cash_flow_margin": 0.22296243798724308,
+          "capex": -392000000.0,
+          "capex_as_pct_revenue": 0.05556343019135365,
+          "total_debt": 10532000000.0,
+          "cash_and_equivalents": 622000000.0,
+          "net_debt": 9910000000.0,
+          "net_debt_to_ebitda": 6.117283950617284,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-2",
+          "period_end_date": "2025-09-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 6988000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.005691519635742743,
+          "gross_profit": 2675000000.0,
+          "gross_margin": 0.3827990841442473,
+          "operating_income": 1367000000.0,
+          "operating_margin": 0.19562106468231252,
+          "ebitda": 1600000000.0,
+          "ebitda_margin": 0.2289639381797367,
+          "net_income": 1010000000.0,
+          "net_margin": 0.14453348597595878,
+          "operating_cash_flow": 1351000000.0,
+          "free_cash_flow": 1173000000.0,
+          "free_cash_flow_margin": 0.16785918717801945,
+          "capex": -178000000.0,
+          "capex_as_pct_revenue": 0.025472238122495706,
+          "total_debt": 11221000000.0,
+          "cash_and_equivalents": 328000000.0,
+          "net_debt": 10893000000.0,
+          "net_debt_to_ebitda": 6.808125,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-3",
+          "period_end_date": "2025-06-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 7028000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.10208562019758508,
+          "gross_profit": 2597000000.0,
+          "gross_margin": 0.3695219123505976,
+          "operating_income": 1256000000.0,
+          "operating_margin": 0.17871371656232213,
+          "ebitda": 1518000000.0,
+          "ebitda_margin": 0.2159931701764371,
+          "net_income": 982000000.0,
+          "net_margin": 0.13972680705748436,
+          "operating_cash_flow": 918000000.0,
+          "free_cash_flow": 716000000.0,
+          "free_cash_flow_margin": 0.10187820147979511,
+          "capex": -202000000.0,
+          "capex_as_pct_revenue": 0.028742174160500854,
+          "total_debt": 11583000000.0,
+          "cash_and_equivalents": 398000000.0,
+          "net_debt": 11185000000.0,
+          "net_debt_to_ebitda": 7.36824769433465,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-4",
+          "period_end_date": "2025-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 6377000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": null,
+          "gross_profit": 2447000000.0,
+          "gross_margin": 0.383722753645915,
+          "operating_income": 1201000000.0,
+          "operating_margin": 0.18833307197741886,
+          "ebitda": 1442000000.0,
+          "ebitda_margin": 0.2261251372118551,
+          "net_income": 964000000.0,
+          "net_margin": 0.15116826093774502,
+          "operating_cash_flow": 238000000.0,
+          "free_cash_flow": 91000000.0,
+          "free_cash_flow_margin": 0.014270032930845226,
+          "capex": -147000000.0,
+          "capex_as_pct_revenue": 0.02305159165751921,
+          "total_debt": 10749000000.0,
+          "cash_and_equivalents": 1777000000.0,
+          "net_debt": 8972000000.0,
+          "net_debt_to_ebitda": 6.221914008321775,
+          "return_on_invested_capital": null
+        }
+      ],
+      "last_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "last_fiscal_year",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 27448000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 10317000000.0,
+        "gross_margin": 0.3758743806470417,
+        "operating_income": 5209000000.0,
+        "operating_margin": 0.18977703293500436,
+        "ebitda": 6179000000.0,
+        "ebitda_margin": 0.22511658408627222,
+        "net_income": 4087000000.0,
+        "net_margin": 0.1488997376858059,
+        "operating_cash_flow": 4472000000.0,
+        "free_cash_flow": 3553000000.0,
+        "free_cash_flow_margin": 0.12944476828912854,
+        "capex": -919000000.0,
+        "capex_as_pct_revenue": 0.03348149227630429,
+        "total_debt": 10532000000.0,
+        "cash_and_equivalents": 622000000.0,
+        "net_debt": 9910000000.0,
+        "net_debt_to_ebitda": 1.603819388250526,
+        "return_on_invested_capital": null
+      },
+      "prior_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "prior_fiscal_year",
+        "period_end_date": "2024-12-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 24878000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 9503000000.0,
+        "gross_margin": 0.38198408232173003,
+        "operating_income": 4632000000.0,
+        "operating_margin": 0.18618860036980464,
+        "ebitda": 5617000000.0,
+        "ebitda_margin": 0.2257818152584613,
+        "net_income": 3794000000.0,
+        "net_margin": 0.15250422059651098,
+        "operating_cash_flow": 4327000000.0,
+        "free_cash_flow": 3519000000.0,
+        "free_cash_flow_margin": 0.141450277353485,
+        "capex": -808000000.0,
+        "capex_as_pct_revenue": 0.03247849505587266,
+        "total_debt": 9821000000.0,
+        "cash_and_equivalents": 555000000.0,
+        "net_debt": 9266000000.0,
+        "net_debt_to_ebitda": 1.6496350364963503,
+        "return_on_invested_capital": null
+      },
+      "revenue_trend_8q": "improving",
+      "gross_margin_trend_8q": "stable",
+      "operating_margin_trend_8q": "stable",
+      "fcf_trend_8q": "improving",
+      "leverage_trend_8q": "deteriorating",
+      "latest_quarter_vs_ltm_notes": [
+        "Latest quarter annualized revenue is +4.5% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 35.6% versus 36.9% LTM.",
+        "Latest quarter operating margin is 15.7% versus 18.2% LTM."
+      ],
+      "inflection_flags": [
+        "latest_quarter_revenue_accelerating_yoy",
+        "fcf_conversion_lagging_ebitda"
+      ],
+      "staleness_warnings": [],
+      "latest_period_end_date": "2026-03-31",
+      "latest_filing_date": null,
+      "financial_context_stale": false
+    },
+    "price_snapshot": {
+      "current_price": 409.945,
+      "market_cap": 159181651968.0,
+      "return_1m": 0.019915919874084812,
+      "return_3m": 0.15031871427432505,
+      "return_6m": 0.2740127193777793,
+      "return_1y": 0.16166407996920695,
+      "drawdown_from_52w_high": -0.059284498718770146,
+      "distance_from_52w_low": 0.3056794013329847,
+      "beta": 1.192
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 40.072826,
+      "forward_pe": 26.052504,
+      "ev_to_ebitda": 27.981,
+      "price_to_sales": 5.5810127,
+      "price_to_book": 8.071691,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": {
+      "peer_tickers": [
+        "GEV",
+        "PWR",
+        "EMR",
+        "ROK"
+      ],
+      "relative_return_3m": "underperforming peer median by -13.7%",
+      "relative_return_6m": "underperforming peer median by -15.4%",
+      "relative_valuation": "valuation multiple cheaper versus peer median (26.05 vs 38.18)",
+      "relative_margin_profile": "margin profile above peers versus peer median (0.16 vs 0.13)",
+      "relative_growth_profile": "revenue growth above peers versus peer median (0.17 vs 0.14)",
+      "notes": []
+    },
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance.",
+      "Financial trend is derived from quarterly financial statements through period ending 2026-03-31."
+    ],
+    "data_freshness_notes": [
+      "Latest financial period end date: 2026-03-31."
+    ]
+  },
+  "llm_synthesis": {
+    "ticker": "ETN",
+    "business_summary": "Eaton is a diversified power management and electrical equipment company with exposure to Electrical Americas, Electrical Global, Aerospace, and Mobility/vehicle-related markets. Revenue is driven by equipment and systems sales, project backlog conversion, pricing, aftermarket/services, and demand from data centers, grid modernization, electrification, commercial buildings, aerospace, vehicles, and industrial capex. The June 2026 SEC 8-K evidence states Eaton entered definitive agreements with Dana to separate its Mobility segment and combine it with Dana in a Reverse Morris Trust transaction, with Eaton expected to receive about $1.1 billion in cash distribution and Eaton shareholders expected to own at least 50.1% of the combined company after consummation.",
+    "business_quality_assessment": "Business quality appears high based on the supplied profile and financial context. Eaton has diversified end-market exposure, but the most important driver is higher-quality electrical equipment demand tied to data centers, grid modernization, electrification, and commercial/industrial power management. Margins are structurally above many industrial peers in the supplied peer snapshot, with LTM operating margin of 18.2%, EBITDA margin of 21.8%, and free cash flow margin of 13.2%. The main quality caveats are cyclicality in industrial/construction/aerospace markets, valuation sensitivity, capacity/execution risk, and a recent leverage deterioration in the yfinance-derived data.",
+    "financial_trend_diagnosis": "The current signal is mixed and should be led by quarterly data. The latest quarter shows a clear revenue acceleration: revenue of $7.45 billion was up 16.8% year over year and 5.6% quarter over quarter, and annualized latest-quarter revenue is 4.5% above LTM revenue. However, profitability softened sharply versus LTM and the prior quarter: latest-quarter operating margin was 15.7% versus 18.2% LTM and 19.6% in the prior quarter; gross margin was 35.6% versus 36.9% LTM; EBITDA margin was 19.9% versus 21.8% LTM. Free cash flow was also seasonally or operationally weak at $314 million, a 4.2% margin, versus LTM FCF of $3.78 billion and a 13.2% margin. The largest red flag is leverage: yfinance-derived LTM net debt/EBITDA rose to 3.42x from 1.60x in the last fiscal year, while latest-quarter net debt rose to $21.27 billion. The data therefore show strong top-line momentum but recent margin/FCF/leverage pressure that requires verification in company sources.",
+    "screen_interpretation": "No basic screen result was supplied. Based on available context, ETN would likely screen as a high-quality, macro-supported industrial/electrical infrastructure compounder with strong recent revenue growth, above-peer margins, and strong thematic fit, but also as an expensive stock on absolute valuation with recent margin deterioration, weak latest-quarter FCF conversion, and higher leverage.",
+    "why_screen_may_be_wrong": "Because no basic screen was supplied, this field is necessarily limited. A simple positive screen could be wrong if it overweights revenue acceleration, thematic support, and peer-relative valuation while missing latest-quarter margin compression, weak FCF conversion, leverage deterioration, and high absolute valuation. A simple negative screen could be wrong if it overweights high trailing multiples or latest-quarter FCF weakness while missing the strength of grid/data-center demand, above-peer growth and margins, macro theme support, and potential portfolio improvement from the Mobility separation.",
+    "current_market_narrative": "No sourced consensus narrative is supplied. Our prior is that the market narrative views ETN as a high-quality industrial/electrical compounder and a primary beneficiary of AI data-center power demand, grid modernization, electrification, and resilient infrastructure capex. The stock's 6-month return of +27.4%, 1-year return of +16.2%, and position only about 5.9% below the 52-week high suggest expectations are already constructive, although ETN has underperformed the supplied peer median over 3 and 6 months.",
+    "consensus_type": "unknown",
+    "consensus_verification_required": [
+      "No sourced sell-side estimate evidence is supplied; forward P/E is available from yfinance context but not tied to consensus revenue/EPS revisions.",
+      "No sourced positioning data specific to ETN is supplied; price momentum and peer-relative returns are available but do not verify investor positioning.",
+      "No earnings release, transcript, or management guidance is supplied to verify current market expectations around orders, backlog, data-center demand, margins, or the Mobility separation."
+    ],
+    "macro_fit_assessment": "The macro backdrop helps the ETN setup overall but is not risk-free. The macro regime is described as Sticky Late Cycle AI leads, with top scenario probability 36.2%, followed by reopening/soft landing at 31.1%. Top macro-supported themes include Grid and power infrastructure and Quality ex-AI cash flow, both relevant to ETN. Credit conditions are healthy, AI earnings resilience is bullish, and the hyperscaler capex rollover falsifier is not triggered, all of which support data-center and grid power demand. Offsetting risks are weak breadth, mixed monetary policy with 80% hold/hike odds, and ETN's sensitivity to rates, construction, industrial capex, and valuation multiples. Net, macro supports the revenue/theme case but increases the penalty for any margin, leverage, or demand disappointment.",
+    "theme_fit_assessment": "ETN is a primary expression of the Grid and power infrastructure theme and a partial expression of Quality ex-AI cash flow. The aggregate theme support score is strongly positive at 1.62. Grid and power infrastructure has a high fit confidence of 0.90 and weighted score of 1.47, directly matching Eaton's electrical equipment, power management, data-center power, electrification, and grid modernization exposures. Quality ex-AI cash flow is a partial fit with 0.52 confidence because Eaton has durable industrial cash-flow characteristics, but the latest-quarter FCF and leverage trends weaken the quality framing. Overall, macro-supported themes support the ticker setup meaningfully, but they do not eliminate valuation and execution risk.",
+    "pressure_inflection_assessment": "The company is showing a two-sided inflection. The positive inflection is top-line acceleration, with latest-quarter revenue up 16.8% year over year and 5.6% sequentially, supported by improving 8-quarter revenue trend. The negative inflection is that latest-quarter margins and FCF conversion are materially below LTM, and leverage has deteriorated sharply in the supplied data. These pressures could be temporary, seasonal, transaction-related, capacity-related, or data-quality-related, but the supplied context does not prove the cause. Current underwriting should treat revenue strength as real but require confirmation that margin compression, FCF softness, and leverage are not structural.",
+    "competitive_position_assessment": "The supplied data support a strong competitive-position assessment, though not with customer-level detail. Eaton appears to be a meaningful electrical equipment and power management supplier with exposure to attractive power infrastructure markets. The peer snapshot shows revenue growth above peer median, margin profile above peer median, and valuation cheaper than peer median on the supplied forward multiple comparison. However, key customers, suppliers, backlog detail, order rates, and segment-level shares are missing, so the precise strength of competitive moat versus peers such as GEV, PWR, EMR, and ROK cannot be fully underwritten from the supplied data alone.",
+    "valuation_expectations_assessment": "Valuation embeds high expectations. ETN trades at 40.1x trailing P/E, 26.1x forward P/E, 28.0x EV/EBITDA, 5.6x sales, and 8.1x book in the supplied yfinance snapshot. Those multiples can be justified only if the market's likely narrative of durable grid/data-center/electrification growth and high-quality cash generation remains intact. The peer snapshot says ETN is cheaper than peer median on valuation multiple, which may indicate relative value within an expensive power infrastructure peer group. However, low relative valuation should not be confused with absolute cheapness; cyclicality, leverage deterioration, and margin compression could all explain or require a discount. After +27.4% 6-month performance and proximity to 52-week highs, expectations risk is elevated.",
+    "variant_view": "The identifiable variant view is two-sided. The constructive variant is that ETN is a primary, high-quality expression of a macro-supported grid/data-center power infrastructure theme, with accelerating revenue and a portfolio action that may improve business mix. The cautious variant is that the market may already discount much of this strength, while latest-quarter margin compression, weak FCF conversion, leverage deterioration, and demanding absolute valuation create downside risk if growth normalizes or execution disappoints.",
+    "variant_view_direction": "two_sided",
+    "variant_view_strength": "medium",
+    "bull_case_variant_view": "The bull variant is that the market may still be underappreciating the durability of Eaton's electrical/grid/data-center demand and the portfolio-quality improvement from separating Mobility. Latest-quarter revenue accelerated materially, ETN has above-peer growth and margins in the supplied peer snapshot, macro support for grid and power infrastructure is strong, and the Dana/Mobility transaction provides approximately $1.1 billion of expected cash distribution plus continued shareholder participation in the combined company.",
+    "bear_case_variant_view": "The bear variant is that ETN already prices a large portion of the grid/data-center/electrification upside while current financial data show margin softness, weak latest-quarter FCF conversion, and a sharp leverage step-up. If the latest quarter is an early sign that capacity, mix, integration, or cycle pressures are diluting operating leverage, the absolute valuation could be vulnerable despite strong thematic support.",
+    "evidence_supporting_variant_view": [
+      "Latest-quarter revenue was $7.45 billion, up 16.8% year over year and 5.6% quarter over quarter; annualized latest-quarter revenue is 4.5% above LTM revenue.",
+      "LTM revenue is $28.5 billion, LTM operating margin is 18.2%, LTM EBITDA margin is 21.8%, and LTM FCF margin is 13.2%, supporting a high-quality industrial cash-flow profile.",
+      "Quarterly financial trend flags show improving 8-quarter revenue trend and improving 8-quarter FCF trend, despite latest-quarter FCF conversion lagging EBITDA.",
+      "Peer snapshot indicates revenue growth above peer median, margin profile above peer median, and valuation multiple cheaper than peer median.",
+      "Macro theme context is strongly supportive: aggregate theme support score is 1.62, Grid and power infrastructure is a primary fit with weighted score 1.47, and Quality ex-AI cash flow is a partial fit.",
+      "Macro signals show AI earnings resilience and the hyperscaler capex rollover falsifier not triggered, which supports power demand and grid infrastructure exposure.",
+      "SEC 8-K evidence states Eaton will separate Mobility and combine it with Dana via Reverse Morris Trust, with approximately $1.1 billion cash distribution expected and Eaton shareholders expected to own at least 50.1% of the combined company."
+    ],
+    "evidence_against_variant_view": [
+      "Absolute valuation is demanding: trailing P/E 40.1x, forward P/E 26.1x, EV/EBITDA 28.0x, price/sales 5.6x, and price/book 8.1x.",
+      "Latest-quarter margins deteriorated versus LTM: gross margin 35.6% versus 36.9% LTM, operating margin 15.7% versus 18.2% LTM, and EBITDA margin 19.9% versus 21.8% LTM.",
+      "Latest-quarter free cash flow conversion was weak: FCF of $314 million and 4.2% FCF margin versus LTM FCF margin of 13.2%.",
+      "Leverage deteriorated materially in the supplied data, with LTM net debt/EBITDA at 3.42x versus 1.60x in the last fiscal year and latest-quarter net debt rising to $21.3 billion.",
+      "The stock has already gained 27.4% over 6 months and trades close to its 52-week high, increasing expectations risk.",
+      "Macro context includes weak breadth and mixed/restrictive monetary policy with high hold/hike odds, which can pressure high-multiple industrial growth equities."
+    ],
+    "key_risks": [
+      "Valuation compression if growth or margins disappoint.",
+      "Data-center or hyperscaler capex slowdown reducing power equipment demand.",
+      "Grid infrastructure spending delays or project pushouts.",
+      "Industrial capex and commercial construction slowdown, especially under restrictive rates.",
+      "Raw material, labor, supply chain, and manufacturing capacity pressure.",
+      "Execution risk from capacity expansion and project backlog conversion.",
+      "Leverage deterioration and balance-sheet flexibility risk.",
+      "Transaction execution risk related to the Mobility separation and Dana combination.",
+      "Expectations risk after strong 6-month price momentum and proximity to 52-week highs.",
+      "Macro risk from weak market breadth and mixed/restrictive monetary policy."
+    ],
+    "fundamental_falsifiers": [
+      "Latest-quarter revenue acceleration reverses, with reported revenue growth falling to low single digits or negative year over year over the next two quarters.",
+      "Operating margin remains near or below the latest-quarter level of 15.7% for two consecutive quarters instead of moving back toward the LTM level of 18.2%.",
+      "Free cash flow conversion remains weak, with quarterly FCF margin below 8% or LTM FCF margin falling below 10%.",
+      "Net debt/EBITDA remains above 3.5x or net debt continues to rise without a clear reduction plan or offsetting cash proceeds.",
+      "Electrical/data-center/grid orders or backlog, if disclosed, flatten or decline materially.",
+      "The Mobility separation fails to close, is materially delayed, or the expected approximately $1.1 billion cash distribution is reduced."
+    ],
+    "macro_theme_falsifiers": [
+      "Hyperscaler capex guidance weakens materially, triggering the AI capex rollover risk referenced in the macro context.",
+      "Grid and power infrastructure theme support score deteriorates from strongly positive to neutral or negative in future macro updates.",
+      "Credit conditions worsen materially, moving the setup toward late-cycle risk-off rather than sticky AI or soft landing.",
+      "Market breadth continues to deteriorate and leadership narrows further away from industrial infrastructure beneficiaries.",
+      "Monetary policy becomes more restrictive than expected, pressuring construction, industrial capex, and valuation multiples.",
+      "Oil/inflation tail risk rises enough to pressure input costs and rates more than it supports infrastructure spending."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E remains above the mid-20s while revenue growth decelerates materially or margins fail to recover.",
+      "EV/EBITDA near 28x is not supported by EBITDA growth or FCF conversion in the next two quarters.",
+      "ETN loses its peer-relative valuation advantage while still showing weaker margin or leverage trends.",
+      "Absolute multiple compression accelerates despite positive macro theme scores, indicating the market is no longer willing to pay premium multiples for the setup.",
+      "FCF yield implied by valuation remains unattractive because LTM or quarterly FCF deteriorates further."
+    ],
+    "timing_falsifiers": [
+      "The stock fails to sustain performance near its 52-week high after the next earnings update despite strong macro theme support.",
+      "A broad market rotation away from high-multiple infrastructure/AI-adjacent industrials causes ETN to underperform peers despite stable fundamentals.",
+      "The next one to two quarters do not show margin recovery or FCF normalization after the latest-quarter deterioration.",
+      "Mobility transaction timing becomes uncertain or slips materially once a timetable is provided.",
+      "Peer-relative underperformance versus the supplied grid/electrical infrastructure peer set persists even while theme scores remain positive."
+    ],
+    "key_metrics_to_monitor": [
+      "Electrical Americas revenue growth, orders, backlog, and margin, if disclosed.",
+      "Electrical Global revenue growth, orders, backlog, and margin, if disclosed.",
+      "Data-center and grid-related order commentary, if disclosed in future earnings materials.",
+      "Latest-quarter gross margin, operating margin, and EBITDA margin versus LTM levels.",
+      "Operating cash flow, free cash flow, and FCF margin by quarter and LTM.",
+      "Net debt, total debt, cash, and net debt/EBITDA.",
+      "Capex as a percentage of revenue and evidence of capacity-related spending.",
+      "Segment impact and timing of the Mobility/Dana Reverse Morris Trust transaction.",
+      "Forward P/E, EV/EBITDA, and peer-relative valuation versus GEV, PWR, EMR, and ROK.",
+      "Price behavior relative to the 52-week high after earnings or transaction updates."
+    ],
+    "suggested_monitoring_plan": [
+      "Review the next earnings release and transcript for orders, backlog, segment-level growth, pricing, capacity constraints, and management explanation of latest-quarter margin and FCF weakness.",
+      "Reconcile yfinance-derived leverage data with company filings when available, especially the reason for the sharp increase in total debt and net debt.",
+      "Track whether latest-quarter operating margin rebounds toward LTM levels or remains structurally lower.",
+      "Track whether FCF conversion normalizes after the weak latest quarter.",
+      "Monitor transaction filings and updates for the Mobility/Dana Reverse Morris Trust, including expected timing, tax treatment, proceeds, and pro forma exposure.",
+      "Compare ETN's forward valuation and estimate revisions against GEV, PWR, EMR, ROK, and other electrical infrastructure peers.",
+      "Monitor macro updates for AI capex resilience, hyperscaler capex rollover, grid infrastructure theme score, credit spreads, breadth, and Fed policy path."
+    ],
+    "underwriting_summary": "ETN is a high-quality, thematically aligned industrial/electrical infrastructure company with strong exposure to grid modernization, data-center power demand, electrification, and durable power management markets. The macro and theme context are clearly supportive, and the Mobility separation with Dana could further sharpen the portfolio while providing approximately $1.1 billion of expected cash distribution. However, the current financial signal is not one-way bullish: latest-quarter revenue accelerated sharply, but margins, FCF conversion, and leverage all worsened versus LTM or prior-year levels. Valuation is also demanding on absolute metrics after strong price momentum, even though the supplied peer snapshot shows ETN cheaper than peer median. The right synthesis is two-sided: the business and macro setup are attractive, but current underwriting needs confirmation that recent margin/FCF/leverage pressure is temporary and that expectations have not already discounted peak-cycle grid/data-center demand.",
+    "qualitative_conviction": "watchlist",
+    "suggested_score_adjustment": 1.0,
+    "confidence": "medium",
+    "data_gaps": [
+      "Earnings release not confidently retrieved via SEC 8-K exhibit.",
+      "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+      "No sourced management guidance, order/backlog commentary, segment margins, or data-center exposure quantification is supplied.",
+      "No sell-side consensus estimates, revisions, or price-target context is supplied.",
+      "No ETN-specific investor positioning data is supplied.",
+      "Key customers and key suppliers are missing from the company profile.",
+      "Mobility segment revenue/profit contribution is not supplied, limiting pro forma transaction analysis.",
+      "Latest filing dates are missing in the yfinance financial context.",
+      "Financial statements are sourced from yfinance and should be treated as data context, not audited proof."
+    ]
+  },
+  "company_profile": {
+    "ticker": "ETN",
+    "company_name": "Eaton",
+    "sector": "Industrials",
+    "industry": "Electrical Equipment / Power Management",
+    "profile_source": "manual_seed",
+    "profile_confidence": "high",
+    "profile_as_of_date": "2026-06-29",
+    "profile_source_notes": [
+      "Company profile from internal static seed."
+    ],
+    "profile_data_gaps": [],
+    "business_description": "Eaton is a power management company exposed to electrical equipment, data centers, grid modernization, commercial buildings, aerospace, vehicles, and industrial end markets.",
+    "business_model": "Diversified industrial with meaningful electrical equipment exposure. Revenue is driven by electrification, data center power demand, backlog conversion, pricing, and industrial/aerospace cycles.",
+    "segments": [
+      {
+        "name": "Electrical Americas",
+        "description": "Electrical products and systems for commercial, industrial, utility, and data center customers.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "data center demand",
+          "grid spending",
+          "commercial construction",
+          "pricing"
+        ]
+      },
+      {
+        "name": "Electrical Global",
+        "description": "Electrical equipment and systems outside the Americas.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "global electrification",
+          "industrial demand",
+          "energy transition"
+        ]
+      },
+      {
+        "name": "Aerospace",
+        "description": "Hydraulic, fuel, motion control, and electrical systems for aerospace markets.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "aircraft production",
+          "aftermarket demand",
+          "defense spending"
+        ]
+      }
+    ],
+    "revenue_model": [
+      "equipment sales",
+      "systems integration",
+      "aftermarket/services",
+      "project backlog conversion"
+    ],
+    "cost_drivers": [
+      "raw materials",
+      "labor",
+      "supply chain",
+      "manufacturing capacity"
+    ],
+    "margin_drivers": [
+      "pricing power",
+      "volume leverage",
+      "mix toward electrical/data center",
+      "supply chain normalization"
+    ],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [
+      {
+        "ticker": "GEV",
+        "name": "GE Vernova",
+        "relevance": "Power/grid infrastructure peer"
+      },
+      {
+        "ticker": "PWR",
+        "name": "Quanta Services",
+        "relevance": "Grid and electrical infrastructure peer"
+      },
+      {
+        "ticker": "EMR",
+        "name": "Emerson Electric",
+        "relevance": "Industrial automation/electrical peer"
+      },
+      {
+        "ticker": "ROK",
+        "name": "Rockwell Automation",
+        "relevance": "Industrial automation peer"
+      }
+    ],
+    "thematic_exposures": [
+      "AI data center power demand",
+      "electrification",
+      "grid modernization",
+      "industrial infrastructure",
+      "reshoring"
+    ],
+    "macro_sensitivities": [
+      "rates",
+      "industrial capex",
+      "data center capex",
+      "commodity input costs",
+      "construction cycle"
+    ],
+    "major_risks": [
+      "valuation compression",
+      "data center capex slowdown",
+      "industrial slowdown",
+      "capacity constraints",
+      "execution risk"
+    ]
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": "stable",
+    "operating_margin_trend": "stable",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "improving",
+    "capex_trend": null,
+    "leverage_trend": "deteriorating",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving on trailing 8Q data.",
+      "Free cash flow is improving on trailing 8Q data.",
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "deteriorating_indicators": [
+      "Leverage is deteriorating on trailing 8Q data.",
+      "FCF conversion is lagging EBITDA, likely due to capex or working capital."
+    ],
+    "red_flags": [
+      "Latest quarter net debt to EBITDA is elevated above 4.0x."
+    ],
+    "screen_result_context": "Financial trend analysis generated from quarterly-first fundamental context pack. Latest financial period ended 2026-03-31. LLM synthesis: The current signal is mixed and should be led by quarterly data. The latest quarter shows a clear revenue acceleration: revenue of $7.45 billion was up 16.8% year over year and 5.6% quarter over quarter, and annualized latest-quarter revenue is 4.5% above LTM revenue. However, profitability softened sharply versus LTM and the prior quarter: latest-quarter operating margin was 15.7% versus 18.2% LTM and 19.6% in the prior quarter; gross margin was 35.6% versus 36.9% LTM; EBITDA margin was 19.9% versus 21.8% LTM. Free cash flow was also seasonally or operationally weak at $314 million, a 4.2% margin, versus LTM FCF of $3.78 billion and a 13.2% margin. The largest red flag is leverage: yfinance-derived LTM net debt/EBITDA rose to 3.42x from 1.60x in the last fiscal year, while latest-quarter net debt rose to $21.27 billion. The data therefore show strong top-line momentum but recent margin/FCF/leverage pressure that requires verification in company sources.",
+    "why_screen_may_be_wrong": "Because no basic screen was supplied, this field is necessarily limited. A simple positive screen could be wrong if it overweights revenue acceleration, thematic support, and peer-relative valuation while missing latest-quarter margin compression, weak FCF conversion, leverage deterioration, and high absolute valuation. A simple negative screen could be wrong if it overweights high trailing multiples or latest-quarter FCF weakness while missing the strength of grid/data-center demand, above-peer growth and margins, macro theme support, and potential portfolio improvement from the Mobility separation."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Industrial and electrical equipment names can be vulnerable to valuation compression if rates rise.",
+      "Data center optimism may already be partially priced into the stock.",
+      "Supply chain, labor, and input costs can pressure margins if pricing does not offset inflation.",
+      "FCF conversion is lagging EBITDA, so accounting inflection needs cash-flow confirmation.",
+      "Valuation compression if growth or margins disappoint.",
+      "Data-center or hyperscaler capex slowdown reducing power equipment demand.",
+      "Grid infrastructure spending delays or project pushouts.",
+      "Industrial capex and commercial construction slowdown, especially under restrictive rates.",
+      "Raw material, labor, supply chain, and manufacturing capacity pressure."
+    ],
+    "recent_strength_points": [
+      "Data center power demand, electrification, and grid modernization provide strong secular demand support.",
+      "Backlog conversion and pricing can support revenue and margin resilience.",
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "likely_causes": [
+      "AI data center power demand",
+      "electrification capex",
+      "industrial infrastructure spending",
+      "pricing and backlog conversion"
+    ],
+    "pressure_type": "macro_driven",
+    "cyclical_vs_structural_assessment": "The company is showing a two-sided inflection. The positive inflection is top-line acceleration, with latest-quarter revenue up 16.8% year over year and 5.6% sequentially, supported by improving 8-quarter revenue trend. The negative inflection is that latest-quarter margins and FCF conversion are materially below LTM, and leverage has deteriorated sharply in the supplied data. These pressures could be temporary, seasonal, transaction-related, capacity-related, or data-quality-related, but the supplied context does not prove the cause. Current underwriting should treat revenue strength as real but require confirmation that margin compression, FCF softness, and leverage are not structural.",
+    "abatement_evidence": [
+      "Sustained backlog strength would support future revenue visibility.",
+      "Stable or expanding margins would indicate pricing power is offsetting input cost pressure."
+    ],
+    "inflection_catalysts": [
+      "continued data center order growth",
+      "margin expansion from electrical mix",
+      "grid/electrification spending acceleration",
+      "latest-quarter revenue acceleration"
+    ],
+    "margin_recovery_potential": "Potentially meaningful if the identified pressure points are temporary and pricing/mix improves.",
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": [
+      "Is data center demand still accelerating or merely remaining strong?",
+      "Are margins expanding despite input and labor cost pressure?",
+      "Is valuation still reasonable versus forward earnings revisions?"
+    ]
+  },
+  "competitive_position_analysis": {
+    "peer_group": [
+      {
+        "ticker": "GEV",
+        "name": "GE Vernova",
+        "relevance": "Power/grid infrastructure peer"
+      },
+      {
+        "ticker": "PWR",
+        "name": "Quanta Services",
+        "relevance": "Grid and electrical infrastructure peer"
+      },
+      {
+        "ticker": "EMR",
+        "name": "Emerson Electric",
+        "relevance": "Industrial automation/electrical peer"
+      },
+      {
+        "ticker": "ROK",
+        "name": "Rockwell Automation",
+        "relevance": "Industrial automation peer"
+      }
+    ],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [
+      "scale in electrical equipment",
+      "installed base",
+      "distribution and customer relationships",
+      "mission-critical power management expertise"
+    ],
+    "competitive_advantages": [
+      "direct exposure to data center power demand",
+      "strong positioning in electrification and grid modernization",
+      "pricing power in critical infrastructure categories"
+    ],
+    "competitive_threats": [
+      "valuation risk",
+      "competition from other electrical and grid equipment providers",
+      "industrial capex slowdown"
+    ],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "The supplied data support a strong competitive-position assessment, though not with customer-level detail. Eaton appears to be a meaningful electrical equipment and power management supplier with exposure to attractive power infrastructure markets. The peer snapshot shows revenue growth above peer median, margin profile above peer median, and valuation cheaper than peer median on the supplied forward multiple comparison. However, key customers, suppliers, backlog detail, order rates, and segment-level shares are missing, so the precise strength of competitive moat versus peers such as GEV, PWR, EMR, and ROK cannot be fully underwritten from the supplied data alone."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (grid_power_infrastructure, quality_ex_ai_cash_flow) with aggregate theme support score 1.62. Known exposures: AI data center power demand, electrification, grid modernization, industrial infrastructure, reshoring, rates, industrial capex, data center capex, commodity input costs, construction cycle.",
+    "scenario_impacts": [
+      {
+        "scenario_name": "Rates remain elevated",
+        "impact": "negative",
+        "rationale": "Higher rates can pressure valuation multiples and financing-sensitive demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "AI capex acceleration",
+        "impact": "positive",
+        "rationale": "Company appears positively exposed to sustained or accelerating AI/data center capex.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "AI capex rollover",
+        "impact": "negative",
+        "rationale": "A slowdown in AI/data center capex would likely pressure growth expectations and valuation.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "Global growth slows",
+        "impact": "negative",
+        "rationale": "Slower macro growth would likely pressure cyclical demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Macro-supported mapped themes",
+        "impact": "positive",
+        "rationale": "Monetary policy composite: Mixed policy favors durable cash flow.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Aggregate mapped-theme support",
+        "impact": "positive",
+        "rationale": "Mapped macro themes have positive aggregate support score of 1.62.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "AI/data-center macro support",
+        "impact": "positive",
+        "rationale": "Mapped theme drivers include positive AI/data-center macro support.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "Oil/inflation macro sensitivity",
+        "impact": "mixed",
+        "rationale": "Macro forecast signals mention oil, commodities, or inflation; ticker-level impact depends on whether this is revenue beta or input-cost pressure.",
+        "sensitivity_level": "medium"
+      }
+    ],
+    "oil_sensitivity": null,
+    "rate_sensitivity": "Medium to high",
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": "High",
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro forecast supports the company's mapped themes, improving the odds that top-down backdrop reinforces ticker-level execution.",
+    "downside_scenario": "The main downside is that positive mapped-theme support fades or becomes crowded before ticker fundamentals confirm.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: sticky_late_cycle_ai, reopening_soft_landing, oil_inflation_tail. Top macro signals: Credit layer health, AI earnings resilience, Breadth and participation. ETN maps to macro-forecast themes grid_power_infrastructure, quality_ex_ai_cash_flow. Aggregate theme support score is 1.62."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "No sourced consensus narrative is supplied. Our prior is that the market narrative views ETN as a high-quality industrial/electrical compounder and a primary beneficiary of AI data-center power demand, grid modernization, electrification, and resilient infrastructure capex. The stock's 6-month return of +27.4%, 1-year return of +16.2%, and position only about 5.9% below the 52-week high suggest expectations are already constructive, although ETN has underperformed the supplied peer median over 3 and 6 months.",
+    "implied_expectations": "The stock may already price in a meaningful amount of secular data center and electrification upside.",
+    "market_mispricing_hypothesis": "Potential mispricing exists if the market underestimates the duration of electrical backlog growth or the margin uplift from mix shift, but valuation risk is material.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": "High-quality AI infrastructure beneficiaries can become consensus longs.",
+    "expectation_summary": "Valuation embeds high expectations. ETN trades at 40.1x trailing P/E, 26.1x forward P/E, 28.0x EV/EBITDA, 5.6x sales, and 8.1x book in the supplied yfinance snapshot. Those multiples can be justified only if the market's likely narrative of durable grid/data-center/electrification growth and high-quality cash generation remains intact. The peer snapshot says ETN is cheaper than peer median on valuation multiple, which may indicate relative value within an expensive power infrastructure peer group. However, low relative valuation should not be confused with absolute cheapness; cyclicality, leverage deterioration, and margin compression could all explain or require a discount. After +27.4% 6-month performance and proximity to 52-week highs, expectations risk is elevated."
+  },
+  "variant_view": {
+    "consensus_view": "ETN is viewed as a high-quality electrical infrastructure beneficiary of data center demand and electrification.",
+    "helix_variant_view": "Variant direction: two_sided. The identifiable variant view is two-sided. The constructive variant is that ETN is a primary, high-quality expression of a macro-supported grid/data-center power infrastructure theme, with accelerating revenue and a portfolio action that may improve business mix. The cautious variant is that the market may already discount much of this strength, while latest-quarter margin compression, weak FCF conversion, leverage deterioration, and demanding absolute valuation create downside risk if growth normalizes or execution disappoints. Bull case: The bull variant is that the market may still be underappreciating the durability of Eaton's electrical/grid/data-center demand and the portfolio-quality improvement from separating Mobility. Latest-quarter revenue accelerated materially, ETN has above-peer growth and margins in the supplied peer snapshot, macro support for grid and power infrastructure is strong, and the Dana/Mobility transaction provides approximately $1.1 billion of expected cash distribution plus continued shareholder participation in the combined company. Bear case: The bear variant is that ETN already prices a large portion of the grid/data-center/electrification upside while current financial data show margin softness, weak latest-quarter FCF conversion, and a sharp leverage step-up. If the latest quarter is an early sign that capacity, mix, integration, or cycle pressures are diluting operating leverage, the absolute valuation could be vulnerable despite strong thematic support.",
+    "variant_view_direction": "two_sided",
+    "bull_case_variant_view": "The bull variant is that the market may still be underappreciating the durability of Eaton's electrical/grid/data-center demand and the portfolio-quality improvement from separating Mobility. Latest-quarter revenue accelerated materially, ETN has above-peer growth and margins in the supplied peer snapshot, macro support for grid and power infrastructure is strong, and the Dana/Mobility transaction provides approximately $1.1 billion of expected cash distribution plus continued shareholder participation in the combined company.",
+    "bear_case_variant_view": "The bear variant is that ETN already prices a large portion of the grid/data-center/electrification upside while current financial data show margin softness, weak latest-quarter FCF conversion, and a sharp leverage step-up. If the latest quarter is an early sign that capacity, mix, integration, or cycle pressures are diluting operating leverage, the absolute valuation could be vulnerable despite strong thematic support.",
+    "evidence_supporting_variant_view": [
+      "Bull evidence: Data center power demand, electrification, and grid modernization provide strong secular demand support.",
+      "Bull evidence: Backlog conversion and pricing can support revenue and margin resilience.",
+      "Bull evidence: Latest quarter revenue is accelerating year over year.",
+      "Bull evidence: continued data center order growth",
+      "Bull evidence: margin expansion from electrical mix",
+      "Bull evidence: grid/electrification spending acceleration",
+      "Bull evidence: latest-quarter revenue acceleration",
+      "Bull evidence: Monetary policy composite: Mixed policy favors durable cash flow.",
+      "Bull evidence: AI earnings resilience: AI capex resilience supports power demand.",
+      "Bull evidence: Hyperscaler capex rollover falsifier: Untriggered capex risk supports grid demand.",
+      "Two-sided evidence: Latest-quarter revenue was $7.45 billion, up 16.8% year over year and 5.6% quarter over quarter; annualized latest-quarter revenue is 4.5% above LTM revenue.",
+      "Two-sided evidence: LTM revenue is $28.5 billion, LTM operating margin is 18.2%, LTM EBITDA margin is 21.8%, and LTM FCF margin is 13.2%, supporting a high-quality industrial cash-flow profile.",
+      "Two-sided evidence: Quarterly financial trend flags show improving 8-quarter revenue trend and improving 8-quarter FCF trend, despite latest-quarter FCF conversion lagging EBITDA.",
+      "Two-sided evidence: Peer snapshot indicates revenue growth above peer median, margin profile above peer median, and valuation multiple cheaper than peer median.",
+      "Two-sided evidence: Macro theme context is strongly supportive: aggregate theme support score is 1.62, Grid and power infrastructure is a primary fit with weighted score 1.47, and Quality ex-AI cash flow is a partial fit."
+    ],
+    "why_market_may_be_wrong": [
+      "Bull case: The market may underestimate the duration of data center electrical demand.",
+      "Bull case: The market may underappreciate backlog quality and pricing power."
+    ],
+    "required_confirming_evidence": [
+      "Data center orders remain strong.",
+      "Electrical margins continue expanding.",
+      "Backlog conversion supports revenue visibility.",
+      "Earnings revisions remain positive."
+    ],
+    "risks_to_variant_view": [
+      "Two-sided counter-evidence: Absolute valuation is demanding: trailing P/E 40.1x, forward P/E 26.1x, EV/EBITDA 28.0x, price/sales 5.6x, and price/book 8.1x.",
+      "Two-sided counter-evidence: Latest-quarter margins deteriorated versus LTM: gross margin 35.6% versus 36.9% LTM, operating margin 15.7% versus 18.2% LTM, and EBITDA margin 19.9% versus 21.8% LTM.",
+      "Two-sided counter-evidence: Latest-quarter free cash flow conversion was weak: FCF of $314 million and 4.2% FCF margin versus LTM FCF margin of 13.2%.",
+      "Two-sided counter-evidence: Leverage deteriorated materially in the supplied data, with LTM net debt/EBITDA at 3.42x versus 1.60x in the last fiscal year and latest-quarter net debt rising to $21.3 billion.",
+      "Two-sided counter-evidence: The stock has already gained 27.4% over 6 months and trades close to its 52-week high, increasing expectations risk.",
+      "Two-sided counter-evidence: Macro context includes weak breadth and mixed/restrictive monetary policy with high hold/hike odds, which can pressure high-multiple industrial growth equities.",
+      "Bear risk: Valuation compression if growth or margins disappoint.",
+      "Bear risk: Data-center or hyperscaler capex slowdown reducing power equipment demand.",
+      "Bear risk: Grid infrastructure spending delays or project pushouts.",
+      "Bear risk: Industrial capex and commercial construction slowdown, especially under restrictive rates.",
+      "Bear risk: Raw material, labor, supply chain, and manufacturing capacity pressure.",
+      "Bear risk: Execution risk from capacity expansion and project backlog conversion.",
+      "Bear risk: Leverage deterioration and balance-sheet flexibility risk.",
+      "Bear risk: Transaction execution risk related to the Mobility separation and Dana combination.",
+      "Bear risk: Expectations risk after strong 6-month price momentum and proximity to 52-week highs."
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Electrical backlog growth slows materially.",
+      "Margins stop expanding despite strong end-market demand.",
+      "Pricing power weakens relative to input/labor costs.",
+      "Latest-quarter revenue acceleration reverses, with reported revenue growth falling to low single digits or negative year over year over the next two quarters.",
+      "Operating margin remains near or below the latest-quarter level of 15.7% for two consecutive quarters instead of moving back toward the LTM level of 18.2%.",
+      "Free cash flow conversion remains weak, with quarterly FCF margin below 8% or LTM FCF margin falling below 10%.",
+      "Net debt/EBITDA remains above 3.5x or net debt continues to rise without a clear reduction plan or offsetting cash proceeds.",
+      "Electrical/data-center/grid orders or backlog, if disclosed, flatten or decline materially.",
+      "The Mobility separation fails to close, is materially delayed, or the expected approximately $1.1 billion cash distribution is reduced."
+    ],
+    "macro_falsifiers": [
+      "Data center capex expectations roll over.",
+      "Rates rise enough to pressure industrial multiples.",
+      "Industrial capex slows sharply.",
+      "Hyperscaler capex guidance weakens materially, triggering the AI capex rollover risk referenced in the macro context.",
+      "Grid and power infrastructure theme support score deteriorates from strongly positive to neutral or negative in future macro updates.",
+      "Credit conditions worsen materially, moving the setup toward late-cycle risk-off rather than sticky AI or soft landing.",
+      "Market breadth continues to deteriorate and leadership narrows further away from industrial infrastructure beneficiaries.",
+      "Monetary policy becomes more restrictive than expected, pressuring construction, industrial capex, and valuation multiples.",
+      "Oil/inflation tail risk rises enough to pressure input costs and rates more than it supports infrastructure spending."
+    ],
+    "valuation_falsifiers": [
+      "Valuation expands without corresponding upward estimate revisions.",
+      "Forward P/E remains above the mid-20s while revenue growth decelerates materially or margins fail to recover.",
+      "EV/EBITDA near 28x is not supported by EBITDA growth or FCF conversion in the next two quarters.",
+      "ETN loses its peer-relative valuation advantage while still showing weaker margin or leverage trends.",
+      "Absolute multiple compression accelerates despite positive macro theme scores, indicating the market is no longer willing to pay premium multiples for the setup.",
+      "FCF yield implied by valuation remains unattractive because LTM or quarterly FCF deteriorates further."
+    ],
+    "timing_falsifiers": [
+      "Backlog conversion fails to support earnings growth over the target horizon.",
+      "The stock fails to sustain performance near its 52-week high after the next earnings update despite strong macro theme support.",
+      "A broad market rotation away from high-multiple infrastructure/AI-adjacent industrials causes ETN to underperform peers despite stable fundamentals.",
+      "The next one to two quarters do not show margin recovery or FCF normalization after the latest-quarter deterioration.",
+      "Mobility transaction timing becomes uncertain or slips materially once a timetable is provided.",
+      "Peer-relative underperformance versus the supplied grid/electrical infrastructure peer set persists even while theme scores remain positive."
+    ],
+    "technical_or_price_falsifiers": [
+      "Stock underperforms industrial/electrical peers despite intact macro theme."
+    ],
+    "monitoring_triggers": [
+      "Order growth decelerates.",
+      "Electrical margins disappoint.",
+      "Data center commentary weakens.",
+      "Review the next earnings release and transcript for orders, backlog, segment-level growth, pricing, capacity constraints, and management explanation of latest-quarter margin and FCF weakness.",
+      "Reconcile yfinance-derived leverage data with company filings when available, especially the reason for the sharp increase in total debt and net debt.",
+      "Track whether latest-quarter operating margin rebounds toward LTM levels or remains structurally lower.",
+      "Track whether FCF conversion normalizes after the weak latest quarter.",
+      "Monitor transaction filings and updates for the Mobility/Dana Reverse Morris Trust, including expected timing, tax treatment, proceeds, and pro forma exposure.",
+      "Compare ETN's forward valuation and estimate revisions against GEV, PWR, EMR, ROK, and other electrical infrastructure peers.",
+      "Monitor macro updates for AI capex resilience, hyperscaler capex rollover, grid infrastructure theme score, credit spreads, breadth, and Fed policy path."
+    ],
+    "key_metrics_to_watch": [
+      "orders",
+      "backlog",
+      "electrical segment margin",
+      "data center demand commentary",
+      "earnings revisions",
+      "forward multiple",
+      "Electrical Americas revenue growth, orders, backlog, and margin, if disclosed.",
+      "Electrical Global revenue growth, orders, backlog, and margin, if disclosed.",
+      "Data-center and grid-related order commentary, if disclosed in future earnings materials.",
+      "Latest-quarter gross margin, operating margin, and EBITDA margin versus LTM levels.",
+      "Operating cash flow, free cash flow, and FCF margin by quarter and LTM.",
+      "Net debt, total debt, cash, and net debt/EBITDA.",
+      "Capex as a percentage of revenue and evidence of capacity-related spending.",
+      "Segment impact and timing of the Mobility/Dana Reverse Morris Trust transaction.",
+      "Forward P/E, EV/EBITDA, and peer-relative valuation versus GEV, PWR, EMR, and ROK.",
+      "Price behavior relative to the 52-week high after earnings or transaction updates."
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 70.0,
+    "financial_health": 51.0,
+    "competitive_position": 60.0,
+    "earnings_inflection_potential": 82.0,
+    "regime_fit": 71.27102923527686,
+    "valuation_setup": 45.0,
+    "variant_perception_strength": 85.0,
+    "idiosyncratic_risk": 71.25,
+    "final_underwriting_score": 66.1741281323511
+  },
+  "verdict": "watchlist",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "ETN receives a watchlist verdict with a final underwriting score of 66.2/100. LLM synthesis summary: ETN is a high-quality, thematically aligned industrial/electrical infrastructure company with strong exposure to grid modernization, data-center power demand, electrification, and durable power management markets. The macro and theme context are clearly supportive, and the Mobility separation with Dana could further sharpen the portfolio while providing approximately $1.1 billion of expected cash distribution. However, the current financial signal is not one-way bullish: latest-quarter revenue accelerated sharply, but margins, FCF conversion, and leverage all worsened versus LTM or prior-year levels. Valuation is also demanding on absolute metrics after strong price momentum, even though the supplied peer snapshot shows ETN cheaper than peer median. The right synthesis is two-sided: the business and macro setup are attractive, but current underwriting needs confirmation that recent margin/FCF/leverage pressure is temporary and that expectations have not already discounted peak-cycle grid/data-center demand.",
+  "key_monitoring_items": [
+    "orders",
+    "backlog",
+    "electrical segment margin",
+    "data center demand commentary",
+    "earnings revisions",
+    "Order growth decelerates.",
+    "Electrical margins disappoint.",
+    "Data center commentary weakens.",
+    "Review the next earnings release and transcript for orders, backlog, segment-level growth, pricing, capacity constraints, and management explanation of latest-quarter margin and FCF weakness.",
+    "Reconcile yfinance-derived leverage data with company filings when available, especially the reason for the sharp increase in total debt and net debt.",
+    "Is data center demand still accelerating or merely remaining strong?",
+    "Are margins expanding despite input and labor cost pressure?",
+    "Is valuation still reasonable versus forward earnings revisions?"
+  ],
+  "recommended_next_action": "Add to watchlist and rerun when price, estimates, macro/theme context, or company evidence changes. Key missing evidence: Earnings release not confidently retrieved via SEC 8-K exhibit; Transcript not provided; automated transcript retrieval is unavailable in v1; No sourced management guidance, order/backlog commentary, segment margins, or data-center exposure quantification is supplied. Variant view is not yet strong enough for acceptance. Valuation/expectations risk requires confirmation.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding with LLM synthesis; richer filing and transcript layers pending.",
+    "Company profile from internal static seed.",
+    "Company profile confidence: high.",
+    "Financial context sourced from yfinance.",
+    "Financial trend is derived from quarterly financial statements through period ending 2026-03-31.",
+    "Latest financial period end date: 2026-03-31.",
+    "Research source coverage: company_ir:not_found=1; filing:found=1; other:found=28; sec_8k_exhibit:not_found=1; strategic_transaction:found=2; transcript:not_found=1",
+    "Research context evidence items: 11.",
+    "Research context data gaps: Earnings release not confidently retrieved via SEC 8-K exhibit.; Transcript not provided; automated transcript retrieval is unavailable in v1.; The SEC index/header source documents contain only filing metadata and document lists, not substantive transaction detail.; The complete submission text and Form 8-K source text are truncated in the supplied input, so extraction is limited to visible source text.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

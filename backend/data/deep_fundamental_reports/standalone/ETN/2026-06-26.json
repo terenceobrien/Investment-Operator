@@ -1,0 +1,996 @@
+{
+  "ticker": "ETN",
+  "as_of_date": "2026-06-26",
+  "created_at": "2026-06-26T15:52:28.845455",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-23",
+    "created_at": "2026-06-24T22:09:14.375232Z",
+    "regime_id": null,
+    "regime_label": "Reopening / Soft Landing leads; top macro-supported themes are Quality ex-AI cash flow, Grid and power infrastructure, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.4,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.19,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.17,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.12,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.12,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.3,
+        "notes": "HY spreads tight (265bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish/stable bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "mixed/mixed still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "neutral",
+        "signal_strength": 0.3,
+        "level_status": "neutral",
+        "trend_status": "stable",
+        "current_value": 5.54,
+        "notes": "Volatility layer converted from RegimeState.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "mixed",
+        "signal_strength": 0.275,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 6.77,
+        "notes": "Sector ADL slope rising — participation broadening Breadth has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.88; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.88, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.01,
+        "notes": "Equity put/call elevated (0.99) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.88,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.01,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.60, Quality ex-AI cash flow +0.30, Cash and short duration +0.11."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 0.9400000000000001,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.51, Quality ex-AI cash flow +0.30, Defense and geopolitics +0.13."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 0.91,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.54, Quality ex-AI cash flow +0.37."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 0.73,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.73."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.45799999999999996,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.45, Energy and oil beta +0.00."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.16999999999999998,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.16, Energy and oil beta +0.01."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": -0.040499999999999946,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: High-beta AI semiconductors -0.15, Quality AI leaders +0.13, Memory semiconductors -0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.049999999999999954,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.06, Long-duration growth +0.01."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": -0.2915,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: High-beta AI semiconductors -0.33, Quality AI leaders +0.07, Memory semiconductors -0.03."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 0.8755,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.32, Quality ex-AI cash flow +0.30, Cash and short duration +0.26."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 0.8355,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.52, Healthcare defensives +0.22, Quality AI leaders +0.10."
+      },
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 0.73,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.73."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.36200000000000004,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.36, Energy and oil beta +0.00."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": 5.204170427930421e-17,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth +0.02, Small caps -0.02."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.06999999999999995,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.07."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.25549999999999995,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: High-beta AI semiconductors -0.21, Memory semiconductors -0.04, Small caps -0.01."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Reopening / Soft Landing at 40.0%; runner-up ai_capex_rollover at 19.0%. The largest displayed deterministic driver is Oil shock and reopening optionality (+0.279). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow.",
+    "source_path": "data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-23_20260624T220914Z.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-23_20260624T220914Z.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "ETN",
+    "selected_theme_ids": [
+      "grid_power_infrastructure",
+      "quality_ai",
+      "quality_ex_ai_cash_flow"
+    ],
+    "theme_mapping": {
+      "ticker": "ETN",
+      "mapped_themes": [
+        {
+          "theme_id": "grid_power_infrastructure",
+          "theme_label": "Grid and power infrastructure",
+          "fit": "primary",
+          "confidence": 0.9,
+          "rationale": "Shared terms: and, grid, infrastructure, power.; Company text directly references grid, power, or electrification demand."
+        },
+        {
+          "theme_id": "quality_ai",
+          "theme_label": "Quality AI leaders",
+          "fit": "partial",
+          "confidence": 0.52,
+          "rationale": "Company text points to quality, pricing power, or cash-flow resilience.; Company text references AI or data-center demand tied to this theme."
+        },
+        {
+          "theme_id": "quality_ex_ai_cash_flow",
+          "theme_label": "Quality ex-AI cash flow",
+          "fit": "partial",
+          "confidence": 0.52,
+          "rationale": "Company text points to quality, pricing power, or cash-flow resilience."
+        }
+      ],
+      "rejected_themes": [],
+      "mapping_summary": "Mapped 3 of 12 available macro-forecast themes using deterministic keyword/semantic fallback.",
+      "data_confidence": "medium",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [
+      {
+        "theme_id": "grid_power_infrastructure",
+        "label": "Grid and power infrastructure",
+        "score": 0.93,
+        "fit": "primary",
+        "fit_confidence": 0.9,
+        "weighted_score": 0.8370000000000001,
+        "rationale": "Grid and power infrastructure has macro support score 0.93; best in reopening_soft_landing, sticky_late_cycle_ai, oil_inflation_tail and worst in ai_capex_rollover, late_cycle_risk_off. Contribution breakdown: Reopening / Soft Landing +0.80; Sticky Late Cycle AI +0.51; AI Capex Rollover -0.38; Oil Inflation Tail +0.12; Late Cycle Risk-Off -0.12."
+      },
+      {
+        "theme_id": "quality_ai",
+        "label": "Quality AI leaders",
+        "score": 0.29000000000000004,
+        "fit": "partial",
+        "fit_confidence": 0.52,
+        "weighted_score": 0.06786000000000002,
+        "rationale": "Quality AI leaders has macro support score 0.29; best in sticky_late_cycle_ai, reopening_soft_landing and worst in ai_capex_rollover, oil_inflation_tail, late_cycle_risk_off. Contribution breakdown: Sticky Late Cycle AI +0.51; Reopening / Soft Landing +0.40; AI Capex Rollover -0.38; Oil Inflation Tail -0.12; Late Cycle Risk-Off -0.12."
+      },
+      {
+        "theme_id": "quality_ex_ai_cash_flow",
+        "label": "Quality ex-AI cash flow",
+        "score": 1.48,
+        "fit": "partial",
+        "fit_confidence": 0.52,
+        "weighted_score": 0.34632,
+        "rationale": "Quality ex-AI cash flow has macro support score 1.48; best in reopening_soft_landing, ai_capex_rollover, sticky_late_cycle_ai and worst in no negative scenarios. Contribution breakdown: Reopening / Soft Landing +0.40; AI Capex Rollover +0.38; Sticky Late Cycle AI +0.34; Late Cycle Risk-Off +0.24; Oil Inflation Tail +0.12."
+      }
+    ],
+    "relevant_theme_impacts": [
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.35,
+        "rationale": "Healthy credit supports profitable growth leadership.",
+        "source_input_id": "credit_conditions",
+        "source_label": "Credit layer health",
+        "category": "credit"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.15,
+        "rationale": "Orderly volatility supports quality leadership.",
+        "source_input_id": "volatility_layer_summary",
+        "source_label": "Volatility layer summary",
+        "category": "volatility"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.15,
+        "rationale": "Hedged markets can still support liquid leaders.",
+        "source_input_id": "positioning_hedging",
+        "source_label": "Positioning and hedging",
+        "category": "positioning"
+      },
+      {
+        "theme_id": "quality_ex_ai_cash_flow",
+        "theme_label": "Quality ex-AI cash flow",
+        "direction": "positive",
+        "strength": 0.15,
+        "rationale": "Mixed policy favors durable cash flow.",
+        "source_input_id": "monetary_policy_composite",
+        "source_label": "Monetary policy composite",
+        "category": "monetary"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.65,
+        "rationale": "AI resilience supports quality AI leaders.",
+        "source_input_id": "ai_earnings_resilience",
+        "source_label": "AI earnings resilience",
+        "category": "earnings"
+      },
+      {
+        "theme_id": "grid_power_infrastructure",
+        "theme_label": "Grid and power infrastructure",
+        "direction": "positive",
+        "strength": 0.45,
+        "rationale": "AI capex resilience supports power demand.",
+        "source_input_id": "ai_earnings_resilience",
+        "source_label": "AI earnings resilience",
+        "category": "earnings"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.25,
+        "rationale": "Untriggered capex risk supports quality AI.",
+        "source_input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "source_label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings"
+      },
+      {
+        "theme_id": "grid_power_infrastructure",
+        "theme_label": "Grid and power infrastructure",
+        "direction": "positive",
+        "strength": 0.2,
+        "rationale": "Untriggered capex risk supports grid demand.",
+        "source_input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "source_label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings"
+      }
+    ],
+    "linked_scenarios": [
+      "late_cycle_risk_off",
+      "reopening_soft_landing",
+      "sticky_late_cycle_ai",
+      "oil_inflation_tail",
+      "ai_capex_rollover"
+    ],
+    "positive_drivers": [
+      "Credit layer health: Healthy credit supports profitable growth leadership.",
+      "Volatility layer summary: Orderly volatility supports quality leadership.",
+      "Positioning and hedging: Hedged markets can still support liquid leaders.",
+      "Monetary policy composite: Mixed policy favors durable cash flow.",
+      "AI earnings resilience: AI resilience supports quality AI leaders.",
+      "AI earnings resilience: AI capex resilience supports power demand.",
+      "Hyperscaler capex rollover falsifier: Untriggered capex risk supports quality AI.",
+      "Hyperscaler capex rollover falsifier: Untriggered capex risk supports grid demand."
+    ],
+    "negative_drivers": [],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": 0.9146052631578948,
+    "theme_fit_summary": "ETN maps to macro-forecast themes grid_power_infrastructure, quality_ai, quality_ex_ai_cash_flow. Aggregate theme support score is 0.91.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "ETN",
+    "as_of_date": "2026-06-26",
+    "financial_trend": {
+      "latest": {
+        "revenue": 27448000000.0,
+        "revenue_growth_yoy": 0.10330412412573357,
+        "gross_margin": 0.3758743806470417,
+        "operating_margin": 0.18977703293500436,
+        "ebitda_margin": 0.22511658408627222,
+        "net_margin": 0.1488997376858059,
+        "free_cash_flow": 3553000000.0,
+        "free_cash_flow_margin": 0.12944476828912854,
+        "total_debt": 10532000000.0,
+        "cash_and_equivalents": 622000000.0,
+        "net_debt": 9910000000.0,
+        "net_debt_to_ebitda": 1.603819388250526,
+        "capex": -919000000.0,
+        "capex_as_pct_revenue": 0.03348149227630429,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 24878000000.0,
+        "revenue_growth_yoy": 0.07251250215554406,
+        "gross_margin": 0.38198408232173003,
+        "operating_margin": 0.18618860036980464,
+        "ebitda_margin": 0.2257818152584613,
+        "net_margin": 0.15250422059651098,
+        "free_cash_flow": 3519000000.0,
+        "free_cash_flow_margin": 0.141450277353485,
+        "total_debt": 9821000000.0,
+        "cash_and_equivalents": 555000000.0,
+        "net_debt": 9266000000.0,
+        "net_debt_to_ebitda": 1.6496350364963503,
+        "capex": -808000000.0,
+        "capex_as_pct_revenue": 0.03247849505587266,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "stable",
+      "fcf_direction": "deteriorating",
+      "leverage_direction": "stable",
+      "notes": []
+    },
+    "price_snapshot": {
+      "current_price": 401.21,
+      "market_cap": 155789836288.0,
+      "return_1m": -0.012697796894727309,
+      "return_3m": 0.12662764944141439,
+      "return_6m": 0.250188191286791,
+      "return_1y": 0.16581271478485998,
+      "drawdown_from_52w_high": -0.07932901665091117,
+      "distance_from_52w_low": 0.2778584530280304,
+      "beta": 1.192
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 39.334312,
+      "forward_pe": 25.538818,
+      "ev_to_ebitda": 29.034,
+      "price_to_sales": 5.462094,
+      "price_to_book": 7.8997006,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": {
+      "peer_tickers": [
+        "GEV",
+        "PWR",
+        "EMR",
+        "ROK"
+      ],
+      "relative_return_3m": "underperforming peer median by -12.6%",
+      "relative_return_6m": "underperforming peer median by -14.9%",
+      "relative_valuation": "valuation multiple cheaper versus peer median (25.54 vs 37.55)",
+      "relative_margin_profile": "margin profile above peers versus peer median (0.16 vs 0.13)",
+      "relative_growth_profile": "revenue growth above peers versus peer median (0.17 vs 0.14)",
+      "notes": []
+    },
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance."
+    ]
+  },
+  "company_profile": {
+    "ticker": "ETN",
+    "company_name": "Eaton",
+    "sector": "Industrials",
+    "industry": "Electrical Equipment / Power Management",
+    "business_description": "Eaton is a power management company exposed to electrical equipment, data centers, grid modernization, commercial buildings, aerospace, vehicles, and industrial end markets.",
+    "business_model": "Diversified industrial with meaningful electrical equipment exposure. Revenue is driven by electrification, data center power demand, backlog conversion, pricing, and industrial/aerospace cycles.",
+    "segments": [
+      {
+        "name": "Electrical Americas",
+        "description": "Electrical products and systems for commercial, industrial, utility, and data center customers.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "data center demand",
+          "grid spending",
+          "commercial construction",
+          "pricing"
+        ]
+      },
+      {
+        "name": "Electrical Global",
+        "description": "Electrical equipment and systems outside the Americas.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "global electrification",
+          "industrial demand",
+          "energy transition"
+        ]
+      },
+      {
+        "name": "Aerospace",
+        "description": "Hydraulic, fuel, motion control, and electrical systems for aerospace markets.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "aircraft production",
+          "aftermarket demand",
+          "defense spending"
+        ]
+      }
+    ],
+    "revenue_model": [
+      "equipment sales",
+      "systems integration",
+      "aftermarket/services",
+      "project backlog conversion"
+    ],
+    "cost_drivers": [
+      "raw materials",
+      "labor",
+      "supply chain",
+      "manufacturing capacity"
+    ],
+    "margin_drivers": [
+      "pricing power",
+      "volume leverage",
+      "mix toward electrical/data center",
+      "supply chain normalization"
+    ],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [
+      {
+        "ticker": "GEV",
+        "name": "GE Vernova",
+        "relevance": "Power/grid infrastructure peer"
+      },
+      {
+        "ticker": "PWR",
+        "name": "Quanta Services",
+        "relevance": "Grid and electrical infrastructure peer"
+      },
+      {
+        "ticker": "EMR",
+        "name": "Emerson Electric",
+        "relevance": "Industrial automation/electrical peer"
+      },
+      {
+        "ticker": "ROK",
+        "name": "Rockwell Automation",
+        "relevance": "Industrial automation peer"
+      }
+    ],
+    "thematic_exposures": [
+      "AI data center power demand",
+      "electrification",
+      "grid modernization",
+      "industrial infrastructure",
+      "reshoring"
+    ],
+    "macro_sensitivities": [
+      "rates",
+      "industrial capex",
+      "data center capex",
+      "commodity input costs",
+      "construction cycle"
+    ],
+    "major_risks": [
+      "valuation compression",
+      "data center capex slowdown",
+      "industrial slowdown",
+      "capacity constraints",
+      "execution risk"
+    ]
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": null,
+    "operating_margin_trend": "stable",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "deteriorating",
+    "capex_trend": null,
+    "leverage_trend": "stable",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving."
+    ],
+    "deteriorating_indicators": [
+      "Free cash flow is deteriorating."
+    ],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from fundamental context pack.",
+    "why_screen_may_be_wrong": "The basic screen should be interpreted in context of trend direction, cyclicality, and whether weak metrics are improving or deteriorating."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Industrial and electrical equipment names can be vulnerable to valuation compression if rates rise.",
+      "Data center optimism may already be partially priced into the stock.",
+      "Supply chain, labor, and input costs can pressure margins if pricing does not offset inflation."
+    ],
+    "recent_strength_points": [
+      "Data center power demand, electrification, and grid modernization provide strong secular demand support.",
+      "Backlog conversion and pricing can support revenue and margin resilience."
+    ],
+    "likely_causes": [
+      "AI data center power demand",
+      "electrification capex",
+      "industrial infrastructure spending",
+      "pricing and backlog conversion"
+    ],
+    "pressure_type": "macro_driven",
+    "cyclical_vs_structural_assessment": "For ETN, the fundamental setup appears more secular than purely cyclical, but the stock can still be pressured by rates, valuation, and any slowdown in data center or industrial capex expectations.",
+    "abatement_evidence": [
+      "Sustained backlog strength would support future revenue visibility.",
+      "Stable or expanding margins would indicate pricing power is offsetting input cost pressure."
+    ],
+    "inflection_catalysts": [
+      "continued data center order growth",
+      "margin expansion from electrical mix",
+      "grid/electrification spending acceleration"
+    ],
+    "margin_recovery_potential": "Potentially meaningful if the identified pressure points are temporary and pricing/mix improves.",
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": [
+      "Is data center demand still accelerating or merely remaining strong?",
+      "Are margins expanding despite input and labor cost pressure?",
+      "Is valuation still reasonable versus forward earnings revisions?"
+    ]
+  },
+  "competitive_position_analysis": {
+    "peer_group": [
+      {
+        "ticker": "GEV",
+        "name": "GE Vernova",
+        "relevance": "Power/grid infrastructure peer"
+      },
+      {
+        "ticker": "PWR",
+        "name": "Quanta Services",
+        "relevance": "Grid and electrical infrastructure peer"
+      },
+      {
+        "ticker": "EMR",
+        "name": "Emerson Electric",
+        "relevance": "Industrial automation/electrical peer"
+      },
+      {
+        "ticker": "ROK",
+        "name": "Rockwell Automation",
+        "relevance": "Industrial automation peer"
+      }
+    ],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [
+      "scale in electrical equipment",
+      "installed base",
+      "distribution and customer relationships",
+      "mission-critical power management expertise"
+    ],
+    "competitive_advantages": [
+      "direct exposure to data center power demand",
+      "strong positioning in electrification and grid modernization",
+      "pricing power in critical infrastructure categories"
+    ],
+    "competitive_threats": [
+      "valuation risk",
+      "competition from other electrical and grid equipment providers",
+      "industrial capex slowdown"
+    ],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "ETN has strong competitive positioning as an electrical infrastructure compounder with data center and electrification exposure, but valuation and capex-cycle risk need to be underwritten carefully."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (grid_power_infrastructure, quality_ai, quality_ex_ai_cash_flow) with aggregate theme support score 0.91. Known exposures: AI data center power demand, electrification, grid modernization, industrial infrastructure, reshoring, rates, industrial capex, data center capex, commodity input costs, construction cycle.",
+    "scenario_impacts": [
+      {
+        "scenario_name": "Rates remain elevated",
+        "impact": "negative",
+        "rationale": "Higher rates can pressure valuation multiples and financing-sensitive demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "AI capex acceleration",
+        "impact": "positive",
+        "rationale": "Company appears positively exposed to sustained or accelerating AI/data center capex.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "AI capex rollover",
+        "impact": "negative",
+        "rationale": "A slowdown in AI/data center capex would likely pressure growth expectations and valuation.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "Global growth slows",
+        "impact": "negative",
+        "rationale": "Slower macro growth would likely pressure cyclical demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Macro-supported mapped themes",
+        "impact": "positive",
+        "rationale": "Credit layer health: Healthy credit supports profitable growth leadership.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Aggregate mapped-theme support",
+        "impact": "positive",
+        "rationale": "Mapped macro themes have positive aggregate support score of 0.91.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "AI/data-center macro support",
+        "impact": "positive",
+        "rationale": "Mapped theme drivers include positive AI/data-center macro support.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "Oil/inflation macro sensitivity",
+        "impact": "mixed",
+        "rationale": "Macro forecast signals mention oil, commodities, or inflation; ticker-level impact depends on whether this is revenue beta or input-cost pressure.",
+        "sensitivity_level": "medium"
+      }
+    ],
+    "oil_sensitivity": null,
+    "rate_sensitivity": "Medium to high",
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": "High",
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro forecast supports the company's mapped themes, improving the odds that top-down backdrop reinforces ticker-level execution.",
+    "downside_scenario": "The main downside is that positive mapped-theme support fades or becomes crowded before ticker fundamentals confirm.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: reopening_soft_landing, ai_capex_rollover, sticky_late_cycle_ai. Top macro signals: Credit layer health, AI earnings resilience, Oil shock and reopening optionality. ETN maps to macro-forecast themes grid_power_infrastructure, quality_ai, quality_ex_ai_cash_flow. Aggregate theme support score is 0.91."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "Market narrative likely centers on data center power demand, electrification, grid modernization, and industrial infrastructure.",
+    "implied_expectations": "The stock may already price in a meaningful amount of secular data center and electrification upside.",
+    "market_mispricing_hypothesis": "Potential mispricing exists if the market underestimates the duration of electrical backlog growth or the margin uplift from mix shift, but valuation risk is material.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": "High-quality AI infrastructure beneficiaries can become consensus longs.",
+    "expectation_summary": "The key expectation question is whether earnings revisions can continue to outrun valuation expectations."
+  },
+  "variant_view": {
+    "consensus_view": "ETN is viewed as a high-quality electrical infrastructure beneficiary of data center demand and electrification.",
+    "helix_variant_view": "The possible variant view is that electrical demand from data centers, grid modernization, and electrification can sustain above-trend growth and margin resilience for longer than traditional industrial-cycle models imply. Macro forecast mapping identifies grid_power_infrastructure, quality_ai, quality_ex_ai_cash_flow as relevant themes; ticker-level underwriting should test whether the company is a clean expression of that support.",
+    "evidence_supporting_variant_view": [
+      "Data center power demand, electrification, and grid modernization provide strong secular demand support.",
+      "Backlog conversion and pricing can support revenue and margin resilience.",
+      "continued data center order growth",
+      "margin expansion from electrical mix",
+      "grid/electrification spending acceleration",
+      "Credit layer health: Healthy credit supports profitable growth leadership.",
+      "Volatility layer summary: Orderly volatility supports quality leadership.",
+      "Positioning and hedging: Hedged markets can still support liquid leaders.",
+      "Monetary policy composite: Mixed policy favors durable cash flow."
+    ],
+    "why_market_may_be_wrong": [
+      "The market may underestimate the duration of data center electrical demand.",
+      "The market may underappreciate backlog quality and pricing power."
+    ],
+    "required_confirming_evidence": [
+      "Data center orders remain strong.",
+      "Electrical margins continue expanding.",
+      "Backlog conversion supports revenue visibility.",
+      "Earnings revisions remain positive."
+    ],
+    "risks_to_variant_view": [
+      "Valuation already reflects much of the secular upside.",
+      "Data center capex expectations slow.",
+      "Rates rise and pressure industrial multiples."
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Electrical backlog growth slows materially.",
+      "Margins stop expanding despite strong end-market demand.",
+      "Pricing power weakens relative to input/labor costs."
+    ],
+    "macro_falsifiers": [
+      "Data center capex expectations roll over.",
+      "Rates rise enough to pressure industrial multiples.",
+      "Industrial capex slows sharply."
+    ],
+    "valuation_falsifiers": [
+      "Valuation expands without corresponding upward estimate revisions."
+    ],
+    "timing_falsifiers": [
+      "Backlog conversion fails to support earnings growth over the target horizon."
+    ],
+    "technical_or_price_falsifiers": [
+      "Stock underperforms industrial/electrical peers despite intact macro theme."
+    ],
+    "monitoring_triggers": [
+      "Order growth decelerates.",
+      "Electrical margins disappoint.",
+      "Data center commentary weakens."
+    ],
+    "key_metrics_to_watch": [
+      "orders",
+      "backlog",
+      "electrical segment margin",
+      "data center demand commentary",
+      "earnings revisions",
+      "forward multiple"
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 70.0,
+    "financial_health": 54.0,
+    "competitive_position": 60.0,
+    "earnings_inflection_potential": 71.0,
+    "regime_fit": 65.74605263157895,
+    "valuation_setup": 55.0,
+    "variant_perception_strength": 80.0,
+    "idiosyncratic_risk": 65.0,
+    "final_underwriting_score": 64.06207706766918
+  },
+  "verdict": "watchlist",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "ETN receives a watchlist verdict with a final underwriting score of 64.1/100. Variant view: The possible variant view is that electrical demand from data centers, grid modernization, and electrification can sustain above-trend growth and margin resilience for longer than traditional industrial-cycle models imply. Macro forecast mapping identifies grid_power_infrastructure, quality_ai, quality_ex_ai_cash_flow as relevant themes; ticker-level underwriting should test whether the company is a clean expression of that support. Pressure/inflection assessment: For ETN, the fundamental setup appears more secular than purely cyclical, but the stock can still be pressured by rates, valuation, and any slowdown in data center or industrial capex expectations.",
+  "key_monitoring_items": [
+    "orders",
+    "backlog",
+    "electrical segment margin",
+    "data center demand commentary",
+    "earnings revisions",
+    "Order growth decelerates.",
+    "Electrical margins disappoint.",
+    "Data center commentary weakens.",
+    "Is data center demand still accelerating or merely remaining strong?",
+    "Are margins expanding despite input and labor cost pressure?",
+    "Is valuation still reasonable versus forward earnings revisions?"
+  ],
+  "recommended_next_action": "Add to watchlist and rerun when price, estimates, or macro context changes.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding; richer filing, transcript, and LLM synthesis layers pending.",
+    "Financial context sourced from yfinance.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-23_20260624T220914Z.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

@@ -1,0 +1,1138 @@
+{
+  "ticker": "AAPL",
+  "as_of_date": "2026-06-27",
+  "created_at": "2026-06-27T17:32:20.031184",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-05",
+    "created_at": "2026-06-12T16:59:50.064967Z",
+    "regime_id": null,
+    "regime_label": "Sticky Late Cycle AI leads; top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.36240265879628086,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.3107222840217003,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.1502536969955016,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.13173991765464557,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.04488144253187162,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.26,
+        "notes": "HY spreads tight (275bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "bearish",
+        "signal_strength": 0.6,
+        "level_status": "bearish",
+        "trend_status": "deteriorating",
+        "current_value": 4.39,
+        "notes": "Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing Breadth remains weak on an absolute basis.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "high_beta_ai_semis",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "bullish",
+        "signal_strength": 0.3,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 7.26,
+        "notes": "Put/call ratio elevated (1.15) — fear-driven hedging, contrarian bullish",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.59; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.59, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.25,
+        "notes": "Equity put/call elevated (1.15) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.59,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.545320782416292,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +1.06, Quality ex-AI cash flow +0.31, Cash and short duration +0.17."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 1.4070391876971877,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.90, Quality ex-AI cash flow +0.31, Defense and geopolitics +0.20."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 1.154691623057673,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 1.0005192299704084,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.62, Quality ex-AI cash flow +0.38."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.7726430316381337,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.66, Energy and oil beta +0.11."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.5142520779391876,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Energy and oil beta +0.28, Commodities and real assets +0.24."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": 0.3796309856404655,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.46, Long-duration growth -0.07, High-beta AI semiconductors -0.04."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": 0.20398355281113664,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.26, High-beta AI semiconductors -0.09, Memory semiconductors +0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.8146079241839199,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.72, Long-duration growth -0.09."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 1.154691623057673,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 1.1441245129776911,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.54, Quality AI leaders +0.36, Healthcare defensives +0.25."
+      },
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 1.0814048070015705,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.40, Healthcare defensives +0.37, Quality ex-AI cash flow +0.31."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.686512713738485,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.52, Energy and oil beta +0.17."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.2620979316513681,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: Small caps -0.14, Long-duration growth -0.11, High-beta AI semiconductors -0.06."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": -0.5899773572243925,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth -0.32, Small caps -0.27."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.9044601509677309,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.90."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Sticky Late Cycle AI at 36.2%; runner-up reopening_soft_landing at 31.1%. The largest displayed deterministic driver is AI earnings resilience (+0.403). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically calibrated after the deterministic update.",
+    "source_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "AAPL",
+    "selected_theme_ids": [],
+    "theme_mapping": {
+      "ticker": "AAPL",
+      "mapped_themes": [],
+      "rejected_themes": [],
+      "mapping_summary": "Mapped 0 of 12 available macro-forecast themes using deterministic keyword/semantic fallback.",
+      "data_confidence": "low",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [],
+    "relevant_theme_impacts": [],
+    "linked_scenarios": [],
+    "positive_drivers": [],
+    "negative_drivers": [],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": null,
+    "theme_fit_summary": "No valid macro-forecast theme mapping was found for AAPL.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "AAPL",
+    "as_of_date": "2026-06-27",
+    "financial_trend": {
+      "latest": {
+        "revenue": 451442000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.47862405358827936,
+        "operating_margin": 0.32643396050876966,
+        "ebitda_margin": 0.35436667390273835,
+        "net_margin": 0.2715188219084622,
+        "free_cash_flow": 129174000000.0,
+        "free_cash_flow_margin": 0.28613642505571035,
+        "total_debt": 84711000000.0,
+        "cash_and_equivalents": 45572000000.0,
+        "net_debt": 39139000000.0,
+        "net_debt_to_ebitda": 0.2446554483172476,
+        "capex": -11048000000.0,
+        "capex_as_pct_revenue": 0.02447268973644455,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 391035000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.4620634981523393,
+        "operating_margin": 0.31510222870075566,
+        "ebitda_margin": 0.3443707085043538,
+        "net_margin": 0.23971255769943867,
+        "free_cash_flow": 108807000000.0,
+        "free_cash_flow_margin": 0.27825386474356517,
+        "total_debt": 106629000000.0,
+        "cash_and_equivalents": 29943000000.0,
+        "net_debt": 76686000000.0,
+        "net_debt_to_ebitda": 0.5694744580836323,
+        "capex": -9447000000.0,
+        "capex_as_pct_revenue": 0.02415896275269477,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "improving",
+      "fcf_direction": "improving",
+      "leverage_direction": "improving",
+      "notes": [
+        "financial_trend.latest is derived from trailing four quarters.",
+        "financial_trend.prior_year uses prior fiscal year because previous trailing four-quarter window is unavailable.",
+        "Latest quarter annualized revenue is -1.5% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 49.3% versus 47.9% LTM.",
+        "Latest quarter operating margin is 32.3% versus 32.6% LTM."
+      ]
+    },
+    "quarterly_financial_trend": {
+      "latest_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-0",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 111184000000.0,
+        "revenue_growth_yoy": 0.16595182415922985,
+        "revenue_growth_qoq": -0.22657836890286318,
+        "gross_profit": 54781000000.0,
+        "gross_margin": 0.4927057850050367,
+        "operating_income": 35885000000.0,
+        "operating_margin": 0.32275327385235286,
+        "ebitda": 39324000000.0,
+        "ebitda_margin": 0.35368398330695067,
+        "net_income": 29578000000.0,
+        "net_margin": 0.2660274859692042,
+        "operating_cash_flow": 28702000000.0,
+        "free_cash_flow": 26731000000.0,
+        "free_cash_flow_margin": 0.24042128363793352,
+        "capex": -1971000000.0,
+        "capex_as_pct_revenue": 0.01772737084472586,
+        "total_debt": 84711000000.0,
+        "cash_and_equivalents": 45572000000.0,
+        "net_debt": 39139000000.0,
+        "net_debt_to_ebitda": 0.9952954938459974,
+        "return_on_invested_capital": null
+      },
+      "prior_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-1",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 143756000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": 0.4029629340464154,
+        "gross_profit": 69231000000.0,
+        "gross_margin": 0.4815868555051615,
+        "operating_income": 50852000000.0,
+        "operating_margin": 0.35373827875010433,
+        "ebitda": 54066000000.0,
+        "ebitda_margin": 0.3760956064442528,
+        "net_income": 42097000000.0,
+        "net_margin": 0.292836472912435,
+        "operating_cash_flow": 53925000000.0,
+        "free_cash_flow": 51552000000.0,
+        "free_cash_flow_margin": 0.3586076407245611,
+        "capex": -2373000000.0,
+        "capex_as_pct_revenue": 0.016507137093408276,
+        "total_debt": 90509000000.0,
+        "cash_and_equivalents": 45317000000.0,
+        "net_debt": 45192000000.0,
+        "net_debt_to_ebitda": 0.8358672733325935,
+        "return_on_invested_capital": null
+      },
+      "year_ago_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-4",
+        "period_end_date": "2025-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 95359000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 44867000000.0,
+        "gross_margin": 0.47050619238876246,
+        "operating_income": 29589000000.0,
+        "operating_margin": 0.31029058610094484,
+        "ebitda": 32250000000.0,
+        "ebitda_margin": 0.33819566060885703,
+        "net_income": 24780000000.0,
+        "net_margin": 0.25986010759341016,
+        "operating_cash_flow": 23952000000.0,
+        "free_cash_flow": 20881000000.0,
+        "free_cash_flow_margin": 0.2189725143929781,
+        "capex": -3071000000.0,
+        "capex_as_pct_revenue": 0.03220461623968372,
+        "total_debt": 98186000000.0,
+        "cash_and_equivalents": 28162000000.0,
+        "net_debt": 70024000000.0,
+        "net_debt_to_ebitda": 2.171286821705426,
+        "return_on_invested_capital": null
+      },
+      "trailing_four_quarters": {
+        "period_type": "ltm",
+        "fiscal_period": "trailing_four_quarters",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 451442000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 216071000000.0,
+        "gross_margin": 0.47862405358827936,
+        "operating_income": 147366000000.0,
+        "operating_margin": 0.32643396050876966,
+        "ebitda": 159976000000.0,
+        "ebitda_margin": 0.35436667390273835,
+        "net_income": 122575000000.0,
+        "net_margin": 0.2715188219084622,
+        "operating_cash_flow": 140222000000.0,
+        "free_cash_flow": 129174000000.0,
+        "free_cash_flow_margin": 0.28613642505571035,
+        "capex": -11048000000.0,
+        "capex_as_pct_revenue": 0.02447268973644455,
+        "total_debt": 84711000000.0,
+        "cash_and_equivalents": 45572000000.0,
+        "net_debt": 39139000000.0,
+        "net_debt_to_ebitda": 0.2446554483172476,
+        "return_on_invested_capital": null
+      },
+      "trailing_eight_quarters": [
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-0",
+          "period_end_date": "2026-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 111184000000.0,
+          "revenue_growth_yoy": 0.16595182415922985,
+          "revenue_growth_qoq": -0.22657836890286318,
+          "gross_profit": 54781000000.0,
+          "gross_margin": 0.4927057850050367,
+          "operating_income": 35885000000.0,
+          "operating_margin": 0.32275327385235286,
+          "ebitda": 39324000000.0,
+          "ebitda_margin": 0.35368398330695067,
+          "net_income": 29578000000.0,
+          "net_margin": 0.2660274859692042,
+          "operating_cash_flow": 28702000000.0,
+          "free_cash_flow": 26731000000.0,
+          "free_cash_flow_margin": 0.24042128363793352,
+          "capex": -1971000000.0,
+          "capex_as_pct_revenue": 0.01772737084472586,
+          "total_debt": 84711000000.0,
+          "cash_and_equivalents": 45572000000.0,
+          "net_debt": 39139000000.0,
+          "net_debt_to_ebitda": 0.9952954938459974,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-1",
+          "period_end_date": "2025-12-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 143756000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.4029629340464154,
+          "gross_profit": 69231000000.0,
+          "gross_margin": 0.4815868555051615,
+          "operating_income": 50852000000.0,
+          "operating_margin": 0.35373827875010433,
+          "ebitda": 54066000000.0,
+          "ebitda_margin": 0.3760956064442528,
+          "net_income": 42097000000.0,
+          "net_margin": 0.292836472912435,
+          "operating_cash_flow": 53925000000.0,
+          "free_cash_flow": 51552000000.0,
+          "free_cash_flow_margin": 0.3586076407245611,
+          "capex": -2373000000.0,
+          "capex_as_pct_revenue": 0.016507137093408276,
+          "total_debt": 90509000000.0,
+          "cash_and_equivalents": 45317000000.0,
+          "net_debt": 45192000000.0,
+          "net_debt_to_ebitda": 0.8358672733325935,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-2",
+          "period_end_date": "2025-09-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 102466000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.08964651835467267,
+          "gross_profit": 48341000000.0,
+          "gross_margin": 0.47177600374758455,
+          "operating_income": 32427000000.0,
+          "operating_margin": 0.3164659496808698,
+          "ebitda": 35554000000.0,
+          "ebitda_margin": 0.346983389612164,
+          "net_income": 27466000000.0,
+          "net_margin": 0.2680498897195167,
+          "operating_cash_flow": 29728000000.0,
+          "free_cash_flow": 26486000000.0,
+          "free_cash_flow_margin": 0.2584857416118517,
+          "capex": -3242000000.0,
+          "capex_as_pct_revenue": 0.031639763433724356,
+          "total_debt": 98657000000.0,
+          "cash_and_equivalents": 35934000000.0,
+          "net_debt": 62723000000.0,
+          "net_debt_to_ebitda": 1.7641615570681217,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-3",
+          "period_end_date": "2025-06-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 94036000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.013873887100326136,
+          "gross_profit": 43718000000.0,
+          "gross_margin": 0.4649070568718363,
+          "operating_income": 28202000000.0,
+          "operating_margin": 0.2999064188183249,
+          "ebitda": 31032000000.0,
+          "ebitda_margin": 0.33000127610702285,
+          "net_income": 23434000000.0,
+          "net_margin": 0.24920243311072354,
+          "operating_cash_flow": 27867000000.0,
+          "free_cash_flow": 24405000000.0,
+          "free_cash_flow_margin": 0.25952826577055593,
+          "capex": -3462000000.0,
+          "capex_as_pct_revenue": 0.03681568760900081,
+          "total_debt": 101698000000.0,
+          "cash_and_equivalents": 36269000000.0,
+          "net_debt": 65429000000.0,
+          "net_debt_to_ebitda": 2.108436452693993,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-4",
+          "period_end_date": "2025-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 95359000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": null,
+          "gross_profit": 44867000000.0,
+          "gross_margin": 0.47050619238876246,
+          "operating_income": 29589000000.0,
+          "operating_margin": 0.31029058610094484,
+          "ebitda": 32250000000.0,
+          "ebitda_margin": 0.33819566060885703,
+          "net_income": 24780000000.0,
+          "net_margin": 0.25986010759341016,
+          "operating_cash_flow": 23952000000.0,
+          "free_cash_flow": 20881000000.0,
+          "free_cash_flow_margin": 0.2189725143929781,
+          "capex": -3071000000.0,
+          "capex_as_pct_revenue": 0.03220461623968372,
+          "total_debt": 98186000000.0,
+          "cash_and_equivalents": 28162000000.0,
+          "net_debt": 70024000000.0,
+          "net_debt_to_ebitda": 2.171286821705426,
+          "return_on_invested_capital": null
+        }
+      ],
+      "last_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "last_fiscal_year",
+        "period_end_date": "2025-09-30",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 416161000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 195201000000.0,
+        "gross_margin": 0.4690516410716045,
+        "operating_income": 133050000000.0,
+        "operating_margin": 0.31970799762591884,
+        "ebitda": 144748000000.0,
+        "ebitda_margin": 0.3478173110887373,
+        "net_income": 112010000000.0,
+        "net_margin": 0.2691506412181824,
+        "operating_cash_flow": 111482000000.0,
+        "free_cash_flow": 98767000000.0,
+        "free_cash_flow_margin": 0.23732882225869315,
+        "capex": -12715000000.0,
+        "capex_as_pct_revenue": 0.030553079216937677,
+        "total_debt": 98657000000.0,
+        "cash_and_equivalents": 35934000000.0,
+        "net_debt": 62723000000.0,
+        "net_debt_to_ebitda": 0.43332550363390165,
+        "return_on_invested_capital": null
+      },
+      "prior_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "prior_fiscal_year",
+        "period_end_date": "2024-09-30",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 391035000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 180683000000.0,
+        "gross_margin": 0.4620634981523393,
+        "operating_income": 123216000000.0,
+        "operating_margin": 0.31510222870075566,
+        "ebitda": 134661000000.0,
+        "ebitda_margin": 0.3443707085043538,
+        "net_income": 93736000000.0,
+        "net_margin": 0.23971255769943867,
+        "operating_cash_flow": 118254000000.0,
+        "free_cash_flow": 108807000000.0,
+        "free_cash_flow_margin": 0.27825386474356517,
+        "capex": -9447000000.0,
+        "capex_as_pct_revenue": 0.02415896275269477,
+        "total_debt": 106629000000.0,
+        "cash_and_equivalents": 29943000000.0,
+        "net_debt": 76686000000.0,
+        "net_debt_to_ebitda": 0.5694744580836323,
+        "return_on_invested_capital": null
+      },
+      "revenue_trend_8q": "improving",
+      "gross_margin_trend_8q": "improving",
+      "operating_margin_trend_8q": "improving",
+      "fcf_trend_8q": "improving",
+      "leverage_trend_8q": "improving",
+      "latest_quarter_vs_ltm_notes": [
+        "Latest quarter annualized revenue is -1.5% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 49.3% versus 47.9% LTM.",
+        "Latest quarter operating margin is 32.3% versus 32.6% LTM."
+      ],
+      "inflection_flags": [
+        "latest_quarter_revenue_accelerating_yoy",
+        "gross_margin_expanding_sequentially"
+      ],
+      "staleness_warnings": [],
+      "latest_period_end_date": "2026-03-31",
+      "latest_filing_date": null,
+      "financial_context_stale": false
+    },
+    "price_snapshot": {
+      "current_price": 283.78,
+      "market_cap": 4167977926656.0,
+      "return_1m": -0.1076119551155126,
+      "return_3m": 0.09018881875449088,
+      "return_6m": 0.01731259814329279,
+      "return_1y": 0.37378935975924255,
+      "drawdown_from_52w_high": -0.09968277598413869,
+      "distance_from_52w_low": 0.41687789627626454,
+      "beta": 1.086
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 34.35593,
+      "forward_pe": 29.532974,
+      "ev_to_ebitda": 26.155,
+      "price_to_sales": 9.232588,
+      "price_to_book": 39.088154,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": null,
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance.",
+      "Financial trend is derived from quarterly financial statements through period ending 2026-03-31."
+    ],
+    "data_freshness_notes": [
+      "Latest financial period end date: 2026-03-31."
+    ]
+  },
+  "llm_synthesis": {
+    "ticker": "AAPL",
+    "business_summary": "Company profile data is missing for AAPL: company_name, sector, industry, segments, business model, key customers, suppliers, revenue model, and thematic exposures are not supplied. Based only on supplied financial and market data, AAPL is a mega-cap public company with market cap of approximately $4.17T, very high margins, large free cash flow, and low LTM leverage. Underwriting must therefore rely on financial trend, valuation, macro fit, and price behavior rather than a sourced segment-level business description.",
+    "business_quality_assessment": "On the supplied financial evidence, business quality is high: LTM gross margin is 47.9%, operating margin is 32.6%, net margin is 27.2%, and free cash flow margin is 28.6%. Cash generation is very large in absolute terms, with LTM operating cash flow of $140.2B and free cash flow of $129.2B. Capital intensity appears low, with LTM capex at 2.4% of revenue. Leverage is modest on an LTM basis, with net debt/EBITDA of 0.24x. However, the static company profile is missing, so the source data does not identify products, segments, customer concentration, supplier dependencies, or revenue model durability.",
+    "financial_trend_diagnosis": "The current financial trend is positive, with quarterly data taking priority. Latest quarter revenue was $111.2B, up 16.6% YoY, and the model flags latest-quarter revenue acceleration. Sequential revenue declined 22.7% from the prior quarter, but the supplied notes indicate latest-quarter annualized revenue is only 1.5% below LTM revenue, so the sequential decline should not be over-interpreted without seasonality context. Gross margin is a clear positive inflection: latest quarter 49.3% versus 48.2% in the prior quarter, 47.1% in the year-ago quarter, and 47.9% LTM. Operating margin is solid at 32.3%, below the prior quarter’s 35.4% and slightly below LTM 32.6%, but above the year-ago quarter’s 31.0%. FCF remains very strong: latest-quarter FCF was $26.7B with a 24.0% margin, while LTM FCF was $129.2B with a 28.6% margin. Leverage has improved materially on an LTM basis, with net debt falling to $39.1B and net debt/EBITDA at 0.24x. Overall, the data show improving revenue, margins, free cash flow, and leverage, with the main nuance being that the latest quarter is not a clear run-rate acceleration versus LTM revenue and operating margin.",
+    "screen_interpretation": "No basic screen result was supplied. Based on the available financial and valuation data, AAPL would likely screen as very high quality with strong margins, high free cash flow, improving leverage, and improving quarterly trends, but also expensive on earnings, EBITDA, sales, and book multiples. The absence of a supplied screen means no deterministic pass/fail interpretation can be made.",
+    "why_screen_may_be_wrong": "Because no basic screen was supplied, this field is necessarily limited. If a screen flags AAPL positively for quality, it may be wrong by underweighting valuation and expectations risk. If a screen flags AAPL negatively for valuation, it may be wrong by underweighting the improving quarterly revenue trend, gross margin expansion, very large FCF generation, and improving leverage.",
+    "current_market_narrative": "Consensus appears to be a premium-quality narrative rather than a directly sourced estimate consensus. Based on the valuation snapshot and price behavior, the market appears to be underwriting AAPL as a durable, high-margin, high-free-cash-flow mega-cap compounder. The stock is up 37.4% over one year and trades at 34.4x trailing earnings, 29.5x forward earnings, and 26.2x EV/EBITDA, implying elevated expectations for persistence of margins, cash generation, and growth. The recent 10.8% one-month decline suggests some near-term expectations reset or volatility, but the shares remain 41.7% above the 52-week low and only 10.0% below the 52-week high.",
+    "consensus_type": "narrative",
+    "consensus_verification_required": [
+      "Verify current sell-side revenue, EPS, margin, and free cash flow estimates; no estimate consensus data is supplied.",
+      "Verify buy-side/sell-side narrative around whether the market is focused on margin expansion, product cycle, services mix, AI exposure, capital returns, or regulatory risk; none is sourced in the context.",
+      "Verify positioning and ownership concentration; price action and valuation imply high expectations, but direct positioning data is not supplied.",
+      "Verify recent company guidance, management commentary, and catalysts; no earnings-call or filing commentary is supplied."
+    ],
+    "macro_fit_assessment": "The macro backdrop is moderately supportive but not cleanly bullish for AAPL based on supplied data. The regime is labeled Sticky Late Cycle AI, with healthy credit, resilient AI earnings, and weak breadth. Quality is one of the strongest macro factors with a +1.14 score, and AAPL’s supplied financial profile fits the quality factor through high margins, very large FCF, and low LTM leverage. XLK has a positive but modest macro score of +0.38. However, duration sensitivity is negative at -0.59, high-beta growth is negative at -0.26, and market breadth is bearish/deteriorating, creating risk that mega-cap premium multiples become vulnerable if leadership narrows further or rates remain restrictive. The macro context therefore supports AAPL more as a quality cash-flow compounder than as a broad risk-on or high-duration growth expression.",
+    "theme_fit_assessment": "Theme context does not provide direct support: aggregate_theme_support_score is null, selected_theme_ids are empty, and the mapping found no valid macro-forecast theme mapping for AAPL. Therefore AAPL cannot be classified as a primary expression of the top macro-supported themes such as Grid and power infrastructure, Quality ex-AI cash flow, or Cash and short duration based on supplied theme mapping. At most, AAPL may be an indirect expression of the macro Quality factor and the technology sector via the positive XLK score, but that is not confirmed by the theme engine and should not be treated as a mapped thematic thesis.",
+    "pressure_inflection_assessment": "There is no clear evidence of acute financial pressure in the supplied data. Instead, the company shows a positive inflection across revenue, gross margin, FCF, and leverage. Latest-quarter revenue accelerated YoY, gross margin expanded sequentially and versus LTM, LTM FCF improved versus the prior-year comparison, and net debt declined materially. The main pressure is not operational distress but expectations pressure: valuation is high, one-year price performance is strong, and the latest-quarter revenue run rate is only slightly below LTM rather than clearly above it. Therefore, the relevant pressure is valuation/expectations-driven rather than cyclical or balance-sheet-driven based on supplied evidence.",
+    "competitive_position_assessment": "Direct competitive-position evidence is missing because the profile does not include industry, products, peer group, customer data, supplier data, or segment disclosure. The financial evidence indirectly suggests a strong competitive position: sustained LTM gross margin near 48%, operating margin above 32%, very high FCF conversion, and low capex intensity are consistent with meaningful pricing power and/or scale advantages. That said, without peer-relative data, segment detail, or market share evidence, the durability and source of those advantages cannot be verified from the supplied context.",
+    "valuation_expectations_assessment": "Valuation embeds high expectations. A trailing P/E of 34.4x, forward P/E of 29.5x, EV/EBITDA of 26.2x, price/sales of 9.2x, and price/book of 39.1x require durable growth, margin resilience, and continued FCF strength. This is not a low-valuation cyclical recovery setup; it is a premium-quality setup where the main risk is multiple compression if fundamentals merely normalize. The recent one-month decline of 10.8% suggests some reset, but the stock remains up 37.4% over one year and 41.7% above the 52-week low, so expectations risk remains meaningful.",
+    "variant_view": "The identifiable variant view is two-sided. Fundamentals are improving enough to challenge a simplistic bearish view based on valuation alone, but valuation and price performance are elevated enough to challenge a simplistic bullish view based on quality alone. The most differentiated underwriting question is whether the latest gross-margin and FCF improvement can persist long enough to justify premium multiples over the next 6 months. Evidence is insufficient to claim a strong bullish or bearish variant because direct consensus estimates, segment drivers, management commentary, and theme mapping are missing.",
+    "variant_view_direction": "two_sided",
+    "variant_view_strength": "medium",
+    "bull_case_variant_view": "The bull variant is that the market may still be underappreciating the breadth of the fundamental improvement: latest-quarter revenue accelerated 16.6% YoY, gross margin expanded to 49.3% versus 47.9% LTM, LTM free cash flow reached $129.2B with a 28.6% margin, and leverage improved materially with LTM net debt/EBITDA at 0.24x. If those trends persist over the next two quarters, the premium multiple may be more defensible than it appears on simple valuation screens.",
+    "bear_case_variant_view": "The bear variant is that the observable improvement is already more than priced in. A $4.17T market cap with trailing P/E of 34.4x, forward P/E of 29.5x, EV/EBITDA of 26.2x, and price/sales of 9.2x leaves limited room for disappointment if revenue growth normalizes, margins stop expanding, or macro support for mega-cap quality weakens. The latest quarter was strong year over year, but annualized latest-quarter revenue is slightly below LTM revenue, so the current valuation may be assuming durability beyond what the supplied data can independently verify.",
+    "evidence_supporting_variant_view": [
+      "Latest-quarter revenue was $111.2B, up 16.6% YoY versus the year-ago quarter.",
+      "Latest-quarter gross margin was 49.3%, above LTM gross margin of 47.9% and above the year-ago quarter gross margin of 47.1%.",
+      "LTM revenue was $451.4B versus prior fiscal-year revenue of $391.0B in the financial_trend comparison, indicating an improving revenue direction in the supplied model output.",
+      "LTM free cash flow was $129.2B with a 28.6% FCF margin, above prior-year free cash flow of $108.8B in the financial_trend comparison.",
+      "Leverage improved materially: LTM net debt/EBITDA is 0.24x versus 0.57x in the prior-year comparison, and total debt declined from $106.6B to $84.7B.",
+      "The quarterly model flags revenue_trend_8q, gross_margin_trend_8q, operating_margin_trend_8q, fcf_trend_8q, and leverage_trend_8q as improving.",
+      "Macro factor rankings favor quality, with the Quality factor score at +1.14 and Defensive factor score at +1.08."
+    ],
+    "evidence_against_variant_view": [
+      "Valuation is already premium: trailing P/E 34.4x, forward P/E 29.5x, EV/EBITDA 26.2x, price/sales 9.2x, and price/book 39.1x.",
+      "Latest-quarter annualized revenue is 1.5% below LTM revenue, so the latest quarter does not show sequential run-rate acceleration versus the trailing-four-quarter base despite strong YoY growth.",
+      "Latest-quarter operating margin of 32.3% is slightly below LTM operating margin of 32.6%.",
+      "The one-year return of 37.4% suggests a large amount of improvement may already be discounted, even after the latest one-month pullback.",
+      "Theme mapping is absent; AAPL is not confirmed as a primary expression of the macro model’s top themes."
+    ],
+    "key_risks": [
+      "Premium valuation creates high expectations risk if revenue growth or margin expansion slows.",
+      "Company profile and segment data are missing, limiting ability to assess product concentration, cyclicality, competitive threats, regulatory exposure, or supplier/customer risk.",
+      "Latest-quarter annualized revenue is slightly below LTM revenue, so a premium multiple depends on continued growth rather than a single-quarter run-rate step-up.",
+      "Macro breadth is weak and deteriorating, which can pressure mega-cap leadership if market concentration unwinds.",
+      "The macro regime has mixed monetary conditions and negative duration sensitivity, which can pressure high-multiple equities.",
+      "Theme mapping is absent, so AAPL is not confirmed as a primary beneficiary of the macro model’s strongest supported themes."
+    ],
+    "fundamental_falsifiers": [
+      "Latest-quarter revenue growth turns negative YoY in the next reported quarter after the current +16.6% YoY print.",
+      "Gross margin falls below 47.0% for two consecutive quarters, reversing the current expansion to 49.3%.",
+      "Operating margin falls below 30.0% for two consecutive quarters, indicating that gross margin strength is not translating into operating leverage.",
+      "LTM free cash flow margin falls below 24.0%, materially below the current LTM level of 28.6%.",
+      "LTM net debt/EBITDA rises above 0.75x from the current 0.24x, indicating deterioration in balance-sheet flexibility.",
+      "Total debt reaccelerates above $100B after declining to $84.7B."
+    ],
+    "macro_theme_falsifiers": [
+      "Macro Quality factor support turns negative from the current +1.14 score.",
+      "XLK sector support turns negative from the current +0.38 score.",
+      "Market breadth remains bearish and deteriorating while cap-weight leadership weakens, undermining mega-cap concentration support.",
+      "Credit conditions deteriorate from the current bullish/stable reading, reducing support for equity risk appetite.",
+      "Monetary policy shifts more restrictive, with hold/hike risk rising further and long-duration growth support becoming more negative.",
+      "The macro model’s Sticky Late Cycle AI scenario loses leadership while late_cycle_risk_off probability rises materially."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E remains near or above 30x while quarterly revenue growth decelerates materially from the current +16.6% YoY level.",
+      "EV/EBITDA remains above 25x while LTM EBITDA margin falls below 34.0% from the current 35.4%.",
+      "Price/sales remains above 9x while gross margin falls below 47.0%.",
+      "The stock makes a new 52-week high without a corresponding improvement in LTM revenue growth, FCF margin, or forward estimates, increasing peak-expectations risk.",
+      "Forward P/E compresses below 25x despite stable fundamentals, indicating that the market no longer pays the same premium for the cash-flow profile."
+    ],
+    "timing_falsifiers": [
+      "The stock continues to underperform over the next 1-2 months after the current -10.8% one-month move despite no further fundamental deterioration, indicating persistent de-rating pressure.",
+      "The stock fails to recover any of the recent one-month drawdown after the next quarterly report even if revenue and gross margin remain strong, suggesting valuation ceiling risk.",
+      "The stock retests or breaks materially below the current 52-week drawdown level while forward valuation remains near 30x, indicating that expectations are still too high.",
+      "Macro breadth deterioration accelerates during the 6-month horizon, increasing risk that mega-cap concentration unwinds before company fundamentals can re-rate further."
+    ],
+    "key_metrics_to_monitor": [
+      "Quarterly revenue and YoY revenue growth versus the latest +16.6% YoY print.",
+      "Latest-quarter revenue annualized versus LTM revenue, currently -1.5%.",
+      "Gross margin, currently 49.3% latest quarter and 47.9% LTM.",
+      "Operating margin, currently 32.3% latest quarter and 32.6% LTM.",
+      "Free cash flow and FCF margin, currently $26.7B and 24.0% latest quarter; $129.2B and 28.6% LTM.",
+      "Operating cash flow conversion versus net income.",
+      "Capex as a percentage of revenue, currently 1.8% latest quarter and 2.4% LTM.",
+      "Net debt, total debt, cash, and LTM net debt/EBITDA.",
+      "Forward P/E and EV/EBITDA relative to observed revenue and margin trends.",
+      "Price momentum: 1-month, 3-month, and drawdown from 52-week high."
+    ],
+    "suggested_monitoring_plan": [
+      "Refresh quarterly financials after the next report and compare revenue growth, gross margin, operating margin, and FCF margin against current levels.",
+      "Track whether latest-quarter annualized revenue moves above LTM revenue; this would help validate a growth reacceleration thesis.",
+      "Monitor valuation multiples against realized growth and margin trends, especially forward P/E near 30x and EV/EBITDA above 26x.",
+      "Add direct consensus data: revenue, EPS, margin, FCF estimates, and estimate revisions.",
+      "Add business profile and segment-level data to identify what is driving the margin and revenue improvement.",
+      "Monitor macro factor updates for Quality, XLK, duration sensitivity, breadth, and credit conditions.",
+      "Track price behavior after the recent one-month pullback to determine whether the stock stabilizes or continues de-rating despite improving fundamentals."
+    ],
+    "underwriting_summary": "AAPL presents as a high-quality, high-cash-generation mega-cap with improving financial trends, but the underwriting setup is two-sided over a 6-month horizon. The positive case rests on strong latest-quarter YoY revenue growth, expanding gross margin, very large LTM FCF, low capex intensity, and improving leverage. The caution is valuation and expectations: the stock trades at premium multiples, has strong one-year price performance, and the latest-quarter revenue run rate is not clearly above LTM. Macro supports quality but is mixed for high-multiple equities given weak breadth and negative duration sensitivity. Because company profile, segment detail, consensus estimates, and theme mapping are missing, conviction should remain measured until the drivers of the financial improvement are verified.",
+    "qualitative_conviction": "watchlist",
+    "suggested_score_adjustment": 1.0,
+    "confidence": "medium",
+    "data_gaps": [
+      "Static company profile is missing: business description, company name, sector, industry, segments, business model, revenue model, customers, suppliers, macro sensitivities, and risks are not supplied.",
+      "No management guidance, earnings-call commentary, recent news, product-cycle data, regulatory updates, or company-specific catalysts are supplied.",
+      "No direct sell-side estimate consensus or revision history is supplied.",
+      "No peer-relative snapshot is supplied.",
+      "No segment-level revenue, gross margin, operating income, or geographic exposure is supplied.",
+      "No audited filing citations are supplied; financials are sourced from yfinance and should be treated as data context, not audited proof.",
+      "Theme mapping found no valid macro-forecast theme mapping for AAPL, and aggregate theme support score is null.",
+      "No direct positioning, short interest, options skew, or institutional flow data is supplied."
+    ]
+  },
+  "company_profile": {
+    "ticker": "AAPL",
+    "company_name": null,
+    "sector": null,
+    "industry": null,
+    "business_description": "Company profile not yet available in static knowledge base.",
+    "business_model": null,
+    "segments": [],
+    "revenue_model": [],
+    "cost_drivers": [],
+    "margin_drivers": [],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [],
+    "thematic_exposures": [],
+    "macro_sensitivities": [],
+    "major_risks": []
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": "improving",
+    "operating_margin_trend": "improving",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "improving",
+    "capex_trend": null,
+    "leverage_trend": "improving",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving on trailing 8Q data.",
+      "Gross margin is improving on trailing 8Q data.",
+      "Operating margin is improving on trailing 8Q data.",
+      "Free cash flow is improving on trailing 8Q data.",
+      "Leverage is improving on trailing 8Q data.",
+      "Latest quarter revenue is accelerating year over year.",
+      "Gross margin is expanding sequentially."
+    ],
+    "deteriorating_indicators": [],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from quarterly-first fundamental context pack. Latest financial period ended 2026-03-31. LLM synthesis: The current financial trend is positive, with quarterly data taking priority. Latest quarter revenue was $111.2B, up 16.6% YoY, and the model flags latest-quarter revenue acceleration. Sequential revenue declined 22.7% from the prior quarter, but the supplied notes indicate latest-quarter annualized revenue is only 1.5% below LTM revenue, so the sequential decline should not be over-interpreted without seasonality context. Gross margin is a clear positive inflection: latest quarter 49.3% versus 48.2% in the prior quarter, 47.1% in the year-ago quarter, and 47.9% LTM. Operating margin is solid at 32.3%, below the prior quarter’s 35.4% and slightly below LTM 32.6%, but above the year-ago quarter’s 31.0%. FCF remains very strong: latest-quarter FCF was $26.7B with a 24.0% margin, while LTM FCF was $129.2B with a 28.6% margin. Leverage has improved materially on an LTM basis, with net debt falling to $39.1B and net debt/EBITDA at 0.24x. Overall, the data show improving revenue, margins, free cash flow, and leverage, with the main nuance being that the latest quarter is not a clear run-rate acceleration versus LTM revenue and operating margin.",
+    "why_screen_may_be_wrong": "Because no basic screen was supplied, this field is necessarily limited. If a screen flags AAPL positively for quality, it may be wrong by underweighting valuation and expectations risk. If a screen flags AAPL negatively for valuation, it may be wrong by underweighting the improving quarterly revenue trend, gross margin expansion, very large FCF generation, and improving leverage."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Premium valuation creates high expectations risk if revenue growth or margin expansion slows.",
+      "Company profile and segment data are missing, limiting ability to assess product concentration, cyclicality, competitive threats, regulatory exposure, or supplier/customer risk.",
+      "Latest-quarter annualized revenue is slightly below LTM revenue, so a premium multiple depends on continued growth rather than a single-quarter run-rate step-up.",
+      "Macro breadth is weak and deteriorating, which can pressure mega-cap leadership if market concentration unwinds.",
+      "The macro regime has mixed monetary conditions and negative duration sensitivity, which can pressure high-multiple equities."
+    ],
+    "recent_strength_points": [
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "likely_causes": [],
+    "pressure_type": "cyclical",
+    "cyclical_vs_structural_assessment": "There is no clear evidence of acute financial pressure in the supplied data. Instead, the company shows a positive inflection across revenue, gross margin, FCF, and leverage. Latest-quarter revenue accelerated YoY, gross margin expanded sequentially and versus LTM, LTM FCF improved versus the prior-year comparison, and net debt declined materially. The main pressure is not operational distress but expectations pressure: valuation is high, one-year price performance is strong, and the latest-quarter revenue run rate is only slightly below LTM rather than clearly above it. Therefore, the relevant pressure is valuation/expectations-driven rather than cyclical or balance-sheet-driven based on supplied evidence.",
+    "abatement_evidence": [
+      "Gross margin is expanding sequentially."
+    ],
+    "inflection_catalysts": [
+      "latest-quarter revenue acceleration"
+    ],
+    "margin_recovery_potential": "Potentially meaningful if the identified pressure points are temporary and pricing/mix improves.",
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": []
+  },
+  "competitive_position_analysis": {
+    "peer_group": [],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [],
+    "competitive_advantages": [],
+    "competitive_threats": [],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "Direct competitive-position evidence is missing because the profile does not include industry, products, peer group, customer data, supplier data, or segment disclosure. The financial evidence indirectly suggests a strong competitive position: sustained LTM gross margin near 48%, operating margin above 32%, very high FCF conversion, and low capex intensity are consistent with meaningful pricing power and/or scale advantages. That said, without peer-relative data, segment detail, or market share evidence, the durability and source of those advantages cannot be verified from the supplied context."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (none) with aggregate theme support score n/a. Known exposures: .",
+    "scenario_impacts": [],
+    "oil_sensitivity": null,
+    "rate_sensitivity": null,
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": null,
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro/theme backdrop reinforces the company's highest-quality revenue and margin drivers.",
+    "downside_scenario": "Macro/theme backdrop deteriorates in a way that pressures growth expectations, margins, or valuation.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: sticky_late_cycle_ai, reopening_soft_landing, oil_inflation_tail. Top macro signals: Credit layer health, AI earnings resilience, Breadth and participation. No valid macro-forecast theme mapping was found for AAPL."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "Consensus appears to be a premium-quality narrative rather than a directly sourced estimate consensus. Based on the valuation snapshot and price behavior, the market appears to be underwriting AAPL as a durable, high-margin, high-free-cash-flow mega-cap compounder. The stock is up 37.4% over one year and trades at 34.4x trailing earnings, 29.5x forward earnings, and 26.2x EV/EBITDA, implying elevated expectations for persistence of margins, cash generation, and growth. The recent 10.8% one-month decline suggests some near-term expectations reset or volatility, but the shares remain 41.7% above the 52-week low and only 10.0% below the 52-week high.",
+    "implied_expectations": "Cannot infer implied expectations with high confidence in v1.",
+    "market_mispricing_hypothesis": "No strong mispricing hypothesis generated yet.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": null,
+    "expectation_summary": "Valuation embeds high expectations. A trailing P/E of 34.4x, forward P/E of 29.5x, EV/EBITDA of 26.2x, price/sales of 9.2x, and price/book of 39.1x require durable growth, margin resilience, and continued FCF strength. This is not a low-valuation cyclical recovery setup; it is a premium-quality setup where the main risk is multiple compression if fundamentals merely normalize. The recent one-month decline of 10.8% suggests some reset, but the stock remains up 37.4% over one year and 41.7% above the 52-week low, so expectations risk remains meaningful."
+  },
+  "variant_view": {
+    "consensus_view": "Consensus view not available in v1.",
+    "helix_variant_view": "Variant direction: two_sided. The identifiable variant view is two-sided. Fundamentals are improving enough to challenge a simplistic bearish view based on valuation alone, but valuation and price performance are elevated enough to challenge a simplistic bullish view based on quality alone. The most differentiated underwriting question is whether the latest gross-margin and FCF improvement can persist long enough to justify premium multiples over the next 6 months. Evidence is insufficient to claim a strong bullish or bearish variant because direct consensus estimates, segment drivers, management commentary, and theme mapping are missing. Bull case: The bull variant is that the market may still be underappreciating the breadth of the fundamental improvement: latest-quarter revenue accelerated 16.6% YoY, gross margin expanded to 49.3% versus 47.9% LTM, LTM free cash flow reached $129.2B with a 28.6% margin, and leverage improved materially with LTM net debt/EBITDA at 0.24x. If those trends persist over the next two quarters, the premium multiple may be more defensible than it appears on simple valuation screens. Bear case: The bear variant is that the observable improvement is already more than priced in. A $4.17T market cap with trailing P/E of 34.4x, forward P/E of 29.5x, EV/EBITDA of 26.2x, and price/sales of 9.2x leaves limited room for disappointment if revenue growth normalizes, margins stop expanding, or macro support for mega-cap quality weakens. The latest quarter was strong year over year, but annualized latest-quarter revenue is slightly below LTM revenue, so the current valuation may be assuming durability beyond what the supplied data can independently verify.",
+    "variant_view_direction": "two_sided",
+    "bull_case_variant_view": "The bull variant is that the market may still be underappreciating the breadth of the fundamental improvement: latest-quarter revenue accelerated 16.6% YoY, gross margin expanded to 49.3% versus 47.9% LTM, LTM free cash flow reached $129.2B with a 28.6% margin, and leverage improved materially with LTM net debt/EBITDA at 0.24x. If those trends persist over the next two quarters, the premium multiple may be more defensible than it appears on simple valuation screens.",
+    "bear_case_variant_view": "The bear variant is that the observable improvement is already more than priced in. A $4.17T market cap with trailing P/E of 34.4x, forward P/E of 29.5x, EV/EBITDA of 26.2x, and price/sales of 9.2x leaves limited room for disappointment if revenue growth normalizes, margins stop expanding, or macro support for mega-cap quality weakens. The latest quarter was strong year over year, but annualized latest-quarter revenue is slightly below LTM revenue, so the current valuation may be assuming durability beyond what the supplied data can independently verify.",
+    "evidence_supporting_variant_view": [
+      "Two-sided evidence: Latest-quarter revenue was $111.2B, up 16.6% YoY versus the year-ago quarter.",
+      "Two-sided evidence: Latest-quarter gross margin was 49.3%, above LTM gross margin of 47.9% and above the year-ago quarter gross margin of 47.1%.",
+      "Two-sided evidence: LTM revenue was $451.4B versus prior fiscal-year revenue of $391.0B in the financial_trend comparison, indicating an improving revenue direction in the supplied model output.",
+      "Two-sided evidence: LTM free cash flow was $129.2B with a 28.6% FCF margin, above prior-year free cash flow of $108.8B in the financial_trend comparison.",
+      "Two-sided evidence: Leverage improved materially: LTM net debt/EBITDA is 0.24x versus 0.57x in the prior-year comparison, and total debt declined from $106.6B to $84.7B.",
+      "Two-sided evidence: The quarterly model flags revenue_trend_8q, gross_margin_trend_8q, operating_margin_trend_8q, fcf_trend_8q, and leverage_trend_8q as improving.",
+      "Two-sided evidence: Macro factor rankings favor quality, with the Quality factor score at +1.14 and Defensive factor score at +1.08."
+    ],
+    "why_market_may_be_wrong": [],
+    "required_confirming_evidence": [],
+    "risks_to_variant_view": [
+      "Two-sided counter-evidence: Valuation is already premium: trailing P/E 34.4x, forward P/E 29.5x, EV/EBITDA 26.2x, price/sales 9.2x, and price/book 39.1x.",
+      "Two-sided counter-evidence: Latest-quarter annualized revenue is 1.5% below LTM revenue, so the latest quarter does not show sequential run-rate acceleration versus the trailing-four-quarter base despite strong YoY growth.",
+      "Two-sided counter-evidence: Latest-quarter operating margin of 32.3% is slightly below LTM operating margin of 32.6%.",
+      "Two-sided counter-evidence: The one-year return of 37.4% suggests a large amount of improvement may already be discounted, even after the latest one-month pullback.",
+      "Two-sided counter-evidence: Theme mapping is absent; AAPL is not confirmed as a primary expression of the macro model’s top themes.",
+      "Bear risk: Premium valuation creates high expectations risk if revenue growth or margin expansion slows.",
+      "Bear risk: Company profile and segment data are missing, limiting ability to assess product concentration, cyclicality, competitive threats, regulatory exposure, or supplier/customer risk.",
+      "Bear risk: Latest-quarter annualized revenue is slightly below LTM revenue, so a premium multiple depends on continued growth rather than a single-quarter run-rate step-up.",
+      "Bear risk: Macro breadth is weak and deteriorating, which can pressure mega-cap leadership if market concentration unwinds.",
+      "Bear risk: The macro regime has mixed monetary conditions and negative duration sensitivity, which can pressure high-multiple equities.",
+      "Bear risk: Theme mapping is absent, so AAPL is not confirmed as a primary beneficiary of the macro model’s strongest supported themes."
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Company fails to show evidence supporting the proposed variant view.",
+      "Latest-quarter revenue growth turns negative YoY in the next reported quarter after the current +16.6% YoY print.",
+      "Gross margin falls below 47.0% for two consecutive quarters, reversing the current expansion to 49.3%.",
+      "Operating margin falls below 30.0% for two consecutive quarters, indicating that gross margin strength is not translating into operating leverage.",
+      "LTM free cash flow margin falls below 24.0%, materially below the current LTM level of 28.6%.",
+      "LTM net debt/EBITDA rises above 0.75x from the current 0.24x, indicating deterioration in balance-sheet flexibility.",
+      "Total debt reaccelerates above $100B after declining to $84.7B."
+    ],
+    "macro_falsifiers": [
+      "Macro Quality factor support turns negative from the current +1.14 score.",
+      "XLK sector support turns negative from the current +0.38 score.",
+      "Market breadth remains bearish and deteriorating while cap-weight leadership weakens, undermining mega-cap concentration support.",
+      "Credit conditions deteriorate from the current bullish/stable reading, reducing support for equity risk appetite.",
+      "Monetary policy shifts more restrictive, with hold/hike risk rising further and long-duration growth support becoming more negative.",
+      "The macro model’s Sticky Late Cycle AI scenario loses leadership while late_cycle_risk_off probability rises materially."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E remains near or above 30x while quarterly revenue growth decelerates materially from the current +16.6% YoY level.",
+      "EV/EBITDA remains above 25x while LTM EBITDA margin falls below 34.0% from the current 35.4%.",
+      "Price/sales remains above 9x while gross margin falls below 47.0%.",
+      "The stock makes a new 52-week high without a corresponding improvement in LTM revenue growth, FCF margin, or forward estimates, increasing peak-expectations risk.",
+      "Forward P/E compresses below 25x despite stable fundamentals, indicating that the market no longer pays the same premium for the cash-flow profile."
+    ],
+    "timing_falsifiers": [
+      "The stock continues to underperform over the next 1-2 months after the current -10.8% one-month move despite no further fundamental deterioration, indicating persistent de-rating pressure.",
+      "The stock fails to recover any of the recent one-month drawdown after the next quarterly report even if revenue and gross margin remain strong, suggesting valuation ceiling risk.",
+      "The stock retests or breaks materially below the current 52-week drawdown level while forward valuation remains near 30x, indicating that expectations are still too high.",
+      "Macro breadth deterioration accelerates during the 6-month horizon, increasing risk that mega-cap concentration unwinds before company fundamentals can re-rate further."
+    ],
+    "technical_or_price_falsifiers": [],
+    "monitoring_triggers": [
+      "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+      "Refresh quarterly financials after the next report and compare revenue growth, gross margin, operating margin, and FCF margin against current levels.",
+      "Track whether latest-quarter annualized revenue moves above LTM revenue; this would help validate a growth reacceleration thesis.",
+      "Monitor valuation multiples against realized growth and margin trends, especially forward P/E near 30x and EV/EBITDA above 26x.",
+      "Add direct consensus data: revenue, EPS, margin, FCF estimates, and estimate revisions.",
+      "Add business profile and segment-level data to identify what is driving the margin and revenue improvement.",
+      "Monitor macro factor updates for Quality, XLK, duration sensitivity, breadth, and credit conditions.",
+      "Track price behavior after the recent one-month pullback to determine whether the stock stabilizes or continues de-rating despite improving fundamentals."
+    ],
+    "key_metrics_to_watch": [
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "free cash flow",
+      "leverage",
+      "earnings revisions",
+      "Quarterly revenue and YoY revenue growth versus the latest +16.6% YoY print.",
+      "Latest-quarter revenue annualized versus LTM revenue, currently -1.5%.",
+      "Gross margin, currently 49.3% latest quarter and 47.9% LTM.",
+      "Operating margin, currently 32.3% latest quarter and 32.6% LTM.",
+      "Free cash flow and FCF margin, currently $26.7B and 24.0% latest quarter; $129.2B and 28.6% LTM.",
+      "Operating cash flow conversion versus net income.",
+      "Capex as a percentage of revenue, currently 1.8% latest quarter and 2.4% LTM.",
+      "Net debt, total debt, cash, and LTM net debt/EBITDA.",
+      "Forward P/E and EV/EBITDA relative to observed revenue and margin trends.",
+      "Price momentum: 1-month, 3-month, and drawdown from 52-week high."
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 50.0,
+    "financial_health": 70.0,
+    "competitive_position": 50.0,
+    "earnings_inflection_potential": 69.0,
+    "regime_fit": 50.0,
+    "valuation_setup": 49.0,
+    "variant_perception_strength": 80.0,
+    "idiosyncratic_risk": 57.25,
+    "final_underwriting_score": 60.43080357142858
+  },
+  "verdict": "watchlist",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "AAPL receives a watchlist verdict with a final underwriting score of 60.4/100. LLM synthesis summary: AAPL presents as a high-quality, high-cash-generation mega-cap with improving financial trends, but the underwriting setup is two-sided over a 6-month horizon. The positive case rests on strong latest-quarter YoY revenue growth, expanding gross margin, very large LTM FCF, low capex intensity, and improving leverage. The caution is valuation and expectations: the stock trades at premium multiples, has strong one-year price performance, and the latest-quarter revenue run rate is not clearly above LTM. Macro supports quality but is mixed for high-multiple equities given weak breadth and negative duration sensitivity. Because company profile, segment detail, consensus estimates, and theme mapping are missing, conviction should remain measured until the drivers of the financial improvement are verified.",
+  "key_monitoring_items": [
+    "revenue growth",
+    "gross margin",
+    "operating margin",
+    "free cash flow",
+    "leverage",
+    "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+    "Refresh quarterly financials after the next report and compare revenue growth, gross margin, operating margin, and FCF margin against current levels.",
+    "Track whether latest-quarter annualized revenue moves above LTM revenue; this would help validate a growth reacceleration thesis.",
+    "Monitor valuation multiples against realized growth and margin trends, especially forward P/E near 30x and EV/EBITDA above 26x.",
+    "Add direct consensus data: revenue, EPS, margin, FCF estimates, and estimate revisions."
+  ],
+  "recommended_next_action": "Add to watchlist and rerun when price, estimates, macro/theme context, or company evidence changes. Key missing evidence: Static company profile is missing: business description, company name, sector, industry, segments, business model, revenue model, customers, suppliers, macro sensitivities, and risks are not supplied; No management guidance, earnings-call commentary, recent news, product-cycle data, regulatory updates, or company-specific catalysts are supplied; No direct sell-side estimate consensus or revision history is supplied. Variant view is not yet strong enough for acceptance. Valuation/expectations risk requires confirmation.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding with LLM synthesis; richer filing and transcript layers pending.",
+    "Financial context sourced from yfinance.",
+    "Financial trend is derived from quarterly financial statements through period ending 2026-03-31.",
+    "Latest financial period end date: 2026-03-31.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

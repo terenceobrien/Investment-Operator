@@ -1,0 +1,2506 @@
+{
+  "ticker": "AAPL",
+  "as_of_date": "2026-06-29",
+  "created_at": "2026-06-29T17:03:37.811778",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-05",
+    "created_at": "2026-06-12T16:59:50.064967Z",
+    "regime_id": null,
+    "regime_label": "Sticky Late Cycle AI leads; top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.36240265879628086,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.3107222840217003,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.1502536969955016,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.13173991765464557,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.04488144253187162,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.26,
+        "notes": "HY spreads tight (275bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "bearish",
+        "signal_strength": 0.6,
+        "level_status": "bearish",
+        "trend_status": "deteriorating",
+        "current_value": 4.39,
+        "notes": "Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing Breadth remains weak on an absolute basis.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "high_beta_ai_semis",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "bullish",
+        "signal_strength": 0.3,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 7.26,
+        "notes": "Put/call ratio elevated (1.15) — fear-driven hedging, contrarian bullish",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.59; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.59, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.25,
+        "notes": "Equity put/call elevated (1.15) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.59,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.545320782416292,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +1.06, Quality ex-AI cash flow +0.31, Cash and short duration +0.17."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 1.4070391876971877,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.90, Quality ex-AI cash flow +0.31, Defense and geopolitics +0.20."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 1.154691623057673,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 1.0005192299704084,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.62, Quality ex-AI cash flow +0.38."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.7726430316381337,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.66, Energy and oil beta +0.11."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.5142520779391876,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Energy and oil beta +0.28, Commodities and real assets +0.24."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": 0.3796309856404655,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.46, Long-duration growth -0.07, High-beta AI semiconductors -0.04."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": 0.20398355281113664,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.26, High-beta AI semiconductors -0.09, Memory semiconductors +0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.8146079241839199,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.72, Long-duration growth -0.09."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 1.154691623057673,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 1.1441245129776911,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.54, Quality AI leaders +0.36, Healthcare defensives +0.25."
+      },
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 1.0814048070015705,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.40, Healthcare defensives +0.37, Quality ex-AI cash flow +0.31."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.686512713738485,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.52, Energy and oil beta +0.17."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.2620979316513681,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: Small caps -0.14, Long-duration growth -0.11, High-beta AI semiconductors -0.06."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": -0.5899773572243925,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth -0.32, Small caps -0.27."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.9044601509677309,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.90."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Sticky Late Cycle AI at 36.2%; runner-up reopening_soft_landing at 31.1%. The largest displayed deterministic driver is AI earnings resilience (+0.403). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically calibrated after the deterministic update.",
+    "source_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "AAPL",
+    "selected_theme_ids": [
+      "high_beta_ai_semis"
+    ],
+    "theme_mapping": {
+      "ticker": "AAPL",
+      "mapped_themes": [
+        {
+          "theme_id": "high_beta_ai_semis",
+          "theme_label": "High-beta AI semiconductors",
+          "fit": "primary",
+          "confidence": 0.55,
+          "rationale": "Company text directly references memory/storage semiconductor economics.; Company has semiconductor or AI-server exposure relevant to this macro theme.; Confidence capped because deterministic mapping lacks explicit company thematic exposure confirmation."
+        }
+      ],
+      "rejected_themes": [
+        {
+          "theme_id": "cash_short_duration",
+          "theme_label": "Cash and short duration",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "commodities_real_assets",
+          "theme_label": "Commodities and real assets",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "energy_oil_beta",
+          "theme_label": "Energy and oil beta",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "long_duration_growth",
+          "theme_label": "Long-duration growth",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "memory_semis",
+          "theme_label": "Memory semiconductors",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "quality_ai",
+          "theme_label": "Quality AI leaders",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "quality_ex_ai_cash_flow",
+          "theme_label": "Quality ex-AI cash flow",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        },
+        {
+          "theme_id": "small_caps",
+          "theme_label": "Small caps",
+          "reason": "Rejected: keyword overlap did not imply economic exposure."
+        }
+      ],
+      "mapping_summary": "Mapped 1 of 12 available macro-forecast themes using deterministic exposure-gated keyword/semantic fallback.",
+      "data_confidence": "medium",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [
+      {
+        "theme_id": "high_beta_ai_semis",
+        "label": "High-beta AI semiconductors",
+        "score": -0.15724653173257358,
+        "fit": "primary",
+        "fit_confidence": 0.55,
+        "weighted_score": -0.08648559245291548,
+        "rationale": "High-beta AI semiconductors has macro support score -0.16; best in sticky_late_cycle_ai, reopening_soft_landing and worst in late_cycle_risk_off, oil_inflation_tail, ai_capex_rollover. Contribution breakdown: Late Cycle Risk-Off -0.40; Sticky Late Cycle AI +0.36; Reopening / Soft Landing +0.31; Oil Inflation Tail -0.30; AI Capex Rollover -0.13."
+      }
+    ],
+    "relevant_theme_impacts": [
+      {
+        "theme_id": "high_beta_ai_semis",
+        "theme_label": "High-beta AI semiconductors",
+        "direction": "negative",
+        "strength": 0.25,
+        "rationale": "Narrow breadth raises unwind risk in crowded beta.",
+        "source_input_id": "market_breadth",
+        "source_label": "Breadth and participation",
+        "category": "breadth"
+      },
+      {
+        "theme_id": "high_beta_ai_semis",
+        "theme_label": "High-beta AI semiconductors",
+        "direction": "positive",
+        "strength": 0.25,
+        "rationale": "AI resilience helps semis, though crowding remains.",
+        "source_input_id": "ai_earnings_resilience",
+        "source_label": "AI earnings resilience",
+        "category": "earnings"
+      }
+    ],
+    "linked_scenarios": [
+      "late_cycle_risk_off",
+      "reopening_soft_landing",
+      "sticky_late_cycle_ai",
+      "ai_capex_rollover"
+    ],
+    "positive_drivers": [
+      "AI earnings resilience: AI resilience helps semis, though crowding remains."
+    ],
+    "negative_drivers": [
+      "Breadth and participation: Narrow breadth raises unwind risk in crowded beta."
+    ],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": -0.15724653173257358,
+    "theme_fit_summary": "AAPL maps to macro-forecast themes high_beta_ai_semis. Aggregate theme support score is -0.16.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "research_context": {
+    "ticker": "AAPL",
+    "as_of_date": "2026-06-28",
+    "created_at": "2026-06-29T05:38:59.240321",
+    "source_coverage": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "unknown",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-04-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "notes": null
+      },
+      {
+        "source_type": "filing",
+        "document_purpose": "unknown",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-01",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+        "accession_number": "0000320193-26-000013",
+        "notes": null
+      },
+      {
+        "source_type": "transcript",
+        "document_purpose": "unknown",
+        "status": "not_found",
+        "source_name": "Earnings call transcript",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+      }
+    ],
+    "source_coverage_summary": "filing:found=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+    "earnings_release_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Apple reported a record March quarter with total revenue of $111.2 billion, up 17% year over year.",
+        "summary": "Headline revenue growth was strong and management characterized it as the best March quarter ever.",
+        "excerpt": "The Company posted quarterly revenue of $111.2 billion, up 17 percent year over year.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.98,
+        "related_topics": [
+          "financial results",
+          "growth",
+          "earnings release"
+        ],
+        "related_metrics": [
+          "quarterly revenue",
+          "year-over-year revenue growth"
+        ],
+        "evidence_tags": [
+          "earnings_result",
+          "revenue_growth",
+          "march_quarter_record"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Diluted EPS rose 22% year over year to $2.01, setting a March quarter EPS record.",
+        "summary": "EPS growth exceeded revenue growth, indicating earnings leverage in the quarter.",
+        "excerpt": "Diluted earnings per share was $2.01, up 22 percent year over year.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "profitability",
+          "earnings"
+        ],
+        "related_metrics": [
+          "diluted EPS",
+          "EPS growth"
+        ],
+        "evidence_tags": [
+          "earnings_result",
+          "eps_growth",
+          "march_quarter_record"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Management cited double-digit revenue growth across every geographic segment.",
+        "summary": "The release points to broad-based geographic strength rather than concentration in a single region.",
+        "excerpt": "“Today Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,” said Tim Cook, Apple’s CEO.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "geographic performance",
+          "demand",
+          "management tone"
+        ],
+        "related_metrics": [
+          "geographic segment revenue growth"
+        ],
+        "evidence_tags": [
+          "geographic_growth",
+          "management_commentary",
+          "demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "iPhone revenue reached a March quarter record, with management attributing strength to demand for the iPhone 17 lineup.",
+        "summary": "iPhone, Apple’s largest product category, showed record March-quarter demand according to management.",
+        "excerpt": "“iPhone achieved a March quarter revenue record, fueled by such extraordinary demand for the iPhone 17 lineup.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "iPhone demand",
+          "product cycle",
+          "hardware"
+        ],
+        "related_metrics": [
+          "iPhone revenue"
+        ],
+        "evidence_tags": [
+          "iphone",
+          "product_demand",
+          "record_revenue"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Services revenue reached a new all-time high and grew to $30.976 billion from $26.645 billion in the year-ago quarter.",
+        "summary": "Services, a key higher-margin category, continued to set records.",
+        "excerpt": "Services revenue reaches new all-time high",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "Services",
+          "revenue mix",
+          "installed base monetization"
+        ],
+        "related_metrics": [
+          "Services revenue"
+        ],
+        "evidence_tags": [
+          "services",
+          "all_time_high",
+          "recurring_revenue"
+        ],
+        "notes": "The revenue amounts are shown in the net sales by category table: Services $30,976 versus $26,645, in millions."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Operating cash flow exceeded $28 billion and set a new March quarter record.",
+        "summary": "The quarter generated substantial cash flow alongside record EPS.",
+        "excerpt": "“Our strong business performance during the March quarter generated over $28 billion in operating cash flow and drove new March quarter records for both operating cash flow and EPS,” said Kevan Parekh, Apple’s CFO.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.94,
+        "related_topics": [
+          "cash generation",
+          "liquidity",
+          "profitability"
+        ],
+        "related_metrics": [
+          "operating cash flow"
+        ],
+        "evidence_tags": [
+          "cash_flow",
+          "march_quarter_record",
+          "liquidity"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Apple said its installed base of active devices reached a new all-time high across all major product categories and geographic segments.",
+        "summary": "A record installed base supports Apple’s ecosystem and potential services monetization.",
+        "excerpt": "“Continued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.”",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "ecosystem",
+          "customer demand",
+          "Services opportunity"
+        ],
+        "related_metrics": [
+          "installed base of active devices"
+        ],
+        "evidence_tags": [
+          "installed_base",
+          "ecosystem",
+          "demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "The board increased the quarterly dividend by 4% to $0.27 per share and authorized up to $100 billion of additional share repurchases.",
+        "summary": "The release signals continued large-scale capital returns.",
+        "excerpt": "Apple’s board of directors has declared a cash dividend of $0.27 per share of the Company’s common stock, an increase of 4 percent. The dividend is payable on May 14, 2026, to shareholders of record as of the close of business on May 11, 2026. The board of directors has also authorized an additional program to repurchase up to $100 billion of the Company’s common stock.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "capital allocation",
+          "shareholder returns"
+        ],
+        "related_metrics": [
+          "dividend per share",
+          "share repurchase authorization"
+        ],
+        "evidence_tags": [
+          "capital_return",
+          "dividend_increase",
+          "share_repurchase"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Product net sales increased to $80.208 billion from $68.714 billion, while Services net sales increased to $30.976 billion from $26.645 billion.",
+        "summary": "Both Products and Services contributed to year-over-year revenue growth.",
+        "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "revenue mix",
+          "Products",
+          "Services"
+        ],
+        "related_metrics": [
+          "Products net sales",
+          "Services net sales",
+          "total net sales"
+        ],
+        "evidence_tags": [
+          "segment_revenue",
+          "products",
+          "services"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Gross margin dollars expanded to $54.781 billion from $44.867 billion, and operating income rose to $35.885 billion from $29.589 billion.",
+        "summary": "Profit dollars rose despite materially higher operating expenses.",
+        "excerpt": "Gross margin 54,781 44,867 124,012 103,142 Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721 Operating income 35,885 29,589 86,737 72,421",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.89,
+        "related_topics": [
+          "profitability",
+          "expense growth",
+          "operating leverage"
+        ],
+        "related_metrics": [
+          "gross margin",
+          "operating expenses",
+          "operating income"
+        ],
+        "evidence_tags": [
+          "margin",
+          "operating_income",
+          "profitability"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Greater China revenue increased to $20.497 billion from $16.002 billion, contributing to broad geographic growth.",
+        "summary": "Greater China showed substantial year-over-year growth in the quarter.",
+        "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "China",
+          "geographic performance",
+          "international revenue"
+        ],
+        "related_metrics": [
+          "Greater China net sales",
+          "regional net sales"
+        ],
+        "evidence_tags": [
+          "greater_china",
+          "geographic_revenue",
+          "regional_growth"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "R&D expense rose to $11.419 billion from $8.550 billion year over year, indicating a significant increase in investment spending.",
+        "summary": "Higher R&D may support innovation but also increases the expense base.",
+        "excerpt": "Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721",
+        "polarity": "mixed",
+        "confidence": "high",
+        "relevance_score": 0.82,
+        "related_topics": [
+          "operating expenses",
+          "innovation investment",
+          "margin"
+        ],
+        "related_metrics": [
+          "research and development expense",
+          "operating expenses"
+        ],
+        "evidence_tags": [
+          "r_and_d",
+          "expense_growth",
+          "investment_spending"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      }
+    ],
+    "filing_evidence": [],
+    "transcript_evidence": [],
+    "news_evidence": [],
+    "estimate_evidence": [],
+    "peer_commentary_evidence": [],
+    "strategic_transaction_evidence": [],
+    "regulatory_capital_evidence": [],
+    "stress_test_evidence": [],
+    "investor_presentation_evidence": [],
+    "other_sec_8k_evidence": [],
+    "management_guidance": [],
+    "segment_kpis": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Management cited double-digit revenue growth across every geographic segment.",
+        "summary": "The release points to broad-based geographic strength rather than concentration in a single region.",
+        "excerpt": "“Today Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,” said Tim Cook, Apple’s CEO.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "geographic performance",
+          "demand",
+          "management tone"
+        ],
+        "related_metrics": [
+          "geographic segment revenue growth"
+        ],
+        "evidence_tags": [
+          "geographic_growth",
+          "management_commentary",
+          "demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Apple said its installed base of active devices reached a new all-time high across all major product categories and geographic segments.",
+        "summary": "A record installed base supports Apple’s ecosystem and potential services monetization.",
+        "excerpt": "“Continued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.”",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "ecosystem",
+          "customer demand",
+          "Services opportunity"
+        ],
+        "related_metrics": [
+          "installed base of active devices"
+        ],
+        "evidence_tags": [
+          "installed_base",
+          "ecosystem",
+          "demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Product net sales increased to $80.208 billion from $68.714 billion, while Services net sales increased to $30.976 billion from $26.645 billion.",
+        "summary": "Both Products and Services contributed to year-over-year revenue growth.",
+        "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "revenue mix",
+          "Products",
+          "Services"
+        ],
+        "related_metrics": [
+          "Products net sales",
+          "Services net sales",
+          "total net sales"
+        ],
+        "evidence_tags": [
+          "segment_revenue",
+          "products",
+          "services"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      }
+    ],
+    "consensus_narrative": [],
+    "bullish_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Apple reported a record March quarter with total revenue of $111.2 billion, up 17% year over year.",
+        "summary": "Headline revenue growth was strong and management characterized it as the best March quarter ever.",
+        "excerpt": "The Company posted quarterly revenue of $111.2 billion, up 17 percent year over year.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.98,
+        "related_topics": [
+          "financial results",
+          "growth",
+          "earnings release"
+        ],
+        "related_metrics": [
+          "quarterly revenue",
+          "year-over-year revenue growth"
+        ],
+        "evidence_tags": [
+          "earnings_result",
+          "revenue_growth",
+          "march_quarter_record"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Diluted EPS rose 22% year over year to $2.01, setting a March quarter EPS record.",
+        "summary": "EPS growth exceeded revenue growth, indicating earnings leverage in the quarter.",
+        "excerpt": "Diluted earnings per share was $2.01, up 22 percent year over year.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "profitability",
+          "earnings"
+        ],
+        "related_metrics": [
+          "diluted EPS",
+          "EPS growth"
+        ],
+        "evidence_tags": [
+          "earnings_result",
+          "eps_growth",
+          "march_quarter_record"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Management cited double-digit revenue growth across every geographic segment.",
+        "summary": "The release points to broad-based geographic strength rather than concentration in a single region.",
+        "excerpt": "“Today Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,” said Tim Cook, Apple’s CEO.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "geographic performance",
+          "demand",
+          "management tone"
+        ],
+        "related_metrics": [
+          "geographic segment revenue growth"
+        ],
+        "evidence_tags": [
+          "geographic_growth",
+          "management_commentary",
+          "demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "iPhone revenue reached a March quarter record, with management attributing strength to demand for the iPhone 17 lineup.",
+        "summary": "iPhone, Apple’s largest product category, showed record March-quarter demand according to management.",
+        "excerpt": "“iPhone achieved a March quarter revenue record, fueled by such extraordinary demand for the iPhone 17 lineup.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "iPhone demand",
+          "product cycle",
+          "hardware"
+        ],
+        "related_metrics": [
+          "iPhone revenue"
+        ],
+        "evidence_tags": [
+          "iphone",
+          "product_demand",
+          "record_revenue"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Services revenue reached a new all-time high and grew to $30.976 billion from $26.645 billion in the year-ago quarter.",
+        "summary": "Services, a key higher-margin category, continued to set records.",
+        "excerpt": "Services revenue reaches new all-time high",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "Services",
+          "revenue mix",
+          "installed base monetization"
+        ],
+        "related_metrics": [
+          "Services revenue"
+        ],
+        "evidence_tags": [
+          "services",
+          "all_time_high",
+          "recurring_revenue"
+        ],
+        "notes": "The revenue amounts are shown in the net sales by category table: Services $30,976 versus $26,645, in millions."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Operating cash flow exceeded $28 billion and set a new March quarter record.",
+        "summary": "The quarter generated substantial cash flow alongside record EPS.",
+        "excerpt": "“Our strong business performance during the March quarter generated over $28 billion in operating cash flow and drove new March quarter records for both operating cash flow and EPS,” said Kevan Parekh, Apple’s CFO.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.94,
+        "related_topics": [
+          "cash generation",
+          "liquidity",
+          "profitability"
+        ],
+        "related_metrics": [
+          "operating cash flow"
+        ],
+        "evidence_tags": [
+          "cash_flow",
+          "march_quarter_record",
+          "liquidity"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Apple said its installed base of active devices reached a new all-time high across all major product categories and geographic segments.",
+        "summary": "A record installed base supports Apple’s ecosystem and potential services monetization.",
+        "excerpt": "“Continued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.”",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "ecosystem",
+          "customer demand",
+          "Services opportunity"
+        ],
+        "related_metrics": [
+          "installed base of active devices"
+        ],
+        "evidence_tags": [
+          "installed_base",
+          "ecosystem",
+          "demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "The board increased the quarterly dividend by 4% to $0.27 per share and authorized up to $100 billion of additional share repurchases.",
+        "summary": "The release signals continued large-scale capital returns.",
+        "excerpt": "Apple’s board of directors has declared a cash dividend of $0.27 per share of the Company’s common stock, an increase of 4 percent. The dividend is payable on May 14, 2026, to shareholders of record as of the close of business on May 11, 2026. The board of directors has also authorized an additional program to repurchase up to $100 billion of the Company’s common stock.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "capital allocation",
+          "shareholder returns"
+        ],
+        "related_metrics": [
+          "dividend per share",
+          "share repurchase authorization"
+        ],
+        "evidence_tags": [
+          "capital_return",
+          "dividend_increase",
+          "share_repurchase"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Product net sales increased to $80.208 billion from $68.714 billion, while Services net sales increased to $30.976 billion from $26.645 billion.",
+        "summary": "Both Products and Services contributed to year-over-year revenue growth.",
+        "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "revenue mix",
+          "Products",
+          "Services"
+        ],
+        "related_metrics": [
+          "Products net sales",
+          "Services net sales",
+          "total net sales"
+        ],
+        "evidence_tags": [
+          "segment_revenue",
+          "products",
+          "services"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Gross margin dollars expanded to $54.781 billion from $44.867 billion, and operating income rose to $35.885 billion from $29.589 billion.",
+        "summary": "Profit dollars rose despite materially higher operating expenses.",
+        "excerpt": "Gross margin 54,781 44,867 124,012 103,142 Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721 Operating income 35,885 29,589 86,737 72,421",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.89,
+        "related_topics": [
+          "profitability",
+          "expense growth",
+          "operating leverage"
+        ],
+        "related_metrics": [
+          "gross margin",
+          "operating expenses",
+          "operating income"
+        ],
+        "evidence_tags": [
+          "margin",
+          "operating_income",
+          "profitability"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "Greater China revenue increased to $20.497 billion from $16.002 billion, contributing to broad geographic growth.",
+        "summary": "Greater China showed substantial year-over-year growth in the quarter.",
+        "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "China",
+          "geographic performance",
+          "international revenue"
+        ],
+        "related_metrics": [
+          "Greater China net sales",
+          "regional net sales"
+        ],
+        "evidence_tags": [
+          "greater_china",
+          "geographic_revenue",
+          "regional_growth"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      }
+    ],
+    "bearish_evidence": [],
+    "mixed_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "AAPL",
+        "document_purpose": null,
+        "source_date": "2026-04-30",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+        "accession_number": "0000320193-26-000011",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+        "claim": "R&D expense rose to $11.419 billion from $8.550 billion year over year, indicating a significant increase in investment spending.",
+        "summary": "Higher R&D may support innovation but also increases the expense base.",
+        "excerpt": "Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721",
+        "polarity": "mixed",
+        "confidence": "high",
+        "relevance_score": 0.82,
+        "related_topics": [
+          "operating expenses",
+          "innovation investment",
+          "margin"
+        ],
+        "related_metrics": [
+          "research and development expense",
+          "operating expenses"
+        ],
+        "evidence_tags": [
+          "r_and_d",
+          "expense_growth",
+          "investment_spending"
+        ],
+        "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+      }
+    ],
+    "unresolved_questions": [
+      "The supplied 10-Q text is largely XBRL tagging/metadata and is truncated before readable MD&A, risk, liquidity, debt, capex, or segment discussion; no high-confidence filing evidence items were extracted from that source."
+    ],
+    "data_gaps": [
+      "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+      "The supplied 10-Q text is largely XBRL tagging/metadata and is truncated before readable MD&A, risk, liquidity, debt, capex, or segment discussion; no high-confidence filing evidence items were extracted from that source."
+    ],
+    "warnings": [
+      "Evidence extraction from the 10-Q was limited because the provided document text did not include readable narrative sections in the prompt."
+    ],
+    "raw_source_count": 3,
+    "evidence_item_count": 12
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "AAPL",
+    "as_of_date": "2026-06-29",
+    "financial_trend": {
+      "latest": {
+        "revenue": 451442000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.47862405358827936,
+        "operating_margin": 0.32643396050876966,
+        "ebitda_margin": 0.35436667390273835,
+        "net_margin": 0.2715188219084622,
+        "free_cash_flow": 129174000000.0,
+        "free_cash_flow_margin": 0.28613642505571035,
+        "total_debt": 84711000000.0,
+        "cash_and_equivalents": 45572000000.0,
+        "net_debt": 39139000000.0,
+        "net_debt_to_ebitda": 0.2446554483172476,
+        "capex": -11048000000.0,
+        "capex_as_pct_revenue": 0.02447268973644455,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 391035000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.4620634981523393,
+        "operating_margin": 0.31510222870075566,
+        "ebitda_margin": 0.3443707085043538,
+        "net_margin": 0.23971255769943867,
+        "free_cash_flow": 108807000000.0,
+        "free_cash_flow_margin": 0.27825386474356517,
+        "total_debt": 106629000000.0,
+        "cash_and_equivalents": 29943000000.0,
+        "net_debt": 76686000000.0,
+        "net_debt_to_ebitda": 0.5694744580836323,
+        "capex": -9447000000.0,
+        "capex_as_pct_revenue": 0.02415896275269477,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "improving",
+      "fcf_direction": "improving",
+      "leverage_direction": "improving",
+      "notes": [
+        "financial_trend.latest is derived from trailing four quarters.",
+        "financial_trend.prior_year uses prior fiscal year because previous trailing four-quarter window is unavailable.",
+        "Latest quarter annualized revenue is -1.5% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 49.3% versus 47.9% LTM.",
+        "Latest quarter operating margin is 32.3% versus 32.6% LTM."
+      ]
+    },
+    "quarterly_financial_trend": {
+      "latest_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-0",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 111184000000.0,
+        "revenue_growth_yoy": 0.16595182415922985,
+        "revenue_growth_qoq": -0.22657836890286318,
+        "gross_profit": 54781000000.0,
+        "gross_margin": 0.4927057850050367,
+        "operating_income": 35885000000.0,
+        "operating_margin": 0.32275327385235286,
+        "ebitda": 39324000000.0,
+        "ebitda_margin": 0.35368398330695067,
+        "net_income": 29578000000.0,
+        "net_margin": 0.2660274859692042,
+        "operating_cash_flow": 28702000000.0,
+        "free_cash_flow": 26731000000.0,
+        "free_cash_flow_margin": 0.24042128363793352,
+        "capex": -1971000000.0,
+        "capex_as_pct_revenue": 0.01772737084472586,
+        "total_debt": 84711000000.0,
+        "cash_and_equivalents": 45572000000.0,
+        "net_debt": 39139000000.0,
+        "net_debt_to_ebitda": 0.9952954938459974,
+        "return_on_invested_capital": null
+      },
+      "prior_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-1",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 143756000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": 0.4029629340464154,
+        "gross_profit": 69231000000.0,
+        "gross_margin": 0.4815868555051615,
+        "operating_income": 50852000000.0,
+        "operating_margin": 0.35373827875010433,
+        "ebitda": 54066000000.0,
+        "ebitda_margin": 0.3760956064442528,
+        "net_income": 42097000000.0,
+        "net_margin": 0.292836472912435,
+        "operating_cash_flow": 53925000000.0,
+        "free_cash_flow": 51552000000.0,
+        "free_cash_flow_margin": 0.3586076407245611,
+        "capex": -2373000000.0,
+        "capex_as_pct_revenue": 0.016507137093408276,
+        "total_debt": 90509000000.0,
+        "cash_and_equivalents": 45317000000.0,
+        "net_debt": 45192000000.0,
+        "net_debt_to_ebitda": 0.8358672733325935,
+        "return_on_invested_capital": null
+      },
+      "year_ago_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-4",
+        "period_end_date": "2025-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 95359000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 44867000000.0,
+        "gross_margin": 0.47050619238876246,
+        "operating_income": 29589000000.0,
+        "operating_margin": 0.31029058610094484,
+        "ebitda": 32250000000.0,
+        "ebitda_margin": 0.33819566060885703,
+        "net_income": 24780000000.0,
+        "net_margin": 0.25986010759341016,
+        "operating_cash_flow": 23952000000.0,
+        "free_cash_flow": 20881000000.0,
+        "free_cash_flow_margin": 0.2189725143929781,
+        "capex": -3071000000.0,
+        "capex_as_pct_revenue": 0.03220461623968372,
+        "total_debt": 98186000000.0,
+        "cash_and_equivalents": 28162000000.0,
+        "net_debt": 70024000000.0,
+        "net_debt_to_ebitda": 2.171286821705426,
+        "return_on_invested_capital": null
+      },
+      "trailing_four_quarters": {
+        "period_type": "ltm",
+        "fiscal_period": "trailing_four_quarters",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 451442000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 216071000000.0,
+        "gross_margin": 0.47862405358827936,
+        "operating_income": 147366000000.0,
+        "operating_margin": 0.32643396050876966,
+        "ebitda": 159976000000.0,
+        "ebitda_margin": 0.35436667390273835,
+        "net_income": 122575000000.0,
+        "net_margin": 0.2715188219084622,
+        "operating_cash_flow": 140222000000.0,
+        "free_cash_flow": 129174000000.0,
+        "free_cash_flow_margin": 0.28613642505571035,
+        "capex": -11048000000.0,
+        "capex_as_pct_revenue": 0.02447268973644455,
+        "total_debt": 84711000000.0,
+        "cash_and_equivalents": 45572000000.0,
+        "net_debt": 39139000000.0,
+        "net_debt_to_ebitda": 0.2446554483172476,
+        "return_on_invested_capital": null
+      },
+      "trailing_eight_quarters": [
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-0",
+          "period_end_date": "2026-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 111184000000.0,
+          "revenue_growth_yoy": 0.16595182415922985,
+          "revenue_growth_qoq": -0.22657836890286318,
+          "gross_profit": 54781000000.0,
+          "gross_margin": 0.4927057850050367,
+          "operating_income": 35885000000.0,
+          "operating_margin": 0.32275327385235286,
+          "ebitda": 39324000000.0,
+          "ebitda_margin": 0.35368398330695067,
+          "net_income": 29578000000.0,
+          "net_margin": 0.2660274859692042,
+          "operating_cash_flow": 28702000000.0,
+          "free_cash_flow": 26731000000.0,
+          "free_cash_flow_margin": 0.24042128363793352,
+          "capex": -1971000000.0,
+          "capex_as_pct_revenue": 0.01772737084472586,
+          "total_debt": 84711000000.0,
+          "cash_and_equivalents": 45572000000.0,
+          "net_debt": 39139000000.0,
+          "net_debt_to_ebitda": 0.9952954938459974,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-1",
+          "period_end_date": "2025-12-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 143756000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.4029629340464154,
+          "gross_profit": 69231000000.0,
+          "gross_margin": 0.4815868555051615,
+          "operating_income": 50852000000.0,
+          "operating_margin": 0.35373827875010433,
+          "ebitda": 54066000000.0,
+          "ebitda_margin": 0.3760956064442528,
+          "net_income": 42097000000.0,
+          "net_margin": 0.292836472912435,
+          "operating_cash_flow": 53925000000.0,
+          "free_cash_flow": 51552000000.0,
+          "free_cash_flow_margin": 0.3586076407245611,
+          "capex": -2373000000.0,
+          "capex_as_pct_revenue": 0.016507137093408276,
+          "total_debt": 90509000000.0,
+          "cash_and_equivalents": 45317000000.0,
+          "net_debt": 45192000000.0,
+          "net_debt_to_ebitda": 0.8358672733325935,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-2",
+          "period_end_date": "2025-09-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 102466000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.08964651835467267,
+          "gross_profit": 48341000000.0,
+          "gross_margin": 0.47177600374758455,
+          "operating_income": 32427000000.0,
+          "operating_margin": 0.3164659496808698,
+          "ebitda": 35554000000.0,
+          "ebitda_margin": 0.346983389612164,
+          "net_income": 27466000000.0,
+          "net_margin": 0.2680498897195167,
+          "operating_cash_flow": 29728000000.0,
+          "free_cash_flow": 26486000000.0,
+          "free_cash_flow_margin": 0.2584857416118517,
+          "capex": -3242000000.0,
+          "capex_as_pct_revenue": 0.031639763433724356,
+          "total_debt": 98657000000.0,
+          "cash_and_equivalents": 35934000000.0,
+          "net_debt": 62723000000.0,
+          "net_debt_to_ebitda": 1.7641615570681217,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-3",
+          "period_end_date": "2025-06-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 94036000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.013873887100326136,
+          "gross_profit": 43718000000.0,
+          "gross_margin": 0.4649070568718363,
+          "operating_income": 28202000000.0,
+          "operating_margin": 0.2999064188183249,
+          "ebitda": 31032000000.0,
+          "ebitda_margin": 0.33000127610702285,
+          "net_income": 23434000000.0,
+          "net_margin": 0.24920243311072354,
+          "operating_cash_flow": 27867000000.0,
+          "free_cash_flow": 24405000000.0,
+          "free_cash_flow_margin": 0.25952826577055593,
+          "capex": -3462000000.0,
+          "capex_as_pct_revenue": 0.03681568760900081,
+          "total_debt": 101698000000.0,
+          "cash_and_equivalents": 36269000000.0,
+          "net_debt": 65429000000.0,
+          "net_debt_to_ebitda": 2.108436452693993,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-4",
+          "period_end_date": "2025-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 95359000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": null,
+          "gross_profit": 44867000000.0,
+          "gross_margin": 0.47050619238876246,
+          "operating_income": 29589000000.0,
+          "operating_margin": 0.31029058610094484,
+          "ebitda": 32250000000.0,
+          "ebitda_margin": 0.33819566060885703,
+          "net_income": 24780000000.0,
+          "net_margin": 0.25986010759341016,
+          "operating_cash_flow": 23952000000.0,
+          "free_cash_flow": 20881000000.0,
+          "free_cash_flow_margin": 0.2189725143929781,
+          "capex": -3071000000.0,
+          "capex_as_pct_revenue": 0.03220461623968372,
+          "total_debt": 98186000000.0,
+          "cash_and_equivalents": 28162000000.0,
+          "net_debt": 70024000000.0,
+          "net_debt_to_ebitda": 2.171286821705426,
+          "return_on_invested_capital": null
+        }
+      ],
+      "last_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "last_fiscal_year",
+        "period_end_date": "2025-09-30",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 416161000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 195201000000.0,
+        "gross_margin": 0.4690516410716045,
+        "operating_income": 133050000000.0,
+        "operating_margin": 0.31970799762591884,
+        "ebitda": 144748000000.0,
+        "ebitda_margin": 0.3478173110887373,
+        "net_income": 112010000000.0,
+        "net_margin": 0.2691506412181824,
+        "operating_cash_flow": 111482000000.0,
+        "free_cash_flow": 98767000000.0,
+        "free_cash_flow_margin": 0.23732882225869315,
+        "capex": -12715000000.0,
+        "capex_as_pct_revenue": 0.030553079216937677,
+        "total_debt": 98657000000.0,
+        "cash_and_equivalents": 35934000000.0,
+        "net_debt": 62723000000.0,
+        "net_debt_to_ebitda": 0.43332550363390165,
+        "return_on_invested_capital": null
+      },
+      "prior_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "prior_fiscal_year",
+        "period_end_date": "2024-09-30",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 391035000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 180683000000.0,
+        "gross_margin": 0.4620634981523393,
+        "operating_income": 123216000000.0,
+        "operating_margin": 0.31510222870075566,
+        "ebitda": 134661000000.0,
+        "ebitda_margin": 0.3443707085043538,
+        "net_income": 93736000000.0,
+        "net_margin": 0.23971255769943867,
+        "operating_cash_flow": 118254000000.0,
+        "free_cash_flow": 108807000000.0,
+        "free_cash_flow_margin": 0.27825386474356517,
+        "capex": -9447000000.0,
+        "capex_as_pct_revenue": 0.02415896275269477,
+        "total_debt": 106629000000.0,
+        "cash_and_equivalents": 29943000000.0,
+        "net_debt": 76686000000.0,
+        "net_debt_to_ebitda": 0.5694744580836323,
+        "return_on_invested_capital": null
+      },
+      "revenue_trend_8q": "improving",
+      "gross_margin_trend_8q": "improving",
+      "operating_margin_trend_8q": "improving",
+      "fcf_trend_8q": "improving",
+      "leverage_trend_8q": "improving",
+      "latest_quarter_vs_ltm_notes": [
+        "Latest quarter annualized revenue is -1.5% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 49.3% versus 47.9% LTM.",
+        "Latest quarter operating margin is 32.3% versus 32.6% LTM."
+      ],
+      "inflection_flags": [
+        "latest_quarter_revenue_accelerating_yoy",
+        "gross_margin_expanding_sequentially"
+      ],
+      "staleness_warnings": [],
+      "latest_period_end_date": "2026-03-31",
+      "latest_filing_date": null,
+      "financial_context_stale": false
+    },
+    "price_snapshot": {
+      "current_price": 280.48,
+      "market_cap": 4119509860352.0,
+      "return_1m": -0.1025244503886985,
+      "return_3m": 0.1283299779722324,
+      "return_6m": 0.026226926781967017,
+      "return_1y": 0.37243647523969436,
+      "drawdown_from_52w_high": -0.11015231872588335,
+      "distance_from_52w_low": 0.3914058639748824,
+      "beta": 1.086
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 33.956417,
+      "forward_pe": 29.189545,
+      "ev_to_ebitda": 26.155,
+      "price_to_sales": 9.125225,
+      "price_to_book": 38.63361,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": {
+      "peer_tickers": [
+        "MSFT",
+        "GOOGL",
+        "SSNLF",
+        "DELL",
+        "HPQ",
+        "SONY",
+        "QCOM",
+        "GRMN"
+      ],
+      "relative_return_3m": "outperforming peer median by +2.4%",
+      "relative_return_6m": "underperforming peer median by -3.7%",
+      "relative_valuation": "valuation multiple more expensive versus peer median (29.19 vs 17.89)",
+      "relative_margin_profile": "margin profile above peers versus peer median (0.32 vs 0.23)",
+      "relative_growth_profile": "revenue growth roughly in line with peer median",
+      "notes": []
+    },
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance.",
+      "Financial trend is derived from quarterly financial statements through period ending 2026-03-31."
+    ],
+    "data_freshness_notes": [
+      "Latest financial period end date: 2026-03-31."
+    ]
+  },
+  "llm_synthesis": {
+    "ticker": "AAPL",
+    "business_summary": "Apple designs, manufactures, and sells consumer electronics, personal computers, tablets, wearables, accessories, software, and services. The core business is a vertically integrated hardware-software-services ecosystem anchored by iPhone, with monetization through premium devices, recurring and transaction-based Services, App Store/platform economics, subscriptions, payments, licensing, AppleCare, advertising, and digital content. Key drivers over a 6-month horizon include iPhone replacement demand, product-cycle momentum, Services growth and margin mix, geographic consumer demand including Greater China, foreign exchange, regulatory pressure on platform fees, carrier/channel promotions, and the market’s willingness to pay a premium multiple for quality mega-cap cash flow.",
+    "business_quality_assessment": "Business quality is high. Apple has scale advantages, brand strength, a vertically integrated ecosystem, high customer lock-in, premium pricing power, large recurring and transaction-based Services exposure, and exceptional cash generation. The supplied LTM financials show revenue of approximately $451.4 billion, gross margin of 47.9%, operating margin of 32.6%, net margin of 27.2%, and free cash flow of approximately $129.2 billion. Leverage is not a near-term constraint, with LTM net debt to EBITDA of 0.24x. The main quality caveats are dependence on iPhone as ecosystem anchor, regulatory risk around platform economics, China demand and supply-chain exposure, and the possibility that premium hardware replacement cycles remain cyclical despite ecosystem strength.",
+    "financial_trend_diagnosis": "The current financial trend is positive and should be diagnosed primarily from the latest quarter and LTM data rather than the last full fiscal year. Latest quarter revenue was $111.184 billion, up 16.6% year over year, with gross margin of 49.3%, operating margin of 32.3%, net margin of 26.6%, operating cash flow of $28.7 billion, and free cash flow of $26.7 billion. This latest quarter shows a clear inflection versus the year-ago quarter: revenue grew strongly, gross margin expanded from 47.1% to 49.3%, operating margin improved from 31.0% to 32.3%, and free cash flow margin improved from 21.9% to 24.0%. LTM revenue is approximately $451.4 billion, above the last fiscal year’s $416.2 billion and prior fiscal year’s $391.0 billion. LTM gross margin of 47.9% and operating margin of 32.6% are above prior-year levels, and LTM free cash flow of $129.2 billion is strong. The latest quarter was sequentially down from the December quarter, but that is consistent with holiday seasonality; the more important current signal is year-over-year acceleration and margin expansion. Financial context is not stale, with the latest period ending 2026-03-31, but yfinance financials should be treated as data context rather than audited proof.",
+    "screen_interpretation": "Basic screen result was not supplied. From the available data context, AAPL screens as a very high-quality, high-margin, high-free-cash-flow mega-cap with improving quarterly fundamentals and balance-sheet leverage, but also as expensive versus peers and absolute valuation levels. Peer-relative snapshot shows margins above peers, revenue growth roughly in line with peer median, 3-month relative outperformance, 6-month relative underperformance, and valuation more expensive than peer median.",
+    "why_screen_may_be_wrong": "Because no formal screen result was supplied, this is not a screen override. If a quantitative screen flags AAPL positively on quality, momentum, margin expansion, or cash-flow improvement, it may understate valuation and expectations risk. If it flags AAPL negatively on valuation, it may understate the strength of the latest fundamental inflection, Services mix, capital returns, and balance-sheet improvement.",
+    "current_market_narrative": "No sourced consensus narrative was supplied. Our prior is that the market likely views AAPL as a high-quality mega-cap ecosystem compounder with renewed iPhone momentum, resilient Services growth, very large capital returns, and potential consumer AI optionality. The valuation suggests expectations are already elevated: forward P/E is approximately 29.2x, trailing P/E approximately 34.0x, EV/EBITDA approximately 26.2x, and price/sales approximately 9.1x, all while the stock is up 37.2% over one year and trades 39.1% above its 52-week low despite a recent 10.3% one-month pullback. The market appears to be paying for durability, margin strength, and shareholder returns rather than a statistically cheap cyclical recovery.",
+    "consensus_type": "unknown",
+    "consensus_verification_required": [
+      "No sourced sell-side estimate consensus was supplied for revenue, EPS, margins, Services growth, iPhone units, or valuation targets.",
+      "No sourced positioning data was supplied for institutional ownership changes, hedge fund crowding, options positioning specific to AAPL, or factor exposure beyond price momentum and peer-relative returns.",
+      "Current market narrative is inferred from valuation, price performance, macro context, and source-backed company results; it should be verified against recent sell-side notes, earnings transcript, options data, and fund positioning."
+    ],
+    "macro_fit_assessment": "Macro fit is mixed. The macro regime is described as Sticky Late Cycle AI leads, with healthy credit, resilient AI earnings, weak breadth, mixed monetary policy, and high support for quality and defensive cash-flow factors. Apple fits the quality cash-flow side well because of very high margins, substantial free cash flow, low net leverage, and large capital returns. However, it is also a mega-cap technology equity with valuation sensitivity to rates and market concentration, and the macro context flags weak breadth as a risk for crowded beta. The XLK sector score is only modestly positive at 0.38, while duration sensitivity and high-beta growth factors are negative. Overall, the macro backdrop supports Apple’s quality characteristics but does not provide a clean risk-on tailwind for multiple expansion.",
+    "theme_fit_assessment": "Theme fit is partial rather than clean primary exposure despite the deterministic mapping to high-beta AI semiconductors. Apple uses custom silicon and has on-device AI/consumer AI optionality, but it is not primarily a high-beta AI semiconductor producer or direct AI infrastructure beneficiary. Its main economic exposures are premium consumer devices, installed-base monetization, Services, and shareholder returns. The supplied aggregate theme support score is mildly negative at -0.16, with positive AI earnings resilience offset by negative breadth/crowding risk. Therefore, the mapped macro theme does not strongly support the AAPL setup; it modestly undermines it through breadth and valuation/crowding risk, while Apple’s quality cash-flow characteristics are better captured by broader quality-factor support than by the selected high-beta AI semis theme.",
+    "pressure_inflection_assessment": "There is no evidence of acute financial pressure in the supplied data; the more relevant issue is expectations pressure. Fundamentally, Apple is in an improving phase: latest-quarter revenue accelerated year over year, gross margin expanded sequentially and versus LTM, operating margin remains high, free cash flow is strong, and leverage is improving. Any pressure appears more likely valuation- and expectations-driven than balance-sheet-driven. The risk is that the latest inflection could be cyclical or product-cycle-specific rather than structural, especially given the premium valuation and strong one-year share-price performance. Services growth and installed-base expansion are more structural positives; iPhone replacement cycles, consumer electronics demand, and geographic demand are more cyclical.",
+    "competitive_position_assessment": "Apple appears competitively advantaged by ecosystem integration, installed-base scale, brand, proprietary silicon/software, distribution reach, supply-chain scale, and Services monetization. Source-backed evidence indicates the installed base of active devices reached a new all-time high across all major product categories and geographic segments, which supports ongoing Services and replacement-cycle economics. The company remains exposed to intense competition from Android handset vendors, PC makers, other digital ecosystems, and subscription/content platforms. Competitive position would weaken if iPhone demand becomes promotional, China share deteriorates, developers or regulators reduce platform economics, or AI features fail to sustain ecosystem differentiation.",
+    "valuation_expectations_assessment": "Valuation embeds high expectations. AAPL trades at approximately 29.2x forward earnings, 34.0x trailing earnings, 26.2x EV/EBITDA, 9.1x sales, and 38.6x book value. Peer-relative valuation is more expensive than the peer median, with forward P/E of 29.19x versus 17.89x, while revenue growth is described as roughly in line with peer median and margin profile is above peers. This premium can be justified only if Apple sustains high margins, Services growth, iPhone demand, and buyback-supported per-share growth. The stock’s 37.2% one-year return and 39.1% distance from its 52-week low imply that recent strength is likely at least partly reflected. The recent 10.3% one-month decline reduces some near-term froth but also signals expectations risk and sensitivity to macro or product-cycle disappointment.",
+    "variant_view": "Two-sided variant view: the supplied evidence supports a real fundamental inflection, but the market may already be paying for a durable version of that inflection. The positive variant is that broad-based iPhone, Services, geographic, margin, cash-flow, and buyback strength is more durable than investors appreciate. The negative variant is that the stock’s premium valuation and strong one-year performance already discount sustained best-in-class execution, making the 6-month risk/reward highly sensitive to any normalization in iPhone cycle strength, Services growth, macro breadth, or rates.",
+    "variant_view_direction": "two_sided",
+    "variant_view_strength": "medium",
+    "bull_case_variant_view": "The bull-side variant is that Apple’s current fundamental inflection is broader and higher quality than a simple hardware cycle: March-quarter revenue grew 17% year over year, EPS grew 22%, Services reached a new all-time high, installed base reached an all-time high across major categories and geographies, gross margin expanded, and net leverage improved. If the market is still underestimating the durability of installed-base monetization and the breadth of geographic demand, premium valuation may be more defensible over the 6-month horizon.",
+    "bear_case_variant_view": "The bear-side variant is that the market may be capitalizing a near-peak combination of iPhone cycle strength, Services mix, margin expansion, and buyback support at already demanding multiples. If March-quarter strength is product-cycle or channel-timing driven rather than durable replacement-cycle acceleration, the stock could be vulnerable because the valuation leaves limited room for normalization in hardware growth, margin mix, regulatory pressure on Services, or macro-driven multiple compression.",
+    "evidence_supporting_variant_view": [
+      "Source-backed March-quarter revenue was $111.2 billion, up 17% year over year, and diluted EPS was $2.01, up 22% year over year.",
+      "Research context states iPhone revenue reached a March-quarter record, with strength attributed to demand for the iPhone 17 lineup.",
+      "Services revenue reached a new all-time high at $30.976 billion versus $26.645 billion in the year-ago quarter.",
+      "Product net sales increased to $80.208 billion from $68.714 billion, showing both hardware and Services contributed to growth.",
+      "Greater China revenue increased to $20.497 billion from $16.002 billion, indicating the latest quarter’s growth was not limited to the U.S. or a single region.",
+      "Gross margin dollars expanded to $54.781 billion from $44.867 billion, and operating income rose to $35.885 billion from $29.589 billion.",
+      "Latest-quarter gross margin was 49.3%, above the 47.9% LTM level and 47.1% year-ago quarter level, confirming margin expansion in the most recent data.",
+      "Valuation is demanding relative to peers: forward P/E is 29.19x versus peer median 17.89x, creating expectations risk if growth normalizes.",
+      "Macro/theme context is mildly negative for the selected mapped theme, with aggregate theme support score of -0.16 and narrow breadth flagged as a risk for crowded beta."
+    ],
+    "evidence_against_variant_view": [
+      "The latest quarter’s revenue growth of 16.6% year over year, EPS growth of 22%, Services all-time high, and broad geographic growth argue against a purely bearish interpretation.",
+      "LTM margins and cash flow are improving: gross margin is 47.9% versus 46.2% in the prior fiscal-year comparison, operating margin is 32.6% versus 31.5%, and free cash flow is approximately $129.2 billion versus $108.8 billion in the prior fiscal-year comparison.",
+      "Net debt improved to approximately $39.1 billion on an LTM basis versus $76.7 billion in the prior fiscal-year comparison, reducing balance-sheet risk.",
+      "The board authorized up to $100 billion of additional share repurchases and raised the dividend by 4%, supporting per-share economics and signaling continued capital-return capacity.",
+      "Macro context favors quality cash-flow factors, which partially supports Apple despite the less favorable high-beta/duration and narrow-breadth backdrop."
+    ],
+    "key_risks": [
+      "Premium valuation and elevated expectations after strong one-year price performance.",
+      "Hardware cycle normalization if iPhone 17 demand is not durable.",
+      "Services regulatory risk affecting App Store fees, payments, licensing, default settings, advertising, or platform rules.",
+      "China demand, competition, regulatory, and geopolitical risk.",
+      "Supply-chain concentration and Taiwan/China-related disruption risk.",
+      "Foreign exchange headwinds due to global revenue exposure.",
+      "AI execution risk if consumer AI features fail to drive upgrades or require higher infrastructure/R&D spending than expected.",
+      "Narrow market breadth and mega-cap concentration risk in the macro backdrop.",
+      "Margin risk from component costs, product mix, cloud/content costs, or higher R&D intensity.",
+      "Capital-return expectations risk if free cash flow slows or debt reduction reverses."
+    ],
+    "fundamental_falsifiers": [
+      "Next reported quarter revenue growth decelerates sharply from the latest 16.6% year-over-year growth rate to low single digits or negative growth without a clear seasonal or launch-timing explanation.",
+      "iPhone revenue fails to sustain year-over-year growth after the March-quarter record, indicating the iPhone 17 demand strength was pull-forward or channel fill rather than real replacement demand.",
+      "Services revenue growth slows materially from the latest quarter’s increase from $26.645 billion to $30.976 billion, or Services gross economics are pressured by regulatory changes.",
+      "Gross margin falls back below roughly 47% after the latest quarter’s 49.3%, suggesting mix or component-cost benefits are reversing.",
+      "Operating margin falls below roughly 30% while revenue is still growing, indicating R&D, AI, services infrastructure, or go-to-market costs are overwhelming scale benefits.",
+      "Greater China revenue reverses from $20.497 billion in the latest quarter to year-over-year decline, indicating regional demand or competitive pressure has re-emerged.",
+      "Free cash flow generation weakens materially from the latest-quarter $26.7 billion or LTM $129.2 billion run-rate without a working-capital or seasonality explanation.",
+      "Net debt increases materially from approximately $39.1 billion while buybacks continue, suggesting capital returns are becoming less self-funded."
+    ],
+    "macro_theme_falsifiers": [
+      "Macro regime shifts from Sticky Late Cycle AI or reopening/soft-landing toward late-cycle risk-off, causing quality mega-cap technology multiples to compress despite company execution.",
+      "Market breadth deteriorates further and cap-weighted mega-cap leadership unwinds, pressuring AAPL as part of concentrated index leadership.",
+      "Monetary policy becomes more restrictive than the supplied mixed backdrop, increasing discount-rate pressure on high-multiple mega-cap technology.",
+      "AI earnings resilience weakens or hyperscaler capex rollover becomes triggered, reducing investor willingness to pay for technology/AI-adjacent optionality.",
+      "Consumer spending or global discretionary electronics demand weakens, undermining iPhone and broader product replacement cycles.",
+      "China macro, regulatory, or geopolitical conditions deteriorate enough to reverse latest-quarter Greater China growth."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E expands materially above the supplied 29.2x without corresponding upward revisions to revenue, EPS, or free cash flow expectations.",
+      "EV/EBITDA remains near or above 26x while revenue growth normalizes toward low single digits.",
+      "Price/sales remains near 9x while gross margin falls below LTM levels, weakening the mix-based valuation support.",
+      "Peer-relative premium widens further even though AAPL revenue growth remains only roughly in line with peer median.",
+      "Free-cash-flow yield compresses further while buyback execution slows or net debt rises.",
+      "AAPL’s valuation stops responding positively to strong results, indicating the market has already capitalized the current earnings inflection."
+    ],
+    "timing_falsifiers": [
+      "The next earnings release fails to confirm March-quarter momentum, with revenue, iPhone, or Services growth materially below the latest reported trend.",
+      "The stock rebounds materially without estimate verification while valuation expands further, increasing expectations risk rather than improving underwriting quality.",
+      "AAPL continues to underperform peers over 6 months while fundamentals remain strong, indicating multiple compression or positioning pressure is dominating company execution.",
+      "The recent one-month pullback deepens through earnings despite no fundamental deterioration, suggesting broader mega-cap or macro de-risking is overpowering company-specific positives.",
+      "New product-cycle or regulatory news arrives before the next earnings report that materially changes iPhone or Services expectations."
+    ],
+    "key_metrics_to_monitor": [
+      "Total revenue growth year over year, especially versus the latest quarter’s 16.6%.",
+      "iPhone revenue growth and commentary on demand versus channel inventory.",
+      "Services revenue growth, Services mix, and any disclosed pressure from App Store, payments, licensing, or regulatory changes.",
+      "Gross margin versus latest quarter 49.3% and LTM 47.9%.",
+      "Operating margin versus latest quarter 32.3% and LTM 32.6%.",
+      "Operating cash flow and free cash flow versus latest-quarter $28.7 billion and $26.7 billion, respectively.",
+      "Greater China revenue versus latest-quarter $20.497 billion.",
+      "Installed-base growth indicators and paid subscription indicators if disclosed.",
+      "Capital return execution under the additional $100 billion repurchase authorization.",
+      "Forward P/E, EV/EBITDA, and peer-relative valuation spread.",
+      "Price behavior around product-cycle, earnings, and macro rate events, especially after the recent one-month pullback."
+    ],
+    "suggested_monitoring_plan": [
+      "Before the next earnings report, verify current sell-side expectations for iPhone, Services, gross margin, EPS, and buybacks to determine whether the March-quarter strength is already fully embedded.",
+      "Track weekly or monthly third-party indicators only if sourced separately: iPhone channel demand, China smartphone demand, carrier promotions, and App Store/Services activity.",
+      "At the next earnings release, compare reported revenue growth, gross margin, Services growth, Greater China revenue, operating cash flow, and buyback execution against the latest-quarter baseline.",
+      "Review any new regulatory developments affecting App Store fees, payments, search/default arrangements, and digital market rules.",
+      "Monitor macro indicators tied to AAPL’s multiple: breadth, rates/Fed expectations, quality-factor performance, XLK performance, and mega-cap concentration.",
+      "Reassess valuation after earnings using updated forward P/E, EV/EBITDA, and free-cash-flow yield versus growth durability."
+    ],
+    "underwriting_summary": "AAPL is a high-quality business with strong source-backed recent fundamentals: a record March quarter, 17% revenue growth, 22% EPS growth, iPhone March-quarter record, Services all-time high, broad geographic growth, high margins, strong cash flow, improving leverage, and a new $100 billion buyback authorization. The fundamental direction is constructive and current financial pressure is limited. The main underwriting tension is price and expectations: valuation is expensive on forward P/E, trailing P/E, EV/EBITDA, and price/sales, and the stock has already appreciated meaningfully over one year despite a recent pullback. Macro support is mixed: quality cash flow is favored, but narrow breadth, high-multiple technology sensitivity, and the mildly negative mapped theme score limit the setup. The appropriate synthesis is two-sided: fundamentals are improving enough to support a constructive quality view, but the premium valuation requires proof that the latest iPhone and Services strength is durable rather than a peak-cycle or product-cycle surge.",
+    "qualitative_conviction": "constructive",
+    "suggested_score_adjustment": 1.0,
+    "confidence": "medium",
+    "data_gaps": [
+      "No user-supplied thesis was provided.",
+      "Basic screen result is missing.",
+      "Research context has no sourced bearish evidence items, so downside evidence is mainly inferred from valuation, macro/theme context, and company risk profile rather than recent negative source items.",
+      "Transcript not provided; management guidance, Q&A, segment commentary, and forward-looking demand commentary are missing.",
+      "Supplied 10-Q text was described as largely XBRL/truncated, with no high-confidence MD&A, risk, liquidity, debt, capex, or segment discussion extracted.",
+      "No sell-side consensus estimates or revisions were supplied.",
+      "No AAPL-specific positioning, options skew, fund-flow, or short-interest data was supplied.",
+      "Segment revenue share and profit share estimates are not provided in the company profile.",
+      "Customer concentration, supplier concentration, and audited regional revenue mix are not verified from filings in the supplied context.",
+      "Latest filing date is null in the yfinance-derived financial context.",
+      "Theme mapping confidence is only medium and appears imperfect because AAPL is mapped to high-beta AI semiconductors despite being primarily a consumer hardware/services ecosystem rather than a semiconductor producer."
+    ]
+  },
+  "company_profile": {
+    "ticker": "AAPL",
+    "company_name": "Apple Inc.",
+    "sector": "Information Technology",
+    "industry": "Consumer Electronics and Technology Hardware, Storage & Peripherals",
+    "profile_source": "llm_generated_unverified",
+    "profile_confidence": "medium",
+    "profile_as_of_date": "2026-06-28",
+    "profile_source_notes": [
+      "Profile is LLM-generated from general knowledge and the supplied financial context; it should be verified against Apple filings, investor materials, and supplier disclosures.",
+      "Supplied financial context indicates latest financial period end date of 2026-03-31, LTM revenue of approximately $451.4 billion, gross margin of approximately 47.9%, operating margin of approximately 32.6%, and improving free cash flow and leverage trends.",
+      "Company profile is LLM-generated from supplied metadata and general prior knowledge; verify with filings before relying on precise business details."
+    ],
+    "profile_data_gaps": [
+      "No source-backed research context or filing excerpts were supplied for detailed business verification.",
+      "Segment revenue_share_estimate and profit_share_estimate are not provided in the supplied context and are set to null.",
+      "Customer concentration, supplier concentration, and regional revenue mix are not verified from filings in this profile.",
+      "Recent management commentary, legal developments, and product-launch details are not verified in this profile."
+    ],
+    "business_description": "Apple Inc. designs, manufactures, and markets consumer electronics, personal computers, tablets, wearables, accessories, and related software and services. Its core franchise is a vertically integrated hardware, software, and services ecosystem anchored by iPhone, with additional products including Mac, iPad, Apple Watch, AirPods, Apple TV, and subscription, payments, licensing, warranty, advertising, and digital content services. The company sells globally through direct channels, online stores, retail stores, carriers, resellers, and enterprise/education channels.",
+    "business_model": "Apple monetizes a large global installed base through premium-priced devices, recurring and transaction-based services, software integration, and ecosystem lock-in. Hardware sales are driven by product cycles, replacement demand, channel inventory, carrier promotions, and geographic consumer spending. Services revenue is higher-margin and more recurring, supported by App Store activity, subscriptions, AppleCare, iCloud, payments, advertising, and licensing. The model depends on brand strength, supply-chain scale, proprietary silicon/software, developer participation, and continued user engagement across devices.",
+    "segments": [
+      {
+        "name": "iPhone",
+        "description": "Smartphone products centered on iPhone, including premium and mainstream models integrated with iOS, Apple silicon, cameras, services, and carrier channels.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "New model launch cadence and innovation",
+          "Replacement cycles and installed base upgrades",
+          "Carrier promotions and financing offers",
+          "Premium model and storage mix",
+          "China, U.S., Europe, and emerging-market demand",
+          "Competitive positioning versus Android vendors"
+        ]
+      },
+      {
+        "name": "Mac",
+        "description": "Mac desktop and notebook computers running macOS and Apple-designed silicon, sold to consumers, education, creators, developers, and enterprises.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "PC replacement cycle",
+          "Apple silicon performance and battery-life differentiation",
+          "Enterprise and education adoption",
+          "Consumer spending and back-to-school demand",
+          "Competitive pricing versus Windows PCs"
+        ]
+      },
+      {
+        "name": "iPad",
+        "description": "iPad tablets and related accessories used for consumer, education, creative, and enterprise workflows.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Tablet replacement cycles",
+          "Education and consumer demand",
+          "Product refresh cadence",
+          "Accessory attachment such as keyboards and pencils",
+          "Competition from PCs and lower-cost tablets"
+        ]
+      },
+      {
+        "name": "Wearables, Home and Accessories",
+        "description": "Wearables, Home and Accessories includes Apple Watch, AirPods, Beats products, Apple TV hardware, HomePod, accessories, and related device categories.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Health and fitness feature adoption",
+          "Attach rate to the iPhone installed base",
+          "Accessory replacement and upgrade cycles",
+          "Holiday-season demand",
+          "New sensor, audio, and connected-home features"
+        ]
+      },
+      {
+        "name": "Services",
+        "description": "Services includes digital content, subscriptions, App Store, cloud services, AppleCare, payments, advertising, and licensing arrangements tied to Apple platforms and the installed base.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Growth and engagement of active installed base",
+          "Paid subscription adoption and bundling",
+          "App Store developer activity and transaction volume",
+          "Cloud storage usage",
+          "Licensing and advertising economics",
+          "Regulatory changes affecting platform fees and payment rules"
+        ]
+      }
+    ],
+    "revenue_model": [
+      "Upfront sales of iPhone, Mac, iPad, wearables, home devices, accessories, and related hardware",
+      "Recurring subscriptions and service fees from iCloud, Apple Music, Apple TV+, Apple Arcade, Apple Fitness+, and other services",
+      "App Store commissions and in-app purchase economics where permitted by regulation",
+      "Licensing and platform payments, including search and other distribution arrangements",
+      "AppleCare warranty and support plans",
+      "Payments, financial services, advertising, and other transaction-based ecosystem revenue",
+      "Direct retail, online, carrier, reseller, distributor, enterprise, education, and government sales channels"
+    ],
+    "cost_drivers": [
+      "Semiconductor and component costs, including application processors, memory, displays, cameras, batteries, sensors, and connectivity components",
+      "Contract manufacturing, assembly, tooling, logistics, freight, and warranty costs",
+      "Research and development spending for custom silicon, operating systems, AI features, devices, services, and developer platforms",
+      "Sales, marketing, retail store operations, customer support, and distribution expenses",
+      "Content, cloud infrastructure, data center, payment processing, and platform operating costs for services",
+      "Foreign exchange translation and hedging impacts on international cost base and reported results",
+      "Tariffs, trade restrictions, customs duties, and compliance costs across global supply chains"
+    ],
+    "margin_drivers": [
+      "Mix shift between hardware and higher-margin Services revenue",
+      "iPhone product mix, pricing discipline, storage-tier mix, and premium model adoption",
+      "Component cost trends, memory/display pricing, supply availability, and manufacturing yields",
+      "Scale benefits from large production volumes and supply-chain purchasing power",
+      "Foreign exchange movements and hedging effectiveness",
+      "Channel mix between direct retail/online sales and third-party distribution",
+      "Services take rates, licensing economics, cloud/content costs, and regulatory limits on platform fees",
+      "R&D intensity for custom silicon, AI, new devices, and platform development",
+      "Warranty, repair, recall, and product quality costs"
+    ],
+    "key_customers": [
+      "Global consumers and households",
+      "Mobile network operators and carrier distribution channels",
+      "Third-party retailers, resellers, and distributors",
+      "Small and medium-sized businesses",
+      "Large enterprises, education institutions, and government customers",
+      "App developers and digital content providers that participate in Apple platforms"
+    ],
+    "key_suppliers": [
+      "Hon Hai Precision Industry / Foxconn and other contract manufacturing partners",
+      "Taiwan Semiconductor Manufacturing Company for advanced chip fabrication",
+      "Display, memory, camera, battery, sensor, and connectivity component suppliers across Asia, the U.S., and Europe",
+      "Logistics, cloud infrastructure, and data center service providers"
+    ],
+    "peer_group": [
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corporation",
+        "relevance": "Large-cap technology ecosystem and services platform peer, though with more enterprise software and cloud exposure."
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "relevance": "Consumer technology platform peer with mobile operating system, services, advertising, AI, and regulatory exposure."
+      },
+      {
+        "ticker": "SSNLF",
+        "name": "Samsung Electronics Co., Ltd.",
+        "relevance": "Global smartphone, consumer electronics, display, and semiconductor competitor; U.S. investors may access through OTC/foreign listings."
+      },
+      {
+        "ticker": "DELL",
+        "name": "Dell Technologies Inc.",
+        "relevance": "PC and hardware systems peer with enterprise and consumer device exposure."
+      },
+      {
+        "ticker": "HPQ",
+        "name": "HP Inc.",
+        "relevance": "Personal computer and peripherals peer exposed to PC replacement cycles and hardware margins."
+      },
+      {
+        "ticker": "SONY",
+        "name": "Sony Group Corporation",
+        "relevance": "Consumer electronics, devices, gaming, entertainment, and subscription/content ecosystem peer."
+      },
+      {
+        "ticker": "QCOM",
+        "name": "Qualcomm Incorporated",
+        "relevance": "Mobile semiconductor and connectivity supplier/competitor exposure tied to smartphone unit cycles and device technology."
+      },
+      {
+        "ticker": "GRMN",
+        "name": "Garmin Ltd.",
+        "relevance": "Wearables and connected device peer in health, fitness, and consumer electronics niches."
+      }
+    ],
+    "thematic_exposures": [
+      "Premium consumer electronics",
+      "Smartphone replacement cycle",
+      "Digital services and subscriptions",
+      "Installed-base monetization",
+      "Mobile app ecosystem regulation",
+      "On-device AI and consumer AI features",
+      "Custom silicon and edge computing",
+      "Wearables and digital health",
+      "Payments and digital wallets",
+      "China consumer and supply-chain exposure",
+      "FX-sensitive mega-cap technology",
+      "Shareholder returns and buybacks"
+    ],
+    "macro_sensitivities": [
+      "Global consumer spending and discretionary electronics demand",
+      "Smartphone and PC replacement cycles",
+      "U.S. dollar strength and foreign exchange translation on international revenue and margins",
+      "China consumer demand, regulatory environment, and supply-chain disruption risk",
+      "Interest rates and consumer financing conditions for premium devices",
+      "Semiconductor supply, foundry capacity, memory pricing, and component cost cycles",
+      "Tariffs, export controls, trade policy, and geopolitical tensions affecting cross-border production and sales",
+      "AI capex and cloud infrastructure requirements for on-device and services-based AI capabilities",
+      "App Store regulation, digital market rules, payment regulation, privacy regulation, and antitrust enforcement",
+      "Seasonality around new product launches and holiday-quarter demand"
+    ],
+    "major_risks": [
+      "High dependence on iPhone as the anchor product and ecosystem gateway",
+      "Slower device replacement cycles or weaker premium smartphone demand",
+      "Intense competition from Android handset vendors, PC makers, streaming services, cloud platforms, and other digital ecosystems",
+      "Regulatory and legal pressure on App Store fees, default settings, payments, search licensing, privacy practices, and platform rules",
+      "Execution risk around new product categories, generative AI features, and maintaining ecosystem differentiation",
+      "Supply-chain concentration and disruption risk, including China manufacturing exposure and reliance on advanced semiconductor foundry capacity",
+      "Geopolitical risk, tariffs, export controls, and potential restrictions affecting China, Taiwan, the U.S., or Europe",
+      "Foreign exchange headwinds due to large international revenue base",
+      "Product quality, cybersecurity, privacy, warranty, or safety issues that could impair brand trust",
+      "Services growth risk if developer economics, licensing arrangements, subscription adoption, or regulatory rules change"
+    ]
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": "improving",
+    "operating_margin_trend": "improving",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "improving",
+    "capex_trend": null,
+    "leverage_trend": "improving",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving on trailing 8Q data.",
+      "Gross margin is improving on trailing 8Q data.",
+      "Operating margin is improving on trailing 8Q data.",
+      "Free cash flow is improving on trailing 8Q data.",
+      "Leverage is improving on trailing 8Q data.",
+      "Latest quarter revenue is accelerating year over year.",
+      "Gross margin is expanding sequentially."
+    ],
+    "deteriorating_indicators": [],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from quarterly-first fundamental context pack. Latest financial period ended 2026-03-31. LLM synthesis: The current financial trend is positive and should be diagnosed primarily from the latest quarter and LTM data rather than the last full fiscal year. Latest quarter revenue was $111.184 billion, up 16.6% year over year, with gross margin of 49.3%, operating margin of 32.3%, net margin of 26.6%, operating cash flow of $28.7 billion, and free cash flow of $26.7 billion. This latest quarter shows a clear inflection versus the year-ago quarter: revenue grew strongly, gross margin expanded from 47.1% to 49.3%, operating margin improved from 31.0% to 32.3%, and free cash flow margin improved from 21.9% to 24.0%. LTM revenue is approximately $451.4 billion, above the last fiscal year’s $416.2 billion and prior fiscal year’s $391.0 billion. LTM gross margin of 47.9% and operating margin of 32.6% are above prior-year levels, and LTM free cash flow of $129.2 billion is strong. The latest quarter was sequentially down from the December quarter, but that is consistent with holiday seasonality; the more important current signal is year-over-year acceleration and margin expansion. Financial context is not stale, with the latest period ending 2026-03-31, but yfinance financials should be treated as data context rather than audited proof.",
+    "why_screen_may_be_wrong": "Because no formal screen result was supplied, this is not a screen override. If a quantitative screen flags AAPL positively on quality, momentum, margin expansion, or cash-flow improvement, it may understate valuation and expectations risk. If it flags AAPL negatively on valuation, it may understate the strength of the latest fundamental inflection, Services mix, capital returns, and balance-sheet improvement."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Premium valuation and elevated expectations after strong one-year price performance.",
+      "Hardware cycle normalization if iPhone 17 demand is not durable.",
+      "Services regulatory risk affecting App Store fees, payments, licensing, default settings, advertising, or platform rules.",
+      "China demand, competition, regulatory, and geopolitical risk.",
+      "Supply-chain concentration and Taiwan/China-related disruption risk."
+    ],
+    "recent_strength_points": [
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "likely_causes": [],
+    "pressure_type": "cyclical",
+    "cyclical_vs_structural_assessment": "There is no evidence of acute financial pressure in the supplied data; the more relevant issue is expectations pressure. Fundamentally, Apple is in an improving phase: latest-quarter revenue accelerated year over year, gross margin expanded sequentially and versus LTM, operating margin remains high, free cash flow is strong, and leverage is improving. Any pressure appears more likely valuation- and expectations-driven than balance-sheet-driven. The risk is that the latest inflection could be cyclical or product-cycle-specific rather than structural, especially given the premium valuation and strong one-year share-price performance. Services growth and installed-base expansion are more structural positives; iPhone replacement cycles, consumer electronics demand, and geographic demand are more cyclical.",
+    "abatement_evidence": [
+      "Gross margin is expanding sequentially."
+    ],
+    "inflection_catalysts": [
+      "latest-quarter revenue acceleration"
+    ],
+    "margin_recovery_potential": "Potentially meaningful if the identified pressure points are temporary and pricing/mix improves.",
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": [
+      "Are key margin drivers improving: Channel mix between direct retail/online sales and third-party distribution, Component cost trends, memory/display pricing, supply availability, and manufacturing yields, Foreign exchange movements and hedging effectiveness, Mix shift between hardware and higher-margin Services revenue, R&D intensity for custom silicon, AI, new devices, and platform development, Scale benefits from large production volumes and supply-chain purchasing power, Services take rates, licensing economics, cloud/content costs, and regulatory limits on platform fees, Warranty, repair, recall, and product quality costs, iPhone product mix, pricing discipline, storage-tier mix, and premium model adoption?"
+    ]
+  },
+  "competitive_position_analysis": {
+    "peer_group": [
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corporation",
+        "relevance": "Large-cap technology ecosystem and services platform peer, though with more enterprise software and cloud exposure."
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "relevance": "Consumer technology platform peer with mobile operating system, services, advertising, AI, and regulatory exposure."
+      },
+      {
+        "ticker": "SSNLF",
+        "name": "Samsung Electronics Co., Ltd.",
+        "relevance": "Global smartphone, consumer electronics, display, and semiconductor competitor; U.S. investors may access through OTC/foreign listings."
+      },
+      {
+        "ticker": "DELL",
+        "name": "Dell Technologies Inc.",
+        "relevance": "PC and hardware systems peer with enterprise and consumer device exposure."
+      },
+      {
+        "ticker": "HPQ",
+        "name": "HP Inc.",
+        "relevance": "Personal computer and peripherals peer exposed to PC replacement cycles and hardware margins."
+      },
+      {
+        "ticker": "SONY",
+        "name": "Sony Group Corporation",
+        "relevance": "Consumer electronics, devices, gaming, entertainment, and subscription/content ecosystem peer."
+      },
+      {
+        "ticker": "QCOM",
+        "name": "Qualcomm Incorporated",
+        "relevance": "Mobile semiconductor and connectivity supplier/competitor exposure tied to smartphone unit cycles and device technology."
+      },
+      {
+        "ticker": "GRMN",
+        "name": "Garmin Ltd.",
+        "relevance": "Wearables and connected device peer in health, fitness, and consumer electronics niches."
+      }
+    ],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [],
+    "competitive_advantages": [],
+    "competitive_threats": [],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "Apple appears competitively advantaged by ecosystem integration, installed-base scale, brand, proprietary silicon/software, distribution reach, supply-chain scale, and Services monetization. Source-backed evidence indicates the installed base of active devices reached a new all-time high across all major product categories and geographic segments, which supports ongoing Services and replacement-cycle economics. The company remains exposed to intense competition from Android handset vendors, PC makers, other digital ecosystems, and subscription/content platforms. Competitive position would weaken if iPhone demand becomes promotional, China share deteriorates, developers or regulators reduce platform economics, or AI features fail to sustain ecosystem differentiation."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (high_beta_ai_semis) with aggregate theme support score -0.16. Known exposures: Premium consumer electronics, Smartphone replacement cycle, Digital services and subscriptions, Installed-base monetization, Mobile app ecosystem regulation, On-device AI and consumer AI features, Custom silicon and edge computing, Wearables and digital health, Payments and digital wallets, China consumer and supply-chain exposure, FX-sensitive mega-cap technology, Shareholder returns and buybacks, Global consumer spending and discretionary electronics demand, Smartphone and PC replacement cycles, U.S. dollar strength and foreign exchange translation on international revenue and margins, China consumer demand, regulatory environment, and supply-chain disruption risk, Interest rates and consumer financing conditions for premium devices, Semiconductor supply, foundry capacity, memory pricing, and component cost cycles, Tariffs, export controls, trade policy, and geopolitical tensions affecting cross-border production and sales, AI capex and cloud infrastructure requirements for on-device and services-based AI capabilities, App Store regulation, digital market rules, payment regulation, privacy regulation, and antitrust enforcement, Seasonality around new product launches and holiday-quarter demand.",
+    "scenario_impacts": [
+      {
+        "scenario_name": "AI capex acceleration",
+        "impact": "positive",
+        "rationale": "Company appears positively exposed to sustained or accelerating AI/data center capex.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "AI capex rollover",
+        "impact": "negative",
+        "rationale": "A slowdown in AI/data center capex would likely pressure growth expectations and valuation.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "Rates remain elevated",
+        "impact": "negative",
+        "rationale": "Higher rates can pressure valuation multiples and financing-sensitive demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Macro-supported mapped themes",
+        "impact": "positive",
+        "rationale": "AI earnings resilience: AI resilience helps semis, though crowding remains.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Macro-penalized mapped themes",
+        "impact": "negative",
+        "rationale": "Breadth and participation: Narrow breadth raises unwind risk in crowded beta.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "AI/data-center macro support",
+        "impact": "positive",
+        "rationale": "Mapped theme drivers include positive AI/data-center macro support.",
+        "sensitivity_level": "high"
+      }
+    ],
+    "oil_sensitivity": null,
+    "rate_sensitivity": "Medium to high",
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": "High",
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Upside requires company-specific execution to overcome weak macro support for mapped themes.",
+    "downside_scenario": "Macro forecast currently penalizes mapped themes, creating top-down pressure on growth expectations or valuation.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: sticky_late_cycle_ai, reopening_soft_landing, oil_inflation_tail. Top macro signals: Credit layer health, AI earnings resilience, Breadth and participation. AAPL maps to macro-forecast themes high_beta_ai_semis. Aggregate theme support score is -0.16."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "No sourced consensus narrative was supplied. Our prior is that the market likely views AAPL as a high-quality mega-cap ecosystem compounder with renewed iPhone momentum, resilient Services growth, very large capital returns, and potential consumer AI optionality. The valuation suggests expectations are already elevated: forward P/E is approximately 29.2x, trailing P/E approximately 34.0x, EV/EBITDA approximately 26.2x, and price/sales approximately 9.1x, all while the stock is up 37.2% over one year and trades 39.1% above its 52-week low despite a recent 10.3% one-month pullback. The market appears to be paying for durability, margin strength, and shareholder returns rather than a statistically cheap cyclical recovery.",
+    "implied_expectations": "Cannot infer implied expectations with high confidence in v1.",
+    "market_mispricing_hypothesis": "No strong mispricing hypothesis generated yet.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": null,
+    "expectation_summary": "Valuation embeds high expectations. AAPL trades at approximately 29.2x forward earnings, 34.0x trailing earnings, 26.2x EV/EBITDA, 9.1x sales, and 38.6x book value. Peer-relative valuation is more expensive than the peer median, with forward P/E of 29.19x versus 17.89x, while revenue growth is described as roughly in line with peer median and margin profile is above peers. This premium can be justified only if Apple sustains high margins, Services growth, iPhone demand, and buyback-supported per-share growth. The stock’s 37.2% one-year return and 39.1% distance from its 52-week low imply that recent strength is likely at least partly reflected. The recent 10.3% one-month decline reduces some near-term froth but also signals expectations risk and sensitivity to macro or product-cycle disappointment."
+  },
+  "variant_view": {
+    "consensus_view": "Consensus view not available in v1.",
+    "helix_variant_view": "Variant direction: two_sided. Two-sided variant view: the supplied evidence supports a real fundamental inflection, but the market may already be paying for a durable version of that inflection. The positive variant is that broad-based iPhone, Services, geographic, margin, cash-flow, and buyback strength is more durable than investors appreciate. The negative variant is that the stock’s premium valuation and strong one-year performance already discount sustained best-in-class execution, making the 6-month risk/reward highly sensitive to any normalization in iPhone cycle strength, Services growth, macro breadth, or rates. Bull case: The bull-side variant is that Apple’s current fundamental inflection is broader and higher quality than a simple hardware cycle: March-quarter revenue grew 17% year over year, EPS grew 22%, Services reached a new all-time high, installed base reached an all-time high across major categories and geographies, gross margin expanded, and net leverage improved. If the market is still underestimating the durability of installed-base monetization and the breadth of geographic demand, premium valuation may be more defensible over the 6-month horizon. Bear case: The bear-side variant is that the market may be capitalizing a near-peak combination of iPhone cycle strength, Services mix, margin expansion, and buyback support at already demanding multiples. If March-quarter strength is product-cycle or channel-timing driven rather than durable replacement-cycle acceleration, the stock could be vulnerable because the valuation leaves limited room for normalization in hardware growth, margin mix, regulatory pressure on Services, or macro-driven multiple compression.",
+    "variant_view_direction": "two_sided",
+    "bull_case_variant_view": "The bull-side variant is that Apple’s current fundamental inflection is broader and higher quality than a simple hardware cycle: March-quarter revenue grew 17% year over year, EPS grew 22%, Services reached a new all-time high, installed base reached an all-time high across major categories and geographies, gross margin expanded, and net leverage improved. If the market is still underestimating the durability of installed-base monetization and the breadth of geographic demand, premium valuation may be more defensible over the 6-month horizon.",
+    "bear_case_variant_view": "The bear-side variant is that the market may be capitalizing a near-peak combination of iPhone cycle strength, Services mix, margin expansion, and buyback support at already demanding multiples. If March-quarter strength is product-cycle or channel-timing driven rather than durable replacement-cycle acceleration, the stock could be vulnerable because the valuation leaves limited room for normalization in hardware growth, margin mix, regulatory pressure on Services, or macro-driven multiple compression.",
+    "evidence_supporting_variant_view": [
+      "Bull evidence: AI earnings resilience: AI resilience helps semis, though crowding remains.",
+      "Two-sided evidence: Source-backed March-quarter revenue was $111.2 billion, up 17% year over year, and diluted EPS was $2.01, up 22% year over year.",
+      "Two-sided evidence: Research context states iPhone revenue reached a March-quarter record, with strength attributed to demand for the iPhone 17 lineup.",
+      "Two-sided evidence: Services revenue reached a new all-time high at $30.976 billion versus $26.645 billion in the year-ago quarter.",
+      "Two-sided evidence: Product net sales increased to $80.208 billion from $68.714 billion, showing both hardware and Services contributed to growth.",
+      "Two-sided evidence: Greater China revenue increased to $20.497 billion from $16.002 billion, indicating the latest quarter’s growth was not limited to the U.S. or a single region.",
+      "Two-sided evidence: Gross margin dollars expanded to $54.781 billion from $44.867 billion, and operating income rose to $35.885 billion from $29.589 billion.",
+      "Two-sided evidence: Latest-quarter gross margin was 49.3%, above the 47.9% LTM level and 47.1% year-ago quarter level, confirming margin expansion in the most recent data.",
+      "Two-sided evidence: Valuation is demanding relative to peers: forward P/E is 29.19x versus peer median 17.89x, creating expectations risk if growth normalizes.",
+      "Two-sided evidence: Macro/theme context is mildly negative for the selected mapped theme, with aggregate theme support score of -0.16 and narrow breadth flagged as a risk for crowded beta."
+    ],
+    "why_market_may_be_wrong": [],
+    "required_confirming_evidence": [],
+    "risks_to_variant_view": [
+      "Two-sided counter-evidence: The latest quarter’s revenue growth of 16.6% year over year, EPS growth of 22%, Services all-time high, and broad geographic growth argue against a purely bearish interpretation.",
+      "Two-sided counter-evidence: LTM margins and cash flow are improving: gross margin is 47.9% versus 46.2% in the prior fiscal-year comparison, operating margin is 32.6% versus 31.5%, and free cash flow is approximately $129.2 billion versus $108.8 billion in the prior fiscal-year comparison.",
+      "Two-sided counter-evidence: Net debt improved to approximately $39.1 billion on an LTM basis versus $76.7 billion in the prior fiscal-year comparison, reducing balance-sheet risk.",
+      "Two-sided counter-evidence: The board authorized up to $100 billion of additional share repurchases and raised the dividend by 4%, supporting per-share economics and signaling continued capital-return capacity.",
+      "Two-sided counter-evidence: Macro context favors quality cash-flow factors, which partially supports Apple despite the less favorable high-beta/duration and narrow-breadth backdrop.",
+      "Bear risk: Premium valuation and elevated expectations after strong one-year price performance.",
+      "Bear risk: Hardware cycle normalization if iPhone 17 demand is not durable.",
+      "Bear risk: Services regulatory risk affecting App Store fees, payments, licensing, default settings, advertising, or platform rules.",
+      "Bear risk: China demand, competition, regulatory, and geopolitical risk.",
+      "Bear risk: Supply-chain concentration and Taiwan/China-related disruption risk.",
+      "Bear risk: Foreign exchange headwinds due to global revenue exposure.",
+      "Bear risk: AI execution risk if consumer AI features fail to drive upgrades or require higher infrastructure/R&D spending than expected.",
+      "Bear risk: Narrow market breadth and mega-cap concentration risk in the macro backdrop.",
+      "Bear risk: Margin risk from component costs, product mix, cloud/content costs, or higher R&D intensity.",
+      "Bear risk: Capital-return expectations risk if free cash flow slows or debt reduction reverses."
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Company fails to show evidence supporting the proposed variant view.",
+      "Next reported quarter revenue growth decelerates sharply from the latest 16.6% year-over-year growth rate to low single digits or negative growth without a clear seasonal or launch-timing explanation.",
+      "iPhone revenue fails to sustain year-over-year growth after the March-quarter record, indicating the iPhone 17 demand strength was pull-forward or channel fill rather than real replacement demand.",
+      "Services revenue growth slows materially from the latest quarter’s increase from $26.645 billion to $30.976 billion, or Services gross economics are pressured by regulatory changes.",
+      "Gross margin falls back below roughly 47% after the latest quarter’s 49.3%, suggesting mix or component-cost benefits are reversing.",
+      "Operating margin falls below roughly 30% while revenue is still growing, indicating R&D, AI, services infrastructure, or go-to-market costs are overwhelming scale benefits.",
+      "Greater China revenue reverses from $20.497 billion in the latest quarter to year-over-year decline, indicating regional demand or competitive pressure has re-emerged.",
+      "Free cash flow generation weakens materially from the latest-quarter $26.7 billion or LTM $129.2 billion run-rate without a working-capital or seasonality explanation.",
+      "Net debt increases materially from approximately $39.1 billion while buybacks continue, suggesting capital returns are becoming less self-funded."
+    ],
+    "macro_falsifiers": [
+      "Macro regime shifts from Sticky Late Cycle AI or reopening/soft-landing toward late-cycle risk-off, causing quality mega-cap technology multiples to compress despite company execution.",
+      "Market breadth deteriorates further and cap-weighted mega-cap leadership unwinds, pressuring AAPL as part of concentrated index leadership.",
+      "Monetary policy becomes more restrictive than the supplied mixed backdrop, increasing discount-rate pressure on high-multiple mega-cap technology.",
+      "AI earnings resilience weakens or hyperscaler capex rollover becomes triggered, reducing investor willingness to pay for technology/AI-adjacent optionality.",
+      "Consumer spending or global discretionary electronics demand weakens, undermining iPhone and broader product replacement cycles.",
+      "China macro, regulatory, or geopolitical conditions deteriorate enough to reverse latest-quarter Greater China growth."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E expands materially above the supplied 29.2x without corresponding upward revisions to revenue, EPS, or free cash flow expectations.",
+      "EV/EBITDA remains near or above 26x while revenue growth normalizes toward low single digits.",
+      "Price/sales remains near 9x while gross margin falls below LTM levels, weakening the mix-based valuation support.",
+      "Peer-relative premium widens further even though AAPL revenue growth remains only roughly in line with peer median.",
+      "Free-cash-flow yield compresses further while buyback execution slows or net debt rises.",
+      "AAPL’s valuation stops responding positively to strong results, indicating the market has already capitalized the current earnings inflection."
+    ],
+    "timing_falsifiers": [
+      "The next earnings release fails to confirm March-quarter momentum, with revenue, iPhone, or Services growth materially below the latest reported trend.",
+      "The stock rebounds materially without estimate verification while valuation expands further, increasing expectations risk rather than improving underwriting quality.",
+      "AAPL continues to underperform peers over 6 months while fundamentals remain strong, indicating multiple compression or positioning pressure is dominating company execution.",
+      "The recent one-month pullback deepens through earnings despite no fundamental deterioration, suggesting broader mega-cap or macro de-risking is overpowering company-specific positives.",
+      "New product-cycle or regulatory news arrives before the next earnings report that materially changes iPhone or Services expectations."
+    ],
+    "technical_or_price_falsifiers": [],
+    "monitoring_triggers": [
+      "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+      "Before the next earnings report, verify current sell-side expectations for iPhone, Services, gross margin, EPS, and buybacks to determine whether the March-quarter strength is already fully embedded.",
+      "Track weekly or monthly third-party indicators only if sourced separately: iPhone channel demand, China smartphone demand, carrier promotions, and App Store/Services activity.",
+      "At the next earnings release, compare reported revenue growth, gross margin, Services growth, Greater China revenue, operating cash flow, and buyback execution against the latest-quarter baseline.",
+      "Review any new regulatory developments affecting App Store fees, payments, search/default arrangements, and digital market rules.",
+      "Monitor macro indicators tied to AAPL’s multiple: breadth, rates/Fed expectations, quality-factor performance, XLK performance, and mega-cap concentration.",
+      "Reassess valuation after earnings using updated forward P/E, EV/EBITDA, and free-cash-flow yield versus growth durability."
+    ],
+    "key_metrics_to_watch": [
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "free cash flow",
+      "leverage",
+      "earnings revisions",
+      "Total revenue growth year over year, especially versus the latest quarter’s 16.6%.",
+      "iPhone revenue growth and commentary on demand versus channel inventory.",
+      "Services revenue growth, Services mix, and any disclosed pressure from App Store, payments, licensing, or regulatory changes.",
+      "Gross margin versus latest quarter 49.3% and LTM 47.9%.",
+      "Operating margin versus latest quarter 32.3% and LTM 32.6%.",
+      "Operating cash flow and free cash flow versus latest-quarter $28.7 billion and $26.7 billion, respectively.",
+      "Greater China revenue versus latest-quarter $20.497 billion.",
+      "Installed-base growth indicators and paid subscription indicators if disclosed.",
+      "Capital return execution under the additional $100 billion repurchase authorization.",
+      "Forward P/E, EV/EBITDA, and peer-relative valuation spread.",
+      "Price behavior around product-cycle, earnings, and macro rate events, especially after the recent one-month pullback."
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 70.0,
+    "financial_health": 68.0,
+    "competitive_position": 50.0,
+    "earnings_inflection_potential": 69.0,
+    "regime_fit": 48.027534682674265,
+    "valuation_setup": 51.5,
+    "variant_perception_strength": 80.0,
+    "idiosyncratic_risk": 75.0,
+    "final_underwriting_score": 61.909200144572246
+  },
+  "verdict": "watchlist",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "AAPL receives a watchlist verdict with a final underwriting score of 61.9/100. LLM synthesis summary: AAPL is a high-quality business with strong source-backed recent fundamentals: a record March quarter, 17% revenue growth, 22% EPS growth, iPhone March-quarter record, Services all-time high, broad geographic growth, high margins, strong cash flow, improving leverage, and a new $100 billion buyback authorization. The fundamental direction is constructive and current financial pressure is limited. The main underwriting tension is price and expectations: valuation is expensive on forward P/E, trailing P/E, EV/EBITDA, and price/sales, and the stock has already appreciated meaningfully over one year despite a recent pullback. Macro support is mixed: quality cash flow is favored, but narrow breadth, high-multiple technology sensitivity, and the mildly negative mapped theme score limit the setup. The appropriate synthesis is two-sided: fundamentals are improving enough to support a constructive quality view, but the premium valuation requires proof that the latest iPhone and Services strength is durable rather than a peak-cycle or product-cycle surge.",
+  "key_monitoring_items": [
+    "revenue growth",
+    "gross margin",
+    "operating margin",
+    "free cash flow",
+    "leverage",
+    "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+    "Before the next earnings report, verify current sell-side expectations for iPhone, Services, gross margin, EPS, and buybacks to determine whether the March-quarter strength is already fully embedded.",
+    "Track weekly or monthly third-party indicators only if sourced separately: iPhone channel demand, China smartphone demand, carrier promotions, and App Store/Services activity.",
+    "At the next earnings release, compare reported revenue growth, gross margin, Services growth, Greater China revenue, operating cash flow, and buyback execution against the latest-quarter baseline.",
+    "Review any new regulatory developments affecting App Store fees, payments, search/default arrangements, and digital market rules.",
+    "Are key margin drivers improving: Channel mix between direct retail/online sales and third-party distribution, Component cost trends, memory/display pricing, supply availability, and manufacturing yields, Foreign exchange movements and hedging effectiveness, Mix shift between hardware and higher-margin Services revenue, R&D intensity for custom silicon, AI, new devices, and platform development, Scale benefits from large production volumes and supply-chain purchasing power, Services take rates, licensing economics, cloud/content costs, and regulatory limits on platform fees, Warranty, repair, recall, and product quality costs, iPhone product mix, pricing discipline, storage-tier mix, and premium model adoption?"
+  ],
+  "recommended_next_action": "Add to watchlist and rerun when price, estimates, macro/theme context, or company evidence changes. Key missing evidence: No user-supplied thesis was provided; Basic screen result is missing; Research context has no sourced bearish evidence items, so downside evidence is mainly inferred from valuation, macro/theme context, and company risk profile rather than recent negative source items. Variant view is not yet strong enough for acceptance. Valuation/expectations risk requires confirmation. Risk score remains elevated enough to require validation.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding with LLM synthesis; richer filing and transcript layers pending.",
+    "Company profile is LLM-generated and not yet filing-verified.",
+    "Company profile confidence: medium.",
+    "Profile is LLM-generated from general knowledge and the supplied financial context; it should be verified against Apple filings, investor materials, and supplier disclosures.",
+    "Supplied financial context indicates latest financial period end date of 2026-03-31, LTM revenue of approximately $451.4 billion, gross margin of approximately 47.9%, operating margin of approximately 32.6%, and improving free cash flow and leverage trends.",
+    "Company profile is LLM-generated from supplied metadata and general prior knowledge; verify with filings before relying on precise business details.",
+    "Company profile data gaps: No source-backed research context or filing excerpts were supplied for detailed business verification., Segment revenue_share_estimate and profit_share_estimate are not provided in the supplied context and are set to null., Customer concentration, supplier concentration, and regional revenue mix are not verified from filings in this profile., Recent management commentary, legal developments, and product-launch details are not verified in this profile.",
+    "Financial context sourced from yfinance.",
+    "Financial trend is derived from quarterly financial statements through period ending 2026-03-31.",
+    "Latest financial period end date: 2026-03-31.",
+    "Research source coverage: filing:found=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+    "Research context evidence items: 12.",
+    "Research context data gaps: Transcript not provided; automated transcript retrieval is unavailable in v1.; The supplied 10-Q text is largely XBRL tagging/metadata and is truncated before readable MD&A, risk, liquidity, debt, capex, or segment discussion; no high-confidence filing evidence items were extracted from that source.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

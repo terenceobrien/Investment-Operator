@@ -1,0 +1,1126 @@
+{
+  "ticker": "JPM",
+  "as_of_date": "2026-06-27",
+  "created_at": "2026-06-27T17:33:48.302405",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-05",
+    "created_at": "2026-06-12T16:59:50.064967Z",
+    "regime_id": null,
+    "regime_label": "Sticky Late Cycle AI leads; top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.36240265879628086,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.3107222840217003,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.1502536969955016,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.13173991765464557,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.04488144253187162,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.26,
+        "notes": "HY spreads tight (275bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "bearish",
+        "signal_strength": 0.6,
+        "level_status": "bearish",
+        "trend_status": "deteriorating",
+        "current_value": 4.39,
+        "notes": "Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing Breadth remains weak on an absolute basis.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "high_beta_ai_semis",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "bullish",
+        "signal_strength": 0.3,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 7.26,
+        "notes": "Put/call ratio elevated (1.15) — fear-driven hedging, contrarian bullish",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.59; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.59, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.25,
+        "notes": "Equity put/call elevated (1.15) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.59,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.545320782416292,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +1.06, Quality ex-AI cash flow +0.31, Cash and short duration +0.17."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 1.4070391876971877,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.90, Quality ex-AI cash flow +0.31, Defense and geopolitics +0.20."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 1.154691623057673,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 1.0005192299704084,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.62, Quality ex-AI cash flow +0.38."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.7726430316381337,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.66, Energy and oil beta +0.11."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.5142520779391876,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Energy and oil beta +0.28, Commodities and real assets +0.24."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": 0.3796309856404655,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.46, Long-duration growth -0.07, High-beta AI semiconductors -0.04."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": 0.20398355281113664,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.26, High-beta AI semiconductors -0.09, Memory semiconductors +0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.8146079241839199,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.72, Long-duration growth -0.09."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 1.154691623057673,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 1.1441245129776911,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.54, Quality AI leaders +0.36, Healthcare defensives +0.25."
+      },
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 1.0814048070015705,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.40, Healthcare defensives +0.37, Quality ex-AI cash flow +0.31."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.686512713738485,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.52, Energy and oil beta +0.17."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.2620979316513681,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: Small caps -0.14, Long-duration growth -0.11, High-beta AI semiconductors -0.06."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": -0.5899773572243925,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth -0.32, Small caps -0.27."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.9044601509677309,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.90."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Sticky Late Cycle AI at 36.2%; runner-up reopening_soft_landing at 31.1%. The largest displayed deterministic driver is AI earnings resilience (+0.403). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically calibrated after the deterministic update.",
+    "source_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "JPM",
+    "selected_theme_ids": [],
+    "theme_mapping": {
+      "ticker": "JPM",
+      "mapped_themes": [],
+      "rejected_themes": [],
+      "mapping_summary": "Mapped 0 of 12 available macro-forecast themes using deterministic keyword/semantic fallback.",
+      "data_confidence": "low",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [],
+    "relevant_theme_impacts": [],
+    "linked_scenarios": [],
+    "positive_drivers": [],
+    "negative_drivers": [],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": null,
+    "theme_fit_summary": "No valid macro-forecast theme mapping was found for JPM.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "JPM",
+    "as_of_date": "2026-06-27",
+    "financial_trend": {
+      "latest": {
+        "revenue": 186941000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": null,
+        "operating_margin": null,
+        "ebitda_margin": null,
+        "net_margin": 0.3150673207054632,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "total_debt": 516812000000.0,
+        "cash_and_equivalents": 312142000000.0,
+        "net_debt": 204670000000.0,
+        "net_debt_to_ebitda": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 169439000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": null,
+        "operating_margin": null,
+        "ebitda_margin": null,
+        "net_margin": 0.34508584210246757,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "total_debt": 454311000000.0,
+        "cash_and_equivalents": 469317000000.0,
+        "net_debt": -15006000000.0,
+        "net_debt_to_ebitda": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "unknown",
+      "fcf_direction": "unknown",
+      "leverage_direction": "unknown",
+      "notes": [
+        "financial_trend.latest is derived from trailing four quarters.",
+        "financial_trend.prior_year uses prior fiscal year because previous trailing four-quarter window is unavailable.",
+        "Latest quarter annualized revenue is +6.6% versus trailing four-quarter revenue."
+      ]
+    },
+    "quarterly_financial_trend": {
+      "latest_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-0",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 49833000000.0,
+        "revenue_growth_yoy": 0.09941094711761202,
+        "revenue_growth_qoq": 0.08815180365097389,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 16494000000.0,
+        "net_margin": 0.33098549154174944,
+        "operating_cash_flow": -211761000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 516812000000.0,
+        "cash_and_equivalents": 312142000000.0,
+        "net_debt": 204670000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "prior_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-1",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 45796000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": -0.01365496446263192,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 13025000000.0,
+        "net_margin": 0.28441348589396453,
+        "operating_cash_flow": 119724000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 499982000000.0,
+        "cash_and_equivalents": 343338000000.0,
+        "net_debt": 156644000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "year_ago_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-4",
+        "period_end_date": "2025-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 45327000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 14643000000.0,
+        "net_margin": 0.3230524852736779,
+        "operating_cash_flow": -251839000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 472204000000.0,
+        "cash_and_equivalents": 425903000000.0,
+        "net_debt": 46301000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "trailing_four_quarters": {
+        "period_type": "ltm",
+        "fiscal_period": "trailing_four_quarters",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 186941000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 58899000000.0,
+        "net_margin": 0.3150673207054632,
+        "operating_cash_flow": -107704000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 516812000000.0,
+        "cash_and_equivalents": 312142000000.0,
+        "net_debt": 204670000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "trailing_eight_quarters": [
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-0",
+          "period_end_date": "2026-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 49833000000.0,
+          "revenue_growth_yoy": 0.09941094711761202,
+          "revenue_growth_qoq": 0.08815180365097389,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 16494000000.0,
+          "net_margin": 0.33098549154174944,
+          "operating_cash_flow": -211761000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 516812000000.0,
+          "cash_and_equivalents": 312142000000.0,
+          "net_debt": 204670000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-1",
+          "period_end_date": "2025-12-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 45796000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.01365496446263192,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 13025000000.0,
+          "net_margin": 0.28441348589396453,
+          "operating_cash_flow": 119724000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 499982000000.0,
+          "cash_and_equivalents": 343338000000.0,
+          "net_debt": 156644000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-2",
+          "period_end_date": "2025-09-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 46430000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.034490441602424135,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 14393000000.0,
+          "net_margin": 0.3099935386603489,
+          "operating_cash_flow": -45214000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 496558000000.0,
+          "cash_and_equivalents": 303436000000.0,
+          "net_debt": 193122000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-3",
+          "period_end_date": "2025-06-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 44882000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.009817548039799678,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 14987000000.0,
+          "net_margin": 0.3339200570384564,
+          "operating_cash_flow": 29547000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 485095000000.0,
+          "cash_and_equivalents": 420327000000.0,
+          "net_debt": 64768000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-4",
+          "period_end_date": "2025-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 45327000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": null,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 14643000000.0,
+          "net_margin": 0.3230524852736779,
+          "operating_cash_flow": -251839000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 472204000000.0,
+          "cash_and_equivalents": 425903000000.0,
+          "net_debt": 46301000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        }
+      ],
+      "last_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "last_fiscal_year",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 181847000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 57048000000.0,
+        "net_margin": 0.3137142762872085,
+        "operating_cash_flow": -147782000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 499982000000.0,
+        "cash_and_equivalents": 343338000000.0,
+        "net_debt": 156644000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "prior_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "prior_fiscal_year",
+        "period_end_date": "2024-12-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 169439000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 58471000000.0,
+        "net_margin": 0.34508584210246757,
+        "operating_cash_flow": -42012000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 454311000000.0,
+        "cash_and_equivalents": 469317000000.0,
+        "net_debt": -15006000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "revenue_trend_8q": "improving",
+      "gross_margin_trend_8q": "unknown",
+      "operating_margin_trend_8q": "unknown",
+      "fcf_trend_8q": "unknown",
+      "leverage_trend_8q": "unknown",
+      "latest_quarter_vs_ltm_notes": [
+        "Latest quarter annualized revenue is +6.6% versus trailing four-quarter revenue."
+      ],
+      "inflection_flags": [
+        "latest_quarter_revenue_accelerating_yoy"
+      ],
+      "staleness_warnings": [],
+      "latest_period_end_date": "2026-03-31",
+      "latest_filing_date": null,
+      "financial_context_stale": false
+    },
+    "price_snapshot": {
+      "current_price": 329.05,
+      "market_cap": 881693163520.0,
+      "return_1m": 0.0925213724533531,
+      "return_3m": 0.1401903471631395,
+      "return_6m": 0.04724519083317184,
+      "return_1y": 0.18991827854082707,
+      "drawdown_from_52w_high": -0.01811290047036699,
+      "distance_from_52w_low": 0.18056798554278344,
+      "beta": 1.0
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 15.751555,
+      "forward_pe": 13.96309,
+      "ev_to_ebitda": null,
+      "price_to_sales": 5.080077,
+      "price_to_book": 2.563114,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": null,
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [
+      "valuation.ev_to_ebitda"
+    ],
+    "source_notes": [
+      "Financial context sourced from yfinance.",
+      "Financial trend is derived from quarterly financial statements through period ending 2026-03-31."
+    ],
+    "data_freshness_notes": [
+      "Latest financial period end date: 2026-03-31."
+    ]
+  },
+  "llm_synthesis": {
+    "ticker": "JPM",
+    "business_summary": "Company profile is missing in the supplied static knowledge base. Based on ticker identity only, our prior is that JPM is JPMorgan Chase, a diversified banking and financial services company, but this is not confirmed by the supplied profile. The supplied financial data are consistent with a large financial institution: very large cash and equivalents, large total debt, price-to-book valuation, high net income, and unavailable industrial metrics such as EBITDA, gross margin, capex, and free cash flow. Underwriting should therefore treat JPM primarily as a bank/financials exposure whose drivers likely include credit conditions, rate and funding environment, capital markets activity, balance-sheet growth, and credit losses, but those operating drivers are not directly provided in the context.",
+    "business_quality_assessment": "Business quality cannot be fully assessed from the supplied static profile because business description, segments, revenue model, cost drivers, customers, suppliers, and peer group are missing. Our prior from ticker identity is that JPM is a large diversified banking and financial services franchise, but that is not source-verified in the supplied company profile. The financial data show very large scale, high absolute profitability, and high reported net margins: LTM net income was $58.899B on $186.941B of revenue, implying a 31.5% net margin. Latest-quarter net income was $16.494B on $49.833B of revenue, implying a 33.1% net margin. Those facts support a high-quality earnings profile, but bank-specific quality metrics such as deposit franchise quality, loan mix, net interest margin, credit costs, CET1 capital, liquidity coverage, and fee revenue mix are missing.",
+    "financial_trend_diagnosis": "Quarterly data should dominate the current diagnosis because the latest period ends 2026-03-31 and the context is not stale. The latest quarter shows a clear positive inflection versus both the prior quarter and year-ago quarter: revenue of $49.833B increased 8.8% q/q and 9.9% y/y, while net income of $16.494B increased from $13.025B q/q and $14.643B y/y. Latest-quarter net margin of 33.1% improved sharply from 28.4% in Q-1 and was modestly above the 32.3% year-ago quarter. LTM revenue of $186.941B and LTM net income of $58.899B are also strong versus last fiscal year revenue of $181.847B and net income of $57.048B. However, annual context shows fiscal-year margin pressure: last fiscal year net margin was 31.4% versus 34.5% in the prior fiscal year, and last fiscal year net income declined despite revenue growth. Balance-sheet readings show cash down and debt/net debt up, but for a bank these metrics are not directly comparable to industrial leverage and require bank-specific capital, liquidity, and funding data that are missing. Overall, current financial trend is improving on revenue and latest-quarter profitability, but the durability of this improvement is not yet proven from the supplied data.",
+    "screen_interpretation": "No basic screen result is supplied. The observable screen-like attributes are strong profitability, improving latest-quarter revenue, high absolute scale, positive price momentum, and non-distressed valuation. Missing fields include EV/EBITDA, and many industrial metrics are unavailable or not meaningful for a bank. On the available data, JPM would likely screen as high-quality and profitable rather than cheap or contrarian. The recent price strength and proximity to the 52-week high mean any positive screen needs to be checked for expectations already embedded in the stock.",
+    "why_screen_may_be_wrong": "If a screen flags JPM positively on profitability and momentum, it may be wrong because the stock is already near a 52-week high and valuation may already reflect premium franchise quality and a favorable earnings run-rate. If a screen flags JPM negatively on rising debt, negative operating cash flow, or missing FCF/EBITDA, it may also be wrong because those metrics are not directly comparable for banks and require bank-specific capital and liquidity analysis. The absence of a basic screen result and peer-relative bank metrics limits deterministic screen interpretation.",
+    "current_market_narrative": "No sourced market narrative is supplied. Based on observable price and valuation context, the market appears to be rewarding JPM as a high-quality, profitable financial franchise with resilient earnings: the stock is up 18.99% over one year, up 14.02% over three months, up 9.25% over one month, and only 1.8% below its 52-week high. The forward P/E of 13.96x versus trailing P/E of 15.75x suggests estimates may imply continued earnings support, but this requires verification because no consensus estimate detail is supplied. The narrative appears to be mixed between fundamental resilience and quality-bank premium, but that is an inference from price/valuation rather than a sourced consensus view.",
+    "consensus_type": "mixed",
+    "consensus_verification_required": [
+      "No direct sell-side consensus estimates, revisions, EPS expectations, revenue expectations, or target prices are supplied; forward P/E is present but not enough to verify estimate consensus.",
+      "No direct institutional positioning, short interest, fund ownership, or factor exposure data are supplied; price momentum and proximity to 52-week high are only indirect positioning/expectations evidence.",
+      "No sourced current market narrative, management commentary, earnings-call transcript, or recent news is supplied."
+    ],
+    "macro_fit_assessment": "Macro fit is mixed to modestly supportive, not cleanly thematic. The macro backdrop is labeled Sticky Late Cycle AI leads, with sticky late-cycle AI at 36.2% probability and reopening_soft_landing at 31.1%. Healthy credit is the strongest direct support for JPM: the credit layer is bullish/stable, with HY spreads cited as tight at 275 bps, which generally supports banks and financial risk appetite. However, the macro also includes weak/deteriorating breadth, mixed monetary conditions, and high hold/hike odds at 80%, which can undermine broad cyclicals and rate-sensitive financials if credit or funding conditions deteriorate. JPM is therefore a secondary or indirect expression of the macro context: it can benefit from healthy credit and soft-landing conditions, but it is not a primary expression of the top AI/grid/power themes.",
+    "theme_fit_assessment": "Theme fit is weak based on supplied theme context. aggregate_theme_support_score is null, selected_theme_ids is empty, and no valid macro-forecast theme mapping was found for JPM. The company is therefore not a primary expression of the top supported themes such as grid and power infrastructure, quality AI leaders, or cash/short duration. At most, JPM is an indirect or secondary macro expression through healthy credit, quality/cash-flow factor preference, and soft-landing financial conditions. The absence of mapped themes limits the thematic support case even though macro credit conditions are supportive.",
+    "pressure_inflection_assessment": "The latest-quarter pressure appears more cyclical/macro-sensitive than structural based on supplied evidence. Annual fiscal-year data showed revenue growth but margin compression and slightly lower net income, suggesting prior pressure on profitability. The latest quarter then showed a sharp improvement in both revenue and net margin, with revenue accelerating y/y and net income rising q/q and y/y. This looks like a near-term positive inflection, but the available data do not identify whether the driver is net interest income, capital markets, credit costs, reserve releases, expense control, or other bank-specific factors. Balance-sheet pressure is harder to interpret because total debt and net debt increased while cash declined, but for a bank these are not sufficient indicators of financial stress without capital/liquidity metrics. The pressure assessment is therefore: near-term fundamentals improving, annual margin pressure partly reversing, durability unproven.",
+    "competitive_position_assessment": "Direct competitive-position evidence is missing because the company profile and peer-relative snapshot are not supplied. The strongest evidence available is scale and profitability: LTM revenue of $186.941B, LTM net income of $58.899B, and market capitalization of approximately $881.7B imply a very large, highly profitable institution. A 2.56x price-to-book valuation also implies the market is assigning a premium to the franchise, although without peer data this cannot be verified as relative superiority. Competitive assessment is therefore constructive but evidence-limited: the data support scale and profitability, but not the underlying moat mechanics or peer-relative durability.",
+    "valuation_expectations_assessment": "Valuation is not low on the supplied metrics and should be interpreted as embedding quality and durability expectations rather than distress. JPM trades at 15.75x trailing earnings, 13.96x forward earnings, 2.56x book, and 5.08x sales. For a bank, price-to-book is especially relevant, but peer-relative context and tangible book value are missing, so true cheapness cannot be established. The forward P/E below trailing P/E may imply expected earnings growth or improved earnings mix, but direct consensus estimates are not supplied, so verification is required. Given the stock is only 1.8% below its 52-week high after strong 1-month and 3-month returns, the valuation setup carries expectations risk: fundamentals may be good, but the market may already be discounting a continuation of the latest-quarter strength.",
+    "variant_view": "The identifiable variant view is two-sided. The bullish variant is that the latest-quarter acceleration in revenue and net margin represents a durable earnings inflection supported by healthy credit conditions, and the market may not fully price the earnings run-rate if it persists. The bearish variant is that the market has already capitalized this strength, as shown by the stock trading near its 52-week high with strong recent momentum and non-cheap valuation, leaving limited margin for disappointment if the inflection fades or macro credit conditions weaken.",
+    "variant_view_direction": "two_sided",
+    "variant_view_strength": "medium",
+    "bull_case_variant_view": "The bull variant is that the market may still be underestimating the durability of JPM's earnings base if the latest quarter is a real inflection rather than a one-quarter rebound. Latest-quarter revenue was $49.833B, up 8.8% q/q and 9.9% y/y, with net margin improving to 33.1% from 28.4% in the prior quarter. LTM revenue of $186.941B is above the last fiscal year revenue of $181.847B, and latest-quarter annualized revenue is 6.6% above LTM revenue, suggesting current run-rate momentum is stronger than trailing data.",
+    "bear_case_variant_view": "The cautionary variant is that the latest-quarter improvement is already substantially reflected in the stock. JPM is trading only 1.8% below its 52-week high after +14.0% over three months and +18.99% over one year, while valuation is not obviously depressed at 15.75x trailing earnings, 13.96x forward earnings, and 2.56x book. If credit conditions stop being supportive, policy remains restrictive, or the latest revenue/margin acceleration proves non-repeatable, the setup has expectations risk over a 6-month horizon.",
+    "evidence_supporting_variant_view": [
+      "Latest-quarter revenue was $49.833B, up 8.8% q/q and 9.9% y/y.",
+      "Latest-quarter net income was $16.494B, up from $13.025B in the prior quarter and $14.643B in the year-ago quarter.",
+      "Latest-quarter net margin improved to 33.1% from 28.4% in the prior quarter and was slightly above the 32.3% year-ago quarter margin.",
+      "LTM revenue was $186.941B, above last fiscal year revenue of $181.847B and prior fiscal year revenue of $169.439B.",
+      "The data flag latest-quarter revenue acceleration y/y, and latest-quarter annualized revenue is 6.6% above LTM revenue, implying a stronger current run-rate.",
+      "Macro context shows healthy credit conditions, with HY spreads tight at 275 bps and the credit layer marked bullish/stable, which is generally supportive for financial conditions and credit-sensitive financial franchises.",
+      "The macro regime includes reopening_soft_landing as the second-largest scenario probability at 31.1%, which may support financials if credit and activity remain resilient."
+    ],
+    "evidence_against_variant_view": [
+      "The stock is already near its 52-week high, with a -1.8% drawdown from the high, raising the risk that improved fundamentals are already priced in.",
+      "Short-term momentum is strong: +9.25% over one month and +14.02% over three months, which can increase expectations risk over a 6-month horizon.",
+      "Valuation is not visibly distressed: trailing P/E is 15.75x, forward P/E is 13.96x, price-to-book is 2.56x, and price-to-sales is 5.08x.",
+      "Last fiscal year net income declined to $57.048B from $58.471B in the prior fiscal year despite revenue rising to $181.847B from $169.439B, indicating fiscal-year margin compression before the latest-quarter rebound.",
+      "Cash and equivalents declined from $469.317B in the prior fiscal year to $343.338B in the last fiscal year and $312.142B in the latest quarter, while total debt increased from $454.311B to $499.982B to $516.812B; for a bank this needs specialized interpretation, but it is not a clean leverage improvement signal.",
+      "Theme mapping found no valid macro-forecast theme fit for JPM, so the highest-ranked themes such as grid/power infrastructure and AI-linked quality are not primary JPM expressions."
+    ],
+    "key_risks": [
+      "Expectations risk from strong recent price momentum and proximity to the 52-week high.",
+      "Valuation risk if the 2.56x price-to-book and mid-teens earnings multiple already reflect peak or premium profitability.",
+      "Macro risk from a late-cycle regime, weak breadth, and restrictive or non-easing monetary policy.",
+      "Credit-cycle risk if currently healthy credit conditions deteriorate.",
+      "Rate/funding risk, although direct net interest margin and funding-cost data are missing.",
+      "Balance-sheet interpretation risk because cash, debt, and operating cash flow are not sufficient to assess bank leverage or liquidity on their own.",
+      "Data-gap risk due to missing bank-specific operating and capital metrics.",
+      "Theme mismatch risk because JPM is not mapped to the top macro-supported themes in the supplied theme context."
+    ],
+    "fundamental_falsifiers": [
+      "Latest-quarter revenue acceleration fails to persist, with the next reported quarter showing negative q/q revenue growth or y/y revenue growth falling below 0%.",
+      "Net margin falls back below the prior-quarter level of 28.4% or remains materially below the LTM net margin of 31.5% for more than one quarter.",
+      "Quarterly net income falls below $13.0B, the prior-quarter level, without a clearly temporary explanation in supplied future context.",
+      "LTM revenue stops improving and falls below the current $186.941B level.",
+      "Cash and equivalents continue to decline while total debt continues to rise, without offsetting improvement in bank-specific capital/liquidity metrics once those become available.",
+      "Bank-specific data, if later supplied, show rising credit provisions, charge-offs, delinquencies, or deteriorating capital ratios inconsistent with current high profitability."
+    ],
+    "macro_theme_falsifiers": [
+      "Credit layer health deteriorates from bullish/stable, with HY spreads widening materially from the cited 275 bps level, especially above roughly 400 bps.",
+      "The macro regime shifts toward late_cycle_risk_off becoming the dominant scenario instead of sticky_late_cycle_ai or reopening_soft_landing.",
+      "Monetary policy becomes more restrictive, with hold/hike odds rising from the cited 80% and cut probability falling from 20%.",
+      "Market breadth continues deteriorating and risk appetite broadens into a de-risking episode rather than a quality-led market.",
+      "Volatility and positioning cease being contrarian supportive and instead confirm sustained risk-off behavior."
+    ],
+    "valuation_falsifiers": [
+      "Price-to-book remains at or above the current 2.56x while net margin falls below the LTM level of 31.5%.",
+      "Forward P/E remains near or above the current 13.96x without evidence of upward earnings revisions once consensus data are obtained.",
+      "Trailing P/E expands above the current 15.75x while quarterly revenue growth decelerates below 0% q/q or y/y.",
+      "The stock makes new highs without corresponding improvement in LTM revenue, LTM net income, or bank-specific capital/credit metrics once available."
+    ],
+    "timing_falsifiers": [
+      "The next quarter does not confirm the latest-quarter inflection, with revenue below $49.833B and net margin below 31.5%.",
+      "The stock fails to hold gains after being only 1.8% below its 52-week high, producing a sustained drawdown greater than 10% from the high without a corresponding improvement in fundamentals.",
+      "Forward valuation expands while revenue growth and net margin decelerate in the next reported quarter.",
+      "Macro credit conditions deteriorate before the next earnings report, reducing the likelihood that current financial strength is rewarded over the 6-month horizon."
+    ],
+    "key_metrics_to_monitor": [
+      "Quarterly revenue growth q/q and y/y.",
+      "Quarterly net income and net margin versus the latest 33.1% and LTM 31.5%.",
+      "LTM revenue and LTM net income progression versus current $186.941B revenue and $58.899B net income.",
+      "Cash and equivalents, total debt, and net debt, while recognizing these require bank-specific interpretation.",
+      "Price drawdown from 52-week high and momentum after the recent +14.0% three-month move.",
+      "Forward P/E, trailing P/E, and price-to-book versus changes in earnings run-rate.",
+      "Macro credit conditions, especially HY spreads relative to the current 275 bps cited in macro context.",
+      "Fed hold/hike versus cut probabilities and the monetary-policy composite.",
+      "If later available: net interest margin, deposit trends, credit provisions, charge-offs, CET1 ratio, tangible book value, and capital return metrics."
+    ],
+    "suggested_monitoring_plan": [
+      "Re-underwrite after the next quarterly financial update to confirm whether latest-quarter revenue acceleration and margin improvement persist.",
+      "Compare next-quarter revenue against $49.833B and net margin against 33.1%; treat failure to sustain either as evidence that Q1 was a temporary rebound.",
+      "Add bank-specific operating metrics when available: NII, NIM, deposits, loans, credit provisions, charge-offs, CET1, tangible book value, and capital returns.",
+      "Track macro credit conditions weekly or monthly, especially HY spreads relative to the cited 275 bps level.",
+      "Monitor valuation and price behavior given the stock is near its 52-week high; watch whether further multiple expansion occurs without earnings revisions support.",
+      "Seek direct consensus data to verify whether forward P/E reflects upward earnings revisions or simply price appreciation."
+    ],
+    "underwriting_summary": "JPM shows improving current fundamentals in the supplied data, led by latest-quarter revenue acceleration, higher q/q and y/y net income, and a rebound in net margin. The LTM profile remains highly profitable, and macro credit conditions are supportive. However, the stock has already performed strongly and trades near its 52-week high, while valuation does not appear depressed. The strongest issue is not current profitability but whether the latest-quarter inflection is durable and whether the market has already priced it. Because company profile, peer data, consensus, and bank-specific operating metrics are missing, the correct underwriting posture is evidence-seeking rather than decisive. The setup is two-sided: constructive fundamentals and supportive credit backdrop, offset by valuation/momentum expectations risk and weak direct theme fit.",
+    "qualitative_conviction": "watchlist",
+    "suggested_score_adjustment": 1.0,
+    "confidence": "medium",
+    "data_gaps": [
+      "Static company profile is missing: business description, segments, revenue model, cost drivers, customers, suppliers, industry, sector, peer group, and thematic exposures are not supplied.",
+      "Bank-specific operating data are missing: net interest income, net interest margin, noninterest income, loans, deposits, deposit beta, trading/investment banking revenue, asset management flows, card metrics, credit provisions, charge-offs, delinquencies, reserve builds/releases, CET1 ratio, liquidity coverage, risk-weighted assets, and tangible book value are not supplied.",
+      "Consensus estimates and revisions are missing beyond the valuation field for forward P/E.",
+      "Peer-relative valuation and profitability snapshot is missing.",
+      "EV/EBITDA is missing and EBITDA is not available, though this is less useful for a bank.",
+      "Free cash flow, capex, EBITDA margin, gross margin, operating margin, ROIC, and net debt/EBITDA are missing or not meaningful in the supplied context.",
+      "Only five quarters are shown in the trailing-eight-quarter array, limiting true 8-quarter trend analysis.",
+      "Latest filing date is missing.",
+      "No user-supplied thesis is provided."
+    ]
+  },
+  "company_profile": {
+    "ticker": "JPM",
+    "company_name": null,
+    "sector": null,
+    "industry": null,
+    "business_description": "Company profile not yet available in static knowledge base.",
+    "business_model": null,
+    "segments": [],
+    "revenue_model": [],
+    "cost_drivers": [],
+    "margin_drivers": [],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [],
+    "thematic_exposures": [],
+    "macro_sensitivities": [],
+    "major_risks": []
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": "unknown",
+    "operating_margin_trend": "unknown",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "unknown",
+    "capex_trend": null,
+    "leverage_trend": "unknown",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving on trailing 8Q data.",
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "deteriorating_indicators": [],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from quarterly-first fundamental context pack. Latest financial period ended 2026-03-31. LLM synthesis: Quarterly data should dominate the current diagnosis because the latest period ends 2026-03-31 and the context is not stale. The latest quarter shows a clear positive inflection versus both the prior quarter and year-ago quarter: revenue of $49.833B increased 8.8% q/q and 9.9% y/y, while net income of $16.494B increased from $13.025B q/q and $14.643B y/y. Latest-quarter net margin of 33.1% improved sharply from 28.4% in Q-1 and was modestly above the 32.3% year-ago quarter. LTM revenue of $186.941B and LTM net income of $58.899B are also strong versus last fiscal year revenue of $181.847B and net income of $57.048B. However, annual context shows fiscal-year margin pressure: last fiscal year net margin was 31.4% versus 34.5% in the prior fiscal year, and last fiscal year net income declined despite revenue growth. Balance-sheet readings show cash down and debt/net debt up, but for a bank these metrics are not directly comparable to industrial leverage and require bank-specific capital, liquidity, and funding data that are missing. Overall, current financial trend is improving on revenue and latest-quarter profitability, but the durability of this improvement is not yet proven from the supplied data.",
+    "why_screen_may_be_wrong": "If a screen flags JPM positively on profitability and momentum, it may be wrong because the stock is already near a 52-week high and valuation may already reflect premium franchise quality and a favorable earnings run-rate. If a screen flags JPM negatively on rising debt, negative operating cash flow, or missing FCF/EBITDA, it may also be wrong because those metrics are not directly comparable for banks and require bank-specific capital and liquidity analysis. The absence of a basic screen result and peer-relative bank metrics limits deterministic screen interpretation."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Expectations risk from strong recent price momentum and proximity to the 52-week high.",
+      "Valuation risk if the 2.56x price-to-book and mid-teens earnings multiple already reflect peak or premium profitability.",
+      "Macro risk from a late-cycle regime, weak breadth, and restrictive or non-easing monetary policy.",
+      "Credit-cycle risk if currently healthy credit conditions deteriorate.",
+      "Rate/funding risk, although direct net interest margin and funding-cost data are missing."
+    ],
+    "recent_strength_points": [
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "likely_causes": [],
+    "pressure_type": "cyclical",
+    "cyclical_vs_structural_assessment": "The latest-quarter pressure appears more cyclical/macro-sensitive than structural based on supplied evidence. Annual fiscal-year data showed revenue growth but margin compression and slightly lower net income, suggesting prior pressure on profitability. The latest quarter then showed a sharp improvement in both revenue and net margin, with revenue accelerating y/y and net income rising q/q and y/y. This looks like a near-term positive inflection, but the available data do not identify whether the driver is net interest income, capital markets, credit costs, reserve releases, expense control, or other bank-specific factors. Balance-sheet pressure is harder to interpret because total debt and net debt increased while cash declined, but for a bank these are not sufficient indicators of financial stress without capital/liquidity metrics. The pressure assessment is therefore: near-term fundamentals improving, annual margin pressure partly reversing, durability unproven.",
+    "abatement_evidence": [],
+    "inflection_catalysts": [
+      "latest-quarter revenue acceleration"
+    ],
+    "margin_recovery_potential": null,
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": []
+  },
+  "competitive_position_analysis": {
+    "peer_group": [],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [],
+    "competitive_advantages": [],
+    "competitive_threats": [],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "Direct competitive-position evidence is missing because the company profile and peer-relative snapshot are not supplied. The strongest evidence available is scale and profitability: LTM revenue of $186.941B, LTM net income of $58.899B, and market capitalization of approximately $881.7B imply a very large, highly profitable institution. A 2.56x price-to-book valuation also implies the market is assigning a premium to the franchise, although without peer data this cannot be verified as relative superiority. Competitive assessment is therefore constructive but evidence-limited: the data support scale and profitability, but not the underlying moat mechanics or peer-relative durability."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (none) with aggregate theme support score n/a. Known exposures: .",
+    "scenario_impacts": [],
+    "oil_sensitivity": null,
+    "rate_sensitivity": null,
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": null,
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro/theme backdrop reinforces the company's highest-quality revenue and margin drivers.",
+    "downside_scenario": "Macro/theme backdrop deteriorates in a way that pressures growth expectations, margins, or valuation.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: sticky_late_cycle_ai, reopening_soft_landing, oil_inflation_tail. Top macro signals: Credit layer health, AI earnings resilience, Breadth and participation. No valid macro-forecast theme mapping was found for JPM."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "No sourced market narrative is supplied. Based on observable price and valuation context, the market appears to be rewarding JPM as a high-quality, profitable financial franchise with resilient earnings: the stock is up 18.99% over one year, up 14.02% over three months, up 9.25% over one month, and only 1.8% below its 52-week high. The forward P/E of 13.96x versus trailing P/E of 15.75x suggests estimates may imply continued earnings support, but this requires verification because no consensus estimate detail is supplied. The narrative appears to be mixed between fundamental resilience and quality-bank premium, but that is an inference from price/valuation rather than a sourced consensus view.",
+    "implied_expectations": "Cannot infer implied expectations with high confidence in v1.",
+    "market_mispricing_hypothesis": "No strong mispricing hypothesis generated yet.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": null,
+    "expectation_summary": "Valuation is not low on the supplied metrics and should be interpreted as embedding quality and durability expectations rather than distress. JPM trades at 15.75x trailing earnings, 13.96x forward earnings, 2.56x book, and 5.08x sales. For a bank, price-to-book is especially relevant, but peer-relative context and tangible book value are missing, so true cheapness cannot be established. The forward P/E below trailing P/E may imply expected earnings growth or improved earnings mix, but direct consensus estimates are not supplied, so verification is required. Given the stock is only 1.8% below its 52-week high after strong 1-month and 3-month returns, the valuation setup carries expectations risk: fundamentals may be good, but the market may already be discounting a continuation of the latest-quarter strength."
+  },
+  "variant_view": {
+    "consensus_view": "Consensus view not available in v1.",
+    "helix_variant_view": "Variant direction: two_sided. The identifiable variant view is two-sided. The bullish variant is that the latest-quarter acceleration in revenue and net margin represents a durable earnings inflection supported by healthy credit conditions, and the market may not fully price the earnings run-rate if it persists. The bearish variant is that the market has already capitalized this strength, as shown by the stock trading near its 52-week high with strong recent momentum and non-cheap valuation, leaving limited margin for disappointment if the inflection fades or macro credit conditions weaken. Bull case: The bull variant is that the market may still be underestimating the durability of JPM's earnings base if the latest quarter is a real inflection rather than a one-quarter rebound. Latest-quarter revenue was $49.833B, up 8.8% q/q and 9.9% y/y, with net margin improving to 33.1% from 28.4% in the prior quarter. LTM revenue of $186.941B is above the last fiscal year revenue of $181.847B, and latest-quarter annualized revenue is 6.6% above LTM revenue, suggesting current run-rate momentum is stronger than trailing data. Bear case: The cautionary variant is that the latest-quarter improvement is already substantially reflected in the stock. JPM is trading only 1.8% below its 52-week high after +14.0% over three months and +18.99% over one year, while valuation is not obviously depressed at 15.75x trailing earnings, 13.96x forward earnings, and 2.56x book. If credit conditions stop being supportive, policy remains restrictive, or the latest revenue/margin acceleration proves non-repeatable, the setup has expectations risk over a 6-month horizon.",
+    "variant_view_direction": "two_sided",
+    "bull_case_variant_view": "The bull variant is that the market may still be underestimating the durability of JPM's earnings base if the latest quarter is a real inflection rather than a one-quarter rebound. Latest-quarter revenue was $49.833B, up 8.8% q/q and 9.9% y/y, with net margin improving to 33.1% from 28.4% in the prior quarter. LTM revenue of $186.941B is above the last fiscal year revenue of $181.847B, and latest-quarter annualized revenue is 6.6% above LTM revenue, suggesting current run-rate momentum is stronger than trailing data.",
+    "bear_case_variant_view": "The cautionary variant is that the latest-quarter improvement is already substantially reflected in the stock. JPM is trading only 1.8% below its 52-week high after +14.0% over three months and +18.99% over one year, while valuation is not obviously depressed at 15.75x trailing earnings, 13.96x forward earnings, and 2.56x book. If credit conditions stop being supportive, policy remains restrictive, or the latest revenue/margin acceleration proves non-repeatable, the setup has expectations risk over a 6-month horizon.",
+    "evidence_supporting_variant_view": [
+      "Two-sided evidence: Latest-quarter revenue was $49.833B, up 8.8% q/q and 9.9% y/y.",
+      "Two-sided evidence: Latest-quarter net income was $16.494B, up from $13.025B in the prior quarter and $14.643B in the year-ago quarter.",
+      "Two-sided evidence: Latest-quarter net margin improved to 33.1% from 28.4% in the prior quarter and was slightly above the 32.3% year-ago quarter margin.",
+      "Two-sided evidence: LTM revenue was $186.941B, above last fiscal year revenue of $181.847B and prior fiscal year revenue of $169.439B.",
+      "Two-sided evidence: The data flag latest-quarter revenue acceleration y/y, and latest-quarter annualized revenue is 6.6% above LTM revenue, implying a stronger current run-rate.",
+      "Two-sided evidence: Macro context shows healthy credit conditions, with HY spreads tight at 275 bps and the credit layer marked bullish/stable, which is generally supportive for financial conditions and credit-sensitive financial franchises.",
+      "Two-sided evidence: The macro regime includes reopening_soft_landing as the second-largest scenario probability at 31.1%, which may support financials if credit and activity remain resilient."
+    ],
+    "why_market_may_be_wrong": [],
+    "required_confirming_evidence": [],
+    "risks_to_variant_view": [
+      "Two-sided counter-evidence: The stock is already near its 52-week high, with a -1.8% drawdown from the high, raising the risk that improved fundamentals are already priced in.",
+      "Two-sided counter-evidence: Short-term momentum is strong: +9.25% over one month and +14.02% over three months, which can increase expectations risk over a 6-month horizon.",
+      "Two-sided counter-evidence: Valuation is not visibly distressed: trailing P/E is 15.75x, forward P/E is 13.96x, price-to-book is 2.56x, and price-to-sales is 5.08x.",
+      "Two-sided counter-evidence: Last fiscal year net income declined to $57.048B from $58.471B in the prior fiscal year despite revenue rising to $181.847B from $169.439B, indicating fiscal-year margin compression before the latest-quarter rebound.",
+      "Two-sided counter-evidence: Cash and equivalents declined from $469.317B in the prior fiscal year to $343.338B in the last fiscal year and $312.142B in the latest quarter, while total debt increased from $454.311B to $499.982B to $516.812B; for a bank this needs specialized interpretation, but it is not a clean leverage improvement signal.",
+      "Two-sided counter-evidence: Theme mapping found no valid macro-forecast theme fit for JPM, so the highest-ranked themes such as grid/power infrastructure and AI-linked quality are not primary JPM expressions.",
+      "Bear risk: Expectations risk from strong recent price momentum and proximity to the 52-week high.",
+      "Bear risk: Valuation risk if the 2.56x price-to-book and mid-teens earnings multiple already reflect peak or premium profitability.",
+      "Bear risk: Macro risk from a late-cycle regime, weak breadth, and restrictive or non-easing monetary policy.",
+      "Bear risk: Credit-cycle risk if currently healthy credit conditions deteriorate.",
+      "Bear risk: Rate/funding risk, although direct net interest margin and funding-cost data are missing.",
+      "Bear risk: Balance-sheet interpretation risk because cash, debt, and operating cash flow are not sufficient to assess bank leverage or liquidity on their own.",
+      "Bear risk: Data-gap risk due to missing bank-specific operating and capital metrics.",
+      "Bear risk: Theme mismatch risk because JPM is not mapped to the top macro-supported themes in the supplied theme context."
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Company fails to show evidence supporting the proposed variant view.",
+      "Latest-quarter revenue acceleration fails to persist, with the next reported quarter showing negative q/q revenue growth or y/y revenue growth falling below 0%.",
+      "Net margin falls back below the prior-quarter level of 28.4% or remains materially below the LTM net margin of 31.5% for more than one quarter.",
+      "Quarterly net income falls below $13.0B, the prior-quarter level, without a clearly temporary explanation in supplied future context.",
+      "LTM revenue stops improving and falls below the current $186.941B level.",
+      "Cash and equivalents continue to decline while total debt continues to rise, without offsetting improvement in bank-specific capital/liquidity metrics once those become available.",
+      "Bank-specific data, if later supplied, show rising credit provisions, charge-offs, delinquencies, or deteriorating capital ratios inconsistent with current high profitability."
+    ],
+    "macro_falsifiers": [
+      "Credit layer health deteriorates from bullish/stable, with HY spreads widening materially from the cited 275 bps level, especially above roughly 400 bps.",
+      "The macro regime shifts toward late_cycle_risk_off becoming the dominant scenario instead of sticky_late_cycle_ai or reopening_soft_landing.",
+      "Monetary policy becomes more restrictive, with hold/hike odds rising from the cited 80% and cut probability falling from 20%.",
+      "Market breadth continues deteriorating and risk appetite broadens into a de-risking episode rather than a quality-led market.",
+      "Volatility and positioning cease being contrarian supportive and instead confirm sustained risk-off behavior."
+    ],
+    "valuation_falsifiers": [
+      "Price-to-book remains at or above the current 2.56x while net margin falls below the LTM level of 31.5%.",
+      "Forward P/E remains near or above the current 13.96x without evidence of upward earnings revisions once consensus data are obtained.",
+      "Trailing P/E expands above the current 15.75x while quarterly revenue growth decelerates below 0% q/q or y/y.",
+      "The stock makes new highs without corresponding improvement in LTM revenue, LTM net income, or bank-specific capital/credit metrics once available."
+    ],
+    "timing_falsifiers": [
+      "The next quarter does not confirm the latest-quarter inflection, with revenue below $49.833B and net margin below 31.5%.",
+      "The stock fails to hold gains after being only 1.8% below its 52-week high, producing a sustained drawdown greater than 10% from the high without a corresponding improvement in fundamentals.",
+      "Forward valuation expands while revenue growth and net margin decelerate in the next reported quarter.",
+      "Macro credit conditions deteriorate before the next earnings report, reducing the likelihood that current financial strength is rewarded over the 6-month horizon."
+    ],
+    "technical_or_price_falsifiers": [],
+    "monitoring_triggers": [
+      "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+      "Re-underwrite after the next quarterly financial update to confirm whether latest-quarter revenue acceleration and margin improvement persist.",
+      "Compare next-quarter revenue against $49.833B and net margin against 33.1%; treat failure to sustain either as evidence that Q1 was a temporary rebound.",
+      "Add bank-specific operating metrics when available: NII, NIM, deposits, loans, credit provisions, charge-offs, CET1, tangible book value, and capital returns.",
+      "Track macro credit conditions weekly or monthly, especially HY spreads relative to the cited 275 bps level.",
+      "Monitor valuation and price behavior given the stock is near its 52-week high; watch whether further multiple expansion occurs without earnings revisions support.",
+      "Seek direct consensus data to verify whether forward P/E reflects upward earnings revisions or simply price appreciation."
+    ],
+    "key_metrics_to_watch": [
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "free cash flow",
+      "leverage",
+      "earnings revisions",
+      "Quarterly revenue growth q/q and y/y.",
+      "Quarterly net income and net margin versus the latest 33.1% and LTM 31.5%.",
+      "LTM revenue and LTM net income progression versus current $186.941B revenue and $58.899B net income.",
+      "Cash and equivalents, total debt, and net debt, while recognizing these require bank-specific interpretation.",
+      "Price drawdown from 52-week high and momentum after the recent +14.0% three-month move.",
+      "Forward P/E, trailing P/E, and price-to-book versus changes in earnings run-rate.",
+      "Macro credit conditions, especially HY spreads relative to the current 275 bps cited in macro context.",
+      "Fed hold/hike versus cut probabilities and the monetary-policy composite.",
+      "If later available: net interest margin, deposit trends, credit provisions, charge-offs, CET1 ratio, tangible book value, and capital return metrics."
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 50.0,
+    "financial_health": 56.0,
+    "competitive_position": 50.0,
+    "earnings_inflection_potential": 66.0,
+    "regime_fit": 48.0,
+    "valuation_setup": 51.0,
+    "variant_perception_strength": 80.0,
+    "idiosyncratic_risk": 60.0,
+    "final_underwriting_score": 58.330357142857146
+  },
+  "verdict": "reject",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "JPM receives a reject verdict with a final underwriting score of 58.3/100. LLM synthesis summary: JPM shows improving current fundamentals in the supplied data, led by latest-quarter revenue acceleration, higher q/q and y/y net income, and a rebound in net margin. The LTM profile remains highly profitable, and macro credit conditions are supportive. However, the stock has already performed strongly and trades near its 52-week high, while valuation does not appear depressed. The strongest issue is not current profitability but whether the latest-quarter inflection is durable and whether the market has already priced it. Because company profile, peer data, consensus, and bank-specific operating metrics are missing, the correct underwriting posture is evidence-seeking rather than decisive. The setup is two-sided: constructive fundamentals and supportive credit backdrop, offset by valuation/momentum expectations risk and weak direct theme fit.",
+  "key_monitoring_items": [
+    "revenue growth",
+    "gross margin",
+    "operating margin",
+    "free cash flow",
+    "leverage",
+    "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+    "Re-underwrite after the next quarterly financial update to confirm whether latest-quarter revenue acceleration and margin improvement persist.",
+    "Compare next-quarter revenue against $49.833B and net margin against 33.1%; treat failure to sustain either as evidence that Q1 was a temporary rebound.",
+    "Add bank-specific operating metrics when available: NII, NIM, deposits, loans, credit provisions, charge-offs, CET1, tangible book value, and capital returns.",
+    "Track macro credit conditions weekly or monthly, especially HY spreads relative to the cited 275 bps level."
+  ],
+  "recommended_next_action": "Reject for now; revisit only if thesis, valuation, or evidence changes materially.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding with LLM synthesis; richer filing and transcript layers pending.",
+    "Financial context sourced from yfinance.",
+    "Financial trend is derived from quarterly financial statements through period ending 2026-03-31.",
+    "Latest financial period end date: 2026-03-31.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

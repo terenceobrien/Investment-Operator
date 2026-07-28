@@ -1,0 +1,232 @@
+{
+  "ticker": "XOM",
+  "as_of_date": "2026-06-27",
+  "created_at": "2026-06-27T16:22:24.537525",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": null,
+  "theme_context": null,
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "XOM",
+    "as_of_date": "2026-06-27",
+    "financial_trend": {
+      "latest": {
+        "revenue": 323905000000.0,
+        "revenue_growth_yoy": -0.04522368657644725,
+        "gross_margin": 0.21994103209274324,
+        "operating_margin": 0.10477763541779225,
+        "ebitda_margin": 0.20951822293573732,
+        "net_margin": 0.08905080193266544,
+        "free_cash_flow": 23612000000.0,
+        "free_cash_flow_margin": 0.07289791759929609,
+        "total_debt": 47660998656.0,
+        "cash_and_equivalents": 10681000000.0,
+        "net_debt": 36979998656.0,
+        "net_debt_to_ebitda": 0.5449133363196982,
+        "capex": -28358000000.0,
+        "capex_as_pct_revenue": 0.08755036198885476,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 339247000000.0,
+        "revenue_growth_yoy": 0.013594385369453565,
+        "gross_margin": 0.22621275943486605,
+        "operating_margin": 0.11688238952739449,
+        "ebitda_margin": 0.21609918437009024,
+        "net_margin": 0.09927869664285904,
+        "free_cash_flow": 30716000000.0,
+        "free_cash_flow_margin": 0.0905416997055243,
+        "total_debt": 41710000000.0,
+        "cash_and_equivalents": 23029000000.0,
+        "net_debt": 18681000000.0,
+        "net_debt_to_ebitda": 0.2548185129107501,
+        "capex": -24306000000.0,
+        "capex_as_pct_revenue": 0.07164691213186852,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "deteriorating",
+      "margin_direction": "deteriorating",
+      "fcf_direction": "deteriorating",
+      "leverage_direction": "deteriorating",
+      "notes": []
+    },
+    "price_snapshot": {
+      "current_price": 136.54,
+      "market_cap": 565951070208.0,
+      "return_1m": -0.08183695819126359,
+      "return_3m": -0.1517602583917326,
+      "return_6m": 0.179912547897052,
+      "return_1y": 0.2976280890090642,
+      "drawdown_from_52w_high": -0.19830428667752886,
+      "distance_from_52w_low": 0.3313085789448391,
+      "beta": 0.149
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 22.98653,
+      "forward_pe": 12.63445,
+      "ev_to_ebitda": 10.923,
+      "price_to_sales": 1.7360035,
+      "price_to_book": 2.1998098,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": null,
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance."
+    ]
+  },
+  "llm_synthesis": null,
+  "company_profile": {
+    "ticker": "XOM",
+    "company_name": null,
+    "sector": null,
+    "industry": null,
+    "business_description": "Company profile not yet available in static knowledge base.",
+    "business_model": null,
+    "segments": [],
+    "revenue_model": [],
+    "cost_drivers": [],
+    "margin_drivers": [],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [],
+    "thematic_exposures": [],
+    "macro_sensitivities": [],
+    "major_risks": []
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "deteriorating",
+    "gross_margin_trend": null,
+    "operating_margin_trend": "deteriorating",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "deteriorating",
+    "capex_trend": null,
+    "leverage_trend": "deteriorating",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [],
+    "deteriorating_indicators": [
+      "Revenue growth is deteriorating.",
+      "Operating margin is deteriorating.",
+      "Free cash flow is deteriorating.",
+      "Leverage is deteriorating."
+    ],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from fundamental context pack.",
+    "why_screen_may_be_wrong": "The basic screen should be interpreted in context of trend direction, cyclicality, and whether weak metrics are improving or deteriorating."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [],
+    "recent_strength_points": [],
+    "likely_causes": [],
+    "pressure_type": "unknown",
+    "cyclical_vs_structural_assessment": "Insufficient data to determine whether recent pressure is cyclical or structural.",
+    "abatement_evidence": [],
+    "inflection_catalysts": [],
+    "margin_recovery_potential": null,
+    "demand_recovery_potential": null,
+    "earnings_inflection_potential": null,
+    "key_timing_questions": []
+  },
+  "competitive_position_analysis": {
+    "peer_group": [],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [],
+    "competitive_advantages": [],
+    "competitive_threats": [],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "Competitive position requires further peer and filing analysis. Static knowledge base does not yet contain enough company-specific information."
+  },
+  "regime_sensitivity_analysis": null,
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "Current market narrative requires news, price action, and estimate revision ingestion.",
+    "implied_expectations": "Cannot infer implied expectations with high confidence in v1.",
+    "market_mispricing_hypothesis": "No strong mispricing hypothesis generated yet.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": null,
+    "expectation_summary": "Market expectation analysis is incomplete until valuation and price data are wired."
+  },
+  "variant_view": {
+    "consensus_view": "Consensus view not available in v1.",
+    "helix_variant_view": "No strong variant view generated yet. Additional company, financial, peer, valuation, and news data required.",
+    "evidence_supporting_variant_view": [],
+    "why_market_may_be_wrong": [],
+    "required_confirming_evidence": [],
+    "risks_to_variant_view": [
+      "Insufficient information to establish variant perception."
+    ],
+    "variant_view_strength": "none"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Company fails to show evidence supporting the proposed variant view."
+    ],
+    "macro_falsifiers": [],
+    "valuation_falsifiers": [],
+    "timing_falsifiers": [],
+    "technical_or_price_falsifiers": [],
+    "monitoring_triggers": [
+      "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available."
+    ],
+    "key_metrics_to_watch": [
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "free cash flow",
+      "leverage",
+      "earnings revisions"
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 50.0,
+    "financial_health": 50.0,
+    "competitive_position": 50.0,
+    "earnings_inflection_potential": 50.0,
+    "regime_fit": null,
+    "valuation_setup": 55.0,
+    "variant_perception_strength": 20.0,
+    "idiosyncratic_risk": 50.0,
+    "final_underwriting_score": 45.35
+  },
+  "verdict": "reject",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "XOM receives a reject verdict with a final underwriting score of 45.4/100. Variant view: No strong variant view generated yet. Additional company, financial, peer, valuation, and news data required. Pressure/inflection assessment: Insufficient data to determine whether recent pressure is cyclical or structural.",
+  "key_monitoring_items": [
+    "revenue growth",
+    "gross margin",
+    "operating margin",
+    "free cash flow",
+    "leverage",
+    "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available."
+  ],
+  "recommended_next_action": "Reject for now.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding; richer filing, transcript, and LLM synthesis layers pending.",
+    "Financial context sourced from yfinance."
+  ],
+  "warnings": []
+}

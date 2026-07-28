@@ -1,0 +1,3356 @@
+{
+  "ticker": "MU",
+  "as_of_date": "2026-06-29",
+  "created_at": "2026-06-29T15:27:06.506749",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-05",
+    "created_at": "2026-06-12T16:59:50.064967Z",
+    "regime_id": null,
+    "regime_label": "Sticky Late Cycle AI leads; top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.36240265879628086,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.3107222840217003,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.1502536969955016,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.13173991765464557,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.04488144253187162,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.26,
+        "notes": "HY spreads tight (275bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "bearish",
+        "signal_strength": 0.6,
+        "level_status": "bearish",
+        "trend_status": "deteriorating",
+        "current_value": 4.39,
+        "notes": "Equal weight (RSP) lagging cap weight (SPY) — mega-cap concentration, breadth narrowing Breadth remains weak on an absolute basis.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "high_beta_ai_semis",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "bullish",
+        "signal_strength": 0.3,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 7.26,
+        "notes": "Put/call ratio elevated (1.15) — fear-driven hedging, contrarian bullish",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.59; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.59, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.25,
+        "notes": "Equity put/call elevated (1.15) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.59,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.545320782416292,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +1.06, Quality ex-AI cash flow +0.31, Cash and short duration +0.17."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 1.4070391876971877,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.90, Quality ex-AI cash flow +0.31, Defense and geopolitics +0.20."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 1.154691623057673,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 1.0005192299704084,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.62, Quality ex-AI cash flow +0.38."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.7726430316381337,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.66, Energy and oil beta +0.11."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.5142520779391876,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Energy and oil beta +0.28, Commodities and real assets +0.24."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": 0.3796309856404655,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.46, Long-duration growth -0.07, High-beta AI semiconductors -0.04."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": 0.20398355281113664,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: Quality AI leaders +0.26, High-beta AI semiconductors -0.09, Memory semiconductors +0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.8146079241839199,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.72, Long-duration growth -0.09."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 1.154691623057673,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +1.15."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 1.1441245129776911,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.54, Quality AI leaders +0.36, Healthcare defensives +0.25."
+      },
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 1.0814048070015705,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.40, Healthcare defensives +0.37, Quality ex-AI cash flow +0.31."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.686512713738485,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.52, Energy and oil beta +0.17."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.2620979316513681,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: Small caps -0.14, Long-duration growth -0.11, High-beta AI semiconductors -0.06."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": -0.5899773572243925,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth -0.32, Small caps -0.27."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.9044601509677309,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.90."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Sticky Late Cycle AI at 36.2%; runner-up reopening_soft_landing at 31.1%. The largest displayed deterministic driver is AI earnings resilience (+0.403). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically calibrated after the deterministic update.",
+    "source_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "MU",
+    "selected_theme_ids": [
+      "high_beta_ai_semis",
+      "memory_semis",
+      "quality_ai"
+    ],
+    "theme_mapping": {
+      "ticker": "MU",
+      "mapped_themes": [
+        {
+          "theme_id": "high_beta_ai_semis",
+          "theme_label": "High-beta AI semiconductors",
+          "fit": "primary",
+          "confidence": 0.88,
+          "rationale": "Shared terms: high, semiconductors.; Company text directly references memory/storage semiconductor economics.; Company has semiconductor or AI-server exposure relevant to this macro theme."
+        },
+        {
+          "theme_id": "memory_semis",
+          "theme_label": "Memory semiconductors",
+          "fit": "primary",
+          "confidence": 0.88,
+          "rationale": "Shared terms: memory, semiconductors.; Company text directly references memory/storage semiconductor economics.; Company has semiconductor or AI-server exposure relevant to this macro theme."
+        },
+        {
+          "theme_id": "quality_ai",
+          "theme_label": "Quality AI leaders",
+          "fit": "secondary",
+          "confidence": 0.68,
+          "rationale": "Company has semiconductor or AI-server exposure relevant to this macro theme.; Company text references AI or data-center demand tied to this theme."
+        }
+      ],
+      "rejected_themes": [],
+      "mapping_summary": "Mapped 3 of 12 available macro-forecast themes using deterministic keyword/semantic fallback.",
+      "data_confidence": "medium",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [
+      {
+        "theme_id": "high_beta_ai_semis",
+        "label": "High-beta AI semiconductors",
+        "score": -0.15724653173257358,
+        "fit": "primary",
+        "fit_confidence": 0.88,
+        "weighted_score": -0.13837694792466476,
+        "rationale": "High-beta AI semiconductors has macro support score -0.16; best in sticky_late_cycle_ai, reopening_soft_landing and worst in late_cycle_risk_off, oil_inflation_tail, ai_capex_rollover. Contribution breakdown: Late Cycle Risk-Off -0.40; Sticky Late Cycle AI +0.36; Reopening / Soft Landing +0.31; Oil Inflation Tail -0.30; AI Capex Rollover -0.13."
+      },
+      {
+        "theme_id": "memory_semis",
+        "label": "Memory semiconductors",
+        "score": 0.16962852544944523,
+        "fit": "primary",
+        "fit_confidence": 0.88,
+        "weighted_score": 0.1492731023955118,
+        "rationale": "Memory semiconductors has macro support score 0.17; best in sticky_late_cycle_ai, reopening_soft_landing and worst in late_cycle_risk_off, oil_inflation_tail, ai_capex_rollover. Contribution breakdown: Sticky Late Cycle AI +0.36; Reopening / Soft Landing +0.31; Late Cycle Risk-Off -0.26; Oil Inflation Tail -0.15; AI Capex Rollover -0.09."
+      },
+      {
+        "theme_id": "quality_ai",
+        "label": "Quality AI leaders",
+        "score": 1.0261737606966523,
+        "fit": "secondary",
+        "fit_confidence": 0.68,
+        "weighted_score": 0.4884587100916065,
+        "rationale": "Quality AI leaders has macro support score 1.03; best in sticky_late_cycle_ai, reopening_soft_landing and worst in oil_inflation_tail, late_cycle_risk_off, ai_capex_rollover. Contribution breakdown: Sticky Late Cycle AI +1.09; Reopening / Soft Landing +0.31; Oil Inflation Tail -0.15; Late Cycle Risk-Off -0.13; AI Capex Rollover -0.09."
+      }
+    ],
+    "relevant_theme_impacts": [
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.35,
+        "rationale": "Healthy credit supports profitable growth leadership.",
+        "source_input_id": "credit_conditions",
+        "source_label": "Credit layer health",
+        "category": "credit"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.15,
+        "rationale": "Orderly volatility supports quality leadership.",
+        "source_input_id": "volatility_layer_summary",
+        "source_label": "Volatility layer summary",
+        "category": "volatility"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.45,
+        "rationale": "Narrow markets reward established leaders.",
+        "source_input_id": "market_breadth",
+        "source_label": "Breadth and participation",
+        "category": "breadth"
+      },
+      {
+        "theme_id": "high_beta_ai_semis",
+        "theme_label": "High-beta AI semiconductors",
+        "direction": "negative",
+        "strength": 0.25,
+        "rationale": "Narrow breadth raises unwind risk in crowded beta.",
+        "source_input_id": "market_breadth",
+        "source_label": "Breadth and participation",
+        "category": "breadth"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.15,
+        "rationale": "Hedged markets can still support liquid leaders.",
+        "source_input_id": "positioning_hedging",
+        "source_label": "Positioning and hedging",
+        "category": "positioning"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.65,
+        "rationale": "AI resilience supports quality AI leaders.",
+        "source_input_id": "ai_earnings_resilience",
+        "source_label": "AI earnings resilience",
+        "category": "earnings"
+      },
+      {
+        "theme_id": "high_beta_ai_semis",
+        "theme_label": "High-beta AI semiconductors",
+        "direction": "positive",
+        "strength": 0.25,
+        "rationale": "AI resilience helps semis, though crowding remains.",
+        "source_input_id": "ai_earnings_resilience",
+        "source_label": "AI earnings resilience",
+        "category": "earnings"
+      },
+      {
+        "theme_id": "quality_ai",
+        "theme_label": "Quality AI leaders",
+        "direction": "positive",
+        "strength": 0.25,
+        "rationale": "Untriggered capex risk supports quality AI.",
+        "source_input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "source_label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings"
+      }
+    ],
+    "linked_scenarios": [
+      "late_cycle_risk_off",
+      "reopening_soft_landing",
+      "sticky_late_cycle_ai",
+      "ai_capex_rollover"
+    ],
+    "positive_drivers": [
+      "Credit layer health: Healthy credit supports profitable growth leadership.",
+      "Volatility layer summary: Orderly volatility supports quality leadership.",
+      "Breadth and participation: Narrow markets reward established leaders.",
+      "Positioning and hedging: Hedged markets can still support liquid leaders.",
+      "AI earnings resilience: AI resilience supports quality AI leaders.",
+      "AI earnings resilience: AI resilience helps semis, though crowding remains.",
+      "Hyperscaler capex rollover falsifier: Untriggered capex risk supports quality AI."
+    ],
+    "negative_drivers": [
+      "Breadth and participation: Narrow breadth raises unwind risk in crowded beta."
+    ],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": 0.22332507359680395,
+    "theme_fit_summary": "MU maps to macro-forecast themes high_beta_ai_semis, memory_semis, quality_ai. Aggregate theme support score is 0.22.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "research_context": {
+    "ticker": "MU",
+    "as_of_date": "2026-06-29",
+    "created_at": "2026-06-29T15:25:47.515107",
+    "source_coverage": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "notes": null
+      },
+      {
+        "source_type": "filing",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-25",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000015/mu-20260528.htm",
+        "accession_number": "0000723125-26-000015",
+        "notes": null
+      },
+      {
+        "source_type": "transcript",
+        "status": "not_found",
+        "source_name": "Earnings call transcript",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+      },
+      {
+        "source_type": "news",
+        "status": "skipped",
+        "source_name": "News",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "News retrieval skipped; NEWS_API_KEY or NEWSDATA_API_KEY is not configured."
+      },
+      {
+        "source_type": "estimate",
+        "status": "found",
+        "source_name": "yfinance",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "peer_commentary",
+        "status": "skipped",
+        "source_name": "Peer commentary",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: SSNLF, 000660.KS, WDC."
+      }
+    ],
+    "source_coverage_summary": "estimate:found=1; filing:found=1; news:skipped=1; peer_commentary:skipped=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+    "earnings_release_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Micron reported record fiscal Q3 2026 revenue of $41.46 billion, up sharply from $23.86 billion in the prior quarter and $9.30 billion year over year.",
+        "summary": "Record revenue substantially exceeded prior-quarter and year-ago levels.",
+        "excerpt": "Fiscal Q3 2026 highlights • Revenue of $41.46 billion versus $23.86 billion for the prior quarter and $9.30 billion for the same period last year",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.98,
+        "related_topics": [
+          "earnings",
+          "growth",
+          "AI memory demand"
+        ],
+        "related_metrics": [
+          "revenue",
+          "quarterly revenue",
+          "year-over-year revenue",
+          "sequential revenue"
+        ],
+        "evidence_tags": [
+          "earnings_result",
+          "record_revenue",
+          "qoq_growth",
+          "yoy_growth"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Profitability expanded materially in fiscal Q3 2026, with GAAP gross margin of 84.6% versus 74.4% in Q2 and 37.7% in the year-ago quarter.",
+        "summary": "Gross margin rose sharply both sequentially and year over year.",
+        "excerpt": "Gross margin 35,056 17,755 3,508 35,199 17,876 3,623 Percent of revenue 84.6 % 74.4 % 37.7 % 84.9 % 74.9 % 39.0 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "profitability",
+          "pricing",
+          "operating leverage"
+        ],
+        "related_metrics": [
+          "GAAP gross margin",
+          "non-GAAP gross margin",
+          "gross profit"
+        ],
+        "evidence_tags": [
+          "margin_expansion",
+          "earnings_result",
+          "gross_margin"
+        ],
+        "notes": "Excerpt includes GAAP and non-GAAP gross margin rows; GAAP percentages are 84.6%, 74.4%, and 37.7%."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Micron delivered GAAP EPS of $24.67 and non-GAAP EPS of $25.11 in fiscal Q3 2026, compared with $1.68 and $1.91, respectively, in the year-ago quarter.",
+        "summary": "EPS and net income reached very elevated levels versus the prior year.",
+        "excerpt": "GAAP net income of $28.24 billion, or $24.67 per diluted share • Non-GAAP net income of $28.86 billion, or $25.11 per diluted share",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "earnings",
+          "profitability"
+        ],
+        "related_metrics": [
+          "GAAP EPS",
+          "non-GAAP EPS",
+          "net income"
+        ],
+        "evidence_tags": [
+          "eps_growth",
+          "earnings_result",
+          "net_income"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Operating cash flow rose to $25.39 billion in fiscal Q3 2026, and adjusted free cash flow was $18.3 billion after $7.1 billion of net capex.",
+        "summary": "Cash generation scaled significantly while the company continued heavy investment.",
+        "excerpt": "Operating cash flow of $25.39 billion versus $11.90 billion for the prior quarter and $4.61 billion for the same period last year",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.94,
+        "related_topics": [
+          "cash generation",
+          "capex",
+          "liquidity"
+        ],
+        "related_metrics": [
+          "operating cash flow",
+          "adjusted free cash flow",
+          "capital expenditures"
+        ],
+        "evidence_tags": [
+          "cash_flow",
+          "free_cash_flow",
+          "capex",
+          "liquidity"
+        ],
+        "notes": "The same release states: “For the third quarter of 2026, investments in capital expenditures, net (2) were $7.1 billion and adjusted free cash flow (2) was $18.3 billion.”"
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Management attributed record Q3 results and a stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand.",
+        "summary": "CEO commentary was strongly positive on AI-driven memory demand and investment needs.",
+        "excerpt": "“Micron’s record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,” said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology. “Micron is investing at record levels in technology, products and supply to address our customers’ rapidly growing demand.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "AI",
+          "memory demand",
+          "management tone",
+          "investment cycle"
+        ],
+        "related_metrics": [
+          "revenue outlook",
+          "capex",
+          "customer demand"
+        ],
+        "evidence_tags": [
+          "management_commentary",
+          "AI_demand",
+          "guidance_tone",
+          "customer_demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Micron said multi-year Strategic Customer Agreements should improve the durability and predictability of financial performance.",
+        "summary": "Strategic customer agreements are presented as improving predictability of future performance.",
+        "excerpt": "We believe our multi-year Strategic Customer Agreements will significantly enhance the durability and predictability of Micron’s strong financial performance.”",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "customer agreements",
+          "demand visibility",
+          "business durability"
+        ],
+        "related_metrics": [
+          "revenue visibility",
+          "financial performance"
+        ],
+        "evidence_tags": [
+          "strategic_customer_agreements",
+          "customer_commitments",
+          "revenue_visibility"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Cloud Memory Business Unit revenue reached $13.77 billion in fiscal Q3 2026, with 83% gross margin and 78% operating margin.",
+        "summary": "Cloud Memory showed strong revenue growth and very high margins.",
+        "excerpt": "Cloud Memory Business Unit Revenue $ 13,769 $ 7,749 $ 3,386 Gross margin 83 % 74 % 58 % Operating margin 78 % 66 % 46 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "cloud memory",
+          "segment performance",
+          "AI infrastructure"
+        ],
+        "related_metrics": [
+          "Cloud Memory Business Unit revenue",
+          "Cloud Memory gross margin",
+          "Cloud Memory operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "cloud_memory",
+          "gross_margin",
+          "operating_margin"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Core Data Center Business Unit revenue more than doubled sequentially to $11.52 billion, with 87% gross margin and 83% operating margin.",
+        "summary": "Core Data Center revenue and margins improved substantially.",
+        "excerpt": "Core Data Center Business Unit Revenue $ 11,524 $ 5,687 $ 1,530 Gross margin 87 % 74 % 38 % Operating margin 83 % 67 % 20 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "data center",
+          "AI infrastructure",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Core Data Center revenue",
+          "Core Data Center gross margin",
+          "Core Data Center operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "data_center",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Mobile and Client Business Unit revenue was $11.52 billion in fiscal Q3 2026, with 87% gross margin and 86% operating margin, up from 24% and 15% margins a year earlier.",
+        "summary": "Mobile and Client margins expanded sharply year over year.",
+        "excerpt": "Mobile and Client Business Unit Revenue $ 11,521 $ 7,711 $ 3,255 Gross margin 87 % 79 % 24 % Operating margin 86 % 76 % 15 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.87,
+        "related_topics": [
+          "mobile",
+          "client",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Mobile and Client revenue",
+          "Mobile and Client gross margin",
+          "Mobile and Client operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "mobile_client",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Automotive and Embedded Business Unit revenue rose to $4.63 billion, with 79% gross margin and 75% operating margin in fiscal Q3 2026.",
+        "summary": "Automotive and Embedded revenue and margins improved across comparison periods.",
+        "excerpt": "Automotive and Embedded Business Unit Revenue $ 4,634 $ 2,708 $ 1,127 Gross margin 79 % 68 % 26 % Operating margin 75 % 62 % 11 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.84,
+        "related_topics": [
+          "automotive",
+          "embedded",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Automotive and Embedded revenue",
+          "Automotive and Embedded gross margin",
+          "Automotive and Embedded operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "automotive",
+          "embedded",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Fiscal Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin, and non-GAAP EPS of $31.00 ± $1.00.",
+        "summary": "Q4 outlook implies sequential revenue and EPS growth from already elevated Q3 results.",
+        "excerpt": "Business Outlook The following table presents Micron’s guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion ± $1.0 billion $50.0 billion ± $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 ± $1.00 $31.00 ± $1.00",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "guidance",
+          "earnings outlook",
+          "profitability"
+        ],
+        "related_metrics": [
+          "Q4 revenue guidance",
+          "Q4 gross margin guidance",
+          "Q4 EPS guidance",
+          "operating expenses guidance"
+        ],
+        "evidence_tags": [
+          "guidance",
+          "revenue_guidance",
+          "gross_margin_guidance",
+          "eps_guidance"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "HBM product execution appears advanced, with HBM4 in high-volume shipments for a lead customer platform and HBM4E volume production expected in calendar 2027.",
+        "summary": "The HBM roadmap and shipment status support Micron’s AI memory positioning.",
+        "excerpt": "• HBM4, built on 1-beta DRAM technology, is in high-volume shipments for our lead customer's platform, and qualification samples have been shipped to multiple end-customers. • Development of HBM4E, built on 1-gamma DRAM technology, is well underway, with volume production expected in calendar 2027.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "HBM",
+          "DRAM technology",
+          "AI accelerators",
+          "product roadmap"
+        ],
+        "related_metrics": [
+          "HBM4 shipments",
+          "HBM4E production timing"
+        ],
+        "evidence_tags": [
+          "product_highlight",
+          "HBM",
+          "AI_memory",
+          "customer_qualification"
+        ],
+        "notes": null
+      }
+    ],
+    "filing_evidence": [],
+    "transcript_evidence": [],
+    "news_evidence": [],
+    "estimate_evidence": [
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter EPS estimates for MU increased to 31.32479 from 24.18138 seven days earlier and 22.83096 thirty days earlier; there were 4 upward revisions and no downward revisions over the last 30 days.",
+        "summary": "Near-term EPS estimates have moved sharply higher with no recent downward revisions in the supplied dataset.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "analyst estimates",
+          "earnings revisions"
+        ],
+        "related_metrics": [
+          "current-quarter EPS estimate",
+          "EPS revisions up last 30 days",
+          "EPS revisions down last 30 days"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "eps_revision",
+          "positive_revision_breadth"
+        ],
+        "notes": "Derived from supplied metadata fields earnings_estimate.avg.0q, eps_trend.current.0q, eps_trend.7daysAgo.0q, eps_trend.30daysAgo.0q, and eps_revisions for 0q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter EPS estimates increased to 34.73633 from 27.63408 seven days earlier, 25.52651 thirty days earlier, and 24.26999 ninety days earlier.",
+        "summary": "Next-quarter EPS expectations have been revised substantially upward across multiple lookback windows.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.87,
+        "related_topics": [
+          "analyst estimates",
+          "earnings momentum"
+        ],
+        "related_metrics": [
+          "next-quarter EPS estimate",
+          "EPS trend"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "eps_revision",
+          "forward_estimates"
+        ],
+        "notes": "Derived from supplied metadata fields eps_trend.current.+1q, eps_trend.7daysAgo.+1q, eps_trend.30daysAgo.+1q, and eps_trend.90daysAgo.+1q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Current fiscal-year EPS estimates rose to 73.36288 from 60.99951 seven days earlier and 57.64156 ninety days earlier, with 5 upward revisions and no downward revisions in the last 30 days.",
+        "summary": "Annual EPS expectations show broad upward revision momentum.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "analyst estimates",
+          "earnings revisions"
+        ],
+        "related_metrics": [
+          "current fiscal-year EPS estimate",
+          "annual EPS revisions"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "annual_eps",
+          "positive_revision_breadth"
+        ],
+        "notes": "Derived from supplied metadata fields eps_trend.current.0y, eps_trend.7daysAgo.0y, eps_trend.90daysAgo.0y, and eps_revisions for 0y."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+        "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook"
+        ],
+        "related_metrics": [
+          "current-quarter revenue estimate",
+          "revenue growth estimate",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "growth_estimate",
+          "analyst_consensus"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+        "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.8,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook",
+          "estimate dispersion"
+        ],
+        "related_metrics": [
+          "next-quarter revenue estimate",
+          "revenue estimate high",
+          "revenue estimate low",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "forward_estimates",
+          "estimate_dispersion"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Current recommendations are skewed positive, with 9 strongBuy, 29 buy, and 4 hold ratings, but also 1 strongSell in the supplied recommendations summary.",
+        "summary": "Analyst recommendation distribution is broadly favorable but not unanimous.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.72,
+        "related_topics": [
+          "analyst recommendations",
+          "sentiment"
+        ],
+        "related_metrics": [
+          "strongBuy ratings",
+          "buy ratings",
+          "hold ratings",
+          "strongSell ratings"
+        ],
+        "evidence_tags": [
+          "recommendations",
+          "analyst_sentiment",
+          "rating_mix"
+        ],
+        "notes": "Derived from supplied metadata fields recommendations_summary for period 0m."
+      }
+    ],
+    "peer_commentary_evidence": [],
+    "management_guidance": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Management attributed record Q3 results and a stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand.",
+        "summary": "CEO commentary was strongly positive on AI-driven memory demand and investment needs.",
+        "excerpt": "“Micron’s record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,” said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology. “Micron is investing at record levels in technology, products and supply to address our customers’ rapidly growing demand.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "AI",
+          "memory demand",
+          "management tone",
+          "investment cycle"
+        ],
+        "related_metrics": [
+          "revenue outlook",
+          "capex",
+          "customer demand"
+        ],
+        "evidence_tags": [
+          "management_commentary",
+          "AI_demand",
+          "guidance_tone",
+          "customer_demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Fiscal Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin, and non-GAAP EPS of $31.00 ± $1.00.",
+        "summary": "Q4 outlook implies sequential revenue and EPS growth from already elevated Q3 results.",
+        "excerpt": "Business Outlook The following table presents Micron’s guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion ± $1.0 billion $50.0 billion ± $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 ± $1.00 $31.00 ± $1.00",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "guidance",
+          "earnings outlook",
+          "profitability"
+        ],
+        "related_metrics": [
+          "Q4 revenue guidance",
+          "Q4 gross margin guidance",
+          "Q4 EPS guidance",
+          "operating expenses guidance"
+        ],
+        "evidence_tags": [
+          "guidance",
+          "revenue_guidance",
+          "gross_margin_guidance",
+          "eps_guidance"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+        "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook"
+        ],
+        "related_metrics": [
+          "current-quarter revenue estimate",
+          "revenue growth estimate",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "growth_estimate",
+          "analyst_consensus"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+        "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.8,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook",
+          "estimate dispersion"
+        ],
+        "related_metrics": [
+          "next-quarter revenue estimate",
+          "revenue estimate high",
+          "revenue estimate low",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "forward_estimates",
+          "estimate_dispersion"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+      }
+    ],
+    "segment_kpis": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Cloud Memory Business Unit revenue reached $13.77 billion in fiscal Q3 2026, with 83% gross margin and 78% operating margin.",
+        "summary": "Cloud Memory showed strong revenue growth and very high margins.",
+        "excerpt": "Cloud Memory Business Unit Revenue $ 13,769 $ 7,749 $ 3,386 Gross margin 83 % 74 % 58 % Operating margin 78 % 66 % 46 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "cloud memory",
+          "segment performance",
+          "AI infrastructure"
+        ],
+        "related_metrics": [
+          "Cloud Memory Business Unit revenue",
+          "Cloud Memory gross margin",
+          "Cloud Memory operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "cloud_memory",
+          "gross_margin",
+          "operating_margin"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Core Data Center Business Unit revenue more than doubled sequentially to $11.52 billion, with 87% gross margin and 83% operating margin.",
+        "summary": "Core Data Center revenue and margins improved substantially.",
+        "excerpt": "Core Data Center Business Unit Revenue $ 11,524 $ 5,687 $ 1,530 Gross margin 87 % 74 % 38 % Operating margin 83 % 67 % 20 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "data center",
+          "AI infrastructure",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Core Data Center revenue",
+          "Core Data Center gross margin",
+          "Core Data Center operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "data_center",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Mobile and Client Business Unit revenue was $11.52 billion in fiscal Q3 2026, with 87% gross margin and 86% operating margin, up from 24% and 15% margins a year earlier.",
+        "summary": "Mobile and Client margins expanded sharply year over year.",
+        "excerpt": "Mobile and Client Business Unit Revenue $ 11,521 $ 7,711 $ 3,255 Gross margin 87 % 79 % 24 % Operating margin 86 % 76 % 15 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.87,
+        "related_topics": [
+          "mobile",
+          "client",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Mobile and Client revenue",
+          "Mobile and Client gross margin",
+          "Mobile and Client operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "mobile_client",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Automotive and Embedded Business Unit revenue rose to $4.63 billion, with 79% gross margin and 75% operating margin in fiscal Q3 2026.",
+        "summary": "Automotive and Embedded revenue and margins improved across comparison periods.",
+        "excerpt": "Automotive and Embedded Business Unit Revenue $ 4,634 $ 2,708 $ 1,127 Gross margin 79 % 68 % 26 % Operating margin 75 % 62 % 11 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.84,
+        "related_topics": [
+          "automotive",
+          "embedded",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Automotive and Embedded revenue",
+          "Automotive and Embedded gross margin",
+          "Automotive and Embedded operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "automotive",
+          "embedded",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      }
+    ],
+    "consensus_narrative": [
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter EPS estimates for MU increased to 31.32479 from 24.18138 seven days earlier and 22.83096 thirty days earlier; there were 4 upward revisions and no downward revisions over the last 30 days.",
+        "summary": "Near-term EPS estimates have moved sharply higher with no recent downward revisions in the supplied dataset.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "analyst estimates",
+          "earnings revisions"
+        ],
+        "related_metrics": [
+          "current-quarter EPS estimate",
+          "EPS revisions up last 30 days",
+          "EPS revisions down last 30 days"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "eps_revision",
+          "positive_revision_breadth"
+        ],
+        "notes": "Derived from supplied metadata fields earnings_estimate.avg.0q, eps_trend.current.0q, eps_trend.7daysAgo.0q, eps_trend.30daysAgo.0q, and eps_revisions for 0q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter EPS estimates increased to 34.73633 from 27.63408 seven days earlier, 25.52651 thirty days earlier, and 24.26999 ninety days earlier.",
+        "summary": "Next-quarter EPS expectations have been revised substantially upward across multiple lookback windows.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.87,
+        "related_topics": [
+          "analyst estimates",
+          "earnings momentum"
+        ],
+        "related_metrics": [
+          "next-quarter EPS estimate",
+          "EPS trend"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "eps_revision",
+          "forward_estimates"
+        ],
+        "notes": "Derived from supplied metadata fields eps_trend.current.+1q, eps_trend.7daysAgo.+1q, eps_trend.30daysAgo.+1q, and eps_trend.90daysAgo.+1q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Current fiscal-year EPS estimates rose to 73.36288 from 60.99951 seven days earlier and 57.64156 ninety days earlier, with 5 upward revisions and no downward revisions in the last 30 days.",
+        "summary": "Annual EPS expectations show broad upward revision momentum.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "analyst estimates",
+          "earnings revisions"
+        ],
+        "related_metrics": [
+          "current fiscal-year EPS estimate",
+          "annual EPS revisions"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "annual_eps",
+          "positive_revision_breadth"
+        ],
+        "notes": "Derived from supplied metadata fields eps_trend.current.0y, eps_trend.7daysAgo.0y, eps_trend.90daysAgo.0y, and eps_revisions for 0y."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+        "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook"
+        ],
+        "related_metrics": [
+          "current-quarter revenue estimate",
+          "revenue growth estimate",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "growth_estimate",
+          "analyst_consensus"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+        "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.8,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook",
+          "estimate dispersion"
+        ],
+        "related_metrics": [
+          "next-quarter revenue estimate",
+          "revenue estimate high",
+          "revenue estimate low",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "forward_estimates",
+          "estimate_dispersion"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Current recommendations are skewed positive, with 9 strongBuy, 29 buy, and 4 hold ratings, but also 1 strongSell in the supplied recommendations summary.",
+        "summary": "Analyst recommendation distribution is broadly favorable but not unanimous.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.72,
+        "related_topics": [
+          "analyst recommendations",
+          "sentiment"
+        ],
+        "related_metrics": [
+          "strongBuy ratings",
+          "buy ratings",
+          "hold ratings",
+          "strongSell ratings"
+        ],
+        "evidence_tags": [
+          "recommendations",
+          "analyst_sentiment",
+          "rating_mix"
+        ],
+        "notes": "Derived from supplied metadata fields recommendations_summary for period 0m."
+      }
+    ],
+    "bullish_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Micron reported record fiscal Q3 2026 revenue of $41.46 billion, up sharply from $23.86 billion in the prior quarter and $9.30 billion year over year.",
+        "summary": "Record revenue substantially exceeded prior-quarter and year-ago levels.",
+        "excerpt": "Fiscal Q3 2026 highlights • Revenue of $41.46 billion versus $23.86 billion for the prior quarter and $9.30 billion for the same period last year",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.98,
+        "related_topics": [
+          "earnings",
+          "growth",
+          "AI memory demand"
+        ],
+        "related_metrics": [
+          "revenue",
+          "quarterly revenue",
+          "year-over-year revenue",
+          "sequential revenue"
+        ],
+        "evidence_tags": [
+          "earnings_result",
+          "record_revenue",
+          "qoq_growth",
+          "yoy_growth"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Profitability expanded materially in fiscal Q3 2026, with GAAP gross margin of 84.6% versus 74.4% in Q2 and 37.7% in the year-ago quarter.",
+        "summary": "Gross margin rose sharply both sequentially and year over year.",
+        "excerpt": "Gross margin 35,056 17,755 3,508 35,199 17,876 3,623 Percent of revenue 84.6 % 74.4 % 37.7 % 84.9 % 74.9 % 39.0 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "profitability",
+          "pricing",
+          "operating leverage"
+        ],
+        "related_metrics": [
+          "GAAP gross margin",
+          "non-GAAP gross margin",
+          "gross profit"
+        ],
+        "evidence_tags": [
+          "margin_expansion",
+          "earnings_result",
+          "gross_margin"
+        ],
+        "notes": "Excerpt includes GAAP and non-GAAP gross margin rows; GAAP percentages are 84.6%, 74.4%, and 37.7%."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Micron delivered GAAP EPS of $24.67 and non-GAAP EPS of $25.11 in fiscal Q3 2026, compared with $1.68 and $1.91, respectively, in the year-ago quarter.",
+        "summary": "EPS and net income reached very elevated levels versus the prior year.",
+        "excerpt": "GAAP net income of $28.24 billion, or $24.67 per diluted share • Non-GAAP net income of $28.86 billion, or $25.11 per diluted share",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "earnings",
+          "profitability"
+        ],
+        "related_metrics": [
+          "GAAP EPS",
+          "non-GAAP EPS",
+          "net income"
+        ],
+        "evidence_tags": [
+          "eps_growth",
+          "earnings_result",
+          "net_income"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Operating cash flow rose to $25.39 billion in fiscal Q3 2026, and adjusted free cash flow was $18.3 billion after $7.1 billion of net capex.",
+        "summary": "Cash generation scaled significantly while the company continued heavy investment.",
+        "excerpt": "Operating cash flow of $25.39 billion versus $11.90 billion for the prior quarter and $4.61 billion for the same period last year",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.94,
+        "related_topics": [
+          "cash generation",
+          "capex",
+          "liquidity"
+        ],
+        "related_metrics": [
+          "operating cash flow",
+          "adjusted free cash flow",
+          "capital expenditures"
+        ],
+        "evidence_tags": [
+          "cash_flow",
+          "free_cash_flow",
+          "capex",
+          "liquidity"
+        ],
+        "notes": "The same release states: “For the third quarter of 2026, investments in capital expenditures, net (2) were $7.1 billion and adjusted free cash flow (2) was $18.3 billion.”"
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Management attributed record Q3 results and a stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand.",
+        "summary": "CEO commentary was strongly positive on AI-driven memory demand and investment needs.",
+        "excerpt": "“Micron’s record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,” said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology. “Micron is investing at record levels in technology, products and supply to address our customers’ rapidly growing demand.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "AI",
+          "memory demand",
+          "management tone",
+          "investment cycle"
+        ],
+        "related_metrics": [
+          "revenue outlook",
+          "capex",
+          "customer demand"
+        ],
+        "evidence_tags": [
+          "management_commentary",
+          "AI_demand",
+          "guidance_tone",
+          "customer_demand"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Micron said multi-year Strategic Customer Agreements should improve the durability and predictability of financial performance.",
+        "summary": "Strategic customer agreements are presented as improving predictability of future performance.",
+        "excerpt": "We believe our multi-year Strategic Customer Agreements will significantly enhance the durability and predictability of Micron’s strong financial performance.”",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "customer agreements",
+          "demand visibility",
+          "business durability"
+        ],
+        "related_metrics": [
+          "revenue visibility",
+          "financial performance"
+        ],
+        "evidence_tags": [
+          "strategic_customer_agreements",
+          "customer_commitments",
+          "revenue_visibility"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Cloud Memory Business Unit revenue reached $13.77 billion in fiscal Q3 2026, with 83% gross margin and 78% operating margin.",
+        "summary": "Cloud Memory showed strong revenue growth and very high margins.",
+        "excerpt": "Cloud Memory Business Unit Revenue $ 13,769 $ 7,749 $ 3,386 Gross margin 83 % 74 % 58 % Operating margin 78 % 66 % 46 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "cloud memory",
+          "segment performance",
+          "AI infrastructure"
+        ],
+        "related_metrics": [
+          "Cloud Memory Business Unit revenue",
+          "Cloud Memory gross margin",
+          "Cloud Memory operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "cloud_memory",
+          "gross_margin",
+          "operating_margin"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Core Data Center Business Unit revenue more than doubled sequentially to $11.52 billion, with 87% gross margin and 83% operating margin.",
+        "summary": "Core Data Center revenue and margins improved substantially.",
+        "excerpt": "Core Data Center Business Unit Revenue $ 11,524 $ 5,687 $ 1,530 Gross margin 87 % 74 % 38 % Operating margin 83 % 67 % 20 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "data center",
+          "AI infrastructure",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Core Data Center revenue",
+          "Core Data Center gross margin",
+          "Core Data Center operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "data_center",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Mobile and Client Business Unit revenue was $11.52 billion in fiscal Q3 2026, with 87% gross margin and 86% operating margin, up from 24% and 15% margins a year earlier.",
+        "summary": "Mobile and Client margins expanded sharply year over year.",
+        "excerpt": "Mobile and Client Business Unit Revenue $ 11,521 $ 7,711 $ 3,255 Gross margin 87 % 79 % 24 % Operating margin 86 % 76 % 15 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.87,
+        "related_topics": [
+          "mobile",
+          "client",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Mobile and Client revenue",
+          "Mobile and Client gross margin",
+          "Mobile and Client operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "mobile_client",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Automotive and Embedded Business Unit revenue rose to $4.63 billion, with 79% gross margin and 75% operating margin in fiscal Q3 2026.",
+        "summary": "Automotive and Embedded revenue and margins improved across comparison periods.",
+        "excerpt": "Automotive and Embedded Business Unit Revenue $ 4,634 $ 2,708 $ 1,127 Gross margin 79 % 68 % 26 % Operating margin 75 % 62 % 11 %",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.84,
+        "related_topics": [
+          "automotive",
+          "embedded",
+          "segment performance"
+        ],
+        "related_metrics": [
+          "Automotive and Embedded revenue",
+          "Automotive and Embedded gross margin",
+          "Automotive and Embedded operating margin"
+        ],
+        "evidence_tags": [
+          "segment_performance",
+          "automotive",
+          "embedded",
+          "margin_expansion"
+        ],
+        "notes": "Dollar figures are in millions, per table header context."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "Fiscal Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin, and non-GAAP EPS of $31.00 ± $1.00.",
+        "summary": "Q4 outlook implies sequential revenue and EPS growth from already elevated Q3 results.",
+        "excerpt": "Business Outlook The following table presents Micron’s guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion ± $1.0 billion $50.0 billion ± $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 ± $1.00 $31.00 ± $1.00",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "guidance",
+          "earnings outlook",
+          "profitability"
+        ],
+        "related_metrics": [
+          "Q4 revenue guidance",
+          "Q4 gross margin guidance",
+          "Q4 EPS guidance",
+          "operating expenses guidance"
+        ],
+        "evidence_tags": [
+          "guidance",
+          "revenue_guidance",
+          "gross_margin_guidance",
+          "eps_guidance"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "MU",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+        "accession_number": "0000723125-26-000013",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+        "claim": "HBM product execution appears advanced, with HBM4 in high-volume shipments for a lead customer platform and HBM4E volume production expected in calendar 2027.",
+        "summary": "The HBM roadmap and shipment status support Micron’s AI memory positioning.",
+        "excerpt": "• HBM4, built on 1-beta DRAM technology, is in high-volume shipments for our lead customer's platform, and qualification samples have been shipped to multiple end-customers. • Development of HBM4E, built on 1-gamma DRAM technology, is well underway, with volume production expected in calendar 2027.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "HBM",
+          "DRAM technology",
+          "AI accelerators",
+          "product roadmap"
+        ],
+        "related_metrics": [
+          "HBM4 shipments",
+          "HBM4E production timing"
+        ],
+        "evidence_tags": [
+          "product_highlight",
+          "HBM",
+          "AI_memory",
+          "customer_qualification"
+        ],
+        "notes": null
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter EPS estimates for MU increased to 31.32479 from 24.18138 seven days earlier and 22.83096 thirty days earlier; there were 4 upward revisions and no downward revisions over the last 30 days.",
+        "summary": "Near-term EPS estimates have moved sharply higher with no recent downward revisions in the supplied dataset.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "analyst estimates",
+          "earnings revisions"
+        ],
+        "related_metrics": [
+          "current-quarter EPS estimate",
+          "EPS revisions up last 30 days",
+          "EPS revisions down last 30 days"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "eps_revision",
+          "positive_revision_breadth"
+        ],
+        "notes": "Derived from supplied metadata fields earnings_estimate.avg.0q, eps_trend.current.0q, eps_trend.7daysAgo.0q, eps_trend.30daysAgo.0q, and eps_revisions for 0q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter EPS estimates increased to 34.73633 from 27.63408 seven days earlier, 25.52651 thirty days earlier, and 24.26999 ninety days earlier.",
+        "summary": "Next-quarter EPS expectations have been revised substantially upward across multiple lookback windows.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.87,
+        "related_topics": [
+          "analyst estimates",
+          "earnings momentum"
+        ],
+        "related_metrics": [
+          "next-quarter EPS estimate",
+          "EPS trend"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "eps_revision",
+          "forward_estimates"
+        ],
+        "notes": "Derived from supplied metadata fields eps_trend.current.+1q, eps_trend.7daysAgo.+1q, eps_trend.30daysAgo.+1q, and eps_trend.90daysAgo.+1q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Current fiscal-year EPS estimates rose to 73.36288 from 60.99951 seven days earlier and 57.64156 ninety days earlier, with 5 upward revisions and no downward revisions in the last 30 days.",
+        "summary": "Annual EPS expectations show broad upward revision momentum.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "analyst estimates",
+          "earnings revisions"
+        ],
+        "related_metrics": [
+          "current fiscal-year EPS estimate",
+          "annual EPS revisions"
+        ],
+        "evidence_tags": [
+          "estimate_revision",
+          "annual_eps",
+          "positive_revision_breadth"
+        ],
+        "notes": "Derived from supplied metadata fields eps_trend.current.0y, eps_trend.7daysAgo.0y, eps_trend.90daysAgo.0y, and eps_revisions for 0y."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+        "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+        "excerpt": null,
+        "polarity": "supports",
+        "confidence": "medium",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook"
+        ],
+        "related_metrics": [
+          "current-quarter revenue estimate",
+          "revenue growth estimate",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "growth_estimate",
+          "analyst_consensus"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+      }
+    ],
+    "bearish_evidence": [],
+    "mixed_evidence": [
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+        "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.8,
+        "related_topics": [
+          "analyst estimates",
+          "revenue outlook",
+          "estimate dispersion"
+        ],
+        "related_metrics": [
+          "next-quarter revenue estimate",
+          "revenue estimate high",
+          "revenue estimate low",
+          "analyst count"
+        ],
+        "evidence_tags": [
+          "revenue_estimate",
+          "forward_estimates",
+          "estimate_dispersion"
+        ],
+        "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+      },
+      {
+        "source_type": "estimate",
+        "ticker": "MU",
+        "source_date": null,
+        "source_name": null,
+        "source_url": null,
+        "accession_number": null,
+        "form_type": null,
+        "exhibit_type": null,
+        "title": "Analyst estimates and revisions",
+        "claim": "Current recommendations are skewed positive, with 9 strongBuy, 29 buy, and 4 hold ratings, but also 1 strongSell in the supplied recommendations summary.",
+        "summary": "Analyst recommendation distribution is broadly favorable but not unanimous.",
+        "excerpt": null,
+        "polarity": "mixed",
+        "confidence": "medium",
+        "relevance_score": 0.72,
+        "related_topics": [
+          "analyst recommendations",
+          "sentiment"
+        ],
+        "related_metrics": [
+          "strongBuy ratings",
+          "buy ratings",
+          "hold ratings",
+          "strongSell ratings"
+        ],
+        "evidence_tags": [
+          "recommendations",
+          "analyst_sentiment",
+          "rating_mix"
+        ],
+        "notes": "Derived from supplied metadata fields recommendations_summary for period 0m."
+      }
+    ],
+    "unresolved_questions": [
+      "The supplied 10-Q filing text is largely raw XBRL/tag output and truncated in the prompt; no reliable high-signal MD&A, risk, liquidity, debt, capex, or segment narrative excerpt could be extracted from the visible text.",
+      "The estimates source lacks explicit source_name, source_date, source_url, form_type, accession_number, and exhibit_type metadata in the supplied document."
+    ],
+    "data_gaps": [
+      "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+      "News source unavailable, skipped, or returned no recent items.",
+      "Peer commentary retrieval skipped or unavailable in v1.",
+      "The supplied 10-Q filing text is largely raw XBRL/tag output and truncated in the prompt; no reliable high-signal MD&A, risk, liquidity, debt, capex, or segment narrative excerpt could be extracted from the visible text.",
+      "The estimates source lacks explicit source_name, source_date, source_url, form_type, accession_number, and exhibit_type metadata in the supplied document."
+    ],
+    "warnings": [
+      "No evidence items were extracted from the 10-Q because the visible supplied text did not provide reliably readable high-signal filing passages beyond raw XBRL/tag fragments.",
+      "Estimate evidence is based on structured metadata rather than quoted source text; excerpts are null for those items."
+    ],
+    "raw_source_count": 6,
+    "evidence_item_count": 18
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "MU",
+    "as_of_date": "2026-06-29",
+    "financial_trend": {
+      "latest": {
+        "revenue": 90274000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.7256906750559408,
+        "operating_margin": 0.6566896337815983,
+        "ebitda_margin": 0.7566408932804572,
+        "net_margin": 0.5590646254735583,
+        "free_cash_flow": 26172000000.0,
+        "free_cash_flow_margin": 0.2899173626957928,
+        "total_debt": 6376000000.0,
+        "cash_and_equivalents": 24995000000.0,
+        "net_debt": -18619000000.0,
+        "net_debt_to_ebitda": -0.27258619427567526,
+        "capex": -25260000000.0,
+        "capex_as_pct_revenue": 0.2798147860956643,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 25111000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": 0.22352753773246783,
+        "operating_margin": 0.05196925650113496,
+        "ebitda_margin": 0.38158575922902316,
+        "net_margin": 0.03098243797538927,
+        "free_cash_flow": 121000000.0,
+        "free_cash_flow_margin": 0.004818605392059257,
+        "total_debt": 14007000000.0,
+        "cash_and_equivalents": 7041000000.0,
+        "net_debt": 6966000000.0,
+        "net_debt_to_ebitda": 0.7269881026925485,
+        "capex": -8386000000.0,
+        "capex_as_pct_revenue": 0.33395722989924737,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "improving",
+      "fcf_direction": "improving",
+      "leverage_direction": "improving",
+      "notes": [
+        "financial_trend.latest is derived from trailing four quarters.",
+        "financial_trend.prior_year uses prior fiscal year because previous trailing four-quarter window is unavailable.",
+        "Latest quarter annualized revenue is +83.7% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 84.6% versus 72.6% LTM.",
+        "Latest quarter operating margin is 80.4% versus 65.7% LTM."
+      ]
+    },
+    "quarterly_financial_trend": {
+      "latest_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-0",
+        "period_end_date": "2026-05-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 41456000000.0,
+        "revenue_growth_yoy": 3.4571551446081066,
+        "revenue_growth_qoq": 0.737468566638726,
+        "gross_profit": 35056000000.0,
+        "gross_margin": 0.8456194519490544,
+        "operating_income": 33318000000.0,
+        "operating_margin": 0.8036954843689695,
+        "ebitda": 35576000000.0,
+        "ebitda_margin": 0.8581628714781937,
+        "net_income": 28243000000.0,
+        "net_margin": 0.6812765341566963,
+        "operating_cash_flow": 25388000000.0,
+        "free_cash_flow": 17562000000.0,
+        "free_cash_flow_margin": 0.42362987263604784,
+        "capex": -7826000000.0,
+        "capex_as_pct_revenue": 0.18877846391354688,
+        "total_debt": 6376000000.0,
+        "cash_and_equivalents": 24995000000.0,
+        "net_debt": -18619000000.0,
+        "net_debt_to_ebitda": -0.5233584438947605,
+        "return_on_invested_capital": null
+      },
+      "prior_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-1",
+        "period_end_date": "2026-02-28",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 23860000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": 0.7488822106574801,
+        "gross_profit": 17755000000.0,
+        "gross_margin": 0.7441324392288349,
+        "operating_income": 16135000000.0,
+        "operating_margin": 0.6762363788767812,
+        "ebitda": 18478000000.0,
+        "ebitda_margin": 0.7744341994970663,
+        "net_income": 13785000000.0,
+        "net_margin": 0.577745180217938,
+        "operating_cash_flow": 11903000000.0,
+        "free_cash_flow": 5516000000.0,
+        "free_cash_flow_margin": 0.23118189438390613,
+        "capex": -6387000000.0,
+        "capex_as_pct_revenue": 0.2676865046102263,
+        "total_debt": 10798000000.0,
+        "cash_and_equivalents": 13908000000.0,
+        "net_debt": -3110000000.0,
+        "net_debt_to_ebitda": -0.16830825846953135,
+        "return_on_invested_capital": null
+      },
+      "year_ago_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-4",
+        "period_end_date": "2025-05-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 9301000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 3508000000.0,
+        "gross_margin": 0.3771637458337813,
+        "operating_income": 2169000000.0,
+        "operating_margin": 0.23320073110418235,
+        "ebitda": 4330000000.0,
+        "ebitda_margin": 0.46554133964089883,
+        "net_income": 1885000000.0,
+        "net_margin": 0.2026663799591442,
+        "operating_cash_flow": 4609000000.0,
+        "free_cash_flow": 1671000000.0,
+        "free_cash_flow_margin": 0.17965810127943233,
+        "capex": -2938000000.0,
+        "capex_as_pct_revenue": 0.31588001290183854,
+        "total_debt": 16141000000.0,
+        "cash_and_equivalents": 10163000000.0,
+        "net_debt": 5978000000.0,
+        "net_debt_to_ebitda": 1.3806004618937644,
+        "return_on_invested_capital": null
+      },
+      "trailing_four_quarters": {
+        "period_type": "ltm",
+        "fiscal_period": "trailing_four_quarters",
+        "period_end_date": "2026-05-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 90274000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 65511000000.0,
+        "gross_margin": 0.7256906750559408,
+        "operating_income": 59282000000.0,
+        "operating_margin": 0.6566896337815983,
+        "ebitda": 68305000000.0,
+        "ebitda_margin": 0.7566408932804572,
+        "net_income": 50469000000.0,
+        "net_margin": 0.5590646254735583,
+        "operating_cash_flow": 51432000000.0,
+        "free_cash_flow": 26172000000.0,
+        "free_cash_flow_margin": 0.2899173626957928,
+        "capex": -25260000000.0,
+        "capex_as_pct_revenue": 0.2798147860956643,
+        "total_debt": 6376000000.0,
+        "cash_and_equivalents": 24995000000.0,
+        "net_debt": -18619000000.0,
+        "net_debt_to_ebitda": -0.27258619427567526,
+        "return_on_invested_capital": null
+      },
+      "trailing_eight_quarters": [
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-0",
+          "period_end_date": "2026-05-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 41456000000.0,
+          "revenue_growth_yoy": 3.4571551446081066,
+          "revenue_growth_qoq": 0.737468566638726,
+          "gross_profit": 35056000000.0,
+          "gross_margin": 0.8456194519490544,
+          "operating_income": 33318000000.0,
+          "operating_margin": 0.8036954843689695,
+          "ebitda": 35576000000.0,
+          "ebitda_margin": 0.8581628714781937,
+          "net_income": 28243000000.0,
+          "net_margin": 0.6812765341566963,
+          "operating_cash_flow": 25388000000.0,
+          "free_cash_flow": 17562000000.0,
+          "free_cash_flow_margin": 0.42362987263604784,
+          "capex": -7826000000.0,
+          "capex_as_pct_revenue": 0.18877846391354688,
+          "total_debt": 6376000000.0,
+          "cash_and_equivalents": 24995000000.0,
+          "net_debt": -18619000000.0,
+          "net_debt_to_ebitda": -0.5233584438947605,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-1",
+          "period_end_date": "2026-02-28",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 23860000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.7488822106574801,
+          "gross_profit": 17755000000.0,
+          "gross_margin": 0.7441324392288349,
+          "operating_income": 16135000000.0,
+          "operating_margin": 0.6762363788767812,
+          "ebitda": 18478000000.0,
+          "ebitda_margin": 0.7744341994970663,
+          "net_income": 13785000000.0,
+          "net_margin": 0.577745180217938,
+          "operating_cash_flow": 11903000000.0,
+          "free_cash_flow": 5516000000.0,
+          "free_cash_flow_margin": 0.23118189438390613,
+          "capex": -6387000000.0,
+          "capex_as_pct_revenue": 0.2676865046102263,
+          "total_debt": 10798000000.0,
+          "cash_and_equivalents": 13908000000.0,
+          "net_debt": -3110000000.0,
+          "net_debt_to_ebitda": -0.16830825846953135,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-2",
+          "period_end_date": "2025-11-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 13643000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.2057445868316394,
+          "gross_profit": 7646000000.0,
+          "gross_margin": 0.5604339221578831,
+          "operating_income": 6136000000.0,
+          "operating_margin": 0.4497544528329546,
+          "ebitda": 8347000000.0,
+          "ebitda_margin": 0.6118155830828996,
+          "net_income": 5240000000.0,
+          "net_margin": 0.3840797478560434,
+          "operating_cash_flow": 8411000000.0,
+          "free_cash_flow": 3022000000.0,
+          "free_cash_flow_margin": 0.22150553397346626,
+          "capex": -5389000000.0,
+          "capex_as_pct_revenue": 0.39500109946492706,
+          "total_debt": 12425000000.0,
+          "cash_and_equivalents": 9731000000.0,
+          "net_debt": 2694000000.0,
+          "net_debt_to_ebitda": 0.32275068887025277,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-3",
+          "period_end_date": "2025-08-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 11315000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.21653585635953124,
+          "gross_profit": 5054000000.0,
+          "gross_margin": 0.44666372072470173,
+          "operating_income": 3693000000.0,
+          "operating_margin": 0.3263809102960672,
+          "ebitda": 5904000000.0,
+          "ebitda_margin": 0.5217852408307556,
+          "net_income": 3201000000.0,
+          "net_margin": 0.2828988068935042,
+          "operating_cash_flow": 5730000000.0,
+          "free_cash_flow": 72000000.0,
+          "free_cash_flow_margin": 0.006363234644277508,
+          "capex": -5658000000.0,
+          "capex_as_pct_revenue": 0.5000441891294741,
+          "total_debt": 15278000000.0,
+          "cash_and_equivalents": 9642000000.0,
+          "net_debt": 5636000000.0,
+          "net_debt_to_ebitda": 0.9546070460704607,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-4",
+          "period_end_date": "2025-05-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 9301000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": null,
+          "gross_profit": 3508000000.0,
+          "gross_margin": 0.3771637458337813,
+          "operating_income": 2169000000.0,
+          "operating_margin": 0.23320073110418235,
+          "ebitda": 4330000000.0,
+          "ebitda_margin": 0.46554133964089883,
+          "net_income": 1885000000.0,
+          "net_margin": 0.2026663799591442,
+          "operating_cash_flow": 4609000000.0,
+          "free_cash_flow": 1671000000.0,
+          "free_cash_flow_margin": 0.17965810127943233,
+          "capex": -2938000000.0,
+          "capex_as_pct_revenue": 0.31588001290183854,
+          "total_debt": 16141000000.0,
+          "cash_and_equivalents": 10163000000.0,
+          "net_debt": 5978000000.0,
+          "net_debt_to_ebitda": 1.3806004618937644,
+          "return_on_invested_capital": null
+        }
+      ],
+      "last_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "last_fiscal_year",
+        "period_end_date": "2025-08-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 37378000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 14873000000.0,
+        "gross_margin": 0.39790786023864305,
+        "operating_income": 9809000000.0,
+        "operating_margin": 0.2624270961528172,
+        "ebitda": 18483000000.0,
+        "ebitda_margin": 0.49448873669003157,
+        "net_income": 8539000000.0,
+        "net_margin": 0.22844989030980792,
+        "operating_cash_flow": 17525000000.0,
+        "free_cash_flow": 1668000000.0,
+        "free_cash_flow_margin": 0.04462518058751137,
+        "capex": -15857000000.0,
+        "capex_as_pct_revenue": 0.4242335063406282,
+        "total_debt": 15278000000.0,
+        "cash_and_equivalents": 9642000000.0,
+        "net_debt": 5636000000.0,
+        "net_debt_to_ebitda": 0.30492885354109184,
+        "return_on_invested_capital": null
+      },
+      "prior_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "prior_fiscal_year",
+        "period_end_date": "2024-08-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 25111000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": 5613000000.0,
+        "gross_margin": 0.22352753773246783,
+        "operating_income": 1305000000.0,
+        "operating_margin": 0.05196925650113496,
+        "ebitda": 9582000000.0,
+        "ebitda_margin": 0.38158575922902316,
+        "net_income": 778000000.0,
+        "net_margin": 0.03098243797538927,
+        "operating_cash_flow": 8507000000.0,
+        "free_cash_flow": 121000000.0,
+        "free_cash_flow_margin": 0.004818605392059257,
+        "capex": -8386000000.0,
+        "capex_as_pct_revenue": 0.33395722989924737,
+        "total_debt": 14007000000.0,
+        "cash_and_equivalents": 7041000000.0,
+        "net_debt": 6966000000.0,
+        "net_debt_to_ebitda": 0.7269881026925485,
+        "return_on_invested_capital": null
+      },
+      "revenue_trend_8q": "improving",
+      "gross_margin_trend_8q": "improving",
+      "operating_margin_trend_8q": "improving",
+      "fcf_trend_8q": "improving",
+      "leverage_trend_8q": "improving",
+      "latest_quarter_vs_ltm_notes": [
+        "Latest quarter annualized revenue is +83.7% versus trailing four-quarter revenue.",
+        "Latest quarter gross margin is 84.6% versus 72.6% LTM.",
+        "Latest quarter operating margin is 80.4% versus 65.7% LTM."
+      ],
+      "inflection_flags": [
+        "latest_quarter_revenue_accelerating_yoy",
+        "latest_quarter_gross_margin_above_ltm",
+        "latest_quarter_operating_margin_above_ltm",
+        "latest_quarter_fcf_margin_above_ltm",
+        "latest_quarter_revenue_run_rate_above_ltm",
+        "gross_margin_expanding_sequentially",
+        "operating_margin_expanding_sequentially",
+        "fcf_conversion_lagging_ebitda",
+        "leverage_improving"
+      ],
+      "staleness_warnings": [],
+      "latest_period_end_date": "2026-05-31",
+      "latest_filing_date": null,
+      "financial_context_stale": false
+    },
+    "price_snapshot": {
+      "current_price": 1068.58,
+      "market_cap": 1206846881792.0,
+      "return_1m": 0.15712705981751843,
+      "return_3m": 1.9927744782901884,
+      "return_6m": 2.7306780575811667,
+      "return_1y": 7.691179872385588,
+      "drawdown_from_52w_high": -0.11946673554974294,
+      "distance_from_52w_low": 9.20337985362187,
+      "beta": 2.173
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 24.137789,
+      "forward_pe": 7.1522613,
+      "ev_to_ebitda": 18.457,
+      "price_to_sales": 13.36871,
+      "price_to_book": 16.63496,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": {
+      "peer_tickers": [
+        "SSNLF",
+        "000660.KS",
+        "WDC"
+      ],
+      "relative_return_3m": "outperforming peer median by +73.8%",
+      "relative_return_6m": "outperforming peer median by +17.6%",
+      "relative_valuation": "valuation multiple cheaper versus peer median (7.15 vs 14.69)",
+      "relative_margin_profile": "margin profile above peers versus peer median (0.80 vs 0.43)",
+      "relative_growth_profile": "revenue growth above peers versus peer median (3.46 vs 0.69)",
+      "notes": []
+    },
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance.",
+      "Financial trend is derived from quarterly financial statements through period ending 2026-05-31."
+    ],
+    "data_freshness_notes": [
+      "Latest financial period end date: 2026-05-31."
+    ]
+  },
+  "llm_synthesis": {
+    "ticker": "MU",
+    "business_summary": "Micron Technology is a memory and storage semiconductor company selling DRAM, NAND, HBM and related products into data center, cloud, PC/client, mobile, automotive, embedded, industrial and AI-related demand. Revenue is driven by bit shipments, average selling prices, product mix, and AI/HBM adoption. Margins are driven by memory pricing, HBM mix, utilization, wafer costs, technology-node transitions, supply discipline, depreciation and capex intensity. The current company-specific setup is dominated by a sharp AI-memory upcycle: fiscal Q3 2026 revenue was $41.46 billion versus $23.86 billion sequentially and $9.30 billion year over year, with management guiding fiscal Q4 revenue to approximately $50.0 billion and gross margin of about 86%.",
+    "business_quality_assessment": "MU is a high-operating-leverage cyclical manufacturer rather than a traditional steady compounder. Business quality is improving in the current cycle because mix appears to be moving toward AI/data-center/HBM and because management described multi-year Strategic Customer Agreements as improving durability and predictability. However, the core model remains exposed to DRAM and NAND pricing, supply discipline, capex intensity, utilization, technology transitions, and customer AI capex. The latest margins are exceptional, but exceptional memory margins should be underwritten carefully as potentially cyclical until durability is proven through multiple quarters and through supply additions.",
+    "financial_trend_diagnosis": "The current financial trend is an unusually sharp positive inflection, and the latest quarter should dominate the diagnosis. Fiscal Q3 2026 revenue of $41.46 billion was up 73.7% sequentially and 345.7% year over year. Latest-quarter annualized revenue is 83.7% above trailing-four-quarter revenue, showing that LTM numbers understate the current run-rate. Gross margin reached 84.6% versus 72.6% LTM and 37.7% in the year-ago quarter; operating margin reached 80.4% versus 65.7% LTM and 23.3% in the year-ago quarter. Free cash flow margin reached 42.4% in the latest quarter versus 29.0% LTM. Leverage has improved materially, with net debt moving from positive in prior periods to net cash of $18.62 billion at the latest quarter. The pressure has shifted from balance-sheet and margin recovery risk to sustainability and expectations risk. Financial context is not stale, with latest period end date 2026-05-31, but the financial data source is yfinance and should not be treated as audited proof.",
+    "screen_interpretation": "No basic screen result was supplied. Based on available financial context, MU would likely screen as an extreme growth and margin inflection with improving free cash flow and balance sheet strength. It may also screen statistically cheap on forward P/E at 7.15, but not cheap on price-to-sales, price-to-book, or EV/EBITDA. Because memory is cyclical, a low forward P/E may reflect peak-cycle earnings skepticism rather than true cheapness.",
+    "why_screen_may_be_wrong": "A simple screen could be misleading in both directions. A growth or earnings-momentum screen could overstate quality by treating peak-cycle memory margins as durable. A low-forward-P/E value screen could misclassify MU as cheap without adjusting for cyclicality, capex intensity and possible margin normalization. Conversely, a high price-to-sales or high price-to-book screen could miss a genuine AI/HBM-driven earnings reset if current margins and cash flows prove more durable than prior cycles.",
+    "current_market_narrative": "Consensus appears to be that MU is a major beneficiary of AI-era memory demand and HBM scarcity, with the market increasingly underwriting a step-change in revenue, margins and earnings power. This is supported by record Q3 results, Q4 guidance for further sequential growth, positive estimate revisions, HBM execution evidence, and extreme share-price momentum. The narrative also appears to include improved durability versus prior cycles due to Strategic Customer Agreements, but the degree to which the market believes memory has become structurally less cyclical is not directly sourced.",
+    "consensus_type": "mixed",
+    "consensus_verification_required": [
+      "Current-quarter and next-quarter EPS consensus and revision data are referenced in supplied research metadata, but direct sell-side estimate source details are not fully provided in the visible context.",
+      "Positioning consensus is not directly sourced; price momentum is observable from the supplied price snapshot, but investor crowding, ownership, short interest, and options positioning are missing.",
+      "Broader market narrative is inferred from price action, estimate revisions, Q4 guidance, and AI-memory evidence; direct survey or sell-side narrative sources are not supplied."
+    ],
+    "macro_fit_assessment": "The macro backdrop is moderately supportive but not unambiguously favorable. The top regime is Sticky Late Cycle AI, with AI earnings resilience as a major driver and hyperscaler capex rollover not triggered, which helps MU as an AI-memory and semiconductor infrastructure beneficiary. Healthy credit and orderly volatility also support profitable growth leadership. However, breadth is weak and deteriorating, the macro model assigns negative scores to high-beta growth and duration sensitivity, and monetary policy is mixed with high hold/hike odds. MU is a high-beta cyclical semiconductor, so it benefits from AI earnings resilience but is vulnerable if the market shifts from narrow AI leadership to risk-off or if high-beta AI semis unwind.",
+    "theme_fit_assessment": "MU is a primary expression of Memory Semiconductors and High-beta AI Semiconductors, and a secondary expression of Quality AI Leaders. The aggregate theme support score is modestly positive at 0.22, which supports but does not strongly underwrite the setup. Memory semis have positive macro support of 0.17, while Quality AI Leaders score strongly at 1.03; however, High-beta AI Semiconductors score -0.16 because narrow breadth raises unwind risk in crowded beta. MU therefore fits the AI-memory theme well at the company level, but the macro theme context is mixed: AI resilience supports the numerator, while crowding and high-beta risk threaten the multiple.",
+    "pressure_inflection_assessment": "The prior pressure appears to have been primarily cyclical and industry-cycle driven rather than balance-sheet distress. Fiscal 2024 annual data showed low operating margin of 5.2%, gross margin of 22.4% and almost no free cash flow, while fiscal 2025 improved materially. The latest quarterly data shows a step-change acceleration: Q3 2026 revenue, gross margin, operating margin, free cash flow and net cash all improved sharply. This is not a stale annual recovery story; it is a current-quarter inflection. The key underwriting question is whether this is a structural AI/HBM-driven reset with better durability, or a cyclical peak driven by tight supply and pricing. At present, the evidence supports a real inflection, but not yet a fully proven through-cycle quality reset.",
+    "competitive_position_assessment": "The supplied peer set includes Samsung Electronics, SK Hynix and Western Digital. Micron appears to be performing strongly versus this peer group in the supplied snapshot: revenue growth is above the peer median, margin profile is above the peer median, and 3-month and 6-month stock returns have outperformed the peer median. Source-backed evidence also indicates advanced HBM execution, including HBM4 high-volume shipments for a lead customer platform, qualification samples shipped to multiple end-customers, and HBM4E volume production expected in calendar 2027. That supports AI-memory positioning, but direct market-share data, customer concentration, competitor HBM capacity plans, and pricing-share evidence are missing.",
+    "valuation_expectations_assessment": "Valuation embeds a major debate. The forward P/E of 7.15 looks low relative to the magnitude of current earnings momentum and positive estimate revisions, which could indicate underappreciated earnings durability. But this is not straightforward cheapness: price-to-sales is 13.37, price-to-book is 16.63, EV/EBITDA is 18.46, and the stock has already appreciated dramatically. For a memory company, low forward P/E can simply mean the market expects current earnings to be peak or cyclical. Underwriting should therefore focus less on the absolute forward P/E and more on whether Q4-level revenue and 80%+ operating margins can persist, whether HBM contracts reduce cyclicality, and whether free cash flow remains strong after record investment.",
+    "variant_view": "Two-sided variant view: the market may still be underestimating the durability of Micron's AI-memory earnings power if HBM demand, Strategic Customer Agreements and data-center memory intensity make this cycle structurally different. At the same time, the market may be overextrapolating peak memory-cycle profitability after extraordinary stock performance and exceptional margins. The central underwriting tension is not whether the latest inflection is real; it is whether the inflection is durable enough to justify the valuation and price momentum already achieved.",
+    "variant_view_direction": "two_sided",
+    "variant_view_strength": "medium",
+    "bull_case_variant_view": "The bullish variant is that MU is no longer being valued appropriately as a purely commodity-memory cycle because AI-era memory demand, HBM product execution, and multi-year Strategic Customer Agreements could make revenue and margins more durable than prior cycles. Source-backed Q3 results, Q4 guidance, HBM4 shipment status, and strong estimate revisions support the possibility that earnings power has structurally reset higher, while the forward P/E appears low versus current earnings momentum.",
+    "bear_case_variant_view": "The bearish variant is that the market may now be extrapolating peak-cycle memory economics into a structurally higher normal. The stock has risen roughly 273% over six months and 769% over one year, is only about 12% below its 52-week high, and trades at elevated sales and book multiples despite a low forward P/E. If Q3/Q4 profitability reflects unusually tight supply, AI-driven HBM scarcity, or inventory-cycle restocking rather than durable normalized economics, valuation could be vulnerable even if near-term reported numbers remain very strong.",
+    "evidence_supporting_variant_view": [
+      "Fiscal Q3 2026 revenue was a record $41.46 billion, up from $23.86 billion in the prior quarter and $9.30 billion in the year-ago quarter, according to the supplied SEC 8-K exhibit evidence.",
+      "Fiscal Q3 GAAP gross margin was 84.6%, up from 74.4% sequentially and 37.7% year over year, indicating a sharp profitability inflection.",
+      "Fiscal Q3 GAAP EPS was $24.67 and non-GAAP EPS was $25.11, versus $1.68 and $1.91 respectively in the year-ago quarter.",
+      "Operating cash flow rose to $25.39 billion in Q3, and adjusted free cash flow was reported at $18.3 billion after $7.1 billion of net capex in the SEC 8-K exhibit evidence.",
+      "Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin and non-GAAP EPS of $31.00 plus or minus $1.00, implying further sequential expansion from already elevated Q3 results.",
+      "Management attributed the record Q3 result and stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand, according to the supplied 8-K exhibit evidence.",
+      "Micron said multi-year Strategic Customer Agreements should significantly enhance durability and predictability of financial performance.",
+      "HBM4 is described as being in high-volume shipments for a lead customer platform, with HBM4E volume production expected in calendar 2027.",
+      "The supplied peer snapshot shows revenue growth and margin profile above peer medians, and MU outperforming the peer median by 73.8% over three months and 17.6% over six months.",
+      "The supplied estimate-revision evidence indicates current-quarter EPS estimates increased meaningfully over seven and thirty days, with four upward revisions and no downward revisions over the last 30 days."
+    ],
+    "evidence_against_variant_view": [
+      "The bullish side is challenged by extreme share-price performance: +273.1% over six months, +199.3% over three months and +769.1% over one year, creating high expectations risk.",
+      "Valuation is not uniformly cheap: forward P/E is 7.15, but price-to-sales is 13.37, price-to-book is 16.63 and EV/EBITDA is 18.46, suggesting the market already capitalizes substantial improvement.",
+      "Memory remains cyclical and capex-intensive; the latest quarter may represent peak-cycle or scarcity economics rather than normalized margins.",
+      "The macro theme support score is only modestly positive at 0.22, and the high-beta AI semiconductor theme itself has a negative score due to narrow-breadth/crowding risk.",
+      "The macro backdrop favors quality and defensives more than high-beta growth; high-beta growth and duration factors score negatively in the supplied macro model.",
+      "Bearish evidence is absent from the supplied research_context, creating asymmetric evidence risk: lack of bearish items may reflect source coverage rather than absence of risk."
+    ],
+    "key_risks": [
+      "Memory pricing downturn after current scarcity conditions normalize",
+      "AI capex slowdown or hyperscaler demand rollover",
+      "HBM competition from larger memory peers",
+      "Supply additions by Samsung, SK Hynix or Micron itself creating oversupply",
+      "NAND weakness offsetting DRAM/HBM strength",
+      "Extreme price momentum and crowded AI-semiconductor positioning leading to sharp multiple compression",
+      "High beta of 2.173 amplifying macro or sector drawdowns",
+      "Restrictive monetary-policy backdrop and weak breadth pressuring high-beta growth exposures",
+      "China demand weakness or export restrictions",
+      "Capex intensity and technology-transition execution risk",
+      "Customer concentration risk in HBM or strategic agreements",
+      "Latest margins proving peak-cycle rather than durable",
+      "Valuation appearing cheap on forward P/E but expensive on sales/book if earnings are cyclical"
+    ],
+    "fundamental_falsifiers": [
+      "Fiscal Q4 2026 revenue comes in materially below the guided approximately $50.0 billion range or management lowers the implied run-rate for subsequent quarters.",
+      "Gross margin falls materially below the guided approximately 86% level without a clearly temporary explanation.",
+      "Sequential revenue growth stalls or reverses in cloud memory, core data center, HBM-related products, or other AI-exposed segments.",
+      "HBM4 customer qualification or shipment progress slows, or HBM4E volume production expected for calendar 2027 is delayed.",
+      "Strategic Customer Agreements fail to translate into visible revenue durability, backlog, pricing stability or reduced earnings volatility.",
+      "Operating cash flow and free cash flow deteriorate despite strong reported earnings, especially if capex rises faster than cash generation.",
+      "Industry supply additions or utilization increases lead to DRAM/NAND/HBM pricing pressure and margin compression.",
+      "Net cash position reverses materially due to capex, working capital, debt-funded expansion, or shareholder distributions."
+    ],
+    "macro_theme_falsifiers": [
+      "Hyperscaler capex rollover falsifier becomes triggered through materially weaker AI infrastructure capex guidance.",
+      "AI earnings resilience signal turns negative or estimate revisions for AI infrastructure leaders deteriorate.",
+      "Market breadth deterioration turns from narrow leadership into a broad risk-off unwind that penalizes high-beta AI semiconductors.",
+      "Credit conditions weaken materially, especially if HY spreads widen and funding conditions tighten for growth/capex-sensitive equities.",
+      "Monetary conditions become more restrictive, with higher-for-longer rates driving multiple compression in high-beta growth and semiconductors.",
+      "Oil inflation tail or late-cycle risk-off scenarios rise materially in probability, undermining cyclical technology exposure.",
+      "Semiconductor sector theme support for memory semis turns negative due to supply, demand or macro inputs."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E remains low only because forward EPS estimates start to decline, confirming peak-cycle earnings risk.",
+      "Price-to-sales and price-to-book remain elevated while revenue growth decelerates, increasing multiple-compression risk.",
+      "EV/EBITDA multiple expands despite evidence of margin normalization or pricing pressure.",
+      "The stock sells off on earnings beats, indicating expectations have moved ahead of fundamentals.",
+      "Free cash flow yield deteriorates as capex rises or working capital absorbs cash despite high accounting earnings.",
+      "Peer multiples compress due to memory-cycle concerns, reducing the market's willingness to capitalize MU's elevated earnings."
+    ],
+    "timing_falsifiers": [
+      "The stock fails to hold gains or underperforms semiconductor peers after a strong Q4 report and guidance, suggesting good news is fully discounted.",
+      "Positive estimate revisions stall or reverse within the next 1-2 revision cycles.",
+      "The next quarterly report shows deceleration from the Q3/Q4 run-rate without a clear explanation.",
+      "Momentum reverses sharply from near 52-week highs despite no company-specific negative news, indicating positioning exhaustion.",
+      "Peer commentary flags new supply, pricing pressure, or customer inventory digestion before MU reports.",
+      "AI capex or HBM demand commentary weakens during the six-month horizon."
+    ],
+    "key_metrics_to_monitor": [
+      "Quarterly revenue versus the guided $50.0 billion fiscal Q4 2026 outlook",
+      "Gross margin versus the guided approximately 86% level",
+      "Operating margin and operating expense discipline",
+      "GAAP and non-GAAP EPS versus the guided $31.00 plus or minus $1.00 non-GAAP range",
+      "Operating cash flow, adjusted free cash flow and capex intensity",
+      "Cloud Memory Business Unit revenue and margin",
+      "Core Data Center Business Unit revenue and margin",
+      "HBM4 shipment progress, HBM customer qualification and HBM4E production timeline",
+      "Strategic Customer Agreement disclosures, backlog, duration and customer commitments",
+      "DRAM, NAND and HBM pricing indicators",
+      "Inventory levels and customer inventory commentary",
+      "Net cash, total debt and liquidity",
+      "Peer capacity additions and supply discipline from Samsung, SK Hynix and Western Digital",
+      "Estimate revisions after Q4 guidance and subsequent earnings reports",
+      "Price momentum, valuation multiple expansion/compression and drawdown behavior"
+    ],
+    "suggested_monitoring_plan": [
+      "Track fiscal Q4 2026 results against the supplied guidance for approximately $50.0 billion revenue, approximately 86% gross margin and $31.00 plus or minus $1.00 non-GAAP EPS.",
+      "After Q4, compare management commentary and any guidance to the latest-quarter run-rate rather than to stale annual data.",
+      "Monitor whether free cash flow scales with earnings after capex and working-capital needs.",
+      "Review HBM4 shipment updates, customer qualification progress, and HBM4E production timing for slippage.",
+      "Monitor memory pricing and supply discipline indicators across DRAM, NAND and HBM, including peer capacity commentary.",
+      "Track estimate revisions after the next earnings print; positive revisions need to continue to justify extreme momentum.",
+      "Monitor stock reaction to good news; failure to rally on beats/guidance raises expectations-risk concerns.",
+      "Track macro AI capex signals, breadth, credit spreads, and semiconductor theme support monthly.",
+      "Watch valuation using both forward earnings and through-cycle revenue/book/EV metrics to avoid overinterpreting peak-cycle P/E.",
+      "Compare MU segment margins against peers and against prior-quarter levels to assess sustainability."
+    ],
+    "underwriting_summary": "MU has one of the clearest current fundamental inflections in the supplied context. Source-backed Q3 2026 results show record revenue, dramatic margin expansion, very high EPS, strong operating cash flow and free cash flow, and management guidance for an even stronger Q4. HBM execution and Strategic Customer Agreements support the argument that AI-era memory demand could make this cycle more durable than prior memory cycles. The balance sheet has improved to net cash. The offset is that the stock has already moved extremely sharply, valuation is only optically cheap on forward earnings, and memory remains a highly cyclical, capex-intensive industry. Macro and theme context are supportive of AI leaders and memory semis, but not strongly enough to ignore narrow-breadth and high-beta unwind risk. The best synthesis is two-sided: fundamentals justify a constructive underwriting stance, while price/expectations risk requires monitoring for peak-cycle extrapolation.",
+    "qualitative_conviction": "constructive",
+    "suggested_score_adjustment": 2.0,
+    "confidence": "high",
+    "data_gaps": [
+      "Basic screen result is missing.",
+      "Full research_context is truncated, so some estimate-revision and consensus details may be incomplete.",
+      "No audited filing date is provided for the latest financial data; yfinance financials should be treated as data context, not audited proof.",
+      "Direct DRAM, NAND and HBM pricing data is missing.",
+      "Customer concentration and key customer identities are missing, aside from reference to a lead customer platform.",
+      "Competitor supply additions, HBM capacity plans and industry utilization data are missing.",
+      "Inventory levels, backlog, contract duration and take-or-pay terms for Strategic Customer Agreements are missing.",
+      "Sell-side consensus revenue, EPS, gross-margin and capex forecasts beyond the supplied estimate-revision metadata are missing.",
+      "Institutional positioning, short interest and options-implied positioning are missing.",
+      "Return on invested capital is missing."
+    ]
+  },
+  "company_profile": {
+    "ticker": "MU",
+    "company_name": "Micron Technology",
+    "sector": "Information Technology",
+    "industry": "Semiconductors / Memory",
+    "profile_source": "manual_seed",
+    "profile_confidence": "high",
+    "profile_as_of_date": "2026-06-29",
+    "profile_source_notes": [
+      "Company profile from internal static seed."
+    ],
+    "profile_data_gaps": [],
+    "business_description": "Micron is a memory and storage semiconductor company with exposure to DRAM, NAND, data center, PC, mobile, automotive, industrial, and AI-related demand.",
+    "business_model": "Cyclical semiconductor manufacturer whose revenue and margins are driven by memory pricing, bit demand, supply discipline, technology transitions, utilization, and mix toward higher-value products.",
+    "segments": [
+      {
+        "name": "Compute and Networking",
+        "description": "Memory products for data center, client, graphics, and networking applications.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "AI server demand",
+          "HBM adoption",
+          "DRAM pricing",
+          "cloud capex"
+        ]
+      },
+      {
+        "name": "Mobile",
+        "description": "Memory and storage products for smartphones and mobile devices.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "smartphone unit demand",
+          "content per device",
+          "NAND pricing"
+        ]
+      },
+      {
+        "name": "Embedded",
+        "description": "Memory and storage for automotive, industrial, and consumer applications.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "auto electronics content",
+          "industrial demand",
+          "inventory cycles"
+        ]
+      },
+      {
+        "name": "Storage",
+        "description": "NAND and SSD products.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "enterprise SSD demand",
+          "NAND pricing",
+          "data center storage capex"
+        ]
+      }
+    ],
+    "revenue_model": [
+      "DRAM bit shipments",
+      "NAND bit shipments",
+      "average selling prices",
+      "product mix",
+      "AI/HBM demand"
+    ],
+    "cost_drivers": [
+      "wafer costs",
+      "fab utilization",
+      "technology node transitions",
+      "capex intensity",
+      "depreciation"
+    ],
+    "margin_drivers": [
+      "DRAM pricing",
+      "NAND pricing",
+      "HBM mix",
+      "supply discipline",
+      "utilization rates"
+    ],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [
+      {
+        "ticker": "SSNLF",
+        "name": "Samsung Electronics",
+        "relevance": "Large global memory competitor"
+      },
+      {
+        "ticker": "000660.KS",
+        "name": "SK Hynix",
+        "relevance": "Major DRAM/HBM competitor"
+      },
+      {
+        "ticker": "WDC",
+        "name": "Western Digital",
+        "relevance": "NAND/storage peer"
+      }
+    ],
+    "thematic_exposures": [
+      "AI infrastructure",
+      "HBM",
+      "memory pricing cycle",
+      "data center capex",
+      "semiconductor supply discipline"
+    ],
+    "macro_sensitivities": [
+      "AI capex",
+      "global growth",
+      "inventory cycle",
+      "rates/multiple compression",
+      "China demand"
+    ],
+    "major_risks": [
+      "memory pricing downturn",
+      "supply additions",
+      "AI capex slowdown",
+      "China/export restrictions",
+      "high capex and cyclicality"
+    ]
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": "improving",
+    "operating_margin_trend": "improving",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "improving",
+    "capex_trend": null,
+    "leverage_trend": "improving",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving on trailing 8Q data.",
+      "Gross margin is improving on trailing 8Q data.",
+      "Operating margin is improving on trailing 8Q data.",
+      "Free cash flow is improving on trailing 8Q data.",
+      "Leverage is improving on trailing 8Q data.",
+      "Latest quarter revenue is accelerating year over year.",
+      "Latest quarter gross margin is above LTM.",
+      "Latest quarter operating margin is above LTM.",
+      "Latest quarter FCF margin is above LTM.",
+      "Latest quarter revenue run-rate is above LTM.",
+      "Gross margin is expanding sequentially.",
+      "Operating margin is expanding sequentially.",
+      "Leverage is improving."
+    ],
+    "deteriorating_indicators": [
+      "FCF conversion is lagging EBITDA, likely due to capex or working capital."
+    ],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from quarterly-first fundamental context pack. Latest financial period ended 2026-05-31. LLM synthesis: The current financial trend is an unusually sharp positive inflection, and the latest quarter should dominate the diagnosis. Fiscal Q3 2026 revenue of $41.46 billion was up 73.7% sequentially and 345.7% year over year. Latest-quarter annualized revenue is 83.7% above trailing-four-quarter revenue, showing that LTM numbers understate the current run-rate. Gross margin reached 84.6% versus 72.6% LTM and 37.7% in the year-ago quarter; operating margin reached 80.4% versus 65.7% LTM and 23.3% in the year-ago quarter. Free cash flow margin reached 42.4% in the latest quarter versus 29.0% LTM. Leverage has improved materially, with net debt moving from positive in prior periods to net cash of $18.62 billion at the latest quarter. The pressure has shifted from balance-sheet and margin recovery risk to sustainability and expectations risk. Financial context is not stale, with latest period end date 2026-05-31, but the financial data source is yfinance and should not be treated as audited proof.",
+    "why_screen_may_be_wrong": "A simple screen could be misleading in both directions. A growth or earnings-momentum screen could overstate quality by treating peak-cycle memory margins as durable. A low-forward-P/E value screen could misclassify MU as cheap without adjusting for cyclicality, capex intensity and possible margin normalization. Conversely, a high price-to-sales or high price-to-book screen could miss a genuine AI/HBM-driven earnings reset if current margins and cash flows prove more durable than prior cycles."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Memory remains structurally cyclical, and reported financials can deteriorate sharply during downcycles.",
+      "High capex intensity and supply additions can pressure free cash flow and margins.",
+      "The stock is sensitive to AI capex expectations and memory pricing assumptions.",
+      "FCF conversion is lagging EBITDA, so accounting inflection needs cash-flow confirmation.",
+      "Large recent price move raises expectations/peak-cycle risk relative to latest financials.",
+      "Memory pricing downturn after current scarcity conditions normalize",
+      "AI capex slowdown or hyperscaler demand rollover",
+      "HBM competition from larger memory peers",
+      "Supply additions by Samsung, SK Hynix or Micron itself creating oversupply",
+      "NAND weakness offsetting DRAM/HBM strength"
+    ],
+    "recent_strength_points": [
+      "AI server demand and HBM mix can materially improve revenue quality and margins.",
+      "Supply discipline across memory producers can support pricing recovery.",
+      "Latest quarter revenue is accelerating year over year.",
+      "Latest quarter revenue run-rate is above LTM.",
+      "Leverage is improving in the latest quarterly data."
+    ],
+    "likely_causes": [
+      "DRAM/NAND pricing cycle",
+      "AI/HBM demand mix",
+      "inventory normalization",
+      "capacity discipline"
+    ],
+    "pressure_type": "cyclical",
+    "cyclical_vs_structural_assessment": "The prior pressure appears to have been primarily cyclical and industry-cycle driven rather than balance-sheet distress. Fiscal 2024 annual data showed low operating margin of 5.2%, gross margin of 22.4% and almost no free cash flow, while fiscal 2025 improved materially. The latest quarterly data shows a step-change acceleration: Q3 2026 revenue, gross margin, operating margin, free cash flow and net cash all improved sharply. This is not a stale annual recovery story; it is a current-quarter inflection. The key underwriting question is whether this is a structural AI/HBM-driven reset with better durability, or a cyclical peak driven by tight supply and pricing. At present, the evidence supports a real inflection, but not yet a fully proven through-cycle quality reset.",
+    "abatement_evidence": [
+      "Improving DRAM pricing would support gross margin recovery.",
+      "Rising HBM mix would suggest the company is shifting toward higher-value demand.",
+      "Inventory normalization would reduce pressure from oversupply conditions.",
+      "Latest quarter gross margin is above LTM.",
+      "Latest quarter operating margin is above LTM.",
+      "Gross margin is expanding sequentially.",
+      "Operating margin is expanding sequentially.",
+      "Latest quarter FCF margin is above LTM."
+    ],
+    "inflection_catalysts": [
+      "HBM revenue acceleration",
+      "positive memory pricing revisions",
+      "upward earnings estimate revisions",
+      "continued hyperscaler AI capex strength",
+      "latest-quarter revenue acceleration",
+      "latest-quarter revenue run-rate above LTM",
+      "latest-quarter gross margin above LTM",
+      "latest-quarter operating margin above LTM"
+    ],
+    "margin_recovery_potential": "Potentially meaningful if the identified pressure points are temporary and pricing/mix improves.",
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": [
+      "Are DRAM and NAND prices continuing to improve?",
+      "Is HBM demand translating into sustainable margin expansion?",
+      "Are hyperscaler AI capex plans still rising or starting to flatten?"
+    ]
+  },
+  "competitive_position_analysis": {
+    "peer_group": [
+      {
+        "ticker": "SSNLF",
+        "name": "Samsung Electronics",
+        "relevance": "Large global memory competitor"
+      },
+      {
+        "ticker": "000660.KS",
+        "name": "SK Hynix",
+        "relevance": "Major DRAM/HBM competitor"
+      },
+      {
+        "ticker": "WDC",
+        "name": "Western Digital",
+        "relevance": "NAND/storage peer"
+      }
+    ],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [
+      "advanced manufacturing capability",
+      "scale in memory production",
+      "technology execution",
+      "customer qualification for high-performance memory"
+    ],
+    "competitive_advantages": [
+      "direct exposure to HBM and AI memory demand",
+      "operating leverage to memory pricing recovery"
+    ],
+    "competitive_threats": [
+      "Samsung and SK Hynix competition",
+      "memory supply additions",
+      "pricing cyclicality"
+    ],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "The supplied peer set includes Samsung Electronics, SK Hynix and Western Digital. Micron appears to be performing strongly versus this peer group in the supplied snapshot: revenue growth is above the peer median, margin profile is above the peer median, and 3-month and 6-month stock returns have outperformed the peer median. Source-backed evidence also indicates advanced HBM execution, including HBM4 high-volume shipments for a lead customer platform, qualification samples shipped to multiple end-customers, and HBM4E volume production expected in calendar 2027. That supports AI-memory positioning, but direct market-share data, customer concentration, competitor HBM capacity plans, and pricing-share evidence are missing."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (high_beta_ai_semis, memory_semis, quality_ai) with aggregate theme support score 0.22. Known exposures: AI infrastructure, HBM, memory pricing cycle, data center capex, semiconductor supply discipline, AI capex, global growth, inventory cycle, rates/multiple compression, China demand.",
+    "scenario_impacts": [
+      {
+        "scenario_name": "AI capex acceleration",
+        "impact": "positive",
+        "rationale": "Company appears positively exposed to sustained or accelerating AI/data center capex.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "AI capex rollover",
+        "impact": "negative",
+        "rationale": "A slowdown in AI/data center capex would likely pressure growth expectations and valuation.",
+        "sensitivity_level": "high"
+      },
+      {
+        "scenario_name": "Global growth slows",
+        "impact": "negative",
+        "rationale": "Slower macro growth would likely pressure cyclical demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Rates remain elevated",
+        "impact": "negative",
+        "rationale": "Higher rates can pressure valuation multiples and financing-sensitive demand.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Macro-supported mapped themes",
+        "impact": "positive",
+        "rationale": "Credit layer health: Healthy credit supports profitable growth leadership.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "Macro-penalized mapped themes",
+        "impact": "negative",
+        "rationale": "Breadth and participation: Narrow breadth raises unwind risk in crowded beta.",
+        "sensitivity_level": "medium"
+      },
+      {
+        "scenario_name": "AI/data-center macro support",
+        "impact": "positive",
+        "rationale": "Mapped theme drivers include positive AI/data-center macro support.",
+        "sensitivity_level": "high"
+      }
+    ],
+    "oil_sensitivity": null,
+    "rate_sensitivity": "Medium to high",
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": "High",
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro forecast supports the company's mapped themes, improving the odds that top-down backdrop reinforces ticker-level execution.",
+    "downside_scenario": "The main downside is that positive mapped-theme support fades or becomes crowded before ticker fundamentals confirm.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: sticky_late_cycle_ai, reopening_soft_landing, oil_inflation_tail. Top macro signals: Credit layer health, AI earnings resilience, Breadth and participation. MU maps to macro-forecast themes high_beta_ai_semis, memory_semis, quality_ai. Aggregate theme support score is 0.22."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "Consensus appears to be that MU is a major beneficiary of AI-era memory demand and HBM scarcity, with the market increasingly underwriting a step-change in revenue, margins and earnings power. This is supported by record Q3 results, Q4 guidance for further sequential growth, positive estimate revisions, HBM execution evidence, and extreme share-price momentum. The narrative also appears to include improved durability versus prior cycles due to Strategic Customer Agreements, but the degree to which the market believes memory has become structurally less cyclical is not directly sourced.",
+    "implied_expectations": "The stock likely embeds expectations for continued memory pricing recovery and AI/HBM demand strength.",
+    "market_mispricing_hypothesis": "Potential mispricing exists if the market underestimates the durability of HBM-driven mix improvement or over-penalizes MU for historical memory cyclicality.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": "AI semiconductor exposure can become crowded, increasing drawdown risk if capex expectations weaken.",
+    "expectation_summary": "Valuation embeds a major debate. The forward P/E of 7.15 looks low relative to the magnitude of current earnings momentum and positive estimate revisions, which could indicate underappreciated earnings durability. But this is not straightforward cheapness: price-to-sales is 13.37, price-to-book is 16.63, EV/EBITDA is 18.46, and the stock has already appreciated dramatically. For a memory company, low forward P/E can simply mean the market expects current earnings to be peak or cyclical. Underwriting should therefore focus less on the absolute forward P/E and more on whether Q4-level revenue and 80%+ operating margins can persist, whether HBM contracts reduce cyclicality, and whether free cash flow remains strong after record investment."
+  },
+  "variant_view": {
+    "consensus_view": "MU is viewed as a cyclical memory company with upside tied to memory pricing recovery and AI/HBM demand.",
+    "helix_variant_view": "Variant direction: two_sided. Two-sided variant view: the market may still be underestimating the durability of Micron's AI-memory earnings power if HBM demand, Strategic Customer Agreements and data-center memory intensity make this cycle structurally different. At the same time, the market may be overextrapolating peak memory-cycle profitability after extraordinary stock performance and exceptional margins. The central underwriting tension is not whether the latest inflection is real; it is whether the inflection is durable enough to justify the valuation and price momentum already achieved. Bull case: The bullish variant is that MU is no longer being valued appropriately as a purely commodity-memory cycle because AI-era memory demand, HBM product execution, and multi-year Strategic Customer Agreements could make revenue and margins more durable than prior cycles. Source-backed Q3 results, Q4 guidance, HBM4 shipment status, and strong estimate revisions support the possibility that earnings power has structurally reset higher, while the forward P/E appears low versus current earnings momentum. Bear case: The bearish variant is that the market may now be extrapolating peak-cycle memory economics into a structurally higher normal. The stock has risen roughly 273% over six months and 769% over one year, is only about 12% below its 52-week high, and trades at elevated sales and book multiples despite a low forward P/E. If Q3/Q4 profitability reflects unusually tight supply, AI-driven HBM scarcity, or inventory-cycle restocking rather than durable normalized economics, valuation could be vulnerable even if near-term reported numbers remain very strong.",
+    "variant_view_direction": "two_sided",
+    "bull_case_variant_view": "The bullish variant is that MU is no longer being valued appropriately as a purely commodity-memory cycle because AI-era memory demand, HBM product execution, and multi-year Strategic Customer Agreements could make revenue and margins more durable than prior cycles. Source-backed Q3 results, Q4 guidance, HBM4 shipment status, and strong estimate revisions support the possibility that earnings power has structurally reset higher, while the forward P/E appears low versus current earnings momentum.",
+    "bear_case_variant_view": "The bearish variant is that the market may now be extrapolating peak-cycle memory economics into a structurally higher normal. The stock has risen roughly 273% over six months and 769% over one year, is only about 12% below its 52-week high, and trades at elevated sales and book multiples despite a low forward P/E. If Q3/Q4 profitability reflects unusually tight supply, AI-driven HBM scarcity, or inventory-cycle restocking rather than durable normalized economics, valuation could be vulnerable even if near-term reported numbers remain very strong.",
+    "evidence_supporting_variant_view": [
+      "Bull evidence: Improving DRAM pricing would support gross margin recovery.",
+      "Bull evidence: Rising HBM mix would suggest the company is shifting toward higher-value demand.",
+      "Bull evidence: Inventory normalization would reduce pressure from oversupply conditions.",
+      "Bull evidence: Latest quarter gross margin is above LTM.",
+      "Bull evidence: Latest quarter operating margin is above LTM.",
+      "Bull evidence: Gross margin is expanding sequentially.",
+      "Bull evidence: Operating margin is expanding sequentially.",
+      "Bull evidence: Latest quarter FCF margin is above LTM.",
+      "Bull evidence: HBM revenue acceleration",
+      "Bull evidence: positive memory pricing revisions",
+      "Bull evidence: upward earnings estimate revisions",
+      "Bull evidence: continued hyperscaler AI capex strength",
+      "Bull evidence: latest-quarter revenue acceleration",
+      "Bull evidence: latest-quarter revenue run-rate above LTM",
+      "Bull evidence: latest-quarter gross margin above LTM"
+    ],
+    "why_market_may_be_wrong": [
+      "Bull case: The market may over-anchor to historical memory cyclicality.",
+      "Bull case: The market may underestimate the margin impact of HBM mix.",
+      "Bull case: The market may underprice supply discipline if producers remain rational."
+    ],
+    "required_confirming_evidence": [
+      "HBM revenue growth continues to accelerate.",
+      "DRAM pricing remains firm.",
+      "Gross margin expands faster than expected.",
+      "Earnings estimates continue revising upward."
+    ],
+    "risks_to_variant_view": [
+      "Two-sided counter-evidence: The bullish side is challenged by extreme share-price performance: +273.1% over six months, +199.3% over three months and +769.1% over one year, creating high expectations risk.",
+      "Two-sided counter-evidence: Valuation is not uniformly cheap: forward P/E is 7.15, but price-to-sales is 13.37, price-to-book is 16.63 and EV/EBITDA is 18.46, suggesting the market already capitalizes substantial improvement.",
+      "Two-sided counter-evidence: Memory remains cyclical and capex-intensive; the latest quarter may represent peak-cycle or scarcity economics rather than normalized margins.",
+      "Two-sided counter-evidence: The macro theme support score is only modestly positive at 0.22, and the high-beta AI semiconductor theme itself has a negative score due to narrow-breadth/crowding risk.",
+      "Two-sided counter-evidence: The macro backdrop favors quality and defensives more than high-beta growth; high-beta growth and duration factors score negatively in the supplied macro model.",
+      "Two-sided counter-evidence: Bearish evidence is absent from the supplied research_context, creating asymmetric evidence risk: lack of bearish items may reflect source coverage rather than absence of risk.",
+      "Bear risk: Memory pricing downturn after current scarcity conditions normalize",
+      "Bear risk: AI capex slowdown or hyperscaler demand rollover",
+      "Bear risk: HBM competition from larger memory peers",
+      "Bear risk: Supply additions by Samsung, SK Hynix or Micron itself creating oversupply",
+      "Bear risk: NAND weakness offsetting DRAM/HBM strength",
+      "Bear risk: Extreme price momentum and crowded AI-semiconductor positioning leading to sharp multiple compression",
+      "Bear risk: High beta of 2.173 amplifying macro or sector drawdowns",
+      "Bear risk: Restrictive monetary-policy backdrop and weak breadth pressuring high-beta growth exposures",
+      "Bear risk: China demand weakness or export restrictions"
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Gross margin fails to expand despite claimed pricing/mix improvement.",
+      "HBM growth fails to translate into earnings upside.",
+      "Inventory or supply commentary points to renewed oversupply.",
+      "Fiscal Q4 2026 revenue comes in materially below the guided approximately $50.0 billion range or management lowers the implied run-rate for subsequent quarters.",
+      "Gross margin falls materially below the guided approximately 86% level without a clearly temporary explanation.",
+      "Sequential revenue growth stalls or reverses in cloud memory, core data center, HBM-related products, or other AI-exposed segments.",
+      "HBM4 customer qualification or shipment progress slows, or HBM4E volume production expected for calendar 2027 is delayed.",
+      "Strategic Customer Agreements fail to translate into visible revenue durability, backlog, pricing stability or reduced earnings volatility.",
+      "Operating cash flow and free cash flow deteriorate despite strong reported earnings, especially if capex rises faster than cash generation.",
+      "Industry supply additions or utilization increases lead to DRAM/NAND/HBM pricing pressure and margin compression.",
+      "Net cash position reverses materially due to capex, working capital, debt-funded expansion, or shareholder distributions."
+    ],
+    "macro_falsifiers": [
+      "Hyperscaler AI capex expectations roll over.",
+      "Global semiconductor demand weakens materially.",
+      "Hyperscaler capex rollover falsifier becomes triggered through materially weaker AI infrastructure capex guidance.",
+      "AI earnings resilience signal turns negative or estimate revisions for AI infrastructure leaders deteriorate.",
+      "Market breadth deterioration turns from narrow leadership into a broad risk-off unwind that penalizes high-beta AI semiconductors.",
+      "Credit conditions weaken materially, especially if HY spreads widen and funding conditions tighten for growth/capex-sensitive equities.",
+      "Monetary conditions become more restrictive, with higher-for-longer rates driving multiple compression in high-beta growth and semiconductors.",
+      "Oil inflation tail or late-cycle risk-off scenarios rise materially in probability, undermining cyclical technology exposure.",
+      "Semiconductor sector theme support for memory semis turns negative due to supply, demand or macro inputs."
+    ],
+    "valuation_falsifiers": [
+      "Multiple expansion outpaces estimate revisions and eliminates upside asymmetry.",
+      "Forward P/E remains low only because forward EPS estimates start to decline, confirming peak-cycle earnings risk.",
+      "Price-to-sales and price-to-book remain elevated while revenue growth decelerates, increasing multiple-compression risk.",
+      "EV/EBITDA multiple expands despite evidence of margin normalization or pricing pressure.",
+      "The stock sells off on earnings beats, indicating expectations have moved ahead of fundamentals.",
+      "Free cash flow yield deteriorates as capex rises or working capital absorbs cash despite high accounting earnings.",
+      "Peer multiples compress due to memory-cycle concerns, reducing the market's willingness to capitalize MU's elevated earnings."
+    ],
+    "timing_falsifiers": [
+      "Expected memory pricing recovery fails to appear within the target horizon.",
+      "The stock fails to hold gains or underperforms semiconductor peers after a strong Q4 report and guidance, suggesting good news is fully discounted.",
+      "Positive estimate revisions stall or reverse within the next 1-2 revision cycles.",
+      "The next quarterly report shows deceleration from the Q3/Q4 run-rate without a clear explanation.",
+      "Momentum reverses sharply from near 52-week highs despite no company-specific negative news, indicating positioning exhaustion.",
+      "Peer commentary flags new supply, pricing pressure, or customer inventory digestion before MU reports.",
+      "AI capex or HBM demand commentary weakens during the six-month horizon."
+    ],
+    "technical_or_price_falsifiers": [
+      "Stock materially underperforms semiconductor peers despite positive memory pricing data."
+    ],
+    "monitoring_triggers": [
+      "Negative earnings revision cycle resumes.",
+      "Management guides to weaker pricing or weaker HBM demand.",
+      "Semiconductor capex narrative deteriorates.",
+      "Track fiscal Q4 2026 results against the supplied guidance for approximately $50.0 billion revenue, approximately 86% gross margin and $31.00 plus or minus $1.00 non-GAAP EPS.",
+      "After Q4, compare management commentary and any guidance to the latest-quarter run-rate rather than to stale annual data.",
+      "Monitor whether free cash flow scales with earnings after capex and working-capital needs.",
+      "Review HBM4 shipment updates, customer qualification progress, and HBM4E production timing for slippage.",
+      "Monitor memory pricing and supply discipline indicators across DRAM, NAND and HBM, including peer capacity commentary.",
+      "Track estimate revisions after the next earnings print; positive revisions need to continue to justify extreme momentum.",
+      "Monitor stock reaction to good news; failure to rally on beats/guidance raises expectations-risk concerns.",
+      "Track macro AI capex signals, breadth, credit spreads, and semiconductor theme support monthly.",
+      "Watch valuation using both forward earnings and through-cycle revenue/book/EV metrics to avoid overinterpreting peak-cycle P/E.",
+      "Compare MU segment margins against peers and against prior-quarter levels to assess sustainability."
+    ],
+    "key_metrics_to_watch": [
+      "DRAM pricing",
+      "NAND pricing",
+      "HBM revenue/mix",
+      "gross margin",
+      "capex",
+      "inventory",
+      "earnings revisions",
+      "Quarterly revenue versus the guided $50.0 billion fiscal Q4 2026 outlook",
+      "Gross margin versus the guided approximately 86% level",
+      "Operating margin and operating expense discipline",
+      "GAAP and non-GAAP EPS versus the guided $31.00 plus or minus $1.00 non-GAAP range",
+      "Operating cash flow, adjusted free cash flow and capex intensity",
+      "Cloud Memory Business Unit revenue and margin",
+      "Core Data Center Business Unit revenue and margin",
+      "HBM4 shipment progress, HBM customer qualification and HBM4E production timeline",
+      "Strategic Customer Agreement disclosures, backlog, duration and customer commitments",
+      "DRAM, NAND and HBM pricing indicators",
+      "Inventory levels and customer inventory commentary",
+      "Net cash, total debt and liquidity",
+      "Peer capacity additions and supply discipline from Samsung, SK Hynix and Western Digital"
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 70.0,
+    "financial_health": 66.0,
+    "competitive_position": 60.0,
+    "earnings_inflection_potential": 100.0,
+    "regime_fit": 48.03325073596804,
+    "valuation_setup": 42.5,
+    "variant_perception_strength": 85.0,
+    "idiosyncratic_risk": 63.0,
+    "final_underwriting_score": 69.36516972171087
+  },
+  "verdict": "watchlist",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "MU receives a watchlist verdict with a final underwriting score of 69.4/100. LLM synthesis summary: MU has one of the clearest current fundamental inflections in the supplied context. Source-backed Q3 2026 results show record revenue, dramatic margin expansion, very high EPS, strong operating cash flow and free cash flow, and management guidance for an even stronger Q4. HBM execution and Strategic Customer Agreements support the argument that AI-era memory demand could make this cycle more durable than prior memory cycles. The balance sheet has improved to net cash. The offset is that the stock has already moved extremely sharply, valuation is only optically cheap on forward earnings, and memory remains a highly cyclical, capex-intensive industry. Macro and theme context are supportive of AI leaders and memory semis, but not strongly enough to ignore narrow-breadth and high-beta unwind risk. The best synthesis is two-sided: fundamentals justify a constructive underwriting stance, while price/expectations risk requires monitoring for peak-cycle extrapolation.",
+  "key_monitoring_items": [
+    "DRAM pricing",
+    "NAND pricing",
+    "HBM revenue/mix",
+    "gross margin",
+    "capex",
+    "Negative earnings revision cycle resumes.",
+    "Management guides to weaker pricing or weaker HBM demand.",
+    "Semiconductor capex narrative deteriorates.",
+    "Track fiscal Q4 2026 results against the supplied guidance for approximately $50.0 billion revenue, approximately 86% gross margin and $31.00 plus or minus $1.00 non-GAAP EPS.",
+    "After Q4, compare management commentary and any guidance to the latest-quarter run-rate rather than to stale annual data.",
+    "Are DRAM and NAND prices continuing to improve?",
+    "Is HBM demand translating into sustainable margin expansion?",
+    "Are hyperscaler AI capex plans still rising or starting to flatten?"
+  ],
+  "recommended_next_action": "Add to watchlist and rerun when price, estimates, macro/theme context, or company evidence changes. Key missing evidence: Basic screen result is missing; Full research_context is truncated, so some estimate-revision and consensus details may be incomplete; No audited filing date is provided for the latest financial data; yfinance financials should be treated as data context, not audited proof. Variant view is not yet strong enough for acceptance. Valuation/expectations risk requires confirmation.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding with LLM synthesis; richer filing and transcript layers pending.",
+    "Company profile from internal static seed.",
+    "Company profile confidence: high.",
+    "Financial context sourced from yfinance.",
+    "Financial trend is derived from quarterly financial statements through period ending 2026-05-31.",
+    "Latest financial period end date: 2026-05-31.",
+    "Research source coverage: estimate:found=1; filing:found=1; news:skipped=1; peer_commentary:skipped=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+    "Research context evidence items: 18.",
+    "Research context data gaps: Transcript not provided; automated transcript retrieval is unavailable in v1.; News source unavailable, skipped, or returned no recent items.; Peer commentary retrieval skipped or unavailable in v1.; The supplied 10-Q filing text is largely raw XBRL/tag output and truncated in the prompt; no reliable high-signal MD&A, risk, liquidity, debt, capex, or segment narrative excerpt could be extracted from the visible text.; The estimates source lacks explicit source_name, source_date, source_url, form_type, accession_number, and exhibit_type metadata in the supplied document.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: /Users/terenceobrien/AI_Financial_Operator/backend/data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-05.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

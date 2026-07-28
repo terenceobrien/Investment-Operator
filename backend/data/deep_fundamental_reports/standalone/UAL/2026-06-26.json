@@ -1,0 +1,599 @@
+{
+  "ticker": "UAL",
+  "as_of_date": "2026-06-26",
+  "created_at": "2026-06-26T15:52:30.061462",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": {
+    "asof_date": "2026-06-23",
+    "created_at": "2026-06-24T22:09:14.375232Z",
+    "regime_id": null,
+    "regime_label": "Reopening / Soft Landing leads; top macro-supported themes are Quality ex-AI cash flow, Grid and power infrastructure, Cash and short duration.",
+    "top_scenarios": [
+      {
+        "scenario_id": "reopening_soft_landing",
+        "label": null,
+        "probability": 0.4,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "ai_capex_rollover",
+        "label": null,
+        "probability": 0.19,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "sticky_late_cycle_ai",
+        "label": null,
+        "probability": 0.17,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "late_cycle_risk_off",
+        "label": null,
+        "probability": 0.12,
+        "score": null,
+        "rationale": null
+      },
+      {
+        "scenario_id": "oil_inflation_tail",
+        "label": null,
+        "probability": 0.12,
+        "score": null,
+        "rationale": null
+      }
+    ],
+    "top_macro_signals": [
+      {
+        "input_id": "credit_conditions",
+        "label": "Credit layer health",
+        "category": "credit",
+        "signal": "bullish",
+        "signal_strength": 0.7,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": 8.3,
+        "notes": "HY spreads tight (265bps) — credit healthy",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "ai_earnings_resilience",
+        "label": "AI earnings resilience",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.65,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "resilient",
+        "notes": "bullish/stable bullish for quality ai infrastructure capital spending tied to data-center demand remains durable, and revision-supported ai infrastructure leaders can continue working even if the broader macro backdrop is fragile.",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "high_beta_ai_semis",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "oil_reopening_optionality",
+        "label": "Oil shock and reopening optionality",
+        "category": "commodities",
+        "signal": "mixed",
+        "signal_strength": 0.45,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "two-sided",
+        "notes": "mixed/mixed still inflationary, but risk premium is now two-sided oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced the one-way upside pressure. energy remains a useful hedge, but the trade is more tactical and headline-sensitive.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "commodities_real_assets",
+          "energy_oil_beta"
+        ]
+      },
+      {
+        "input_id": "volatility_layer_summary",
+        "label": "Volatility layer summary",
+        "category": "volatility",
+        "signal": "neutral",
+        "signal_strength": 0.3,
+        "level_status": "neutral",
+        "trend_status": "stable",
+        "current_value": 5.54,
+        "notes": "Volatility layer converted from RegimeState.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "market_breadth",
+        "label": "Breadth and participation",
+        "category": "breadth",
+        "signal": "mixed",
+        "signal_strength": 0.275,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 6.77,
+        "notes": "Sector ADL slope rising — participation broadening Breadth has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      },
+      {
+        "input_id": "monetary_policy_composite",
+        "label": "Monetary policy composite",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.25,
+        "level_status": "mixed",
+        "trend_status": "mixed",
+        "current_value": "monetary_score=5.88; hold_hike=0.80; cut=0.20",
+        "notes": "Composite reconciles layer score 5.88, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.",
+        "related_scenario_ids": [
+          "oil_inflation_tail",
+          "reopening_soft_landing",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "long_duration_growth",
+          "quality_ex_ai_cash_flow"
+        ]
+      },
+      {
+        "input_id": "hyperscaler_capex_falsifier_not_triggered",
+        "label": "Hyperscaler capex rollover falsifier",
+        "category": "earnings",
+        "signal": "bullish",
+        "signal_strength": 0.25,
+        "level_status": "bullish",
+        "trend_status": "stable",
+        "current_value": "not_triggered",
+        "notes": "Hyperscaler capex guidance weakens materially",
+        "related_scenario_ids": [
+          "ai_capex_rollover",
+          "sticky_late_cycle_ai"
+        ],
+        "related_theme_ids": [
+          "grid_power_infrastructure",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "positioning_hedging",
+        "label": "Positioning and hedging",
+        "category": "positioning",
+        "signal": "mixed",
+        "signal_strength": 0.2,
+        "level_status": "mixed",
+        "trend_status": "stable",
+        "current_value": 7.01,
+        "notes": "Equity put/call elevated (0.99) — retail fear, contrarian bullish setup",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "cash_short_duration",
+          "quality_ai"
+        ]
+      },
+      {
+        "input_id": "monetary_conditions",
+        "label": "Monetary layer",
+        "category": "monetary",
+        "signal": "mixed",
+        "signal_strength": 0.175,
+        "level_status": "mixed",
+        "trend_status": "improving",
+        "current_value": 5.88,
+        "notes": "Monetary layer converted from RegimeState. Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.",
+        "related_scenario_ids": [
+          "late_cycle_risk_off",
+          "reopening_soft_landing"
+        ],
+        "related_theme_ids": [
+          "long_duration_growth",
+          "small_caps"
+        ]
+      }
+    ],
+    "sector_rankings": [
+      {
+        "item_id": "XLU",
+        "label": "XLU",
+        "score": 1.01,
+        "rationale": "XLU score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.60, Quality ex-AI cash flow +0.30, Cash and short duration +0.11."
+      },
+      {
+        "item_id": "XLI",
+        "label": "XLI",
+        "score": 0.9400000000000001,
+        "rationale": "XLI score is derived from macro-supported theme scores only. Top drivers: Grid and power infrastructure +0.51, Quality ex-AI cash flow +0.30, Defense and geopolitics +0.13."
+      },
+      {
+        "item_id": "XLV",
+        "label": "XLV",
+        "score": 0.91,
+        "rationale": "XLV score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.54, Quality ex-AI cash flow +0.37."
+      },
+      {
+        "item_id": "SHY",
+        "label": "SHY",
+        "score": 0.73,
+        "rationale": "SHY score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.73."
+      },
+      {
+        "item_id": "DBC",
+        "label": "DBC",
+        "score": 0.45799999999999996,
+        "rationale": "DBC score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.45, Energy and oil beta +0.00."
+      },
+      {
+        "item_id": "XLE",
+        "label": "XLE",
+        "score": 0.16999999999999998,
+        "rationale": "XLE score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.16, Energy and oil beta +0.01."
+      },
+      {
+        "item_id": "XLK",
+        "label": "XLK",
+        "score": -0.040499999999999946,
+        "rationale": "XLK score is derived from macro-supported theme scores only. Top drivers: High-beta AI semiconductors -0.15, Quality AI leaders +0.13, Memory semiconductors -0.03."
+      },
+      {
+        "item_id": "IWM",
+        "label": "IWM",
+        "score": -0.049999999999999954,
+        "rationale": "IWM score is derived from macro-supported theme scores only. Top drivers: Small caps -0.06, Long-duration growth +0.01."
+      },
+      {
+        "item_id": "SMH",
+        "label": "SMH",
+        "score": -0.2915,
+        "rationale": "SMH score is derived from macro-supported theme scores only. Top drivers: High-beta AI semiconductors -0.33, Quality AI leaders +0.07, Memory semiconductors -0.03."
+      }
+    ],
+    "factor_rankings": [
+      {
+        "item_id": "defensive",
+        "label": "Defensive factor",
+        "score": 0.8755,
+        "rationale": "Defensive factor score is derived from macro-supported theme scores only. Top drivers: Healthcare defensives +0.32, Quality ex-AI cash flow +0.30, Cash and short duration +0.26."
+      },
+      {
+        "item_id": "quality",
+        "label": "Quality",
+        "score": 0.8355,
+        "rationale": "Quality score is derived from macro-supported theme scores only. Top drivers: Quality ex-AI cash flow +0.52, Healthcare defensives +0.22, Quality AI leaders +0.10."
+      },
+      {
+        "item_id": "cash",
+        "label": "Cash and carry",
+        "score": 0.73,
+        "rationale": "Cash and carry score is derived from macro-supported theme scores only. Top drivers: Cash and short duration +0.73."
+      },
+      {
+        "item_id": "commodities",
+        "label": "Commodity beta",
+        "score": 0.36200000000000004,
+        "rationale": "Commodity beta score is derived from macro-supported theme scores only. Top drivers: Commodities and real assets +0.36, Energy and oil beta +0.00."
+      },
+      {
+        "item_id": "duration",
+        "label": "Duration sensitivity",
+        "score": 5.204170427930421e-17,
+        "rationale": "Duration sensitivity score is derived from macro-supported theme scores only. Top drivers: Long-duration growth +0.02, Small caps -0.02."
+      },
+      {
+        "item_id": "small_cap_beta",
+        "label": "Small-cap beta",
+        "score": -0.06999999999999995,
+        "rationale": "Small-cap beta score is derived from macro-supported theme scores only. Top drivers: Small caps -0.07."
+      },
+      {
+        "item_id": "high_beta_growth",
+        "label": "High beta growth",
+        "score": -0.25549999999999995,
+        "rationale": "High beta growth score is derived from macro-supported theme scores only. Top drivers: High-beta AI semiconductors -0.21, Memory semiconductors -0.04, Small caps -0.01."
+      }
+    ],
+    "summary": "The model assigns the highest probability to Reopening / Soft Landing at 40.0%; runner-up ai_capex_rollover at 19.0%. The largest displayed deterministic driver is Oil shock and reopening optionality (+0.279). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow.",
+    "source_path": "data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-23_20260624T220914Z.json",
+    "source_notes": [
+      "Macro context extracted from existing macro forecast JSON.",
+      "Source forecast: data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-23_20260624T220914Z.json"
+    ]
+  },
+  "theme_context": {
+    "ticker": "UAL",
+    "selected_theme_ids": [],
+    "theme_mapping": {
+      "ticker": "UAL",
+      "mapped_themes": [],
+      "rejected_themes": [],
+      "mapping_summary": "Mapped 0 of 12 available macro-forecast themes using deterministic keyword/semantic fallback.",
+      "data_confidence": "low",
+      "source": "deterministic_fallback"
+    },
+    "relevant_theme_scores": [],
+    "relevant_theme_impacts": [],
+    "linked_scenarios": [],
+    "positive_drivers": [],
+    "negative_drivers": [],
+    "mixed_drivers": [],
+    "aggregate_theme_support_score": null,
+    "theme_fit_summary": "No valid macro-forecast theme mapping was found for UAL.",
+    "source_notes": [
+      "Theme context extracted from macro forecast theme rankings and signals."
+    ]
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "UAL",
+    "as_of_date": "2026-06-26",
+    "financial_trend": {
+      "latest": {
+        "revenue": 59070000000.0,
+        "revenue_growth_yoy": 0.03517165238420693,
+        "gross_margin": 0.2877941425427459,
+        "operating_margin": 0.08417132216014897,
+        "ebitda_margin": 0.14240731335703402,
+        "net_margin": 0.05676316234975453,
+        "free_cash_flow": 2557000000.0,
+        "free_cash_flow_margin": 0.04328762485187066,
+        "total_debt": 31036000000.0,
+        "cash_and_equivalents": 5942000000.0,
+        "net_debt": 25094000000.0,
+        "net_debt_to_ebitda": 2.9831193533048026,
+        "capex": -5874000000.0,
+        "capex_as_pct_revenue": 0.09944134078212291,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 57063000000.0,
+        "revenue_growth_yoy": 0.06228940558854739,
+        "gross_margin": 0.28901389692094703,
+        "operating_margin": 0.09126754639608853,
+        "ebitda_margin": 0.14892312006028424,
+        "net_margin": 0.055184620507158756,
+        "free_cash_flow": 3830000000.0,
+        "free_cash_flow_margin": 0.067118798520933,
+        "total_debt": 33633000000.0,
+        "cash_and_equivalents": 8769000000.0,
+        "net_debt": 24864000000.0,
+        "net_debt_to_ebitda": 2.925864909390445,
+        "capex": -5615000000.0,
+        "capex_as_pct_revenue": 0.09840001401959238,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "deteriorating",
+      "margin_direction": "stable",
+      "fcf_direction": "deteriorating",
+      "leverage_direction": "deteriorating",
+      "notes": []
+    },
+    "price_snapshot": {
+      "current_price": 136.76,
+      "market_cap": 44388155392.0,
+      "return_1m": 0.21434906030480047,
+      "return_3m": 0.4754557223502979,
+      "return_6m": 0.20461548469403526,
+      "return_1y": 0.7635072743396368,
+      "drawdown_from_52w_high": 4.016645418284568e-8,
+      "distance_from_52w_low": 0.763507345173471,
+      "beta": 1.291
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 12.221626,
+      "forward_pe": 9.626119,
+      "ev_to_ebitda": 7.672,
+      "price_to_sales": 0.7341132,
+      "price_to_book": 2.7962132,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": null,
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [],
+    "source_notes": [
+      "Financial context sourced from yfinance."
+    ]
+  },
+  "company_profile": {
+    "ticker": "UAL",
+    "company_name": null,
+    "sector": null,
+    "industry": null,
+    "business_description": "Company profile not yet available in static knowledge base.",
+    "business_model": null,
+    "segments": [],
+    "revenue_model": [],
+    "cost_drivers": [],
+    "margin_drivers": [],
+    "key_customers": [],
+    "key_suppliers": [],
+    "peer_group": [],
+    "thematic_exposures": [],
+    "macro_sensitivities": [],
+    "major_risks": []
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "deteriorating",
+    "gross_margin_trend": null,
+    "operating_margin_trend": "stable",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "deteriorating",
+    "capex_trend": null,
+    "leverage_trend": "deteriorating",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [],
+    "deteriorating_indicators": [
+      "Revenue growth is deteriorating.",
+      "Free cash flow is deteriorating.",
+      "Leverage is deteriorating."
+    ],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from fundamental context pack.",
+    "why_screen_may_be_wrong": "The basic screen should be interpreted in context of trend direction, cyclicality, and whether weak metrics are improving or deteriorating."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [],
+    "recent_strength_points": [],
+    "likely_causes": [],
+    "pressure_type": "unknown",
+    "cyclical_vs_structural_assessment": "Insufficient data to determine whether recent pressure is cyclical or structural.",
+    "abatement_evidence": [],
+    "inflection_catalysts": [],
+    "margin_recovery_potential": null,
+    "demand_recovery_potential": null,
+    "earnings_inflection_potential": null,
+    "key_timing_questions": []
+  },
+  "competitive_position_analysis": {
+    "peer_group": [],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [],
+    "competitive_advantages": [],
+    "competitive_threats": [],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "Competitive position requires further peer and filing analysis. Static knowledge base does not yet contain enough company-specific information."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "Company mapped to macro forecast themes (none) with aggregate theme support score n/a. Known exposures: .",
+    "scenario_impacts": [],
+    "oil_sensitivity": null,
+    "rate_sensitivity": null,
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": null,
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro/theme backdrop reinforces the company's highest-quality revenue and margin drivers.",
+    "downside_scenario": "Macro/theme backdrop deteriorates in a way that pressures growth expectations, margins, or valuation.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided. Top scenarios: reopening_soft_landing, ai_capex_rollover, sticky_late_cycle_ai. Top macro signals: Credit layer health, AI earnings resilience, Oil shock and reopening optionality. No valid macro-forecast theme mapping was found for UAL."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "Current market narrative requires news, price action, and estimate revision ingestion.",
+    "implied_expectations": "Cannot infer implied expectations with high confidence in v1.",
+    "market_mispricing_hypothesis": "No strong mispricing hypothesis generated yet.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": null,
+    "expectation_summary": "Market expectation analysis is incomplete until valuation and price data are wired."
+  },
+  "variant_view": {
+    "consensus_view": "Consensus view not available in v1.",
+    "helix_variant_view": "No strong variant view generated yet. Additional company, financial, peer, valuation, and news data required.",
+    "evidence_supporting_variant_view": [],
+    "why_market_may_be_wrong": [],
+    "required_confirming_evidence": [],
+    "risks_to_variant_view": [
+      "Insufficient information to establish variant perception."
+    ],
+    "variant_view_strength": "none"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Company fails to show evidence supporting the proposed variant view."
+    ],
+    "macro_falsifiers": [],
+    "valuation_falsifiers": [],
+    "timing_falsifiers": [],
+    "technical_or_price_falsifiers": [],
+    "monitoring_triggers": [
+      "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available."
+    ],
+    "key_metrics_to_watch": [
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "free cash flow",
+      "leverage",
+      "earnings revisions"
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 50.0,
+    "financial_health": 50.0,
+    "competitive_position": 50.0,
+    "earnings_inflection_potential": 50.0,
+    "regime_fit": 50.0,
+    "valuation_setup": 55.0,
+    "variant_perception_strength": 20.0,
+    "idiosyncratic_risk": 50.0,
+    "final_underwriting_score": 45.84821428571429
+  },
+  "verdict": "reject",
+  "screen_override": false,
+  "screen_override_rationale": null,
+  "final_rationale": "UAL receives a reject verdict with a final underwriting score of 45.8/100. Variant view: No strong variant view generated yet. Additional company, financial, peer, valuation, and news data required. Pressure/inflection assessment: Insufficient data to determine whether recent pressure is cyclical or structural.",
+  "key_monitoring_items": [
+    "revenue growth",
+    "gross margin",
+    "operating margin",
+    "free cash flow",
+    "leverage",
+    "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available."
+  ],
+  "recommended_next_action": "Reject for now.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding; richer filing, transcript, and LLM synthesis layers pending.",
+    "Financial context sourced from yfinance.",
+    "Macro context extracted from existing macro forecast JSON.",
+    "Source forecast: data/agent_system/reports/macro_forecasts/macro_forecast_2026-06-23_20260624T220914Z.json",
+    "Theme context extracted from macro forecast theme rankings and signals."
+  ],
+  "warnings": []
+}

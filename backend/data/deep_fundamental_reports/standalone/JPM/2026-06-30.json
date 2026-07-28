@@ -1,0 +1,2748 @@
+{
+  "ticker": "JPM",
+  "as_of_date": "2026-06-30",
+  "created_at": "2026-06-30T14:23:09.066196",
+  "input_mode": "standalone",
+  "horizon": "6m",
+  "cycle_id": null,
+  "candidate_id": null,
+  "trade_id": null,
+  "macro_context": null,
+  "theme_context": null,
+  "research_context": {
+    "ticker": "JPM",
+    "as_of_date": "2026-06-30",
+    "created_at": "2026-06-30T14:21:52.359461",
+    "source_coverage": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "earnings_release",
+        "status": "not_found",
+        "source_name": "SEC EDGAR",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "No recent SEC 8-K exhibit confidently classified as earnings release."
+      },
+      {
+        "source_type": "company_ir",
+        "document_purpose": "other",
+        "status": "not_found",
+        "source_name": "Company investor relations",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Automated company IR retrieval not implemented in v1."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-25",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/0000019617-26-000241-index-headers.html",
+        "accession_number": "0000019617-26-000241",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-25",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/0000019617-26-000241-index.html",
+        "accession_number": "0000019617-26-000241",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-25",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/0000019617-26-000241.txt",
+        "accession_number": "0000019617-26-000241",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-25",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/jpm-20260624.htm",
+        "accession_number": "0000019617-26-000241",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-25",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/jpmcpressrelease06252026.htm",
+        "accession_number": "0000019617-26-000241",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "stress_test",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/0001628280-26-045169-index-headers.html",
+        "accession_number": "0001628280-26-045169",
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "stress_test",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/0001628280-26-045169-index.html",
+        "accession_number": "0001628280-26-045169",
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/0001628280-26-045169.txt",
+        "accession_number": "0001628280-26-045169",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "stress_test",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/jpm-20260624.htm",
+        "accession_number": "0001628280-26-045169",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "stress_test",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/0001628280-26-045167-index-headers.html",
+        "accession_number": "0001628280-26-045167",
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "stress_test",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/0001628280-26-045167-index.html",
+        "accession_number": "0001628280-26-045167",
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/0001628280-26-045167.txt",
+        "accession_number": "0001628280-26-045167",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpm-20260624.htm",
+        "accession_number": "0001628280-26-045167",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "stress_test",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-24",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-02",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/0001193125-26-253533-index-headers.html",
+        "accession_number": "0001193125-26-253533",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-02",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/0001193125-26-253533-index.html",
+        "accession_number": "0001193125-26-253533",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-02",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/0001193125-26-253533.txt",
+        "accession_number": "0001193125-26-253533",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-02",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/d113536d8k.htm",
+        "accession_number": "0001193125-26-253533",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-06-02",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/d113536dex51.htm",
+        "accession_number": "0001193125-26-253533",
+        "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/0001193125-26-242018-index-headers.html",
+        "accession_number": "0001193125-26-242018",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/0001193125-26-242018-index.html",
+        "accession_number": "0001193125-26-242018",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/0001193125-26-242018.txt",
+        "accession_number": "0001193125-26-242018",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/d51433d8k.htm",
+        "accession_number": "0001193125-26-242018",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/d51433dex991.htm",
+        "accession_number": "0001193125-26-242018",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-21",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/0000019617-26-000228-index-headers.html",
+        "accession_number": "0000019617-26-000228",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-21",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/0000019617-26-000228-index.html",
+        "accession_number": "0000019617-26-000228",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-21",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/0000019617-26-000228.txt",
+        "accession_number": "0000019617-26-000228",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-21",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/jpm-20260519.htm",
+        "accession_number": "0000019617-26-000228",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "document_purpose": "other",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-07",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526211978/0001193125-26-211978-index-headers.html",
+        "accession_number": "0001193125-26-211978",
+        "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+      },
+      {
+        "source_type": "filing",
+        "document_purpose": "quarterly_filing",
+        "status": "found",
+        "source_name": "SEC EDGAR",
+        "source_date": "2026-05-01",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "notes": "SEC filing form type is 10-Q."
+      },
+      {
+        "source_type": "transcript",
+        "document_purpose": "transcript",
+        "status": "error",
+        "source_name": "FMP earnings transcript",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "FMP transcript retrieval failed: HTTP Error 401: Unauthorized"
+      },
+      {
+        "source_type": "transcript",
+        "document_purpose": "transcript",
+        "status": "error",
+        "source_name": "Finnhub earnings transcript",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Finnhub transcript retrieval failed: HTTP Error 403: Forbidden"
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "error",
+        "source_name": "NewsAPI company news",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-30",
+        "source_url": "https://finnhub.io/api/news?id=8a94fa4e829af1d33aaf2e155e81c81a186824000617ec84b6dc35172cdfe7d3",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-30",
+        "source_url": "https://finnhub.io/api/news?id=f37869294df390c47a6b0e455b8a4716db266b470a38abaef480afbf37c5ce92",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-30",
+        "source_url": "https://finnhub.io/api/news?id=90375ff2ac11117613050562a74026d9e363b9165657a752489ad9832ab212f8",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-30",
+        "source_url": "https://finnhub.io/api/news?id=21fbb7d233b5ef01e47e3f6ffaf620fe01965b4eb89b31cf3f62def8c21e7f97",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-30",
+        "source_url": "https://finnhub.io/api/news?id=36323080414e37512a2f329a9472fd37d1076240621ba22ce863f0b87196ece8",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-29",
+        "source_url": "https://finnhub.io/api/news?id=289ab362e4391d3ef89601eeda341500831aaa2a15925e65eda5993e7c761945",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-29",
+        "source_url": "https://finnhub.io/api/news?id=9ce9979c0c932a2ff5385212eeb53c471231dfd86a3ac873374bcb3702ab185a",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-29",
+        "source_url": "https://finnhub.io/api/news?id=700fdc138ae8cb5988476c67c41e796c7a8385e3b14e65c0816d8cb713123b27",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-29",
+        "source_url": "https://finnhub.io/api/news?id=b14b31a32793181de242f5a3ac8e0508838929548e62ba0d44eaa41355f37bfa",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "news",
+        "document_purpose": "news",
+        "status": "found",
+        "source_name": "Yahoo",
+        "source_date": "2026-06-29",
+        "source_url": "https://finnhub.io/api/news?id=67211c0aae9bd678d26de15cefaf489c72cf1767eb0aa4adfc3d8f82be628cbe",
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "estimate",
+        "document_purpose": "estimate",
+        "status": "found",
+        "source_name": "yfinance",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": null
+      },
+      {
+        "source_type": "peer_commentary",
+        "document_purpose": "peer_commentary",
+        "status": "skipped",
+        "source_name": "Peer commentary",
+        "source_date": null,
+        "source_url": null,
+        "accession_number": null,
+        "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: BAC, C, WFC."
+      }
+    ],
+    "source_coverage_summary": "company_ir:company_ir_not_found=1; earnings_release:sec_not_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:news_found=10; news:newsapi_error=1; other_8k:sec_found=24; peer_commentary:peer_commentary_skipped=1; stress_test:sec_found=6; transcript:finnhub_error=1; transcript:fmp_error=1; extraction_selected=19",
+    "earnings_release_evidence": [],
+    "filing_evidence": [
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase disclosed that Chase will become the new issuer of Apple Card and entered a forward purchase commitment to acquire the Apple credit card portfolio, with closing expected approximately 24 months after December 30, 2025.",
+        "summary": "The 10-Q confirms a planned Apple Card portfolio acquisition and issuer transition to Chase.",
+        "excerpt": "On January 7, 2026, JPMorganChase announced that Chase will become the new issuer of Apple Card. The Firm entered into a forward purchase commitment on December 30, 2025 to acquire the Apple credit card portfolio (the “Apple Card transaction”), with an expected closing date approximately 24 months thereafter.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "consumer_banking",
+          "credit_cards",
+          "strategic_growth",
+          "portfolio_acquisition"
+        ],
+        "related_metrics": [
+          "credit_card_portfolio"
+        ],
+        "evidence_tags": [
+          "Apple_Card",
+          "portfolio_acquisition",
+          "strategic_transaction",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      },
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase reported $4.9 trillion in assets and $364.0 billion in stockholders' equity as of March 31, 2026.",
+        "summary": "The quarterly filing states JPMorganChase's asset and equity base at quarter-end.",
+        "excerpt": "JPMorganChase had $4.9 trillion in assets and $364.0 billion in stockholders’ equity as of March 31, 2026.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "balance_sheet",
+          "capital_base",
+          "firmwide_scale"
+        ],
+        "related_metrics": [
+          "total_assets",
+          "stockholders_equity"
+        ],
+        "evidence_tags": [
+          "balance_sheet",
+          "company_scale",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      },
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "At both March 31, 2026 and December 31, 2025, JPMorganChase's Advanced risk-based capital ratios were more binding than its Standardized risk-based ratios.",
+        "summary": "The filing identifies the binding capital regime for JPMorganChase at quarter-end.",
+        "excerpt": "At each of March 31, 2026 and December 31, 2025, the Advanced risk-based ratios were more binding on the Firm than the Standardized risk-based ratios. Refer to Capital Risk Management on pages 33-40 of this Form 10-Q and pages 89–99 of JPMorganChase’s 2025 Form 10-K for additional information.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.88,
+        "related_topics": [
+          "regulatory_capital",
+          "capital_requirements",
+          "capital_risk_management"
+        ],
+        "related_metrics": [
+          "Advanced risk-based ratios",
+          "Standardized risk-based ratios",
+          "CET1 capital ratio"
+        ],
+        "evidence_tags": [
+          "capital_ratios",
+          "regulatory_capital",
+          "Advanced_approach",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      },
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase organizes management reporting into three reportable business segments: Consumer & Community Banking, Commercial & Investment Bank, and Asset & Wealth Management, with remaining activities in Corporate.",
+        "summary": "The filing defines JPMorganChase's reportable segment structure for investor analysis.",
+        "excerpt": "For management reporting purposes, the Firm has three reportable business segments – Consumer & Community Banking (“CCB”), Commercial & Investment Bank (“CIB”) and Asset & Wealth Management (“AWM”) – with the remaining activities in Corporate. The Firm's consumer business segment is CCB, and the Firm's wholesale business segments are CIB and AWM.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.75,
+        "related_topics": [
+          "business_mix",
+          "segment_reporting",
+          "consumer_banking",
+          "investment_banking",
+          "asset_management"
+        ],
+        "related_metrics": [
+          "business_segment_results"
+        ],
+        "evidence_tags": [
+          "business_segments",
+          "management_reporting",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      },
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase's principal bank subsidiary operates U.S. branches in 48 states and Washington, D.C., and the firm also operates through overseas branches, subsidiaries, representative offices and foreign subsidiary banks.",
+        "summary": "The quarterly filing describes the breadth of JPMorganChase's banking and broker-dealer footprint.",
+        "excerpt": "JPMorganChase’s principal bank subsidiary is JPMorgan Chase Bank, National Association (“JPMorgan Chase Bank, N.A.”), a national banking association with U.S. branches in 48 states and Washington, D.C. JPMorganChase’s principal non-bank subsidiary is J.P. Morgan Securities LLC (“J.P. Morgan Securities”), a U.S. broker-dealer. The bank and non-bank subsidiaries of JPMorganChase operate nationally as well as through overseas branches and subsidiaries, representative offices and subsidiary foreign banks.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.72,
+        "related_topics": [
+          "geographic_exposure",
+          "franchise_footprint",
+          "banking_operations"
+        ],
+        "related_metrics": [
+          "branch_footprint"
+        ],
+        "evidence_tags": [
+          "geographic_footprint",
+          "subsidiaries",
+          "distribution",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      }
+    ],
+    "transcript_evidence": [],
+    "news_evidence": [],
+    "estimate_evidence": [],
+    "peer_commentary_evidence": [],
+    "strategic_transaction_evidence": [],
+    "regulatory_capital_evidence": [],
+    "stress_test_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "JPMorganChase's board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval.",
+        "summary": "Planned dividend increase signals capital-return capacity following stress-capital update.",
+        "excerpt": "JPMorgan Chase & Co. (NYSE: JPM) (“JPMorganChase” or the “Firm”) announced today that its Board of Directors intends to increase the quarterly common stock dividend to $1.65 per share (up from the current $1.50 per share) for the third quarter of 2026. The Firm’s quarterly common stock dividends are subject to approval by the Board of Directors at the customary times that those dividends are declared.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "capital_return",
+          "shareholder_returns",
+          "regulatory_capital"
+        ],
+        "related_metrics": [
+          "quarterly_common_stock_dividend",
+          "dividend_per_share"
+        ],
+        "evidence_tags": [
+          "capital_return",
+          "dividend_increase",
+          "board_authorization",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "JPMorganChase authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion.",
+        "summary": "A large buyback authorization provides flexibility for shareholder capital returns.",
+        "excerpt": "In addition, the Firm’s Board of Directors has authorized a new common share repurchase program of $50 billion, effective July 1, 2026. The authorization to repurchase common shares will be used at management’s discretion, and the amount and timing of common share repurchases under the new authorization will be subject to various factors.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "capital_return",
+          "shareholder_returns",
+          "capital_management"
+        ],
+        "related_metrics": [
+          "share_repurchase_authorization",
+          "common_share_repurchases"
+        ],
+        "evidence_tags": [
+          "capital_return",
+          "share_repurchase",
+          "buyback_authorization",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "The Federal Reserve's February 2026 announcement left JPMorganChase's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+        "summary": "SCB stability reduces near-term uncertainty around regulatory capital requirements.",
+        "excerpt": "Following the Federal Reserve’s announcement in February 2026, the Firm’s current Stress Capital Buffer (“SCB”) requirement of 2.5% will remain unchanged through September 30, 2027, with new requirements to be calculated in 2027 based on revised supervisory stress testing models that incorporate public feedback.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "regulatory_capital",
+          "stress_test",
+          "capital_requirements"
+        ],
+        "related_metrics": [
+          "Stress Capital Buffer",
+          "SCB"
+        ],
+        "evidence_tags": [
+          "SCB",
+          "regulatory_capital",
+          "stress_capital_buffer",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "JPMorganChase disclosed that its current standardized CET1 capital ratio requirement, including regulatory buffers, remains 11.5%.",
+        "summary": "The filing states the applicable standardized CET1 requirement including buffers.",
+        "excerpt": "As a result, the Firm’s current Standardized Common Equity Tier 1 (“CET1”) capital ratio requirement including regulatory buffers continues to be 11.5%.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.94,
+        "related_topics": [
+          "regulatory_capital",
+          "capital_requirements",
+          "stress_test"
+        ],
+        "related_metrics": [
+          "Standardized CET1 capital ratio requirement",
+          "CET1"
+        ],
+        "evidence_tags": [
+          "CET1",
+          "regulatory_capital",
+          "capital_requirement",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "Management attributed the dividend increase and repurchase authorization to excess capital, liquidity, strong financial performance, and flexibility to enhance shareholder value, while acknowledging a complex risk environment.",
+        "summary": "CEO commentary is constructive on capital strength but flags elevated complexity of risks.",
+        "excerpt": "Jamie Dimon, Chairman and CEO of JPMorganChase said: “Our fortress balance sheet, with significant excess capital and robust liquidity, enables us to be a pillar of strength, allowing us to consistently serve our clients and communities. The current environment reflects an increasingly complex set of risks. As always, we are prepared for a wide range of scenarios, including the hypothetical 2026 supervisory severely adverse scenario. We continue to serve our clients and communities and invest in products, people, and technology that foster organic growth and promote proper management of our capital. The Board’s intended dividend increase is supported by our consistent investment in our business and strong financial performance. The new share repurchase program provides us with the flexibility to deploy capital in ways that enhance shareholder value over time.”",
+        "polarity": "mixed",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "management_tone",
+          "capital_return",
+          "risk_environment",
+          "organic_growth"
+        ],
+        "related_metrics": [
+          "excess_capital",
+          "liquidity",
+          "dividend",
+          "share_repurchases"
+        ],
+        "evidence_tags": [
+          "management_commentary",
+          "capital_management",
+          "risk_commentary",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "JPMorganChase reported $4.9 trillion in assets and $364 billion in stockholders' equity as of March 31, 2026.",
+        "summary": "The release provides firmwide balance-sheet scale as of quarter-end March 2026.",
+        "excerpt": "JPMorganChase had $4.9 trillion in assets and $364 billion in stockholders’ equity as of March 31, 2026.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.78,
+        "related_topics": [
+          "balance_sheet",
+          "capital_base"
+        ],
+        "related_metrics": [
+          "total_assets",
+          "stockholders_equity"
+        ],
+        "evidence_tags": [
+          "balance_sheet",
+          "company_scale",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase's 2026 DFAST disclosure covers forecasted measures for the nine-quarter 1Q26 through 1Q28 projection period under the Federal Reserve's Supervisory Severely Adverse Scenario, and the results are hypothetical rather than JPMorganChase forecasts.",
+        "summary": "Important framing: DFAST results are scenario-based and not management's expected forecast.",
+        "excerpt": "The results reflect certain forecasted financial measures for the nine-quarter projection period (1Q26 through 1Q28) under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve. The stress test has been conducted in accordance with the regulations and other requirements of the Federal Reserve. The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (“RWA”), or capital ratios.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "stress_test",
+          "DFAST",
+          "regulatory_capital"
+        ],
+        "related_metrics": [
+          "PPNR",
+          "net_income_before_taxes",
+          "RWA",
+          "capital_ratios"
+        ],
+        "evidence_tags": [
+          "DFAST",
+          "stress_test",
+          "hypothetical_results",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase disclosed that Federal Reserve SCB requirements for large banks, including JPMorganChase, will stay at current levels through September 30, 2027, with revised-model requirements calculated in 2027.",
+        "summary": "The DFAST disclosure reiterates no new SCB calculation until 2027 under revised models.",
+        "excerpt": "In February 2026, the Federal Reserve announced that the Stress Capital Buffer (“SCB”) requirements for large banks, including JPMorganChase, will remain at current levels through September 30, 2027 with new requirements to be calculated in 2027 based on revised supervisory models that incorporate public feedback. This report does not include any further information on the Firm’s 2026 SCB requirement.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.91,
+        "related_topics": [
+          "capital_requirements",
+          "regulatory_capital",
+          "stress_test"
+        ],
+        "related_metrics": [
+          "Stress Capital Buffer",
+          "SCB"
+        ],
+        "evidence_tags": [
+          "SCB",
+          "regulatory_capital",
+          "Federal_Reserve",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "The DFAST capital-action assumptions exclude common dividends, capital instrument redemptions or repurchases, and common or preferred stock issuances during the projection period.",
+        "summary": "Standardized DFAST capital assumptions constrain capital actions for stress-test modeling purposes.",
+        "excerpt": "JPMorganChase's results reflect the standardized set of capital action assumptions that are specified in the Federal Reserve's DFAST Rule1 for each quarter of the projection period, as follows: ⚫ No dividends on any instruments that qualify as common equity tier 1 capital (“CET1”); ⚫ Payments on instruments that qualify as additional tier 1 capital or tier 2 capital equal to the stated dividend, interest, or principal due on such instrument; ⚫ No redemption or repurchase of any capital instrument that is eligible for inclusion in the numerator of a regulatory capital ratio; and ⚫ No issuances of common stock or preferred stock",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.86,
+        "related_topics": [
+          "stress_test_methodology",
+          "capital_actions",
+          "regulatory_capital"
+        ],
+        "related_metrics": [
+          "CET1",
+          "Tier 1 capital",
+          "Tier 2 capital"
+        ],
+        "evidence_tags": [
+          "DFAST_assumptions",
+          "capital_actions",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "Management states that maintaining a strong balance sheet through economic volatility is a strategic imperative for the board, CEO, and operating committee.",
+        "summary": "The filing emphasizes capital strength as central to strategy and competitive position.",
+        "excerpt": "A strong capital position is essential to the Firm's business strategy and competitive position. Maintaining a strong balance sheet to manage through economic volatility is a strategic imperative of the Firm’s Board of Directors, Chief Executive Officer and Operating Committee.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.82,
+        "related_topics": [
+          "capital_management",
+          "risk_management",
+          "balance_sheet_strength"
+        ],
+        "related_metrics": [
+          "capital_position"
+        ],
+        "evidence_tags": [
+          "capital_strategy",
+          "balance_sheet",
+          "risk_management",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "The 2026 severely adverse scenario assumes a severe global recession, including U.S. unemployment peaking at 10.0%, a 58% stock-market decline, a 30% house-price decline, and a 39% CRE-price decline.",
+        "summary": "Scenario assumptions provide context for evaluating JPMorganChase's stressed capital and loss projections.",
+        "excerpt": "The Supervisory Severely Adverse Scenario assumes the following stress to key economic variables over a nine-quarter planning horizon: KEY ECONOMIC VARIABLES IN THE SUPERVISORY SEVERELY ADVERSE SCENARIO ⚫ The Firm is also tested against the following add-on components to the 2026 Supervisory Severely Adverse Scenario: ⚫ Global market shock – set of hypothetical shocks to a large set of risk factors which stress trading and certain other fair-valued positions ⚫ Counterparty default – the unexpected default of the Firm’s largest counterparty determined by net stressed losses across derivatives and securities financing transactions ADDITIONAL COMPONENTS1 Key economic variables U.S. real GDP - 4Q25 to trough (4.6%) U.S. unemployment rate - peak 10.0% 3-month Treasury yield - trough 0.1% 10-year Treasury yield - trough 2.3% BBB spreads - 4Q25 to peak 4.7% Stock market index - 4Q25 to trough (58%) House price index - 4Q25 to trough (30%) CRE price index - 4Q25 to trough (39%)",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.89,
+        "related_topics": [
+          "stress_test",
+          "macroeconomic_risk",
+          "market_risk",
+          "credit_risk"
+        ],
+        "related_metrics": [
+          "U.S. unemployment rate",
+          "U.S. real GDP",
+          "stock market index",
+          "house price index",
+          "CRE price index",
+          "BBB spreads"
+        ],
+        "evidence_tags": [
+          "stress_scenario",
+          "macroeconomic_assumptions",
+          "credit_risk",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "Under the severely adverse scenario, JPMorganChase projects its CET1 ratio falling from an actual 14.6% in 4Q25 to a projected minimum of 12.4%, with supplementary leverage ratio minimum of 5.3%.",
+        "summary": "Stressed capital ratios show projected capital drawdown under the severe scenario.",
+        "excerpt": "Actual 4Q25 Projected 1Q28 Projected Minimum2 Common equity tier 1 capital ratio (%) 14.6% 14.4% 12.4% Tier 1 risk-based capital ratio (%) 15.5% 15.3% 13.3% Total risk-based capital ratio (%) 17.4% 17.5% 15.3% Tier 1 leverage ratio (%) 6.9% 6.9% 6.2% Supplementary leverage ratio (%) 5.8% 5.8% 5.3% Stressed capital ratios",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.98,
+        "related_topics": [
+          "regulatory_capital",
+          "stress_test_results",
+          "capital_resilience"
+        ],
+        "related_metrics": [
+          "CET1 ratio",
+          "Tier 1 risk-based capital ratio",
+          "Total risk-based capital ratio",
+          "Tier 1 leverage ratio",
+          "Supplementary leverage ratio"
+        ],
+        "evidence_tags": [
+          "CET1",
+          "stressed_capital_ratios",
+          "SLR",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase projects Basel III Standardized RWA rising from $1.982 trillion in 4Q25 to $2.089 trillion by 1Q28 under the severely adverse scenario.",
+        "summary": "RWA expansion is a key driver of stressed capital ratios.",
+        "excerpt": "Actual 4Q25 Projected 1Q28 Basel III Standardized RWA ($B) $1,982 $2,089",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "regulatory_capital",
+          "RWA",
+          "stress_test_results"
+        ],
+        "related_metrics": [
+          "Basel III Standardized RWA",
+          "risk-weighted assets"
+        ],
+        "evidence_tags": [
+          "RWA",
+          "capital_projection",
+          "Basel_III",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase projects $135.9 billion of nine-quarter cumulative PPNR and $11.4 billion of net income before taxes under the severely adverse scenario, after $95.6 billion of provisions for credit losses and $10.9 billion of trading and counterparty losses.",
+        "summary": "Stress-test P&L shows positive pretax income despite large projected provisions and trading/counterparty losses.",
+        "excerpt": "9-QUARTER CUMULATIVE PROJECTED PPNR, LOSSES, NET INCOME BEFORE TAXES, AND OTHER COMPREHENSIVE INCOME (1Q26 – 1Q28) See notes 1-9 on slide 12 Billions of dollars Pre-provision net revenue $135.9 2.9 % equals Net interest income 235.2 5.1 Noninterest income2 136.2 2.9 less Noninterest expense3 235.5 5.1 Other revenue4 0.0 less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+        "polarity": "mixed",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "stress_test_results",
+          "earnings_resilience",
+          "credit_losses",
+          "market_risk"
+        ],
+        "related_metrics": [
+          "PPNR",
+          "net_interest_income",
+          "noninterest_income",
+          "noninterest_expense",
+          "provision_for_credit_losses",
+          "trading_and_counterparty_losses",
+          "net_income_before_taxes"
+        ],
+        "evidence_tags": [
+          "PPNR",
+          "provision_for_credit_losses",
+          "trading_losses",
+          "stress_test_results",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase projects total nine-quarter cumulative loan losses of $70.2 billion, equal to a 5.0% portfolio loss rate, under the severely adverse scenario.",
+        "summary": "The severe scenario entails substantial cumulative loan losses across the loan portfolio.",
+        "excerpt": "9-QUARTER CUMULATIVE PROJECTED LOAN LOSSES, BY TYPE OF LOAN (1Q26 – 1Q28) $1.4 0.5 % 0.1 1.1 27.1 12.1 6.9 4.5 26.2 12.8 1.3 1.8 7.2 1.6 $70.2 5.0 % Credit cards Loan type First lien mortgages, domestic Junior liens and home equity lines of credit, domestic Commercial & industrial2 Billions of dollars Portfolio loss rates1 (%) Other consumer3 Other4 Total projected loan losses Commercial real estate, domestic",
+        "polarity": "challenges",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "credit_risk",
+          "stress_test_results",
+          "loan_portfolio"
+        ],
+        "related_metrics": [
+          "projected_loan_losses",
+          "portfolio_loss_rate"
+        ],
+        "evidence_tags": [
+          "loan_losses",
+          "credit_risk",
+          "stress_test_results",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "The supplied text preserves the table imperfectly, but the total projected loan losses and total portfolio loss rate are visible."
+      }
+    ],
+    "investor_presentation_evidence": [],
+    "other_sec_8k_evidence": [],
+    "management_guidance": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase's 2026 DFAST disclosure covers forecasted measures for the nine-quarter 1Q26 through 1Q28 projection period under the Federal Reserve's Supervisory Severely Adverse Scenario, and the results are hypothetical rather than JPMorganChase forecasts.",
+        "summary": "Important framing: DFAST results are scenario-based and not management's expected forecast.",
+        "excerpt": "The results reflect certain forecasted financial measures for the nine-quarter projection period (1Q26 through 1Q28) under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve. The stress test has been conducted in accordance with the regulations and other requirements of the Federal Reserve. The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (“RWA”), or capital ratios.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "stress_test",
+          "DFAST",
+          "regulatory_capital"
+        ],
+        "related_metrics": [
+          "PPNR",
+          "net_income_before_taxes",
+          "RWA",
+          "capital_ratios"
+        ],
+        "evidence_tags": [
+          "DFAST",
+          "stress_test",
+          "hypothetical_results",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      }
+    ],
+    "segment_kpis": [
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase organizes management reporting into three reportable business segments: Consumer & Community Banking, Commercial & Investment Bank, and Asset & Wealth Management, with remaining activities in Corporate.",
+        "summary": "The filing defines JPMorganChase's reportable segment structure for investor analysis.",
+        "excerpt": "For management reporting purposes, the Firm has three reportable business segments – Consumer & Community Banking (“CCB”), Commercial & Investment Bank (“CIB”) and Asset & Wealth Management (“AWM”) – with the remaining activities in Corporate. The Firm's consumer business segment is CCB, and the Firm's wholesale business segments are CIB and AWM.",
+        "polarity": "neutral",
+        "confidence": "high",
+        "relevance_score": 0.75,
+        "related_topics": [
+          "business_mix",
+          "segment_reporting",
+          "consumer_banking",
+          "investment_banking",
+          "asset_management"
+        ],
+        "related_metrics": [
+          "business_segment_results"
+        ],
+        "evidence_tags": [
+          "business_segments",
+          "management_reporting",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      }
+    ],
+    "consensus_narrative": [],
+    "bullish_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "JPMorganChase's board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval.",
+        "summary": "Planned dividend increase signals capital-return capacity following stress-capital update.",
+        "excerpt": "JPMorgan Chase & Co. (NYSE: JPM) (“JPMorganChase” or the “Firm”) announced today that its Board of Directors intends to increase the quarterly common stock dividend to $1.65 per share (up from the current $1.50 per share) for the third quarter of 2026. The Firm’s quarterly common stock dividends are subject to approval by the Board of Directors at the customary times that those dividends are declared.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.96,
+        "related_topics": [
+          "capital_return",
+          "shareholder_returns",
+          "regulatory_capital"
+        ],
+        "related_metrics": [
+          "quarterly_common_stock_dividend",
+          "dividend_per_share"
+        ],
+        "evidence_tags": [
+          "capital_return",
+          "dividend_increase",
+          "board_authorization",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "JPMorganChase authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion.",
+        "summary": "A large buyback authorization provides flexibility for shareholder capital returns.",
+        "excerpt": "In addition, the Firm’s Board of Directors has authorized a new common share repurchase program of $50 billion, effective July 1, 2026. The authorization to repurchase common shares will be used at management’s discretion, and the amount and timing of common share repurchases under the new authorization will be subject to various factors.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "capital_return",
+          "shareholder_returns",
+          "capital_management"
+        ],
+        "related_metrics": [
+          "share_repurchase_authorization",
+          "common_share_repurchases"
+        ],
+        "evidence_tags": [
+          "capital_return",
+          "share_repurchase",
+          "buyback_authorization",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "The Federal Reserve's February 2026 announcement left JPMorganChase's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+        "summary": "SCB stability reduces near-term uncertainty around regulatory capital requirements.",
+        "excerpt": "Following the Federal Reserve’s announcement in February 2026, the Firm’s current Stress Capital Buffer (“SCB”) requirement of 2.5% will remain unchanged through September 30, 2027, with new requirements to be calculated in 2027 based on revised supervisory stress testing models that incorporate public feedback.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.95,
+        "related_topics": [
+          "regulatory_capital",
+          "stress_test",
+          "capital_requirements"
+        ],
+        "related_metrics": [
+          "Stress Capital Buffer",
+          "SCB"
+        ],
+        "evidence_tags": [
+          "SCB",
+          "regulatory_capital",
+          "stress_capital_buffer",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "Management states that maintaining a strong balance sheet through economic volatility is a strategic imperative for the board, CEO, and operating committee.",
+        "summary": "The filing emphasizes capital strength as central to strategy and competitive position.",
+        "excerpt": "A strong capital position is essential to the Firm's business strategy and competitive position. Maintaining a strong balance sheet to manage through economic volatility is a strategic imperative of the Firm’s Board of Directors, Chief Executive Officer and Operating Committee.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.82,
+        "related_topics": [
+          "capital_management",
+          "risk_management",
+          "balance_sheet_strength"
+        ],
+        "related_metrics": [
+          "capital_position"
+        ],
+        "evidence_tags": [
+          "capital_strategy",
+          "balance_sheet",
+          "risk_management",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "Under the severely adverse scenario, JPMorganChase projects its CET1 ratio falling from an actual 14.6% in 4Q25 to a projected minimum of 12.4%, with supplementary leverage ratio minimum of 5.3%.",
+        "summary": "Stressed capital ratios show projected capital drawdown under the severe scenario.",
+        "excerpt": "Actual 4Q25 Projected 1Q28 Projected Minimum2 Common equity tier 1 capital ratio (%) 14.6% 14.4% 12.4% Tier 1 risk-based capital ratio (%) 15.5% 15.3% 13.3% Total risk-based capital ratio (%) 17.4% 17.5% 15.3% Tier 1 leverage ratio (%) 6.9% 6.9% 6.2% Supplementary leverage ratio (%) 5.8% 5.8% 5.3% Stressed capital ratios",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.98,
+        "related_topics": [
+          "regulatory_capital",
+          "stress_test_results",
+          "capital_resilience"
+        ],
+        "related_metrics": [
+          "CET1 ratio",
+          "Tier 1 risk-based capital ratio",
+          "Total risk-based capital ratio",
+          "Tier 1 leverage ratio",
+          "Supplementary leverage ratio"
+        ],
+        "evidence_tags": [
+          "CET1",
+          "stressed_capital_ratios",
+          "SLR",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "filing",
+        "ticker": "JPM",
+        "document_purpose": "quarterly_filing",
+        "source_date": "2026-05-01",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+        "accession_number": "0001628280-26-029344",
+        "form_type": "10-Q",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase disclosed that Chase will become the new issuer of Apple Card and entered a forward purchase commitment to acquire the Apple credit card portfolio, with closing expected approximately 24 months after December 30, 2025.",
+        "summary": "The 10-Q confirms a planned Apple Card portfolio acquisition and issuer transition to Chase.",
+        "excerpt": "On January 7, 2026, JPMorganChase announced that Chase will become the new issuer of Apple Card. The Firm entered into a forward purchase commitment on December 30, 2025 to acquire the Apple credit card portfolio (the “Apple Card transaction”), with an expected closing date approximately 24 months thereafter.",
+        "polarity": "supports",
+        "confidence": "high",
+        "relevance_score": 0.92,
+        "related_topics": [
+          "consumer_banking",
+          "credit_cards",
+          "strategic_growth",
+          "portfolio_acquisition"
+        ],
+        "related_metrics": [
+          "credit_card_portfolio"
+        ],
+        "evidence_tags": [
+          "Apple_Card",
+          "portfolio_acquisition",
+          "strategic_transaction",
+          "document_purpose:quarterly_filing",
+          "classification_confidence:high"
+        ],
+        "notes": "SEC filing form type is 10-Q."
+      }
+    ],
+    "bearish_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase projects total nine-quarter cumulative loan losses of $70.2 billion, equal to a 5.0% portfolio loss rate, under the severely adverse scenario.",
+        "summary": "The severe scenario entails substantial cumulative loan losses across the loan portfolio.",
+        "excerpt": "9-QUARTER CUMULATIVE PROJECTED LOAN LOSSES, BY TYPE OF LOAN (1Q26 – 1Q28) $1.4 0.5 % 0.1 1.1 27.1 12.1 6.9 4.5 26.2 12.8 1.3 1.8 7.2 1.6 $70.2 5.0 % Credit cards Loan type First lien mortgages, domestic Junior liens and home equity lines of credit, domestic Commercial & industrial2 Billions of dollars Portfolio loss rates1 (%) Other consumer3 Other4 Total projected loan losses Commercial real estate, domestic",
+        "polarity": "challenges",
+        "confidence": "high",
+        "relevance_score": 0.93,
+        "related_topics": [
+          "credit_risk",
+          "stress_test_results",
+          "loan_portfolio"
+        ],
+        "related_metrics": [
+          "projected_loan_losses",
+          "portfolio_loss_rate"
+        ],
+        "evidence_tags": [
+          "loan_losses",
+          "credit_risk",
+          "stress_test_results",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "The supplied text preserves the table imperfectly, but the total projected loan losses and total portfolio loss rate are visible."
+      }
+    ],
+    "mixed_evidence": [
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+        "accession_number": "0001628280-26-045167",
+        "form_type": "8-K",
+        "exhibit_type": "99.1",
+        "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+        "claim": "Management attributed the dividend increase and repurchase authorization to excess capital, liquidity, strong financial performance, and flexibility to enhance shareholder value, while acknowledging a complex risk environment.",
+        "summary": "CEO commentary is constructive on capital strength but flags elevated complexity of risks.",
+        "excerpt": "Jamie Dimon, Chairman and CEO of JPMorganChase said: “Our fortress balance sheet, with significant excess capital and robust liquidity, enables us to be a pillar of strength, allowing us to consistently serve our clients and communities. The current environment reflects an increasingly complex set of risks. As always, we are prepared for a wide range of scenarios, including the hypothetical 2026 supervisory severely adverse scenario. We continue to serve our clients and communities and invest in products, people, and technology that foster organic growth and promote proper management of our capital. The Board’s intended dividend increase is supported by our consistent investment in our business and strong financial performance. The new share repurchase program provides us with the flexibility to deploy capital in ways that enhance shareholder value over time.”",
+        "polarity": "mixed",
+        "confidence": "high",
+        "relevance_score": 0.9,
+        "related_topics": [
+          "management_tone",
+          "capital_return",
+          "risk_environment",
+          "organic_growth"
+        ],
+        "related_metrics": [
+          "excess_capital",
+          "liquidity",
+          "dividend",
+          "share_repurchases"
+        ],
+        "evidence_tags": [
+          "management_commentary",
+          "capital_management",
+          "risk_commentary",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      },
+      {
+        "source_type": "sec_8k_exhibit",
+        "ticker": "JPM",
+        "document_purpose": "stress_test",
+        "source_date": "2026-06-24",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+        "accession_number": "0001628280-26-045169",
+        "form_type": "8-K",
+        "exhibit_type": null,
+        "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+        "claim": "JPMorganChase projects $135.9 billion of nine-quarter cumulative PPNR and $11.4 billion of net income before taxes under the severely adverse scenario, after $95.6 billion of provisions for credit losses and $10.9 billion of trading and counterparty losses.",
+        "summary": "Stress-test P&L shows positive pretax income despite large projected provisions and trading/counterparty losses.",
+        "excerpt": "9-QUARTER CUMULATIVE PROJECTED PPNR, LOSSES, NET INCOME BEFORE TAXES, AND OTHER COMPREHENSIVE INCOME (1Q26 – 1Q28) See notes 1-9 on slide 12 Billions of dollars Pre-provision net revenue $135.9 2.9 % equals Net interest income 235.2 5.1 Noninterest income2 136.2 2.9 less Noninterest expense3 235.5 5.1 Other revenue4 0.0 less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+        "polarity": "mixed",
+        "confidence": "high",
+        "relevance_score": 0.97,
+        "related_topics": [
+          "stress_test_results",
+          "earnings_resilience",
+          "credit_losses",
+          "market_risk"
+        ],
+        "related_metrics": [
+          "PPNR",
+          "net_interest_income",
+          "noninterest_income",
+          "noninterest_expense",
+          "provision_for_credit_losses",
+          "trading_and_counterparty_losses",
+          "net_income_before_taxes"
+        ],
+        "evidence_tags": [
+          "PPNR",
+          "provision_for_credit_losses",
+          "trading_losses",
+          "stress_test_results",
+          "document_purpose:stress_test",
+          "classification_confidence:high"
+        ],
+        "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+      }
+    ],
+    "unresolved_questions": [
+      "The 1Q26 Form 10-Q source text provided is truncated and does not include many underlying numerical financial-highlight table values, limiting extraction from that filing to facts visible in the supplied text."
+    ],
+    "data_gaps": [
+      "Earnings release not confidently retrieved via SEC 8-K exhibit.",
+      "Peer commentary retrieval skipped or unavailable in v1.",
+      "The 1Q26 Form 10-Q source text provided is truncated and does not include many underlying numerical financial-highlight table values, limiting extraction from that filing to facts visible in the supplied text."
+    ],
+    "warnings": [
+      "Dropped 23 duplicate or lower-quality source documents before evidence extraction.",
+      "Some source text appears table-extracted or truncated; evidence items avoid facts not visible in the supplied text."
+    ],
+    "raw_source_count": 48,
+    "evidence_item_count": 20
+  },
+  "user_supplied_thesis": null,
+  "basic_screen_result": null,
+  "fundamental_context": {
+    "ticker": "JPM",
+    "as_of_date": "2026-06-30",
+    "financial_trend": {
+      "latest": {
+        "revenue": 186941000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": null,
+        "operating_margin": null,
+        "ebitda_margin": null,
+        "net_margin": 0.3150673207054632,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "total_debt": 516812000000.0,
+        "cash_and_equivalents": 312142000000.0,
+        "net_debt": 204670000000.0,
+        "net_debt_to_ebitda": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "return_on_invested_capital": null
+      },
+      "prior_year": {
+        "revenue": 169439000000.0,
+        "revenue_growth_yoy": null,
+        "gross_margin": null,
+        "operating_margin": null,
+        "ebitda_margin": null,
+        "net_margin": 0.34508584210246757,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "total_debt": 454311000000.0,
+        "cash_and_equivalents": 469317000000.0,
+        "net_debt": -15006000000.0,
+        "net_debt_to_ebitda": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "return_on_invested_capital": null
+      },
+      "revenue_growth_direction": "improving",
+      "margin_direction": "unknown",
+      "fcf_direction": "unknown",
+      "leverage_direction": "unknown",
+      "notes": [
+        "financial_trend.latest is derived from trailing four quarters.",
+        "financial_trend.prior_year uses prior fiscal year because previous trailing four-quarter window is unavailable.",
+        "Latest quarter annualized revenue is +6.6% versus trailing four-quarter revenue."
+      ]
+    },
+    "quarterly_financial_trend": {
+      "latest_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-0",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 49833000000.0,
+        "revenue_growth_yoy": 0.09941094711761202,
+        "revenue_growth_qoq": 0.08815180365097389,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 16494000000.0,
+        "net_margin": 0.33098549154174944,
+        "operating_cash_flow": -211761000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 516812000000.0,
+        "cash_and_equivalents": 312142000000.0,
+        "net_debt": 204670000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "prior_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-1",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 45796000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": -0.01365496446263192,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 13025000000.0,
+        "net_margin": 0.28441348589396453,
+        "operating_cash_flow": 119724000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 499982000000.0,
+        "cash_and_equivalents": 343338000000.0,
+        "net_debt": 156644000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "year_ago_quarter": {
+        "period_type": "quarter",
+        "fiscal_period": "Q-4",
+        "period_end_date": "2025-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 45327000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 14643000000.0,
+        "net_margin": 0.3230524852736779,
+        "operating_cash_flow": -251839000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 472204000000.0,
+        "cash_and_equivalents": 425903000000.0,
+        "net_debt": 46301000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "trailing_four_quarters": {
+        "period_type": "ltm",
+        "fiscal_period": "trailing_four_quarters",
+        "period_end_date": "2026-03-31",
+        "filing_date": null,
+        "source": "yfinance_quarterly",
+        "revenue": 186941000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 58899000000.0,
+        "net_margin": 0.3150673207054632,
+        "operating_cash_flow": -107704000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 516812000000.0,
+        "cash_and_equivalents": 312142000000.0,
+        "net_debt": 204670000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "trailing_eight_quarters": [
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-0",
+          "period_end_date": "2026-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 49833000000.0,
+          "revenue_growth_yoy": 0.09941094711761202,
+          "revenue_growth_qoq": 0.08815180365097389,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 16494000000.0,
+          "net_margin": 0.33098549154174944,
+          "operating_cash_flow": -211761000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 516812000000.0,
+          "cash_and_equivalents": 312142000000.0,
+          "net_debt": 204670000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-1",
+          "period_end_date": "2025-12-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 45796000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.01365496446263192,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 13025000000.0,
+          "net_margin": 0.28441348589396453,
+          "operating_cash_flow": 119724000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 499982000000.0,
+          "cash_and_equivalents": 343338000000.0,
+          "net_debt": 156644000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-2",
+          "period_end_date": "2025-09-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 46430000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": 0.034490441602424135,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 14393000000.0,
+          "net_margin": 0.3099935386603489,
+          "operating_cash_flow": -45214000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 496558000000.0,
+          "cash_and_equivalents": 303436000000.0,
+          "net_debt": 193122000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-3",
+          "period_end_date": "2025-06-30",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 44882000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": -0.009817548039799678,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 14987000000.0,
+          "net_margin": 0.3339200570384564,
+          "operating_cash_flow": 29547000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 485095000000.0,
+          "cash_and_equivalents": 420327000000.0,
+          "net_debt": 64768000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        },
+        {
+          "period_type": "quarter",
+          "fiscal_period": "Q-4",
+          "period_end_date": "2025-03-31",
+          "filing_date": null,
+          "source": "yfinance_quarterly",
+          "revenue": 45327000000.0,
+          "revenue_growth_yoy": null,
+          "revenue_growth_qoq": null,
+          "gross_profit": null,
+          "gross_margin": null,
+          "operating_income": null,
+          "operating_margin": null,
+          "ebitda": null,
+          "ebitda_margin": null,
+          "net_income": 14643000000.0,
+          "net_margin": 0.3230524852736779,
+          "operating_cash_flow": -251839000000.0,
+          "free_cash_flow": null,
+          "free_cash_flow_margin": null,
+          "capex": null,
+          "capex_as_pct_revenue": null,
+          "total_debt": 472204000000.0,
+          "cash_and_equivalents": 425903000000.0,
+          "net_debt": 46301000000.0,
+          "net_debt_to_ebitda": null,
+          "return_on_invested_capital": null
+        }
+      ],
+      "last_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "last_fiscal_year",
+        "period_end_date": "2025-12-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 181847000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 57048000000.0,
+        "net_margin": 0.3137142762872085,
+        "operating_cash_flow": -147782000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 499982000000.0,
+        "cash_and_equivalents": 343338000000.0,
+        "net_debt": 156644000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "prior_fiscal_year": {
+        "period_type": "fiscal_year",
+        "fiscal_period": "prior_fiscal_year",
+        "period_end_date": "2024-12-31",
+        "filing_date": null,
+        "source": "yfinance_annual",
+        "revenue": 169439000000.0,
+        "revenue_growth_yoy": null,
+        "revenue_growth_qoq": null,
+        "gross_profit": null,
+        "gross_margin": null,
+        "operating_income": null,
+        "operating_margin": null,
+        "ebitda": null,
+        "ebitda_margin": null,
+        "net_income": 58471000000.0,
+        "net_margin": 0.34508584210246757,
+        "operating_cash_flow": -42012000000.0,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "capex": null,
+        "capex_as_pct_revenue": null,
+        "total_debt": 454311000000.0,
+        "cash_and_equivalents": 469317000000.0,
+        "net_debt": -15006000000.0,
+        "net_debt_to_ebitda": null,
+        "return_on_invested_capital": null
+      },
+      "revenue_trend_8q": "improving",
+      "gross_margin_trend_8q": "unknown",
+      "operating_margin_trend_8q": "unknown",
+      "fcf_trend_8q": "unknown",
+      "leverage_trend_8q": "unknown",
+      "latest_quarter_vs_ltm_notes": [
+        "Latest quarter annualized revenue is +6.6% versus trailing four-quarter revenue."
+      ],
+      "inflection_flags": [
+        "latest_quarter_revenue_accelerating_yoy"
+      ],
+      "staleness_warnings": [],
+      "latest_period_end_date": "2026-03-31",
+      "latest_filing_date": null,
+      "financial_context_stale": false
+    },
+    "price_snapshot": {
+      "current_price": 329.02,
+      "market_cap": 881612750848.0,
+      "return_1m": 0.09926160735496987,
+      "return_3m": 0.1653938989734338,
+      "return_6m": 0.013069239833978577,
+      "return_1y": 0.15697548887465682,
+      "drawdown_from_52w_high": -0.018202420643550148,
+      "distance_from_52w_low": 0.18046048057439953,
+      "beta": 1.0
+    },
+    "valuation_snapshot": {
+      "trailing_pe": 15.757663,
+      "forward_pe": 13.957636,
+      "ev_to_ebitda": null,
+      "price_to_sales": 5.079614,
+      "price_to_book": 2.5628803,
+      "valuation_notes": []
+    },
+    "peer_relative_snapshot": {
+      "peer_tickers": [
+        "BAC",
+        "C",
+        "WFC",
+        "GS",
+        "MS",
+        "USB",
+        "PNC",
+        "SCHW"
+      ],
+      "relative_return_3m": "underperforming peer median by -5.7%",
+      "relative_return_6m": "underperforming peer median by -12.6%",
+      "relative_valuation": "valuation multiple more expensive versus peer median (13.96 vs 11.46)",
+      "relative_margin_profile": "margin profile above peers versus peer median (0.44 vs 0.37)",
+      "relative_growth_profile": "revenue growth below peers versus peer median (0.13 vs 0.14)",
+      "notes": []
+    },
+    "basic_screen_result": null,
+    "data_confidence": "high",
+    "missing_fields": [
+      "valuation.ev_to_ebitda"
+    ],
+    "source_notes": [
+      "Financial context sourced from yfinance.",
+      "Financial trend is derived from quarterly financial statements through period ending 2026-03-31."
+    ],
+    "data_freshness_notes": [
+      "Latest financial period end date: 2026-03-31."
+    ]
+  },
+  "llm_synthesis": {
+    "ticker": "JPM",
+    "business_summary": "JPMorgan Chase & Co. is a global money-center bank and diversified financial services holding company. Its earnings are driven by net interest income from loans and securities funded by deposits and wholesale liabilities, fee income from payments, cards, treasury services, wealth and asset management, and capital-markets revenue from investment banking and trading. The company is exposed to U.S. consumer health, corporate credit demand, capital-markets activity, interest rates, deposit beta, regulatory capital requirements, and credit losses across consumer, commercial, card, and commercial real estate portfolios.",
+    "business_quality_assessment": "Business quality appears high. JPM has a scaled, diversified universal-bank model with multiple earnings streams: net interest income, consumer/card lending, payments, investment banking, markets, securities services, and asset/wealth management. The supplied research context supports balance-sheet scale, with $4.9 trillion in assets and $364.0 billion of stockholders' equity as of March 31, 2026. The business has strong competitive advantages from scale, brand, funding access, breadth of client relationships, and regulatory-capital depth. Key quality offsets are inherent cyclicality, high regulatory intensity, credit-cycle exposure, and the complexity of managing one of the largest global banking platforms.",
+    "financial_trend_diagnosis": "The latest quarterly data should dominate the current diagnosis. For the quarter ended March 31, 2026, revenue was $49.833 billion, up 8.8% quarter over quarter and 9.9% year over year, with an inflection flag for accelerating year-over-year revenue. Latest-quarter net income was $16.494 billion and net margin was 33.1%, a sharp improvement from the prior quarter's 28.4% and above the trailing-four-quarter margin of 31.5%. LTM revenue of $186.941 billion also exceeds last fiscal year's $181.847 billion, and LTM net income of $58.899 billion exceeds last fiscal year's $57.048 billion. This points to improving revenue and profitability momentum. Caution: yfinance bank cash-flow and net-debt fields are not clean proxies for economic leverage or free cash flow; operating cash flow was highly volatile and negative on an LTM basis, but for a bank this is not sufficient evidence of operating stress without balance-sheet and regulatory-capital detail.",
+    "screen_interpretation": "Basic screen result is missing, so there is no deterministic screen signal to interpret. From the supplied fundamental snapshot alone, JPM shows improving near-term financial momentum and strong profitability, but trades at a premium to the supplied peer median and near its 52-week high. The screen-like read is therefore quality-positive but valuation-sensitive: strong franchise and capital return, not an obvious low-expectations value setup.",
+    "why_screen_may_be_wrong": "Because the basic screen result is missing, this cannot be tied to a specific screen. If a screen flags JPM positively on momentum or quality, it may be wrong because valuation is premium, the stock is near its 52-week high, and bank earnings are cyclical. If a screen rejects JPM for valuation, it may be wrong because the latest quarter shows revenue and margin acceleration, stress-capital evidence supports resilience, and capital return is improving through the intended dividend increase and new $50 billion buyback authorization.",
+    "current_market_narrative": "No source-backed consensus narrative was supplied. Our prior is that the market likely views JPM as the highest-quality U.S. money-center bank: a resilient compounder with strong capital, diversified revenue, and capacity for dividends and buybacks. The recent 1-month and 3-month price strength, proximity to the 52-week high, and premium valuation versus peers suggest investors may already be pricing in a favorable mix of capital resilience, benign credit, and continued earnings durability. However, JPM has underperformed the supplied peer median over 3 and 6 months, so the narrative may be quality-positive but not necessarily euphoric versus the broader bank peer group.",
+    "consensus_type": "unknown",
+    "consensus_verification_required": [
+      "No source-backed consensus estimates were supplied; forward P/E is present but underlying EPS estimates and revision trends are missing.",
+      "No positioning data was supplied; verify institutional positioning, hedge fund exposure, and bank-sector flows before drawing conclusions about crowdedness.",
+      "No source-backed sell-side narrative or earnings-call commentary was supplied; current market narrative is inferred from valuation, price action, and supplied company disclosures."
+    ],
+    "macro_fit_assessment": "Macro_context is missing, so the current macro backdrop cannot be independently assessed from supplied data. In general, JPM is highly sensitive to interest rates, yield-curve shape, deposit betas, loan demand, consumer credit, unemployment, capital-markets activity, and regulation, but those macro variables were not supplied. Without macro evidence, JPM should be treated as a broad, high-quality expression of the U.S. banking, credit, rates, and capital-markets cycle rather than a clean single-factor macro trade.",
+    "theme_fit_assessment": "Theme_context is missing and no aggregate_theme_support_score was supplied. Based on the company profile only, JPM is a primary expression of U.S. money-center banking, net interest income/deposit beta, credit cycle, capital-markets recovery, investment banking/M&A cycle, payments, wealth management, regulatory capital, and capital return. It is a secondary or partial expression of AI/bank technology automation and Apple Card-related consumer-card expansion. Without supplied theme scores, there is no evidence that macro-supported themes currently support or undermine the ticker setup.",
+    "pressure_inflection_assessment": "Current financial pressure does not appear company-specific or structural in the supplied data; the latest quarter shows positive revenue and margin inflection. The main pressures are cyclical and macro-sensitive: credit losses, deposit costs, rates, curve shape, loan demand, and capital-markets activity. The stress-test loss disclosure is not a current realized loss figure; it is a severe-scenario indicator of downside exposure. The unchanged SCB, stressed CET1 minimum, dividend increase intention, and buyback authorization all suggest near-term capital pressure is manageable in the supplied research context. The key underwriting question is less whether JPM is under stress and more whether current price and valuation already discount the quality and capital-return story.",
+    "competitive_position_assessment": "Competitive position is strong. JPM is a primary large-bank franchise with scale across consumer banking, credit cards, commercial banking, investment banking, markets, payments, and wealth management. The supplied stress-test evidence indicates material capital resilience under a severe scenario, with CET1 projected to fall from 14.6% actual in 4Q25 to a 12.4% projected minimum, and the SCB remaining unchanged at 2.5% through September 30, 2027. The Apple Card transition also supports franchise reach in consumer cards, although it is not a near-term 6-month earnings driver. Peer-relative context is mixed: JPM's margin profile is above the peer median, but revenue growth is slightly below peer median and valuation is more expensive.",
+    "valuation_expectations_assessment": "Valuation embeds quality expectations. JPM trades at 15.76x trailing P/E, 13.96x forward P/E, 2.56x price/book, and 5.08x price/sales in the supplied snapshot. Peer-relative context says the valuation multiple is more expensive than the peer median, while the margin profile is above peers and revenue growth is slightly below peer median. This may be justified by franchise quality and capital resilience, but it reduces margin of safety. The stock is only 1.8% below its 52-week high after a 9.9% one-month return and 16.5% three-month return, so expectations risk is elevated. This is not a classic cheap bank setup; any apparent P/E reasonableness must be weighed against cyclical peak-risk, capital requirements, credit-cycle uncertainty, and premium quality pricing.",
+    "variant_view": "Two-sided variant view: JPM's recent filings and quarterly data support a durable high-quality bank with improving revenue/margins and strong capital-return capacity, but the stock's premium valuation and proximity to highs mean the market may already be discounting much of that resilience. The variant opportunity, if any, is that capital return and earnings durability are underappreciated despite the premium; the counter-variant is that quality is fully priced and credit/rate/regulatory risks are underpriced.",
+    "variant_view_direction": "two_sided",
+    "variant_view_strength": "medium",
+    "bull_case_variant_view": "The bullish variant is that market expectations may still underappreciate the durability of JPM's earnings and capital-return capacity. Latest quarterly revenue accelerated 9.9% year over year and 8.8% quarter over quarter, net margin improved to 33.1% from 28.4% in the prior quarter, the Stress Capital Buffer remains unchanged at 2.5% through September 30, 2027, and the company announced a planned dividend increase plus a new $50 billion repurchase authorization. The Apple Card issuer transition and planned portfolio acquisition add a strategic consumer-card growth vector, though the expected closing is outside the 6-month horizon.",
+    "bear_case_variant_view": "The bearish variant is that JPM is a superior franchise but not an asymmetric 6-month setup because the stock already reflects resilience and capital-return strength. At 15.8x trailing P/E, 14.0x forward P/E, and 2.56x book, JPM screens more expensive than the supplied peer median, while the stock is only 1.8% below its 52-week high after a 16.5% three-month rally. If credit costs, deposit costs, regulatory capital constraints, or capital-markets activity disappoint, valuation could compress even if absolute fundamentals remain solid.",
+    "evidence_supporting_variant_view": [
+      "Latest quarter revenue was $49.833 billion, up 8.8% quarter over quarter and 9.9% year over year, and latest-quarter annualized revenue was 6.6% above trailing-four-quarter revenue.",
+      "Latest-quarter net income was $16.494 billion with a 33.1% net margin, above the prior quarter's 28.4% net margin and above the LTM net margin of 31.5%, indicating a near-term profitability inflection in the supplied yfinance data.",
+      "Trailing-four-quarter revenue was $186.941 billion and net income was $58.899 billion, above last fiscal year's $181.847 billion revenue and $57.048 billion net income.",
+      "JPM announced its board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval.",
+      "JPM authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion.",
+      "The Federal Reserve's February 2026 announcement left JPM's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+      "Under the severely adverse scenario, JPM projects CET1 falling from 14.6% actual in 4Q25 to a projected minimum of 12.4%, supporting capital resilience in the supplied stress-test context.",
+      "JPM disclosed that Chase will become the new issuer of Apple Card and entered a forward purchase commitment to acquire the Apple credit card portfolio, with expected closing approximately 24 months after December 30, 2025."
+    ],
+    "evidence_against_variant_view": [
+      "Valuation is not low: supplied valuation shows 15.76x trailing P/E, 13.96x forward P/E, 2.56x price/book, and 5.08x price/sales; peer-relative snapshot says JPM is more expensive than peer median on the supplied valuation multiple.",
+      "Price is close to its 52-week high, with only a 1.8% drawdown from the high and a 16.5% three-month return, raising expectations risk.",
+      "Peer-relative snapshot indicates JPM underperformed peer median by 5.7% over 3 months and 12.6% over 6 months, which may indicate investors have preferred more cyclically levered or cheaper bank expressions.",
+      "Under JPM's severely adverse stress scenario, projected nine-quarter cumulative loan losses are $70.2 billion, equal to a 5.0% portfolio loss rate, highlighting meaningful embedded credit-cycle risk.",
+      "Latest reported net debt increased to $204.7 billion in the LTM/latest-quarter context from $156.6 billion at last fiscal year-end and negative net debt in the prior fiscal year context; bank balance-sheet metrics require caution, but the direction does not independently support a simple deleveraging thesis."
+    ],
+    "key_risks": [
+      "Credit losses rise above expectations across cards, consumer, commercial, or commercial real estate portfolios.",
+      "Net interest income pressure from falling rates, rising deposit costs, deposit mix shift, or unfavorable yield-curve moves.",
+      "Premium valuation compresses if earnings momentum normalizes or bank-sector risk appetite fades.",
+      "Regulatory capital or liquidity requirements become more restrictive, limiting balance-sheet growth or capital return.",
+      "Capital-markets activity weakens, reducing investment banking and markets revenue.",
+      "Consumer credit deteriorates as unemployment or delinquencies rise.",
+      "Large balance-sheet and operational complexity create operational, technology, legal, cybersecurity, and compliance risks.",
+      "The new buyback authorization is discretionary and may not translate into near-term repurchases at expected levels.",
+      "Stress-test projected loan losses of $70.2 billion under the severely adverse scenario highlight sensitivity to a severe downturn.",
+      "Apple Card transition/acquisition creates execution or credit risk, though timing is mostly outside the 6-month horizon."
+    ],
+    "fundamental_falsifiers": [
+      "Next reported quarterly revenue falls below the prior-quarter level of $49.833 billion and management or filings indicate the decline is driven by spread pressure, weaker markets, or lower fee activity rather than seasonal factors.",
+      "Latest-quarter net margin falls back below the LTM margin of 31.5% or approaches the prior-quarter level of 28.4%, indicating the March 2026 margin improvement was not durable.",
+      "Credit metrics deteriorate materially, including rising net charge-offs, reserve builds, criticized loans, or consumer/card delinquencies, especially if tied to unemployment or commercial real estate stress.",
+      "Regulatory capital ratios decline more than expected or capital requirements increase, reducing flexibility for buybacks or dividend growth.",
+      "The $50 billion repurchase authorization is not executed meaningfully because of valuation, capital constraints, supervisory pressure, or balance-sheet needs.",
+      "The Apple Card portfolio acquisition is delayed, repriced unfavorably, or adds credit/operational risk without a clear return benefit."
+    ],
+    "macro_theme_falsifiers": [
+      "A supplied future macro context showing rising unemployment, worsening consumer credit, or accelerating corporate defaults would undermine the bullish resilience case.",
+      "A future macro context showing rapid rate cuts with falling asset yields and sticky deposit costs would challenge net interest income expectations.",
+      "A renewed inversion or adverse yield-curve shift that pressures reinvestment yields and loan spreads would weaken the setup.",
+      "A capital-markets downturn with lower M&A, IPO, debt issuance, trading activity, or client risk appetite would undermine fee and markets revenue.",
+      "A regulatory shock increasing capital requirements, liquidity buffers, FDIC assessments, or consumer-finance constraints would reduce capital-return flexibility."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E expands materially above the current 13.96x without corresponding upgrades to earnings, ROTCE, or buyback expectations.",
+      "Price/book remains above 2.5x while profitability or capital-return indicators deteriorate.",
+      "Peer-relative valuation premium widens while JPM's revenue growth remains below or only in line with peer median.",
+      "The stock makes new 52-week highs on capital-return news alone, without evidence of sustained revenue, credit, or NII improvement.",
+      "Credit costs rise or capital requirements increase, making the current premium valuation harder to justify."
+    ],
+    "timing_falsifiers": [
+      "The stock continues to trade within roughly 2% of the 52-week high while forward earnings or capital-return expectations are not revised upward, increasing near-term asymmetry risk.",
+      "Bank-sector peers continue to outperform JPM materially over the next 1-3 months, suggesting investors prefer cheaper or more cyclically levered expressions.",
+      "The next earnings update fails to confirm the March 2026 revenue acceleration and margin recovery.",
+      "Buyback activity is delayed or minimal in the first months after the July 1, 2026 authorization date.",
+      "Credit or regulatory headlines emerge before the next earnings report that shift investor focus from capital return to downside balance-sheet risk."
+    ],
+    "key_metrics_to_monitor": [
+      "Quarterly revenue growth, especially net interest income versus noninterest revenue mix.",
+      "Net income and net margin versus the latest quarter's 33.1% and LTM margin of 31.5%.",
+      "Net interest margin, deposit balances, noninterest-bearing deposit mix, and deposit beta, if available in future filings.",
+      "Loan growth by consumer, card, commercial, and commercial real estate categories.",
+      "Net charge-offs, delinquency trends, provision expense, allowance coverage, criticized loans, and stress in commercial real estate.",
+      "CET1 ratio, binding Advanced versus Standardized capital ratios, Stress Capital Buffer updates, and supplementary leverage ratio.",
+      "Buyback execution under the new $50 billion authorization and actual dividend approval at $1.65 per share.",
+      "Investment banking fees, trading revenue, asset/wealth management flows, and payments/card volume trends.",
+      "Price/book, P/E, ROTCE or tangible ROTCE if supplied, and peer-relative valuation spread.",
+      "Apple Card transaction milestones and expected closing economics."
+    ],
+    "suggested_monitoring_plan": [
+      "Review the next quarterly filing/earnings release for net interest income, deposit costs, loan growth, provision expense, net charge-offs, and CET1 ratio.",
+      "Track whether the intended $1.65 quarterly dividend is formally approved for 3Q26 and whether repurchases begin under the new $50 billion authorization after July 1, 2026.",
+      "Compare JPM's next-quarter revenue and net margin against the March 2026 quarter's $49.833 billion revenue and 33.1% net margin to test whether the inflection persists.",
+      "Monitor bank peer results for deposit beta, credit normalization, commercial real estate, card delinquencies, and capital-markets activity to determine whether JPM-specific strength or broad sector beta is driving performance.",
+      "Update valuation against bank-specific metrics such as P/TBV and ROTCE if available, not only P/E and P/B.",
+      "Monitor regulatory-capital developments, including any revisions to stress-test models or capital rules before the next requirement recalculation in 2027.",
+      "Track Apple Card transaction disclosures for economics, timing, credit characteristics, and operational-transition risk."
+    ],
+    "underwriting_summary": "JPM is a high-quality, scaled universal bank with improving latest-quarter financial momentum and source-backed evidence of capital resilience and capital-return capacity. The March 2026 quarter shows revenue acceleration and margin improvement versus both the prior quarter and LTM, while stress-test disclosures support the view that capital remains robust even under severe assumptions. The planned dividend increase and $50 billion buyback authorization are meaningful positives for a 6-month horizon. The offset is expectations risk: JPM trades at a premium valuation versus peers, sits close to its 52-week high, and remains exposed to credit, deposit-cost, rate, regulatory, and capital-markets cyclicality. The best classification is two-sided: fundamentally constructive, but not clearly mispriced without confirmation that earnings momentum and capital return are not already discounted.",
+    "qualitative_conviction": "constructive",
+    "suggested_score_adjustment": 1.0,
+    "confidence": "medium",
+    "data_gaps": [
+      "No macro_context was supplied, limiting assessment of rates, curve, unemployment, credit cycle, and capital-markets backdrop.",
+      "No theme_context was supplied, and no aggregate_theme_support_score is available.",
+      "No user-supplied thesis was provided.",
+      "Basic screen result is missing.",
+      "Segment revenue and profit shares are missing.",
+      "Current detailed loan portfolio composition, deposit mix, deposit beta, net interest income trajectory, allowance coverage, net charge-off rates, and criticized-loan trends are missing from the supplied context.",
+      "Current CET1 ratio as of March 31, 2026 from the 10-Q table is not supplied, although 4Q25 actual and stress-test projected ratios are supplied.",
+      "Earnings release evidence was not confidently retrieved; research_context notes the 1Q26 Form 10-Q source text is truncated and lacks many financial-highlight table values.",
+      "No estimate evidence, EPS revisions, net interest income guidance, credit-cost guidance, or buyback execution assumptions were supplied.",
+      "No peer commentary was supplied.",
+      "Valuation.ev_to_ebitda is missing and is generally less useful for banks; bank-specific valuation metrics such as ROTCE, tangible book value per share, and P/TBV are not supplied."
+    ]
+  },
+  "run_configuration": {
+    "llm_synthesis_used": true,
+    "llm_profile_used": true,
+    "research_context_used": true,
+    "company_profile_source": "llm_generated_unverified",
+    "research_context_created_at": "2026-06-30T14:21:52.359461",
+    "research_context_refreshed": true,
+    "research_context_cache_used": false,
+    "source_providers_attempted": [
+      "SEC",
+      "company_ir",
+      "FMP transcripts",
+      "Finnhub transcripts",
+      "NewsAPI news",
+      "news",
+      "yfinance estimates",
+      "peer_commentary"
+    ],
+    "source_providers_found": [
+      "SEC",
+      "news",
+      "yfinance estimates"
+    ],
+    "source_providers_skipped": [
+      "SEC:not_found",
+      "company_ir:not_found",
+      "peer_commentary"
+    ],
+    "source_providers_error": [
+      "FMP transcripts",
+      "Finnhub transcripts",
+      "NewsAPI news"
+    ],
+    "source_coverage_summary": "company_ir:company_ir_not_found=1; earnings_release:sec_not_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:news_found=10; news:newsapi_error=1; other_8k:sec_found=24; peer_commentary:peer_commentary_skipped=1; stress_test:sec_found=6; transcript:finnhub_error=1; transcript:fmp_error=1; extraction_selected=19",
+    "data_gaps": [
+      "Earnings release not confidently retrieved via SEC 8-K exhibit.",
+      "Peer commentary retrieval skipped or unavailable in v1.",
+      "The 1Q26 Form 10-Q source text provided is truncated and does not include many underlying numerical financial-highlight table values, limiting extraction from that filing to facts visible in the supplied text."
+    ],
+    "warnings": [
+      "Macro forecast context extraction failed: 'utf-8' codec can't decode byte 0xcc in position 12: invalid continuation byte",
+      "Dropped 23 duplicate or lower-quality source documents before evidence extraction.",
+      "Some source text appears table-extracted or truncated; evidence items avoid facts not visible in the supplied text."
+    ]
+  },
+  "company_profile": {
+    "ticker": "JPM",
+    "company_name": "JPMorgan Chase & Co.",
+    "sector": "Financial Services",
+    "industry": "Diversified Banks",
+    "profile_source": "llm_generated_unverified",
+    "profile_confidence": "medium",
+    "profile_as_of_date": "2026-06-28",
+    "profile_source_notes": [
+      "Profile is LLM-generated from general knowledge of JPMorgan Chase and the supplied high-level financial context; it should be verified against the company’s latest Form 10-K, Form 10-Q, earnings materials, and regulatory disclosures.",
+      "No source-backed research context or filing excerpts were supplied for detailed segment revenue/profit shares, customer concentration, or management commentary.",
+      "Company profile is LLM-generated from supplied metadata and general prior knowledge; verify with filings before relying on precise business details."
+    ],
+    "profile_data_gaps": [
+      "Segment revenue and profit shares not provided in supplied context",
+      "Current regulatory capital metrics such as CET1 and ROTCE not provided in supplied context",
+      "Loan portfolio composition, deposit mix, and credit metrics not provided in supplied context",
+      "Recent management commentary and filing-specific segment disclosures should be verified with company filings"
+    ],
+    "business_description": "JPMorgan Chase & Co. is a global financial services holding company and one of the largest U.S. banking institutions. The company provides consumer banking, credit cards, mortgage and auto lending, small-business banking, commercial banking, investment banking, markets, securities services, treasury services, asset management, and private banking. Its earnings are driven by net interest income from loans and securities funded by deposits and wholesale funding, fee income from payments and wealth management, and capital-markets revenue from underwriting, advisory, trading, and securities services.",
+    "business_model": "Universal bank model combining a large U.S. deposit franchise, diversified consumer and commercial lending, global investment banking and markets operations, payments and treasury services, and asset/wealth management. The model benefits from scale, brand, technology investment, risk management, and cross-selling across households, corporates, institutions, and high-net-worth clients. Profitability is sensitive to net interest margin, loan growth, deposit costs, credit losses, capital requirements, market activity, and expense efficiency.",
+    "segments": [
+      {
+        "name": "Consumer & Community Banking",
+        "description": "Provides banking, payments, deposits, investment products, credit cards, mortgage, auto, and small-business services to U.S. consumers and small businesses through branches, digital channels, call centers, and partner ecosystems.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Consumer deposit balances and deposit beta",
+          "Credit card spending, revolving balances, and net charge-offs",
+          "Mortgage and auto loan originations and servicing activity",
+          "Branch and digital customer acquisition and retention",
+          "Consumer credit quality, unemployment, wages, and household balance sheets",
+          "Payments and merchant transaction volumes"
+        ]
+      },
+      {
+        "name": "Commercial & Investment Bank",
+        "description": "Serves corporations, financial institutions, governments, investors, and commercial clients with investment banking, lending, treasury services, payments, securities services, markets, and risk-management products.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Investment banking wallet share and issuance volumes",
+          "M&A, IPO, leveraged finance, and debt capital markets activity",
+          "Trading volumes, volatility, spreads, and client risk appetite",
+          "Commercial loan growth and credit spreads",
+          "Treasury services balances, payments volumes, and transaction fees",
+          "Wholesale credit quality and commercial real estate exposure"
+        ]
+      },
+      {
+        "name": "Asset & Wealth Management",
+        "description": "Provides investment management, private banking, brokerage, retirement, lending, custody, and financial planning services to high-net-worth, ultra-high-net-worth, institutional, and retail clients.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Assets under management and client asset flows",
+          "Equity and fixed-income market levels",
+          "Advisory and management fee rates",
+          "Private banking deposit and lending balances",
+          "Client acquisition, advisor productivity, and product mix",
+          "Credit performance in wealth lending portfolios"
+        ]
+      },
+      {
+        "name": "Corporate",
+        "description": "Includes corporate treasury, investment portfolio activities, centrally managed expenses, funding, liquidity management, legacy items, and other corporate-level activities not allocated to operating segments.",
+        "revenue_share_estimate": null,
+        "profit_share_estimate": null,
+        "key_drivers": [
+          "Interest rate risk management and securities reinvestment yields",
+          "Capital, liquidity, and balance-sheet management",
+          "Funding costs and long-term debt issuance",
+          "Corporate expenses, legal costs, and regulatory assessments",
+          "Hedging outcomes and accounting impacts",
+          "Capital return capacity subject to stress tests and regulatory requirements"
+        ]
+      }
+    ],
+    "revenue_model": [
+      "Net interest income from loans, securities, cash balances, and other earning assets funded by deposits and wholesale liabilities",
+      "Card income, interchange, payment processing, merchant services, and treasury services fees",
+      "Investment banking fees from advisory, debt underwriting, equity underwriting, syndicated lending, and related corporate finance activity",
+      "Markets revenue from client-driven fixed income, currencies, commodities, equities, derivatives, and prime brokerage activity",
+      "Asset management and wealth management fees based on assets under management, client assets, product mix, and market levels",
+      "Securities services, custody, fund services, clearing, and other institutional service fees",
+      "Mortgage banking, servicing, auto finance, and other consumer lending fees",
+      "Principal transactions, investment securities gains/losses, and other banking-related noninterest income"
+    ],
+    "cost_drivers": [
+      "Interest expense on deposits, long-term debt, and wholesale funding",
+      "Employee compensation and benefits, including bankers, traders, technologists, branch staff, and compliance personnel",
+      "Technology, cybersecurity, cloud, data, AI, and digital banking investment",
+      "Credit-loss provisions tied to consumer, commercial, and wholesale credit performance",
+      "Occupancy, branch network, operations, payment-processing, and servicing costs",
+      "Regulatory, compliance, legal, resolution-planning, and operational-risk costs",
+      "Marketing and customer-acquisition expenses for cards, deposits, and wealth products",
+      "FDIC assessments and other bank regulatory fees"
+    ],
+    "margin_drivers": [
+      "Net interest margin driven by asset yields, funding costs, deposit beta, loan mix, securities reinvestment rates, and yield-curve shape",
+      "Loan growth and balance-sheet mix between consumer, commercial, wholesale, securities, and cash balances",
+      "Credit costs, reserve builds or releases, net charge-offs, and criticized loan migration",
+      "Fee income mix from payments, investment banking, trading, securities services, asset management, and wealth management",
+      "Expense efficiency from scale, technology automation, branch optimization, and operating leverage",
+      "Trading and investment banking revenue tied to market volatility, issuance, M&A, and client risk appetite",
+      "Deposit franchise quality, including noninterest-bearing deposits, customer retention, and relationship depth",
+      "Capital intensity and regulatory constraints affecting ROTCE, leverage, and business mix"
+    ],
+    "key_customers": [
+      "Retail deposit, credit card, mortgage, auto, and small-business customers",
+      "Middle-market and large corporate borrowers",
+      "Multinational corporations using treasury, payments, and investment banking services",
+      "Institutional investors, governments, financial sponsors, and asset managers",
+      "High-net-worth and ultra-high-net-worth wealth management clients",
+      "Merchants and businesses using payment acceptance and processing services"
+    ],
+    "key_suppliers": [
+      "Depositors and wholesale funding markets as sources of funding",
+      "Technology infrastructure, cybersecurity, cloud, data, and software providers",
+      "Payment networks, card processors, and financial-market utilities",
+      "Market data, exchange, clearing, custody, and settlement infrastructure providers",
+      "Professional services firms supporting audit, consulting, legal, and compliance functions"
+    ],
+    "peer_group": [
+      {
+        "ticker": "BAC",
+        "name": "Bank of America Corporation",
+        "relevance": "Large U.S. money-center bank with consumer banking, wealth management, corporate banking, and markets businesses"
+      },
+      {
+        "ticker": "C",
+        "name": "Citigroup Inc.",
+        "relevance": "Global diversified bank with institutional banking, markets, transaction services, and international consumer exposure"
+      },
+      {
+        "ticker": "WFC",
+        "name": "Wells Fargo & Company",
+        "relevance": "Large U.S. bank with major consumer, commercial, mortgage, and wealth operations"
+      },
+      {
+        "ticker": "GS",
+        "name": "Goldman Sachs Group, Inc.",
+        "relevance": "Global investment banking, markets, asset management, and wealth management peer"
+      },
+      {
+        "ticker": "MS",
+        "name": "Morgan Stanley",
+        "relevance": "Global investment banking, markets, wealth management, and asset management peer"
+      },
+      {
+        "ticker": "USB",
+        "name": "U.S. Bancorp",
+        "relevance": "Large U.S. regional/super-regional bank with payments, consumer, and commercial banking exposure"
+      },
+      {
+        "ticker": "PNC",
+        "name": "The PNC Financial Services Group, Inc.",
+        "relevance": "Large U.S. super-regional bank focused on retail, commercial, and asset management banking"
+      },
+      {
+        "ticker": "SCHW",
+        "name": "Charles Schwab Corporation",
+        "relevance": "Brokerage and wealth management peer with rate-sensitive net interest revenue and client cash dynamics"
+      }
+    ],
+    "thematic_exposures": [
+      "U.S. money-center banking",
+      "Net interest income and deposit beta",
+      "Credit cycle and consumer credit",
+      "Capital markets recovery",
+      "Investment banking and M&A cycle",
+      "Payments and digital banking",
+      "Wealth management and aging demographics",
+      "Regulatory capital and bank stress tests",
+      "Commercial real estate refinancing risk",
+      "AI and bank technology automation",
+      "Global transaction banking",
+      "Share repurchases and capital return"
+    ],
+    "macro_sensitivities": [
+      "Federal Reserve policy rates and short-end interest rates affecting net interest income and deposit costs",
+      "Yield-curve shape affecting reinvestment yields, securities portfolio returns, mortgage activity, and lending spreads",
+      "Deposit beta and deposit mix shifts between noninterest-bearing, interest-bearing, and higher-cost products",
+      "Credit cycle, unemployment, corporate defaults, consumer delinquencies, and commercial real estate stress driving provision expense and net charge-offs",
+      "Loan demand from consumers, small businesses, middle-market companies, and large corporates",
+      "Capital markets activity including M&A, IPOs, debt issuance, equity issuance, trading volumes, volatility, and risk appetite",
+      "Consumer spending and card transaction volumes affecting interchange, payment fees, and credit card loan balances",
+      "Housing market, mortgage rates, and home-price trends affecting mortgage originations, servicing, and credit quality",
+      "Equity and fixed-income market levels affecting asset management fees, wealth management flows, and client activity",
+      "U.S. dollar strength and global FX volatility affecting international earnings translation, client flows, and trading activity",
+      "Bank regulation, capital requirements, stress-test outcomes, liquidity rules, FDIC assessments, and consumer-finance regulation",
+      "Commercial real estate valuation and refinancing conditions affecting criticized loans and credit losses",
+      "Geopolitical risk, sanctions, and cross-border capital-flow restrictions affecting markets, payments, and global banking activity"
+    ],
+    "major_risks": [
+      "Credit losses rising above expectations in consumer, commercial, credit card, auto, mortgage, or commercial real estate portfolios",
+      "Net interest income pressure from falling rates, rising deposit betas, deposit outflows, or unfavorable yield-curve shifts",
+      "Stricter capital, liquidity, resolution, consumer-protection, or market-structure regulation reducing returns or constraining buybacks and balance-sheet growth",
+      "Operational, cybersecurity, fraud, payments, model, and technology failures given the scale and complexity of the franchise",
+      "Legal, regulatory, conduct, anti-money-laundering, sanctions, and compliance penalties",
+      "Capital markets downturn reducing investment banking fees, trading revenue, securities services activity, and asset/wealth management fees",
+      "Competitive pressure from large banks, regional banks, fintechs, private credit, digital wallets, brokerages, and asset managers",
+      "Recession, unemployment, inflation shocks, or prolonged weak business confidence pressuring loan growth and credit quality",
+      "Commercial real estate stress and refinancing risk, especially in challenged property types or geographies",
+      "Reputational risk from consumer practices, data handling, market conduct, or high-profile operational incidents",
+      "Liquidity and funding market stress affecting wholesale funding costs, collateral requirements, and balance-sheet flexibility",
+      "Integration, execution, and technology-transformation risk from large-scale acquisitions, platform migrations, or regulatory remediation programs"
+    ]
+  },
+  "financial_trend_analysis": {
+    "revenue_growth_trend": "improving",
+    "gross_margin_trend": "unknown",
+    "operating_margin_trend": "unknown",
+    "ebitda_margin_trend": null,
+    "fcf_trend": "unknown",
+    "capex_trend": null,
+    "leverage_trend": "unknown",
+    "roic_trend": null,
+    "working_capital_trend": null,
+    "estimate_revision_trend": null,
+    "improving_indicators": [
+      "Revenue growth is improving on trailing 8Q data.",
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "deteriorating_indicators": [],
+    "red_flags": [],
+    "screen_result_context": "Financial trend analysis generated from quarterly-first fundamental context pack. Latest financial period ended 2026-03-31. LLM synthesis: The latest quarterly data should dominate the current diagnosis. For the quarter ended March 31, 2026, revenue was $49.833 billion, up 8.8% quarter over quarter and 9.9% year over year, with an inflection flag for accelerating year-over-year revenue. Latest-quarter net income was $16.494 billion and net margin was 33.1%, a sharp improvement from the prior quarter's 28.4% and above the trailing-four-quarter margin of 31.5%. LTM revenue of $186.941 billion also exceeds last fiscal year's $181.847 billion, and LTM net income of $58.899 billion exceeds last fiscal year's $57.048 billion. This points to improving revenue and profitability momentum. Caution: yfinance bank cash-flow and net-debt fields are not clean proxies for economic leverage or free cash flow; operating cash flow was highly volatile and negative on an LTM basis, but for a bank this is not sufficient evidence of operating stress without balance-sheet and regulatory-capital detail.",
+    "why_screen_may_be_wrong": "Because the basic screen result is missing, this cannot be tied to a specific screen. If a screen flags JPM positively on momentum or quality, it may be wrong because valuation is premium, the stock is near its 52-week high, and bank earnings are cyclical. If a screen rejects JPM for valuation, it may be wrong because the latest quarter shows revenue and margin acceleration, stress-capital evidence supports resilience, and capital return is improving through the intended dividend increase and new $50 billion buyback authorization."
+  },
+  "pressure_inflection_analysis": {
+    "recent_pressure_points": [
+      "Credit losses rise above expectations across cards, consumer, commercial, or commercial real estate portfolios.",
+      "Net interest income pressure from falling rates, rising deposit costs, deposit mix shift, or unfavorable yield-curve moves.",
+      "Premium valuation compresses if earnings momentum normalizes or bank-sector risk appetite fades.",
+      "Regulatory capital or liquidity requirements become more restrictive, limiting balance-sheet growth or capital return.",
+      "Capital-markets activity weakens, reducing investment banking and markets revenue."
+    ],
+    "recent_strength_points": [
+      "Latest quarter revenue is accelerating year over year."
+    ],
+    "likely_causes": [],
+    "pressure_type": "cyclical",
+    "cyclical_vs_structural_assessment": "Current financial pressure does not appear company-specific or structural in the supplied data; the latest quarter shows positive revenue and margin inflection. The main pressures are cyclical and macro-sensitive: credit losses, deposit costs, rates, curve shape, loan demand, and capital-markets activity. The stress-test loss disclosure is not a current realized loss figure; it is a severe-scenario indicator of downside exposure. The unchanged SCB, stressed CET1 minimum, dividend increase intention, and buyback authorization all suggest near-term capital pressure is manageable in the supplied research context. The key underwriting question is less whether JPM is under stress and more whether current price and valuation already discount the quality and capital-return story.",
+    "abatement_evidence": [],
+    "inflection_catalysts": [
+      "latest-quarter revenue acceleration"
+    ],
+    "margin_recovery_potential": null,
+    "demand_recovery_potential": "Dependent on whether the relevant end-market drivers continue improving.",
+    "earnings_inflection_potential": "Requires confirmation through margins, revenue acceleration, and estimate revisions.",
+    "key_timing_questions": [
+      "Are key margin drivers improving: Capital intensity and regulatory constraints affecting ROTCE, leverage, and business mix, Credit costs, reserve builds or releases, net charge-offs, and criticized loan migration, Deposit franchise quality, including noninterest-bearing deposits, customer retention, and relationship depth, Expense efficiency from scale, technology automation, branch optimization, and operating leverage, Fee income mix from payments, investment banking, trading, securities services, asset management, and wealth management, Loan growth and balance-sheet mix between consumer, commercial, wholesale, securities, and cash balances, Net interest margin driven by asset yields, funding costs, deposit beta, loan mix, securities reinvestment rates, and yield-curve shape, Trading and investment banking revenue tied to market volatility, issuance, M&A, and client risk appetite?"
+    ]
+  },
+  "competitive_position_analysis": {
+    "peer_group": [
+      {
+        "ticker": "BAC",
+        "name": "Bank of America Corporation",
+        "relevance": "Large U.S. money-center bank with consumer banking, wealth management, corporate banking, and markets businesses"
+      },
+      {
+        "ticker": "C",
+        "name": "Citigroup Inc.",
+        "relevance": "Global diversified bank with institutional banking, markets, transaction services, and international consumer exposure"
+      },
+      {
+        "ticker": "WFC",
+        "name": "Wells Fargo & Company",
+        "relevance": "Large U.S. bank with major consumer, commercial, mortgage, and wealth operations"
+      },
+      {
+        "ticker": "GS",
+        "name": "Goldman Sachs Group, Inc.",
+        "relevance": "Global investment banking, markets, asset management, and wealth management peer"
+      },
+      {
+        "ticker": "MS",
+        "name": "Morgan Stanley",
+        "relevance": "Global investment banking, markets, wealth management, and asset management peer"
+      },
+      {
+        "ticker": "USB",
+        "name": "U.S. Bancorp",
+        "relevance": "Large U.S. regional/super-regional bank with payments, consumer, and commercial banking exposure"
+      },
+      {
+        "ticker": "PNC",
+        "name": "The PNC Financial Services Group, Inc.",
+        "relevance": "Large U.S. super-regional bank focused on retail, commercial, and asset management banking"
+      },
+      {
+        "ticker": "SCHW",
+        "name": "Charles Schwab Corporation",
+        "relevance": "Brokerage and wealth management peer with rate-sensitive net interest revenue and client cash dynamics"
+      }
+    ],
+    "market_share_position": null,
+    "relative_growth": null,
+    "relative_margins": null,
+    "relative_valuation": null,
+    "moat_sources": [],
+    "competitive_advantages": [],
+    "competitive_threats": [],
+    "pricing_power": null,
+    "switching_costs": null,
+    "scale_advantages": null,
+    "management_quality": null,
+    "capital_allocation_quality": null,
+    "competitive_position_summary": "Competitive position is strong. JPM is a primary large-bank franchise with scale across consumer banking, credit cards, commercial banking, investment banking, markets, payments, and wealth management. The supplied stress-test evidence indicates material capital resilience under a severe scenario, with CET1 projected to fall from 14.6% actual in 4Q25 to a 12.4% projected minimum, and the SCB remaining unchanged at 2.5% through September 30, 2027. The Apple Card transition also supports franchise reach in consumer cards, although it is not a near-term 6-month earnings driver. Peer-relative context is mixed: JPM's margin profile is above the peer median, but revenue growth is slightly below peer median and valuation is more expensive."
+  },
+  "regime_sensitivity_analysis": {
+    "current_regime_fit": "No explicit macro/theme context was provided. Regime fit is inferred from static company sensitivities: U.S. money-center banking, Net interest income and deposit beta, Credit cycle and consumer credit, Capital markets recovery, Investment banking and M&A cycle, Payments and digital banking, Wealth management and aging demographics, Regulatory capital and bank stress tests, Commercial real estate refinancing risk, AI and bank technology automation, Global transaction banking, Share repurchases and capital return, Federal Reserve policy rates and short-end interest rates affecting net interest income and deposit costs, Yield-curve shape affecting reinvestment yields, securities portfolio returns, mortgage activity, and lending spreads, Deposit beta and deposit mix shifts between noninterest-bearing, interest-bearing, and higher-cost products, Credit cycle, unemployment, corporate defaults, consumer delinquencies, and commercial real estate stress driving provision expense and net charge-offs, Loan demand from consumers, small businesses, middle-market companies, and large corporates, Capital markets activity including M&A, IPOs, debt issuance, equity issuance, trading volumes, volatility, and risk appetite, Consumer spending and card transaction volumes affecting interchange, payment fees, and credit card loan balances, Housing market, mortgage rates, and home-price trends affecting mortgage originations, servicing, and credit quality, Equity and fixed-income market levels affecting asset management fees, wealth management flows, and client activity, U.S. dollar strength and global FX volatility affecting international earnings translation, client flows, and trading activity, Bank regulation, capital requirements, stress-test outcomes, liquidity rules, FDIC assessments, and consumer-finance regulation, Commercial real estate valuation and refinancing conditions affecting criticized loans and credit losses, Geopolitical risk, sanctions, and cross-border capital-flow restrictions affecting markets, payments, and global banking activity.",
+    "scenario_impacts": [
+      {
+        "scenario_name": "Rates remain elevated",
+        "impact": "negative",
+        "rationale": "Higher rates can pressure valuation multiples and financing-sensitive demand.",
+        "sensitivity_level": "medium"
+      }
+    ],
+    "oil_sensitivity": null,
+    "rate_sensitivity": "Medium to high",
+    "credit_sensitivity": null,
+    "dollar_sensitivity": null,
+    "inflation_sensitivity": null,
+    "consumer_sensitivity": null,
+    "ai_capex_sensitivity": "High",
+    "commodity_sensitivity": null,
+    "policy_sensitivity": null,
+    "upside_scenario": "Macro/theme backdrop reinforces the company's highest-quality revenue and margin drivers.",
+    "downside_scenario": "Macro/theme backdrop deteriorates in a way that pressures growth expectations, margins, or valuation.",
+    "regime_fit_summary": "Regime sensitivity combines static exposure mapping with macro/theme context when provided."
+  },
+  "market_expectation_analysis": {
+    "recent_price_action": null,
+    "valuation_vs_history": null,
+    "valuation_vs_peers": null,
+    "earnings_revision_context": null,
+    "narrative_consensus": "No source-backed consensus narrative was supplied. Our prior is that the market likely views JPM as the highest-quality U.S. money-center bank: a resilient compounder with strong capital, diversified revenue, and capacity for dividends and buybacks. The recent 1-month and 3-month price strength, proximity to the 52-week high, and premium valuation versus peers suggest investors may already be pricing in a favorable mix of capital resilience, benign credit, and continued earnings durability. However, JPM has underperformed the supplied peer median over 3 and 6 months, so the narrative may be quality-positive but not necessarily euphoric versus the broader bank peer group.",
+    "implied_expectations": "Cannot infer implied expectations with high confidence in v1.",
+    "market_mispricing_hypothesis": "No strong mispricing hypothesis generated yet.",
+    "downside_already_priced": null,
+    "upside_already_priced": null,
+    "crowdedness_risk": null,
+    "expectation_summary": "Valuation embeds quality expectations. JPM trades at 15.76x trailing P/E, 13.96x forward P/E, 2.56x price/book, and 5.08x price/sales in the supplied snapshot. Peer-relative context says the valuation multiple is more expensive than the peer median, while the margin profile is above peers and revenue growth is slightly below peer median. This may be justified by franchise quality and capital resilience, but it reduces margin of safety. The stock is only 1.8% below its 52-week high after a 9.9% one-month return and 16.5% three-month return, so expectations risk is elevated. This is not a classic cheap bank setup; any apparent P/E reasonableness must be weighed against cyclical peak-risk, capital requirements, credit-cycle uncertainty, and premium quality pricing."
+  },
+  "variant_view": {
+    "consensus_view": "Consensus view not available in v1.",
+    "helix_variant_view": "Variant direction: two_sided. Two-sided variant view: JPM's recent filings and quarterly data support a durable high-quality bank with improving revenue/margins and strong capital-return capacity, but the stock's premium valuation and proximity to highs mean the market may already be discounting much of that resilience. The variant opportunity, if any, is that capital return and earnings durability are underappreciated despite the premium; the counter-variant is that quality is fully priced and credit/rate/regulatory risks are underpriced. Bull case: The bullish variant is that market expectations may still underappreciate the durability of JPM's earnings and capital-return capacity. Latest quarterly revenue accelerated 9.9% year over year and 8.8% quarter over quarter, net margin improved to 33.1% from 28.4% in the prior quarter, the Stress Capital Buffer remains unchanged at 2.5% through September 30, 2027, and the company announced a planned dividend increase plus a new $50 billion repurchase authorization. The Apple Card issuer transition and planned portfolio acquisition add a strategic consumer-card growth vector, though the expected closing is outside the 6-month horizon. Bear case: The bearish variant is that JPM is a superior franchise but not an asymmetric 6-month setup because the stock already reflects resilience and capital-return strength. At 15.8x trailing P/E, 14.0x forward P/E, and 2.56x book, JPM screens more expensive than the supplied peer median, while the stock is only 1.8% below its 52-week high after a 16.5% three-month rally. If credit costs, deposit costs, regulatory capital constraints, or capital-markets activity disappoint, valuation could compress even if absolute fundamentals remain solid.",
+    "variant_view_direction": "two_sided",
+    "bull_case_variant_view": "The bullish variant is that market expectations may still underappreciate the durability of JPM's earnings and capital-return capacity. Latest quarterly revenue accelerated 9.9% year over year and 8.8% quarter over quarter, net margin improved to 33.1% from 28.4% in the prior quarter, the Stress Capital Buffer remains unchanged at 2.5% through September 30, 2027, and the company announced a planned dividend increase plus a new $50 billion repurchase authorization. The Apple Card issuer transition and planned portfolio acquisition add a strategic consumer-card growth vector, though the expected closing is outside the 6-month horizon.",
+    "bear_case_variant_view": "The bearish variant is that JPM is a superior franchise but not an asymmetric 6-month setup because the stock already reflects resilience and capital-return strength. At 15.8x trailing P/E, 14.0x forward P/E, and 2.56x book, JPM screens more expensive than the supplied peer median, while the stock is only 1.8% below its 52-week high after a 16.5% three-month rally. If credit costs, deposit costs, regulatory capital constraints, or capital-markets activity disappoint, valuation could compress even if absolute fundamentals remain solid.",
+    "evidence_supporting_variant_view": [
+      "Two-sided evidence: Latest quarter revenue was $49.833 billion, up 8.8% quarter over quarter and 9.9% year over year, and latest-quarter annualized revenue was 6.6% above trailing-four-quarter revenue.",
+      "Two-sided evidence: Latest-quarter net income was $16.494 billion with a 33.1% net margin, above the prior quarter's 28.4% net margin and above the LTM net margin of 31.5%, indicating a near-term profitability inflection in the supplied yfinance data.",
+      "Two-sided evidence: Trailing-four-quarter revenue was $186.941 billion and net income was $58.899 billion, above last fiscal year's $181.847 billion revenue and $57.048 billion net income.",
+      "Two-sided evidence: JPM announced its board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval.",
+      "Two-sided evidence: JPM authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion.",
+      "Two-sided evidence: The Federal Reserve's February 2026 announcement left JPM's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+      "Two-sided evidence: Under the severely adverse scenario, JPM projects CET1 falling from 14.6% actual in 4Q25 to a projected minimum of 12.4%, supporting capital resilience in the supplied stress-test context.",
+      "Two-sided evidence: JPM disclosed that Chase will become the new issuer of Apple Card and entered a forward purchase commitment to acquire the Apple credit card portfolio, with expected closing approximately 24 months after December 30, 2025."
+    ],
+    "why_market_may_be_wrong": [],
+    "required_confirming_evidence": [],
+    "risks_to_variant_view": [
+      "Two-sided counter-evidence: Valuation is not low: supplied valuation shows 15.76x trailing P/E, 13.96x forward P/E, 2.56x price/book, and 5.08x price/sales; peer-relative snapshot says JPM is more expensive than peer median on the supplied valuation multiple.",
+      "Two-sided counter-evidence: Price is close to its 52-week high, with only a 1.8% drawdown from the high and a 16.5% three-month return, raising expectations risk.",
+      "Two-sided counter-evidence: Peer-relative snapshot indicates JPM underperformed peer median by 5.7% over 3 months and 12.6% over 6 months, which may indicate investors have preferred more cyclically levered or cheaper bank expressions.",
+      "Two-sided counter-evidence: Under JPM's severely adverse stress scenario, projected nine-quarter cumulative loan losses are $70.2 billion, equal to a 5.0% portfolio loss rate, highlighting meaningful embedded credit-cycle risk.",
+      "Two-sided counter-evidence: Latest reported net debt increased to $204.7 billion in the LTM/latest-quarter context from $156.6 billion at last fiscal year-end and negative net debt in the prior fiscal year context; bank balance-sheet metrics require caution, but the direction does not independently support a simple deleveraging thesis.",
+      "Bear risk: Credit losses rise above expectations across cards, consumer, commercial, or commercial real estate portfolios.",
+      "Bear risk: Net interest income pressure from falling rates, rising deposit costs, deposit mix shift, or unfavorable yield-curve moves.",
+      "Bear risk: Premium valuation compresses if earnings momentum normalizes or bank-sector risk appetite fades.",
+      "Bear risk: Regulatory capital or liquidity requirements become more restrictive, limiting balance-sheet growth or capital return.",
+      "Bear risk: Capital-markets activity weakens, reducing investment banking and markets revenue.",
+      "Bear risk: Consumer credit deteriorates as unemployment or delinquencies rise.",
+      "Bear risk: Large balance-sheet and operational complexity create operational, technology, legal, cybersecurity, and compliance risks.",
+      "Bear risk: The new buyback authorization is discretionary and may not translate into near-term repurchases at expected levels.",
+      "Bear risk: Stress-test projected loan losses of $70.2 billion under the severely adverse scenario highlight sensitivity to a severe downturn.",
+      "Bear risk: Apple Card transition/acquisition creates execution or credit risk, though timing is mostly outside the 6-month horizon."
+    ],
+    "variant_view_strength": "medium"
+  },
+  "falsification_framework": {
+    "fundamental_falsifiers": [
+      "Company fails to show evidence supporting the proposed variant view.",
+      "Next reported quarterly revenue falls below the prior-quarter level of $49.833 billion and management or filings indicate the decline is driven by spread pressure, weaker markets, or lower fee activity rather than seasonal factors.",
+      "Latest-quarter net margin falls back below the LTM margin of 31.5% or approaches the prior-quarter level of 28.4%, indicating the March 2026 margin improvement was not durable.",
+      "Credit metrics deteriorate materially, including rising net charge-offs, reserve builds, criticized loans, or consumer/card delinquencies, especially if tied to unemployment or commercial real estate stress.",
+      "Regulatory capital ratios decline more than expected or capital requirements increase, reducing flexibility for buybacks or dividend growth.",
+      "The $50 billion repurchase authorization is not executed meaningfully because of valuation, capital constraints, supervisory pressure, or balance-sheet needs.",
+      "The Apple Card portfolio acquisition is delayed, repriced unfavorably, or adds credit/operational risk without a clear return benefit."
+    ],
+    "macro_falsifiers": [
+      "A supplied future macro context showing rising unemployment, worsening consumer credit, or accelerating corporate defaults would undermine the bullish resilience case.",
+      "A future macro context showing rapid rate cuts with falling asset yields and sticky deposit costs would challenge net interest income expectations.",
+      "A renewed inversion or adverse yield-curve shift that pressures reinvestment yields and loan spreads would weaken the setup.",
+      "A capital-markets downturn with lower M&A, IPO, debt issuance, trading activity, or client risk appetite would undermine fee and markets revenue.",
+      "A regulatory shock increasing capital requirements, liquidity buffers, FDIC assessments, or consumer-finance constraints would reduce capital-return flexibility."
+    ],
+    "valuation_falsifiers": [
+      "Forward P/E expands materially above the current 13.96x without corresponding upgrades to earnings, ROTCE, or buyback expectations.",
+      "Price/book remains above 2.5x while profitability or capital-return indicators deteriorate.",
+      "Peer-relative valuation premium widens while JPM's revenue growth remains below or only in line with peer median.",
+      "The stock makes new 52-week highs on capital-return news alone, without evidence of sustained revenue, credit, or NII improvement.",
+      "Credit costs rise or capital requirements increase, making the current premium valuation harder to justify."
+    ],
+    "timing_falsifiers": [
+      "The stock continues to trade within roughly 2% of the 52-week high while forward earnings or capital-return expectations are not revised upward, increasing near-term asymmetry risk.",
+      "Bank-sector peers continue to outperform JPM materially over the next 1-3 months, suggesting investors prefer cheaper or more cyclically levered expressions.",
+      "The next earnings update fails to confirm the March 2026 revenue acceleration and margin recovery.",
+      "Buyback activity is delayed or minimal in the first months after the July 1, 2026 authorization date.",
+      "Credit or regulatory headlines emerge before the next earnings report that shift investor focus from capital return to downside balance-sheet risk."
+    ],
+    "technical_or_price_falsifiers": [],
+    "monitoring_triggers": [
+      "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+      "Review the next quarterly filing/earnings release for net interest income, deposit costs, loan growth, provision expense, net charge-offs, and CET1 ratio.",
+      "Track whether the intended $1.65 quarterly dividend is formally approved for 3Q26 and whether repurchases begin under the new $50 billion authorization after July 1, 2026.",
+      "Compare JPM's next-quarter revenue and net margin against the March 2026 quarter's $49.833 billion revenue and 33.1% net margin to test whether the inflection persists.",
+      "Monitor bank peer results for deposit beta, credit normalization, commercial real estate, card delinquencies, and capital-markets activity to determine whether JPM-specific strength or broad sector beta is driving performance.",
+      "Update valuation against bank-specific metrics such as P/TBV and ROTCE if available, not only P/E and P/B.",
+      "Monitor regulatory-capital developments, including any revisions to stress-test models or capital rules before the next requirement recalculation in 2027.",
+      "Track Apple Card transaction disclosures for economics, timing, credit characteristics, and operational-transition risk."
+    ],
+    "key_metrics_to_watch": [
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "free cash flow",
+      "leverage",
+      "earnings revisions",
+      "Quarterly revenue growth, especially net interest income versus noninterest revenue mix.",
+      "Net income and net margin versus the latest quarter's 33.1% and LTM margin of 31.5%.",
+      "Net interest margin, deposit balances, noninterest-bearing deposit mix, and deposit beta, if available in future filings.",
+      "Loan growth by consumer, card, commercial, and commercial real estate categories.",
+      "Net charge-offs, delinquency trends, provision expense, allowance coverage, criticized loans, and stress in commercial real estate.",
+      "CET1 ratio, binding Advanced versus Standardized capital ratios, Stress Capital Buffer updates, and supplementary leverage ratio.",
+      "Buyback execution under the new $50 billion authorization and actual dividend approval at $1.65 per share.",
+      "Investment banking fees, trading revenue, asset/wealth management flows, and payments/card volume trends.",
+      "Price/book, P/E, ROTCE or tangible ROTCE if supplied, and peer-relative valuation spread.",
+      "Apple Card transaction milestones and expected closing economics."
+    ],
+    "review_dates": [],
+    "falsification_summary": "Thesis should be downgraded if key financial, macro, valuation, or timing assumptions fail to confirm."
+  },
+  "scores": {
+    "business_quality": 70.0,
+    "financial_health": 56.0,
+    "competitive_position": 50.0,
+    "earnings_inflection_potential": 66.0,
+    "regime_fit": 44.0,
+    "valuation_setup": 51.0,
+    "variant_perception_strength": 80.0,
+    "idiosyncratic_risk": 79.0,
+    "final_underwriting_score": 59.39285714285714
+  },
+  "verdict": "watchlist",
+  "screen_override": false,
+  "screen_override_rationale": "Constructive LLM synthesis with medium/high confidence and adequate business/financial quality floors verdict at watchlist rather than reject.",
+  "final_rationale": "JPM receives a watchlist verdict with a final underwriting score of 59.4/100. LLM synthesis summary: JPM is a high-quality, scaled universal bank with improving latest-quarter financial momentum and source-backed evidence of capital resilience and capital-return capacity. The March 2026 quarter shows revenue acceleration and margin improvement versus both the prior quarter and LTM, while stress-test disclosures support the view that capital remains robust even under severe assumptions. The planned dividend increase and $50 billion buyback authorization are meaningful positives for a 6-month horizon. The offset is expectations risk: JPM trades at a premium valuation versus peers, sits close to its 52-week high, and remains exposed to credit, deposit-cost, rate, regulatory, and capital-markets cyclicality. The best classification is two-sided: fundamentally constructive, but not clearly mispriced without confirmation that earnings momentum and capital return are not already discounted. Calibration note: Constructive LLM synthesis with medium/high confidence and adequate business/financial quality floors verdict at watchlist rather than reject.",
+  "key_monitoring_items": [
+    "revenue growth",
+    "gross margin",
+    "operating margin",
+    "free cash flow",
+    "leverage",
+    "Rerun deep fundamental analysis when financial, peer, valuation, and news data are available.",
+    "Review the next quarterly filing/earnings release for net interest income, deposit costs, loan growth, provision expense, net charge-offs, and CET1 ratio.",
+    "Track whether the intended $1.65 quarterly dividend is formally approved for 3Q26 and whether repurchases begin under the new $50 billion authorization after July 1, 2026.",
+    "Compare JPM's next-quarter revenue and net margin against the March 2026 quarter's $49.833 billion revenue and 33.1% net margin to test whether the inflection persists.",
+    "Monitor bank peer results for deposit beta, credit normalization, commercial real estate, card delinquencies, and capital-markets activity to determine whether JPM-specific strength or broad sector beta is driving performance.",
+    "Are key margin drivers improving: Capital intensity and regulatory constraints affecting ROTCE, leverage, and business mix, Credit costs, reserve builds or releases, net charge-offs, and criticized loan migration, Deposit franchise quality, including noninterest-bearing deposits, customer retention, and relationship depth, Expense efficiency from scale, technology automation, branch optimization, and operating leverage, Fee income mix from payments, investment banking, trading, securities services, asset management, and wealth management, Loan growth and balance-sheet mix between consumer, commercial, wholesale, securities, and cash balances, Net interest margin driven by asset yields, funding costs, deposit beta, loan mix, securities reinvestment rates, and yield-curve shape, Trading and investment banking revenue tied to market volatility, issuance, M&A, and client risk appetite?"
+  ],
+  "recommended_next_action": "Add to watchlist and rerun when price, estimates, macro/theme context, or company evidence changes. Key missing evidence: No macro_context was supplied, limiting assessment of rates, curve, unemployment, credit cycle, and capital-markets backdrop; No theme_context was supplied, and no aggregate_theme_support_score is available; No user-supplied thesis was provided. Variant view is not yet strong enough for acceptance. Valuation/expectations risk requires confirmation. Risk score remains elevated enough to require validation.",
+  "data_confidence": "high",
+  "source_notes": [
+    "v1 generated from deterministic scaffolding with LLM synthesis; richer filing and transcript layers pending.",
+    "Source transparency: LLM synthesis=used; LLM profile=used; research context=used; profile source=llm_generated_unverified.",
+    "Research context mode: refreshed.",
+    "Sources attempted: SEC, company_ir, FMP transcripts, Finnhub transcripts, NewsAPI news, news, yfinance estimates, peer_commentary",
+    "Sources found: SEC, news, yfinance estimates",
+    "Company profile is LLM-generated and not yet filing-verified.",
+    "Company profile confidence: medium.",
+    "Profile is LLM-generated from general knowledge of JPMorgan Chase and the supplied high-level financial context; it should be verified against the company’s latest Form 10-K, Form 10-Q, earnings materials, and regulatory disclosures.",
+    "No source-backed research context or filing excerpts were supplied for detailed segment revenue/profit shares, customer concentration, or management commentary.",
+    "Company profile is LLM-generated from supplied metadata and general prior knowledge; verify with filings before relying on precise business details.",
+    "Company profile data gaps: Segment revenue and profit shares not provided in supplied context, Current regulatory capital metrics such as CET1 and ROTCE not provided in supplied context, Loan portfolio composition, deposit mix, and credit metrics not provided in supplied context, Recent management commentary and filing-specific segment disclosures should be verified with company filings",
+    "Financial context sourced from yfinance.",
+    "Financial trend is derived from quarterly financial statements through period ending 2026-03-31.",
+    "Latest financial period end date: 2026-03-31.",
+    "Research source coverage: company_ir:company_ir_not_found=1; earnings_release:sec_not_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:news_found=10; news:newsapi_error=1; other_8k:sec_found=24; peer_commentary:peer_commentary_skipped=1; stress_test:sec_found=6; transcript:finnhub_error=1; transcript:fmp_error=1; extraction_selected=19",
+    "Research context evidence items: 20.",
+    "Non-earnings SEC evidence buckets: stress test=15",
+    "Top non-earnings SEC evidence: JPMorganChase's board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval. | JPMorganChase authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion. | The Federal Reserve's February 2026 announcement left JPMorganChase's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+    "Research context data gaps: Earnings release not confidently retrieved via SEC 8-K exhibit.; Peer commentary retrieval skipped or unavailable in v1.; The 1Q26 Form 10-Q source text provided is truncated and does not include many underlying numerical financial-highlight table values, limiting extraction from that filing to facts visible in the supplied text."
+  ],
+  "warnings": [
+    "Macro forecast context extraction failed: 'utf-8' codec can't decode byte 0xcc in position 12: invalid continuation byte"
+  ]
+}
