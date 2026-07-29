@@ -1,0 +1,872 @@
+schema_version: '2.0'
+taxonomy: behavioral
+generated_at: '2026-07-27'
+horizon_days: 63
+notes: 'Single source of truth for the six behavioral scenarios. Replaces the narrative current_scenarios.yaml.
+  NO probability field: scenario probabilities are an OUTPUT of the BVAR ensemble (path-share counts),
+  not an input. Catalysts/falsifiers live in a separate current-conditions annotation layer, not here.
+  Return assumptions are the empirically-calibrated behavioral basket (basket_calibration_v1); narrative
+  returns were used only as cross-check and are superseded where they conflicted.'
+reconciliation_notes:
+- late_cycle_risk_off (narrative, -10% SPY) bundled a growth scare AND a credit crack; it splits across
+  growth_scare_no_credit and credit_led_recession. Its bearish magnitude belongs to the credit leg.
+- 'ai_capex_rollover (narrative, -5% SPY) is a SECTOR-ROTATION story with no distinct macro signature;
+  it maps loosely to growth_scare_no_credit for its equity-derate/credit-orderly shape, but is better
+  understood as a tilt WITHIN a benign regime. Flagged for adjudication: it may warrant an annotation-layer
+  tilt rather than a scenario.'
+- Where narrative and behavioral returns conflicted, behavioral (analogue-calibrated) returns win.
+scenarios:
+  expansion_disinflation:
+    label: Expansion with disinflation (broadening / soft landing)
+    macro_configuration:
+      growth: above-trend / firm
+      inflation: falling toward target
+      credit: tight/healthy spreads
+      policy: easing bias
+    definition: Demand holds above the baseline while core inflation surprises to the downside; the Taylor
+      rule turns easier and financial conditions loosen, broadening risk participation beyond narrow leadership.
+    classifier_signature_ref: frbus_handoff::expansion_disinflation
+    frbus_template: demand_with_inflation_addfactor
+    factor_implications:
+      rates: Front end rallies as cut odds build; 10y drifts lower.
+      equities: Broad equities rise with improving breadth; small caps and rate-sensitive quality catch
+        up.
+      credit: IG/HY spreads stay tight or grind tighter as inflation risk fades without recession signal.
+      dollar: Softens modestly as cut odds rise and global risk appetite improves.
+      commodities: Oil contained; industrial metals firmer if growth holds.
+    preferred_exposures:
+    - small_caps
+    - high_beta_ai_semis
+    - engineering_construction
+    - electrical_equipment
+    - long_duration_growth
+    vulnerable_exposures:
+    - cash_short_duration
+    narrative_lineage:
+    - reopening_soft_landing
+    historical_analogues:
+    - '2017-05-31'
+    - '2013-09-30'
+    - '2021-03-31'
+    - '2024-06-28'
+    - '2003-06-30'
+    - '1995-09-29'
+    - '2019-06-28'
+    market_returns:
+      SPY:
+        expected_return: 0.036
+        volatility: 0.0271
+        p10: -0.0008
+        p90: 0.0661
+      QQQ:
+        expected_return: 0.0399
+        volatility: 0.0471
+        p10: -0.0024
+        p90: 0.1026
+      IWM:
+        expected_return: 0.0435
+        volatility: 0.0548
+        p10: -0.0171
+        p90: 0.1075
+    theme_returns:
+      auto_parts_salvage:
+        expected_return: 0.0371
+        volatility: 0.0491
+        p10: -0.0152
+        p90: 0.1021
+        n_observations: 7
+      cash_short_duration:
+        expected_return: 0.0025
+        volatility: 0.005
+        p10: 0.0025
+        p90: 0.0025
+        n_observations: 7
+      electrical_equipment:
+        expected_return: 0.0339
+        volatility: 0.0663
+        p10: -0.0257
+        p90: 0.1089
+        n_observations: 7
+      engineering_construction:
+        expected_return: 0.0547
+        volatility: 0.0834
+        p10: -0.0344
+        p90: 0.1479
+        n_observations: 7
+      environmental_services:
+        expected_return: 0.0619
+        volatility: 0.0404
+        p10: 0.0224
+        p90: 0.1094
+        n_observations: 7
+      financial_data_exchanges:
+        expected_return: 0.0777
+        volatility: 0.0605
+        p10: -0.0047
+        p90: 0.1491
+        n_observations: 7
+      grid_power_infrastructure:
+        expected_return: 0.0568
+        volatility: 0.0755
+        p10: -0.0192
+        p90: 0.1506
+        n_observations: 7
+      high_beta_ai_semis:
+        expected_return: 0.0602
+        volatility: 0.0672
+        p10: -0.0019
+        p90: 0.1275
+        n_observations: 7
+      industrial_distribution:
+        expected_return: 0.0292
+        volatility: 0.0811
+        p10: -0.0668
+        p90: 0.1335
+        n_observations: 7
+      insurance_brokers:
+        expected_return: 0.0549
+        volatility: 0.0628
+        p10: -0.0146
+        p90: 0.143
+        n_observations: 7
+      long_duration_growth:
+        expected_return: 0.0355
+        volatility: 0.033
+        p10: -0.0023
+        p90: 0.0785
+        n_observations: 7
+      payroll_human_capital:
+        expected_return: 0.0828
+        volatility: 0.0628
+        p10: 0.0267
+        p90: 0.1647
+        n_observations: 7
+      quality_ai:
+        expected_return: 0.0437
+        volatility: 0.0615
+        p10: -0.021
+        p90: 0.1109
+        n_observations: 7
+      quality_ex_ai_cash_flow:
+        expected_return: 0.0629
+        volatility: 0.0312
+        p10: 0.0261
+        p90: 0.0949
+        n_observations: 7
+      small_caps:
+        expected_return: 0.0455
+        volatility: 0.052
+        p10: -0.0155
+        p90: 0.1058
+        n_observations: 7
+  late_cycle_expansion:
+    label: Late-cycle expansion (narrow, capex-led, sticky inflation)
+    macro_configuration:
+      growth: positive but concentrated
+      inflation: sticky above target
+      credit: contained but asymmetric
+      policy: higher-for-longer / on hold
+    definition: 'Investment runs persistently above baseline (current flavor: hyperscaler AI capex) while
+      inflation stays sticky above the endogenous path, keeping the funds rate restrictive and capping
+      breadth.'
+    classifier_signature_ref: frbus_handoff::late_cycle_expansion
+    frbus_template: investment_boom_sticky_inflation
+    factor_implications:
+      rates: Front end elevated; 10y range-bound with breakeven volatility.
+      equities: Cap-weighted holds up better than equal-weight; quality AI, grid, defense, infrastructure
+        lead; small caps lag.
+      credit: Spreads contained but asymmetric; weak balance sheets and consumer cyclicals underperform.
+      dollar: Firm vs low-yielders as US real rates stay restrictive.
+      commodities: Energy volatile in a high range; gold supported by inflation/geopolitical uncertainty.
+    preferred_exposures:
+    - grid_power_infrastructure
+    - quality_ai
+    - electrical_equipment
+    - engineering_construction
+    - industrial_distribution
+    vulnerable_exposures:
+    - small_caps
+    - auto_parts_salvage
+    narrative_lineage:
+    - sticky_late_cycle_ai
+    historical_analogues:
+    - '2017-07-31'
+    - '2024-02-29'
+    - '2024-09-30'
+    - '2019-12-31'
+    - '2018-06-29'
+    - '2007-04-30'
+    - '1999-04-30'
+    market_returns:
+      SPY:
+        expected_return: 0.0154
+        volatility: 0.0415
+        p10: -0.0286
+        p90: 0.0593
+      QQQ:
+        expected_return: 0.0238
+        volatility: 0.0381
+        p10: -0.0193
+        p90: 0.0684
+      IWM:
+        expected_return: 0.0194
+        volatility: 0.0624
+        p10: -0.0525
+        p90: 0.0753
+    theme_returns:
+      auto_parts_salvage:
+        expected_return: 0.0211
+        volatility: 0.0904
+        p10: -0.0931
+        p90: 0.105
+        n_observations: 7
+      cash_short_duration:
+        expected_return: 0.0025
+        volatility: 0.005
+        p10: 0.0025
+        p90: 0.0025
+        n_observations: 7
+      electrical_equipment:
+        expected_return: 0.0321
+        volatility: 0.0852
+        p10: -0.0541
+        p90: 0.1371
+        n_observations: 7
+      engineering_construction:
+        expected_return: 0.0713
+        volatility: 0.0963
+        p10: -0.0451
+        p90: 0.1807
+        n_observations: 7
+      environmental_services:
+        expected_return: 0.0544
+        volatility: 0.0355
+        p10: 0.004
+        p90: 0.0902
+        n_observations: 7
+      financial_data_exchanges:
+        expected_return: 0.0284
+        volatility: 0.0384
+        p10: -0.0176
+        p90: 0.0668
+        n_observations: 7
+      grid_power_infrastructure:
+        expected_return: 0.0539
+        volatility: 0.0949
+        p10: -0.0525
+        p90: 0.1406
+        n_observations: 7
+      high_beta_ai_semis:
+        expected_return: 0.0504
+        volatility: 0.0797
+        p10: -0.0435
+        p90: 0.1443
+        n_observations: 7
+      industrial_distribution:
+        expected_return: 0.0327
+        volatility: 0.0997
+        p10: -0.0822
+        p90: 0.1263
+        n_observations: 7
+      insurance_brokers:
+        expected_return: 0.0373
+        volatility: 0.0462
+        p10: -0.0221
+        p90: 0.0772
+        n_observations: 7
+      long_duration_growth:
+        expected_return: 0.0289
+        volatility: 0.0575
+        p10: -0.0324
+        p90: 0.0979
+        n_observations: 7
+      payroll_human_capital:
+        expected_return: 0.0338
+        volatility: 0.0538
+        p10: -0.021
+        p90: 0.0997
+        n_observations: 7
+      quality_ai:
+        expected_return: 0.0324
+        volatility: 0.031
+        p10: -0.0016
+        p90: 0.0708
+        n_observations: 7
+      quality_ex_ai_cash_flow:
+        expected_return: 0.0444
+        volatility: 0.0488
+        p10: -0.0146
+        p90: 0.0968
+        n_observations: 7
+      small_caps:
+        expected_return: 0.0196
+        volatility: 0.0657
+        p10: -0.0539
+        p90: 0.0785
+        n_observations: 7
+  inflation_shock:
+    label: Inflation shock (supply-driven reacceleration)
+    macro_configuration:
+      growth: endogenous (model-determined)
+      inflation: sharp reacceleration
+      credit: widens selectively
+      policy: forced hawkish / hikes back on table
+    definition: A supply-side inflation impulse (e.g. energy) reignites inflation; the Fed cannot ease
+      and may reprice toward hikes. Growth damage is a consequence of the policy response, not an assumption.
+    classifier_signature_ref: frbus_handoff::inflation_shock
+    frbus_template: demand_with_inflation_addfactor
+    factor_implications:
+      rates: Breakevens rise, nominal yields back up; front-end hike risk returns.
+      equities: Energy, defense, real assets outperform; broad equities derate; consumers, small caps,
+        unprofitable growth hit hardest.
+      credit: Spreads widen selectively, led by consumer cyclicals, transport, weak balance sheets.
+      dollar: Firms on higher US rates and risk aversion.
+      commodities: Oil/refined products bid; energy equities outperform; gold benefits.
+    preferred_exposures:
+    - cash_short_duration
+    - insurance_brokers
+    - financial_data_exchanges
+    vulnerable_exposures:
+    - long_duration_growth
+    - high_beta_ai_semis
+    - small_caps
+    narrative_lineage:
+    - oil_inflation_tail
+    historical_analogues:
+    - '2021-11-30'
+    - '2008-05-30'
+    - '2011-03-31'
+    - '2022-01-31'
+    - '2018-04-30'
+    market_returns:
+      SPY:
+        expected_return: -0.0109
+        volatility: 0.0451
+        p10: -0.0606
+        p90: 0.0268
+      QQQ:
+        expected_return: -0.0164
+        volatility: 0.0635
+        p10: -0.0894
+        p90: 0.053
+      IWM:
+        expected_return: -0.0039
+        volatility: 0.0516
+        p10: -0.0551
+        p90: 0.0594
+    theme_returns:
+      auto_parts_salvage:
+        expected_return: 0.0142
+        volatility: 0.038
+        p10: -0.0258
+        p90: 0.0599
+        n_observations: 5
+      cash_short_duration:
+        expected_return: 0.0025
+        volatility: 0.005
+        p10: 0.0025
+        p90: 0.0025
+        n_observations: 5
+      electrical_equipment:
+        expected_return: -0.0404
+        volatility: 0.0731
+        p10: -0.1196
+        p90: 0.0453
+        n_observations: 5
+      engineering_construction:
+        expected_return: 0.0057
+        volatility: 0.0525
+        p10: -0.046
+        p90: 0.068
+        n_observations: 5
+      environmental_services:
+        expected_return: 0.0253
+        volatility: 0.0558
+        p10: -0.0413
+        p90: 0.0792
+        n_observations: 5
+      financial_data_exchanges:
+        expected_return: -0.0283
+        volatility: 0.0758
+        p10: -0.1202
+        p90: 0.0412
+        n_observations: 5
+      grid_power_infrastructure:
+        expected_return: -0.0151
+        volatility: 0.0446
+        p10: -0.0578
+        p90: 0.036
+        n_observations: 5
+      high_beta_ai_semis:
+        expected_return: -0.0287
+        volatility: 0.1233
+        p10: -0.1745
+        p90: 0.0878
+        n_observations: 5
+      industrial_distribution:
+        expected_return: -0.0101
+        volatility: 0.047
+        p10: -0.0641
+        p90: 0.0378
+        n_observations: 5
+      insurance_brokers:
+        expected_return: 0.0005
+        volatility: 0.0558
+        p10: -0.0487
+        p90: 0.0587
+        n_observations: 5
+      long_duration_growth:
+        expected_return: -0.0291
+        volatility: 0.0777
+        p10: -0.1096
+        p90: 0.0597
+        n_observations: 5
+      payroll_human_capital:
+        expected_return: 0.0453
+        volatility: 0.0813
+        p10: -0.0469
+        p90: 0.1376
+        n_observations: 5
+      quality_ai:
+        expected_return: -0.0155
+        volatility: 0.0692
+        p10: -0.0813
+        p90: 0.0599
+        n_observations: 5
+      quality_ex_ai_cash_flow:
+        expected_return: 0.0252
+        volatility: 0.0528
+        p10: -0.0402
+        p90: 0.0743
+        n_observations: 5
+      small_caps:
+        expected_return: -0.0
+        volatility: 0.0489
+        p10: -0.0453
+        p90: 0.0605
+        n_observations: 5
+  stagflation:
+    label: Stagflation (weak growth + persistent inflation)
+    macro_configuration:
+      growth: stagnant / near zero
+      inflation: persistently elevated
+      credit: widening
+      policy: policy bind (pulled both ways)
+    definition: Weak growth and sticky inflation simultaneously; the Taylor rule is pulled in both directions.
+      Defined as a specific stagnant-output outcome rather than a tilt vs baseline.
+    classifier_signature_ref: frbus_handoff::stagflation
+    frbus_template: demand_with_inflation_addfactor
+    factor_implications:
+      rates: Elevated and volatile; policy caught between mandates.
+      equities: Broad derate; defensives, energy, real assets least bad; growth and cyclicals worst.
+      credit: Spreads widen as growth deteriorates with no policy relief.
+      dollar: Mixed; safety demand vs eroding real returns.
+      commodities: Inflation hedges (energy, gold) supported; industrial metals weak on growth.
+    preferred_exposures:
+    - cash_short_duration
+    - insurance_brokers
+    vulnerable_exposures:
+    - high_beta_ai_semis
+    - long_duration_growth
+    - small_caps
+    - auto_parts_salvage
+    narrative_lineage:
+    - oil_inflation_tail
+    - late_cycle_risk_off
+    historical_analogues:
+    - '2022-04-29'
+    - '2022-06-30'
+    - '2008-06-30'
+    - '2011-07-29'
+    market_returns:
+      SPY:
+        expected_return: -0.0351
+        volatility: 0.0656
+        p10: -0.1056
+        p90: 0.0356
+      QQQ:
+        expected_return: -0.0286
+        volatility: 0.0702
+        p10: -0.0963
+        p90: 0.0503
+      IWM:
+        expected_return: -0.029
+        volatility: 0.1101
+        p10: -0.1546
+        p90: 0.073
+    theme_returns:
+      auto_parts_salvage:
+        expected_return: 0.0678
+        volatility: 0.043
+        p10: 0.0307
+        p90: 0.1172
+        n_observations: 4
+      cash_short_duration:
+        expected_return: 0.0025
+        volatility: 0.005
+        p10: 0.0025
+        p90: 0.0025
+        n_observations: 4
+      electrical_equipment:
+        expected_return: -0.0349
+        volatility: 0.0941
+        p10: -0.1309
+        p90: 0.0643
+        n_observations: 4
+      engineering_construction:
+        expected_return: -0.0225
+        volatility: 0.101
+        p10: -0.1369
+        p90: 0.068
+        n_observations: 4
+      environmental_services:
+        expected_return: 0.0256
+        volatility: 0.0718
+        p10: -0.0513
+        p90: 0.1026
+        n_observations: 4
+      financial_data_exchanges:
+        expected_return: -0.0196
+        volatility: 0.0666
+        p10: -0.0837
+        p90: 0.056
+        n_observations: 4
+      grid_power_infrastructure:
+        expected_return: -0.0051
+        volatility: 0.1072
+        p10: -0.122
+        p90: 0.1075
+        n_observations: 4
+      high_beta_ai_semis:
+        expected_return: -0.0963
+        volatility: 0.0705
+        p10: -0.1618
+        p90: -0.0222
+        n_observations: 4
+      industrial_distribution:
+        expected_return: 0.0112
+        volatility: 0.1161
+        p10: -0.1051
+        p90: 0.1312
+        n_observations: 4
+      insurance_brokers:
+        expected_return: 0.0033
+        volatility: 0.0956
+        p10: -0.1036
+        p90: 0.1004
+        n_observations: 4
+      long_duration_growth:
+        expected_return: -0.0263
+        volatility: 0.0349
+        p10: -0.066
+        p90: 0.0067
+        n_observations: 4
+      payroll_human_capital:
+        expected_return: 0.0272
+        volatility: 0.0989
+        p10: -0.0793
+        p90: 0.1263
+        n_observations: 4
+      quality_ai:
+        expected_return: -0.0285
+        volatility: 0.0643
+        p10: -0.0948
+        p90: 0.0428
+        n_observations: 4
+      quality_ex_ai_cash_flow:
+        expected_return: 0.0148
+        volatility: 0.0723
+        p10: -0.0592
+        p90: 0.09
+        n_observations: 4
+      small_caps:
+        expected_return: -0.0301
+        volatility: 0.1021
+        p10: -0.1466
+        p90: 0.0662
+        n_observations: 4
+  growth_scare_no_credit:
+    label: Growth scare, credit healthy (equity-led, no funding stress)
+    macro_configuration:
+      growth: decelerating then recovering
+      inflation: easing
+      credit: stays healthy (no spread blowout)
+      policy: easing into weakness
+    definition: Growth decelerates and equities derate, but credit holds and funding stress stays absent.
+      A V-ish recovery. The defining contrast with credit_led_recession is that spreads do NOT blow out.
+    classifier_signature_ref: frbus_handoff::growth_scare_no_credit
+    frbus_template: demand_gdp_path
+    factor_implications:
+      rates: Curve bull-steepens as front end prices cuts; 10y falls.
+      equities: Broad equities fall then recover; momentum/high-beta derate with the market; defensives
+        and low-leverage outperform.
+      credit: Spreads widen modestly but no funding stress; IG resilient.
+      dollar: Firms on risk aversion but reverses as recovery builds.
+      commodities: Oil softens on demand; gold firm on safety.
+    preferred_exposures:
+    - cash_short_duration
+    - quality_ex_ai_cash_flow
+    - insurance_brokers
+    vulnerable_exposures:
+    - high_beta_ai_semis
+    - small_caps
+    narrative_lineage:
+    - ai_capex_rollover
+    - late_cycle_risk_off
+    historical_analogues:
+    - '2018-10-31'
+    - '2015-08-31'
+    - '2011-08-31'
+    - '2022-10-31'
+    - '2016-01-29'
+    market_returns:
+      SPY:
+        expected_return: 0.0167
+        volatility: 0.0535
+        p10: -0.0459
+        p90: 0.0721
+      QQQ:
+        expected_return: 0.0137
+        volatility: 0.0693
+        p10: -0.0697
+        p90: 0.086
+      IWM:
+        expected_return: -0.0062
+        volatility: 0.0628
+        p10: -0.0796
+        p90: 0.0595
+    theme_returns:
+      auto_parts_salvage:
+        expected_return: 0.0607
+        volatility: 0.0479
+        p10: 0.0059
+        p90: 0.1134
+        n_observations: 5
+      cash_short_duration:
+        expected_return: 0.0025
+        volatility: 0.005
+        p10: 0.0025
+        p90: 0.0025
+        n_observations: 5
+      electrical_equipment:
+        expected_return: -0.18
+        volatility: 0.28
+        p10: null
+        p90: null
+        n_observations: 0
+      engineering_construction:
+        expected_return: 0.0407
+        volatility: 0.0987
+        p10: -0.0609
+        p90: 0.1267
+        n_observations: 5
+      environmental_services:
+        expected_return: 0.0205
+        volatility: 0.0636
+        p10: -0.0386
+        p90: 0.0997
+        n_observations: 5
+      financial_data_exchanges:
+        expected_return: 0.0319
+        volatility: 0.0358
+        p10: -0.0077
+        p90: 0.0688
+        n_observations: 5
+      grid_power_infrastructure:
+        expected_return: -0.18
+        volatility: 0.28
+        p10: null
+        p90: null
+        n_observations: 0
+      high_beta_ai_semis:
+        expected_return: -0.25
+        volatility: 0.38
+        p10: null
+        p90: null
+        n_observations: 0
+      industrial_distribution:
+        expected_return: 0.0491
+        volatility: 0.1119
+        p10: -0.0403
+        p90: 0.19
+        n_observations: 5
+      insurance_brokers:
+        expected_return: 0.0442
+        volatility: 0.0598
+        p10: -0.0046
+        p90: 0.1097
+        n_observations: 5
+      long_duration_growth:
+        expected_return: 0.0392
+        volatility: 0.0734
+        p10: -0.0487
+        p90: 0.1116
+        n_observations: 5
+      payroll_human_capital:
+        expected_return: 0.0364
+        volatility: 0.0676
+        p10: -0.0319
+        p90: 0.117
+        n_observations: 5
+      quality_ai:
+        expected_return: 0.0415
+        volatility: 0.0808
+        p10: -0.0277
+        p90: 0.1292
+        n_observations: 5
+      quality_ex_ai_cash_flow:
+        expected_return: 0.0359
+        volatility: 0.0534
+        p10: -0.0172
+        p90: 0.0961
+        n_observations: 5
+      small_caps:
+        expected_return: -0.0006
+        volatility: 0.0653
+        p10: -0.0771
+        p90: 0.0672
+        n_observations: 5
+  credit_led_recession:
+    label: Credit-led recession (spread blowout + contraction)
+    macro_configuration:
+      growth: contracting
+      inflation: falling
+      credit: spreads blow out (funding stress)
+      policy: aggressive easing, behind the curve
+    definition: Credit deteriorates first; spreads blow out, financial conditions tighten through both
+      corporate borrowing costs and the equity premium, and the real economy follows. Deeper and slower-recovering
+      than growth_scare_no_credit; the spread blowout is the distinguishing lever.
+    classifier_signature_ref: frbus_handoff::credit_led_recession
+    frbus_template: credit_spread_shock
+    factor_implications:
+      rates: Front end collapses as cuts are priced; curve bull-steepens hard; flight to quality.
+      equities: Broad severe drawdown; high-beta, small caps, weak balance sheets worst; quality/low-leverage
+        least bad.
+      credit: HY spreads widen sharply, IG widens materially; lower-quality issuers underperform badly.
+      dollar: Rallies on global risk aversion and funding demand.
+      commodities: Oil falls on demand destruction; gold gains on safety; industrial metals weak.
+    preferred_exposures:
+    - cash_short_duration
+    - quality_ex_ai_cash_flow
+    vulnerable_exposures:
+    - high_beta_ai_semis
+    - small_caps
+    - auto_parts_salvage
+    - long_duration_growth
+    narrative_lineage:
+    - late_cycle_risk_off
+    historical_analogues:
+    - '2008-09-30'
+    - '2008-06-30'
+    - '2001-09-28'
+    - '2000-09-29'
+    - '1990-07-31'
+    - '2002-06-28'
+    market_returns:
+      SPY:
+        expected_return: -0.0541
+        volatility: 0.11
+        p10: -0.1721
+        p90: 0.046
+      QQQ:
+        expected_return: -0.0478
+        volatility: 0.2201
+        p10: -0.2818
+        p90: 0.1883
+      IWM:
+        expected_return: -0.0649
+        volatility: 0.1621
+        p10: -0.2443
+        p90: 0.1099
+    theme_returns:
+      auto_parts_salvage:
+        expected_return: 0.0327
+        volatility: 0.1489
+        p10: -0.1396
+        p90: 0.1697
+        n_observations: 6
+      cash_short_duration:
+        expected_return: 0.0025
+        volatility: 0.005
+        p10: 0.0025
+        p90: 0.0025
+        n_observations: 6
+      electrical_equipment:
+        expected_return: -0.0339
+        volatility: 0.0996
+        p10: -0.1546
+        p90: 0.0634
+        n_observations: 6
+      engineering_construction:
+        expected_return: -0.0769
+        volatility: 0.1499
+        p10: -0.2787
+        p90: 0.0697
+        n_observations: 6
+      environmental_services:
+        expected_return: -0.0281
+        volatility: 0.1277
+        p10: -0.1655
+        p90: 0.0859
+        n_observations: 6
+      financial_data_exchanges:
+        expected_return: -0.0723
+        volatility: 0.1287
+        p10: -0.2031
+        p90: 0.005
+        n_observations: 6
+      grid_power_infrastructure:
+        expected_return: -0.25
+        volatility: 0.32
+        p10: null
+        p90: null
+        n_observations: 0
+      high_beta_ai_semis:
+        expected_return: -0.35
+        volatility: 0.42
+        p10: null
+        p90: null
+        n_observations: 0
+      industrial_distribution:
+        expected_return: -0.0337
+        volatility: 0.1699
+        p10: -0.2539
+        p90: 0.1151
+        n_observations: 6
+      insurance_brokers:
+        expected_return: -0.0316
+        volatility: 0.0871
+        p10: -0.1341
+        p90: 0.064
+        n_observations: 6
+      long_duration_growth:
+        expected_return: -0.0568
+        volatility: 0.1274
+        p10: -0.2026
+        p90: 0.0706
+        n_observations: 6
+      payroll_human_capital:
+        expected_return: -0.0076
+        volatility: 0.1203
+        p10: -0.166
+        p90: 0.1233
+        n_observations: 6
+      quality_ai:
+        expected_return: -0.0206
+        volatility: 0.1628
+        p10: -0.1806
+        p90: 0.1439
+        n_observations: 6
+      quality_ex_ai_cash_flow:
+        expected_return: -0.0027
+        volatility: 0.1129
+        p10: -0.1402
+        p90: 0.0928
+        n_observations: 6
+      small_caps:
+        expected_return: -0.0617
+        volatility: 0.1567
+        p10: -0.2405
+        p90: 0.1037
+        n_observations: 6
+scenario_correlation_ref: classifier_cache::scenario_signature_correlation

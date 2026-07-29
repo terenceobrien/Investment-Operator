@@ -20,7 +20,7 @@ from src.agent_system.schemas.monte_carlo import MonteCarloPathResult
 from src.agent_system.schemas.portfolio_plan import PortfolioPlan
 from src.agent_system.schemas.trade import TradeIdea
 from src.agent_system.services.scenario_translation import (
-    translate_scenario_probabilities,
+    translate_narrative_to_behavioral,
 )
 from src.agent_system.storage.repository import _read_jsonl, _schema_records_path
 
@@ -140,7 +140,7 @@ def _load_macro_scenario_probabilities() -> dict[str, float]:
             )
         )
         if probabilities:
-            return translate_scenario_probabilities(
+            return translate_narrative_to_behavioral(
                 {
                     scenario_id: float(value)
                     for scenario_id, value in probabilities.items()
@@ -157,7 +157,7 @@ def _load_macro_scenario_probabilities() -> dict[str, float]:
             f"{DEFAULT_MACRO_FORECAST_PATH}: {exc}; using DEFAULT_SCENARIO_PRIORS.",
             file=sys.stderr,
         )
-    return translate_scenario_probabilities(dict(DEFAULT_SCENARIO_PRIORS))
+    return translate_narrative_to_behavioral(dict(DEFAULT_SCENARIO_PRIORS))
 
 
 def _positive_trade_ids(plan: PortfolioPlan) -> set[str]:

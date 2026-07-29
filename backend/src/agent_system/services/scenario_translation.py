@@ -33,7 +33,7 @@ BEHAVIORAL_SCENARIO_IDS: list[str] = [
 ]
 
 
-def translate_scenario_probabilities(
+def translate_narrative_to_behavioral(
     legacy_probabilities: dict[str, float],
 ) -> dict[str, float]:
     """Translate legacy narrative scenario probabilities to behavioral scenario probabilities.
@@ -72,3 +72,15 @@ def translate_scenario_probabilities(
         result = {k: v / total for k, v in result.items()}
 
     return result
+
+
+def translate_scenario_probabilities(
+    legacy_probabilities: dict[str, float],
+) -> dict[str, float]:
+    """Backward-compatible wrapper for the narrative->behavioral bridge.
+
+    Temporary shadow-period scaffolding: this retires when the macro forecast
+    layer emits behavioral scenario IDs directly.
+    """
+
+    return translate_narrative_to_behavioral(legacy_probabilities)

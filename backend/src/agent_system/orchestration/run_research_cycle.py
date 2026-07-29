@@ -88,7 +88,7 @@ from src.agent_system.services.existing_position_filter import (
 from src.agent_system.services.held_position_registry import get_held_positions
 from src.agent_system.services.monte_carlo_engine import MonteCarloEngine
 from src.agent_system.services.scenario_assumptions_loader import ScenarioAssumptionsLoader
-from src.agent_system.services.scenario_translation import translate_scenario_probabilities
+from src.agent_system.services.scenario_translation import translate_narrative_to_behavioral
 from src.agent_system.services.shadow_outcome_builder import build_shadow_outcome
 from src.agent_system.services.trade_outcome_builder import build_trade_outcome
 from src.agent_system.paths import cycles_dir
@@ -286,7 +286,7 @@ def _portfolio_summary_text(plan: PortfolioPlan) -> str:
     return "\n".join(lines)
 
 
-def _load_latest_macro_forecast_probabilities() -> dict[str, float] | None:
+def _load_latest_macro_forecast_result() -> tuple[MacroForecastResult, Path] | None:
     reports_dir = (
         Path(__file__).resolve().parents[3]
         / "data"
@@ -307,24 +307,42 @@ def _load_latest_macro_forecast_probabilities() -> dict[str, float] | None:
             try:
                 payload = json.loads(path.read_text(encoding="utf-8"))
                 result = MacroForecastResult.model_validate(payload)
-                probabilities = (
-                    result.scenario_probabilities_blended
-                    or (
-                        result.historical_calibration.blended_scenario_probabilities
-                        if result.historical_calibration is not None
-                        else None
-                    )
-                    or result.scenario_probabilities
-                )
-                if probabilities:
-                    return {scenario_id: float(value) for scenario_id, value in probabilities.items()}
-                logger.warning("Macro forecast %s has no scenario probabilities", path)
+                return result, path
             except Exception as exc:
                 logger.warning("Failed to load macro forecast %s: %s", path, exc)
         return None
     except Exception as exc:
-        logger.warning("Unable to load latest macro forecast probabilities: %s", exc)
+        logger.warning("Unable to load latest macro forecast: %s", exc)
         return None
+
+
+def _scenario_probabilities_from_macro_forecast(
+    result: MacroForecastResult,
+) -> dict[str, float] | None:
+    probabilities = (
+        result.scenario_probabilities_blended
+        or (
+            result.historical_calibration.blended_scenario_probabilities
+            if result.historical_calibration is not None
+            else None
+        )
+        or result.scenario_probabilities
+    )
+    if probabilities:
+        return {scenario_id: float(value) for scenario_id, value in probabilities.items()}
+    return None
+
+
+def _load_latest_macro_forecast_probabilities() -> dict[str, float] | None:
+    loaded = _load_latest_macro_forecast_result()
+    if loaded is None:
+        return None
+    result, path = loaded
+    probabilities = _scenario_probabilities_from_macro_forecast(result)
+    if probabilities:
+        return probabilities
+    logger.warning("Macro forecast %s has no scenario probabilities", path)
+    return None
 
 
 def _run_monte_carlo(
@@ -370,7 +388,7 @@ def _run_monte_carlo(
             "Monte Carlo used fallback scenario priors; macro probabilities unavailable."
         )
         scenario_probabilities = DEFAULT_SCENARIO_PRIORS
-    scenario_probabilities = translate_scenario_probabilities(scenario_probabilities)
+    scenario_probabilities = translate_narrative_to_behavioral(scenario_probabilities)
 
     loader = ScenarioAssumptionsLoader()
     engine = MonteCarloEngine(
@@ -401,8 +419,52 @@ def _execute_cycle(
 ) -> dict:
     cycle_id = cycle_id or (emitter.cycle_id if emitter is not None else str(uuid4()))
     _print_research_priorities(regime)
-    macro_scenario_probabilities = _load_latest_macro_forecast_probabilities()
+    latest_macro_forecast = _load_latest_macro_forecast_result()
+    narrative_forecast: MacroForecastResult | None = None
+    if latest_macro_forecast is not None:
+        narrative_forecast, _narrative_forecast_path = latest_macro_forecast
+        macro_scenario_probabilities = _scenario_probabilities_from_macro_forecast(
+            narrative_forecast
+        )
+        if macro_scenario_probabilities is None:
+            logger.warning(
+                "Macro forecast %s has no scenario probabilities",
+                _narrative_forecast_path,
+            )
+    else:
+        macro_scenario_probabilities = None
     _print_scenario_probabilities(macro_scenario_probabilities)
+    # SHADOW MODE: run ensemble alongside, log comparison, consume nothing.
+    try:
+        if narrative_forecast is not None:
+            from src.agent_system.forecasting.macro_forecast_comparison import (
+                build_forecast_comparison,
+            )
+            from src.agent_system.forecasting.macro_forecast_shadow import (
+                cycle_date_to_asof_quarter,
+                run_shadow_forecast,
+            )
+
+            cycle_date = str(regime.asof_date)[:10]
+            asof_quarter = cycle_date_to_asof_quarter(cycle_date)
+            shadow = run_shadow_forecast(cycle_id, cycle_date, asof_quarter)
+            if shadow is not None:
+                build_forecast_comparison(
+                    narrative_forecast,
+                    shadow,
+                    cycle_id,
+                    cycle_date,
+                )
+        else:
+            logger.warning(
+                "Shadow forecast comparison skipped: no live narrative macro forecast artifact loaded."
+            )
+    except Exception as exc:
+        logger.warning(
+            "Shadow forecast failed (non-fatal, live path unaffected): %s",
+            exc,
+            exc_info=True,
+        )
     if emitter is not None:
         macro_stage = next(
             (stage for stage in emitter.state.stages if stage.stage == StageName.MACRO),

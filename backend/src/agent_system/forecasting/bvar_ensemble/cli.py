@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 from typing import Any
@@ -142,6 +143,20 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional comparison forecast JSON for side-by-side report mode.",
     )
     report.set_defaults(func=_cmd_report)
+
+    shadow_compare = subparsers.add_parser("shadow-compare", parents=[common])
+    shadow_compare.add_argument("--cycle-date", required=True, help="Cycle date, YYYY-MM-DD.")
+    shadow_compare.add_argument(
+        "--narrative-forecast",
+        default=None,
+        help="Existing narrative macro forecast JSON; defaults to newest macro_forecast_*.json.",
+    )
+    shadow_compare.add_argument(
+        "--asof-quarter",
+        default=None,
+        help="Optional BVAR anchor quarter override, e.g. 2026Q1.",
+    )
+    shadow_compare.set_defaults(func=_cmd_shadow_compare)
     return parser
 
 
@@ -719,6 +734,42 @@ def _cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_shadow_compare(args: argparse.Namespace) -> int:
+    from src.agent_system.forecasting.macro_forecast_comparison import (
+        build_forecast_comparison,
+    )
+    from src.agent_system.forecasting.macro_forecast_shadow import (
+        cycle_date_to_asof_quarter,
+        run_shadow_forecast,
+        shadow_forecast_dir,
+    )
+
+    cycle_date = str(args.cycle_date)
+    asof_quarter = args.asof_quarter or cycle_date_to_asof_quarter(cycle_date)
+    cycle_id = f"manual-shadow-{cycle_date}"
+    shadow = run_shadow_forecast(
+        cycle_id,
+        cycle_date,
+        asof_quarter,
+        classifier_cache_dir=args.classifier_cache_dir,
+        bvar_cache_dir=args.bvar_cache_dir,
+        handoff_dir=args.handoff_dir,
+    )
+    if shadow is None:
+        print("Shadow forecast failed or was skipped; no comparison written.")
+        return 0
+    narrative_path = Path(args.narrative_forecast) if args.narrative_forecast else _latest_narrative_forecast_path()
+    build_forecast_comparison(
+        narrative_path,
+        shadow,
+        cycle_id,
+        cycle_date,
+    )
+    print(f"Wrote shadow forecast: {shadow.artifact_path}")
+    print(f"Wrote shadow comparison artifacts under: {shadow_forecast_dir()}")
+    return 0
+
+
 def _config_from_args(args: argparse.Namespace) -> dict[str, Any]:
     config = load_bvar_config()
     return apply_config_overrides(
@@ -801,6 +852,38 @@ def _print_correlation_matrix(variable_order: list[str], matrix) -> None:
     for row_label, row in zip(labels, matrix):
         values = " ".join(f"{float(value):>10.3f}" for value in row)
         print(f"  {row_label:<10} {values}")
+
+
+def _latest_narrative_forecast_path() -> Path:
+    roots = [
+        Path("data/agent_system/reports/macro_forecasts"),
+        Path("backend/data/agent_system/reports/macro_forecasts"),
+    ]
+    candidates: list[Path] = []
+    for root in roots:
+        if not root.is_dir():
+            continue
+        candidates.extend(root.glob("macro_forecast_*.json"))
+        current_dir = root / "current"
+        if current_dir.is_dir():
+            candidates.extend(current_dir.glob("macro_forecast_*.json"))
+    if not candidates:
+        raise FileNotFoundError(
+            "No narrative macro forecast JSON found; pass --narrative-forecast."
+        )
+    # Prefer files that parse as JSON macro artifacts, then newest modified time.
+    valid: list[Path] = []
+    for path in candidates:
+        try:
+            json.loads(path.read_text(encoding="utf-8"))
+            valid.append(path)
+        except Exception:
+            continue
+    if not valid:
+        raise FileNotFoundError(
+            "No readable narrative macro forecast JSON found; pass --narrative-forecast."
+        )
+    return sorted(valid, key=lambda path: (path.stat().st_mtime, path.name), reverse=True)[0]
 
 
 if __name__ == "__main__":
