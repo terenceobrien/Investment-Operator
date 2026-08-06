@@ -66,6 +66,9 @@ def test_run_macro_forecast_uses_two_source_mixture(monkeypatch):
     assert result.mixture_report["combination"] == "linear_mixture"
     assert "analogue_fan" in result.mixture_report
     assert result.outputs["analogue_fan_json_path"].endswith("analogue_fan_2026Q2.json")
+    assert not Path(result.outputs["analogue_fan_json_path"]).is_absolute()
+    assert result.outputs["analogue_fan_filename"] == "analogue_fan_2026Q2.json"
+    assert result.mixture_report["analogue_fan_filename"] == "analogue_fan_2026Q2.json"
     assert result.outputs["analogue_fan_grid_png_path"].endswith("analogue_fan_2026Q2_grid.png")
     assert result.outputs["analogue_fan_credit_spread_png_path"].endswith("analogue_fan_2026Q2_credit_spread.png")
     assert result.bvar_provenance["model_limitations"]["credit_tail_magnitude"] == "conservative"

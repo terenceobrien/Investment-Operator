@@ -40,10 +40,14 @@ import { M } from '../lib/researchOsTheme';
 const FORECAST_ENDPOINT = '/api/macro/forecast/latest';
 const FAN_ENDPOINT = '/api/macro/analogue-fan/latest';
 const SCENARIO_META_ENDPOINT = '/api/macro/scenario-meta';
+const LAYER_DETAIL_ENDPOINT = '/api/macro/layers/detail';
 const REGIME_ENDPOINT = '/api/market/regime';
+const REGIME_HISTORY_ENDPOINT = '/api/market/regime/history';
 const INDICATOR_HISTORY_ENDPOINT = '/api/macro/indicator-history';
 const NARRATIVE_TICKER = 'SPY';
 const NARRATIVE_ENDPOINT = (ticker: string) => `/api/narrative/latest?ticker=${ticker}`;
+const COMPONENT_HISTORY_ENDPOINT = (layerId: string, componentId: string, window: ComponentHistoryWindow) =>
+  `/api/macro/layers/${encodeURIComponent(layerId)}/components/${encodeURIComponent(componentId)}/history?window=${window}`;
 
 type AnyRecord = Record<string, unknown>;
 type ScenarioMeta = { display_name: string; short_description: string };
@@ -147,6 +151,65 @@ type IndicatorHistorySeries = {
   points: HistoryPoint[];
 };
 type IndicatorHistoryMap = Record<string, IndicatorHistorySeries>;
+type LayerComponentDetail = {
+  component_id: string;
+  display_name: string;
+  current_value: number | null;
+  units_note: string | null;
+  component_score: number | null;
+  weight: number | null;
+  weight_basis?: string | null;
+  contribution: number | null;
+  delta_1w: number | null;
+  delta_1w_reason?: string | null;
+  delta_1m: number | null;
+  delta_1m_reason?: string | null;
+  change_contribution_1m: number | null;
+  history_available: boolean;
+  history_source?: string | null;
+  scored?: boolean;
+  unscored_reason?: string | null;
+};
+type MacroLayerDetail = {
+  layer_id: string;
+  display_name: string;
+  score: number | null;
+  direction_label: string;
+  status: string;
+  delta_1m: number | null;
+  delta_1m_reason?: string | null;
+  components: LayerComponentDetail[];
+};
+type MacroLayersDetailPayload = {
+  asof: string | null;
+  history?: {
+    start_date?: string | null;
+    end_date?: string | null;
+    source_counts?: Record<string, number>;
+    warnings?: string[];
+  };
+  layers: MacroLayerDetail[];
+};
+type ComponentHistoryWindow = '90d' | '1y';
+type ComponentHistoryPoint = { date: string; value: number; component_score?: number | null };
+type LayerScoreHistoryPoint = { date: string; score: number | null };
+type ComponentHistoryPayload = {
+  layer_id: string;
+  component_id: string;
+  display_name: string;
+  window: ComponentHistoryWindow;
+  history_source?: string | null;
+  series: ComponentHistoryPoint[];
+  layer_score_series: LayerScoreHistoryPoint[];
+  warnings?: string[];
+};
+type RegimeHistoryPayload = {
+  snapshots?: Array<{
+    date?: string;
+    score_total?: number | null;
+  }>;
+  n?: number;
+};
 
 // ─────────────────────────────────────────────────────────────
 // Generic safe accessors (mirrors the narrative page conventions)
@@ -495,6 +558,18 @@ function normalizeRegime(raw: unknown): LiveRegime | null {
   };
 }
 
+function normalizeRegimeScoreHistory(raw: unknown): HistoryPoint[] {
+  const payload = safeObj(raw);
+  return safeArray<AnyRecord>(payload.snapshots)
+    .map((snapshot) => {
+      const date = safeStr(snapshot.date);
+      const value = safeNum(snapshot.score_total);
+      return date && value !== null ? { date, value } : null;
+    })
+    .filter((point): point is HistoryPoint => point !== null)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
 // ─────────────────────────────────────────────────────────────
 // Narrative extraction (SPY) — reads the same synthesis `result`
 // object the /narrative page consumes.
@@ -693,8 +768,25 @@ function appendHistoryPoint(points: HistoryPoint[], point: HistoryPoint | null):
   return next.sort((a, b) => a.date.localeCompare(b.date));
 }
 
-function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveRegime | null; scoreHistory: HistoryPoint[] }) {
+function MarketRegimePanel({
+  f,
+  regime,
+  scoreHistory,
+  layerDetail,
+  layerError,
+  layerLoading,
+  fetcher,
+}: {
+  f: Forecast;
+  regime: LiveRegime | null;
+  scoreHistory: HistoryPoint[];
+  layerDetail?: MacroLayersDetailPayload;
+  layerError?: Error;
+  layerLoading: boolean;
+  fetcher: (url: string) => Promise<unknown>;
+}) {
   const { isLoading, errorMessage } = useForecastData();
+  const [expanded, setExpanded] = useState(false);
   const forecastUnavailable = !f.available;
   const composite = regime?.scoreTotal ?? f.composite;
   const runnerUp = forecastUnavailable ? undefined : f.scenarios[1];
@@ -715,44 +807,77 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
       ? { date: regime.asof, value: regime.scoreTotal }
       : null,
   );
+  const heading = regime?.environment || (f.available ? f.dominantLabel : 'forecast unavailable');
+  const layers = regime
+    ? regime.layers
+    : f.layers.map((l) => ({
+        key: l.layer,
+        name: l.name,
+        score: l.score,
+        status: l.signal || l.trend || 'neutral',
+      }));
   return (
-    <Panel title="Market pulse" meta={pulseMeta} prominent>
-      <div style={{ display: 'grid', gridTemplateColumns: '230px minmax(0, 1fr)', gap: 24, alignItems: 'start' }} className="macro-top-card-grid">
-        <div>
-          <h2 style={{ fontFamily: M.serif, fontSize: '27px', fontWeight: 500, color: M.ink, margin: 0, lineHeight: 1.03 }}>
-            {pulseLabel}
-          </h2>
-          <div style={{ marginTop: 10 }}>
-            <Chip label={forecastUnavailable ? unavailableLabel : `${pct1(f.dominantProb)} probability`} color={forecastUnavailable ? M.inkFaint : M.accent} />
-          </div>
-          {composite !== null ? (
-            <div style={{ margin: '13px 0 2px' }}>
-              <ValueText value={composite.toFixed(1)} size={38} />
-              <div style={{ fontFamily: M.mono, fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase', marginTop: 2 }}>composite regime score</div>
+    <Panel title="Market pulse" meta={`${pulseMeta} · ${heading}`} prominent>
+      <div className="macro-merged-pulse-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.9fr) 1px minmax(330px, 0.82fr)', gap: 18, alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '230px minmax(0, 1fr)', gap: 24, alignItems: 'start' }} className="macro-top-card-grid">
+          <div>
+            <h2 style={{ fontFamily: M.serif, fontSize: '27px', fontWeight: 500, color: M.ink, margin: 0, lineHeight: 1.03 }}>
+              {pulseLabel}
+            </h2>
+            <div style={{ marginTop: 10 }}>
+              <Chip label={forecastUnavailable ? unavailableLabel : `${pct1(f.dominantProb)} probability`} color={forecastUnavailable ? M.inkFaint : M.accent} />
             </div>
-          ) : null}
-          <div style={{ color: M.pos, fontFamily: M.mono, fontSize: 12, marginTop: 10 }}>
-            {regime?.confidence !== null && regime?.confidence !== undefined ? `${regime.confidence.toFixed(2)} confidence` : regime?.vixLevel !== null && regime?.vixLevel !== undefined ? `VIX ${regime.vixLevel.toFixed(1)}` : f.confLevel || '—'}
+            {composite !== null ? (
+              <div style={{ margin: '13px 0 2px' }}>
+                <ValueText value={composite.toFixed(1)} size={38} />
+                <div style={{ fontFamily: M.mono, fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase', marginTop: 2 }}>composite regime score</div>
+              </div>
+            ) : null}
+            <div style={{ color: M.pos, fontFamily: M.mono, fontSize: 12, marginTop: 10 }}>
+              {regime?.confidence !== null && regime?.confidence !== undefined ? `${regime.confidence.toFixed(2)} confidence` : regime?.vixLevel !== null && regime?.vixLevel !== undefined ? `VIX ${regime.vixLevel.toFixed(1)}` : f.confLevel || '—'}
+            </div>
+            <div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 3 }}>current read</div>
+            <a href="/how-it-works" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 9 }}>View methodology →</a>
           </div>
-          <div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 3 }}>current read</div>
-          <a href="/how-it-works" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 9 }}>View methodology →</a>
+          <div>
+            <div style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint, marginBottom: 5 }}>Regime score (90D)</div>
+            <HistoryLineChart
+              points={chartPoints}
+              color={M.accentBright}
+              height={205}
+              yLabel="score"
+            />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 10 }} className="macro-stat-list">
+              <MiniStat label="Dominant" value={forecastUnavailable ? 'forecast unavailable' : f.dominantLabel || '—'} sub={forecastUnavailable ? 'unavailable' : pct1(f.dominantProb)} color={forecastUnavailable ? M.inkFaint : M.accentBright} />
+              <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
+              <MiniStat label="Gap" value={probabilityGap === null ? '—' : pct1(probabilityGap)} sub="dominant spread" color={probabilityGap !== null && probabilityGap > 0.08 ? M.pos : M.warn} />
+              <MiniStat label="BVAR" value={topBvar?.label ?? '—'} sub={topBvar?.bvar !== null && topBvar?.bvar !== undefined ? pct1(topBvar.bvar) : '—'} />
+            </div>
+          </div>
         </div>
+        <div className="macro-merged-separator" style={{ background: M.line, minHeight: 1 }} />
         <div>
-          <div style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint, marginBottom: 5 }}>Regime score (90D)</div>
-          <HistoryLineChart
-            points={chartPoints}
-            color={M.accentBright}
-            height={205}
-            yLabel="score"
-          />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 10 }} className="macro-stat-list">
-            <MiniStat label="Dominant" value={forecastUnavailable ? 'forecast unavailable' : f.dominantLabel || '—'} sub={forecastUnavailable ? 'unavailable' : pct1(f.dominantProb)} color={forecastUnavailable ? M.inkFaint : M.accentBright} />
-            <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
-            <MiniStat label="Gap" value={probabilityGap === null ? '—' : pct1(probabilityGap)} sub="dominant spread" color={probabilityGap !== null && probabilityGap > 0.08 ? M.pos : M.warn} />
-            <MiniStat label="BVAR" value={topBvar?.label ?? '—'} sub={topBvar?.bvar !== null && topBvar?.bvar !== undefined ? pct1(topBvar.bvar) : '—'} />
-          </div>
+          <div style={{ ...labelStyleSmall, marginBottom: 12 }}>Current regime read</div>
+          <RegimeLayerRows layers={layers} />
         </div>
       </div>
+      <div style={{ borderTop: `1px solid ${M.line}`, marginTop: 14, paddingTop: 10, display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          type="button"
+          onClick={() => setExpanded((value) => !value)}
+          style={{ border: 0, background: 'transparent', color: M.accentBright, cursor: 'pointer', fontFamily: M.sans, fontSize: 12.5, padding: 0 }}
+        >
+          {expanded ? 'Hide factor detail' : 'View factor detail'} →
+        </button>
+      </div>
+      {expanded ? (
+        <FactorDetailSection
+          layerDetail={layerDetail}
+          layerError={layerError}
+          layerLoading={layerLoading}
+          fetcher={fetcher}
+        />
+      ) : null}
     </Panel>
   );
 }
@@ -767,18 +892,9 @@ function MiniStat({ label, value, sub, color = M.ink }: { label: string; value: 
   );
 }
 
-function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }) {
-  const heading = regime?.environment || (f.available ? f.dominantLabel : 'forecast unavailable');
-  const layers = regime
-    ? regime.layers
-    : f.layers.map((l) => ({
-        key: l.layer,
-        name: l.name,
-        score: l.score,
-        status: l.signal || l.trend || 'neutral',
-      }));
+function RegimeLayerRows({ layers }: { layers: LiveRegimeLayer[] }) {
   return (
-    <Panel title="Current regime read" meta={heading}>
+    <>
       {layers.map((l) => {
         const score = l.score;
         const status = l.status || 'neutral';
@@ -794,8 +910,291 @@ function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }
         </div>
         );
       })}
-      <a href="/state" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 3 }}>View factor detail →</a>
-    </Panel>
+    </>
+  );
+}
+
+function scoreNumber(v: number | null | undefined, digits = 2): string {
+  return v === null || v === undefined ? '—' : v.toFixed(digits);
+}
+function signedScore(v: number | null | undefined, digits = 2): string {
+  if (v === null || v === undefined) return '—';
+  const sign = v > 0 ? '+' : '';
+  return `${sign}${v.toFixed(digits)}`;
+}
+function deltaColor(v: number | null | undefined): string {
+  if (v === null || v === undefined) return M.inkFaint;
+  return v >= 0 ? M.pos : M.neg;
+}
+function valueWithUnits(value: number | null | undefined, units: string | null | undefined): string {
+  if (value === null || value === undefined) return '—';
+  const suffix = units && !/score|z-score|ratio|index/i.test(units) ? ` ${units}` : '';
+  return `${formatAxisNumber(value)}${suffix}`;
+}
+function defaultLayerId(layers: MacroLayerDetail[]): string | null {
+  if (!layers.length) return null;
+  const withDelta = layers.filter((layer) => layer.delta_1m !== null && layer.delta_1m !== undefined);
+  const candidates = withDelta.length ? withDelta : layers;
+  return candidates
+    .slice()
+    .sort((a, b) => Math.abs(b.delta_1m ?? 0) - Math.abs(a.delta_1m ?? 0))[0]?.layer_id ?? null;
+}
+function MiniSparkline({ points, color = M.accentBright }: { points: HistoryPoint[]; color?: string }) {
+  const data = points.filter((point) => Number.isFinite(point.value)).slice(-60);
+  if (data.length < 2) return <span style={{ color: M.inkFaint }}>no stored history</span>;
+  const values = data.map((point) => point.value);
+  let min = Math.min(...values);
+  let max = Math.max(...values);
+  if (min === max) {
+    min -= 1;
+    max += 1;
+  }
+  const width = 106;
+  const height = 30;
+  const x = (index: number) => (index / Math.max(1, data.length - 1)) * (width - 4) + 2;
+  const y = (value: number) => 3 + (1 - (value - min) / (max - min)) * (height - 6);
+  const path = data.map((point, index) => `${x(index)},${y(point.value)}`).join(' L');
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} style={{ width: '100%', height: 30, display: 'block' }}>
+      <path d={`M${path}`} fill="none" stroke={color} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function ComponentSparkline({
+  layerId,
+  component,
+  fetcher,
+}: {
+  layerId: string;
+  component: LayerComponentDetail;
+  fetcher: (url: string) => Promise<unknown>;
+}) {
+  const typedFetcher = (url: string) => fetcher(url) as Promise<ComponentHistoryPayload>;
+  const { data, error, isLoading } = useSWR<ComponentHistoryPayload>(
+    component.history_available ? COMPONENT_HISTORY_ENDPOINT(layerId, component.component_id, '90d') : null,
+    typedFetcher,
+    { revalidateOnFocus: false },
+  );
+  if (!component.history_available) return <span style={{ color: M.inkFaint }}>no stored history</span>;
+  if (isLoading) return <span style={{ color: M.inkFaint }}>loading</span>;
+  if (error) return <span style={{ color: M.neg }}>history error</span>;
+  const points = (data?.series ?? []).map((point) => ({ date: point.date, value: point.value }));
+  return <MiniSparkline points={points} color={deltaColor(component.change_contribution_1m)} />;
+}
+type ComponentChartRow = {
+  date: string;
+  value: number;
+  componentScore: number | null;
+  layerScore: number | null;
+};
+function normalizeComponentChartRows(history: ComponentHistoryPayload | undefined): ComponentChartRow[] {
+  const layerByDate = new Map(
+    (history?.layer_score_series ?? [])
+      .filter((point) => point.score !== null && point.score !== undefined)
+      .map((point) => [point.date, point.score]),
+  );
+  return (history?.series ?? []).map((point) => ({
+    date: point.date,
+    value: point.value,
+    componentScore: point.component_score ?? null,
+    layerScore: layerByDate.get(point.date) ?? null,
+  }));
+}
+function ComponentHistoryTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ payload?: ComponentChartRow }>; label?: string }) {
+  const row = payload?.find((item) => item.payload)?.payload;
+  if (!active || !row) return null;
+  return (
+    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 8, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
+      <div style={{ color: M.inkFaint, marginBottom: 5 }}>{label}</div>
+      <div>value {formatAxisNumber(row.value)}</div>
+      <div>score {scoreNumber(row.componentScore)}</div>
+      <div style={{ color: M.inkFaint }}>layer {scoreNumber(row.layerScore)}</div>
+    </div>
+  );
+}
+function ComponentHistoryChart({
+  layerId,
+  component,
+  fetcher,
+}: {
+  layerId: string;
+  component: LayerComponentDetail | null;
+  fetcher: (url: string) => Promise<unknown>;
+}) {
+  const [windowValue, setWindowValue] = useState<ComponentHistoryWindow>('90d');
+  const [showLayer, setShowLayer] = useState(true);
+  const typedFetcher = (url: string) => fetcher(url) as Promise<ComponentHistoryPayload>;
+  const { data, error, isLoading } = useSWR<ComponentHistoryPayload>(
+    component?.history_available ? COMPONENT_HISTORY_ENDPOINT(layerId, component.component_id, windowValue) : null,
+    typedFetcher,
+    { revalidateOnFocus: false },
+  );
+
+  if (!component) return <EmptyMini message="Select a component to inspect its history." />;
+  if (!component.history_available) return <EmptyMini message="No stored history exists for this component in the indicator-history cache." />;
+  if (isLoading) return <EmptyMini message="Loading component history." />;
+  if (error) return <ErrorMini message={error.message} />;
+
+  const rows = normalizeComponentChartRows(data);
+  if (rows.length < 2) return <EmptyMini message="Component history is too sparse to chart." />;
+  return (
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 12 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
+        <div>
+          <div style={labelStyleSmall}>Component history</div>
+          <h3 style={{ margin: '6px 0 0', fontFamily: M.serif, fontSize: 19, fontWeight: 500, color: M.ink }}>{component.display_name}</h3>
+        </div>
+        <div style={{ display: 'flex', gap: 7, alignItems: 'center', flexWrap: 'wrap' }}>
+          {(['90d', '1y'] as ComponentHistoryWindow[]).map((item) => (
+            <button key={item} type="button" onClick={() => setWindowValue(item)} style={{
+              background: windowValue === item ? M.accentSoft : M.cardElev,
+              color: windowValue === item ? M.accentBright : M.inkDim,
+              border: `1px solid ${windowValue === item ? M.accent : M.line2}`,
+              borderRadius: 8,
+              padding: '6px 9px',
+              fontFamily: M.mono,
+              fontSize: 10,
+              cursor: 'pointer',
+            }}>{item}</button>
+          ))}
+          <label style={{ display: 'inline-flex', gap: 6, alignItems: 'center', color: M.inkDim, fontFamily: M.sans, fontSize: 11.5 }}>
+            <input type="checkbox" checked={showLayer} onChange={(event) => setShowLayer(event.target.checked)} />
+            layer overlay
+          </label>
+        </div>
+      </div>
+      <div style={{ height: 260 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={rows} margin={{ top: 8, right: showLayer ? 34 : 12, bottom: 6, left: 0 }}>
+            <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
+            <XAxis dataKey="date" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
+            <YAxis yAxisId="left" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={48} />
+            {showLayer ? <YAxis yAxisId="right" orientation="right" domain={[0, 10]} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={34} /> : null}
+            <Tooltip content={<ComponentHistoryTooltip />} />
+            <Line yAxisId="left" type="monotone" dataKey="value" stroke={M.accentBright} strokeWidth={2} dot={false} isAnimationActive={false} />
+            {showLayer ? <Line yAxisId="right" type="monotone" dataKey="layerScore" stroke={M.warn} strokeWidth={1.7} strokeDasharray="5 4" dot={false} connectNulls isAnimationActive={false} /> : null}
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+      <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', fontFamily: M.sans, fontSize: 11.5, color: M.inkDim, marginTop: 8 }}>
+        <LegendSwatch color={M.accentBright} label={`${component.display_name} value`} />
+        {showLayer ? <LegendSwatch color={M.warn} label="parent layer score" /> : null}
+      </div>
+    </div>
+  );
+}
+function FactorDetailSection({
+  layerDetail,
+  layerError,
+  layerLoading,
+  fetcher,
+}: {
+  layerDetail?: MacroLayersDetailPayload;
+  layerError?: Error;
+  layerLoading: boolean;
+  fetcher: (url: string) => Promise<unknown>;
+}) {
+  const [selectedLayerId, setSelectedLayerId] = useState<string | null>(null);
+  const [selectedComponentId, setSelectedComponentId] = useState<string | null>(null);
+
+  if (layerLoading) return <div style={{ marginTop: 14 }}><EmptyMini message="Loading factor detail." /></div>;
+  if (layerError) return <div style={{ marginTop: 14 }}><ErrorMini message={layerError.message} /></div>;
+  const layers = layerDetail?.layers ?? [];
+  if (!layers.length) return <div style={{ marginTop: 14 }}><ErrorMini message="Macro layer detail unavailable. Refresh the latest regime snapshot and forecast artifacts." /></div>;
+
+  const fallbackLayerId = defaultLayerId(layers);
+  const activeLayerId = selectedLayerId && layers.some((layer) => layer.layer_id === selectedLayerId) ? selectedLayerId : fallbackLayerId;
+  const activeLayer = layers.find((layer) => layer.layer_id === activeLayerId) ?? layers[0];
+  const primaryDriver = activeLayer.components.find((component) => component.change_contribution_1m !== null) ?? activeLayer.components[0] ?? null;
+  const activeComponent = activeLayer.components.find((component) => component.component_id === selectedComponentId) ?? primaryDriver;
+  const warnings = layerDetail?.history?.warnings ?? [];
+
+  return (
+    <div style={{ borderTop: `1px solid ${M.line}`, marginTop: 14, paddingTop: 14 }}>
+      {warnings.length ? (
+        <div style={{ background: M.dangerWell, border: `1px solid ${M.warn}55`, color: M.warn, borderRadius: 10, padding: '8px 10px', fontFamily: M.sans, fontSize: 11.5, lineHeight: 1.4, marginBottom: 10 }}>
+          History source warning: {truncate(warnings.join(' · '), 240)}
+        </div>
+      ) : null}
+      <div className="macro-factor-grid" style={{ display: 'grid', gridTemplateColumns: '260px minmax(0, 1fr)', gap: 14, alignItems: 'start' }}>
+        <div style={{ background: M.cardElev, border: `1px solid ${M.line}`, borderRadius: 12, padding: 10 }}>
+          <div style={{ ...labelStyleSmall, padding: '2px 4px 9px' }}>Layer selector</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {layers.map((layer) => {
+              const active = layer.layer_id === activeLayer.layer_id;
+              return (
+                <button key={layer.layer_id} type="button" onClick={() => { setSelectedLayerId(layer.layer_id); setSelectedComponentId(null); }} style={railRowStyle(active)}>
+                  <span style={{ minWidth: 0 }}>
+                    <span style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{layer.display_name}</span>
+                    <span style={{ display: 'block', marginTop: 4, color: deltaColor(layer.delta_1m), fontFamily: M.mono, fontSize: 10 }}>1M {signedScore(layer.delta_1m)}</span>
+                  </span>
+                  <span style={{ fontFamily: M.mono, color: signalColor(layer.status || 'neutral') }}>{scoreNumber(layer.score, 1)}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-end', marginBottom: 10 }}>
+            <div>
+              <div style={labelStyleSmall}>Component attribution</div>
+              <h3 style={{ margin: '6px 0 0', fontFamily: M.serif, fontSize: 21, fontWeight: 500, color: M.ink }}>{activeLayer.display_name}</h3>
+            </div>
+            <div style={{ fontFamily: M.mono, color: deltaColor(activeLayer.delta_1m), fontSize: 12 }}>1M layer {signedScore(activeLayer.delta_1m)}</div>
+          </div>
+          <div style={{ overflowX: 'auto', border: `1px solid ${M.line}`, borderRadius: 12 }}>
+            <div style={{ minWidth: 900 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(190px, 1.45fr) 105px 72px 72px 92px 82px 116px 132px', gap: 8, padding: '9px 10px', background: M.cardElev, borderBottom: `1px solid ${M.line}`, ...labelStyleSmall }}>
+                <span>component</span><span>value</span><span>score</span><span>weight</span><span>contrib</span><span>1M delta</span><span>1M attribution</span><span>history</span>
+              </div>
+              {activeLayer.components.map((component, index) => {
+                const selected = activeComponent?.component_id === component.component_id;
+                const driver = primaryDriver?.component_id === component.component_id && component.change_contribution_1m !== null;
+                return (
+                  <button
+                    key={component.component_id}
+                    type="button"
+                    onClick={() => setSelectedComponentId(component.component_id)}
+                    style={{
+                      width: '100%',
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(190px, 1.45fr) 105px 72px 72px 92px 82px 116px 132px',
+                      gap: 8,
+                      padding: '10px',
+                      border: 0,
+                      borderBottom: index === activeLayer.components.length - 1 ? 0 : `1px solid ${M.line}`,
+                      background: selected ? M.accentSoft : M.well,
+                      color: M.inkDim,
+                      textAlign: 'left',
+                      alignItems: 'center',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <span style={{ color: M.ink, fontFamily: M.sans, fontSize: 12.5, fontWeight: 600, minWidth: 0 }}>
+                      {component.display_name}
+                      {driver ? <span style={{ marginLeft: 7 }}><Chip label="primary driver" color={M.accentBright} /></span> : null}
+                      {!component.scored && component.unscored_reason ? <span style={{ display: 'block', color: M.inkFaint, fontSize: 10.5, fontWeight: 400, marginTop: 3 }}>{component.unscored_reason}</span> : null}
+                    </span>
+                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{valueWithUnits(component.current_value, component.units_note)}</span>
+                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{scoreNumber(component.component_score)}</span>
+                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{component.weight === null ? '—' : `${(component.weight * 100).toFixed(0)}%`}</span>
+                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{scoreNumber(component.contribution)}</span>
+                    <span style={{ fontFamily: M.mono, fontSize: 11.5, color: deltaColor(component.delta_1m) }}>{signedScore(component.delta_1m)}</span>
+                    <span style={{ fontFamily: M.mono, fontSize: 11.5, color: deltaColor(component.change_contribution_1m) }}>{signedScore(component.change_contribution_1m)}</span>
+                    <span style={{ fontFamily: M.mono, fontSize: 10.5 }}>
+                      <ComponentSparkline layerId={activeLayer.layer_id} component={component} fetcher={fetcher} />
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div style={{ marginTop: 12 }}>
+            <ComponentHistoryChart layerId={activeLayer.layer_id} component={activeComponent} fetcher={fetcher} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -821,19 +1220,19 @@ function ScenarioCards({ f }: { f: Forecast }) {
         </div>
         {f.mixture.stress_advisory ? <Chip label="Stress advisory" color={M.warn} /> : null}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(112px, 1fr))', gap: '8px' }} className="scenario-card-grid">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(150px, 1fr))', gap: '10px' }} className="scenario-card-grid">
         {f.scenarios.map((s, i) => {
           const top = s.isRecession ? M.warn : i === 0 ? M.accentBright : s.blended !== null && s.blended >= 0.15 ? M.pos : M.inkFaint;
           const deltaColor = s.delta === null || s.delta === undefined ? M.inkFaint : s.delta >= 0 ? M.pos : M.neg;
           return (
-            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '10px', padding: '12px 11px' }}>
-              <ValueText value={pct1(s.blended)} size={19} color={top} />
-              <h3 style={{ fontFamily: M.serif, fontSize: '15px', fontWeight: 500, color: M.ink, margin: '8px 0 7px', lineHeight: 1.12 }}>{s.label}</h3>
-              <p style={{ margin: '0 0 11px', fontFamily: M.sans, fontSize: '10.5px', color: M.inkDim, lineHeight: 1.42, minHeight: '44px' }}>{truncate(s.desc, 86)}</p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '8px' }}>
+            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '10px', padding: '13px 12px', minWidth: 0 }}>
+              <ValueText value={pct1(s.blended)} size={20} color={top} />
+              <h3 style={{ fontFamily: M.serif, fontSize: '16px', fontWeight: 500, color: M.ink, margin: '8px 0 7px', lineHeight: 1.12 }}>{s.label}</h3>
+              <p style={{ margin: '0 0 12px', fontFamily: M.sans, fontSize: '11px', color: M.inkDim, lineHeight: 1.42, minHeight: '64px' }}>{s.desc}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap', fontFamily: M.mono, fontSize: '10px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '8px' }}>
                 <span>bvar {pct1(s.bvar)}</span><span>analogue {pct1(s.analogue)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, paddingTop: '5px', gap: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '10px', color: M.inkFaint, paddingTop: '5px', gap: 8 }}>
                 <span>delta</span><span style={{ color: deltaColor }}>{signedPct1(s.delta)}</span>
               </div>
             </div>
@@ -942,7 +1341,7 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
   const benignNote = variable?.subset_notes?.benign;
   return (
     <Panel title="Analogue Fans — matched-episode forward paths" meta={`${fan.query_date} · n_eff ${h1Eff === null ? '—' : h1Eff.toFixed(1)}`}>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'nowrap', overflowX: 'auto', paddingBottom: 2, marginBottom: 10 }}>
         {variableKeys.map((key) => (
           <button
             key={key}
@@ -956,13 +1355,14 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
               fontFamily: M.mono,
               fontSize: 10,
               cursor: 'pointer',
+              flexShrink: 0,
             }}
           >
             {FAN_VARIABLE_LABELS[key] ?? titleCase(key)}
           </button>
         ))}
       </div>
-      <div style={{ height: 248, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: '8px 4px 2px' }}>
+      <div style={{ height: 320, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: '8px 4px 2px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={rows} margin={{ top: 10, right: 14, bottom: 8, left: 0 }}>
             <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
@@ -1023,7 +1423,7 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
           </div>
         </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0, 1fr))', gap: 5, marginTop: 9 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(68px, 1fr))', gap: 6, marginTop: 9 }}>
         {states.map((state) => {
           const active = state.quarter === evidence.binding_quarter;
           const color = state.state === 'scored' ? M.pos : state.state === 'unprecedented_state' ? M.warn : M.inkFaint;
@@ -1517,6 +1917,11 @@ export default function MacroPage() {
     authFetcher.fetcher,
     { revalidateOnFocus: false },
   );
+  const { data: layerDetailRaw, error: layerDetailError, isLoading: layerDetailLoading } = useSWR<MacroLayersDetailPayload, Error>(
+    authFetcher.isSignedIn ? LAYER_DETAIL_ENDPOINT : null,
+    authFetcher.fetcher,
+    { revalidateOnFocus: false },
+  );
   const { data: indicatorHistoryRaw } = useSWR<AnyRecord>(
     authFetcher.isSignedIn ? `${INDICATOR_HISTORY_ENDPOINT}?days=730` : null,
     authFetcher.fetcher,
@@ -1560,6 +1965,18 @@ export default function MacroPage() {
     () => normalizeRegime(regimeRaw),
     [regimeRaw],
   );
+  const { data: regimeHistoryRaw } = useSWR<RegimeHistoryPayload>(
+    authFetcher.isSignedIn ? `${REGIME_HISTORY_ENDPOINT}?days=90` : null,
+    authFetcher.fetcher,
+    { refreshInterval: 300000, revalidateOnFocus: false, onError: () => null },
+  );
+  const regimeScoreHistory = useMemo(
+    () => {
+      const fromRegimeHistory = normalizeRegimeScoreHistory(regimeHistoryRaw);
+      return fromRegimeHistory.length ? fromRegimeHistory : compositeScoreHistory;
+    },
+    [regimeHistoryRaw, compositeScoreHistory],
+  );
 
   // SPY narrative — same endpoint the /narrative page uses.
   const { data: narrLatest } = useSWR<AnyRecord>(
@@ -1598,34 +2015,43 @@ export default function MacroPage() {
           </div>
         </div>
 
-        {/* 1 — pulse + regime */}
-        <div className="macro-top-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2.08fr) minmax(360px, 1fr)', gap: 10 }}>
-          <MarketPulse f={forecast} regime={regime} scoreHistory={compositeScoreHistory} />
-          <CurrentRegime f={forecast} regime={regime} />
+        {/* 1 — merged pulse + regime */}
+        <MarketRegimePanel
+          f={forecast}
+          regime={regime}
+          scoreHistory={regimeScoreHistory}
+          layerDetail={layerDetailRaw}
+          layerError={layerDetailError}
+          layerLoading={layerDetailLoading}
+          fetcher={authFetcher.fetcher}
+        />
+
+        {/* 2 — scenario distribution */}
+        <div>
+          {forecastError ? <Panel title="Scenario explorer" meta="forecast error"><ErrorMini message={forecastError.message} /></Panel> : forecastLoading ? <Panel title="Scenario explorer" meta="loading"><EmptyMini message="Loading two-source forecast." /></Panel> : <ScenarioCards f={forecast} />}
         </div>
 
-        {/* 2 — scenarios + return distribution + risk */}
-        <div className="macro-mid-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(380px, 0.8fr) minmax(270px, 0.48fr)', gap: 10 }}>
-          {forecastError ? <Panel title="Scenario explorer" meta="forecast error"><ErrorMini message={forecastError.message} /></Panel> : forecastLoading ? <Panel title="Scenario explorer" meta="loading"><EmptyMini message="Loading two-source forecast." /></Panel> : <ScenarioCards f={forecast} />}
+        {/* 3 — analogue fans + evidence */}
+        <div className="macro-analogue-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.35fr) minmax(390px, 0.85fr)', gap: 10 }}>
           <AnalogueFanPanel fan={fanRaw} error={fanError} isLoading={fanLoading} />
           <AnalogueEvidencePanel f={forecast} error={forecastError} isLoading={forecastLoading} />
         </div>
 
-        {/* 3 — compressed narrative */}
+        {/* 4 — compressed narrative */}
         <NarrativeSection result={narrResult} f={forecast} />
 
-        {/* 4 — indicators */}
+        {/* 5 — indicators */}
         <IndicatorExplorer f={forecast} />
       </div>
 
       {/* Responsive grid collapse */}
       <style>{`
         @media (max-width: 1280px) {
-          .macro-mid-grid { grid-template-columns: 1fr !important; }
           .scenario-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
         }
         @media (max-width: 980px) {
-          .macro-top-grid, .macro-top-card-grid, .macro-narrative-grid { grid-template-columns: 1fr !important; }
+          .macro-top-grid, .macro-top-card-grid, .macro-merged-pulse-grid, .macro-factor-grid, .macro-analogue-grid, .macro-narrative-grid { grid-template-columns: 1fr !important; }
+          .macro-merged-separator { height: 1px !important; min-height: 1px !important; }
           .helix-fan-grid { grid-template-columns: 1fr !important; }
           .macro-indicator-shell { grid-template-columns: 1fr !important; }
           .macro-indicator-rail { border-right: none !important; border-bottom: 1px solid ${M.line} !important; }

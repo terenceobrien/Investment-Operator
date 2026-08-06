@@ -4,6 +4,9 @@ from __future__ import annotations
 import json
 import logging
 import os
+import math
+import inspect
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
@@ -22,6 +25,7 @@ from src.agent_system.paths import (
     project_root,
     resolved_path_message,
 )
+from src.agent_system.forecasting.input_signals import RAW_INPUT_FIELD_MAP
 
 
 macro_router = APIRouter(prefix="/api/macro", tags=["macro"])
@@ -155,7 +159,7 @@ def _asof_metadata(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _resolve_artifact_path(value: Any) -> Path:
+def _resolve_artifact_path(value: Any) -> tuple[Path, str]:
     if not isinstance(value, str) or not value.strip():
         fan_info = analogue_fans_dir_info(create=False)
         raise FileNotFoundError(
@@ -165,19 +169,18 @@ def _resolve_artifact_path(value: Any) -> Path:
         )
     path = Path(value)
     if path.is_absolute():
-        return path
+        fan_info = analogue_fans_dir_info(create=False)
+        candidate = fan_info.path / path.name
+        logger.info(
+            "Resolved legacy absolute analogue fan artifact path by basename: stored=%s candidate=%s",
+            path,
+            candidate,
+        )
+        return candidate, fan_info.source
     root_info = data_root_info(create=False)
-    fan_info = analogue_fans_dir_info(create=False)
     path_parts = path.parts
     data_relative = Path(*path_parts[1:]) if path_parts and path_parts[0] == "data" else path
-    candidates = [
-        root_info.path / data_relative,
-        fan_info.path / path.name,
-    ]
-    for candidate in candidates:
-        if candidate.exists():
-            return candidate
-    return candidates[0]
+    return root_info.path / data_relative, root_info.source
 
 
 @lru_cache(maxsize=1)
@@ -359,6 +362,436 @@ def _build_indicator_history_payload(days: int) -> dict[str, Any]:
     }
 
 
+REGIME_LAYER_IDS = ("monetary", "credit", "volatility", "breadth", "positioning")
+REGIME_LAYER_NAMES = {
+    "monetary": "Monetary & Liquidity",
+    "credit": "Credit & Stress",
+    "volatility": "Volatility Structure",
+    "breadth": "Breadth & Participation",
+    "positioning": "Positioning & Sentiment",
+}
+
+
+@dataclass(frozen=True)
+class ComponentSpec:
+    layer_id: str
+    component_id: str
+    display_name: str
+    units_note: str | None
+    score_kind: str | None
+    scale_lo_key: str | None = None
+    scale_hi_key: str | None = None
+    invert: bool = False
+    raw_weight_key: str | None = None
+    aliases: tuple[str, ...] = ()
+    unscored_reason: str | None = None
+
+    @property
+    def scored(self) -> bool:
+        return self.score_kind is not None
+
+
+def _component_aliases(component_id: str, *extra: str) -> tuple[str, ...]:
+    aliases: list[str] = []
+    for value in (component_id, *RAW_INPUT_FIELD_MAP.get(component_id, []), *extra):
+        if value and value not in aliases:
+            aliases.append(value)
+    return tuple(aliases)
+
+
+COMPONENT_SPECS: dict[str, tuple[ComponentSpec, ...]] = {
+    "monetary": (
+        ComponentSpec("monetary", "net_liquidity_z", "Net liquidity z-score", "z-score", "scale", "monetary.net_liquidity_z.scale_lo", "monetary.net_liquidity_z.scale_hi", aliases=_component_aliases("net_liquidity_z")),
+        ComponentSpec("monetary", "nfci_inverted", "NFCI inverted", "inverted z-score", "scale", "monetary.nfci_inverted.scale_lo", "monetary.nfci_inverted.scale_hi", aliases=_component_aliases("nfci_inverted")),
+        ComponentSpec("monetary", "m2_growth_yoy", "M2 growth YoY", "% y/y", "scale", "monetary.m2_growth_yoy.scale_lo", "monetary.m2_growth_yoy.scale_hi", aliases=_component_aliases("m2_growth_yoy")),
+        ComponentSpec("monetary", "fci_z", "Financial conditions z-score", "z-score", "scale", "monetary.fci_z.scale_lo", "monetary.fci_z.scale_hi", aliases=_component_aliases("fci_z")),
+    ),
+    "credit": (
+        ComponentSpec("credit", "hy_spread_level", "HY spread level", "bps", "scale", "credit.hy_spread_level.scale_lo", "credit.hy_spread_level.scale_hi", invert=True, aliases=_component_aliases("hy_spread_level", "hy_oas")),
+        ComponentSpec("credit", "hy_spread_z", "HY spread z-score", "z-score", "scale", "credit.hy_spread_z.scale_lo", "credit.hy_spread_z.scale_hi", invert=True, aliases=_component_aliases("hy_spread_z")),
+        ComponentSpec("credit", "hy_spread_chg_4w", "HY spread change 4W", "bps", "scale", "credit.hy_spread_chg_4w.scale_lo", "credit.hy_spread_chg_4w.scale_hi", invert=True, aliases=_component_aliases("hy_spread_chg_4w")),
+        ComponentSpec("credit", "ig_spread_level", "IG spread level", "bps", "scale", "credit.ig_spread_level.scale_lo", "credit.ig_spread_level.scale_hi", invert=True, aliases=_component_aliases("ig_spread_level", "ig_oas")),
+        ComponentSpec("credit", "ig_spread_z", "IG spread z-score", "z-score", None, aliases=_component_aliases("ig_spread_z"), unscored_reason="Captured in layer inputs/data quality but not scored by score_credit()."),
+        ComponentSpec("credit", "hyg_tlt_ratio_z", "HYG/TLT ratio z-score", "z-score", "scale", "credit.hyg_tlt_ratio_z.scale_lo", "credit.hyg_tlt_ratio_z.scale_hi", aliases=_component_aliases("hyg_tlt_ratio_z", "hyg_minus_tlt")),
+    ),
+    "volatility": (
+        ComponentSpec("volatility", "vix_level", "VIX level", "index", "scale", "volatility.vix_level.scale_lo", "volatility.vix_level.scale_hi", invert=True, aliases=_component_aliases("vix_level")),
+        ComponentSpec("volatility", "vix_z_20d", "VIX z-score 20D", "z-score", "scale", "volatility.vix_z_20d.scale_lo", "volatility.vix_z_20d.scale_hi", invert=True, aliases=_component_aliases("vix_z_20d")),
+        ComponentSpec("volatility", "vix_term_slope", "VIX term slope", "VIX3M - VIX", "scale", "volatility.vix_term_slope.scale_lo", "volatility.vix_term_slope.scale_hi", aliases=_component_aliases("vix_term_slope")),
+        ComponentSpec("volatility", "vvix_level", "VVIX level", "index", "scale", "volatility.vvix_level.scale_lo", "volatility.vvix_level.scale_hi", invert=True, aliases=_component_aliases("vvix_level")),
+        ComponentSpec("volatility", "vvix_z", "VVIX z-score", "z-score", None, aliases=_component_aliases("vvix_z"), unscored_reason="Captured in layer inputs/data quality but not scored by score_volatility()."),
+        ComponentSpec("volatility", "put_call_ratio", "Put/call ratio", "ratio", "vol_put_call", aliases=_component_aliases("put_call_ratio", "put_call_5d_ma")),
+        ComponentSpec("volatility", "skew_index", "SKEW index", "index", "scale", "volatility.skew_index.scale_lo", "volatility.skew_index.scale_hi", invert=True, aliases=_component_aliases("skew_index", "skew_level")),
+    ),
+    "breadth": (
+        ComponentSpec("breadth", "pct_above_200d", "% above 200D", "%", None, aliases=_component_aliases("pct_above_200d"), unscored_reason="Diagnostic display input; score_breadth() does not include it in the weighted average."),
+        ComponentSpec("breadth", "avg_dist_from_200d", "Average distance from 200D", "%", "scale", "breadth.avg_dist_from_200d.scale_lo", "breadth.avg_dist_from_200d.scale_hi", raw_weight_key="breadth.avg_dist_from_200d.weight", aliases=_component_aliases("avg_dist_from_200d")),
+        ComponentSpec("breadth", "sectors_green", "Sectors green", "count out of 11", "scale", "breadth.sectors_green.scale_lo", "breadth.sectors_green.scale_hi", raw_weight_key="breadth.sectors_green.weight", aliases=_component_aliases("sectors_green")),
+        ComponentSpec("breadth", "rsp_vs_spy_z", "RSP vs SPY z-score", "z-score", "scale", "breadth.rsp_vs_spy_z.scale_lo", "breadth.rsp_vs_spy_z.scale_hi", raw_weight_key="breadth.rsp_vs_spy_z.weight", aliases=_component_aliases("rsp_vs_spy_z", "rsp_minus_spy")),
+        ComponentSpec("breadth", "adl_slope", "Advance/decline slope", "20D slope", "scale", "breadth.adl_slope.scale_lo", "breadth.adl_slope.scale_hi", raw_weight_key="breadth.adl_slope.weight", aliases=_component_aliases("adl_slope")),
+    ),
+    "positioning": (
+        ComponentSpec("positioning", "dealer_gamma_z", "Dealer gamma z-score", "z-score", "scale", "positioning.dealer_gamma_z.scale_lo", "positioning.dealer_gamma_z.scale_hi", aliases=_component_aliases("dealer_gamma_z")),
+        ComponentSpec("positioning", "put_call_5d_ma", "Put/call 5D average", "ratio", "positioning_put_call", aliases=_component_aliases("put_call_5d_ma", "put_call_ratio")),
+        ComponentSpec("positioning", "aaii_bull_minus_bear", "AAII bull minus bear", "percentage points", "aaii", aliases=_component_aliases("aaii_bull_minus_bear")),
+        ComponentSpec("positioning", "cot_net_large_spec_z", "COT large spec z-score", "z-score", "scale", "positioning.cot_net_large_spec_z.scale_lo", "positioning.cot_net_large_spec_z.scale_hi", invert=True, aliases=_component_aliases("cot_net_large_spec_z")),
+        ComponentSpec("positioning", "equity_etf_flow_z", "Equity ETF flow z-score", "z-score", "scale", "positioning.equity_etf_flow_z.scale_lo", "positioning.equity_etf_flow_z.scale_hi", invert=True, aliases=_component_aliases("equity_etf_flow_z")),
+    ),
+}
+
+
+def _validate_component_specs_against_builder() -> None:
+    from src.state import regime_layers
+
+    builder_functions = {
+        "monetary": regime_layers.score_monetary,
+        "credit": regime_layers.score_credit,
+        "volatility": regime_layers.score_volatility,
+        "breadth": regime_layers.score_breadth,
+        "positioning": regime_layers.score_positioning,
+    }
+    for layer_id, builder in builder_functions.items():
+        signature_ids = tuple(inspect.signature(builder).parameters)
+        spec_ids = tuple(spec.component_id for spec in COMPONENT_SPECS[layer_id])
+        if signature_ids != spec_ids:
+            raise RuntimeError(
+                f"Macro layer component API is out of sync with {builder.__name__}: "
+                f"builder={signature_ids}; api_specs={spec_ids}"
+            )
+
+
+def _component_spec(layer_id: str, component_id: str) -> ComponentSpec:
+    for spec in COMPONENT_SPECS.get(layer_id, ()):
+        if spec.component_id == component_id:
+            return spec
+    raise KeyError(f"Unknown macro layer component: {layer_id}/{component_id}")
+
+
+def _safe_float_value(value: Any) -> float | None:
+    try:
+        if value is None or isinstance(value, bool):
+            return None
+        numeric = float(value)
+        return numeric if math.isfinite(numeric) else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _scale_value(value: float, lo: float, hi: float, *, invert: bool = False) -> float:
+    if hi == lo:
+        return 5.0
+    scaled = (value - lo) / (hi - lo) * 10.0
+    clipped = max(0.0, min(10.0, scaled))
+    return 10.0 - clipped if invert else clipped
+
+
+def _regime_params():
+    from src.state.config_loader import REGIME_PARAMS
+
+    return REGIME_PARAMS
+
+
+def _component_score(spec: ComponentSpec, value: Any) -> float | None:
+    numeric = _safe_float_value(value)
+    if numeric is None or not spec.scored:
+        return None
+    params = _regime_params()
+    if spec.score_kind == "scale":
+        if spec.scale_lo_key is None or spec.scale_hi_key is None:
+            raise ValueError(f"Component {spec.component_id} is missing scale keys.")
+        return _scale_value(
+            numeric,
+            float(params[spec.scale_lo_key]),
+            float(params[spec.scale_hi_key]),
+            invert=spec.invert,
+        )
+    if spec.score_kind == "vol_put_call":
+        if numeric > params["volatility.put_call_ratio.fear_threshold"]:
+            return float(params["volatility.put_call_ratio.fear_score"])
+        if numeric < params["volatility.put_call_ratio.complacency_threshold"]:
+            return float(params["volatility.put_call_ratio.complacency_score"])
+        return _scale_value(
+            numeric,
+            float(params["volatility.put_call_ratio.complacency_threshold"]),
+            float(params["volatility.put_call_ratio.fear_threshold"]),
+        )
+    if spec.score_kind == "positioning_put_call":
+        if numeric > params["positioning.put_call_5d_ma.fear_threshold"]:
+            return float(params["positioning.put_call_5d_ma.fear_score"])
+        if numeric < params["positioning.put_call_5d_ma.complacency_threshold"]:
+            return float(params["positioning.put_call_5d_ma.complacency_score"])
+        return float(params["positioning.put_call_5d_ma.neutral_score"])
+    if spec.score_kind == "aaii":
+        if numeric < params["positioning.aaii_bull_minus_bear.panic_threshold"]:
+            return float(params["positioning.aaii_bull_minus_bear.panic_score"])
+        if numeric > params["positioning.aaii_bull_minus_bear.euphoria_threshold"]:
+            return float(params["positioning.aaii_bull_minus_bear.euphoria_score"])
+        return _scale_value(
+            numeric,
+            float(params["positioning.aaii_bull_minus_bear.scale_lo"]),
+            float(params["positioning.aaii_bull_minus_bear.scale_hi"]),
+            invert=True,
+        )
+    raise ValueError(f"Unknown component score_kind={spec.score_kind!r} for {spec.component_id}.")
+
+
+def _find_history_series(history_payload: dict[str, Any], aliases: tuple[str, ...]) -> dict[str, Any] | None:
+    series = history_payload.get("series")
+    if not isinstance(series, dict):
+        return None
+    for alias in aliases:
+        raw = series.get(alias)
+        if isinstance(raw, dict) and raw.get("points"):
+            return raw
+    return None
+
+
+def _series_points(series: dict[str, Any] | None) -> list[dict[str, Any]]:
+    if not isinstance(series, dict):
+        return []
+    points = series.get("points")
+    return points if isinstance(points, list) else []
+
+
+def _latest_series_value(history_payload: dict[str, Any], aliases: tuple[str, ...]) -> float | None:
+    series = _find_history_series(history_payload, aliases)
+    points = _series_points(series)
+    for point in reversed(points):
+        value = _safe_float_value(point.get("value") if isinstance(point, dict) else None)
+        if value is not None:
+            return value
+    return None
+
+
+def _score_points(spec: ComponentSpec, points: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for point in points:
+        if not isinstance(point, dict):
+            continue
+        date_value = point.get("date")
+        raw_value = _safe_float_value(point.get("value"))
+        if not isinstance(date_value, str) or raw_value is None:
+            continue
+        score = _component_score(spec, raw_value)
+        out.append({"date": date_value, "value": raw_value, "component_score": score})
+    return out
+
+
+def _point_at_or_before(points: list[dict[str, Any]], target: pd.Timestamp) -> dict[str, Any] | None:
+    selected: dict[str, Any] | None = None
+    for point in points:
+        if not isinstance(point, dict):
+            continue
+        raw_date = point.get("date")
+        if not isinstance(raw_date, str):
+            continue
+        parsed = pd.to_datetime(raw_date, errors="coerce")
+        if pd.isna(parsed):
+            continue
+        if parsed <= target:
+            selected = point
+    return selected
+
+
+def _score_delta(score_points: list[dict[str, Any]], days: int) -> tuple[float | None, str | None]:
+    usable = [
+        point
+        for point in score_points
+        if _safe_float_value(point.get("component_score")) is not None and isinstance(point.get("date"), str)
+    ]
+    if len(usable) < 2:
+        return None, "component score history unavailable or too sparse"
+    latest = usable[-1]
+    latest_date = pd.to_datetime(latest["date"], errors="coerce")
+    if pd.isna(latest_date):
+        return None, "latest history date is invalid"
+    prior = _point_at_or_before(usable, latest_date - pd.Timedelta(days=days))
+    if prior is None:
+        return None, f"no component score observation at least {days} days before latest history point"
+    latest_score = _safe_float_value(latest.get("component_score"))
+    prior_score = _safe_float_value(prior.get("component_score"))
+    if latest_score is None or prior_score is None:
+        return None, "component score history unavailable or too sparse"
+    return latest_score - prior_score, None
+
+
+def _layer_delta(history_payload: dict[str, Any], layer_id: str, days: int) -> tuple[float | None, str | None]:
+    series = _find_history_series(history_payload, (f"layer_{layer_id}",))
+    points = [
+        {"date": p.get("date"), "component_score": _safe_float_value(p.get("value"))}
+        for p in _series_points(series)
+        if isinstance(p, dict)
+    ]
+    return _score_delta(points, days)
+
+
+def _raw_weight(spec: ComponentSpec) -> float | None:
+    if not spec.scored:
+        return None
+    if spec.raw_weight_key is None:
+        return 1.0
+    return float(_regime_params()[spec.raw_weight_key])
+
+
+def _normalized_component_weights(layer_id: str) -> dict[str, float | None]:
+    weighted: dict[str, float] = {}
+    for spec in COMPONENT_SPECS[layer_id]:
+        raw_weight = _raw_weight(spec)
+        if raw_weight is not None:
+            weighted[spec.component_id] = raw_weight
+    total = sum(weighted.values())
+    return {
+        spec.component_id: (weighted[spec.component_id] / total if total > 0 and spec.component_id in weighted else None)
+        for spec in COMPONENT_SPECS[layer_id]
+    }
+
+
+def _load_latest_regime_state_dict() -> dict[str, Any]:
+    from src.state.regime_state import RegimeState
+
+    state = RegimeState.load_latest_snapshot()
+    if state is None:
+        raise FileNotFoundError(
+            "No local regime_state_*.json snapshot found for layer detail. "
+            "Generate one through /api/market/regime?refresh=true or run the regime state builder."
+        )
+    return state.to_dict()
+
+
+def _current_component_value(
+    state: dict[str, Any],
+    history_payload: dict[str, Any],
+    spec: ComponentSpec,
+) -> float | None:
+    value = _safe_float_value(state.get(spec.component_id))
+    if value is not None:
+        return value
+    return _latest_series_value(history_payload, spec.aliases)
+
+
+def _build_macro_layers_detail_payload() -> dict[str, Any]:
+    _validate_component_specs_against_builder()
+    state = _load_latest_regime_state_dict()
+    history_payload = _build_indicator_history_payload(395)
+    statuses = state.get("layer_statuses") if isinstance(state.get("layer_statuses"), dict) else {}
+    asof = state.get("asof_date") or history_payload.get("end_date")
+    layers: list[dict[str, Any]] = []
+
+    for layer_id in REGIME_LAYER_IDS:
+        specs = COMPONENT_SPECS[layer_id]
+        current_values = {
+            spec.component_id: _current_component_value(state, history_payload, spec)
+            for spec in specs
+        }
+        component_scores = {
+            spec.component_id: _component_score(spec, current_values[spec.component_id])
+            for spec in specs
+        }
+        weights = _normalized_component_weights(layer_id)
+        components: list[dict[str, Any]] = []
+        for spec in specs:
+            series = _find_history_series(history_payload, spec.aliases)
+            scored_points = _score_points(spec, _series_points(series))
+            delta_1w, delta_1w_reason = _score_delta(scored_points, 7) if spec.scored else (None, spec.unscored_reason)
+            delta_1m, delta_1m_reason = _score_delta(scored_points, 30) if spec.scored else (None, spec.unscored_reason)
+            weight = weights.get(spec.component_id)
+            score = component_scores[spec.component_id]
+            contribution = weight * score if weight is not None and score is not None else None
+            change_contribution_1m = (
+                weight * delta_1m if weight is not None and delta_1m is not None else None
+            )
+            components.append(
+                {
+                    "component_id": spec.component_id,
+                    "display_name": spec.display_name,
+                    "current_value": current_values[spec.component_id],
+                    "units_note": spec.units_note,
+                    "component_score": score,
+                    "weight": weight,
+                    "weight_basis": "nominal_builder_weight" if weight is not None else None,
+                    "contribution": contribution,
+                    "delta_1w": delta_1w,
+                    "delta_1w_reason": delta_1w_reason,
+                    "delta_1m": delta_1m,
+                    "delta_1m_reason": delta_1m_reason,
+                    "change_contribution_1m": change_contribution_1m,
+                    "history_available": bool(series),
+                    "history_source": series.get("source") if isinstance(series, dict) else None,
+                    "scored": spec.scored,
+                    "unscored_reason": spec.unscored_reason,
+                }
+            )
+
+        components.sort(
+            key=lambda item: (
+                item["change_contribution_1m"] is None,
+                -abs(float(item["change_contribution_1m"] or 0.0)),
+                item["display_name"],
+            )
+        )
+        score = _safe_float_value(state.get(f"layer_{layer_id}"))
+        if score is None:
+            score = _latest_series_value(history_payload, (f"layer_{layer_id}",))
+        layer_delta_1m, layer_delta_1m_reason = _layer_delta(history_payload, layer_id, 30)
+        status = str(statuses.get(layer_id) or "neutral")
+        layers.append(
+            {
+                "layer_id": layer_id,
+                "display_name": REGIME_LAYER_NAMES[layer_id],
+                "score": score,
+                "direction_label": "Bullish" if status == "bullish" else "Bearish" if status == "bearish" else "Neutral",
+                "status": status,
+                "delta_1m": layer_delta_1m,
+                "delta_1m_reason": layer_delta_1m_reason,
+                "components": components,
+            }
+        )
+
+    return {
+        "asof": asof,
+        "history": {
+            "start_date": history_payload.get("start_date"),
+            "end_date": history_payload.get("end_date"),
+            "source_counts": history_payload.get("source_counts"),
+            "warnings": history_payload.get("warnings"),
+        },
+        "layers": layers,
+    }
+
+
+def _build_component_history_payload(layer_id: str, component_id: str, window: str) -> dict[str, Any]:
+    _validate_component_specs_against_builder()
+    if layer_id not in COMPONENT_SPECS:
+        raise KeyError(f"Unknown macro layer: {layer_id}")
+    spec = _component_spec(layer_id, component_id)
+    days = 90 if window == "90d" else 365
+    history_payload = _build_indicator_history_payload(days)
+    series = _find_history_series(history_payload, spec.aliases)
+    if series is None:
+        checked = ", ".join(spec.aliases)
+        warnings = "; ".join(str(item) for item in history_payload.get("warnings", []))
+        raise FileNotFoundError(
+            f"No stored history for macro layer component {layer_id}/{component_id}. "
+            f"Checked indicator-history columns: {checked}. "
+            f"History warnings: {warnings or 'none'}"
+        )
+    layer_series = _find_history_series(history_payload, (f"layer_{layer_id}",))
+    return {
+        "layer_id": layer_id,
+        "component_id": component_id,
+        "display_name": spec.display_name,
+        "window": window,
+        "history_source": series.get("source"),
+        "series": _score_points(spec, _series_points(series)),
+        "layer_score_series": [
+            {"date": point.get("date"), "score": _safe_float_value(point.get("value"))}
+            for point in _series_points(layer_series)
+            if isinstance(point, dict) and isinstance(point.get("date"), str)
+        ],
+        "warnings": history_payload.get("warnings", []),
+    }
+
+
 @macro_router.get("/forecast/latest")
 async def latest_macro_forecast(user: dict = Depends(verify_clerk_token)) -> JSONResponse:
     """Return the latest generated two_source_v1 macro forecast JSON."""
@@ -389,12 +822,16 @@ async def latest_analogue_fan(user: dict = Depends(verify_clerk_token)) -> JSONR
                 f"Latest forecast {forecast_path} has no mixture_report. "
                 f"Regenerate with: {RUNNER_COMMAND}"
             )
-        fan_path = _resolve_artifact_path(mixture_report.get("analogue_fan_artifact_path"))
+        fan_path, fan_resolution_source = _resolve_artifact_path(
+            mixture_report.get("analogue_fan_artifact_path")
+        )
         if not fan_path.exists():
             fan_info = analogue_fans_dir_info(create=False)
             raise FileNotFoundError(
                 f"Analogue fan artifact not found: {fan_path} "
-                f"(analogue_fans_dir={fan_info.path}; resolution_source={fan_info.source}). "
+                f"(resolution_source={fan_resolution_source}; "
+                f"analogue_fans_dir={fan_info.path}; "
+                f"analogue_fans_dir_resolution_source={fan_info.source}). "
                 f"Regenerate with: {RUNNER_COMMAND}"
             )
         payload = _read_json_file(fan_path)
@@ -437,4 +874,37 @@ async def macro_indicator_history(
     """
     del user
     payload = _build_indicator_history_payload(days)
+    return JSONResponse(content=payload)
+
+
+@macro_router.get("/layers/detail")
+async def macro_layers_detail(user: dict = Depends(verify_clerk_token)) -> JSONResponse:
+    """Return latest five-layer monitoring detail with component attribution."""
+    del user
+    try:
+        payload = _build_macro_layers_detail_payload()
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Macro layer detail unavailable: {exc}") from exc
+    return JSONResponse(content=payload)
+
+
+@macro_router.get("/layers/{layer_id}/components/{component_id}/history")
+async def macro_layer_component_history(
+    layer_id: str,
+    component_id: str,
+    window: str = Query("90d", pattern="^(90d|1y)$"),
+    user: dict = Depends(verify_clerk_token),
+) -> JSONResponse:
+    """Return raw component history and derived component-score history when possible."""
+    del user
+    try:
+        payload = _build_component_history_payload(layer_id, component_id, window)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Macro component history unavailable: {exc}") from exc
     return JSONResponse(content=payload)

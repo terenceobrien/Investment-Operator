@@ -9,7 +9,7 @@ import pytest
 from fastapi import HTTPException
 
 from api import macro_router
-from src.agent_system.paths import macro_json_dir
+from src.agent_system.paths import analogue_fans_dir, macro_json_dir
 
 
 def _write_json(path: Path, payload: dict) -> Path:
@@ -75,8 +75,9 @@ def test_latest_macro_forecast_rejects_retired_probability_mode(tmp_path, monkey
 def test_latest_analogue_fan_returns_referenced_artifact(tmp_path, monkeypatch):
     monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
     forecast_dir = macro_json_dir(create=True)
+    fan_dir = analogue_fans_dir(create=True)
     fan_path = _write_json(
-        tmp_path / "fan.json",
+        fan_dir / "fan.json",
         {
             "query_date": "2026Q2",
             "horizon_quarters": 8,
@@ -90,7 +91,9 @@ def test_latest_analogue_fan_returns_referenced_artifact(tmp_path, monkeypatch):
             "created_at": "2026-08-05T00:00:00Z",
             "probability_mode": "two_source_v1",
             "scenario_probabilities": {"late_cycle_expansion": 1.0},
-            "mixture_report": {"analogue_fan_artifact_path": str(fan_path)},
+            "mixture_report": {
+                "analogue_fan_artifact_path": "agent_system/reports/macro_forecasts/analogue_fans/fan.json"
+            },
         },
     )
 
@@ -183,3 +186,135 @@ def test_macro_scenario_meta_uses_behavioral_taxonomy():
     }
     assert payload["credit_led_recession"]["display_name"]
     assert payload["credit_led_recession"]["short_description"]
+
+
+def _history_series(column: str, values: list[tuple[str, float]], source: str = "fixture") -> dict:
+    return {
+        "column": column,
+        "source": source,
+        "points": [{"date": date, "value": value} for date, value in values],
+    }
+
+
+def test_macro_layers_detail_shape_sort_and_contribution(monkeypatch):
+    monkeypatch.setattr(
+        macro_router,
+        "_load_latest_regime_state_dict",
+        lambda: {
+            "asof_date": "2026-02-02",
+            "layer_monetary": 5.5,
+            "layer_credit": 6.0,
+            "layer_volatility": 6.0,
+            "layer_breadth": 6.0,
+            "layer_positioning": 6.0,
+            "layer_statuses": {
+                "monetary": "neutral",
+                "credit": "bullish",
+                "volatility": "bullish",
+                "breadth": "neutral",
+                "positioning": "neutral",
+            },
+            "net_liquidity_z": 1.2,
+            "nfci_inverted": -0.4,
+            "m2_growth_yoy": 2.0,
+            "fci_z": 0.3,
+        },
+    )
+    monkeypatch.setattr(
+        macro_router,
+        "_build_indicator_history_payload",
+        lambda days: {
+            "start_date": "2026-01-01",
+            "end_date": "2026-02-02",
+            "source_counts": {"regime_timeseries": 5, "backtest_master_file": 0},
+            "warnings": [],
+            "series": {
+                "net_liquidity_z": _history_series("net_liquidity_z", [("2026-01-01", -1.0), ("2026-02-02", 1.2)]),
+                "nfci_inverted": _history_series("nfci_inverted", [("2026-01-01", 0.2), ("2026-02-02", -0.4)]),
+                "m2_growth_yoy": _history_series("m2_growth_yoy", [("2026-01-01", 1.7), ("2026-02-02", 2.0)]),
+                "fci_z": _history_series("fci_z", [("2026-01-01", 0.1), ("2026-02-02", 0.3)]),
+                "layer_monetary": _history_series("layer_monetary", [("2026-01-01", 4.5), ("2026-02-02", 5.5)]),
+            },
+        },
+    )
+
+    response = asyncio.run(macro_router.macro_layers_detail(user={}))
+    payload = _json_response_body(response)
+    monetary = next(layer for layer in payload["layers"] if layer["layer_id"] == "monetary")
+
+    assert payload["asof"] == "2026-02-02"
+    assert monetary["display_name"] == "Monetary & Liquidity"
+    assert monetary["delta_1m"] == pytest.approx(1.0)
+    assert monetary["components"]
+    non_null_changes = [
+        abs(component["change_contribution_1m"])
+        for component in monetary["components"]
+        if component["change_contribution_1m"] is not None
+    ]
+    assert non_null_changes == sorted(non_null_changes, reverse=True)
+    first = monetary["components"][0]
+    assert first["contribution"] == pytest.approx(first["weight"] * first["component_score"])
+    assert first["change_contribution_1m"] == pytest.approx(first["weight"] * first["delta_1m"])
+
+
+def test_macro_component_history_returns_raw_score_and_layer_overlay(monkeypatch):
+    monkeypatch.setattr(
+        macro_router,
+        "_build_indicator_history_payload",
+        lambda days: {
+            "start_date": "2026-01-01",
+            "end_date": "2026-02-02",
+            "source_counts": {"regime_timeseries": 2, "backtest_master_file": 0},
+            "warnings": [],
+            "series": {
+                "net_liquidity_z": _history_series("net_liquidity_z", [("2026-01-01", -1.0), ("2026-02-02", 1.2)]),
+                "layer_monetary": _history_series("layer_monetary", [("2026-01-01", 4.5), ("2026-02-02", 5.5)]),
+            },
+        },
+    )
+
+    response = asyncio.run(
+        macro_router.macro_layer_component_history(
+            "monetary",
+            "net_liquidity_z",
+            window="90d",
+            user={},
+        )
+    )
+    payload = _json_response_body(response)
+
+    assert payload["component_id"] == "net_liquidity_z"
+    assert payload["series"][0]["value"] == -1.0
+    assert payload["series"][0]["component_score"] is not None
+    assert payload["layer_score_series"] == [
+        {"date": "2026-01-01", "score": 4.5},
+        {"date": "2026-02-02", "score": 5.5},
+    ]
+
+
+def test_macro_component_history_404s_when_history_missing(monkeypatch):
+    monkeypatch.setattr(
+        macro_router,
+        "_build_indicator_history_payload",
+        lambda days: {
+            "start_date": None,
+            "end_date": None,
+            "source_counts": {"regime_timeseries": 0, "backtest_master_file": 0},
+            "warnings": ["fixture history unavailable"],
+            "series": {},
+        },
+    )
+
+    with pytest.raises(HTTPException) as exc:
+        asyncio.run(
+            macro_router.macro_layer_component_history(
+                "breadth",
+                "sectors_green",
+                window="90d",
+                user={},
+            )
+        )
+
+    assert exc.value.status_code == 404
+    assert "No stored history" in str(exc.value.detail)
+    assert "fixture history unavailable" in str(exc.value.detail)

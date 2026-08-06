@@ -14,6 +14,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from src.agent_system.paths import (
     analogue_fans_dir,
+    data_root,
     macro_forecast_dir,
     macro_json_dir,
     macro_regime_dir,
@@ -422,6 +423,7 @@ def run_macro_forecast(
         **mixture_report,
         "analogue_fan": fan_payload,
         "analogue_fan_artifact_path": fan_outputs.get("analogue_fan_json_path"),
+        "analogue_fan_filename": fan_outputs.get("analogue_fan_filename"),
     }
     bvar_provenance = dict(bvar_artifact.provenance)
     if fan_warnings:
@@ -820,12 +822,24 @@ def _compute_analogue_fan_outputs(
         fan,
         target_dir / f"analogue_fan_{fan.query_date}.json",
     )
+    try:
+        fan_json_relative = fan_json_path.resolve().relative_to(
+            data_root(create=False).resolve()
+        )
+    except ValueError as exc:
+        raise MacroForecastRunnerError(
+            "Analogue fan artifact must be written under data_root() so the "
+            f"forecast JSON can store a deployable relative path: {fan_json_path}"
+        ) from exc
+    fan_json_relative_str = fan_json_relative.as_posix()
     outputs: dict[str, str] = {
-        "analogue_fan_json_path": str(fan_json_path),
+        "analogue_fan_json_path": fan_json_relative_str,
+        "analogue_fan_filename": fan_json_path.name,
     }
     warnings: list[str] = []
     fan_payload = fan.to_dict()
-    fan_payload["artifact_path"] = str(fan_json_path)
+    fan_payload["artifact_path"] = fan_json_relative_str
+    fan_payload["artifact_filename"] = fan_json_path.name
     try:
         chart_paths = render_fan_charts(fan, target_dir)
         for key, value in chart_paths.items():
