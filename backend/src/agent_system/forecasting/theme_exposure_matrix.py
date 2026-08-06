@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import csv
 import logging
+import os
+from functools import lru_cache
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -120,11 +122,28 @@ SCENARIO_THEME_EXPOSURES = SCENARIO_THEME_EXPOSURES_NARRATIVE
 
 
 def _reference_data_root() -> Path:
-    return Path(__file__).resolve().parents[4] / "data" / "reference"
+    data_root, _ = _helix_data_root()
+    return data_root / "reference"
 
 
 def _scenario_theme_returns_path() -> Path:
     return _reference_data_root() / "scenario_theme_returns.csv"
+
+
+def _repo_root_from_file() -> Path:
+    return Path(__file__).resolve().parents[4]
+
+
+def _helix_data_root() -> tuple[Path, str]:
+    configured = os.getenv("HELIX_DATA_ROOT")
+    if configured:
+        return Path(configured).expanduser(), "env:HELIX_DATA_ROOT"
+    return _repo_root_from_file() / "data", "default:repo_root_from_file"
+
+
+def scenario_theme_returns_artifact_path() -> tuple[Path, str]:
+    data_root, source = _helix_data_root()
+    return data_root / "reference" / "scenario_theme_returns.csv", source
 
 
 def _theme_label(theme_id: str) -> str:
@@ -215,9 +234,12 @@ HAND_AUTHORED_BEHAVIORAL_THEME_EXPOSURES: dict[str, dict[str, float]] = {
 
 
 def _load_csv_behavioral_exposures() -> tuple[dict[str, dict[str, float]], set[str]]:
-    path = _scenario_theme_returns_path()
+    path, source = scenario_theme_returns_artifact_path()
     if not path.is_file():
-        raise FileNotFoundError(f"behavioral scenario theme returns CSV not found: {path}")
+        raise FileNotFoundError(
+            "behavioral scenario theme returns CSV not found: "
+            f"{path} (resolution_source={source})"
+        )
     matrix: dict[str, dict[str, float]] = {
         scenario_id: {}
         for scenario_id in EXPECTED_BEHAVIORAL_SCENARIO_IDS
@@ -343,24 +365,50 @@ def _build_behavioral_exposure_matrix() -> tuple[dict[str, dict[str, float]], di
     return matrix, reconciliation, _build_theme_exposure_source(csv_themes)
 
 
-SCENARIO_THEME_EXPOSURES_BEHAVIORAL, BEHAVIORAL_EXPOSURE_RECONCILIATION, THEME_EXPOSURE_SOURCE = (
-    _build_behavioral_exposure_matrix()
-)
+@lru_cache(maxsize=1)
+def _behavioral_exposure_bundle() -> tuple[dict[str, dict[str, float]], dict[str, Any], dict[str, str]]:
+    return _build_behavioral_exposure_matrix()
+
+
+class _LazyBehavioralMapping(Mapping):
+    def __init__(self, index: int):
+        self._index = index
+
+    def _data(self) -> Mapping:
+        return _behavioral_exposure_bundle()[self._index]
+
+    def __getitem__(self, key: str) -> Any:
+        return self._data()[key]
+
+    def __iter__(self):
+        return iter(self._data())
+
+    def __len__(self) -> int:
+        return len(self._data())
+
+    def __repr__(self) -> str:
+        if _behavioral_exposure_bundle.cache_info().currsize:
+            return repr(self._data())
+        return f"{self.__class__.__name__}(pending)"
+
+
+SCENARIO_THEME_EXPOSURES_BEHAVIORAL: Mapping[str, dict[str, float]] = _LazyBehavioralMapping(0)
+BEHAVIORAL_EXPOSURE_RECONCILIATION: Mapping[str, Any] = _LazyBehavioralMapping(1)
+THEME_EXPOSURE_SOURCE: Mapping[str, str] = _LazyBehavioralMapping(2)
 
 
 def behavioral_exposure_reconciliation_report() -> str:
     """Human-readable CSV-vs-YAML reconciliation report for operator review."""
 
-    missing = BEHAVIORAL_EXPOSURE_RECONCILIATION["missing_narrative_theme_coverage"]
-    hand_authored = BEHAVIORAL_EXPOSURE_RECONCILIATION["hand_authored_themes"]
-    csv_missing_hand_authored = BEHAVIORAL_EXPOSURE_RECONCILIATION[
-        "csv_missing_hand_authored_themes"
-    ]
-    conflicts = BEHAVIORAL_EXPOSURE_RECONCILIATION["csv_yaml_sign_conflicts"]
-    fallbacks = BEHAVIORAL_EXPOSURE_RECONCILIATION["yaml_only_fallbacks"]
+    reconciliation = _behavioral_exposure_bundle()[1]
+    missing = reconciliation["missing_narrative_theme_coverage"]
+    hand_authored = reconciliation["hand_authored_themes"]
+    csv_missing_hand_authored = reconciliation["csv_missing_hand_authored_themes"]
+    conflicts = reconciliation["csv_yaml_sign_conflicts"]
+    fallbacks = reconciliation["yaml_only_fallbacks"]
     lines = [
         "Behavioral exposure reconciliation",
-        f"- CSV themes: {BEHAVIORAL_EXPOSURE_RECONCILIATION['csv_theme_count']}",
+        f"- CSV themes: {reconciliation['csv_theme_count']}",
         f"- Narrative themes without final behavioral coverage: {missing or 'none'}",
         f"- Hand-authored themes: {hand_authored or 'none'}",
         f"- Hand-authored because CSV lacked coverage: {csv_missing_hand_authored or 'none'}",
@@ -387,7 +435,7 @@ def print_behavioral_exposure_reconciliation_report() -> None:
 
 def get_scenario_theme_exposures(taxonomy: str = "behavioral_v1") -> dict[str, dict[str, float]]:
     if taxonomy == "behavioral_v1":
-        return SCENARIO_THEME_EXPOSURES_BEHAVIORAL
+        return _behavioral_exposure_bundle()[0]
     if taxonomy == "narrative_v0":
         return SCENARIO_THEME_EXPOSURES_NARRATIVE
     raise ValueError(

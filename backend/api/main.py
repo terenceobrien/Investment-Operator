@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from api.auth import verify_clerk_token
 from api.cache import cache
+from api.data_artifact_health import log_required_data_artifact_health
 from api.models import (
     MarketStateOut, DeltaOut, PortfolioOut, NarrativeOut
 )
@@ -83,6 +84,8 @@ app.include_router(screener_router)
 
 @app.on_event("startup")
 async def startup_prewarm():
+    log_required_data_artifact_health()
+
     async def _build():
         try:
             from src.state.regime_state import RegimeState, build_regime_state

@@ -2,7 +2,12 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Mapping
+from functools import lru_cache
 
+from src.agent_system.forecasting.behavioral_scenarios_loader import (
+    EXPECTED_BEHAVIORAL_SCENARIO_IDS,
+)
 from src.agent_system.forecasting.theme_exposure_matrix import get_scenario_theme_exposures
 
 
@@ -11,7 +16,7 @@ def _infer_taxonomy(scenario_ids: list[str]) -> str | None:
     if not scenario_set:
         return None
     narrative_ids = set(get_scenario_theme_exposures("narrative_v0"))
-    behavioral_ids = set(get_scenario_theme_exposures("behavioral_v1"))
+    behavioral_ids = set(EXPECTED_BEHAVIORAL_SCENARIO_IDS)
     if scenario_set <= narrative_ids:
         return "narrative_v0"
     if scenario_set <= behavioral_ids:
@@ -55,8 +60,33 @@ def _build_scenario_correlation_matrix(taxonomy: str) -> dict[str, dict[str, flo
     return matrix
 
 
-SCENARIO_CORRELATION_MATRIX_NARRATIVE = _build_scenario_correlation_matrix("narrative_v0")
-SCENARIO_CORRELATION_MATRIX_BEHAVIORAL = _build_scenario_correlation_matrix("behavioral_v1")
+@lru_cache(maxsize=None)
+def _cached_scenario_correlation_matrix(taxonomy: str) -> dict[str, dict[str, float]]:
+    return _build_scenario_correlation_matrix(taxonomy)
+
+
+class _LazyCorrelationMatrix(Mapping):
+    def __init__(self, taxonomy: str):
+        self._taxonomy = taxonomy
+
+    def _data(self) -> dict[str, dict[str, float]]:
+        return _cached_scenario_correlation_matrix(self._taxonomy)
+
+    def __getitem__(self, key: str) -> dict[str, float]:
+        return self._data()[key]
+
+    def __iter__(self):
+        return iter(self._data())
+
+    def __len__(self) -> int:
+        return len(self._data())
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self._taxonomy!r})"
+
+
+SCENARIO_CORRELATION_MATRIX_NARRATIVE = _cached_scenario_correlation_matrix("narrative_v0")
+SCENARIO_CORRELATION_MATRIX_BEHAVIORAL: Mapping[str, dict[str, float]] = _LazyCorrelationMatrix("behavioral_v1")
 
 # Backward-compatible alias for legacy narrative callers.
 SCENARIO_CORRELATION_MATRIX = SCENARIO_CORRELATION_MATRIX_NARRATIVE
@@ -70,7 +100,7 @@ def scenario_correlation_matrix(
     if taxonomy == "narrative_v0":
         return SCENARIO_CORRELATION_MATRIX_NARRATIVE
     if taxonomy == "behavioral_v1":
-        return SCENARIO_CORRELATION_MATRIX_BEHAVIORAL
+        return _cached_scenario_correlation_matrix("behavioral_v1")
     raise ValueError(
         "scenario compatibility taxonomy must be 'narrative_v0' or 'behavioral_v1'; "
         f"got {taxonomy!r}"
