@@ -1,6 +1,8 @@
 import { useAuth } from '@clerk/nextjs'
 import { useMemo } from 'react'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? process.env.NEXT_PUBLIC_API_URL ?? ''
 const DEBUG_AUTH = process.env.NEXT_PUBLIC_DEBUG_AUTH === 'true'
 
@@ -38,12 +40,29 @@ function requestHeaders(token?: string, init?: RequestInit) {
   return headers
 }
 
+function responseDetail(payload: unknown): string {
+  if (payload && typeof payload === 'object' && 'detail' in payload) {
+    const detail = (payload as { detail?: unknown }).detail
+    if (typeof detail === 'string') return detail
+  }
+  return JSON.stringify(payload)
+}
+
 async function requestJson(path: string, token?: string, init: RequestInit = {}) {
   const res = await fetch(buildUrl(path), {
     ...init,
     headers: requestHeaders(token, init),
   });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  if (!res.ok) {
+    let detail = ''
+    try {
+      const payload = await res.json()
+      detail = responseDetail(payload)
+    } catch {
+      detail = await res.text()
+    }
+    throw new Error(detail ? `API error: ${res.status} · ${detail}` : `API error: ${res.status}`)
+  }
   if (res.status === 204) return null;
   return res.json();
 }
@@ -55,7 +74,16 @@ async function requestStream(path: string, token?: string, init: RequestInit = {
     ...init,
     headers,
   });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  if (!res.ok) {
+    let detail = ''
+    try {
+      const payload = await res.json()
+      detail = responseDetail(payload)
+    } catch {
+      detail = await res.text()
+    }
+    throw new Error(detail ? `API error: ${res.status} · ${detail}` : `API error: ${res.status}`)
+  }
   return res;
 }
 

@@ -11,10 +11,7 @@ from typing import Any
 
 from src.agent_system.orchestration.run_research_cycle import _run_monte_carlo
 from src.agent_system.paths import cycles_dir
-from src.agent_system.scenarios.types import (
-    DEFAULT_SCENARIO_PRIORS,
-    TradeScenarioAnalysis,
-)
+from src.agent_system.scenarios.types import TradeScenarioAnalysis
 from src.agent_system.schemas.macro_forecast import MacroForecastResult
 from src.agent_system.schemas.monte_carlo import MonteCarloPathResult
 from src.agent_system.schemas.portfolio_plan import PortfolioPlan
@@ -131,14 +128,7 @@ def _load_macro_scenario_probabilities() -> dict[str, float]:
     try:
         payload = json.loads(DEFAULT_MACRO_FORECAST_PATH.read_text(encoding="utf-8"))
         result = MacroForecastResult.model_validate(payload)
-        probabilities = (
-            result.scenario_probabilities_blended
-            or (
-                result.historical_calibration.blended_scenario_probabilities
-                if result.historical_calibration is not None
-                else None
-            )
-        )
+        probabilities = result.scenario_probabilities
         if probabilities:
             return translate_narrative_to_behavioral(
                 {
@@ -146,18 +136,13 @@ def _load_macro_scenario_probabilities() -> dict[str, float]:
                     for scenario_id, value in probabilities.items()
                 }
             )
-        print(
-            "Warning: macro forecast blended scenario probabilities unavailable; "
-            "using DEFAULT_SCENARIO_PRIORS.",
-            file=sys.stderr,
-        )
+        raise ValueError("macro forecast scenario_probabilities are missing")
     except Exception as exc:
-        print(
-            "Warning: failed to load macro forecast probabilities from "
-            f"{DEFAULT_MACRO_FORECAST_PATH}: {exc}; using DEFAULT_SCENARIO_PRIORS.",
-            file=sys.stderr,
-        )
-    return translate_narrative_to_behavioral(dict(DEFAULT_SCENARIO_PRIORS))
+        raise RuntimeError(
+            "Monte Carlo standalone cannot run without macro scenario probabilities; "
+            f"fallback DEFAULT_SCENARIO_PRIORS is retired by the two_source_v1 rewire. "
+            f"Failed to load {DEFAULT_MACRO_FORECAST_PATH}: {exc}"
+        ) from exc
 
 
 def _positive_trade_ids(plan: PortfolioPlan) -> set[str]:

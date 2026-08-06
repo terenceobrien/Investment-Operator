@@ -9,6 +9,9 @@ Data file: backend/data/backtest_master_file.csv
 """
 from __future__ import annotations
 
+import inspect
+import logging
+import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional, Sequence
 import numpy as np
@@ -23,6 +26,40 @@ from .detailed_analogue_similarity import (
 # ── Config ────────────────────────────────────────────────────────────────────
 
 import os
+
+
+_NARRATIVE_FOSSIL_EMITTED = False
+
+
+def _emit_narrative_fossil_invocation(entry_point: str) -> None:
+    global _NARRATIVE_FOSSIL_EMITTED
+    if _NARRATIVE_FOSSIL_EMITTED:
+        return
+    _NARRATIVE_FOSSIL_EMITTED = True
+    caller_module = _caller_module_name()
+    warnings.warn(
+        "src.analysis.analogues is a retired narrative analogue stack; "
+        "use the behavioral directional analogue evidence path for macro probabilities.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    logging.getLogger("narrative_fossil").warning(
+        "legacy_narrative_analogue_invoked",
+        extra={
+            "caller_module": caller_module,
+            "entry_point": entry_point,
+            "legacy_module": __name__,
+        },
+    )
+
+
+def _caller_module_name() -> str:
+    for frame_info in inspect.stack()[2:]:
+        module = inspect.getmodule(frame_info.frame)
+        module_name = getattr(module, "__name__", None)
+        if module_name and module_name != __name__:
+            return str(module_name)
+    return "unknown"
 
 
 def _candidate_data_paths() -> List[Path]:
@@ -154,6 +191,7 @@ def forward_window_overlaps_shock(
     horizon: str,
     shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
 ) -> bool:
+    _emit_narrative_fossil_invocation("forward_window_overlaps_shock")
     window = _forward_window(analogue_date, horizon)
     if window is None:
         return False
@@ -171,6 +209,7 @@ def shock_overlap_horizons(
     horizons: Optional[Sequence[str]] = None,
     shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
 ) -> List[str]:
+    _emit_narrative_fossil_invocation("shock_overlap_horizons")
     return [
         horizon
         for horizon in (list(horizons) if horizons is not None else FORWARD_RETURN_HORIZONS)
@@ -184,6 +223,7 @@ def shock_window_diagnostics_for_analogues(
     shock_windows: Optional[Sequence[Dict[str, Any]]] = None,
     shock_window_mode: Literal["exclude", "downweight", "tag_only"] = "exclude",
 ) -> Dict[str, Any]:
+    _emit_narrative_fossil_invocation("shock_window_diagnostics_for_analogues")
     horizons = list(horizons) if horizons is not None else list(FORWARD_RETURN_HORIZONS)
     windows = _normalize_shock_windows(shock_windows)
     tagged: Dict[str, List[str]] = {horizon: [] for horizon in horizons}
@@ -677,6 +717,7 @@ def get_historical_analogues_v2(
 ) -> Dict[str, Any]:
     """Find analogues using broad-state candidates plus detailed raw-input similarity."""
 
+    _emit_narrative_fossil_invocation("get_historical_analogues_v2")
     df = _load_df()
     candidate_n = max(int(top_n), int(candidate_pool_n))
     top = _candidate_pool(
@@ -816,6 +857,7 @@ def get_historical_analogues(
           conditions_matched: str,   # human-readable description
         }
     """
+    _emit_narrative_fossil_invocation("get_historical_analogues")
     df = _load_df()
 
     inputs = {

@@ -663,10 +663,14 @@ def test_cli_show_and_diff_do_not_crash(tmp_path, monkeypatch):
 
 def test_cli_score_subcommand_scores_and_persists_analysis(tmp_path, monkeypatch):
     monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    monkeypatch.setenv("AGENT_STORAGE_BACKEND", "jsonl")
+    from src.agent_system.storage import backend as storage_backend
+
+    storage_backend._backend_singletons.clear()
     scenario_set = _scenario_set()
     write_scenario_set(current_path(), scenario_set)
     trade = _trade_for_storage(ticker="ETN", trade_id="trade_score")
-    save_schema(trade)
+    _write_trade_record(tmp_path / "schema_records.jsonl", trade)
     scores = [
         ScenarioScore(
             scenario_id="base",
@@ -709,9 +713,5 @@ def test_cli_score_subcommand_scores_and_persists_analysis(tmp_path, monkeypatch
     )
 
     assert result == 0
-    rows = [
-        json.loads(line)
-        for line in (tmp_path / "schema_records.jsonl").read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    ]
+    rows = storage_backend.get_backend().read_all(collection="schema_records")
     assert any(row["schema_type"] == "TradeScenarioAnalysis" for row in rows)

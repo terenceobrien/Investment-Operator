@@ -1,8 +1,17 @@
-"""Static v1 scenario exposure matrix and ranking helpers."""
+"""Taxonomy-aware scenario exposure matrices and ranking helpers."""
 from __future__ import annotations
 
+import csv
+import logging
 from collections.abc import Mapping
+from pathlib import Path
+from typing import Any
 
+from src.agent_system.forecasting.behavioral_scenarios_loader import (
+    EXPECTED_BEHAVIORAL_SCENARIO_IDS,
+    default_behavioral_scenarios_path,
+    load_behavioral_scenarios,
+)
 from src.agent_system.schemas.macro_forecast import (
     FactorForecast,
     MacroInputSignal,
@@ -11,6 +20,9 @@ from src.agent_system.schemas.macro_forecast import (
     ThemeForecast,
     ThemeScenarioContribution,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 THEME_LABELS: dict[str, str] = {
@@ -29,7 +41,7 @@ THEME_LABELS: dict[str, str] = {
 }
 
 
-SCENARIO_THEME_EXPOSURES: dict[str, dict[str, float]] = {
+SCENARIO_THEME_EXPOSURES_NARRATIVE: dict[str, dict[str, float]] = {
     "reopening_soft_landing": {
         "grid_power_infrastructure": 2,
         "quality_ai": 1,
@@ -46,8 +58,8 @@ SCENARIO_THEME_EXPOSURES: dict[str, dict[str, float]] = {
     },
     "sticky_late_cycle_ai": {
         "grid_power_infrastructure": 3,
-        "quality_ai": 3,
-        "high_beta_ai_semis": 1,
+        "quality_ai": 2,
+        "high_beta_ai_semis": 3,
         "memory_semis": 1,
         "energy_oil_beta": 1,
         "defense_geopolitics": 1,
@@ -103,6 +115,287 @@ SCENARIO_THEME_EXPOSURES: dict[str, dict[str, float]] = {
 }
 
 
+# Backward-compatible alias for legacy narrative callers.
+SCENARIO_THEME_EXPOSURES = SCENARIO_THEME_EXPOSURES_NARRATIVE
+
+
+def _reference_data_root() -> Path:
+    return Path(__file__).resolve().parents[4] / "data" / "reference"
+
+
+def _scenario_theme_returns_path() -> Path:
+    return _reference_data_root() / "scenario_theme_returns.csv"
+
+
+def _theme_label(theme_id: str) -> str:
+    return THEME_LABELS.get(theme_id) or theme_id.replace("_", " ").title()
+
+
+def _return_to_exposure(expected_return: float) -> float:
+    """Map 63-day expected returns to the legacy -3..+3 exposure scale.
+
+    The narrative matrix uses coarse directional scores. Behavioral exposures
+    keep that convention by bucketing calibrated expected returns:
+    >=6% -> +3, >=3% -> +2, >=1% -> +1, between -1% and +1% -> 0,
+    <=-6% -> -3, <=-3% -> -2, <=-1% -> -1.
+    """
+
+    if expected_return >= 0.06:
+        return 3.0
+    if expected_return >= 0.03:
+        return 2.0
+    if expected_return >= 0.01:
+        return 1.0
+    if expected_return > -0.01:
+        return 0.0
+    if expected_return > -0.03:
+        return -1.0
+    if expected_return > -0.06:
+        return -2.0
+    return -3.0
+
+
+# Hand-authored behavioral exposures for legacy macro-cyclical themes that the
+# analogue-calibrated CSV does not yet cover. These preserve theme signal for
+# high-information macro exposures while keeping provenance honest:
+# - energy_oil_beta: oil/energy beta wins in inflation/stagflation shocks, lags
+#   in demand-destruction scares and credit recessions.
+# - defense_geopolitics: supply-shock/geopolitical regimes support defense;
+#   recessions give it a mild defensive bid, while clean expansion is neutral.
+# - commodities_real_assets: inflation and stagflation support real assets;
+#   growth/credit scares hurt demand-sensitive commodities despite gold safety.
+# - healthcare_defensives: underperforms risk-on expansions, gains defensive bid
+#   in weak-growth, credit, and stagflation outcomes.
+# - memory_semis: cyclical/AI beta works in benign expansion, but is punished in
+#   inflation shocks and recessionary paths.
+HAND_AUTHORED_BEHAVIORAL_THEME_EXPOSURES: dict[str, dict[str, float]] = {
+    "expansion_disinflation": {
+        "commodities_real_assets": 0.0,
+        "defense_geopolitics": 0.0,
+        "energy_oil_beta": -1.0,
+        "healthcare_defensives": -1.0,
+        "memory_semis": 2.0,
+    },
+    "late_cycle_expansion": {
+        "commodities_real_assets": 1.0,
+        "defense_geopolitics": 1.0,
+        "energy_oil_beta": 1.0,
+        "healthcare_defensives": -1.0,
+        "memory_semis": 2.0,
+    },
+    "inflation_shock": {
+        "commodities_real_assets": 3.0,
+        "defense_geopolitics": 2.0,
+        "energy_oil_beta": 3.0,
+        "healthcare_defensives": 1.0,
+        "memory_semis": -2.0,
+    },
+    "stagflation": {
+        "commodities_real_assets": 2.0,
+        "defense_geopolitics": 2.0,
+        "energy_oil_beta": 3.0,
+        "healthcare_defensives": 2.0,
+        "memory_semis": -3.0,
+    },
+    "growth_scare_no_credit": {
+        "commodities_real_assets": -2.0,
+        "defense_geopolitics": 1.0,
+        "energy_oil_beta": -2.0,
+        "healthcare_defensives": 2.0,
+        "memory_semis": -2.0,
+    },
+    "credit_led_recession": {
+        "commodities_real_assets": -2.0,
+        "defense_geopolitics": 1.0,
+        "energy_oil_beta": -3.0,
+        "healthcare_defensives": 2.0,
+        "memory_semis": -3.0,
+    },
+}
+
+
+def _load_csv_behavioral_exposures() -> tuple[dict[str, dict[str, float]], set[str]]:
+    path = _scenario_theme_returns_path()
+    if not path.is_file():
+        raise FileNotFoundError(f"behavioral scenario theme returns CSV not found: {path}")
+    matrix: dict[str, dict[str, float]] = {
+        scenario_id: {}
+        for scenario_id in EXPECTED_BEHAVIORAL_SCENARIO_IDS
+    }
+    themes: set[str] = set()
+    with path.open("r", encoding="utf-8", newline="") as fh:
+        reader = csv.DictReader(fh)
+        required = {"scenario_id", "theme_id", "expected_return"}
+        missing_columns = required - set(reader.fieldnames or [])
+        if missing_columns:
+            raise ValueError(
+                f"{path} missing required columns: {sorted(missing_columns)}"
+            )
+        for row in reader:
+            scenario_id = str(row.get("scenario_id") or "")
+            theme_id = str(row.get("theme_id") or "")
+            if scenario_id not in matrix or not theme_id:
+                continue
+            expected_return = float(row["expected_return"])
+            matrix[scenario_id][theme_id] = _return_to_exposure(expected_return)
+            themes.add(theme_id)
+    return matrix, themes
+
+
+def _reconcile_behavioral_exposures(
+    matrix: dict[str, dict[str, float]],
+    csv_themes: set[str],
+) -> dict[str, Any]:
+    narrative_themes = {
+        theme
+        for exposures in SCENARIO_THEME_EXPOSURES_NARRATIVE.values()
+        for theme in exposures
+    }
+    conflicts: list[dict[str, Any]] = []
+    yaml_only_fallbacks: list[dict[str, Any]] = []
+    try:
+        scenarios = load_behavioral_scenarios(default_behavioral_scenarios_path())
+    except Exception as exc:
+        logger.warning("Could not reconcile behavioral scenario YAML exposures: %s", exc)
+        scenarios = {}
+    for scenario_id, scenario in scenarios.items():
+        scenario_exposures = matrix.setdefault(scenario_id, {})
+        for theme_id in scenario.preferred_exposures:
+            current = scenario_exposures.get(theme_id)
+            if current is None:
+                scenario_exposures[theme_id] = 2.0
+                yaml_only_fallbacks.append(
+                    {"scenario_id": scenario_id, "theme_id": theme_id, "designation": "preferred"}
+                )
+            elif current < 0:
+                conflicts.append(
+                    {
+                        "scenario_id": scenario_id,
+                        "theme_id": theme_id,
+                        "yaml_designation": "preferred",
+                        "csv_exposure": current,
+                    }
+                )
+        for theme_id in scenario.vulnerable_exposures:
+            current = scenario_exposures.get(theme_id)
+            if current is None:
+                scenario_exposures[theme_id] = -2.0
+                yaml_only_fallbacks.append(
+                    {"scenario_id": scenario_id, "theme_id": theme_id, "designation": "vulnerable"}
+                )
+            elif current > 0:
+                conflicts.append(
+                    {
+                        "scenario_id": scenario_id,
+                        "theme_id": theme_id,
+                        "yaml_designation": "vulnerable",
+                        "csv_exposure": current,
+                    }
+                )
+    final_themes = {
+        theme
+        for exposures in matrix.values()
+        for theme in exposures
+    }
+    hand_authored_themes = sorted(
+        {
+            theme
+            for exposures in HAND_AUTHORED_BEHAVIORAL_THEME_EXPOSURES.values()
+            for theme in exposures
+        }
+    )
+    return {
+        "missing_narrative_theme_coverage": sorted(narrative_themes - final_themes),
+        "csv_missing_hand_authored_themes": sorted(
+            theme for theme in hand_authored_themes if theme not in csv_themes
+        ),
+        "csv_yaml_sign_conflicts": conflicts,
+        "yaml_only_fallbacks": yaml_only_fallbacks,
+        "csv_theme_count": len(csv_themes),
+        "hand_authored_themes": hand_authored_themes,
+    }
+
+
+def _apply_hand_authored_behavioral_exposures(
+    matrix: dict[str, dict[str, float]],
+) -> None:
+    for scenario_id, exposures in HAND_AUTHORED_BEHAVIORAL_THEME_EXPOSURES.items():
+        if scenario_id not in matrix:
+            raise ValueError(
+                f"hand-authored exposure scenario {scenario_id!r} is not a behavioral scenario"
+            )
+        for theme_id, exposure in exposures.items():
+            matrix[scenario_id][theme_id] = float(exposure)
+
+
+def _build_theme_exposure_source(csv_themes: set[str]) -> dict[str, str]:
+    source = {theme_id: "calibrated" for theme_id in csv_themes}
+    for exposures in HAND_AUTHORED_BEHAVIORAL_THEME_EXPOSURES.values():
+        for theme_id in exposures:
+            source[theme_id] = "hand_authored"
+    return source
+
+
+def _build_behavioral_exposure_matrix() -> tuple[dict[str, dict[str, float]], dict[str, Any], dict[str, str]]:
+    matrix, csv_themes = _load_csv_behavioral_exposures()
+    _apply_hand_authored_behavioral_exposures(matrix)
+    reconciliation = _reconcile_behavioral_exposures(matrix, csv_themes)
+    return matrix, reconciliation, _build_theme_exposure_source(csv_themes)
+
+
+SCENARIO_THEME_EXPOSURES_BEHAVIORAL, BEHAVIORAL_EXPOSURE_RECONCILIATION, THEME_EXPOSURE_SOURCE = (
+    _build_behavioral_exposure_matrix()
+)
+
+
+def behavioral_exposure_reconciliation_report() -> str:
+    """Human-readable CSV-vs-YAML reconciliation report for operator review."""
+
+    missing = BEHAVIORAL_EXPOSURE_RECONCILIATION["missing_narrative_theme_coverage"]
+    hand_authored = BEHAVIORAL_EXPOSURE_RECONCILIATION["hand_authored_themes"]
+    csv_missing_hand_authored = BEHAVIORAL_EXPOSURE_RECONCILIATION[
+        "csv_missing_hand_authored_themes"
+    ]
+    conflicts = BEHAVIORAL_EXPOSURE_RECONCILIATION["csv_yaml_sign_conflicts"]
+    fallbacks = BEHAVIORAL_EXPOSURE_RECONCILIATION["yaml_only_fallbacks"]
+    lines = [
+        "Behavioral exposure reconciliation",
+        f"- CSV themes: {BEHAVIORAL_EXPOSURE_RECONCILIATION['csv_theme_count']}",
+        f"- Narrative themes without final behavioral coverage: {missing or 'none'}",
+        f"- Hand-authored themes: {hand_authored or 'none'}",
+        f"- Hand-authored because CSV lacked coverage: {csv_missing_hand_authored or 'none'}",
+        f"- CSV/YAML sign conflicts: {len(conflicts)}",
+    ]
+    for item in conflicts:
+        lines.append(
+            "  "
+            f"{item['scenario_id']} / {item['theme_id']}: "
+            f"yaml={item['yaml_designation']} csv_exposure={item['csv_exposure']:+.1f}"
+        )
+    lines.append(f"- YAML-only exposure fallbacks: {len(fallbacks)}")
+    for item in fallbacks:
+        lines.append(
+            "  "
+            f"{item['scenario_id']} / {item['theme_id']}: {item['designation']}"
+        )
+    return "\n".join(lines)
+
+
+def print_behavioral_exposure_reconciliation_report() -> None:
+    print(behavioral_exposure_reconciliation_report())
+
+
+def get_scenario_theme_exposures(taxonomy: str = "behavioral_v1") -> dict[str, dict[str, float]]:
+    if taxonomy == "behavioral_v1":
+        return SCENARIO_THEME_EXPOSURES_BEHAVIORAL
+    if taxonomy == "narrative_v0":
+        return SCENARIO_THEME_EXPOSURES_NARRATIVE
+    raise ValueError(
+        "scenario theme exposure taxonomy must be 'narrative_v0' or 'behavioral_v1'; "
+        f"got {taxonomy!r}"
+    )
+
+
 SECTOR_THEME_WEIGHTS: dict[str, dict[str, float]] = {
     "XLK": {"quality_ai": 0.45, "high_beta_ai_semis": 0.25, "memory_semis": 0.15, "long_duration_growth": 0.15},
     "SMH": {"high_beta_ai_semis": 0.55, "quality_ai": 0.25, "memory_semis": 0.20},
@@ -127,15 +420,32 @@ FACTOR_THEME_WEIGHTS: dict[str, dict[str, float]] = {
 }
 
 
-def _scenario_label(scenario_id: str) -> str:
-    labels = {
+def _behavioral_scenario_labels() -> dict[str, str]:
+    try:
+        return {
+            scenario_id: scenario.label
+            for scenario_id, scenario in load_behavioral_scenarios(
+                default_behavioral_scenarios_path()
+            ).items()
+        }
+    except Exception:
+        return {}
+
+
+def _scenario_label(scenario_id: str, taxonomy: str = "behavioral_v1") -> str:
+    narrative_labels = {
         "reopening_soft_landing": "Reopening / Soft Landing",
         "sticky_late_cycle_ai": "Sticky Late Cycle AI",
         "oil_inflation_tail": "Oil Inflation Tail",
         "late_cycle_risk_off": "Late Cycle Risk-Off",
         "ai_capex_rollover": "AI Capex Rollover",
     }
-    return labels.get(scenario_id, scenario_id.replace("_", " ").title())
+    if taxonomy == "behavioral_v1":
+        return _behavioral_scenario_labels().get(
+            scenario_id,
+            scenario_id.replace("_", " ").title(),
+        )
+    return narrative_labels.get(scenario_id, scenario_id.replace("_", " ").title())
 
 
 def _positioning_assessment(theme_id: str, input_signals: list[MacroInputSignal]) -> str:
@@ -195,26 +505,42 @@ def _theme_contribution_summary(contributions: list[ThemeScenarioContribution]) 
 def rank_themes(
     scenario_probabilities: Mapping[str, float],
     input_signals: list[MacroInputSignal],
+    *,
+    taxonomy: str = "behavioral_v1",
 ) -> list[ThemeForecast]:
     """Rank themes by pure probability-weighted macro/scenario support."""
 
     results: list[ThemeForecast] = []
-    for theme_id, label in THEME_LABELS.items():
+    exposure_matrix = get_scenario_theme_exposures(taxonomy)
+    missing = sorted(set(scenario_probabilities) - set(exposure_matrix))
+    if missing:
+        raise ValueError(
+            f"scenario probabilities contain ids missing from {taxonomy} exposure matrix: {missing}"
+        )
+    theme_ids = sorted(
+        {
+            theme_id
+            for exposures in exposure_matrix.values()
+            for theme_id in exposures
+        }
+    )
+    for theme_id in theme_ids:
+        label = _theme_label(theme_id)
         scenario_contribution_values: dict[str, float] = {}
         scenario_contributions: list[ThemeScenarioContribution] = []
         for scenario_id, probability in scenario_probabilities.items():
-            exposure = SCENARIO_THEME_EXPOSURES.get(scenario_id, {}).get(theme_id, 0.0)
+            exposure = exposure_matrix[scenario_id].get(theme_id, 0.0)
             contribution = probability * exposure
             scenario_contribution_values[scenario_id] = contribution
             scenario_contributions.append(
                 ThemeScenarioContribution(
                     scenario_id=scenario_id,
-                    scenario_label=_scenario_label(scenario_id),
+                    scenario_label=_scenario_label(scenario_id, taxonomy),
                     scenario_probability=probability,
                     theme_exposure_score=exposure,
                     contribution=contribution,
                     rationale=(
-                        f"{_scenario_label(scenario_id)} probability {probability:.1%} "
+                        f"{_scenario_label(scenario_id, taxonomy)} probability {probability:.1%} "
                         f"x theme exposure {exposure:+.1f}."
                     ),
                 )
@@ -242,12 +568,12 @@ def rank_themes(
         positive_count = sum(
             1
             for scenario_id in scenario_probabilities
-            if SCENARIO_THEME_EXPOSURES.get(scenario_id, {}).get(theme_id, 0.0) > 0
+            if exposure_matrix[scenario_id].get(theme_id, 0.0) > 0
         )
         negative_count = sum(
             1
             for scenario_id in scenario_probabilities
-            if SCENARIO_THEME_EXPOSURES.get(scenario_id, {}).get(theme_id, 0.0) < 0
+            if exposure_matrix[scenario_id].get(theme_id, 0.0) < 0
         )
         positioning = _positioning_assessment(theme_id, input_signals)
         narrative_assessment = _narrative_assessment(theme_id, input_signals)

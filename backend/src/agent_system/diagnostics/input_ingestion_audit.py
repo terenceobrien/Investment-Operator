@@ -28,13 +28,11 @@ from src.agent_system.diagnostics.input_matrix import (
 )
 from src.agent_system.forecasting.input_signals import build_forecast_input_set
 from src.agent_system.forecasting.macro_forecast_runner import (
-    DEFAULT_SCENARIO_PRIORS,
     MacroForecastRunConfig,
     _load_market_state_for_cli,
     _load_regime_for_cli,
     _load_regime_inputs_for_cli,
 )
-from src.agent_system.forecasting.scenario_probability_engine import update_scenario_probabilities
 from src.agent_system.schemas.macro_forecast import ForecastInputSet, MacroInputSignal
 
 
@@ -810,13 +808,7 @@ def build_input_ingestion_audit(
         horizon=horizon,
         dedupe_config=run_config.dedupe_config(),
     )
-    updates = update_scenario_probabilities(
-        DEFAULT_SCENARIO_PRIORS,
-        forecast_input_set,
-        dedupe_config=run_config.dedupe_config(),
-        horizon=horizon,
-    )
-    contribution_by_input = _contribution_diagnostics(updates)
+    contribution_by_input = _contribution_diagnostics([])
     historical_df = _load_historical_df()
     current_features, feature_specs = _historical_similarity_inputs(forecast_input_set)
 

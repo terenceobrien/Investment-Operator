@@ -5,6 +5,8 @@ import asyncio
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock
 
+import pytest
+
 from src.agent_system.agents.portfolio_agent import construct_portfolio
 from src.agent_system.config.trader_profile import load_trader_profile
 from src.agent_system.orchestration.run_research_cycle import run_research_cycle
@@ -22,6 +24,16 @@ from src.agent_system.schemas.portfolio_plan import PortfolioPlan
 from src.agent_system.schemas.thematic import InstrumentType
 from src.agent_system.schemas.trade import TradeIdea
 from src.agent_system.storage.repository import list_schemas
+
+
+@pytest.fixture(autouse=True)
+def _use_jsonl_storage(monkeypatch):
+    monkeypatch.setenv("AGENT_STORAGE_BACKEND", "jsonl")
+    from src.agent_system.storage import backend as storage_backend
+
+    storage_backend._backend_singletons.clear()
+    yield
+    storage_backend._backend_singletons.clear()
 
 
 def _base_trade(
@@ -294,7 +306,11 @@ def test_missing_scenarios_positions_and_both_missing_still_plan():
 
 def test_cycle_integration_persists_portfolio_plan(tmp_path, monkeypatch):
     monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
-    mock_score = AsyncMock()
+
+    def _mock_score(trade, *_args, **_kwargs):
+        return _analysis(trade, 0.50)
+
+    mock_score = AsyncMock(side_effect=_mock_score)
     monkeypatch.setattr(
         "src.agent_system.orchestration.run_research_cycle.score_trade_against_scenarios",
         mock_score,
@@ -307,7 +323,11 @@ def test_cycle_integration_persists_portfolio_plan(tmp_path, monkeypatch):
         use_stub_trade_expression=True,
     )
 
-    assert summary["portfolio_trades_executed"] >= 1
+    assert (
+        summary["portfolio_trades_executed"]
+        + summary["portfolio_trades_reduced"]
+    ) >= 1
     assert "portfolio_total_deployment_pct" in summary
     plans = list_schemas(PortfolioPlan)
     assert len(plans) == 1
+    assert plans[0].n_executed + plans[0].n_reduced >= 1

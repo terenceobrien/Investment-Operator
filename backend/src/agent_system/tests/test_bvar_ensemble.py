@@ -34,7 +34,7 @@ def test_minnesota_fit_returns_expected_shapes():
         },
         index=index,
     )
-    y, x = _lagged_design(frame, lags=2)
+    y, x, quarters = _lagged_design(frame, lags=2)
 
     coefficients, residual_cov, beta_cov_by_eq, residuals = _fit_minnesota_ridge(
         y,
@@ -51,6 +51,7 @@ def test_minnesota_fit_returns_expected_shapes():
     assert residual_cov.shape == (len(specs), len(specs))
     assert beta_cov_by_eq.shape == (len(specs), 1 + 2 * len(specs), 1 + 2 * len(specs))
     assert residuals.shape == y.shape
+    assert quarters[0] == "2000Q3"
 
 
 def test_simulation_is_deterministic_given_seed(tmp_path):
@@ -66,6 +67,8 @@ def test_simulation_is_deterministic_given_seed(tmp_path):
         path=tmp_path / "posterior.npz",
         coefficient_mean=coefficients,
         residual_cov=residual_cov,
+        residuals=np.zeros((24, n_vars), dtype=float),
+        residual_quarters=[str(period) for period in pd.period_range("2000Q1", periods=24, freq="Q")],
         beta_cov_by_eq=np.repeat(
             np.eye(1 + n_vars * lags)[None, :, :] * 0.001,
             n_vars,

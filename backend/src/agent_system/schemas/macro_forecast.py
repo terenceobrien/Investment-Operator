@@ -793,5 +793,12 @@ class MacroForecastResult(BaseSchema):
     historical_calibration: Optional[HistoricalCalibrationResult] = None
     scenario_probabilities_deterministic: Optional[Dict[str, UnitInterval]] = None
     scenario_probabilities_blended: Optional[Dict[str, UnitInterval]] = None
-    probability_mode: Literal["deterministic", "historically_calibrated", "yaml_priors_override"] = "deterministic"
+    probability_mode: Literal[
+        "deterministic",
+        "historically_calibrated",
+        "yaml_priors_override",
+        "two_source_v1",
+    ] = "deterministic"
+    mixture_report: Dict[str, Any] = Field(default_factory=dict)
+    bvar_provenance: Dict[str, Any] = Field(default_factory=dict)
     outputs: Dict[str, str] = Field(default_factory=dict)

@@ -6,6 +6,8 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock
 
+import pytest
+
 from src.agent_system.agents.thematic_agent import ThematicAgentValidationError
 from src.agent_system.agents.trade_expression_agent import (
     PriorityThesisDirection,
@@ -71,6 +73,16 @@ SUMMARY_NEW_FIELDS = {
     "portfolio_total_deployment_pct",
     "portfolio_binding_constraints",
 }
+
+
+@pytest.fixture(autouse=True)
+def _use_jsonl_storage(monkeypatch):
+    monkeypatch.setenv("AGENT_STORAGE_BACKEND", "jsonl")
+    from src.agent_system.storage import backend as storage_backend
+
+    storage_backend._backend_singletons.clear()
+    yield
+    storage_backend._backend_singletons.clear()
 
 
 def _cycle_facts(

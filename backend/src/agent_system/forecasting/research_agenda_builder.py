@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+from typing import Mapping
 
 from src.agent_system.schemas.common import DerivedEvidence
 from src.agent_system.schemas.macro_forecast import (
@@ -21,13 +22,10 @@ def _scenario_label(theme: ThemeForecast, scenarios: list[str]) -> str:
     if not scenarios:
         return "no single dominant scenario"
     labels = {
-        "reopening_soft_landing": "Reopening / Soft Landing",
-        "sticky_late_cycle_ai": "Sticky Late Cycle AI",
-        "oil_inflation_tail": "Oil Inflation Tail",
-        "late_cycle_risk_off": "Late Cycle Risk-Off",
-        "ai_capex_rollover": "AI Capex Rollover",
+        contribution.scenario_id: contribution.scenario_label
+        for contribution in theme.scenario_contributions
     }
-    return ", ".join(labels.get(scenario, scenario) for scenario in scenarios)
+    return ", ".join(labels.get(scenario, scenario.replace("_", " ").title()) for scenario in scenarios)
 
 
 def _top_scenario_summary(scenario_updates: list[ScenarioProbabilityUpdate]) -> str:
@@ -40,6 +38,17 @@ def _top_scenario_summary(scenario_updates: list[ScenarioProbabilityUpdate]) -> 
         f"{item.scenario_id} {item.posterior_probability:.0%}"
         for item in top
     )
+
+
+def _top_probability_summary(scenario_probabilities: Mapping[str, float] | None) -> str:
+    if not scenario_probabilities:
+        return ""
+    top = sorted(
+        ((str(key), float(value)) for key, value in scenario_probabilities.items()),
+        key=lambda item: item[1],
+        reverse=True,
+    )[:3]
+    return ", ".join(f"{scenario_id} {probability:.0%}" for scenario_id, probability in top)
 
 
 def _top_theme_contribution_summary(theme: ThemeForecast) -> str:
@@ -59,7 +68,11 @@ def _top_theme_contribution_summary(theme: ThemeForecast) -> str:
 def _evidence(
     theme: ThemeForecast,
     scenario_updates: list[ScenarioProbabilityUpdate],
+    scenario_probabilities: Mapping[str, float] | None = None,
 ) -> DerivedEvidence:
+    top_scenarios = _top_scenario_summary(scenario_updates) or _top_probability_summary(
+        scenario_probabilities
+    )
     return DerivedEvidence(
         claim=f"{theme.label} has a positive macro support score.",
         supports=True,
@@ -70,7 +83,7 @@ def _evidence(
             f"top_scenario_contributions={_top_theme_contribution_summary(theme)}",
             f"best_scenarios={','.join(theme.best_scenarios) or 'none'}",
             f"worst_scenarios={','.join(theme.worst_scenarios) or 'none'}",
-            f"top_scenarios={_top_scenario_summary(scenario_updates)}",
+            f"top_scenarios={top_scenarios or 'none'}",
         ],
     )
 
@@ -180,6 +193,7 @@ def build_research_priorities_from_theme_forecasts(
     regime_state: RegimeState,
     max_priorities: int = 3,
     source_macro_forecast_id: str | None = None,
+    scenario_probabilities: Mapping[str, float] | None = None,
 ) -> list[ResearchPriorityRecommendation]:
     """Convert top macro-supported theme forecasts into deterministic research priorities."""
 
@@ -225,7 +239,7 @@ def build_research_priorities_from_theme_forecasts(
                 sub_questions=questions,
                 priority_rank=rank,
                 expected_edge_decay=EdgeDecayHorizon.QUARTERS,
-                supporting_evidence=[_evidence(theme, scenario_updates)],
+                supporting_evidence=[_evidence(theme, scenario_updates, scenario_probabilities)],
                 source_theme_id=theme.theme_id,
                 source_scenario_ids=list(theme.best_scenarios[:3]),
                 source_macro_forecast_id=source_macro_forecast_id,

@@ -24,7 +24,7 @@ logger = logging.getLogger("agent_system.scenarios.scorer")
 class _ScenarioScoreBatch(BaseModel):
     model_config = ConfigDict(frozen=True)
 
-    scenario_scores: list[ScenarioScore] = Field(min_length=1, max_length=5)
+    scenario_scores: list[ScenarioScore] = Field(min_length=1, max_length=6)
 
 
 SCORER_SYSTEM_PROMPT = """You are the scenario scorer for a structured \

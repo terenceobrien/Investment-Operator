@@ -4,36 +4,50 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal, Mapping
 
-from pydantic import BaseModel, Field
+import pandas as pd
+from pydantic import BaseModel, ConfigDict, Field
 
 from src.agent_system.forecasting.current_regime_export import (
-    build_current_regime_handoff,
+    build_current_regime_handoff_from_macro_source,
     save_current_regime_yaml,
 )
+from src.agent_system.forecasting.behavioral_scenarios_loader import (
+    EXPECTED_BEHAVIORAL_SCENARIO_IDS,
+)
+from src.agent_system.forecasting.bvar_ensemble.estimation import default_bvar_cache_dir
 from src.agent_system.forecasting.input_signals import (
     build_forecast_input_set,
-    build_macro_input_signals,
-)
-from src.agent_system.forecasting.historical_calibration import (
-    calibrate_macro_forecast_with_analogs,
 )
 from src.agent_system.forecasting.research_agenda_builder import (
     build_research_priorities_from_theme_forecasts,
 )
-from src.agent_system.forecasting.scenario_probability_engine import (
-    update_scenario_probabilities,
+from src.agent_system.forecasting.scenario_classifier.analogue_evidence import (
+    apply_analogue_mixture,
+    compute_analogue_evidence,
+    load_analogue_evidence_config,
+)
+from src.agent_system.forecasting.scenario_classifier.analogue_fan import (
+    compute_analogue_fan,
+    write_fan_result,
+)
+from src.agent_system.forecasting.scenario_classifier.analogue_fan_charts import (
+    render_fan_charts,
 )
 from src.agent_system.forecasting.theme_exposure_matrix import (
     rank_factors,
     rank_sectors,
     rank_themes,
 )
-from src.agent_system.scenarios.loader import load_current_scenarios
-from src.agent_system.scenarios.types import FactorImplications, Scenario, ScenarioSet
+from src.agent_system.forecasting.macro_scenario_source import (
+    MacroScenarioSourceConfig,
+    get_macro_scenario_source,
+)
+from src.agent_system.scenarios.types import ScenarioSet
 from src.agent_system.schemas.macro_forecast import (
     ForecastInterpretation,
     HistoricalCalibrationConfig,
@@ -46,17 +60,30 @@ from src.agent_system.schemas.macro_forecast import (
 from src.agent_system.schemas.regime import RegimeState
 
 
-DEFAULT_SCENARIO_PRIORS: dict[str, float] = {
-    "reopening_soft_landing": 0.34,
-    "sticky_late_cycle_ai": 0.26,
-    "oil_inflation_tail": 0.20,
-    "late_cycle_risk_off": 0.10,
-    "ai_capex_rollover": 0.10,
-}
 DEFAULT_REPORTS_DIR = "data/agent_system/reports/macro_forecasts"
+TWO_SOURCE_REWIRE_MESSAGE = (
+    "retired by the two_source_v1 rewire: macro probabilities now come only from "
+    "BVAR scenario_probabilities_soft plus directional analogue evidence mixture."
+)
+
+
+class MacroForecastRunnerError(RuntimeError):
+    """Raised when the two-source runner cannot produce a coherent forecast."""
+
+
+@dataclass(frozen=True)
+class BVARForecastArtifact:
+    soft_probabilities: dict[str, float]
+    provenance: dict[str, Any]
+    payload: dict[str, Any]
+    path: Path
+    asof_quarter: str
+    generated_at: str
 
 
 class MacroForecastRunConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     asof_date: str | None = None
     horizon: Literal["1m", "3m", "6m", "1y"] = "3m"
 
@@ -67,28 +94,8 @@ class MacroForecastRunConfig(BaseModel):
     raw_component_modifier_weight: float = Field(default=0.40, ge=0.0, le=1.0)
     max_raw_modifier_ratio: float = Field(default=0.50, ge=0.0, le=2.0)
 
-    historical_calibration_enabled: bool = True
-    detailed_analogues_enabled: bool = True
-    historical_weight: float = Field(default=0.30, ge=0.0, le=1.0)
-    deterministic_weight: float = Field(default=0.70, ge=0.0, le=1.0)
-    analogue_v1_weight: float = Field(default=0.40, ge=0.0, le=1.0)
-    analogue_v2_weight: float = Field(default=0.60, ge=0.0, le=1.0)
-    analogue_candidate_pool_n: int = Field(default=300, ge=1)
-    analogue_pool_top_n: int = Field(default=50, ge=1)
-    analogue_lookback_days: int = Field(default=30, ge=1)
-    analogue_half_life: int = Field(default=30, ge=1)
-    analogue_top_n_per_lookup: int = Field(default=15, ge=1)
-    analogue_exclude_recent_days: int = Field(default=60, ge=0)
-    analogue_min_count: int = Field(default=20, ge=1)
-    analog_macro_horizons: list[str] = Field(default_factory=lambda: ["21d", "63d", "126d", "252d"])
-    scenario_mapping_horizon: Literal["21d", "63d", "126d", "252d"] | None = None
-
-    current_state_lookup_weight: float = Field(default=1.00, ge=1.0)
-
-    min_feature_coverage: float = Field(default=0.40, ge=0.0, le=1.0)
-    min_effective_sample_size: int = Field(default=20, ge=1)
-    reduce_historical_weight_on_low_ess: bool = True
-    min_historical_weight_after_penalty: float = Field(default=0.10, ge=0.0, le=1.0)
+    bvar_cache_dir: str | None = None
+    allow_stale_bvar: bool = False
 
     save_docx: bool = True
     reports_dir: str = DEFAULT_REPORTS_DIR
@@ -98,7 +105,6 @@ class MacroForecastRunConfig(BaseModel):
     save_current_regime_yaml: bool = True
     current_regime_output: str | None = None
     overwrite_current_regime: bool = False
-    use_yaml_priors: bool = False
 
     debug: bool = False
 
@@ -115,146 +121,15 @@ class MacroForecastRunConfig(BaseModel):
         )
 
     def historical_config(self) -> HistoricalCalibrationConfig:
-        return HistoricalCalibrationConfig(
-            enabled=self.historical_calibration_enabled,
-            method="rolling_composite",
-            deterministic_weight=self.deterministic_weight,
-            historical_weight=self.historical_weight,
-            lookback_days=self.analogue_lookback_days,
-            half_life=self.analogue_half_life,
-            top_n_per_lookup=self.analogue_top_n_per_lookup,
-            pool_top_n=self.analogue_pool_top_n,
-            current_state_lookup_weight=self.current_state_lookup_weight,
-            exclude_recent_days=self.analogue_exclude_recent_days,
-            min_analogue_count=self.analogue_min_count,
-            macro_horizons=self.analog_macro_horizons,
-            scenario_mapping_horizon=self.scenario_mapping_horizon
-            or default_scenario_mapping_horizon_for_forecast_horizon(self.horizon),  # type: ignore[arg-type]
-            use_detailed_analogues=self.detailed_analogues_enabled,
-            v1_similarity_weight=self.analogue_v1_weight,
-            v2_similarity_weight=self.analogue_v2_weight,
-            candidate_pool_n=self.analogue_candidate_pool_n,
-            min_feature_coverage=self.min_feature_coverage,
-            min_effective_sample_size=self.min_effective_sample_size,
-            reduce_weight_on_low_ess=self.reduce_historical_weight_on_low_ess,
-            min_historical_weight_after_penalty=self.min_historical_weight_after_penalty,
+        raise MacroForecastRunnerError(
+            f"HistoricalCalibrationConfig is {TWO_SOURCE_REWIRE_MESSAGE}"
         )
 
 
 def default_scenario_set() -> ScenarioSet:
-    now = datetime.now(timezone.utc)
-    scenarios = [
-        Scenario(
-            id="reopening_soft_landing",
-            label="Reopening relief broadens the rally",
-            probability=DEFAULT_SCENARIO_PRIORS["reopening_soft_landing"],
-            description=(
-                "Oil risk premium compresses, inflation pressure fades, and "
-                "market breadth broadens without a recession signal."
-            ),
-            factor_implications=_factors(
-                rates="Rates drift lower as cut optionality improves.",
-                equities="Broad equities rise and equal weight catches up.",
-                dollar="Dollar softens modestly with better risk appetite.",
-                credit="Credit spreads remain tight or grind tighter.",
-                commodities="Oil eases while growth-sensitive commodities stabilize.",
-            ),
-        ),
-        Scenario(
-            id="sticky_late_cycle_ai",
-            label="Sticky late-cycle regime with narrow AI leadership",
-            probability=DEFAULT_SCENARIO_PRIORS["sticky_late_cycle_ai"],
-            description=(
-                "Policy stays restrictive and breadth remains narrow, but AI, "
-                "grid, infrastructure, and quality leaders keep working."
-            ),
-            factor_implications=_factors(
-                rates="Front-end rates stay elevated and real rates remain restrictive.",
-                equities="Cap-weighted indices beat equal weight; quality AI leads.",
-                dollar="Dollar stays firm versus lower-yielding peers.",
-                credit="Spreads stay contained but low-quality issuers lag.",
-                commodities="Oil remains volatile and real assets retain hedge value.",
-            ),
-        ),
-        Scenario(
-            id="oil_inflation_tail",
-            label="Oil shock reignites inflation and Fed hawkishness",
-            probability=DEFAULT_SCENARIO_PRIORS["oil_inflation_tail"],
-            description=(
-                "Energy supply risk re-accelerates inflation expectations, "
-                "forcing higher-for-longer policy and pressuring duration."
-            ),
-            factor_implications=_factors(
-                rates="Breakevens and nominal yields rise as hike risk returns.",
-                equities="Energy, defense, and real assets outperform broad beta.",
-                dollar="Dollar firms on higher US rates and risk aversion.",
-                credit="Spreads widen selectively in weak balance sheets.",
-                commodities="Oil, refined products, and inflation hedges outperform.",
-            ),
-        ),
-        Scenario(
-            id="late_cycle_risk_off",
-            label="Late-cycle break and leadership unwind",
-            probability=DEFAULT_SCENARIO_PRIORS["late_cycle_risk_off"],
-            description=(
-                "Restrictive policy and demand weakness overwhelm narrow "
-                "leadership, producing a credit-aware risk-off drawdown."
-            ),
-            factor_implications=_factors(
-                rates="Curve bull-steepens as recession cut odds rise.",
-                equities="Broad equities fall and crowded leaders unwind.",
-                dollar="Dollar rallies on funding demand and global risk aversion.",
-                credit="HY spreads widen sharply from tight starting levels.",
-                commodities="Oil falls on demand destruction while gold catches a bid.",
-            ),
-        ),
-        Scenario(
-            id="ai_capex_rollover",
-            label="AI capex cycle peaks and rolls over",
-            probability=DEFAULT_SCENARIO_PRIORS["ai_capex_rollover"],
-            description=(
-                "AI infrastructure derates on flat-to-down hyperscaler capex "
-                "guidance while broader macro remains orderly."
-            ),
-            factor_implications=_factors(
-                rates="Rates remain range-bound because the shock is sector-specific.",
-                equities="AI infrastructure and high-multiple compute names derate.",
-                dollar="Dollar is mostly unchanged as macro spillover is limited.",
-                credit="Credit spreads remain near tights without solvency stress.",
-                commodities="AI-linked power and commodity demand assumptions soften.",
-            ),
-        ),
-    ]
-    return ScenarioSet(
-        generated_at=now,
-        regime_id_basis="macro_forecast_default",
-        horizon_months=3,
-        scenarios=scenarios,
+    raise MacroForecastRunnerError(
+        f"default_scenario_set as a prior source is {TWO_SOURCE_REWIRE_MESSAGE}"
     )
-
-
-def _factors(
-    *,
-    rates: str,
-    equities: str,
-    dollar: str,
-    credit: str,
-    commodities: str,
-) -> FactorImplications:
-    return FactorImplications(
-        rates=rates,
-        equities=equities,
-        dollar=dollar,
-        credit=credit,
-        commodities=commodities,
-    )
-
-
-def _scenario_priors(scenario_set: ScenarioSet) -> dict[str, float]:
-    return {
-        scenario.id: scenario.probability
-        for scenario in scenario_set.scenarios
-    }
 
 
 def default_scenario_mapping_horizon_for_forecast_horizon(horizon: str) -> str:
@@ -282,6 +157,206 @@ def _parse_horizon_list(value: str) -> list[str]:
     return horizons or ["21d", "63d", "126d", "252d"]
 
 
+def load_latest_bvar_forecast(
+    bvar_cache_dir: str | Path | None = None,
+    *,
+    allow_stale: bool = False,
+) -> BVARForecastArtifact:
+    """Load the newest behavioral-v1 BVAR forecast artifact by generated_at."""
+
+    cache_dir = Path(bvar_cache_dir) if bvar_cache_dir is not None else default_bvar_cache_dir()
+    candidates = list(cache_dir.glob("forecast_*.json"))
+    if not candidates:
+        raise MacroForecastRunnerError(
+            f"no BVAR forecast_*.json artifacts found under {cache_dir}; rebuild with: "
+            f"{_bvar_rebuild_command(_current_calendar_quarter_text())}"
+        )
+    payloads: list[tuple[datetime, Path, dict[str, Any]]] = []
+    errors: list[str] = []
+    for path in candidates:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(payload, dict):
+                raise MacroForecastRunnerError("artifact JSON root is not an object")
+            generated_at = _parse_generated_at(payload.get("generated_at"), path=path)
+            payloads.append((generated_at, path, payload))
+        except Exception as exc:
+            errors.append(f"{path}: {exc}")
+    if not payloads:
+        raise MacroForecastRunnerError(
+            "no readable BVAR forecast artifacts found; errors: " + "; ".join(errors[:5])
+        )
+    generated_at_dt, path, payload = max(payloads, key=lambda item: item[0])
+    soft = _validate_bvar_soft_probabilities(payload, path=path)
+    classifier_metadata = payload.get("classifier_metadata")
+    if not isinstance(classifier_metadata, Mapping):
+        raise MacroForecastRunnerError(f"BVAR artifact missing classifier_metadata: {path}")
+    map_version = str(classifier_metadata.get("map_version") or "")
+    if not map_version.startswith("behavioral-v1"):
+        raise MacroForecastRunnerError(
+            f"BVAR classifier_metadata.map_version mismatch in {path}: "
+            f"expected behavioral-v1*, got {map_version!r}"
+        )
+    metadata_ids = {str(item) for item in (classifier_metadata.get("scenario_ids") or [])}
+    expected_ids = set(EXPECTED_BEHAVIORAL_SCENARIO_IDS)
+    if metadata_ids != expected_ids:
+        raise MacroForecastRunnerError(
+            f"BVAR classifier_metadata.scenario_ids mismatch in {path}: "
+            f"missing={sorted(expected_ids - metadata_ids)} unknown={sorted(metadata_ids - expected_ids)}"
+        )
+    asof_quarter = str(payload.get("asof_quarter") or "")
+    if not asof_quarter:
+        raise MacroForecastRunnerError(f"BVAR artifact missing asof_quarter: {path}")
+    _parse_quarter(asof_quarter)
+    current_quarter = _current_calendar_quarter_text()
+    warnings: list[str] = []
+    if asof_quarter != current_quarter:
+        age = _quarter_distance(asof_quarter, current_quarter)
+        warning = (
+            f"STALE BVAR forecast: artifact asof_quarter={asof_quarter}, "
+            f"current_calendar_quarter={current_quarter}, age_quarters={age}. "
+            f"Rebuild with: {_bvar_rebuild_command(current_quarter)}"
+        )
+        if not allow_stale:
+            raise MacroForecastRunnerError(warning + " Or rerun with --allow-stale-bvar.")
+        warnings.append(warning)
+    provenance = {
+        "path": str(path),
+        "generated_at": str(payload.get("generated_at")),
+        "asof_quarter": asof_quarter,
+        "handoff_fingerprint": payload.get("handoff_fingerprint"),
+        "model_limitations": payload.get("model_limitations") or {},
+        "classifier_metadata": dict(classifier_metadata),
+        "warnings": warnings,
+        "soft_probabilities": dict(soft),
+        "soft_probability_sum": float(sum(soft.values())),
+    }
+    return BVARForecastArtifact(
+        soft_probabilities=soft,
+        provenance=provenance,
+        payload=payload,
+        path=path,
+        asof_quarter=asof_quarter,
+        generated_at=generated_at_dt.isoformat(),
+    )
+
+
+def _validate_bvar_soft_probabilities(
+    payload: Mapping[str, Any],
+    *,
+    path: Path,
+) -> dict[str, float]:
+    raw = payload.get("scenario_probabilities_soft")
+    if not isinstance(raw, Mapping):
+        raise MacroForecastRunnerError(f"BVAR artifact missing scenario_probabilities_soft: {path}")
+    expected_ids = set(EXPECTED_BEHAVIORAL_SCENARIO_IDS)
+    actual_ids = {str(key) for key in raw}
+    if actual_ids != expected_ids:
+        raise MacroForecastRunnerError(
+            f"BVAR scenario_probabilities_soft scenario set mismatch in {path}: "
+            f"missing={sorted(expected_ids - actual_ids)} unknown={sorted(actual_ids - expected_ids)}"
+        )
+    probabilities: dict[str, float] = {}
+    for scenario_id in EXPECTED_BEHAVIORAL_SCENARIO_IDS:
+        try:
+            value = float(raw[scenario_id])
+        except (TypeError, ValueError) as exc:
+            raise MacroForecastRunnerError(
+                f"BVAR scenario_probabilities_soft.{scenario_id} must be numeric in {path}"
+            ) from exc
+        if not (0.0 <= value <= 1.0):
+            raise MacroForecastRunnerError(
+                f"BVAR scenario_probabilities_soft.{scenario_id} must be in [0, 1] in {path}; got {value}"
+            )
+        probabilities[scenario_id] = value
+    total = float(sum(probabilities.values()))
+    if abs(total - 1.0) > 1e-6:
+        raise MacroForecastRunnerError(
+            f"BVAR scenario_probabilities_soft must sum to 1 within 1e-6 in {path}; got {total:.12f}"
+        )
+    return probabilities
+
+
+def _mark_forecast_input_set_monitoring_only(forecast_input_set):
+    note = "Monitoring — no probability impact in two_source_v1."
+
+    def mark(signal: MacroInputSignal) -> MacroInputSignal:
+        return signal.model_copy_validate(
+            {
+                "used_in_probability_update": False,
+                "display_only": True,
+                "exclusion_reason": note,
+            }
+        )
+
+    return forecast_input_set.model_copy_validate(
+        {
+            "layer_summary_signals": [mark(signal) for signal in forecast_input_set.layer_summary_signals],
+            "raw_component_signals": [mark(signal) for signal in forecast_input_set.raw_component_signals],
+            "composite_signals": [mark(signal) for signal in forecast_input_set.composite_signals],
+            "market_tape_signals": [mark(signal) for signal in forecast_input_set.market_tape_signals],
+            "regime_driver_signals": [mark(signal) for signal in forecast_input_set.regime_driver_signals],
+            "scenario_falsifier_signals": [mark(signal) for signal in forecast_input_set.scenario_falsifier_signals],
+            "theme_specific_signals": [mark(signal) for signal in forecast_input_set.theme_specific_signals],
+            "all_signals": [mark(signal) for signal in forecast_input_set.all_signals],
+            "methodology_notes": list(forecast_input_set.methodology_notes)
+            + ["All deterministic signal inputs are Monitoring — no probability impact in two_source_v1."],
+        }
+    )
+
+
+def _parse_generated_at(value: Any, *, path: Path) -> datetime:
+    if not value:
+        raise MacroForecastRunnerError(f"BVAR artifact missing generated_at: {path}")
+    text = str(value)
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError as exc:
+        raise MacroForecastRunnerError(
+            f"BVAR generated_at is not ISO-parseable in {path}: {value!r}"
+        ) from exc
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _current_calendar_quarter_text() -> str:
+    now = datetime.now(timezone.utc)
+    quarter = (now.month - 1) // 3 + 1
+    return f"{now.year}Q{quarter}"
+
+
+def _parse_quarter(value: str) -> tuple[int, int]:
+    try:
+        period = pd.Period(str(value), freq="Q")
+    except Exception as exc:
+        raise MacroForecastRunnerError(f"invalid quarter string {value!r}") from exc
+    return int(period.year), int(period.quarter)
+
+
+def _quarter_distance(start: str, end: str) -> int:
+    start_year, start_quarter = _parse_quarter(start)
+    end_year, end_quarter = _parse_quarter(end)
+    return (end_year - start_year) * 4 + (end_quarter - start_quarter)
+
+
+def _quarter_end_date_text(quarter: str) -> str:
+    try:
+        return pd.Period(str(quarter), freq="Q").end_time.date().isoformat()
+    except Exception as exc:
+        raise MacroForecastRunnerError(f"invalid BVAR asof_quarter {quarter!r}") from exc
+
+
+def _bvar_rebuild_command(asof_quarter: str) -> str:
+    return (
+        "PYTHONPATH=backend python3 -m "
+        "src.agent_system.forecasting.bvar_ensemble.cli forecast "
+        f"--asof-quarter {asof_quarter}"
+    )
+
+
 def run_macro_forecast(
     regime_state: RegimeState,
     scenario_set: ScenarioSet | None = None,
@@ -291,10 +366,24 @@ def run_macro_forecast(
     raw_inputs: object | None = None,
     market_state: object | None = None,
     historical_calibration_config: HistoricalCalibrationConfig | None = None,
+    bvar_cache_dir: str | Path | None = None,
+    allow_stale_bvar: bool = False,
+    fan_output_dir: str | Path | None = None,
 ) -> MacroForecastResult:
-    """Run the deterministic Macro Forecast Engine v1."""
+    """Run the two-source macro forecast probability path."""
 
-    scenario_set = scenario_set or default_scenario_set()
+    if scenario_set is not None:
+        raise MacroForecastRunnerError(
+            f"scenario_set priors are {TWO_SOURCE_REWIRE_MESSAGE}"
+        )
+    if probability_config is not None:
+        raise MacroForecastRunnerError(
+            f"ScenarioProbabilityConfig usage in the runner is {TWO_SOURCE_REWIRE_MESSAGE}"
+        )
+    if historical_calibration_config is not None:
+        raise MacroForecastRunnerError(
+            f"HistoricalCalibrationConfig usage in the runner is {TWO_SOURCE_REWIRE_MESSAGE}"
+        )
     dedupe_config = dedupe_config or InputDedupeConfig()
     forecast_input_set = build_forecast_input_set(
         regime_state,
@@ -303,19 +392,42 @@ def run_macro_forecast(
         horizon=horizon,
         dedupe_config=dedupe_config,
     )
+    forecast_input_set = _mark_forecast_input_set_monitoring_only(forecast_input_set)
     input_signals = forecast_input_set.all_signals
-    scenario_updates = update_scenario_probabilities(
-        _scenario_priors(scenario_set),
-        forecast_input_set,
-        config=probability_config,
-        dedupe_config=dedupe_config,
-        horizon=horizon,
+
+    bvar_artifact = load_latest_bvar_forecast(
+        bvar_cache_dir=bvar_cache_dir,
+        allow_stale=allow_stale_bvar,
     )
-    scenario_probabilities = {
-        update.scenario_id: update.posterior_probability
-        for update in scenario_updates
+    evidence_config = load_analogue_evidence_config()
+    evidence = compute_analogue_evidence(query_date=bvar_artifact.asof_quarter)
+    scenario_probabilities, mixture_report = apply_analogue_mixture(
+        bvar_artifact.soft_probabilities,
+        evidence,
+        alpha=evidence_config.mixture_alpha,
+    )
+    fan_payload, fan_outputs, fan_warnings = _compute_analogue_fan_outputs(
+        bvar_artifact.asof_quarter,
+        output_dir=fan_output_dir,
+    )
+    mixture_report = {
+        **mixture_report,
+        "analogue_fan": fan_payload,
+        "analogue_fan_artifact_path": fan_outputs.get("analogue_fan_json_path"),
     }
-    theme_rankings = rank_themes(scenario_probabilities, input_signals)
+    bvar_provenance = dict(bvar_artifact.provenance)
+    if fan_warnings:
+        bvar_provenance["warnings"] = list(
+            dict.fromkeys(
+                [str(item) for item in (bvar_provenance.get("warnings") or [])]
+                + fan_warnings
+            )
+        )
+    theme_rankings = rank_themes(
+        scenario_probabilities,
+        input_signals,
+        taxonomy="behavioral_v1",
+    )
     sector_rankings = rank_sectors(theme_rankings)
     factor_rankings = rank_factors(theme_rankings)
     result = MacroForecastResult(
@@ -323,49 +435,22 @@ def run_macro_forecast(
         horizon=horizon,
         input_signals=input_signals,
         forecast_input_set=forecast_input_set,
-        scenario_updates=scenario_updates,
+        scenario_updates=[],
         scenario_probabilities=scenario_probabilities,
         sector_rankings=sector_rankings,
         factor_rankings=factor_rankings,
         theme_rankings=theme_rankings,
         recommended_research_priorities=build_research_priorities_from_theme_forecasts(
             theme_rankings,
-            scenario_updates,
+            [],
             regime_state,
+            scenario_probabilities=scenario_probabilities,
         ),
+        probability_mode="two_source_v1",
+        mixture_report=mixture_report,
+        bvar_provenance=bvar_provenance,
+        outputs=fan_outputs,
     )
-    historical_config = historical_calibration_config or HistoricalCalibrationConfig(
-        scenario_mapping_horizon=default_scenario_mapping_horizon_for_forecast_horizon(horizon),  # type: ignore[arg-type]
-    )
-    if historical_config.enabled:
-        historical_calibration = calibrate_macro_forecast_with_analogs(
-            result,
-            regime_state,
-            market_state=market_state,
-            forecast_input_set=forecast_input_set,
-            config=historical_config,
-        )
-        blended_probabilities = dict(historical_calibration.blended_scenario_probabilities)
-        theme_rankings = rank_themes(blended_probabilities, input_signals)
-        sector_rankings = rank_sectors(theme_rankings)
-        factor_rankings = rank_factors(theme_rankings)
-        result = result.model_copy_validate(
-            {
-                "historical_calibration": historical_calibration,
-                "scenario_probabilities_deterministic": scenario_probabilities,
-                "scenario_probabilities_blended": blended_probabilities,
-                "scenario_probabilities": blended_probabilities,
-                "probability_mode": "historically_calibrated",
-                "theme_rankings": theme_rankings,
-                "sector_rankings": sector_rankings,
-                "factor_rankings": factor_rankings,
-                "recommended_research_priorities": build_research_priorities_from_theme_forecasts(
-                    theme_rankings,
-                    scenario_updates,
-                    regime_state,
-                ),
-            }
-        )
     return result.model_copy_validate(
         {
             "forecast_interpretation": build_macro_forecast_interpretation(result),
@@ -379,51 +464,21 @@ def _apply_yaml_priors_override(
     scenario_set: ScenarioSet,
     regime_state: RegimeState,
 ) -> MacroForecastResult:
-    """Override active probabilities with YAML scenario priors.
+    """Retired YAML-prior override retained as a fail-loud compatibility stub."""
 
-    Deterministic and historical-calibration fields remain on the result for
-    audit visibility; only the active probability distribution and downstream
-    rankings/priorities are rebuilt from the scenario YAML priors.
-    """
-    yaml_priors = {
-        scenario.id: float(scenario.probability)
-        for scenario in scenario_set.scenarios
-    }
-
-    new_theme_rankings = rank_themes(yaml_priors, result.input_signals)
-    new_sector_rankings = rank_sectors(new_theme_rankings)
-    new_factor_rankings = rank_factors(new_theme_rankings)
-    new_research_priorities = build_research_priorities_from_theme_forecasts(
-        new_theme_rankings,
-        result.scenario_updates,
-        regime_state,
-    )
-    deterministic_probabilities = result.scenario_probabilities_deterministic or {
-        update.scenario_id: update.posterior_probability
-        for update in result.scenario_updates
-    }
-
-    overridden = result.model_copy_validate(
-        {
-            "scenario_probabilities_deterministic": deterministic_probabilities,
-            "scenario_probabilities": yaml_priors,
-            "probability_mode": "yaml_priors_override",
-            "theme_rankings": new_theme_rankings,
-            "sector_rankings": new_sector_rankings,
-            "factor_rankings": new_factor_rankings,
-            "recommended_research_priorities": new_research_priorities,
-        }
-    )
-    return overridden.model_copy_validate(
-        {
-            "forecast_interpretation": build_macro_forecast_interpretation(overridden),
-            "probability_shifters": build_probability_shifters(overridden),
-        }
+    raise MacroForecastRunnerError(
+        f"_apply_yaml_priors_override is {TWO_SOURCE_REWIRE_MESSAGE}"
     )
 
 
 def _scenario_name(scenario_id: str) -> str:
     labels = {
+        "expansion_disinflation": "Expansion Disinflation",
+        "late_cycle_expansion": "Late-Cycle Expansion",
+        "inflation_shock": "Inflation Shock",
+        "stagflation": "Stagflation",
+        "growth_scare_no_credit": "Growth Scare, No Credit",
+        "credit_led_recession": "Credit-Led Recession",
         "reopening_soft_landing": "Reopening / Soft Landing",
         "sticky_late_cycle_ai": "Sticky Late Cycle AI",
         "oil_inflation_tail": "Oil Inflation Tail",
@@ -434,13 +489,10 @@ def _scenario_name(scenario_id: str) -> str:
 
 
 def build_macro_forecast_interpretation(result: MacroForecastResult) -> ForecastInterpretation:
-    probabilities = result.scenario_probabilities or {
-        update.scenario_id: update.posterior_probability
-        for update in result.scenario_updates
-    }
+    probabilities = result.scenario_probabilities
+    if not probabilities:
+        raise MacroForecastRunnerError("two_source_v1 result has no scenario_probabilities")
     dominant_id, dominant_probability = max(probabilities.items(), key=lambda item: item[1])
-    updates_by_id = {update.scenario_id: update for update in result.scenario_updates}
-    dominant = updates_by_id.get(dominant_id) or max(result.scenario_updates, key=lambda item: item.posterior_probability)
     second = sorted(
         [(scenario_id, probability) for scenario_id, probability in probabilities.items() if scenario_id != dominant_id],
         key=lambda item: item[1],
@@ -451,24 +503,20 @@ def build_macro_forecast_interpretation(result: MacroForecastResult) -> Forecast
     positive_factors = [factor for factor in result.factor_rankings if factor.score > 0][:3]
     negative_factors = [factor for factor in result.factor_rankings if factor.score < 0][:3]
 
-    if dominant_id == "sticky_late_cycle_ai":
-        headline = "Forecast favors sticky late-cycle AI leadership over broad soft-landing participation."
-    elif dominant_id == "reopening_soft_landing":
-        headline = "Forecast favors reopening soft landing and broader market participation."
-    elif dominant_id == "oil_inflation_tail":
-        headline = "Forecast is dominated by oil and inflation-tail risk."
-    elif dominant_id == "late_cycle_risk_off":
-        headline = "Forecast is warning on late-cycle risk-off and leadership unwind."
-    else:
-        headline = "Forecast is focused on AI capex rollover risk."
+    headline = f"Forecast favors {_scenario_name(dominant_id)} in the behavioral two-source mix."
 
-    top_driver = _top_driver(dominant)
     runner_up = f"; runner-up {second[0][0]} at {second[0][1]:.1%}" if second else ""
+    mixture = result.mixture_report or {}
+    evidence = mixture.get("evidence") if isinstance(mixture, dict) else {}
+    evidence_state = str((evidence or {}).get("current_state") or mixture.get("abstention_state") or "unknown")
+    trailing = mixture.get("s")
+    trailing_text = f"{float(trailing):.1%}" if trailing is not None else "n/a"
     summary = (
         f"The model assigns the highest probability to {_scenario_name(dominant_id)} "
-        f"at {dominant_probability:.1%}{runner_up}. The largest displayed deterministic driver is {top_driver}. "
-        "Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive "
-        "Fed pricing, and resilient AI earnings determine whether leadership stays narrow."
+        f"at {dominant_probability:.1%}{runner_up}. Probabilities are a linear mixture of BVAR soft "
+        f"posteriors and directional analogue evidence; analogue state is {evidence_state} with "
+        f"trailing recession share {trailing_text}. Deterministic signal layers are retained as "
+        "monitoring and falsifier evidence only."
     )
     preferred = [theme.label for theme in top_themes] + [factor.label for factor in positive_factors]
     avoid = [theme.label for theme in bottom_themes if theme.ranking_score < 0] + [
@@ -487,11 +535,10 @@ def build_macro_forecast_interpretation(result: MacroForecastResult) -> Forecast
     oil = signals.get("oil_reopening_optionality")
     if oil:
         tensions.append("Oil risk remains two-sided between inflation pressure and reopening relief.")
-    if signals.get("ai_earnings_resilience") and "ai_capex_rollover" in result.scenario_probabilities:
-        tensions.append("AI earnings are resilient, but the AI capex rollover tail retains a probability floor.")
-
-    if result.probability_mode == "historically_calibrated":
-        summary += " Reported scenario probabilities are historically calibrated after the deterministic update."
+    if result.mixture_report.get("stress_advisory"):
+        tensions.append("Analogue evidence is in unprecedented-state stress advisory mode.")
+    if signals.get("ai_earnings_resilience"):
+        tensions.append("AI earnings resilience remains a monitoring-only falsifier, not a probability input.")
 
     if dominant_probability >= 0.65:
         confidence = "high"
@@ -502,10 +549,9 @@ def build_macro_forecast_interpretation(result: MacroForecastResult) -> Forecast
     gap = dominant_probability - (second[0][1] if second else 0.0)
     confidence_rationale = (
         f"Dominant scenario probability is {dominant_probability:.1%} with a "
-        f"{gap:.1%} gap to the next scenario; floors keep tail scenarios alive."
+        f"{gap:.1%} gap to the next scenario. The only floor is the uniform 0.1% numerical guard "
+        "applied after the BVAR-plus-analogue mixture."
     )
-    if result.probability_mode == "historically_calibrated":
-        confidence_rationale += " Probability mode is historically calibrated."
 
     return ForecastInterpretation(
         headline=headline,
@@ -525,6 +571,8 @@ def build_macro_forecast_interpretation(result: MacroForecastResult) -> Forecast
 
 
 def build_probability_shifters(result: MacroForecastResult) -> list[ProbabilityShifter]:
+    if result.probability_mode == "two_source_v1":
+        return []
     templates = {
         "sticky_late_cycle_ai": (
             [
@@ -746,6 +794,39 @@ def _default_current_regime_output_dir(
     return Path(reports_dir)
 
 
+def _default_fan_output_dir(reports_dir: str | Path = DEFAULT_REPORTS_DIR) -> Path:
+    return Path(reports_dir) / "analogue_fans"
+
+
+def _compute_analogue_fan_outputs(
+    query_date: str,
+    *,
+    output_dir: str | Path | None,
+) -> tuple[dict[str, Any], dict[str, str], list[str]]:
+    target_dir = Path(output_dir) if output_dir is not None else _default_fan_output_dir()
+    fan = compute_analogue_fan(query_date=query_date)
+    fan_json_path = write_fan_result(
+        fan,
+        target_dir / f"analogue_fan_{fan.query_date}.json",
+    )
+    outputs: dict[str, str] = {
+        "analogue_fan_json_path": str(fan_json_path),
+    }
+    warnings: list[str] = []
+    fan_payload = fan.to_dict()
+    fan_payload["artifact_path"] = str(fan_json_path)
+    try:
+        chart_paths = render_fan_charts(fan, target_dir)
+        for key, value in chart_paths.items():
+            if key == "combined_grid":
+                outputs["analogue_fan_grid_png_path"] = value
+            else:
+                outputs[f"analogue_fan_{key}_png_path"] = value
+    except Exception as exc:
+        warnings.append(f"Analogue fan chart rendering failed: {exc}")
+    return fan_payload, outputs, warnings
+
+
 def _write_json_result(result: MacroForecastResult, path: str | Path) -> Path:
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -786,6 +867,7 @@ def _run_warnings(result: MacroForecastResult) -> list[str]:
     calibration = result.historical_calibration
     if calibration is not None:
         warnings.extend(str(item) for item in calibration.warnings)
+    warnings.extend(str(item) for item in (result.bvar_provenance.get("warnings") or []))
     return list(dict.fromkeys(item for item in warnings if item))
 
 
@@ -796,7 +878,9 @@ def _input_mode_label(config: MacroForecastRunConfig) -> str:
 
 
 def _historical_analogue_label(result: MacroForecastResult, config: MacroForecastRunConfig) -> str:
-    if not config.historical_calibration_enabled or result.historical_calibration is None:
+    if result.probability_mode == "two_source_v1":
+        return "retired; directional analogue evidence enters via mixture"
+    if result.historical_calibration is None:
         return "disabled"
     return result.historical_calibration.analogue_version
 
@@ -816,30 +900,43 @@ def _print_run_summary(
     print(f"As-of date: {result.asof_date}")
     print(f"Horizon: {result.horizon}")
     print(f"Probability mode: {result.probability_mode}")
-    if config.use_yaml_priors:
-        print()
-        print("YAML priors override: ACTIVE")
-        print("  Engine math shown in report for audit only.")
-        print("  Downstream rankings and research priorities use the YAML priors.")
-        print()
-        print("  Engine vs. YAML delta (engine - prior):")
-        for update in sorted(
-            result.scenario_updates,
-            key=lambda item: -abs(item.posterior_probability - item.prior_probability),
-        ):
-            delta = update.posterior_probability - update.prior_probability
-            marker = "*" if abs(delta) >= 0.10 else " "
-            print(
-                f"  {marker} {update.scenario_id}: "
-                f"prior={update.prior_probability:.1%} "
-                f"engine={update.posterior_probability:.1%} "
-                f"delta={delta:+.1%}"
-            )
     print(f"Input mode: {_input_mode_label(config)}")
     print(f"Volatility inputs: {'included' if config.volatility_enabled else 'disabled'}")
     print(f"Historical analogues: {_historical_analogue_label(result, config)}")
-    mapping_horizon = config.scenario_mapping_horizon or default_scenario_mapping_horizon_for_forecast_horizon(config.horizon)
-    print(f"Scenario mapping horizon: {mapping_horizon}")
+    if result.probability_mode == "two_source_v1":
+        mixture = result.mixture_report or {}
+        evidence = mixture.get("evidence") if isinstance(mixture, dict) else {}
+        print()
+        print("Two-source mixture:")
+        print(f"  BVAR artifact: {result.bvar_provenance.get('path', 'n/a')}")
+        print(f"  BVAR asof: {result.bvar_provenance.get('asof_quarter', 'n/a')}")
+        print(f"  BVAR generated_at: {result.bvar_provenance.get('generated_at', 'n/a')}")
+        print(f"  BVAR handoff_fingerprint: {result.bvar_provenance.get('handoff_fingerprint', 'n/a')}")
+        print(f"  alpha: {_plain_num(mixture.get('alpha'))}")
+        print(f"  s/trailing_max: {_pct(mixture.get('s'))}")
+        print(f"  evidence state: {(evidence or {}).get('current_state') or mixture.get('abstention_state') or 'n/a'}")
+        print(f"  stress advisory: {bool(mixture.get('stress_advisory', False))}")
+        print("  Scenario decomposition:")
+        per_scenario = mixture.get("per_scenario") if isinstance(mixture, dict) else {}
+        for scenario_id, final_probability in sorted(
+            result.scenario_probabilities.items(),
+            key=lambda item: item[1],
+            reverse=True,
+        ):
+            row = per_scenario.get(scenario_id, {}) if isinstance(per_scenario, dict) else {}
+            print(
+                "    "
+                f"{scenario_id}: bvar={_pct(row.get('bvar_soft'))} "
+                f"analogue={_pct(row.get('analogue_implied'))} "
+                f"mixed={_pct(row.get('mixed_pre_floor'))} "
+                f"final={_pct(final_probability)} "
+                f"delta={_pct(row.get('delta'))}"
+            )
+        limitations = result.bvar_provenance.get("model_limitations") or {}
+        if limitations:
+            print("  BVAR model_limitations:")
+            for key, value in limitations.items():
+                print(f"    {key}: {value}")
     if docx_disabled:
         print("DOCX report disabled by --no-docx")
     elif docx_path is not None:
@@ -852,6 +949,15 @@ def _print_run_summary(
         print("Current regime YAML disabled by --no-current-regime-yaml")
     elif current_regime_yaml_path is not None:
         print(f"Current regime YAML saved to: {current_regime_yaml_path}")
+    fan_outputs = {
+        key: value
+        for key, value in result.outputs.items()
+        if key.startswith("analogue_fan_")
+    }
+    if fan_outputs:
+        print("Analogue fan artifacts:")
+        for key, value in sorted(fan_outputs.items()):
+            print(f"  {key}: {value}")
 
     warnings = _run_warnings(result)
     if warnings:
@@ -979,7 +1085,32 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
         ]
     )
     calibration_by_scenario = _calibration_by_scenario(result)
-    if result.probability_mode == "yaml_priors_override":
+    if result.probability_mode == "two_source_v1":
+        mixture = result.mixture_report or {}
+        per_scenario = mixture.get("per_scenario") if isinstance(mixture, dict) else {}
+        lines.append(
+            "Scenario | BVAR Soft | Analogue Implied | Mixed Pre-Floor | Final | Delta vs BVAR | Floor Guard"
+        )
+        for scenario_id, final_probability in sorted(
+            result.scenario_probabilities.items(),
+            key=lambda item: item[1],
+            reverse=True,
+        ):
+            row = per_scenario.get(scenario_id, {}) if isinstance(per_scenario, dict) else {}
+            lines.append(
+                " | ".join(
+                    [
+                        scenario_id,
+                        _pct(row.get("bvar_soft", result.bvar_provenance.get("soft_probabilities", {}).get(scenario_id))),
+                        _pct(row.get("analogue_implied")),
+                        _pct(row.get("mixed_pre_floor")),
+                        _pct(final_probability),
+                        _pct(row.get("delta")),
+                        str(bool(row.get("floor_applied", False))),
+                    ]
+                )
+            )
+    elif result.probability_mode == "yaml_priors_override":
         lines.extend(
             [
                 "",
@@ -1000,64 +1131,94 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
         )
     else:
         lines.append("Scenario | Prior | Pre-Floor Posterior | Final Posterior | Change | Floor/Cap | Top Driver")
-    for update in result.scenario_updates:
-        calibration = calibration_by_scenario.get(update.scenario_id)
-        if result.probability_mode == "historically_calibrated" and calibration is not None:
+    if result.probability_mode != "two_source_v1":
+        for update in result.scenario_updates:
+            calibration = calibration_by_scenario.get(update.scenario_id)
+            if result.probability_mode == "historically_calibrated" and calibration is not None:
+                lines.append(
+                    " | ".join(
+                        [
+                            update.scenario_id,
+                            _pct(update.prior_probability),
+                            _pct(calibration.deterministic_probability),
+                            _pct(calibration.historical_probability),
+                            _pct(calibration.blended_probability),
+                            _pct(calibration.blended_probability - update.prior_probability),
+                            _floor_cap_label(update),
+                            _top_driver(update),
+                        ]
+                    )
+                )
+                continue
             lines.append(
                 " | ".join(
                     [
                         update.scenario_id,
                         _pct(update.prior_probability),
-                        _pct(calibration.deterministic_probability),
-                        _pct(calibration.historical_probability),
-                        _pct(calibration.blended_probability),
-                        _pct(calibration.blended_probability - update.prior_probability),
+                        _pct(update.pre_floor_posterior_probability),
+                        _pct(update.posterior_probability),
+                        _pct(update.probability_change),
                         _floor_cap_label(update),
                         _top_driver(update),
                     ]
                 )
             )
-            continue
-        lines.append(
-            " | ".join(
-                [
-                    update.scenario_id,
-                    _pct(update.prior_probability),
-                    _pct(update.pre_floor_posterior_probability),
-                    _pct(update.posterior_probability),
-                    _pct(update.probability_change),
-                    _floor_cap_label(update),
-                    _top_driver(update),
-                ]
-            )
-        )
 
     lines.extend(["", "2. Scenario Probability Math"])
-    for update in result.scenario_updates:
-        audit = update.math_audit
-        if audit is None:
-            lines.append(f"{update.scenario_id}: no math audit available")
-            continue
-        lines.append(_scenario_name(update.scenario_id))
-        lines.append(f"  Prior: {_pct(audit.prior_probability)}")
-        lines.append(f"  Prior Score: {audit.prior_logit_or_log_score:+.3f}" if audit.prior_logit_or_log_score is not None else "  Prior Score: n/a")
-        lines.append(f"  Net Contribution: {audit.net_contribution:+.3f}")
-        lines.append(f"  Raw Score Before Softmax: {audit.raw_score_before_softmax:+.3f}")
-        lines.append(f"  Exp Score: {audit.exp_score:.6f}" if audit.exp_score is not None else "  Exp Score: n/a")
-        lines.append(f"  Softmax Denominator: {audit.softmax_denominator:.6f}" if audit.softmax_denominator is not None else "  Softmax Denominator: n/a")
-        lines.append(f"  Pre-Floor Posterior: {_pct(audit.pre_floor_posterior_probability)}")
-        lines.append(f"  Floor Applied: {audit.floor_applied} ({_pct(audit.floor_value)})")
-        lines.append(f"  Cap Applied: {audit.cap_applied} ({_pct(audit.cap_value)})")
-        lines.append(f"  Final Posterior: {_pct(audit.final_posterior_probability)}")
-        lines.append(f"  Change: {_pct(audit.final_probability_change)}")
-        lines.append("  Top Positive:")
-        lines.extend(_contributor_lines(update, positive=True))
-        lines.append("  Top Negative:")
-        lines.extend(_contributor_lines(update, positive=False))
+    if result.probability_mode == "two_source_v1":
+        mixture = result.mixture_report or {}
+        evidence = mixture.get("evidence") if isinstance(mixture, dict) else {}
+        bvar_provenance = result.bvar_provenance or {}
+        lines.append("Probability mode: two_source_v1")
+        lines.append(f"Combination: {mixture.get('combination', 'linear_mixture')}")
+        lines.append(f"Alpha: {_plain_num(mixture.get('alpha'))} | alpha_effective: {_plain_num(mixture.get('alpha_effective'))}")
+        lines.append(f"Analogue trailing share s: {_pct(mixture.get('s'))} | base rate b: {_pct(mixture.get('b'))}")
+        lines.append(f"Evidence state: {(evidence or {}).get('current_state') or mixture.get('abstention_state') or 'n/a'}")
+        lines.append(f"Stress advisory: {bool(mixture.get('stress_advisory', False))}")
+        lines.append(f"Numerical floor: {_pct(mixture.get('numerical_floor'))} ({mixture.get('floor_note', 'n/a')})")
+        lines.append(f"BVAR artifact: {bvar_provenance.get('path', 'n/a')}")
+        lines.append(f"BVAR asof_quarter: {bvar_provenance.get('asof_quarter', 'n/a')} | generated_at: {bvar_provenance.get('generated_at', 'n/a')}")
+        lines.append(f"BVAR handoff_fingerprint: {bvar_provenance.get('handoff_fingerprint', 'n/a')}")
+        limitations = bvar_provenance.get("model_limitations") or {}
+        if limitations:
+            lines.append("BVAR model_limitations:")
+            for key, value in limitations.items():
+                lines.append(f"  {key}: {value}")
+        warnings = bvar_provenance.get("warnings") or []
+        if warnings:
+            lines.append("BVAR warnings:")
+            lines.extend(f"  {warning}" for warning in warnings)
+    else:
+        for update in result.scenario_updates:
+            audit = update.math_audit
+            if audit is None:
+                lines.append(f"{update.scenario_id}: no math audit available")
+                continue
+            lines.append(_scenario_name(update.scenario_id))
+            lines.append(f"  Prior: {_pct(audit.prior_probability)}")
+            lines.append(f"  Prior Score: {audit.prior_logit_or_log_score:+.3f}" if audit.prior_logit_or_log_score is not None else "  Prior Score: n/a")
+            lines.append(f"  Net Contribution: {audit.net_contribution:+.3f}")
+            lines.append(f"  Raw Score Before Softmax: {audit.raw_score_before_softmax:+.3f}")
+            lines.append(f"  Exp Score: {audit.exp_score:.6f}" if audit.exp_score is not None else "  Exp Score: n/a")
+            lines.append(f"  Softmax Denominator: {audit.softmax_denominator:.6f}" if audit.softmax_denominator is not None else "  Softmax Denominator: n/a")
+            lines.append(f"  Pre-Floor Posterior: {_pct(audit.pre_floor_posterior_probability)}")
+            lines.append(f"  Floor Applied: {audit.floor_applied} ({_pct(audit.floor_value)})")
+            lines.append(f"  Cap Applied: {audit.cap_applied} ({_pct(audit.cap_value)})")
+            lines.append(f"  Final Posterior: {_pct(audit.final_posterior_probability)}")
+            lines.append(f"  Change: {_pct(audit.final_probability_change)}")
+            lines.append("  Top Positive:")
+            lines.extend(_contributor_lines(update, positive=True))
+            lines.append("  Top Negative:")
+            lines.extend(_contributor_lines(update, positive=False))
 
     lines.extend(["", "3. Historical Analogue Calibration"])
     calibration = result.historical_calibration
-    if calibration is None:
+    if result.probability_mode == "two_source_v1":
+        lines.append(
+            "Legacy rolling historical calibration is retired in the runner. "
+            "Directional analogue evidence enters only through the two-source mixture above."
+        )
+    elif calibration is None:
         lines.append("Historical calibration: disabled")
     else:
         lines.append(f"Enabled: {calibration.enabled}")
@@ -1191,12 +1352,13 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
         lines.extend(f"- {note}" for note in calibration.methodology_notes)
 
     lines.extend(["", "4. Forecast Input Set"])
+    lines.append("Monitoring — no probability impact.")
     input_set = result.forecast_input_set
     if input_set is None:
         lines.extend(
             [
                 "ForecastInputSet is not available; falling back to legacy flat input signal list.",
-                "Signal | Category | Reading | Signal | Trend | Confidence | Quality | Used in Math? | Display Only? | Composite / Parent | Exclusion Reason",
+                "Signal | Category | Reading | Signal | Trend | Confidence | Quality | Probability Impact? | Display Only? | Composite / Parent | Exclusion Reason",
             ]
         )
         for signal in result.input_signals:
@@ -1210,7 +1372,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
                         signal.trend,
                         f"{signal.confidence:.2f}",
                         signal.data_quality,
-                        str(signal.used_in_probability_update),
+                        "Yes" if signal.used_in_probability_update else "No",
                         str(signal.display_only),
                         signal.parent_signal_id or ("composite" if signal.child_signal_ids else "-"),
                         signal.exclusion_reason or "-",
@@ -1224,7 +1386,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
         lines.extend(
             [
                 "4.1 Layer Summary Signals",
-                "Layer | Score | Status | Confidence/Data Quality | Used in Math? | Key Signals | Raw Components Attached",
+                "Layer | Score | Status | Confidence/Data Quality | Probability Impact? | Key Signals | Raw Components Attached",
             ]
         )
         _append_signal_rows(
@@ -1236,7 +1398,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
                     _signal_reading(signal.current_value),
                     f"{signal.signal}/{signal.trend}",
                     f"{signal.confidence:.2f}/{signal.data_quality}",
-                    str(signal.used_in_probability_update),
+                    "Yes" if signal.used_in_probability_update else "No",
                     signal.notes or "-",
                     _raw_components_for_layer(result, signal.parent_layer),
                 ]
@@ -1247,7 +1409,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
             [
                 "",
                 "4.2 Raw Component Signals",
-                "Input | Parent Layer | Raw Value | Transformed Value | Status | Trend | Confidence | Used in Math? | Top Scenario Effects",
+                "Input | Parent Layer | Raw Value | Transformed Value | Status | Trend | Confidence | Probability Impact? | Top Scenario Effects",
             ]
         )
         _append_signal_rows(
@@ -1262,7 +1424,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
                     signal.level_status or signal.signal,
                     signal.trend_status or signal.trend,
                     f"{signal.confidence:.2f}",
-                    str(signal.used_in_probability_update),
+                    "Yes" if signal.used_in_probability_update else "No",
                     _top_scenario_effects(signal),
                 ]
             ),
@@ -1272,7 +1434,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
             [
                 "",
                 "4.3 Composite Signals",
-                "Composite | Parent Layer | Signal | Confidence | Used in Math? | Child Signals | Scenario Effects",
+                "Composite | Parent Layer | Signal | Confidence | Probability Impact? | Child Signals | Scenario Effects",
             ]
         )
         _append_signal_rows(
@@ -1284,7 +1446,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
                     signal.parent_layer or "-",
                     signal.signal,
                     f"{signal.confidence:.2f}",
-                    str(signal.used_in_probability_update),
+                    "Yes" if signal.used_in_probability_update else "No",
                     ", ".join(signal.child_signal_ids) or "-",
                     _top_scenario_effects(signal),
                 ]
@@ -1295,7 +1457,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
             [
                 "",
                 "4.4 Market/Tape Signals",
-                "Input | Raw Value | Status | Confidence | Used in Math? | Horizon/Dedupe Effect | Top Scenario Effects",
+                "Input | Raw Value | Status | Confidence | Probability Impact? | Horizon/Dedupe Effect | Top Scenario Effects",
             ]
         )
         _append_signal_rows(
@@ -1307,7 +1469,7 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
                     _signal_reading(signal.raw_value),
                     signal.level_status or signal.signal,
                     f"{signal.confidence:.2f}",
-                    str(signal.used_in_probability_update),
+                    "Yes" if signal.used_in_probability_update else "No",
                     signal.transformation_method or "-",
                     _top_scenario_effects(signal),
                 ]
@@ -1372,12 +1534,12 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
         ]
         lines.append(f"Composite Signal: {monetary.signal}")
         lines.append(f"Composite Confidence: {monetary.confidence:.2f}")
-        lines.append(f"Used in probability update: {monetary.used_in_probability_update}")
+        lines.append(f"Probability impact: {'Yes' if monetary.used_in_probability_update else 'No'}")
         lines.append(f"Composite Method: {monetary.composite_method or 'n/a'}")
         for child in children:
             lines.append(
                 f"Component: {child.name} | signal={child.signal} | confidence={child.confidence:.2f} | "
-                f"display_only={child.display_only} | used={child.used_in_probability_update}"
+                f"display_only={child.display_only} | probability_impact={'Yes' if child.used_in_probability_update else 'No'}"
             )
         impacts = ", ".join(
             f"{impact.scenario_id} {impact.direction} {impact.strength:.2f}"
@@ -1456,13 +1618,16 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
         )
 
     lines.extend(["", "9. Probability Shifters / Watchlist"])
-    for shifter in result.probability_shifters:
-        lines.append(f"{_scenario_name(shifter.scenario_id)} ({_pct(shifter.current_probability)})")
-        lines.append(f"  Would increase if: {'; '.join(shifter.would_increase_probability_if)}")
-        lines.append(f"  Would decrease if: {'; '.join(shifter.would_decrease_probability_if)}")
-        lines.append(f"  Watch: {', '.join(shifter.key_inputs_to_watch) or 'none'}")
-        if shifter.floor_or_cap_note:
-            lines.append(f"  Floor/Cap: {shifter.floor_or_cap_note}")
+    if result.probability_mode == "two_source_v1":
+        lines.append("Deterministic probability shifters are retired; monitoring signals and falsifiers remain display-only.")
+    else:
+        for shifter in result.probability_shifters:
+            lines.append(f"{_scenario_name(shifter.scenario_id)} ({_pct(shifter.current_probability)})")
+            lines.append(f"  Would increase if: {'; '.join(shifter.would_increase_probability_if)}")
+            lines.append(f"  Would decrease if: {'; '.join(shifter.would_decrease_probability_if)}")
+            lines.append(f"  Watch: {', '.join(shifter.key_inputs_to_watch) or 'none'}")
+            if shifter.floor_or_cap_note:
+                lines.append(f"  Floor/Cap: {shifter.floor_or_cap_note}")
 
     lines.extend(["", "10. Recommended Research Priorities"])
     for priority in result.recommended_research_priorities:
@@ -1486,39 +1651,63 @@ def format_macro_forecast_report(result: MacroForecastResult) -> str:
             )
             lines.append(f"  Theme impacts: {theme_impacts}")
 
-    lines.extend(
-        [
-            "",
-            "12. Methodology Notes",
-            "Input construction:",
-            "Layer summaries are generated from Helix regime layer scores.",
-            "Raw components are generated from the underlying RegimeInputs fields.",
-            "Market/tape signals are generated from MarketState.",
-            "Regime drivers and scenario falsifiers are generated from active regime context and scenario definitions.",
-            "Contribution method:",
-            "In hybrid mode, layer summaries provide base scenario impacts and raw components act as modifiers within the same parent layer.",
-            "Dedupe caps prevent one layer from dominating through many correlated inputs.",
-            "Market/tape signals are downweighted for longer horizons.",
-            "raw_component_contribution = direction_sign × base_strength × confidence × signal_multiplier × horizon_weight × dedupe_weight",
-            "layer_summary_contribution = direction_sign × base_strength × confidence × layer_summary_base_weight",
-            "final_layer_group_contribution = layer_summary_contribution + capped_sum(raw_component_modifiers)",
-            "Scenario probability update:",
-            "raw_score_s = prior_score_s + Σ input_contribution_i,s",
-            "input_contribution_i,s = direction_sign × base_strength_i,s × confidence_i × signal_multiplier_i",
-            "pre_floor_probability_s = softmax(raw_score_s)",
-            "final_probability_s = apply_floors_and_caps(pre_floor_probability_s)",
-            "Theme score:",
-            "macro_support_score_t = Σ scenario_probability_s × theme_exposure_score_t,s",
-            "theme_contribution_t,s = scenario_probability_s × theme_exposure_score_t,s",
-            "ranking_score_t = macro_support_score_t",
-            "Sector/factor score:",
-            "sector_score = Σ theme_macro_support_score_t × sector_theme_weight_t",
-            "factor_score = Σ theme_macro_support_score_t × factor_theme_weight_t",
-            "Macro forecast theme rankings intentionally exclude valuation, crowding, narrative maturity, consensus gap, and ticker-level quality. Those are evaluated by downstream research agents.",
-            "Monetary composite:",
-            "monetary component signals are displayed as inputs but excluded from probability math when monetary_policy_composite is enabled.",
-        ]
-    )
+    lines.extend(["", "12. Methodology Notes"])
+    if result.probability_mode == "two_source_v1":
+        lines.extend(
+            [
+                "Input construction:",
+                "Layer summaries, raw components, market/tape signals, regime drivers, and falsifiers are generated for monitoring only.",
+                "Probability sources:",
+                "BVAR contribution = scenario_probabilities_soft from the behavioral-v1 ensemble artifact.",
+                "Analogue contribution = directional analogue trailing maximum of the PIT-observable shrunk recession share.",
+                "Mixture:",
+                "analogue_implied allocates recession and non-recession group mass using the BVAR within-group proportions.",
+                "mixed_probability_s = (1 - alpha) × bvar_soft_s + alpha × analogue_implied_s",
+                "final_probability_s = apply uniform 0.1% numerical floor, then renormalize.",
+                "Retired probability paths:",
+                "Hardcoded priors, deterministic contribution updates, YAML prior overrides, hand-tuned scenario floors/caps, and legacy rolling historical calibration have no probability impact in two_source_v1.",
+                "Theme score:",
+                "macro_support_score_t = Σ scenario_probability_s × behavioral_v1_theme_exposure_score_t,s",
+                "theme_contribution_t,s = scenario_probability_s × theme_exposure_score_t,s",
+                "ranking_score_t = macro_support_score_t",
+                "Sector/factor score:",
+                "sector_score = Σ theme_macro_support_score_t × sector_theme_weight_t",
+                "factor_score = Σ theme_macro_support_score_t × factor_theme_weight_t",
+                "Macro forecast theme rankings intentionally exclude valuation, crowding, narrative maturity, consensus gap, and ticker-level quality. Those are evaluated by downstream research agents.",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "Input construction:",
+                "Layer summaries are generated from Helix regime layer scores.",
+                "Raw components are generated from the underlying RegimeInputs fields.",
+                "Market/tape signals are generated from MarketState.",
+                "Regime drivers and scenario falsifiers are generated from active regime context and scenario definitions.",
+                "Contribution method:",
+                "In hybrid mode, layer summaries provide base scenario impacts and raw components act as modifiers within the same parent layer.",
+                "Dedupe caps prevent one layer from dominating through many correlated inputs.",
+                "Market/tape signals are downweighted for longer horizons.",
+                "raw_component_contribution = direction_sign × base_strength × confidence × signal_multiplier × horizon_weight × dedupe_weight",
+                "layer_summary_contribution = direction_sign × base_strength × confidence × layer_summary_base_weight",
+                "final_layer_group_contribution = layer_summary_contribution + capped_sum(raw_component_modifiers)",
+                "Scenario probability update:",
+                "raw_score_s = prior_score_s + Σ input_contribution_i,s",
+                "input_contribution_i,s = direction_sign × base_strength_i,s × confidence_i × signal_multiplier_i",
+                "pre_floor_probability_s = softmax(raw_score_s)",
+                "final_probability_s = apply_floors_and_caps(pre_floor_probability_s)",
+                "Theme score:",
+                "macro_support_score_t = Σ scenario_probability_s × theme_exposure_score_t,s",
+                "theme_contribution_t,s = scenario_probability_s × theme_exposure_score_t,s",
+                "ranking_score_t = macro_support_score_t",
+                "Sector/factor score:",
+                "sector_score = Σ theme_macro_support_score_t × sector_theme_weight_t",
+                "factor_score = Σ theme_macro_support_score_t × factor_theme_weight_t",
+                "Macro forecast theme rankings intentionally exclude valuation, crowding, narrative maturity, consensus gap, and ticker-level quality. Those are evaluated by downstream research agents.",
+                "Monetary composite:",
+                "monetary component signals are displayed as inputs but excluded from probability math when monetary_policy_composite is enabled.",
+            ]
+        )
 
     return "\n".join(lines)
 
@@ -1632,45 +1821,47 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--docx-output", default=None, help="Optional explicit DOCX output path.")
     parser.add_argument("--json-output", default=None, help="Optional explicit JSON output path.")
     parser.add_argument("--current-regime-output", default=None, help="Optional explicit current-regime YAML output path.")
+    parser.add_argument("--bvar-cache-dir", default=None, help="Directory containing BVAR forecast_*.json artifacts.")
+    parser.add_argument(
+        "--allow-stale-bvar",
+        action="store_true",
+        help="Allow the newest BVAR forecast artifact to lag the current calendar quarter, with a printed warning.",
+    )
     parser.add_argument("--debug", action="store_true", help="Print additional debug output.")
     parser.add_argument(
         "--use-yaml-priors",
         action="store_true",
-        help=(
-            "Override the engine output with the YAML scenario priors as final probabilities. "
-            "The deterministic engine and historical analogue calibration still run for audit "
-            "visibility, but downstream rankings and research priorities use the YAML priors."
-        ),
+        help=argparse.SUPPRESS,
     )
 
-    parser.add_argument("--no-historical-calibration", dest="historical_calibration", action="store_false")
-    parser.add_argument("--no-detailed-analogues", dest="detailed_analogues", action="store_false")
+    parser.add_argument("--no-historical-calibration", dest="historical_calibration", action="store_false", help=argparse.SUPPRESS)
+    parser.add_argument("--no-detailed-analogues", dest="detailed_analogues", action="store_false", help=argparse.SUPPRESS)
     parser.add_argument("--no-docx", dest="save_docx", action="store_false")
     parser.add_argument("--no-json", dest="save_json", action="store_false")
     parser.add_argument("--no-current-regime-yaml", dest="save_current_regime_yaml", action="store_false")
 
     advanced = parser.add_argument_group("advanced/debug overrides")
     advanced.add_argument("--input-mode", choices=["hybrid", "layer_only", "raw_only"], default=None)
-    advanced.add_argument("--historical-weight", type=float, default=None)
-    advanced.add_argument("--deterministic-weight", type=float, default=None)
-    advanced.add_argument("--analogue-v1-weight", type=float, default=None)
-    advanced.add_argument("--analogue-v2-weight", type=float, default=None)
-    advanced.add_argument("--analogue-candidate-pool-n", type=int, default=None)
-    advanced.add_argument("--min-feature-coverage", type=float, default=None)
-    advanced.add_argument("--min-effective-sample-size", type=int, default=None)
+    advanced.add_argument("--historical-weight", type=float, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--deterministic-weight", type=float, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-v1-weight", type=float, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-v2-weight", type=float, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-candidate-pool-n", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--min-feature-coverage", type=float, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--min-effective-sample-size", type=int, default=None, help=argparse.SUPPRESS)
 
     advanced.add_argument("--layer-summary-base-weight", type=float, default=None)
     advanced.add_argument("--raw-component-modifier-weight", type=float, default=None)
     advanced.add_argument("--max-raw-modifier-ratio", type=float, default=None)
-    advanced.add_argument("--analogue-lookback-days", type=int, default=None)
-    advanced.add_argument("--analogue-half-life", type=int, default=None)
-    advanced.add_argument("--analogue-pool-top-n", type=int, default=None)
-    advanced.add_argument("--analogue-top-n-per-lookup", type=int, default=None)
-    advanced.add_argument("--analogue-exclude-recent-days", type=int, default=None)
-    advanced.add_argument("--analogue-min-count", type=int, default=None)
-    advanced.add_argument("--analog-macro-horizons", default=None)
-    advanced.add_argument("--scenario-mapping-horizon", choices=["21d", "63d", "126d", "252d"], default=None)
-    advanced.add_argument("--current-state-lookup-weight", type=float, default=None)
+    advanced.add_argument("--analogue-lookback-days", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-half-life", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-pool-top-n", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-top-n-per-lookup", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-exclude-recent-days", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analogue-min-count", type=int, default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--analog-macro-horizons", default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--scenario-mapping-horizon", choices=["21d", "63d", "126d", "252d"], default=None, help=argparse.SUPPRESS)
+    advanced.add_argument("--current-state-lookup-weight", type=float, default=None, help=argparse.SUPPRESS)
     advanced.add_argument("--overwrite-current-regime", action="store_true")
 
     parser.add_argument("--default-scenarios", action="store_true", help=argparse.SUPPRESS)
@@ -1690,6 +1881,11 @@ def _build_arg_parser() -> argparse.ArgumentParser:
 
 
 def _run_config_from_args(args: argparse.Namespace) -> MacroForecastRunConfig:
+    retired = _retired_cli_options(args)
+    if retired:
+        raise MacroForecastRunnerError(
+            f"CLI option(s) {retired} are {TWO_SOURCE_REWIRE_MESSAGE}"
+        )
     values: dict[str, object] = {}
     for arg_name, field_name in {
         "asof_date": "asof_date",
@@ -1698,34 +1894,16 @@ def _run_config_from_args(args: argparse.Namespace) -> MacroForecastRunConfig:
         "docx_output": "docx_output",
         "json_output": "json_output",
         "current_regime_output": "current_regime_output",
+        "bvar_cache_dir": "bvar_cache_dir",
         "input_mode": "input_mode",
-        "historical_weight": "historical_weight",
-        "deterministic_weight": "deterministic_weight",
-        "analogue_v1_weight": "analogue_v1_weight",
-        "analogue_v2_weight": "analogue_v2_weight",
-        "analogue_candidate_pool_n": "analogue_candidate_pool_n",
-        "min_feature_coverage": "min_feature_coverage",
-        "min_effective_sample_size": "min_effective_sample_size",
         "layer_summary_base_weight": "layer_summary_base_weight",
         "raw_component_modifier_weight": "raw_component_modifier_weight",
         "max_raw_modifier_ratio": "max_raw_modifier_ratio",
-        "analogue_lookback_days": "analogue_lookback_days",
-        "analogue_half_life": "analogue_half_life",
-        "analogue_pool_top_n": "analogue_pool_top_n",
-        "analogue_top_n_per_lookup": "analogue_top_n_per_lookup",
-        "analogue_exclude_recent_days": "analogue_exclude_recent_days",
-        "analogue_min_count": "analogue_min_count",
-        "scenario_mapping_horizon": "scenario_mapping_horizon",
-        "current_state_lookup_weight": "current_state_lookup_weight",
     }.items():
         value = getattr(args, arg_name, None)
         if value is not None:
             values[field_name] = value
 
-    if args.historical_calibration is not None:
-        values["historical_calibration_enabled"] = bool(args.historical_calibration)
-    if args.detailed_analogues is not None:
-        values["detailed_analogues_enabled"] = bool(args.detailed_analogues)
     if args.save_docx is not None:
         values["save_docx"] = bool(args.save_docx)
     if args.save_json is not None:
@@ -1736,13 +1914,46 @@ def _run_config_from_args(args: argparse.Namespace) -> MacroForecastRunConfig:
         values["overwrite_current_regime"] = True
     if args.include_volatility_inputs is not None:
         values["volatility_enabled"] = bool(args.include_volatility_inputs)
-    if args.analog_macro_horizons:
-        values["analog_macro_horizons"] = _parse_horizon_list(args.analog_macro_horizons)
+    if args.allow_stale_bvar:
+        values["allow_stale_bvar"] = True
     if args.debug:
         values["debug"] = True
-    if getattr(args, "use_yaml_priors", False):
-        values["use_yaml_priors"] = True
     return MacroForecastRunConfig.model_validate(values)
+
+
+def _retired_cli_options(args: argparse.Namespace) -> list[str]:
+    retired_names = []
+    boolean_flags = {
+        "use_yaml_priors": "--use-yaml-priors",
+        "default_scenarios": "--default-scenarios",
+    }
+    for attr, flag in boolean_flags.items():
+        if getattr(args, attr, False):
+            retired_names.append(flag)
+    nullable_flags = {
+        "historical_calibration": "--historical-calibration/--no-historical-calibration",
+        "detailed_analogues": "--detailed-analogues/--no-detailed-analogues",
+        "historical_weight": "--historical-weight",
+        "deterministic_weight": "--deterministic-weight",
+        "analogue_v1_weight": "--analogue-v1-weight",
+        "analogue_v2_weight": "--analogue-v2-weight",
+        "analogue_candidate_pool_n": "--analogue-candidate-pool-n",
+        "analogue_lookback_days": "--analogue-lookback-days",
+        "analogue_half_life": "--analogue-half-life",
+        "analogue_pool_top_n": "--analogue-pool-top-n",
+        "analogue_top_n_per_lookup": "--analogue-top-n-per-lookup",
+        "analogue_exclude_recent_days": "--analogue-exclude-recent-days",
+        "analogue_min_count": "--analogue-min-count",
+        "analog_macro_horizons": "--analog-macro-horizons",
+        "scenario_mapping_horizon": "--scenario-mapping-horizon",
+        "current_state_lookup_weight": "--current-state-lookup-weight",
+        "min_feature_coverage": "--min-feature-coverage",
+        "min_effective_sample_size": "--min-effective-sample-size",
+    }
+    for attr, flag in nullable_flags.items():
+        if getattr(args, attr, None) is not None:
+            retired_names.append(flag)
+    return retired_names
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -1750,28 +1961,20 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     run_config = _run_config_from_args(args)
 
-    scenario_set = None if args.default_scenarios else load_current_scenarios()
     regime_state = _load_regime_for_cli(run_config.asof_date)
     asof_for_inputs = run_config.asof_date or regime_state.asof_date
     regime_inputs = _load_regime_inputs_for_cli(asof_for_inputs) if run_config.raw_inputs_enabled else None
     market_state = _load_market_state_for_cli(asof_for_inputs, run_config.horizon)
     result = run_macro_forecast(
         regime_state,
-        scenario_set=scenario_set,
         horizon=run_config.horizon,
         dedupe_config=run_config.dedupe_config(),
         raw_inputs=regime_inputs,
         market_state=market_state,
-        historical_calibration_config=run_config.historical_config(),
+        bvar_cache_dir=run_config.bvar_cache_dir,
+        allow_stale_bvar=run_config.allow_stale_bvar,
+        fan_output_dir=_default_fan_output_dir(run_config.reports_dir),
     )
-    if run_config.use_yaml_priors:
-        if scenario_set is None:
-            print(
-                "Warning: --use-yaml-priors requires a loaded scenario set; skipping override.",
-                file=sys.stderr,
-            )
-        else:
-            result = _apply_yaml_priors_override(result, scenario_set, regime_state)
 
     requested_docx_path = (
         Path(run_config.docx_output)
@@ -1786,7 +1989,19 @@ def main(argv: list[str] | None = None) -> int:
 
     current_regime_yaml_path: Path | None = None
     if run_config.save_current_regime_yaml:
-        handoff = build_current_regime_handoff(result)
+        macro_source = get_macro_scenario_source(
+            cycle_date=_quarter_end_date_text(str(result.bvar_provenance["asof_quarter"])),
+            config=MacroScenarioSourceConfig(
+                macro_forecast_source="ensemble",
+                bvar_cache_dir=run_config.bvar_cache_dir,
+                analogue_evidence_enabled=True,
+            ),
+        )
+        handoff = build_current_regime_handoff_from_macro_source(
+            macro_source,
+            analogue_report_override=result.mixture_report,
+            fan_artifact_path=result.outputs.get("analogue_fan_json_path"),
+        )
         output_dir = _default_current_regime_output_dir(
             reports_dir=run_config.reports_dir,
             docx_path=requested_docx_path if run_config.save_docx else None,

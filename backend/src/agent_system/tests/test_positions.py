@@ -194,6 +194,10 @@ def test_positions_snapshot_model_post_init_catches_inconsistent_total():
 
 def test_positions_cli_show_persists_snapshot(tmp_path, monkeypatch, capsys):
     monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    monkeypatch.setenv("AGENT_STORAGE_BACKEND", "jsonl")
+    from src.agent_system.storage import backend as storage_backend
+
+    storage_backend._backend_singletons.clear()
     _fixture_csv(tmp_path / "positions" / "Portfolio_Positions_May-30-2026.csv")
 
     result = positions_cli._cmd_show(object())
@@ -201,9 +205,5 @@ def test_positions_cli_show_persists_snapshot(tmp_path, monkeypatch, capsys):
     assert result == 0
     output = capsys.readouterr().out
     assert "Total NAV" in output
-    rows = [
-        json.loads(line)
-        for line in (tmp_path / "schema_records.jsonl").read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    ]
+    rows = storage_backend.get_backend().read_all(collection="schema_records")
     assert rows[0]["schema_type"] == "PositionsSnapshot"

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from pydantic import BaseModel, Field
+from typing import Any
 
 
 class CurrentRegimeKeyDriver(BaseModel):
@@ -17,6 +18,7 @@ class CurrentRegimeFalsifier(BaseModel):
 
 
 class CurrentRegimeSeedResearchPriority(BaseModel):
+    scenario_taxonomy: str = "behavioral_v1"
     theme: str
     rationale: str
     edge_hypothesis: str
@@ -35,7 +37,11 @@ class CurrentRegimeHandoff(BaseModel):
     headline: str
     summary: str
     risk_summary: str
+    scenario_taxonomy: str = "behavioral_v1"
     scenario_probabilities: dict[str, float] = Field(default_factory=dict)
+    mixture_decomposition: dict[str, Any] = Field(default_factory=dict)
+    analogue_evidence: dict[str, Any] = Field(default_factory=dict)
+    probability_decomposition: dict[str, Any] = Field(default_factory=dict)
     key_drivers: list[CurrentRegimeKeyDriver] = Field(default_factory=list)
     portfolio_implications: list[str] = Field(default_factory=list)
     best_positioned: list[str] = Field(default_factory=list)

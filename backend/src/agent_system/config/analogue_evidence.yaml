@@ -1,0 +1,15 @@
+trailing_window_quarters: 6
+prior_strength: 3.0
+horizon_quarters: 8
+min_pool: 30
+stress_advisory_threshold: 0.35
+mixture_alpha: 0.30
+survival_conditioning: true
+scenario_recession_membership:
+  # Membership question for each row: does this scenario entail an NBER recession within the horizon?
+  expansion_disinflation: false  # does this scenario entail an NBER recession within the horizon?
+  late_cycle_expansion: false  # does this scenario entail an NBER recession within the horizon?
+  inflation_shock: false  # does this scenario entail an NBER recession within the horizon?
+  stagflation: false  # does this scenario entail an NBER recession within the horizon?
+  growth_scare_no_credit: false  # does this scenario entail an NBER recession within the horizon?
+  credit_led_recession: true  # does this scenario entail an NBER recession within the horizon?

@@ -92,7 +92,7 @@ class ScenarioSet(BaseModel):
     generated_at: datetime
     regime_id_basis: str | None = None
     horizon_months: int = Field(ge=1, le=24)
-    scenarios: list[Scenario] = Field(min_length=3, max_length=5)
+    scenarios: list[Scenario] = Field(min_length=3, max_length=6)
 
     def model_post_init(self, __context) -> None:
         total = sum(s.probability for s in self.scenarios)

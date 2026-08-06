@@ -1,7 +1,17 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import useSWR from 'swr';
+import {
+  Area,
+  CartesianGrid,
+  ComposedChart,
+  Line,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { useAuthFetcher } from '../../lib/api';
 import AuthRequired from '@/components/AuthRequired';
 import { M } from '../lib/researchOsTheme';
@@ -12,8 +22,8 @@ import { M } from '../lib/researchOsTheme';
 // Merges the old "Market overview" + "Macro insights" into one page.
 //   1. Market pulse + current regime (five layer scores)
 //   2. Dominant scenario banner
-//   3. Scenario distribution (blended / deterministic / historical)
-//   4. Forward-return fan chart (analogue-weighted; swap in FRB/US paths later)
+//   3. Scenario distribution (two-source behavioral mixture)
+//   4. Analogue fan chart (directional macro-state matched episodes)
 //   5. Positioning read + key tensions
 //   6. Indicator explorer — all model inputs, filterable by layer
 //   7. Market narrative (SPY) — snapshot, dominant themes, inefficiency map,
@@ -21,20 +31,115 @@ import { M } from '../lib/researchOsTheme';
 //      page uses, with the ticker fixed to SPY.
 //
 // ── Wiring ──
-// FORECAST_ENDPOINT is the one place to point this at your real API. It should
-// return the macro_forecast JSON shape (the file you exported). Until that
-// endpoint exists the page renders from SAMPLE_FORECAST so you can see it.
+// FORECAST_ENDPOINT returns the two_source_v1 macro_forecast JSON. Missing or
+// stale artifacts render explicit panel errors rather than falling back.
 // The narrative section reuses NARRATIVE_ENDPOINT(ticker) exactly as the
 // /narrative page does.
 // ═══════════════════════════════════════════════════════════════════
 
 const FORECAST_ENDPOINT = '/api/macro/forecast/latest';
+const FAN_ENDPOINT = '/api/macro/analogue-fan/latest';
+const SCENARIO_META_ENDPOINT = '/api/macro/scenario-meta';
 const REGIME_ENDPOINT = '/api/market/regime';
 const INDICATOR_HISTORY_ENDPOINT = '/api/macro/indicator-history';
 const NARRATIVE_TICKER = 'SPY';
 const NARRATIVE_ENDPOINT = (ticker: string) => `/api/narrative/latest?ticker=${ticker}`;
 
 type AnyRecord = Record<string, unknown>;
+type ScenarioMeta = { display_name: string; short_description: string };
+type ScenarioMetaMap = Record<string, ScenarioMeta>;
+type ScenarioMixtureRow = {
+  bvar_soft?: number;
+  analogue_implied?: number;
+  final?: number;
+  delta?: number;
+  mixed_pre_floor?: number;
+  floor_applied?: boolean;
+};
+type TopMatch = {
+  neighbor_quarter: string;
+  distance?: number;
+  kernel_weight: number;
+  resolved: boolean;
+  recession_bound: boolean | null;
+  onset_lag_quarters: number | null;
+};
+type ConditionalTiming = {
+  elapsed_quarters: number;
+  spent_mass: number;
+  remaining_mass: number;
+  conditional_share: number;
+  share_shrunk: number;
+  formula: string;
+};
+type WindowState = {
+  quarter: string;
+  state: string;
+  share?: number | null;
+  share_raw?: number | null;
+  conditioned_share?: number | null;
+  elapsed_quarters?: number | null;
+  spent_mass?: number | null;
+  remaining_mass?: number | null;
+  no_timing_evidence?: boolean;
+  timing_low_n?: boolean;
+  top_matches?: TopMatch[];
+  conditional_timing?: ConditionalTiming;
+  onset_lag_distribution?: { conditional_timing?: ConditionalTiming; effective_n?: number; low_n?: boolean };
+};
+type AnalogueEvidenceReport = {
+  query_date?: string;
+  current_state?: string;
+  spot_share?: number | null;
+  trailing_max?: number | null;
+  trailing_max_unconditioned?: number | null;
+  trailing_max_conditioned?: number | null;
+  s_used?: number | null;
+  s_source?: string;
+  binding_quarter?: string | null;
+  stress_advisory?: boolean;
+  kernel_weight_sum?: number | null;
+  window_states?: WindowState[];
+  trailing_max_onset_lag_distribution?: { conditional_timing?: ConditionalTiming; effective_n?: number; low_n?: boolean };
+};
+type MixtureReport = {
+  alpha?: number;
+  alpha_effective?: number;
+  s?: number | null;
+  s_source?: string;
+  stress_advisory?: boolean;
+  bvar_soft?: Record<string, number>;
+  analogue_implied?: Record<string, number>;
+  per_scenario?: Record<string, ScenarioMixtureRow>;
+  membership_groups?: { recession?: string[]; non_recession?: string[] };
+  evidence?: AnalogueEvidenceReport;
+};
+type MacroForecastPayload = AnyRecord & {
+  asof_date?: string;
+  horizon?: string;
+  probability_mode?: string;
+  forecast_interpretation?: AnyRecord;
+  scenario_probabilities?: Record<string, number>;
+  mixture_report?: MixtureReport;
+  input_signals?: AnyRecord[];
+  bvar_provenance?: AnyRecord;
+};
+type FanVariable = {
+  variable: string;
+  percentiles: Record<'p10' | 'p25' | 'p50' | 'p75' | 'p90', number[]>;
+  effective_n: number[];
+  median_recession_bound?: Array<number | null>;
+  median_benign?: Array<number | null>;
+  query_anchor_value: number;
+  subset_notes?: Record<string, string>;
+  units_note?: string;
+};
+type AnalogueFanPayload = {
+  query_date: string;
+  horizon_quarters: number;
+  metadata?: { match_count?: number; match_kernel_weight_sum?: number; units_note?: string };
+  variables: Record<string, FanVariable>;
+};
 type HistoryPoint = { date: string; value: number };
 type IndicatorHistorySeries = {
   column: string;
@@ -66,6 +171,11 @@ function titleCase(value: string): string {
   return value.replace(/[_-]+/g, ' ').replace(/\b\w/g, (ch) => ch.toUpperCase());
 }
 const pct1 = (v: number | null | undefined) => (v === null || v === undefined ? '—' : `${(v * 100).toFixed(1)}%`);
+const signedPct1 = (v: number | null | undefined) => {
+  if (v === null || v === undefined) return '—';
+  const sign = v > 0 ? '+' : '';
+  return `${sign}${(v * 100).toFixed(1)}%`;
+};
 
 function normalizeIndicatorHistory(raw: unknown): IndicatorHistoryMap {
   const payload = safeObj(raw);
@@ -192,20 +302,6 @@ function formatHistorySource(source: string): string {
   return source || 'not available';
 }
 
-const SCENARIO_LABELS: Record<string, string> = {
-  reopening_soft_landing: 'Reopening / Soft Landing',
-  sticky_late_cycle_ai: 'Sticky Late-Cycle AI',
-  late_cycle_risk_off: 'Late-Cycle Risk-Off',
-  oil_inflation_tail: 'Oil / Inflation Tail',
-  ai_capex_rollover: 'AI Capex Rollover',
-};
-const SCENARIO_DESC: Record<string, string> = {
-  reopening_soft_landing: 'Growth broadens and participation widens while credit stays healthy and policy gradually eases.',
-  sticky_late_cycle_ai: 'Narrow AI leadership persists while the Fed stays higher-for-longer and breadth lags.',
-  late_cycle_risk_off: 'Late-cycle stress spreads from credit and breadth into a broader de-risking.',
-  oil_inflation_tail: 'Energy and oil pressure reignite inflation and force tighter financial conditions.',
-  ai_capex_rollover: 'Hyperscaler capex guidance rolls over, undercutting the AI earnings engine.',
-};
 const LAYER_NAMES: Record<string, string> = {
   monetary: 'Monetary & Liquidity',
   credit: 'Credit & Stress',
@@ -226,35 +322,43 @@ function signalColor(sig: string): string {
 // flat shape the components render from. This is deliberately defensive:
 // every field is optional so a partial payload still renders.
 // ─────────────────────────────────────────────────────────────
-function normalizeForecast(raw: AnyRecord, history: IndicatorHistoryMap = {}) {
-  const fi = (raw.forecast_interpretation ?? {}) as AnyRecord;
-  const sp = (raw.scenario_probabilities ?? {}) as AnyRecord;
-  const det = (raw.scenario_probabilities_deterministic ?? {}) as AnyRecord;
-
-  const calib = safeArray<AnyRecord>(
-    ((raw.historical_calibration ?? {}) as AnyRecord).scenario_calibrations,
-  );
-  const histById: Record<string, AnyRecord> = {};
-  for (const c of calib) histById[safeStr(c.scenario_id)] = c;
+function normalizeForecast(
+  raw: MacroForecastPayload | null | undefined,
+  history: IndicatorHistoryMap = {},
+  scenarioMeta: ScenarioMetaMap = {},
+) {
+  const payload = safeObj(raw);
+  const fi = safeObj(payload.forecast_interpretation);
+  const sp = safeObj(payload.scenario_probabilities) as Record<string, unknown>;
+  const mixture = (payload.mixture_report ?? {}) as MixtureReport;
+  const perScenario = mixture.per_scenario ?? {};
+  const bvarSoft = mixture.bvar_soft ?? {};
+  const analogueImplied = mixture.analogue_implied ?? {};
+  const recessionGroup = new Set(mixture.membership_groups?.recession ?? []);
 
   const scenarios = Object.keys(sp)
     .map((id) => {
-      const c = histById[id] ?? {};
+      const row = perScenario[id] ?? {};
+      const blended = safeNum(sp[id]) ?? safeNum(row.final) ?? 0;
+      const bvar = safeNum(row.bvar_soft) ?? safeNum(bvarSoft[id]);
+      const analogue = safeNum(row.analogue_implied) ?? safeNum(analogueImplied[id]);
+      const delta = safeNum(row.delta) ?? (bvar === null ? null : blended - bvar);
+      const meta = scenarioMeta[id];
       return {
         id,
-        label: SCENARIO_LABELS[id] ?? id,
-        desc: SCENARIO_DESC[id] ?? '',
-        blended: safeNum(sp[id]) ?? 0,
-        det: safeNum(det[id]),
-        hist: safeNum(c.historical_probability),
-        conf: safeNum(c.confidence),
-        n: safeNum(c.n_supporting_analogues),
+        label: meta?.display_name ?? titleCase(id),
+        desc: meta?.short_description ?? '',
+        blended,
+        bvar,
+        analogue,
+        delta,
+        isRecession: recessionGroup.has(id),
       };
     })
     .sort((a, b) => b.blended - a.blended);
 
   // Five layer summaries from input_signals where role === layer_summary
-  const signals = safeArray<AnyRecord>(raw.input_signals);
+  const signals = safeArray<AnyRecord>(payload.input_signals);
   const layers = signals
     .filter((s) => safeStr(s.role) === 'layer_summary')
     .map((s) => ({
@@ -289,49 +393,30 @@ function normalizeForecast(raw: AnyRecord, history: IndicatorHistoryMap = {}) {
     };
   });
 
-  // Forward-return fan from historical_calibration.forward_return_stats
-  const frs = ((raw.historical_calibration ?? {}) as AnyRecord).forward_return_stats as AnyRecord | undefined;
-  const fanOrder = ['1d', '5d', '10d', '21d', '63d', '126d', '252d'];
-  const fan = frs
-    ? fanOrder
-        .filter((h) => frs[h])
-        .map((h) => {
-          const s = frs[h] as AnyRecord;
-          return {
-            h,
-            p10: safeNum(s.p10) ?? 0,
-            p25: safeNum(s.p25) ?? 0,
-            med: safeNum(s.median) ?? 0,
-            p75: safeNum(s.p75) ?? 0,
-            p90: safeNum(s.p90) ?? 0,
-            win: safeNum(s.pct_positive),
-          };
-        })
-    : [];
-
-  const dominantId = safeStr(fi.dominant_scenario_id);
+  const topScenario = scenarios[0];
   const composite = layers.length
     ? (layers.reduce((a, l) => a + l.score, 0) / layers.length) * 10
     : null;
 
   return {
-    asof: safeStr(raw.asof_date),
-    horizon: safeStr(raw.horizon),
-    probMode: safeStr(raw.probability_mode),
+    asof: safeStr(payload.asof_date),
+    horizon: safeStr(payload.horizon),
+    probMode: safeStr(payload.probability_mode),
     headline: safeStr(fi.headline),
     regimeRead: safeStr(fi.regime_read),
     summary: safeStr(fi.summary),
     confLevel: safeStr(fi.confidence_level),
     confRationale: safeStr(fi.confidence_rationale),
-    dominantLabel: SCENARIO_LABELS[dominantId] ?? dominantId,
-    dominantProb: safeNum(fi.dominant_scenario_probability) ?? 0,
+    dominantLabel: topScenario?.label ?? '',
+    dominantProb: topScenario?.blended ?? 0,
     preferred: safeArray<string>(fi.preferred_exposures),
     avoid: safeArray<string>(fi.exposures_to_avoid),
     tensions: safeArray<string>(fi.key_tensions),
     scenarios,
+    mixture,
+    evidence: mixture.evidence ?? null,
     layers,
     indicators,
-    fan,
     composite,
   };
 }
@@ -594,9 +679,9 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
   const composite = regime?.scoreTotal ?? f.composite;
   const runnerUp = f.scenarios[1];
   const probabilityGap = runnerUp ? f.dominantProb - runnerUp.blended : null;
-  const topDeterministic = f.scenarios
-    .filter((scenario) => scenario.det !== null && scenario.det !== undefined)
-    .sort((a, b) => (b.det ?? 0) - (a.det ?? 0))[0];
+  const topBvar = f.scenarios
+    .filter((scenario) => scenario.bvar !== null && scenario.bvar !== undefined)
+    .sort((a, b) => (b.bvar ?? 0) - (a.bvar ?? 0))[0];
   const pulseLabel =
     regime?.environment ||
     (f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful');
@@ -641,7 +726,7 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
             <MiniStat label="Dominant" value={f.dominantLabel || '—'} sub={pct1(f.dominantProb)} color={M.accentBright} />
             <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
             <MiniStat label="Gap" value={probabilityGap === null ? '—' : pct1(probabilityGap)} sub="dominant spread" color={probabilityGap !== null && probabilityGap > 0.08 ? M.pos : M.warn} />
-            <MiniStat label="Deterministic" value={topDeterministic?.label ?? '—'} sub={topDeterministic?.det !== null && topDeterministic?.det !== undefined ? pct1(topDeterministic.det) : '—'} />
+            <MiniStat label="BVAR" value={topBvar?.label ?? '—'} sub={topBvar?.bvar !== null && topBvar?.bvar !== undefined ? pct1(topBvar.bvar) : '—'} />
           </div>
         </div>
       </div>
@@ -720,21 +805,35 @@ function DominantBanner({ f }: { f: Forecast }) {
 // Section 3: Scenario distribution
 // ─────────────────────────────────────────────────────────────
 function ScenarioCards({ f }: { f: Forecast }) {
+  const alpha = f.mixture.alpha ?? null;
+  const bvarWeight = alpha === null ? null : 1 - alpha;
+  const analogueWeight = alpha;
+  const evidence = f.evidence;
+  const sUsed = evidence?.s_used ?? f.mixture.s ?? null;
+  const bindingQuarter = evidence?.binding_quarter ?? null;
   return (
-    <Panel title="Scenario explorer" meta="Probability of next regime (blend)">
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(118px, 1fr))', gap: '8px' }} className="scenario-card-grid">
+    <Panel title="Scenario explorer" meta="Behavioral two-source posterior">
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'center', flexWrap: 'wrap', marginBottom: 12 }}>
+        <div style={{ fontFamily: M.mono, fontSize: 11, letterSpacing: '0.08em', color: M.inkDim }}>
+          Two-source blend ({pct1(bvarWeight)} BVAR / {pct1(analogueWeight)} analogue)
+          <span style={{ color: M.inkFaint }}> · s_used {pct1(sUsed)} · binding {bindingQuarter || '—'}</span>
+        </div>
+        {f.mixture.stress_advisory ? <Chip label="Stress advisory" color={M.warn} /> : null}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(112px, 1fr))', gap: '8px' }} className="scenario-card-grid">
         {f.scenarios.map((s, i) => {
-          const top = i === 0 ? M.accentBright : s.blended >= 0.15 ? M.pos : M.neg;
+          const top = s.isRecession ? M.warn : i === 0 ? M.accentBright : s.blended >= 0.15 ? M.pos : M.inkFaint;
+          const deltaColor = s.delta === null || s.delta === undefined ? M.inkFaint : s.delta >= 0 ? M.pos : M.neg;
           return (
             <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '10px', padding: '12px 11px' }}>
               <ValueText value={pct1(s.blended)} size={19} color={top} />
               <h3 style={{ fontFamily: M.serif, fontSize: '15px', fontWeight: 500, color: M.ink, margin: '8px 0 7px', lineHeight: 1.12 }}>{s.label}</h3>
               <p style={{ margin: '0 0 11px', fontFamily: M.sans, fontSize: '10.5px', color: M.inkDim, lineHeight: 1.42, minHeight: '44px' }}>{truncate(s.desc, 86)}</p>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '8px' }}>
-                <span>det {pct1(s.det)}</span><span>hist {pct1(s.hist)}</span>
+                <span>bvar {pct1(s.bvar)}</span><span>analogue {pct1(s.analogue)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, paddingTop: '5px' }}>
-                <span>conf {s.conf?.toFixed(2) ?? '—'}</span><span>n={s.n ?? '—'}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '9.5px', color: M.inkFaint, paddingTop: '5px', gap: 8 }}>
+                <span>delta</span><span style={{ color: deltaColor }}>{signedPct1(s.delta)}</span>
               </div>
             </div>
           );
@@ -745,130 +844,221 @@ function ScenarioCards({ f }: { f: Forecast }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Section 4: Forward-return fan chart
+// Section 4: Analogue fan + evidence panels
 // ─────────────────────────────────────────────────────────────
-function FanChart({ f }: { f: Forecast }) {
-  const fan = f.fan;
-  if (!fan.length) return null;
-  const W = 620, H = 260, padL = 44, padR = 16, padT = 16, padB = 30;
-  const xs = fan.map((_, i) => padL + (i / (fan.length - 1)) * (W - padL - padR));
-  const all = fan.flatMap((d) => [d.p10, d.p90]);
-  const mn = Math.min(...all, -2), mx = Math.max(...all);
-  const y = (v: number) => padT + (1 - (v - mn) / (mx - mn)) * (H - padT - padB);
-  const band = (lo: 'p10' | 'p25', hi: 'p90' | 'p75', op: number) => {
-    const top = fan.map((d, i) => `${xs[i]},${y(d[hi])}`).join(' L');
-    const bot = fan.slice().reverse().map((d, i) => `${xs[fan.length - 1 - i]},${y(d[lo])}`).join(' L');
-    return <path d={`M${top} L${bot} Z`} fill={M.accent} opacity={op} />;
-  };
-  const medPath = `M${fan.map((d, i) => `${xs[i]},${y(d.med)}`).join(' L')}`;
-  const fan63 = fan.find((d) => d.h === '63d');
-  const fan252 = fan.find((d) => d.h === '252d');
+const FAN_VARIABLE_ORDER = ['credit_spread', 'curve_slope', 'activity', 'lur', 'core_pce', 'fed_funds', 'ten_year', 'nfci'];
+const FAN_VARIABLE_LABELS: Record<string, string> = {
+  activity: 'Activity',
+  lur: 'Unemployment',
+  core_pce: 'Core PCE',
+  credit_spread: 'Credit spread',
+  fed_funds: 'Fed funds',
+  ten_year: '10Y Treasury',
+  nfci: 'NFCI',
+  curve_slope: 'Curve slope',
+};
+type FanChartPoint = {
+  quarter: string;
+  p10p90: [number, number];
+  p25p75: [number, number];
+  p10: number;
+  p25: number;
+  p50: number;
+  p75: number;
+  p90: number;
+  recession: number | null;
+  benign: number | null;
+  anchor: number;
+  effectiveN: number;
+};
 
+function addQuarters(period: string, offset: number): string {
+  const match = /^(\d{4})Q([1-4])$/.exec(period);
+  if (!match) return offset ? `${period}+${offset}` : period;
+  const year = Number(match[1]);
+  const quarter = Number(match[2]) - 1;
+  const total = year * 4 + quarter + offset;
+  return `${Math.floor(total / 4)}Q${(total % 4) + 1}`;
+}
+
+function fanRows(fan: AnalogueFanPayload, variableKey: string): FanChartPoint[] {
+  const variable = fan.variables[variableKey];
+  if (!variable) return [];
+  const horizon = variable.percentiles.p50.length;
+  return Array.from({ length: horizon }, (_, index) => {
+    const p10 = variable.percentiles.p10[index];
+    const p25 = variable.percentiles.p25[index];
+    const p50 = variable.percentiles.p50[index];
+    const p75 = variable.percentiles.p75[index];
+    const p90 = variable.percentiles.p90[index];
+    return {
+      quarter: addQuarters(fan.query_date, index + 1),
+      p10p90: [p10, p90],
+      p25p75: [p25, p75],
+      p10,
+      p25,
+      p50,
+      p75,
+      p90,
+      recession: variable.median_recession_bound?.[index] ?? null,
+      benign: variable.median_benign?.[index] ?? null,
+      anchor: variable.query_anchor_value,
+      effectiveN: variable.effective_n[index] ?? 0,
+    };
+  });
+}
+
+function FanTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ payload?: FanChartPoint }>; label?: string }) {
+  const point = payload?.find((item) => item.payload)?.payload;
+  if (!active || !point) return null;
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(0, 1fr)', gap: '20px' }} className="helix-fan-grid">
-      <Panel title="Forward return distribution" meta="analogue-weighted SPY paths">
-        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', background: M.well, borderRadius: '14px', border: `1px solid ${M.line}` }}>
-          <line x1={padL} y1={y(0)} x2={W - padR} y2={y(0)} stroke={M.line2} strokeDasharray="3 3" />
-          {band('p10', 'p90', 0.18)}
-          {band('p25', 'p75', 0.32)}
-          <path d={medPath} fill="none" stroke={M.accentBright} strokeWidth={2.5} />
-          {fan.map((d, i) => <circle key={d.h} cx={xs[i]} cy={y(d.med)} r={3} fill={M.accentBright} />)}
-          {[mn, 0, mx].map((t) => (
-            <text key={t} x={6} y={y(t) + 4} fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{t > 0 ? '+' : ''}{t.toFixed(0)}%</text>
-          ))}
-          {fan.map((d, i) => (
-            <text key={d.h} x={xs[i]} y={H - 8} fill={M.inkFaint} fontSize={10} textAnchor="middle" fontFamily={M.mono}>{d.h}</text>
-          ))}
-        </svg>
-        <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', fontFamily: M.sans, fontSize: '11.5px', color: M.inkDim, marginTop: '10px' }}>
-          <LegendSwatch color={`${M.accent}2E`} label="p10–p90" />
-          <LegendSwatch color={`${M.accent}52`} label="p25–p75" />
-          <LegendSwatch color={M.accentBright} label="median" />
-        </div>
-      </Panel>
-      <Panel title="Risk profile · analogue set">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-          <RiskCell k="MEDIAN / 63D" v={fan63?.med} suffix="%" sub={`win ${fan63?.win ?? '—'}%`} />
-          <RiskCell k="MEDIAN / 252D" v={fan252?.med} suffix="%" sub={`win ${fan252?.win ?? '—'}%`} />
-          <RiskCell k="P10 / 63D" v={fan63?.p10} suffix="%" sub="downside tail" />
-          <RiskCell k="P90 / 252D" v={fan252?.p90} suffix="%" sub="upside tail" />
-        </div>
-      </Panel>
+    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 8, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
+      <div style={{ color: M.inkFaint, marginBottom: 5 }}>{label}</div>
+      <div>p10 {formatAxisNumber(point.p10)} · p50 {formatAxisNumber(point.p50)} · p90 {formatAxisNumber(point.p90)}</div>
+      <div>p25 {formatAxisNumber(point.p25)} · p75 {formatAxisNumber(point.p75)}</div>
+      <div>recession {point.recession === null ? '—' : formatAxisNumber(point.recession)} · benign {point.benign === null ? '—' : formatAxisNumber(point.benign)}</div>
+      <div style={{ color: M.inkFaint }}>n_eff {point.effectiveN.toFixed(1)}</div>
     </div>
   );
 }
 
-function ForwardReturnDistribution({ f }: { f: Forecast }) {
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const fan = f.fan;
-  if (!fan.length) return <Panel title="Forward return distribution" meta="analogue-weighted SPY paths"><EmptyMini message="No fan-chart distribution in this forecast." /></Panel>;
-  const W = 620, H = 236, padL = 44, padR = 14, padT = 14, padB = 28;
-  const xs = fan.map((_, i) => padL + (i / (fan.length - 1)) * (W - padL - padR));
-  const all = fan.flatMap((d) => [d.p10, d.p90]);
-  const mn = Math.min(...all, -2), mx = Math.max(...all);
-  const y = (v: number) => padT + (1 - (v - mn) / (mx - mn)) * (H - padT - padB);
-  const band = (lo: 'p10' | 'p25', hi: 'p90' | 'p75', op: number) => {
-    const top = fan.map((d, i) => `${xs[i]},${y(d[hi])}`).join(' L');
-    const bot = fan.slice().reverse().map((d, i) => `${xs[fan.length - 1 - i]},${y(d[lo])}`).join(' L');
-    return <path d={`M${top} L${bot} Z`} fill={M.accent} opacity={op} />;
-  };
-  const medPath = `M${fan.map((d, i) => `${xs[i]},${y(d.med)}`).join(' L')}`;
-  const activeIndex = hoverIndex === null ? null : Math.max(0, Math.min(fan.length - 1, hoverIndex));
-  const active = activeIndex === null ? null : fan[activeIndex];
-  const handlePointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const svgX = ((event.clientX - rect.left) / rect.width) * W;
-    const pct = (svgX - padL) / Math.max(1, W - padL - padR);
-    setHoverIndex(Math.round(Math.max(0, Math.min(1, pct)) * (fan.length - 1)));
-  };
+function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload; error?: Error; isLoading: boolean }) {
+  const variableKeys = useMemo(() => {
+    const keys = Object.keys(fan?.variables ?? {});
+    return FAN_VARIABLE_ORDER.filter((key) => keys.includes(key)).concat(keys.filter((key) => !FAN_VARIABLE_ORDER.includes(key)));
+  }, [fan]);
+  const [selectedKey, setSelectedKey] = useState('credit_spread');
+  const selected = variableKeys.includes(selectedKey) ? selectedKey : variableKeys[0] ?? 'credit_spread';
+
+  if (isLoading) return <Panel title="Analogue Fans — matched-episode forward paths" meta="loading"><EmptyMini message="Loading analogue fan artifact." /></Panel>;
+  if (error) return <Panel title="Analogue Fans — matched-episode forward paths" meta="artifact error"><ErrorMini message={error.message} /></Panel>;
+  if (!fan || !variableKeys.length) return <Panel title="Analogue Fans — matched-episode forward paths" meta="artifact missing"><ErrorMini message="Analogue fan artifact missing. Regenerate with PYTHONPATH=backend python3 -m src.agent_system.forecasting.macro_forecast_runner --allow-stale-bvar." /></Panel>;
+
+  const variable = fan.variables[selected];
+  const rows = fanRows(fan, selected);
+  const h1Eff = variable?.effective_n?.[0] ?? fan.metadata?.match_kernel_weight_sum ?? null;
+  const recNote = variable?.subset_notes?.recession_bound;
+  const benignNote = variable?.subset_notes?.benign;
   return (
-    <Panel title="Forward return distribution" meta="Analogue-weighted SPY paths">
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={() => setHoverIndex(null)}
-        style={{ width: '100%', height: 236, background: M.well, borderRadius: '12px', border: `1px solid ${M.line}`, cursor: 'crosshair', touchAction: 'none' }}
-      >
-        <line x1={padL} y1={y(0)} x2={W - padR} y2={y(0)} stroke={M.line2} strokeDasharray="3 3" />
-        {band('p10', 'p90', 0.18)}
-        {band('p25', 'p75', 0.32)}
-        <path d={medPath} fill="none" stroke={M.accentBright} strokeWidth={2} />
-        {fan.map((d, i) => <circle key={d.h} cx={xs[i]} cy={y(d.med)} r={2.4} fill={M.accentBright} />)}
-        {active && activeIndex !== null ? (
-          <g pointerEvents="none">
-            <line x1={xs[activeIndex]} x2={xs[activeIndex]} y1={padT} y2={H - padB} stroke={M.accentBright} strokeWidth={0.9} opacity={0.72} strokeDasharray="3 3" />
-            <circle cx={xs[activeIndex]} cy={y(active.med)} r={4} fill={M.well} stroke={M.accentBright} strokeWidth={1.5} />
-            <g transform={`translate(${Math.min(W - 166, Math.max(padL + 8, xs[activeIndex] + 9))}, ${Math.max(padT + 5, y(active.med) - 44)})`}>
-              <rect width={152} height={50} rx={7} fill={M.cardElev} stroke={M.line2} />
-              <text x={9} y={13} fill={M.inkFaint} fontSize={9.5} fontFamily={M.mono}>{active.h}</text>
-              <text x={9} y={28} fill={M.accentBright} fontSize={12} fontFamily={M.mono}>median {active.med > 0 ? '+' : ''}{active.med}%</text>
-              <text x={9} y={43} fill={M.inkDim} fontSize={10} fontFamily={M.mono}>p10 {active.p10 > 0 ? '+' : ''}{active.p10}% · p90 {active.p90 > 0 ? '+' : ''}{active.p90}%</text>
-            </g>
-          </g>
-        ) : null}
-        {[mn, 0, mx].map((t) => (
-          <text key={t} x={7} y={y(t) + 4} fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{t > 0 ? '+' : ''}{t.toFixed(0)}%</text>
+    <Panel title="Analogue Fans — matched-episode forward paths" meta={`${fan.query_date} · n_eff ${h1Eff === null ? '—' : h1Eff.toFixed(1)}`}>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
+        {variableKeys.map((key) => (
+          <button
+            key={key}
+            onClick={() => setSelectedKey(key)}
+            style={{
+              background: selected === key ? M.accentSoft : M.well,
+              color: selected === key ? M.accentBright : M.inkDim,
+              border: `1px solid ${selected === key ? M.accent : M.line}`,
+              borderRadius: 8,
+              padding: '5px 8px',
+              fontFamily: M.mono,
+              fontSize: 10,
+              cursor: 'pointer',
+            }}
+          >
+            {FAN_VARIABLE_LABELS[key] ?? titleCase(key)}
+          </button>
         ))}
-        {fan.map((d, i) => (
-          <text key={d.h} x={xs[i]} y={H - 8} fill={M.inkFaint} fontSize={10} textAnchor="middle" fontFamily={M.mono}>{d.h}</text>
-        ))}
-      </svg>
+      </div>
+      <div style={{ height: 248, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: '8px 4px 2px' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={rows} margin={{ top: 10, right: 14, bottom: 8, left: 0 }}>
+            <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
+            <XAxis dataKey="quarter" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
+            <YAxis tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={42} />
+            <Tooltip content={<FanTooltip />} />
+            <Area type="monotone" dataKey="p10p90" stroke="none" fill={M.accent} fillOpacity={0.18} isAnimationActive={false} />
+            <Area type="monotone" dataKey="p25p75" stroke="none" fill={M.accent} fillOpacity={0.34} isAnimationActive={false} />
+            <Line type="monotone" dataKey="p50" stroke={M.accentBright} strokeWidth={2} dot={false} isAnimationActive={false} />
+            <Line type="monotone" dataKey="recession" stroke={M.warn} strokeWidth={1.8} strokeDasharray="5 4" dot={false} connectNulls isAnimationActive={false} />
+            <Line type="monotone" dataKey="benign" stroke={M.pos} strokeWidth={1.8} strokeDasharray="5 4" dot={false} connectNulls isAnimationActive={false} />
+            <Line type="monotone" dataKey="anchor" stroke={M.inkFaint} strokeWidth={1.1} strokeDasharray="2 5" dot={false} isAnimationActive={false} />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+      <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', fontFamily: M.sans, fontSize: 11.5, color: M.inkDim, marginTop: 9 }}>
+        <LegendSwatch color={`${M.accent}2E`} label="p10–p90" />
+        <LegendSwatch color={`${M.accent}57`} label="p25–p75" />
+        <LegendSwatch color={M.accentBright} label="p50" />
+        <LegendSwatch color={M.warn} label={recNote && recNote !== 'ok' ? `recession skipped: ${recNote}` : 'recession analogues'} />
+        <LegendSwatch color={M.pos} label={benignNote && benignNote !== 'ok' ? `benign skipped: ${benignNote}` : 'benign analogues'} />
+      </div>
     </Panel>
   );
 }
 
-function RiskProfileCompact({ f }: { f: Forecast }) {
-  const fan63 = f.fan.find((d) => d.h === '63d');
-  const fan252 = f.fan.find((d) => d.h === '252d');
+function ErrorMini({ message }: { message: string }) {
+  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.neg, fontSize: 12, lineHeight: 1.45, background: M.dangerWell, border: `1px solid ${M.neg}55`, borderRadius: 12, padding: 14, textAlign: 'center' }}>{message}</div>;
+}
+
+function matchTag(match: TopMatch): { label: string; color: string } {
+  if (!match.resolved) return { label: 'unresolved', color: M.inkFaint };
+  if (match.recession_bound) return { label: match.onset_lag_quarters === null ? 'rec' : `rec · lag ${match.onset_lag_quarters}`, color: M.warn };
+  return { label: 'benign', color: M.pos };
+}
+
+function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: Error; isLoading: boolean }) {
+  if (isLoading) return <Panel title="Analogue evidence" meta="loading"><EmptyMini message="Loading forecast evidence." /></Panel>;
+  if (error) return <Panel title="Analogue evidence" meta="forecast error"><ErrorMini message={error.message} /></Panel>;
+  const evidence = f.evidence;
+  if (!evidence) return <Panel title="Analogue evidence" meta="missing"><ErrorMini message="Mixture report evidence missing. Regenerate with PYTHONPATH=backend python3 -m src.agent_system.forecasting.macro_forecast_runner --allow-stale-bvar." /></Panel>;
+
+  const states = evidence.window_states ?? [];
+  const binding = states.find((state) => state.quarter === evidence.binding_quarter) ?? states[states.length - 1];
+  const timing = binding?.conditional_timing ?? binding?.onset_lag_distribution?.conditional_timing ?? evidence.trailing_max_onset_lag_distribution?.conditional_timing;
+  const spent = timing?.spent_mass ?? binding?.spent_mass ?? 0;
+  const remaining = timing?.remaining_mass ?? binding?.remaining_mass ?? 0;
+  const conditionalShare = timing?.conditional_share ?? binding?.conditioned_share ?? evidence.s_used ?? null;
+  const topMatches = (binding?.top_matches ?? []).slice(0, 5);
   return (
-    <Panel title="Risk profile / analogue set" meta={`${f.scenarios.reduce((sum, s) => sum + (s.n ?? 0), 0)} scenarios`}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-        <RiskCell k="MEDIAN / 63D" v={fan63?.med} suffix="%" sub={`win ${fan63?.win ?? '—'}%`} />
-        <RiskCell k="MEDIAN / 252D" v={fan252?.med} suffix="%" sub={`win ${fan252?.win ?? '—'}%`} />
-        <RiskCell k="P10 / 63D" v={fan63?.p10} suffix="%" sub="downside tail" />
-        <RiskCell k="P90 / 252D" v={fan252?.p90} suffix="%" sub="upside tail" />
+    <Panel title="Analogue evidence" meta="survival-conditioned">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 9 }}>
+        <div style={{ gridColumn: '1 / -1', background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 12 }}>
+          <div style={{ ...labelStyleSmall, marginBottom: 4 }}>analogue recession evidence</div>
+          <ValueText value={pct1(evidence.s_used ?? evidence.trailing_max)} size={30} color={M.warn} />
+          <div style={{ fontFamily: M.mono, fontSize: 10.5, color: M.inkFaint, marginTop: 6 }}>
+            binding {evidence.binding_quarter || '—'} · spot {pct1(evidence.spot_share)} · unconditioned max {pct1(evidence.trailing_max_unconditioned)}
+          </div>
+        </div>
       </div>
-      <a href="#macro-risk" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 10 }}>View full risk register →</a>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0, 1fr))', gap: 5, marginTop: 9 }}>
+        {states.map((state) => {
+          const active = state.quarter === evidence.binding_quarter;
+          const color = state.state === 'scored' ? M.pos : state.state === 'unprecedented_state' ? M.warn : M.inkFaint;
+          return (
+            <div key={state.quarter} style={{ background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, borderRadius: 8, padding: '7px 6px', minWidth: 0 }}>
+              <div style={{ fontFamily: M.mono, fontSize: 9.5, color: M.inkFaint }}>{state.quarter}</div>
+              <div style={{ fontFamily: M.mono, fontSize: 12, color, marginTop: 3 }}>● {pct1(state.conditioned_share ?? state.share)}</div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ marginTop: 10, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 11 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontFamily: M.mono, fontSize: 10.5, color: M.inkFaint, marginBottom: 8 }}>
+          <span>timing · elapsed {timing?.elapsed_quarters ?? binding?.elapsed_quarters ?? '—'}Q</span>
+          <span>conditional {pct1(conditionalShare)}</span>
+        </div>
+        <div style={{ height: 10, display: 'flex', overflow: 'hidden', borderRadius: 999, border: `1px solid ${M.line2}`, background: M.cardElev }}>
+          <div style={{ width: `${Math.max(0, Math.min(1, spent)) * 100}%`, background: M.warn }} />
+          <div style={{ width: `${Math.max(0, Math.min(1, remaining)) * 100}%`, background: M.accentBright }} />
+        </div>
+        <p style={{ margin: '8px 0 10px', color: M.inkDim, fontFamily: M.sans, fontSize: 11.5, lineHeight: 1.45 }}>
+          {(spent * 100).toFixed(1)}% of matched-recession onsets occurred within the elapsed {timing?.elapsed_quarters ?? binding?.elapsed_quarters ?? '—'} quarters; conditioned remaining-window probability {pct1(conditionalShare)}.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          {topMatches.map((match) => {
+            const tag = matchTag(match);
+            return (
+              <div key={`${match.neighbor_quarter}-${match.kernel_weight}`} style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'center', fontFamily: M.mono, fontSize: 10.5, color: M.inkDim }}>
+                <span>{match.neighbor_quarter}</span>
+                <span style={{ color: M.inkFaint }}>w={match.kernel_weight.toFixed(2)}</span>
+                <span style={{ color: tag.color }}>{tag.label}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </Panel>
   );
 }
@@ -878,16 +1068,6 @@ function EmptyMini({ message }: { message: string }) {
 }
 function LegendSwatch({ color, label }: { color: string; label: string }) {
   return <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ width: '12px', height: '12px', borderRadius: '3px', background: color, border: `1px solid ${M.line2}` }} />{label}</span>;
-}
-function RiskCell({ k, v, suffix, sub }: { k: string; v?: number; suffix: string; sub: string }) {
-  const color = v === undefined ? M.ink : v > 0 ? M.pos : M.neg;
-  return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px', padding: '13px' }}>
-      <div style={{ fontFamily: M.mono, fontSize: '9.5px', letterSpacing: '0.1em', color: M.inkFaint, marginBottom: '7px' }}>{k}</div>
-      <ValueText value={v === undefined ? '—' : `${v > 0 ? '+' : ''}${v}${suffix}`} size={22} color={color} />
-      <div style={{ fontFamily: M.sans, fontSize: '11px', color: M.inkFaint, marginTop: '5px' }}>{sub}</div>
-    </div>
-  );
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -955,14 +1135,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
   const activeCategoryName = selectedCategory ?? categories[0]?.name ?? null;
   const category = categories.find((c) => c.name === activeCategoryName) ?? null;
   const categoryItems = category?.items ?? [];
-  const selectedIndicator = categoryItems.find((ind) => indicatorKey(ind) === selectedIndicatorKey) ?? null;
-
-  useEffect(() => {
-    if (!activeCategoryName || !categoryItems.length) return;
-    if (!selectedIndicator) {
-      setSelectedIndicatorKey(indicatorKey(categoryItems[0]));
-    }
-  }, [activeCategoryName, categoryItems, selectedIndicator]);
+  const selectedIndicator = categoryItems.find((ind) => indicatorKey(ind) === selectedIndicatorKey) ?? categoryItems[0] ?? null;
 
   const selectCategory = (name: string, items: Indicator[]) => {
     setSelectedCategory(name);
@@ -1382,15 +1555,16 @@ function SnapChip({ label, value, accent }: { label: string; value: string; acce
     </div>
   );
 }
+function ThemeCardRow({ label, color, value }: { label: string; color: string; value: string }) {
+  return value ? (
+    <div style={{ display: 'flex', gap: '10px', marginBottom: '7px' }}>
+      <span style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color, fontWeight: 600, width: '70px', flexShrink: 0, paddingTop: '3px' }}>{label}</span>
+      <p style={{ margin: 0, fontFamily: M.sans, fontSize: '13px', color: M.inkDim, lineHeight: 1.55, flex: 1 }}>{value}</p>
+    </div>
+  ) : null;
+}
 function ThemeCard({ theme }: { theme: NarrTheme }) {
   const sc = STANCE_COLOR[theme.stance.toLowerCase()] ?? M.inkFaint;
-  const Row = ({ label, color, value }: { label: string; color: string; value: string }) =>
-    value ? (
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '7px' }}>
-        <span style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color, fontWeight: 600, width: '70px', flexShrink: 0, paddingTop: '3px' }}>{label}</span>
-        <p style={{ margin: 0, fontFamily: M.sans, fontSize: '13px', color: M.inkDim, lineHeight: 1.55, flex: 1 }}>{value}</p>
-      </div>
-    ) : null;
   return (
     <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '14px', padding: '16px 18px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', marginBottom: '11px' }}>
@@ -1401,11 +1575,11 @@ function ThemeCard({ theme }: { theme: NarrTheme }) {
         </div>
       </div>
       {theme.thesis ? <p style={{ margin: '0 0 13px', fontFamily: M.sans, fontSize: '13px', color: M.inkDim, lineHeight: 1.55 }}>{theme.thesis}</p> : null}
-      <Row label="Reality" color={M.pos} value={theme.reality} />
-      <Row label="Story" color={M.accentBright} value={theme.story} />
-      <Row label="Price" color={M.inkFaint} value={theme.price} />
-      <Row label="Gap" color={M.warn} value={theme.gap} />
-      <Row label="Falsifier" color={M.neg} value={theme.falsifier} />
+      <ThemeCardRow label="Reality" color={M.pos} value={theme.reality} />
+      <ThemeCardRow label="Story" color={M.accentBright} value={theme.story} />
+      <ThemeCardRow label="Price" color={M.inkFaint} value={theme.price} />
+      <ThemeCardRow label="Gap" color={M.warn} value={theme.gap} />
+      <ThemeCardRow label="Falsifier" color={M.neg} value={theme.falsifier} />
     </div>
   );
 }
@@ -1416,11 +1590,20 @@ function ThemeCard({ theme }: { theme: NarrTheme }) {
 export default function MacroPage() {
   const authFetcher = useAuthFetcher();
 
-  // Forecast — falls back to embedded sample until the endpoint exists.
-  const { data: forecastRaw } = useSWR<AnyRecord>(
+  const { data: forecastRaw, error: forecastError, isLoading: forecastLoading } = useSWR<MacroForecastPayload>(
     authFetcher.isSignedIn ? FORECAST_ENDPOINT : null,
     authFetcher.fetcher,
-    { onError: () => null, revalidateOnFocus: false },
+    { revalidateOnFocus: false },
+  );
+  const { data: scenarioMetaRaw } = useSWR<ScenarioMetaMap>(
+    authFetcher.isSignedIn ? SCENARIO_META_ENDPOINT : null,
+    authFetcher.fetcher,
+    { revalidateOnFocus: false },
+  );
+  const { data: fanRaw, error: fanError, isLoading: fanLoading } = useSWR<AnalogueFanPayload>(
+    authFetcher.isSignedIn ? FAN_ENDPOINT : null,
+    authFetcher.fetcher,
+    { revalidateOnFocus: false },
   );
   const { data: indicatorHistoryRaw } = useSWR<AnyRecord>(
     authFetcher.isSignedIn ? `${INDICATOR_HISTORY_ENDPOINT}?days=730` : null,
@@ -1432,8 +1615,8 @@ export default function MacroPage() {
     [indicatorHistoryRaw],
   );
   const forecast = useMemo<Forecast>(
-    () => normalizeForecast((forecastRaw as AnyRecord) ?? SAMPLE_FORECAST, indicatorHistory),
-    [forecastRaw, indicatorHistory],
+    () => normalizeForecast(forecastRaw, indicatorHistory, scenarioMetaRaw ?? {}),
+    [forecastRaw, indicatorHistory, scenarioMetaRaw],
   );
   const compositeScoreHistory = useMemo(
     () => indicatorHistory.score_total?.points ?? [],
@@ -1495,9 +1678,9 @@ export default function MacroPage() {
 
         {/* 2 — scenarios + return distribution + risk */}
         <div className="macro-mid-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(380px, 0.8fr) minmax(270px, 0.48fr)', gap: 10 }}>
-          <ScenarioCards f={forecast} />
-          <ForwardReturnDistribution f={forecast} />
-          <RiskProfileCompact f={forecast} />
+          {forecastError ? <Panel title="Scenario explorer" meta="forecast error"><ErrorMini message={forecastError.message} /></Panel> : forecastLoading ? <Panel title="Scenario explorer" meta="loading"><EmptyMini message="Loading two-source forecast." /></Panel> : <ScenarioCards f={forecast} />}
+          <AnalogueFanPanel fan={fanRaw} error={fanError} isLoading={fanLoading} />
+          <AnalogueEvidencePanel f={forecast} error={forecastError} isLoading={forecastLoading} />
         </div>
 
         {/* 3 — compressed narrative */}
@@ -1528,9 +1711,3 @@ export default function MacroPage() {
     </main>
   );
 }
-
-// ─────────────────────────────────────────────────────────────
-// Embedded sample (from macro_forecast_2026-06-05). Keep this offline/dev
-// fallback so the page still renders if the authenticated endpoint is down.
-// ─────────────────────────────────────────────────────────────
-const SAMPLE_FORECAST: AnyRecord = {"asof_date":"2026-06-05","horizon":"3m","probability_mode":"historically_calibrated","forecast_interpretation":{"headline":"Forecast favors reopening soft landing and broader market participation.","regime_read":"Reopening / Soft Landing leads; top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Quality AI leaders.","summary":"The model assigns the highest probability to Reopening / Soft Landing at 37.7%; runner-up sticky_late_cycle_ai at 31.9%. The largest displayed deterministic driver is Breadth and participation (-0.297). Healthy credit can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically calibrated after the deterministic update.","confidence_level":"low","confidence_rationale":"Dominant scenario probability is 37.7% with a 5.8% gap to the next scenario; floors keep tail scenarios alive. Probability mode is historically calibrated.","dominant_scenario_id":"reopening_soft_landing","dominant_scenario_probability":0.3766809534526288,"preferred_exposures":["Grid and power infrastructure","Quality ex-AI cash flow","Quality AI leaders","Cash and short duration","Commodities and real assets","Quality","Defensive factor","Cash and carry"],"exposures_to_avoid":["Small caps","High-beta AI semiconductors","Long-duration growth","High beta growth","Duration sensitivity","Small-cap beta"],"key_tensions":["Credit is healthy but breadth is weak or narrow.","Fed path remains restrictive despite some monetary-layer improvement.","Oil risk remains two-sided between inflation pressure and reopening relief.","AI earnings are resilient, but the AI capex rollover tail retains a probability floor."]},"scenario_probabilities":{"ai_capex_rollover":0.08206634437892787,"late_cycle_risk_off":0.11924393354997417,"oil_inflation_tail":0.10310646136127671,"reopening_soft_landing":0.3766809534526288,"sticky_late_cycle_ai":0.3189023072571924},"scenario_probabilities_deterministic":{"ai_capex_rollover":0.08240300063625414,"late_cycle_risk_off":0.05,"oil_inflation_tail":0.08900582905226531,"reopening_soft_landing":0.48991378132295726,"sticky_late_cycle_ai":0.28867738898852324},"historical_calibration":{"scenario_calibrations":[{"scenario_id":"reopening_soft_landing","historical_probability":0.11247102175519583,"confidence":0.6957200720072008,"n_supporting_analogues":6},{"scenario_id":"sticky_late_cycle_ai","historical_probability":0.3894271165507537,"confidence":0.5500000000000002,"n_supporting_analogues":19},{"scenario_id":"oil_inflation_tail","historical_probability":0.13600793674896997,"confidence":0.42739858578340156,"n_supporting_analogues":6},{"scenario_id":"ai_capex_rollover","historical_probability":0.08128081311183324,"confidence":0.45000000000000007,"n_supporting_analogues":4},{"scenario_id":"late_cycle_risk_off","historical_probability":0.2808131118332473,"confidence":0.6757471430116443,"n_supporting_analogues":13}],"forward_return_stats":{"10d":{"p10":-5.12,"p25":-1.59,"median":0.48,"p75":1.2,"p90":3.21,"pct_positive":57.3},"126d":{"p10":-2.34,"p25":-1.0,"median":2.59,"p75":7.98,"p90":9.68,"pct_positive":66.8},"1d":{"p10":-0.58,"p25":-0.34,"median":0.04,"p75":0.48,"p90":0.86,"pct_positive":55.7},"21d":{"p10":-4.5,"p25":-1.25,"median":1.18,"p75":2.42,"p90":4.5,"pct_positive":63.8},"252d":{"p10":-3.36,"p25":2.05,"median":11.97,"p75":17.66,"p90":23.84,"pct_positive":86.9},"5d":{"p10":-1.39,"p25":-0.42,"median":0.42,"p75":0.88,"p90":1.92,"pct_positive":61.2},"63d":{"p10":-11.63,"p25":-2.34,"median":3.17,"p75":5.14,"p90":7.43,"pct_positive":66.6}}},"input_signals":[{"label":"Monetary layer","name":"Monetary layer","category":"monetary","current_value":5.59,"signal":"mixed","trend":"improving","confidence":0.75,"role":"layer_summary","unit":"0-10 layer score","parent_layer":"monetary"},{"label":"Credit layer health","name":"Credit layer health","category":"credit","current_value":8.26,"signal":"bullish","trend":"stable","confidence":1.0,"role":"layer_summary","unit":"0-10 layer score","parent_layer":"credit"},{"label":"Volatility layer summary","name":"Volatility layer summary","category":"volatility","current_value":7.26,"signal":"bullish","trend":"stable","confidence":1.0,"role":"layer_summary","unit":"0-10 layer score","parent_layer":"volatility"},{"label":"Breadth and participation","name":"Breadth and participation","category":"breadth","current_value":4.39,"signal":"bearish","trend":"deteriorating","confidence":0.9,"role":"layer_summary","unit":"0-10 layer score","parent_layer":"breadth"},{"label":"Positioning and hedging","name":"Positioning and hedging","category":"positioning","current_value":7.25,"signal":"mixed","trend":"stable","confidence":1.0,"role":"layer_summary","unit":"generic put/call ratio or 0-10 score","parent_layer":"positioning"},{"label":"Fed path 2026-06-17","name":"Fed path 2026-06-17","category":"monetary","current_value":0.7999999999999999,"signal":"bearish","trend":"stable","confidence":0.75,"role":"raw_component","unit":"hold+hike probability","parent_layer":"monetary"},{"label":"Net liquidity","name":"Net liquidity","category":"monetary","current_value":-869002.2660000001,"signal":"neutral","trend":"stable","confidence":0.45,"role":"raw_component","unit":null,"parent_layer":"monetary"},{"label":"Net liquidity z-score","name":"Net liquidity z-score","category":"monetary","current_value":-0.23619626441240957,"signal":"neutral","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"monetary"},{"label":"NFCI level","name":"NFCI level","category":"monetary","current_value":-0.495,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"monetary"},{"label":"NFCI inverted","name":"NFCI inverted","category":"monetary","current_value":0.7277653252468774,"signal":"bullish","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"monetary"},{"label":"M2 growth YoY","name":"M2 growth YoY","category":"monetary","current_value":5.58,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"monetary"},{"label":"Hy Spread Level","name":"Hy Spread Level","category":"credit","current_value":276.0,"signal":"bullish","trend":"stable","confidence":0.75,"role":"raw_component","unit":null,"parent_layer":"credit"},{"label":"Hy Spread Z","name":"Hy Spread Z","category":"credit","current_value":-0.7745678361720062,"signal":"bullish","trend":"stable","confidence":0.75,"role":"raw_component","unit":null,"parent_layer":"credit"},{"label":"Hy Spread Chg 4W","name":"Hy Spread Chg 4W","category":"credit","current_value":-6.0,"signal":"neutral","trend":"stable","confidence":0.75,"role":"raw_component","unit":null,"parent_layer":"credit"},{"label":"Ig Spread Level","name":"Ig Spread Level","category":"credit","current_value":74.0,"signal":"bullish","trend":"stable","confidence":0.75,"role":"raw_component","unit":null,"parent_layer":"credit"},{"label":"Ig Spread Z","name":"Ig Spread Z","category":"credit","current_value":-1.2209252667371528,"signal":"bullish","trend":"stable","confidence":0.75,"role":"raw_component","unit":null,"parent_layer":"credit"},{"label":"Hyg Tlt Ratio Z","name":"Hyg Tlt Ratio Z","category":"credit","current_value":1.4186080775138064,"signal":"bullish","trend":"stable","confidence":0.75,"role":"raw_component","unit":null,"parent_layer":"credit"},{"label":"Vix Level","name":"Vix Level","category":"volatility","current_value":21.510000228881836,"signal":"neutral","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"volatility"},{"label":"Vix Z 20D","name":"Vix Z 20D","category":"volatility","current_value":3.067421071997353,"signal":"bearish","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"volatility"},{"label":"Vix Term Slope","name":"Vix Term Slope","category":"volatility","current_value":0.3099994659423828,"signal":"neutral","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"volatility"},{"label":"Vvix Level","name":"Vvix Level","category":"volatility","current_value":102.04000091552734,"signal":"neutral","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"volatility"},{"label":"Vvix Z","name":"Vvix Z","category":"volatility","current_value":0.1155892931006652,"signal":"neutral","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"volatility"},{"label":"Skew Index","name":"Skew Index","category":"volatility","current_value":152.25,"signal":"bearish","trend":"stable","confidence":0.7,"role":"raw_component","unit":null,"parent_layer":"volatility"},{"label":"Pct Above 200D","name":"Pct Above 200D","category":"breadth","current_value":81.8,"signal":"bullish","trend":"improving","confidence":0.72,"role":"raw_component","unit":null,"parent_layer":"breadth"},{"label":"Sectors Green","name":"Sectors Green","category":"breadth","current_value":5.0,"signal":"neutral","trend":"stable","confidence":0.72,"role":"raw_component","unit":null,"parent_layer":"breadth"},{"label":"Rsp Vs Spy Z","name":"Rsp Vs Spy Z","category":"breadth","current_value":-0.7024383905995703,"signal":"bearish","trend":"deteriorating","confidence":0.72,"role":"raw_component","unit":null,"parent_layer":"breadth"},{"label":"Adl Slope","name":"Adl Slope","category":"breadth","current_value":0.6233082706766926,"signal":"bullish","trend":"improving","confidence":0.72,"role":"raw_component","unit":null,"parent_layer":"breadth"},{"label":"Cot Net Large Spec Z","name":"Cot Net Large Spec Z","category":"positioning","current_value":-1.625860339488422,"signal":"neutral","trend":"stable","confidence":0.65,"role":"raw_component","unit":null,"parent_layer":"positioning"},{"label":"Monetary policy composite","name":"Monetary policy composite","category":"monetary","current_value":"monetary_score=5.59; hold_hike=0.80; cut=0.20","signal":"mixed","trend":"mixed","confidence":0.6375,"role":"composite","unit":null,"parent_layer":"monetary"},{"label":"SPY return","name":"SPY return","category":"breadth","current_value":11.057166970154997,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"QQQ return","name":"QQQ return","category":"breadth","current_value":17.047628580207896,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"IWM return","name":"IWM return","category":"breadth","current_value":12.84523090942551,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"TLT return","name":"TLT return","category":"monetary","current_value":-1.4831129000213106,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"HYG return","name":"HYG return","category":"credit","current_value":1.1134123382579242,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"GLD return","name":"GLD return","category":"commodities","current_value":-15.210575684961247,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"USO return","name":"USO return","category":"commodities","current_value":-10.44704450201025,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"BTC return","name":"BTC return","category":"breadth","current_value":-21.696963318434502,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"RSP return","name":"RSP return","category":"breadth","current_value":9.82619089440786,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"HYG minus TLT risk-on proxy","name":"HYG minus TLT risk-on proxy","category":"credit","current_value":2.5965252382792348,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"RSP minus SPY participation proxy","name":"RSP minus SPY participation proxy","category":"breadth","current_value":-1.2309760757471366,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"IWM minus SPY small-cap leadership","name":"IWM minus SPY small-cap leadership","category":"breadth","current_value":1.788063939270513,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"QQQ minus SPY growth leadership","name":"QQQ minus SPY growth leadership","category":"breadth","current_value":5.990461610052899,"signal":"bullish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Market tape leadership top 3","name":"Market tape leadership top 3","category":"breadth","current_value":"Technology +27.9%, Financials +10.5%, Health Care +10.4%","signal":"mixed","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Market tape sector dispersion","name":"Market tape sector dispersion","category":"breadth","current_value":8.1538979878423,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Spy Above Vwap","name":"Spy Above Vwap","category":"breadth","current_value":0.0,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Spy Above Prev Close","name":"Spy Above Prev Close","category":"breadth","current_value":0.0,"signal":"bearish","trend":"stable","confidence":0.55,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Spy Clv","name":"Spy Clv","category":"breadth","current_value":-0.2614601539263484,"signal":"bearish","trend":"stable","confidence":0.5,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Spy Range Pct","name":"Spy Range Pct","category":"breadth","current_value":0.26446904269553584,"signal":"bullish","trend":"stable","confidence":0.5,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Spy Vol Z 20D","name":"Spy Vol Z 20D","category":"breadth","current_value":-2.987515761380753,"signal":"bearish","trend":"stable","confidence":0.5,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Volume Confirmation","name":"Volume Confirmation","category":"breadth","current_value":-2.987515761380753,"signal":"bearish","trend":"stable","confidence":0.5,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"Vix Change Pct 1D","name":"Vix Change Pct 1D","category":"volatility","current_value":8.050565932430498,"signal":"neutral","trend":"stable","confidence":0.5,"role":"raw_component","unit":null,"parent_layer":"market_state"},{"label":"AI earnings resilience","name":"AI earnings resilience","category":"earnings","current_value":"resilient","signal":"bullish","trend":"stable","confidence":0.36,"role":"regime_driver","unit":null,"parent_layer":"earnings"},{"label":"Oil shock and reopening optionality","name":"Oil shock and reopening optionality","category":"commodities","current_value":"two-sided","signal":"mixed","trend":"mixed","confidence":0.36,"role":"regime_driver","unit":null,"parent_layer":"commodities"},{"label":"Hyperscaler capex rollover falsifier","name":"Hyperscaler capex rollover falsifier","category":"earnings","current_value":"not_triggered","signal":"bullish","trend":"stable","confidence":0.55,"role":"scenario_falsifier","unit":null,"parent_layer":"earnings"}]} as AnyRecord;

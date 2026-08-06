@@ -55,6 +55,8 @@ def adapt_regime_state(
     *,
     forward_context: Optional[ForwardContext] = None,
     curation_config_path: Optional[Path] = None,
+    curation_payload: Optional[dict[str, Any]] = None,
+    scenario_probability_source: str = "current_regime_yaml",
 ) -> PydanticRegimeState:
     """
     Translate a dataclass RegimeState (from src/state/regime_state.py)
@@ -76,6 +78,11 @@ def adapt_regime_state(
             whether to invoke it.
         curation_config_path: Override path to current_regime.yaml.
             Defaults to src/agent_system/config/current_regime.yaml.
+        curation_payload: Optional already-loaded curation mapping. The live
+            research cycle passes a MacroScenarioSource-derived payload here so
+            the adapter no longer performs an independent current_regime.yaml
+            read on that path.
+        scenario_probability_source: Provenance marker for scenario probabilities.
 
     Returns:
         Fully-populated Pydantic RegimeState ready for agent consumption.
@@ -86,7 +93,11 @@ def adapt_regime_state(
             translated to the Pydantic schema.
     """
     try:
-        curation = _load_curation_config(curation_config_path)
+        curation = (
+            _validate_curation_payload(curation_payload, "macro_scenario_source")
+            if curation_payload is not None
+            else _load_curation_config(curation_config_path)
+        )
         layers = _build_layers(dataclass_state)
         weights = LayerWeights(**_resolve_weights(dataclass_state))
         research_priorities = _build_seed_research_priorities(
@@ -125,7 +136,7 @@ def adapt_regime_state(
             risk_summary=curation.get("risk_summary", "") or "",
             scenario_probabilities=scenario_probabilities,
             scenario_probability_source=(
-                "current_regime_yaml" if scenario_probabilities else None
+                scenario_probability_source if scenario_probabilities else None
             ),
             key_drivers=[
                 RegimeDriver(**driver)
@@ -160,15 +171,19 @@ def _load_curation_config(path: Optional[Path]) -> dict[str, Any]:
             f"unable to load current regime curation config {config_path}: {exc}"
         ) from exc
 
+    return _validate_curation_payload(data, "current_regime.yaml")
+
+
+def _validate_curation_payload(data: Any, source: str) -> dict[str, Any]:
     if not isinstance(data, dict):
-        raise RegimeAdapterError("current_regime.yaml must contain a mapping")
+        raise RegimeAdapterError(f"{source} must contain a mapping")
 
     missing = [field for field in _REQUIRED_CURATION_FIELDS if field not in data]
     if missing:
         raise RegimeAdapterError(
-            f"current_regime.yaml missing required fields: {', '.join(missing)}"
+            f"{source} missing required fields: {', '.join(missing)}"
         )
-    return data
+    return dict(data)
 
 
 def _build_scenario_probabilities(value: Any) -> dict[str, float]:
@@ -232,6 +247,7 @@ def _build_seed_research_priorities(items: Any) -> list[ResearchPriority]:
         if not isinstance(item, dict):
             raise RegimeAdapterError("seed_research_priorities entries must be mappings")
         payload = dict(item)
+        payload.pop("scenario_taxonomy", None)
         if "expected_edge_decay" in payload:
             payload["expected_edge_decay"] = EdgeDecayHorizon(
                 payload["expected_edge_decay"]

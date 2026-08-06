@@ -1,5 +1,15 @@
 {
   "tickers": {
+    "AJG": {
+      "beta": 0.508,
+      "cached_at": "2026-07-31T04:18:37.812354+00:00",
+      "sector": "Financial Services"
+    },
+    "AMD": {
+      "beta": 2.469,
+      "cached_at": "2026-07-31T04:18:37.457017+00:00",
+      "sector": "Technology"
+    },
     "AMKR": {
       "beta": 2.258,
       "cached_at": "2026-06-25T00:23:30.497063+00:00",
@@ -15,10 +25,35 @@
       "cached_at": "2026-07-02T14:55:12.753164+00:00",
       "sector": "Industrials"
     },
+    "CBOE": {
+      "beta": 0.443,
+      "cached_at": "2026-07-31T04:18:38.210102+00:00",
+      "sector": "Financial Services"
+    },
+    "CME": {
+      "beta": 0.276,
+      "cached_at": "2026-07-31T04:18:37.668104+00:00",
+      "sector": "Financial Services"
+    },
+    "EME": {
+      "beta": 1.126,
+      "cached_at": "2026-07-31T04:18:36.646234+00:00",
+      "sector": "Industrials"
+    },
+    "ETN": {
+      "beta": 1.181,
+      "cached_at": "2026-07-31T04:18:36.283338+00:00",
+      "sector": "Industrials"
+    },
     "FCFS": {
       "beta": 0.525,
       "cached_at": "2026-07-02T14:55:12.979692+00:00",
       "sector": "Financial Services"
+    },
+    "GEV": {
+      "beta": 0.935,
+      "cached_at": "2026-07-31T04:18:36.489787+00:00",
+      "sector": "Industrials"
     },
     "GILD": {
       "beta": 0.331,
@@ -34,6 +69,16 @@
       "beta": 0.763,
       "cached_at": "2026-07-02T14:55:11.935563+00:00",
       "sector": "Basic Materials"
+    },
+    "ICE": {
+      "beta": 0.948,
+      "cached_at": "2026-07-31T04:18:38.050062+00:00",
+      "sector": "Financial Services"
+    },
+    "LKQ": {
+      "beta": 0.824,
+      "cached_at": "2026-07-31T04:18:37.089527+00:00",
+      "sector": "Consumer Cyclical"
     },
     "MCO": {
       "beta": 1.335,
@@ -63,6 +108,11 @@
     "PH": {
       "beta": 1.11,
       "cached_at": "2026-07-10T02:34:36.739082+00:00",
+      "sector": "Industrials"
+    },
+    "PWR": {
+      "beta": 1.215,
+      "cached_at": "2026-07-31T04:18:37.239526+00:00",
       "sector": "Industrials"
     },
     "SAFT": {

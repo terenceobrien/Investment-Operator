@@ -3,18 +3,31 @@ from __future__ import annotations
 
 import math
 
-from src.agent_system.forecasting.theme_exposure_matrix import SCENARIO_THEME_EXPOSURES
+from src.agent_system.forecasting.theme_exposure_matrix import get_scenario_theme_exposures
 
 
-def _theme_universe() -> list[str]:
+def _infer_taxonomy(scenario_ids: list[str]) -> str | None:
+    scenario_set = set(scenario_ids)
+    if not scenario_set:
+        return None
+    narrative_ids = set(get_scenario_theme_exposures("narrative_v0"))
+    behavioral_ids = set(get_scenario_theme_exposures("behavioral_v1"))
+    if scenario_set <= narrative_ids:
+        return "narrative_v0"
+    if scenario_set <= behavioral_ids:
+        return "behavioral_v1"
+    return None
+
+
+def _theme_universe(taxonomy: str) -> list[str]:
     themes: set[str] = set()
-    for exposures in SCENARIO_THEME_EXPOSURES.values():
+    for exposures in get_scenario_theme_exposures(taxonomy).values():
         themes.update(exposures)
     return sorted(themes)
 
 
-def _vector_for_scenario(scenario_id: str, themes: list[str]) -> list[float]:
-    exposures = SCENARIO_THEME_EXPOSURES.get(scenario_id, {})
+def _vector_for_scenario(scenario_id: str, themes: list[str], taxonomy: str) -> list[float]:
+    exposures = get_scenario_theme_exposures(taxonomy).get(scenario_id, {})
     return [float(exposures.get(theme, 0.0)) for theme in themes]
 
 
@@ -27,11 +40,12 @@ def _cosine_similarity(a: list[float], b: list[float]) -> float:
     return numerator / (norm_a * norm_b)
 
 
-def _build_scenario_correlation_matrix() -> dict[str, dict[str, float]]:
-    themes = _theme_universe()
+def _build_scenario_correlation_matrix(taxonomy: str) -> dict[str, dict[str, float]]:
+    exposure_matrix = get_scenario_theme_exposures(taxonomy)
+    themes = _theme_universe(taxonomy)
     vectors = {
-        scenario_id: _vector_for_scenario(scenario_id, themes)
-        for scenario_id in SCENARIO_THEME_EXPOSURES
+        scenario_id: _vector_for_scenario(scenario_id, themes, taxonomy)
+        for scenario_id in exposure_matrix
     }
     matrix: dict[str, dict[str, float]] = {}
     for scenario_a, vector_a in vectors.items():
@@ -41,23 +55,46 @@ def _build_scenario_correlation_matrix() -> dict[str, dict[str, float]]:
     return matrix
 
 
-SCENARIO_CORRELATION_MATRIX = _build_scenario_correlation_matrix()
+SCENARIO_CORRELATION_MATRIX_NARRATIVE = _build_scenario_correlation_matrix("narrative_v0")
+SCENARIO_CORRELATION_MATRIX_BEHAVIORAL = _build_scenario_correlation_matrix("behavioral_v1")
+
+# Backward-compatible alias for legacy narrative callers.
+SCENARIO_CORRELATION_MATRIX = SCENARIO_CORRELATION_MATRIX_NARRATIVE
 
 
-def scenario_correlation_matrix() -> dict[str, dict[str, float]]:
+def scenario_correlation_matrix(
+    taxonomy: str = "narrative_v0",
+) -> dict[str, dict[str, float]]:
     """Cached scenario x scenario cosine-similarity matrix."""
 
-    return SCENARIO_CORRELATION_MATRIX
+    if taxonomy == "narrative_v0":
+        return SCENARIO_CORRELATION_MATRIX_NARRATIVE
+    if taxonomy == "behavioral_v1":
+        return SCENARIO_CORRELATION_MATRIX_BEHAVIORAL
+    raise ValueError(
+        "scenario compatibility taxonomy must be 'narrative_v0' or 'behavioral_v1'; "
+        f"got {taxonomy!r}"
+    )
 
 
-def scenario_correlation(scenario_a: str, scenario_b: str) -> float:
-    return float(SCENARIO_CORRELATION_MATRIX.get(scenario_a, {}).get(scenario_b, 0.0))
+def scenario_correlation(
+    scenario_a: str,
+    scenario_b: str,
+    *,
+    taxonomy: str | None = None,
+) -> float:
+    resolved_taxonomy = taxonomy or _infer_taxonomy([scenario_a, scenario_b])
+    if resolved_taxonomy is None:
+        return 0.0
+    matrix = scenario_correlation_matrix(resolved_taxonomy)
+    return float(matrix.get(scenario_a, {}).get(scenario_b, 0.0))
 
 
 def scenarios_compatible(
     scenarios_a: list[str],
     scenarios_b: list[str],
     *,
+    taxonomy: str | None = None,
     threshold: float = 0.0,
 ) -> tuple[bool, float]:
     """Determine if two sets of scenario drivers are compatible.
@@ -70,9 +107,12 @@ def scenarios_compatible(
     unique_b = list(dict.fromkeys(scenarios_b))
     if not unique_a or not unique_b:
         return True, 0.0
+    resolved_taxonomy = taxonomy or _infer_taxonomy(unique_a + unique_b)
+    if resolved_taxonomy is None:
+        return True, 0.0
 
     scores = [
-        scenario_correlation(scenario_a, scenario_b)
+        scenario_correlation(scenario_a, scenario_b, taxonomy=resolved_taxonomy)
         for scenario_a in unique_a
         for scenario_b in unique_b
     ]

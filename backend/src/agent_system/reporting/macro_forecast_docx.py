@@ -205,7 +205,37 @@ def _add_yaml_priors_override_callout(document: DocumentObject) -> None:
 def _add_scenario_probabilities(document: DocumentObject, result: MacroForecastResult) -> None:
     _section(document, "Scenario Probabilities")
     calibration_by_scenario = _calibration_by_scenario(result)
-    if result.probability_mode == "yaml_priors_override":
+    if result.probability_mode == "two_source_v1":
+        headers = [
+            "Scenario",
+            "BVAR Soft",
+            "Analogue Implied",
+            "Mixed Pre-Floor",
+            "Final",
+            "Delta vs BVAR",
+            "Floor Guard",
+        ]
+        mixture = result.mixture_report or {}
+        per_scenario = mixture.get("per_scenario") if isinstance(mixture, dict) else {}
+        rows = []
+        for scenario_id, probability in sorted(
+            result.scenario_probabilities.items(),
+            key=lambda item: item[1],
+            reverse=True,
+        ):
+            row = per_scenario.get(scenario_id, {}) if isinstance(per_scenario, dict) else {}
+            rows.append(
+                [
+                    _scenario_name(scenario_id),
+                    _pct(row.get("bvar_soft")),
+                    _pct(row.get("analogue_implied")),
+                    _pct(row.get("mixed_pre_floor")),
+                    _pct(probability),
+                    _pct(row.get("delta")),
+                    _yes_no(bool(row.get("floor_applied", False))),
+                ]
+            )
+    elif result.probability_mode == "yaml_priors_override":
         _add_yaml_priors_override_callout(document)
         headers = [
             "Scenario",
@@ -287,6 +317,8 @@ def _add_scenario_probabilities(document: DocumentObject, result: MacroForecastR
         _shade_cell(table.rows[0].cells[1], ACTIVE_PRIOR_FILL)
         _set_cell_text(table.rows[0].cells[1], "Prior (ACTIVE)", bold=True, size=SMALL_SIZE, color=WHITE)
         _set_table_width(table, [1.75, 0.8, 1.0, 1.05, 0.75, 0.9, 2.45])
+    elif result.probability_mode == "two_source_v1":
+        _set_table_width(table, [1.45, 0.8, 0.9, 0.95, 0.75, 0.8, 0.75])
     elif len(headers) == 8:
         _set_table_width(table, [1.45, 0.65, 0.9, 1.0, 0.9, 0.75, 0.8, 2.15])
     else:
@@ -309,6 +341,31 @@ def _add_visual_summary(document: DocumentObject, result: MacroForecastResult, c
 
 def _add_scenario_probability_math(document: DocumentObject, result: MacroForecastResult, *, debug: bool = False) -> None:
     _section(document, "Scenario Probability Math")
+    if result.probability_mode == "two_source_v1":
+        mixture = result.mixture_report or {}
+        evidence = mixture.get("evidence") if isinstance(mixture, dict) else {}
+        provenance = result.bvar_provenance or {}
+        _kv_table(
+            document,
+            [
+                ("Probability mode", "two_source_v1"),
+                ("Combination", str(mixture.get("combination") or "linear_mixture")),
+                ("Alpha", _decimal(mixture.get("alpha"), places=3)),
+                ("Alpha effective", _decimal(mixture.get("alpha_effective"), places=3)),
+                ("Analogue trailing share", _pct(mixture.get("s"))),
+                ("Analogue base rate", _pct(mixture.get("b"))),
+                ("Evidence state", str((evidence or {}).get("current_state") or mixture.get("abstention_state") or "n/a")),
+                ("Stress advisory", _yes_no(bool(mixture.get("stress_advisory", False)))),
+                ("BVAR artifact", str(provenance.get("path") or "n/a")),
+                ("BVAR generated_at", str(provenance.get("generated_at") or "n/a")),
+                ("BVAR handoff fingerprint", str(provenance.get("handoff_fingerprint") or "n/a")),
+            ],
+        )
+        limitations = provenance.get("model_limitations") or {}
+        if limitations:
+            _subsection(document, "BVAR Model Limitations")
+            _kv_table(document, [(str(key), str(value)) for key, value in limitations.items()])
+        return
     for update in result.scenario_updates:
         audit = update.math_audit
         _subsection(document, _scenario_name(update.scenario_id))
@@ -356,6 +413,13 @@ def _add_historical_calibration(
 ) -> None:
     _section(document, "Historical Analogue Calibration")
     calibration = result.historical_calibration
+    if result.probability_mode == "two_source_v1":
+        _paragraph(
+            document,
+            "Legacy rolling historical calibration is retired in the runner. Directional analogue evidence enters through the two-source mixture.",
+            compact=True,
+        )
+        return
     if calibration is None:
         _paragraph(document, "Historical calibration is disabled.", compact=True)
         return
@@ -550,6 +614,7 @@ def _add_historical_calibration(
 
 def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResult) -> None:
     _section(document, "Forecast Input Set")
+    _paragraph(document, "Monitoring — no probability impact.", compact=True)
     current_regime_yaml_path = (result.outputs or {}).get("current_regime_yaml_path")
     if current_regime_yaml_path:
         _paragraph(document, f"Thematic agent current-regime YAML saved to: {current_regime_yaml_path}", compact=True)
@@ -593,7 +658,7 @@ def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResul
     ]
     _add_table(
         document,
-        ["Layer", "Score", "Status", "Confidence/Data Quality", "Used in Math?", "Key Signals", "Raw Components Attached"],
+        ["Layer", "Score", "Status", "Confidence/Data Quality", "Probability Impact?", "Key Signals", "Raw Components Attached"],
         rows,
     )
 
@@ -601,7 +666,7 @@ def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResul
     coverage_rows, coverage_totals = _raw_input_coverage_rows(input_set)
     _add_table(
         document,
-        ["Parent Layer", "Expected Raw Inputs", "Available Raw Inputs", "Used in Deterministic Math", "Used in Historical Similarity", "Missing Inputs"],
+        ["Parent Layer", "Expected Raw Inputs", "Available Raw Inputs", "Used in Retired Deterministic Math", "Used in Historical Similarity", "Missing Inputs"],
         coverage_rows,
     )
     _subsection(document, "Raw Input Coverage Totals")
@@ -634,7 +699,7 @@ def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResul
     ]
     _add_table(
         document,
-        ["Input", "Source Object", "Parent Layer", "Raw Value", "Status", "Trend", "Used in Math?", "Used in Analogues?", "Top Scenario Effects"],
+        ["Input", "Source Object", "Parent Layer", "Raw Value", "Status", "Trend", "Probability Impact?", "Used in Analogues?", "Top Scenario Effects"],
         rows,
     )
     if raw_note_needed:
@@ -655,7 +720,7 @@ def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResul
     ]
     _add_table(
         document,
-        ["Composite", "Parent Layer", "Signal", "Confidence", "Used in Math?", "Child Signals", "Scenario Effects"],
+        ["Composite", "Parent Layer", "Signal", "Confidence", "Probability Impact?", "Child Signals", "Scenario Effects"],
         rows,
     )
 
@@ -674,7 +739,7 @@ def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResul
     ]
     _add_table(
         document,
-        ["Input", "Raw Value", "Status", "Confidence", "Used in Math?", "Horizon/Dedupe Effect", "Top Scenario Effects"],
+        ["Input", "Raw Value", "Status", "Confidence", "Probability Impact?", "Horizon/Dedupe Effect", "Top Scenario Effects"],
         rows,
     )
 
@@ -778,7 +843,7 @@ def _add_legacy_input_signal_table(document: DocumentObject, signals: Sequence[M
             "Trend",
             "Confidence",
             "Quality",
-            "Used in Math?",
+            "Probability Impact?",
             "Display Only?",
             "Parent / Composite",
             "Exclusion Reason",
@@ -821,7 +886,7 @@ def _forecast_input_warnings(result: MacroForecastResult) -> list[str]:
         for contribution in update.contributions
         if contribution.source_role == "raw_component" and abs(contribution.adjusted_contribution) > 0
     ]
-    if available_raw and not raw_contributions_used:
+    if result.probability_mode != "two_source_v1" and available_raw and not raw_contributions_used:
         warnings.append("Raw component signals were available but did not affect deterministic scenario math. Check dedupe/config logic.")
     return list(dict.fromkeys(warnings))
 
@@ -841,7 +906,7 @@ def _add_monetary_composite_detail(document: DocumentObject, result: MacroForeca
         [
             ("Composite signal", composite.signal),
             ("Composite confidence", _decimal(composite.confidence, places=2)),
-            ("Used in probability update", _yes_no(composite.used_in_probability_update)),
+            ("Probability impact", _yes_no(composite.used_in_probability_update)),
             ("Display only", _yes_no(composite.display_only)),
             ("Current value", _signal_reading(composite.current_value)),
             ("Composite method", composite.composite_method or "n/a"),
@@ -854,7 +919,7 @@ def _add_monetary_composite_detail(document: DocumentObject, result: MacroForeca
     if children:
         _paragraph(
             document,
-            "Component signals are included for display and excluded from probability math to avoid double-counting.",
+            "Component signals are included for monitoring and excluded from two_source_v1 probability math.",
             compact=True,
         )
         rows = [
@@ -871,7 +936,7 @@ def _add_monetary_composite_detail(document: DocumentObject, result: MacroForeca
         ]
         _add_table(
             document,
-            ["Component", "Signal", "Trend", "Confidence", "Display Only?", "Used in Math?", "Exclusion Reason"],
+            ["Component", "Signal", "Trend", "Confidence", "Display Only?", "Probability Impact?", "Exclusion Reason"],
             rows,
         )
 
@@ -987,6 +1052,13 @@ def _add_factor_rankings(document: DocumentObject, result: MacroForecastResult) 
 
 def _add_probability_shifters(document: DocumentObject, result: MacroForecastResult) -> None:
     _section(document, "Probability Shifters / Watchlist")
+    if result.probability_mode == "two_source_v1":
+        _paragraph(
+            document,
+            "Deterministic probability shifters are retired; monitoring signals and falsifiers remain display-only.",
+            compact=True,
+        )
+        return
     for shifter in result.probability_shifters:
         _subsection(document, _scenario_name(shifter.scenario_id))
         _kv_table(
@@ -1362,6 +1434,23 @@ def _scenario_probability_chart(result: MacroForecastResult, chart_dir: Path) ->
     calibration_by_scenario = _calibration_by_scenario(result)
 
     def plot(ax):
+        if result.probability_mode == "two_source_v1":
+            ordered = sorted(
+                result.scenario_probabilities.items(),
+                key=lambda item: item[1],
+                reverse=True,
+            )
+            if not ordered:
+                return False
+            labels = [_scenario_name(scenario_id)[:18] for scenario_id, _ in ordered]
+            values = [probability * 100 for _, probability in ordered]
+            x = list(range(len(labels)))
+            ax.bar(x, values, label="Final")
+            ax.set_xticks(x)
+            ax.set_xticklabels(labels, rotation=35, ha="right", fontsize=8)
+            ax.set_ylabel("Probability (%)")
+            ax.legend(fontsize=8)
+            return True
         labels = [_scenario_name(update.scenario_id)[:18] for update in result.scenario_updates]
         deterministic = [
             (calibration_by_scenario.get(update.scenario_id).deterministic_probability if calibration_by_scenario.get(update.scenario_id) else update.posterior_probability) * 100

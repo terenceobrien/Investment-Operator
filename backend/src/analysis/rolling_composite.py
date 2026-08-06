@@ -7,8 +7,11 @@ and returns weighted forward-path statistics.
 """
 from __future__ import annotations
 
+import inspect
 import json
+import logging
 import math
+import warnings
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -38,6 +41,38 @@ NESTED_PREFIXES = ("forward_returns", "risk_profile", "score_components", "secto
 FORWARD_RETURN_HORIZONS = TACTICAL_FORWARD_HORIZONS + MACRO_FORWARD_HORIZONS
 DEFAULT_MACRO_HORIZONS = list(MACRO_FORWARD_HORIZONS)
 FLAT_FORWARD_RETURN_DAYS = (1, 5, 21, 63, 126)
+_NARRATIVE_FOSSIL_EMITTED = False
+
+
+def _emit_narrative_fossil_invocation(entry_point: str) -> None:
+    global _NARRATIVE_FOSSIL_EMITTED
+    if _NARRATIVE_FOSSIL_EMITTED:
+        return
+    _NARRATIVE_FOSSIL_EMITTED = True
+    caller_module = _caller_module_name()
+    warnings.warn(
+        "src.analysis.rolling_composite is a retired narrative analogue stack; "
+        "use the behavioral directional analogue evidence path for macro probabilities.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    logging.getLogger("narrative_fossil").warning(
+        "legacy_narrative_rolling_composite_invoked",
+        extra={
+            "caller_module": caller_module,
+            "entry_point": entry_point,
+            "legacy_module": __name__,
+        },
+    )
+
+
+def _caller_module_name() -> str:
+    for frame_info in inspect.stack()[2:]:
+        module = inspect.getmodule(frame_info.frame)
+        module_name = getattr(module, "__name__", None)
+        if module_name and module_name != __name__:
+            return str(module_name)
+    return "unknown"
 
 
 def weighted_percentile(values: np.ndarray, weights: np.ndarray, q: float) -> float:
@@ -621,6 +656,7 @@ def get_rolling_composite(
     shock_window_mode: str = "exclude",
     shock_windows: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
+    _emit_narrative_fossil_invocation("get_rolling_composite")
     df = _load_df()
     if df.empty:
         raise ValueError("Historical analogue dataset is empty")

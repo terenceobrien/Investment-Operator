@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 import os
+from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +20,10 @@ macro_router = APIRouter(prefix="/api/macro", tags=["macro"])
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = BACKEND_ROOT.parent
+RUNNER_COMMAND = (
+    "PYTHONPATH=backend python3 -m "
+    "src.agent_system.forecasting.macro_forecast_runner --allow-stale-bvar"
+)
 
 # Uvicorn does not automatically load local env files. Loading them here keeps
 # the history endpoint aligned with the storage/backfill scripts without
@@ -29,7 +35,7 @@ load_dotenv(BACKEND_ROOT / ".env")
 
 def _forecast_root() -> Path:
     default_root = (
-        BACKEND_ROOT
+        REPO_ROOT
         / "data"
         / "agent_system"
         / "reports"
@@ -38,29 +44,153 @@ def _forecast_root() -> Path:
     return Path(os.getenv("MACRO_FORECAST_DIR", str(default_root)))
 
 
-def _latest_forecast_path() -> Path:
-    current = _forecast_root() / "current"
-    if not current.exists() and not current.is_symlink():
+def _forecast_candidate_paths(root: Path) -> list[Path]:
+    if not root.exists():
         raise FileNotFoundError(
-            f"Macro forecast pointer not found: {current}. "
-            "Set MACRO_FORECAST_DIR to the macro_forecasts directory."
+            f"Macro forecast directory not found: {root}. "
+            f"Generate it with: {RUNNER_COMMAND}"
         )
 
-    source = current.resolve(strict=True) if current.is_symlink() else current
-    if source.is_file():
-        return source
+    candidates = list(root.glob("macro_forecast_*.json"))
+    current = root / "current"
+    if current.exists() or current.is_symlink():
+        source = current.resolve(strict=True) if current.is_symlink() else current
+        if source.is_file() and source.name.startswith("macro_forecast_") and source.suffix == ".json":
+            candidates.append(source)
+        elif source.is_dir():
+            candidates.extend(source.glob("macro_forecast_*.json"))
 
-    if source.is_dir():
-        candidates = sorted(
-            source.glob("macro_forecast_*.json"),
-            key=lambda path: (path.stat().st_mtime, path.name),
-            reverse=True,
+    unique: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve()
+        if resolved not in seen:
+            seen.add(resolved)
+            unique.append(candidate)
+    if not unique:
+        raise FileNotFoundError(
+            f"No macro_forecast_*.json files found in {root}. "
+            f"Generate one with: {RUNNER_COMMAND}"
         )
-        if candidates:
-            return candidates[0]
-        raise FileNotFoundError(f"No macro_forecast_*.json files found in {source}")
+    return unique
 
-    raise FileNotFoundError(f"Macro forecast pointer is not a file or directory: {source}")
+
+def _read_json_file(path: Path) -> Any:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"JSON artifact is invalid: {path}: {exc}") from exc
+
+
+def _parse_timestamp(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    raw = value.strip()
+    if raw.endswith("Z"):
+        raw = raw[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(raw)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _forecast_timestamp(payload: Any, path: Path) -> datetime:
+    if isinstance(payload, dict):
+        for value in (
+            payload.get("generated_at"),
+            payload.get("created_at"),
+            (payload.get("bvar_provenance") or {}).get("generated_at")
+            if isinstance(payload.get("bvar_provenance"), dict)
+            else None,
+        ):
+            parsed = _parse_timestamp(value)
+            if parsed is not None:
+                return parsed
+    return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
+
+
+def _latest_forecast_artifact() -> tuple[Path, dict[str, Any]]:
+    candidates = _forecast_candidate_paths(_forecast_root())
+    loaded: list[tuple[datetime, str, Path, dict[str, Any]]] = []
+    for candidate in candidates:
+        payload = _read_json_file(candidate)
+        if not isinstance(payload, dict):
+            raise ValueError(f"Macro forecast artifact must be a JSON object: {candidate}")
+        loaded.append((_forecast_timestamp(payload, candidate), candidate.name, candidate, payload))
+    _, _, path, payload = max(loaded, key=lambda item: (item[0], item[1]))
+    return path, payload
+
+
+def _latest_forecast_path() -> Path:
+    path, _ = _latest_forecast_artifact()
+    return path
+
+
+def _validate_two_source_forecast(payload: dict[str, Any], path: Path) -> None:
+    mode = payload.get("probability_mode")
+    if mode != "two_source_v1":
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f"Latest macro forecast artifact is stale or retired: {path} "
+                f"has probability_mode={mode!r}; expected 'two_source_v1'. "
+                f"Regenerate with: {RUNNER_COMMAND}"
+            ),
+        )
+
+
+def _latest_two_source_forecast() -> tuple[Path, dict[str, Any]]:
+    path, payload = _latest_forecast_artifact()
+    _validate_two_source_forecast(payload, path)
+    return path, payload
+
+
+def _asof_metadata(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "artifact_path": str(path),
+        "asof_date": payload.get("asof_date"),
+        "created_at": payload.get("created_at"),
+        "probability_mode": payload.get("probability_mode"),
+    }
+
+
+def _resolve_artifact_path(value: Any) -> Path:
+    if not isinstance(value, str) or not value.strip():
+        raise FileNotFoundError(
+            "Latest forecast does not reference analogue_fan_artifact_path. "
+            f"Regenerate with: {RUNNER_COMMAND}"
+        )
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    candidates = [
+        REPO_ROOT / path,
+        BACKEND_ROOT / path,
+        _forecast_root() / path,
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return candidates[0]
+
+
+@lru_cache(maxsize=1)
+def _behavioral_scenario_meta() -> dict[str, dict[str, str]]:
+    from src.agent_system.forecasting.behavioral_scenarios_loader import (
+        load_behavioral_scenarios,
+    )
+
+    scenarios = load_behavioral_scenarios()
+    return {
+        scenario_id: {
+            "display_name": scenario.label,
+            "short_description": " ".join(str(scenario.definition).split()),
+        }
+        for scenario_id, scenario in scenarios.items()
+    }
 
 
 def _backtest_master_candidates() -> list[Path]:
@@ -230,18 +360,65 @@ def _build_indicator_history_payload(days: int) -> dict[str, Any]:
 
 @macro_router.get("/forecast/latest")
 async def latest_macro_forecast(user: dict = Depends(verify_clerk_token)) -> JSONResponse:
-    """Return the latest generated macro forecast JSON."""
+    """Return the latest generated two_source_v1 macro forecast JSON."""
     del user
     try:
-        path = _latest_forecast_path()
-        payload: Any = json.loads(path.read_text(encoding="utf-8"))
+        path, payload = _latest_two_source_forecast()
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
-    except json.JSONDecodeError as exc:
+    except ValueError as exc:
         raise HTTPException(
             status_code=500,
-            detail=f"Macro forecast file is not valid JSON: {exc}",
+            detail=f"Macro forecast file is not valid: {exc}",
         ) from exc
+    payload = dict(payload)
+    payload["asof_metadata"] = _asof_metadata(path, payload)
+    return JSONResponse(content=payload)
+
+
+@macro_router.get("/analogue-fan/latest")
+async def latest_analogue_fan(user: dict = Depends(verify_clerk_token)) -> JSONResponse:
+    """Return the analogue fan JSON referenced by the latest two_source_v1 forecast."""
+    del user
+    try:
+        forecast_path, forecast = _latest_two_source_forecast()
+        mixture_report = forecast.get("mixture_report")
+        if not isinstance(mixture_report, dict):
+            raise FileNotFoundError(
+                f"Latest forecast {forecast_path} has no mixture_report. "
+                f"Regenerate with: {RUNNER_COMMAND}"
+            )
+        fan_path = _resolve_artifact_path(mixture_report.get("analogue_fan_artifact_path"))
+        if not fan_path.exists():
+            raise FileNotFoundError(
+                f"Analogue fan artifact not found: {fan_path}. "
+                f"Regenerate with: {RUNNER_COMMAND}"
+            )
+        payload = _read_json_file(fan_path)
+        if not isinstance(payload, dict):
+            raise ValueError(f"Analogue fan artifact must be a JSON object: {fan_path}")
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=f"Analogue fan artifact is not valid: {exc}") from exc
+    payload = dict(payload)
+    payload["asof_metadata"] = {
+        "artifact_path": str(fan_path),
+        "forecast_artifact_path": str(forecast_path),
+        "query_date": payload.get("query_date"),
+        "horizon_quarters": payload.get("horizon_quarters"),
+    }
+    return JSONResponse(content=payload)
+
+
+@macro_router.get("/scenario-meta")
+async def macro_scenario_meta(user: dict = Depends(verify_clerk_token)) -> JSONResponse:
+    """Return behavioral scenario display metadata from the taxonomy YAML."""
+    del user
+    try:
+        payload = _behavioral_scenario_meta()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Behavioral scenario metadata unavailable: {exc}") from exc
     return JSONResponse(content=payload)
 
 

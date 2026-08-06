@@ -96,12 +96,12 @@ def test_exposure_enrichment_uses_reference_data_and_scenario_pnls():
     assert exposure.instrument_type == "single_stock"
     assert exposure.position_size_pct == pytest.approx(0.05)
     assert exposure.delta == pytest.approx(1.0)
-    assert exposure.sector == "Engineering/Construction"
-    assert exposure.market_beta == pytest.approx(1.21)
-    assert exposure.market_beta_source == "damodaran_sector"
-    assert exposure.sector_beta == pytest.approx(1.21)
-    assert exposure.theme_exposure == pytest.approx(0.9)
-    assert exposure.theme_exposure_source == "theme_matrix"
+    assert exposure.sector == "Industrials"
+    assert exposure.market_beta == pytest.approx(1.147)
+    assert exposure.market_beta_source == "yfinance_cached"
+    assert exposure.sector_beta == pytest.approx(1.147)
+    assert exposure.theme_exposure == pytest.approx(0.7)
+    assert exposure.theme_exposure_source == "conviction_derived"
     assert exposure.scenario_exposure_source == "derived_from_scenario_pnl"
     assert exposure.scenario_exposures["sticky_late_cycle_ai"] == pytest.approx(0.075)
     assert exposure.scenario_exposures["late_cycle_risk_off"] == pytest.approx(-0.225)
@@ -129,7 +129,7 @@ def test_exposure_enrichment_fallbacks_lower_confidence():
 
     assert exposure.sector == "Unknown"
     assert exposure.market_beta == pytest.approx(1.0)
-    assert exposure.market_beta_source == "sector_proxy"
-    assert exposure.theme_exposure == pytest.approx(0.5)
-    assert exposure.theme_exposure_source == "manual_estimate"
+    assert exposure.market_beta_source == "manual_estimate"
+    assert exposure.theme_exposure == pytest.approx(0.7)
+    assert exposure.theme_exposure_source == "conviction_derived"
     assert exposure.overall_confidence == "low"

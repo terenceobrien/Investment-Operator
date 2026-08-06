@@ -16,6 +16,16 @@ from src.agent_system.schemas.common import Conviction, ConvictionRating
 from src.agent_system.schemas.trade import TradeIdea
 
 
+@pytest.fixture(autouse=True)
+def _use_jsonl_storage(monkeypatch):
+    monkeypatch.setenv("AGENT_STORAGE_BACKEND", "jsonl")
+    from src.agent_system.storage import backend as storage_backend
+
+    storage_backend._backend_singletons.clear()
+    yield
+    storage_backend._backend_singletons.clear()
+
+
 def test_run_stub_research_cycle_persists_accepted_and_rejected(tmp_path, monkeypatch):
     monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
     summary = run_stub_research_cycle()
@@ -24,7 +34,7 @@ def test_run_stub_research_cycle_persists_accepted_and_rejected(tmp_path, monkey
     assert summary["rejected"] >= 1
     assert summary["trade_ideas_saved"] == summary["decision_log_entries"]
     assert "ETN" in summary["accepted_underlyings"]
-    assert (tmp_path / "schema_records.jsonl").exists()
+    assert (tmp_path / "schema_records").is_dir()
     assert (tmp_path / "decision_log.jsonl").exists()
 
 

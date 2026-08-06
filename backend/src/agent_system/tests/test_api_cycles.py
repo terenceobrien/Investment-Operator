@@ -24,7 +24,17 @@ from src.agent_system.orchestration.run_research_cycle import (
 )
 from src.agent_system.orchestration.stub_agents import make_stub_regime_state
 from src.agent_system.paths import cycles_dir
-from src.agent_system.paths import schema_records_path
+from src.agent_system.storage.backend import get_backend
+
+
+@pytest.fixture(autouse=True)
+def _use_jsonl_storage(monkeypatch):
+    monkeypatch.setenv("AGENT_STORAGE_BACKEND", "jsonl")
+    from src.agent_system.storage import backend as storage_backend
+
+    storage_backend._backend_singletons.clear()
+    yield
+    storage_backend._backend_singletons.clear()
 
 
 def _write_status(cycle_id: str, *, started_at: datetime, status: StageStatus) -> None:
@@ -169,11 +179,7 @@ def test_api_worker_path_persists_schema_records(tmp_path, monkeypatch):
 
     cycle_runner._run_cycle_in_process("api-persisted", ["API persistence test thesis"])
 
-    rows = [
-        json.loads(line)
-        for line in schema_records_path().read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    ]
+    rows = get_backend().read_all(collection="schema_records")
     schema_types = {row["schema_type"] for row in rows}
     assert {"ResearchPriority", "ThematicMap", "Conviction", "TradeIdea"}.issubset(
         schema_types

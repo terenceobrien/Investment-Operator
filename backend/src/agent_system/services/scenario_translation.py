@@ -6,6 +6,7 @@ behavioral scenario IDs directly and this translation layer will be removed.
 """
 from __future__ import annotations
 
+import inspect
 import logging
 
 
@@ -31,6 +32,31 @@ BEHAVIORAL_SCENARIO_IDS: list[str] = [
     "growth_scare_no_credit",
     "credit_led_recession",
 ]
+_NARRATIVE_TRANSLATION_LOGGED = False
+
+
+def _log_narrative_translation_boundary(entry_point: str) -> None:
+    global _NARRATIVE_TRANSLATION_LOGGED
+    if _NARRATIVE_TRANSLATION_LOGGED:
+        return
+    _NARRATIVE_TRANSLATION_LOGGED = True
+    logging.getLogger("narrative_fossil").warning(
+        "narrative_translation_boundary_invoked",
+        extra={
+            "caller_module": _caller_module_name(),
+            "entry_point": entry_point,
+            "legacy_module": __name__,
+        },
+    )
+
+
+def _caller_module_name() -> str:
+    for frame_info in inspect.stack()[2:]:
+        module = inspect.getmodule(frame_info.frame)
+        module_name = getattr(module, "__name__", None)
+        if module_name and module_name != __name__:
+            return str(module_name)
+    return "unknown"
 
 
 def translate_narrative_to_behavioral(
@@ -42,6 +68,7 @@ def translate_narrative_to_behavioral(
     according to SCENARIO_TRANSLATION weights. Unrecognized scenario IDs are passed through
     unchanged with a warning.
     """
+    _log_narrative_translation_boundary("translate_narrative_to_behavioral")
     result: dict[str, float] = {sid: 0.0 for sid in BEHAVIORAL_SCENARIO_IDS}
     unrecognized: dict[str, float] = {}
 

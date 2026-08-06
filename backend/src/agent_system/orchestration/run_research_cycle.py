@@ -13,6 +13,7 @@ import asyncio
 import json
 import logging
 import os
+import sys
 import traceback
 from datetime import datetime, timezone
 from pathlib import Path
@@ -47,6 +48,21 @@ from src.agent_system.orchestration.cycle_status import (
     StageName,
     StageStatus,
 )
+from src.agent_system.forecasting.macro_scenario_source import (
+    CurrentConditionsView,
+    MacroScenarioSource,
+    MacroScenarioSourceConfig,
+    get_macro_scenario_source,
+    load_latest_narrative_macro_forecast_result,
+    load_macro_scenario_source_config,
+    preflight_ensemble_source,
+    regime_curation_payload_from_macro_source,
+    scenario_probabilities_from_macro_forecast,
+)
+from src.agent_system.forecasting.behavioral_scenarios_loader import (
+    EXPECTED_BEHAVIORAL_SCENARIO_IDS,
+    load_behavioral_scenarios,
+)
 from src.agent_system.rules.constraints import check_portfolio_constraints
 from src.agent_system.rules.conviction import evaluate_conviction
 from src.agent_system.rules.fundamental_screen import (
@@ -54,10 +70,11 @@ from src.agent_system.rules.fundamental_screen import (
     screen_to_minimal_fundamental_analysis,
 )
 from src.agent_system.positions.loader import load_latest_positions
-from src.agent_system.scenarios.loader import load_current_scenarios
 from src.agent_system.scenarios.scorer import score_trade_against_scenarios
 from src.agent_system.scenarios.types import (
-    DEFAULT_SCENARIO_PRIORS,
+    FactorImplications,
+    Scenario,
+    ScenarioSet,
     TradeScenarioAnalysis,
 )
 from src.agent_system.schemas.common import Conviction, ConvictionRating
@@ -287,50 +304,16 @@ def _portfolio_summary_text(plan: PortfolioPlan) -> str:
 
 
 def _load_latest_macro_forecast_result() -> tuple[MacroForecastResult, Path] | None:
-    reports_dir = (
-        Path(__file__).resolve().parents[3]
-        / "data"
-        / "agent_system"
-        / "reports"
-        / "macro_forecasts"
-    )
-    try:
-        candidates = sorted(
-            reports_dir.glob("macro_forecast_*.json"),
-            key=lambda path: path.stat().st_mtime,
-            reverse=True,
-        )
-        if not candidates:
-            logger.warning("No macro forecast JSON files found in %s", reports_dir)
-            return None
-        for path in candidates:
-            try:
-                payload = json.loads(path.read_text(encoding="utf-8"))
-                result = MacroForecastResult.model_validate(payload)
-                return result, path
-            except Exception as exc:
-                logger.warning("Failed to load macro forecast %s: %s", path, exc)
-        return None
-    except Exception as exc:
-        logger.warning("Unable to load latest macro forecast: %s", exc)
-        return None
+    loaded = load_latest_narrative_macro_forecast_result()
+    if loaded is None:
+        logger.warning("No readable narrative macro forecast JSON files found")
+    return loaded
 
 
 def _scenario_probabilities_from_macro_forecast(
     result: MacroForecastResult,
 ) -> dict[str, float] | None:
-    probabilities = (
-        result.scenario_probabilities_blended
-        or (
-            result.historical_calibration.blended_scenario_probabilities
-            if result.historical_calibration is not None
-            else None
-        )
-        or result.scenario_probabilities
-    )
-    if probabilities:
-        return {scenario_id: float(value) for scenario_id, value in probabilities.items()}
-    return None
+    return scenario_probabilities_from_macro_forecast(result)
 
 
 def _load_latest_macro_forecast_probabilities() -> dict[str, float] | None:
@@ -343,6 +326,43 @@ def _load_latest_macro_forecast_probabilities() -> dict[str, float] | None:
         return probabilities
     logger.warning("Macro forecast %s has no scenario probabilities", path)
     return None
+
+
+def _regime_with_macro_source(
+    regime: PydanticRegimeState,
+    macro_source: MacroScenarioSource,
+    *,
+    include_seed_priorities: bool = False,
+) -> PydanticRegimeState:
+    updates: dict[str, object] = {
+        "scenario_probabilities": dict(macro_source.scenario_probabilities),
+        "scenario_probability_source": "macro_forecast",
+    }
+    if include_seed_priorities:
+        updates["research_priorities"] = list(macro_source.seed_research_priorities)
+    read = macro_source.current_conditions.current_regime_read
+    if macro_source.taxonomy == "narrative_v0":
+        for field_name in ("regime_id", "regime_label", "headline", "summary", "risk_summary"):
+            value = read.get(field_name)
+            if value:
+                updates[field_name] = value
+        confidence = read.get("regime_call_confidence")
+        if confidence is not None:
+            updates["regime_call_confidence"] = confidence
+    elif macro_source.taxonomy == "behavioral_v1":
+        primary = str(read.get("primary_behavioral_scenario") or "")
+        label_by_id = {scenario.id: scenario.label for scenario in macro_source.scenario_set.scenarios}
+        summary = str(read.get("narrative_summary") or "")
+        if primary:
+            updates["regime_id"] = primary
+            updates["regime_label"] = label_by_id.get(primary, primary)
+        if summary:
+            updates["headline"] = summary[:1000]
+            updates["summary"] = summary[:3000]
+        tail_watch = macro_source.current_conditions.tail_watch
+        if tail_watch:
+            updates["risk_summary"] = "Tail watch: " + ", ".join(tail_watch)
+    return regime.model_copy_validate(updates)
 
 
 def _run_monte_carlo(
@@ -384,10 +404,10 @@ def _run_monte_carlo(
     if macro_scenario_probabilities:
         scenario_probabilities = macro_scenario_probabilities
     else:
-        logger.warning(
-            "Monte Carlo used fallback scenario priors; macro probabilities unavailable."
+        raise ValueError(
+            "Monte Carlo cannot run without macro scenario probabilities; "
+            "fallback DEFAULT_SCENARIO_PRIORS is retired by the two_source_v1 rewire."
         )
-        scenario_probabilities = DEFAULT_SCENARIO_PRIORS
     scenario_probabilities = translate_narrative_to_behavioral(scenario_probabilities)
 
     loader = ScenarioAssumptionsLoader()
@@ -411,6 +431,8 @@ def _execute_cycle(
     cycle_id: str | None = None,
     regime_source: str,
     fallback_reason: Optional[str],
+    macro_source_config: MacroScenarioSourceConfig | None = None,
+    macro_source: MacroScenarioSource | None = None,
     use_stub_thematic: bool = False,
     use_stub_fundamental: bool = False,
     use_stub_trade_expression: bool = False,
@@ -418,21 +440,26 @@ def _execute_cycle(
     emitter: CycleStatusEmitter | None = None,
 ) -> dict:
     cycle_id = cycle_id or (emitter.cycle_id if emitter is not None else str(uuid4()))
+    cycle_date = str(regime.asof_date)[:10]
+    if macro_source is None:
+        macro_source = _macro_source_for_cycle_date(cycle_date, macro_source_config)
+    macro_scenario_probabilities = dict(macro_source.scenario_probabilities)
+    scenario_set = macro_source.scenario_set
+    regime = _regime_with_macro_source(regime, macro_source)
     _print_research_priorities(regime)
-    latest_macro_forecast = _load_latest_macro_forecast_result()
     narrative_forecast: MacroForecastResult | None = None
-    if latest_macro_forecast is not None:
-        narrative_forecast, _narrative_forecast_path = latest_macro_forecast
-        macro_scenario_probabilities = _scenario_probabilities_from_macro_forecast(
-            narrative_forecast
-        )
-        if macro_scenario_probabilities is None:
-            logger.warning(
-                "Macro forecast %s has no scenario probabilities",
-                _narrative_forecast_path,
-            )
-    else:
-        macro_scenario_probabilities = None
+    if macro_source.taxonomy == "narrative_v0":
+        narrative_path = macro_source.provenance.get("narrative_forecast_path")
+        if narrative_path:
+            try:
+                payload = json.loads(Path(str(narrative_path)).read_text(encoding="utf-8"))
+                narrative_forecast = MacroForecastResult.model_validate(payload)
+            except Exception as exc:
+                logger.warning(
+                    "Shadow forecast comparison skipped: could not reload narrative forecast %s: %s",
+                    narrative_path,
+                    exc,
+                )
     _print_scenario_probabilities(macro_scenario_probabilities)
     # SHADOW MODE: run ensemble alongside, log comparison, consume nothing.
     try:
@@ -445,7 +472,6 @@ def _execute_cycle(
                 run_shadow_forecast,
             )
 
-            cycle_date = str(regime.asof_date)[:10]
             asof_quarter = cycle_date_to_asof_quarter(cycle_date)
             shadow = run_shadow_forecast(cycle_id, cycle_date, asof_quarter)
             if shadow is not None:
@@ -827,7 +853,6 @@ def _execute_cycle(
             )
 
     if not skip_portfolio_construction:
-        scenario_set = load_current_scenarios()
         scenario_analyses = []
         if scenario_set is None:
             logger.warning("no current scenarios loaded; skipping scenario scoring")
@@ -1057,6 +1082,8 @@ def _execute_cycle(
         "regime_source": regime_source,
         "regime_asof_date": regime.asof_date,
         "fallback_reason": fallback_reason,
+        "macro_scenario_source": macro_source.provenance.get("macro_forecast_source"),
+        "macro_scenario_taxonomy": macro_source.taxonomy,
         "thematic_agent_errors": thematic_agent_errors,
         "clarifications_received": clarifications_received,
         "fundamental_screened": fundamental_screened,
@@ -1142,9 +1169,213 @@ def _select_regime_state(
         return make_stub_regime_state(), "stub_fallback", f"adapter_failed: {e}"
 
 
+def _cycle_date_from_dataclass_regime(
+    dataclass_state,
+    *,
+    fallback: str | None = None,
+) -> str:
+    for field_name in ("asof_date", "as_of_date", "date"):
+        value = getattr(dataclass_state, field_name, None)
+        if value:
+            return str(value)[:10]
+    if fallback:
+        return str(fallback)[:10]
+    return datetime.now(timezone.utc).date().isoformat()
+
+
+def _macro_source_for_cycle_date(
+    cycle_date: str,
+    macro_source_config: MacroScenarioSourceConfig | None,
+) -> MacroScenarioSource:
+    source_config = macro_source_config or load_macro_scenario_source_config()
+    if source_config.macro_forecast_source == "ensemble":
+        preflight_ensemble_source(
+            cycle_date=cycle_date,
+            config=source_config,
+        )
+    return get_macro_scenario_source(
+        cycle_date=cycle_date,
+        config=source_config,
+    )
+
+
+def _stub_behavioral_macro_source(cycle_date: str) -> MacroScenarioSource:
+    """Explicit force-stub macro source with behavioral-v1 IDs only."""
+
+    probabilities = {
+        "expansion_disinflation": 0.24,
+        "late_cycle_expansion": 0.40,
+        "inflation_shock": 0.14,
+        "stagflation": 0.08,
+        "growth_scare_no_credit": 0.10,
+        "credit_led_recession": 0.04,
+    }
+    scenarios = load_behavioral_scenarios()
+    scenario_models: list[Scenario] = []
+    for scenario_id in EXPECTED_BEHAVIORAL_SCENARIO_IDS:
+        scenario = scenarios[scenario_id]
+        scenario_models.append(
+            Scenario(
+                id=scenario_id,
+                label=scenario.label,
+                probability=probabilities[scenario_id],
+                description=scenario.definition,
+                factor_implications=FactorImplications(
+                    rates=str(scenario.factor_implications["rates"]),
+                    equities=str(scenario.factor_implications["equities"]),
+                    dollar=str(scenario.factor_implications["dollar"]),
+                    credit=str(scenario.factor_implications["credit"]),
+                    commodities=str(scenario.factor_implications["commodities"]),
+                ),
+            )
+        )
+    scenario_set = ScenarioSet(
+        generated_at=datetime.now(timezone.utc),
+        regime_id_basis="force_stub_behavioral",
+        horizon_months=12,
+        scenarios=scenario_models,
+    )
+    seed_research_priorities = [
+        priority.model_copy_validate(
+            {
+                "source_scenario_ids": [
+                    "late_cycle_expansion",
+                    "expansion_disinflation",
+                ],
+                "source_macro_forecast_id": "force_stub_behavioral",
+            }
+        )
+        for priority in make_stub_regime_state().research_priorities
+    ]
+    current_conditions = CurrentConditionsView(
+        taxonomy="behavioral_v1",
+        as_of=str(cycle_date)[:10],
+        regime_id_basis="force_stub_behavioral",
+        current_regime_read={
+            "primary_behavioral_scenario": "late_cycle_expansion",
+            "secondary_behavioral_scenario": "expansion_disinflation",
+            "narrative_summary": (
+                "Explicit force-stub behavioral macro source for deterministic tests and local smoke runs."
+            ),
+            "tail_watch": ["credit_led_recession"],
+        },
+        tail_watch=["credit_led_recession"],
+        operator_prior_note="force_stub macro source; no production fallback was used.",
+        source_path=None,
+    )
+    return MacroScenarioSource(
+        taxonomy="behavioral_v1",
+        scenario_probabilities=probabilities,
+        scenario_set=scenario_set,
+        current_conditions=current_conditions,
+        seed_research_priorities=seed_research_priorities,
+        provenance={
+            "macro_forecast_source": "force_stub",
+            "cycle_date": str(cycle_date)[:10],
+            "probability_note": (
+                "Explicit force_stub behavioral probabilities for deterministic test/dev runs only."
+            ),
+        },
+    )
+
+
+def _macro_source_for_regime(
+    regime: PydanticRegimeState,
+    macro_source_config: MacroScenarioSourceConfig | None,
+    *,
+    cycle_date: str | None = None,
+) -> MacroScenarioSource:
+    resolved_cycle_date = cycle_date or str(regime.asof_date)[:10]
+    return _macro_source_for_cycle_date(resolved_cycle_date, macro_source_config)
+
+
+def _select_regime_state_with_macro_source(
+    *,
+    asof_date: Optional[str] = None,
+    macro_source_config: MacroScenarioSourceConfig | None = None,
+) -> tuple[PydanticRegimeState, str, Optional[str], MacroScenarioSource | None]:
+    """
+    Live-cycle regime selector.
+
+    Unlike the compatibility `_select_regime_state()`, this path never lets the
+    adapter independently read current_regime.yaml. It builds the coherent
+    MacroScenarioSource first and passes a source-derived curation payload into
+    the adapter.
+    """
+    try:
+        from src.state.regime_state import RegimeState as DataclassRegimeState
+    except ImportError as e:
+        regime = make_stub_regime_state()
+        cycle_date = asof_date or str(regime.asof_date)[:10]
+        macro_source = _stub_behavioral_macro_source(cycle_date)
+        return (
+            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            "stub_fallback",
+            f"import_failed: {e}",
+            macro_source,
+        )
+
+    try:
+        if asof_date is not None:
+            dataclass_state = DataclassRegimeState.load_snapshot(asof_date)
+        else:
+            dataclass_state = DataclassRegimeState.load_latest_snapshot()
+    except Exception as e:
+        regime = make_stub_regime_state()
+        cycle_date = asof_date or str(regime.asof_date)[:10]
+        macro_source = _stub_behavioral_macro_source(cycle_date)
+        return (
+            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            "stub_fallback",
+            f"snapshot_load_failed: {e}",
+            macro_source,
+        )
+
+    if dataclass_state is None:
+        regime = make_stub_regime_state()
+        cycle_date = asof_date or str(regime.asof_date)[:10]
+        macro_source = _stub_behavioral_macro_source(cycle_date)
+        return (
+            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            "stub_fallback",
+            "no_snapshot_found",
+            macro_source,
+        )
+
+    cycle_date = _cycle_date_from_dataclass_regime(dataclass_state, fallback=asof_date)
+    macro_source = _macro_source_for_cycle_date(cycle_date, macro_source_config)
+    curation_payload = regime_curation_payload_from_macro_source(macro_source)
+    try:
+        from src.agent_system.adapters.regime import adapt_regime_state
+        from src.agent_system.builders.forward_context import ForwardContextBuilder
+
+        forward_context = ForwardContextBuilder().build()
+        pydantic_state = adapt_regime_state(
+            dataclass_state,
+            forward_context=forward_context,
+            curation_payload=curation_payload,
+            scenario_probability_source="macro_forecast",
+        )
+        return pydantic_state, "real_snapshot", None, macro_source
+    except Exception as e:
+        if (
+            macro_source_config is not None
+            and macro_source_config.macro_forecast_source == "ensemble"
+        ):
+            raise
+        regime = make_stub_regime_state()
+        return (
+            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            "stub_fallback",
+            f"adapter_failed: {e}",
+            macro_source,
+        )
+
+
 def run_research_cycle(
     *,
     asof_date: Optional[str] = None,
+    macro_forecast_source: str | None = None,
     force_stub: bool = False,
     use_stub_thematic: bool = False,
     use_stub_fundamental: bool = False,
@@ -1167,6 +1398,8 @@ def run_research_cycle(
     Args:
         asof_date: Optional override to load a specific snapshot date
             in "YYYY-MM-DD" format. None means latest.
+        macro_forecast_source: Optional "narrative" or "ensemble" override.
+            Defaults to backend/src/agent_system/config/research_cycle.yaml.
         force_stub: If True, skip the real path entirely and use the
             stub regime. This does not by itself disable thematic LLM calls.
         use_stub_thematic: If True, use the deterministic thematic map
@@ -1188,14 +1421,27 @@ def run_research_cycle(
         fallback_reason added.
     """
     cycle_id, emitter = _ensure_status_emitter(cycle_id, emitter)
+    macro_source_config = load_macro_scenario_source_config(
+        macro_forecast_source=macro_forecast_source,
+    )
 
     if force_stub:
         regime = make_stub_regime_state()
         regime_source = "stub"
         fallback_reason = None
+        cycle_date = asof_date or str(regime.asof_date)[:10]
+        macro_source = _stub_behavioral_macro_source(cycle_date)
+        regime = _regime_with_macro_source(
+            regime,
+            macro_source,
+            include_seed_priorities=True,
+        )
     else:
-        regime, regime_source, fallback_reason = _select_regime_state(
-            asof_date=asof_date
+        regime, regime_source, fallback_reason, macro_source = (
+            _select_regime_state_with_macro_source(
+                asof_date=asof_date,
+                macro_source_config=macro_source_config,
+            )
         )
 
     if research_priorities is not None:
@@ -1206,6 +1452,8 @@ def run_research_cycle(
         cycle_id=cycle_id,
         regime_source=regime_source,
         fallback_reason=fallback_reason,
+        macro_source_config=macro_source_config,
+        macro_source=macro_source,
         use_stub_thematic=use_stub_thematic,
         use_stub_fundamental=use_stub_fundamental,
         use_stub_trade_expression=use_stub_trade_expression,
@@ -1220,6 +1468,7 @@ def run_cycle_with_inputs(
     cycle_id: str | None = None,
     emitter: CycleStatusEmitter | None = None,
     asof_date: Optional[str] = None,
+    macro_forecast_source: str | None = None,
     force_stub: bool = False,
     use_stub_thematic: bool = False,
     use_stub_fundamental: bool = False,
@@ -1241,14 +1490,27 @@ def run_cycle_with_inputs(
         emitter,
         user_inputs=cleaned_inputs,
     )
+    macro_source_config = load_macro_scenario_source_config(
+        macro_forecast_source=macro_forecast_source,
+    )
 
     if force_stub:
         regime = make_stub_regime_state()
         regime_source = "stub"
         fallback_reason = None
+        cycle_date = asof_date or str(regime.asof_date)[:10]
+        macro_source = _stub_behavioral_macro_source(cycle_date)
+        regime = _regime_with_macro_source(
+            regime,
+            macro_source,
+            include_seed_priorities=True,
+        )
     else:
-        regime, regime_source, fallback_reason = _select_regime_state(
-            asof_date=asof_date
+        regime, regime_source, fallback_reason, macro_source = (
+            _select_regime_state_with_macro_source(
+                asof_date=asof_date,
+                macro_source_config=macro_source_config,
+            )
         )
 
     priorities: list[ResearchPriority] = []
@@ -1333,6 +1595,8 @@ def run_cycle_with_inputs(
         cycle_id=cycle_id,
         regime_source=regime_source,
         fallback_reason=fallback_reason,
+        macro_source_config=macro_source_config,
+        macro_source=macro_source,
         use_stub_thematic=use_stub_thematic,
         use_stub_fundamental=use_stub_fundamental,
         use_stub_trade_expression=use_stub_trade_expression,
@@ -1343,6 +1607,7 @@ def run_cycle_with_inputs(
 
 def run_stub_research_cycle(
     *,
+    macro_forecast_source: str | None = None,
     use_stub_thematic: bool = True,
     use_stub_fundamental: bool = True,
     use_stub_trade_expression: bool = True,
@@ -1361,11 +1626,23 @@ def run_stub_research_cycle(
     tests, while detailed artifacts live in JSONL storage.
     """
     cycle_id, emitter = _ensure_status_emitter(None, emitter)
+    macro_source_config = load_macro_scenario_source_config(
+        macro_forecast_source=macro_forecast_source,
+    )
+    regime = make_stub_regime_state()
+    macro_source = _stub_behavioral_macro_source(str(regime.asof_date)[:10])
+    regime = _regime_with_macro_source(
+        regime,
+        macro_source,
+        include_seed_priorities=True,
+    )
     return _execute_cycle(
-        make_stub_regime_state(),
+        regime,
         cycle_id=cycle_id,
         regime_source="stub",
         fallback_reason=None,
+        macro_source_config=macro_source_config,
+        macro_source=macro_source,
         use_stub_thematic=use_stub_thematic,
         use_stub_fundamental=use_stub_fundamental,
         use_stub_trade_expression=use_stub_trade_expression,
@@ -1374,7 +1651,27 @@ def run_stub_research_cycle(
     )
 
 
+def _main_preflight_ensemble(argv: list[str]) -> dict:
+    parser = argparse.ArgumentParser(
+        description="Preflight the ensemble macro scenario source for a cycle date."
+    )
+    parser.add_argument(
+        "--cycle-date",
+        default=datetime.now(timezone.utc).date().isoformat(),
+        help="Cycle date in YYYY-MM-DD form. Defaults to today.",
+    )
+    args = parser.parse_args(argv)
+    config = load_macro_scenario_source_config(macro_forecast_source="ensemble")
+    report = preflight_ensemble_source(cycle_date=args.cycle_date, config=config)
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return report
+
+
 def main(argv: list[str] | None = None) -> dict:
+    raw_args = list(sys.argv[1:] if argv is None else argv)
+    if raw_args and raw_args[0] == "preflight-ensemble":
+        return _main_preflight_ensemble(raw_args[1:])
+
     parser = argparse.ArgumentParser(
         description="Run a research cycle (real thematic agent by default)."
     )
@@ -1387,6 +1684,20 @@ def main(argv: list[str] | None = None) -> dict:
         "--asof-date",
         default=None,
         help="Optional YYYY-MM-DD snapshot date. Defaults to latest snapshot.",
+    )
+    parser.add_argument(
+        "--cycle-date",
+        default=None,
+        help="Alias for --asof-date; used to make ensemble anchor selection explicit.",
+    )
+    parser.add_argument(
+        "--macro-forecast-source",
+        choices=("narrative", "ensemble"),
+        default=None,
+        help=(
+            "Override research_cycle.yaml macro_forecast_source. Defaults to ensemble; "
+            "narrative remains available as rollback while v0 modules are present."
+        ),
     )
     parser.add_argument(
         "--use-stub-thematic",
@@ -1423,13 +1734,17 @@ def main(argv: list[str] | None = None) -> dict:
             "portfolio construction. Useful for cheap upstream iteration."
         ),
     )
-    args = parser.parse_args(argv)
+    args = parser.parse_args(raw_args)
+    if args.asof_date and args.cycle_date and args.asof_date != args.cycle_date:
+        raise ValueError("--asof-date and --cycle-date must match when both are supplied")
+    resolved_asof_date = args.asof_date or args.cycle_date
     cycle_id = str(uuid4())
     emitter = CycleStatusEmitter(cycle_id)
     _print_cli_cycle_start(cycle_id, emitter)
     try:
         summary = run_research_cycle(
-            asof_date=args.asof_date,
+            asof_date=resolved_asof_date,
+            macro_forecast_source=args.macro_forecast_source,
             force_stub=args.stub,
             use_stub_thematic=args.use_stub_thematic,
             use_stub_fundamental=args.use_stub_fundamental,

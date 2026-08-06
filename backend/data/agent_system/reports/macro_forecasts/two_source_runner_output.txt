@@ -1,0 +1,618 @@
+Failed to get ticker 'HYG' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+1 Failed download:
+['HYG']: DNSError('Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+Failed to get ticker 'TLT' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+1 Failed download:
+['TLT']: DNSError('Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+Failed to get ticker '^VIX' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$^VIX: possibly delisted; no timezone found
+
+1 Failed download:
+['^VIX']: possibly delisted; no timezone found
+Failed to get ticker '^VIX3M' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$^VIX3M: possibly delisted; no timezone found
+
+1 Failed download:
+['^VIX3M']: possibly delisted; no timezone found
+Failed to get ticker '^VVIX' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$^VVIX: possibly delisted; no timezone found
+
+1 Failed download:
+['^VVIX']: possibly delisted; no timezone found
+Failed to get ticker '^SKEW' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$^SKEW: possibly delisted; no timezone found
+
+1 Failed download:
+['^SKEW']: possibly delisted; no timezone found
+Failed to get ticker 'XLK' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLK: possibly delisted; no timezone found
+
+1 Failed download:
+['XLK']: possibly delisted; no timezone found
+Failed to get ticker 'XLF' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLF: possibly delisted; no timezone found
+
+1 Failed download:
+['XLF']: possibly delisted; no timezone found
+Failed to get ticker 'XLV' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLV: possibly delisted; no timezone found
+
+1 Failed download:
+['XLV']: possibly delisted; no timezone found
+Failed to get ticker 'XLY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLY: possibly delisted; no timezone found
+
+1 Failed download:
+['XLY']: possibly delisted; no timezone found
+Failed to get ticker 'XLP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLP: possibly delisted; no timezone found
+
+1 Failed download:
+['XLP']: possibly delisted; no timezone found
+Failed to get ticker 'XLE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLE: possibly delisted; no timezone found
+
+1 Failed download:
+['XLE']: possibly delisted; no timezone found
+Failed to get ticker 'XLI' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLI: possibly delisted; no timezone found
+
+1 Failed download:
+['XLI']: possibly delisted; no timezone found
+Failed to get ticker 'XLB' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLB: possibly delisted; no timezone found
+
+1 Failed download:
+['XLB']: possibly delisted; no timezone found
+Failed to get ticker 'XLU' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLU: possibly delisted; no timezone found
+
+1 Failed download:
+['XLU']: possibly delisted; no timezone found
+Failed to get ticker 'XLRE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLRE: possibly delisted; no timezone found
+
+1 Failed download:
+['XLRE']: possibly delisted; no timezone found
+Failed to get ticker 'XLC' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLC: possibly delisted; no timezone found
+
+1 Failed download:
+['XLC']: possibly delisted; no timezone found
+Failed to get ticker 'RSP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$RSP: possibly delisted; no timezone found
+
+1 Failed download:
+['RSP']: possibly delisted; no timezone found
+Failed to get ticker 'SPY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$SPY: possibly delisted; no timezone found
+
+1 Failed download:
+['SPY']: possibly delisted; no timezone found
+Failed to get ticker 'XLK' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLK: possibly delisted; no timezone found
+
+1 Failed download:
+['XLK']: possibly delisted; no timezone found
+Failed to get ticker 'XLF' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLF: possibly delisted; no timezone found
+
+1 Failed download:
+['XLF']: possibly delisted; no timezone found
+Failed to get ticker 'XLV' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLV: possibly delisted; no timezone found
+
+1 Failed download:
+['XLV']: possibly delisted; no timezone found
+Failed to get ticker 'XLY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLY: possibly delisted; no timezone found
+
+1 Failed download:
+['XLY']: possibly delisted; no timezone found
+Failed to get ticker 'XLP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLP: possibly delisted; no timezone found
+
+1 Failed download:
+['XLP']: possibly delisted; no timezone found
+Failed to get ticker 'XLE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLE: possibly delisted; no timezone found
+
+1 Failed download:
+['XLE']: possibly delisted; no timezone found
+Failed to get ticker 'XLI' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLI: possibly delisted; no timezone found
+
+1 Failed download:
+['XLI']: possibly delisted; no timezone found
+Failed to get ticker 'XLB' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLB: possibly delisted; no timezone found
+
+1 Failed download:
+['XLB']: possibly delisted; no timezone found
+Failed to get ticker 'XLU' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLU: possibly delisted; no timezone found
+
+1 Failed download:
+['XLU']: possibly delisted; no timezone found
+Failed to get ticker 'XLRE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLRE: possibly delisted; no timezone found
+
+1 Failed download:
+['XLRE']: possibly delisted; no timezone found
+Failed to get ticker 'XLC' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLC: possibly delisted; no timezone found
+
+1 Failed download:
+['XLC']: possibly delisted; no timezone found
+Failed to get ticker 'XLK' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLK: possibly delisted; no timezone found
+
+1 Failed download:
+['XLK']: possibly delisted; no timezone found
+Failed to get ticker 'XLF' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLF: possibly delisted; no timezone found
+
+1 Failed download:
+['XLF']: possibly delisted; no timezone found
+Failed to get ticker 'XLV' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLV: possibly delisted; no timezone found
+
+1 Failed download:
+['XLV']: possibly delisted; no timezone found
+Failed to get ticker 'XLY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLY: possibly delisted; no timezone found
+
+1 Failed download:
+['XLY']: possibly delisted; no timezone found
+Failed to get ticker 'XLP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLP: possibly delisted; no timezone found
+
+1 Failed download:
+['XLP']: possibly delisted; no timezone found
+Failed to get ticker 'XLE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLE: possibly delisted; no timezone found
+
+1 Failed download:
+['XLE']: possibly delisted; no timezone found
+Failed to get ticker 'XLI' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLI: possibly delisted; no timezone found
+
+1 Failed download:
+['XLI']: possibly delisted; no timezone found
+Failed to get ticker 'XLB' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLB: possibly delisted; no timezone found
+
+1 Failed download:
+['XLB']: possibly delisted; no timezone found
+Failed to get ticker 'XLU' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLU: possibly delisted; no timezone found
+
+1 Failed download:
+['XLU']: possibly delisted; no timezone found
+Failed to get ticker 'XLRE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLRE: possibly delisted; no timezone found
+
+1 Failed download:
+['XLRE']: possibly delisted; no timezone found
+Failed to get ticker 'XLC' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+$XLC: possibly delisted; no timezone found
+
+1 Failed download:
+['XLC']: possibly delisted; no timezone found
+Failed to get ticker 'IWM' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'TLT' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'HYG' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'GLD' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker '^VIX' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'BTC-USD' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'SPY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'QQQ' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'USO' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'RSP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'DIA' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+11 Failed downloads:
+['IWM', 'TLT', 'HYG', 'GLD', '^VIX', 'BTC-USD', 'SPY', 'QQQ', 'USO', 'RSP', 'DIA']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'IWM' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'TLT' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'HYG' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'GLD' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker '^VIX' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'BTC-USD' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'SPY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'QQQ' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'USO' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'RSP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'DIA' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+11 Failed downloads:
+['IWM', 'TLT', 'HYG', 'GLD', '^VIX', 'BTC-USD', 'SPY', 'QQQ', 'USO', 'RSP', 'DIA']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'IWM' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'TLT' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'HYG' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'GLD' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker '^VIX' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'BTC-USD' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'SPY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'QQQ' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'USO' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'RSP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'DIA' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+11 Failed downloads:
+['IWM', 'TLT', 'HYG', 'GLD', '^VIX', 'BTC-USD', 'SPY', 'QQQ', 'USO', 'RSP', 'DIA']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'XLF' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLU' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLV' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLRE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLB' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLK' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLC' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLI' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+11 Failed downloads:
+['XLF', 'XLP', 'XLU', 'XLV', 'XLE', 'XLRE', 'XLY', 'XLB', 'XLK', 'XLC', 'XLI']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'XLF' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLU' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLV' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLRE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLB' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLK' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLC' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLI' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+11 Failed downloads:
+['XLF', 'XLP', 'XLU', 'XLV', 'XLE', 'XLRE', 'XLY', 'XLB', 'XLK', 'XLC', 'XLI']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'XLF' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLP' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLU' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLV' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLRE' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLB' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLK' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLC' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+Failed to get ticker 'XLI' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+11 Failed downloads:
+['XLF', 'XLP', 'XLU', 'XLV', 'XLE', 'XLRE', 'XLY', 'XLB', 'XLK', 'XLC', 'XLI']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'SPY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+1 Failed download:
+['SPY']: TypeError("'NoneType' object is not subscriptable")
+Failed to get ticker 'SPY' reason: Failed to perform, curl: (6) Could not resolve host: guce.yahoo.com. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+
+1 Failed download:
+['SPY']: TypeError("'NoneType' object is not subscriptable")
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l1dcachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l2cachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l3cachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.neon'. Detail: [errno 1] Operation not permitted
+
+Fetching regime inputs for 2026-07-31...
+  Fetching monetary & liquidity data...
+FRED fetch failed for WALCL: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+FRED fetch failed for WTREGEN: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+FRED fetch failed for RRPONTSYD: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+FRED fetch failed for NFCI: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+FRED fetch failed for M2SL: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+  Fetching credit & stress data...
+FRED fetch failed for BAMLH0A0HYM2: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+FRED fetch failed for BAMLC0A0CM: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+  Fetching volatility structure data...
+  Fetching breadth & participation data...
+    sectors_green (historical)=0/11
+  Fetching positioning & sentiment data...
+    cboe_pcr: skipped for historical backfill (option chains are point-in-time only)
+    cboe_pcr: failed or unavailable for historical date
+    cftc_cot: failed — HTTPSConnectionPool(host='publicreporting.cftc.gov', port=443): Max retries exceeded with url: /resource/jun7-fc8e.json?%24where=cftc_contract_market_code%3D%2713874A%27+AND+report_date_as_yyyy_mm_dd+%3C%3D+%272026-07-31%27&%24order=report_date_as_yyyy_mm_dd+DESC&%24limit=120 (Caused by NameResolutionError("HTTPSConnection(host='publicreporting.cftc.gov', port=443): Failed to resolve 'publicreporting.cftc.gov' ([Errno 8] nodename nor servname provided, or not known)"))
+    cftc_cot: failed — skipping
+    aaii_bull_minus_bear=-2.8pp
+    dealer_gamma: requires SpotGamma API — skipping
+    Positioning inputs populated: 1/3
+Done. Fields populated: 3/30
+Forecast complete.
+As-of date: 2026-07-31
+Horizon: 3m
+Probability mode: two_source_v1
+Input mode: hybrid_raw_inputs
+Volatility inputs: included
+Historical analogues: retired; directional analogue evidence enters via mixture
+
+Two-source mixture:
+  BVAR artifact: /Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2026Q2_20260731T024437Z.json
+  BVAR asof: 2026Q2
+  BVAR generated_at: 2026-07-31T02:44:37Z
+  BVAR handoff_fingerprint: 6f2cc04e81580097
+  alpha: 0.300
+  s/trailing_max: 52.8%
+  evidence state: scored
+  stress advisory: False
+  Scenario decomposition:
+    late_cycle_expansion: bvar=53.9% analogue=25.5% mixed=45.4% final=45.4% delta=-8.5%
+    expansion_disinflation: bvar=23.6% analogue=11.1% mixed=19.8% final=19.8% delta=-3.7%
+    credit_led_recession: bvar=0.0% analogue=52.8% mixed=15.8% final=15.8% delta=15.8%
+    inflation_shock: bvar=16.2% analogue=7.7% mixed=13.7% final=13.7% delta=-2.6%
+    growth_scare_no_credit: bvar=3.8% analogue=1.8% mixed=3.2% final=3.2% delta=-0.6%
+    stagflation: bvar=2.4% analogue=1.1% mixed=2.0% final=2.0% delta=-0.4%
+  BVAR model_limitations:
+    credit_tail_magnitude: conservative
+    detail: credit_led_recession probability is directionally correct and correctly ordered across anchors (elevated at pre-crisis configurations vs benign calm), but magnitudes are conservative. The crisis-honest regime labeling (~6% stress fraction) limits transition events available to the entry-probability logistic, lowering stress entry rates. Operator judgment should lean against the model on acute credit-stress setups the model may under-weight.
+    known_future_fix: decouple entry-threshold (looser, more transition events) from dynamics-threshold (tight, crisis-pure) so p_enter is estimated from a broader pre-stress configuration while stress vol/correlation stay crisis-specific.
+    quarterly_frequency_note: fast crash-and-rebound events (e.g. 2020Q2) are smoothed by quarterly frequency and may be underrepresented.
+DOCX report disabled by --no-docx
+JSON forecast saved to: data/agent_system/reports/macro_forecasts/macro_forecast_2026-07-31_20260803T165229Z.json
+Current regime YAML saved to: data/agent_system/reports/macro_forecasts/current_regime_2026-07-31.yaml
+
+Warnings:
+* Volatility raw input coverage incomplete; missing: vix_level, vix_z_20d, vix_term_slope, vvix_level, vvix_z, put_call_ratio, skew_index.
+* STALE BVAR forecast: artifact asof_quarter=2026Q2, current_calendar_quarter=2026Q3, age_quarters=1. Rebuild with: PYTHONPATH=backend python3 -m src.agent_system.forecasting.bvar_ensemble.cli forecast --asof-quarter 2026Q3
+
+Macro Forecast Report
+As of: 2026-07-31 | Horizon: 3m
+
+0. Forecast Interpretation
+Headline: Forecast favors Late-Cycle Expansion in the behavioral two-source mix.
+Summary: The model assigns the highest probability to Late-Cycle Expansion at 45.4%; runner-up expansion_disinflation at 19.8%. Probabilities are a linear mixture of BVAR soft posteriors and directional analogue evidence; analogue state is scored with trailing recession share 52.8%. Deterministic signal layers are retained as monitoring and falsifier evidence only.
+Dominant Scenario: late_cycle_expansion (45.4%)
+Regime Read: Late-Cycle Expansion leads; top macro-supported themes are Payroll Human Capital, Quality ex-AI cash flow, Environmental Services.
+Preferred Exposures: Payroll Human Capital, Quality ex-AI cash flow, Environmental Services, Auto Parts Salvage, Engineering Construction, Quality, High beta growth, Duration sensitivity
+Exposures To Avoid: Healthcare defensives
+Key Tensions: Credit is healthy but breadth is weak or narrow., Fed path remains restrictive despite some monetary-layer improvement., Oil risk remains two-sided between inflation pressure and reopening relief., AI earnings resilience remains a monitoring-only falsifier, not a probability input.
+Confidence: medium - Dominant scenario probability is 45.4% with a 25.6% gap to the next scenario. The only floor is the uniform 0.1% numerical guard applied after the BVAR-plus-analogue mixture.
+
+1. Scenario Probabilities
+Scenario | BVAR Soft | Analogue Implied | Mixed Pre-Floor | Final | Delta vs BVAR | Floor Guard
+late_cycle_expansion | 53.9% | 25.5% | 45.4% | 45.4% | -8.5% | False
+expansion_disinflation | 23.6% | 11.1% | 19.8% | 19.8% | -3.7% | False
+credit_led_recession | 0.0% | 52.8% | 15.8% | 15.8% | 15.8% | False
+inflation_shock | 16.2% | 7.7% | 13.7% | 13.7% | -2.6% | False
+growth_scare_no_credit | 3.8% | 1.8% | 3.2% | 3.2% | -0.6% | False
+stagflation | 2.4% | 1.1% | 2.0% | 2.0% | -0.4% | False
+
+2. Scenario Probability Math
+Probability mode: two_source_v1
+Combination: linear_mixture
+Alpha: 0.300 | alpha_effective: 0.300
+Analogue trailing share s: 52.8% | base rate b: 27.3%
+Evidence state: scored
+Stress advisory: False
+Numerical floor: 0.1% (Uniform numerical floor applied after mixing and renormalized; not a judgmental scenario floor.)
+BVAR artifact: /Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2026Q2_20260731T024437Z.json
+BVAR asof_quarter: 2026Q2 | generated_at: 2026-07-31T02:44:37Z
+BVAR handoff_fingerprint: 6f2cc04e81580097
+BVAR model_limitations:
+  credit_tail_magnitude: conservative
+  detail: credit_led_recession probability is directionally correct and correctly ordered across anchors (elevated at pre-crisis configurations vs benign calm), but magnitudes are conservative. The crisis-honest regime labeling (~6% stress fraction) limits transition events available to the entry-probability logistic, lowering stress entry rates. Operator judgment should lean against the model on acute credit-stress setups the model may under-weight.
+  known_future_fix: decouple entry-threshold (looser, more transition events) from dynamics-threshold (tight, crisis-pure) so p_enter is estimated from a broader pre-stress configuration while stress vol/correlation stay crisis-specific.
+  quarterly_frequency_note: fast crash-and-rebound events (e.g. 2020Q2) are smoothed by quarterly frequency and may be underrepresented.
+BVAR warnings:
+  STALE BVAR forecast: artifact asof_quarter=2026Q2, current_calendar_quarter=2026Q3, age_quarters=1. Rebuild with: PYTHONPATH=backend python3 -m src.agent_system.forecasting.bvar_ensemble.cli forecast --asof-quarter 2026Q3
+
+3. Historical Analogue Calibration
+Legacy rolling historical calibration is retired in the runner. Directional analogue evidence enters only through the two-source mixture above.
+
+4. Forecast Input Set
+Monitoring — no probability impact.
+Forecast Input Warnings:
+- Volatility raw input coverage incomplete; missing: vix_level, vix_z_20d, vix_term_slope, vvix_level, vvix_z, put_call_ratio, skew_index.
+
+4.1 Layer Summary Signals
+Layer | Score | Status | Confidence/Data Quality | Probability Impact? | Key Signals | Raw Components Attached
+monetary | 5.32 | mixed/improving | 0.75/high | No | Net liquidity contracting — structural headwind Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated. | fed_path
+credit | 8.43 | bullish/stable | 1.00/high | No | HY spreads tight (284bps) — credit healthy | -
+volatility | 6.86 | bullish/stable | 0.85/high | No | Volatility layer converted from RegimeState. | -
+breadth | 6.76 | mixed/improving | 0.75/high | No | Sector ADL slope rising — participation broadening Breadth has a neutral absolute score with a improving trend, so signal strength is moderated. | sectors_green
+positioning | 5.38 | mixed/stable | 1.00/high | No | Equity put/call elevated (1.04) — retail fear, contrarian bullish setup | aaii_bull_minus_bear
+
+4.2 Raw Component Signals
+Input | Parent Layer | Raw Value | Transformed Value | Status | Trend | Confidence | Probability Impact? | Top Scenario Effects
+Fed path 2026-06-17 | monetary | 0.80 | n/a | bearish | stable | 0.75 | No | sticky_late_cycle_ai increases 0.45, oil_inflation_tail increases 0.35, reopening_soft_landing decreases 0.45
+Sectors Green | breadth | 0.00 | n/a | bearish | deteriorating | 0.72 | No | sticky_late_cycle_ai increases 0.24, late_cycle_risk_off increases 0.18, reopening_soft_landing decreases 0.22
+Aaii Bull Minus Bear | positioning | -2.78 | n/a | neutral | stable | 0.65 | No | none
+
+4.3 Composite Signals
+Composite | Parent Layer | Signal | Confidence | Probability Impact? | Child Signals | Scenario Effects
+Monetary policy composite | monetary | mixed | 0.64 | No | monetary_conditions, fed_path | sticky_late_cycle_ai increases 0.25, oil_inflation_tail increases 0.20, reopening_soft_landing decreases 0.25
+
+4.4 Market/Tape Signals
+Input | Raw Value | Status | Confidence | Probability Impact? | Horizon/Dedupe Effect | Top Scenario Effects
+none
+
+4.5 Regime-Specific Drivers
+Driver | Parent Layer | Signal | Confidence | Active Regime | Scenario Effects
+AI earnings resilience | earnings | bullish | 0.36 | two_sided_oil_shock_broadening_watch | sticky_late_cycle_ai increases 0.65, ai_capex_rollover decreases 0.55
+Oil shock and reopening optionality | commodities | mixed | 0.36 | two_sided_oil_shock_broadening_watch | oil_inflation_tail increases 0.45, reopening_soft_landing increases 0.35
+
+4.6 Scenario Falsifiers
+Falsifier | Related Scenarios | Signal | Confidence | Current Value | Scenario Effects
+Hyperscaler capex rollover falsifier | ai_capex_rollover, sticky_late_cycle_ai | bullish | 0.55 | not_triggered | ai_capex_rollover decreases 0.25, sticky_late_cycle_ai increases 0.20
+
+4.7 Dedupe / Weighting Notes
+- Layer summaries are generated from Helix regime layer scores.
+- Raw components are generated from underlying RegimeInputs fields when available.
+- Market/tape signals are generated from MarketState when provided.
+- Regime drivers and scenario falsifiers are generated from active regime context.
+- Input dedupe mode: hybrid.
+- In hybrid mode, layer summaries provide base scenario impacts and raw components act as modifiers within the same parent layer.
+- Dedupe caps prevent one layer from dominating through many correlated inputs.
+- Market/tape inputs are horizon-weighted for horizon 3m.
+- All deterministic signal inputs are Monitoring — no probability impact in two_source_v1.
+
+5. Monetary Composite Detail
+Composite Signal: mixed
+Composite Confidence: 0.64
+Probability impact: No
+Composite Method: Reconciles the monetary layer with near-term Fed hold/hike pricing; component monetary signals are displayed but excluded from scenario math.
+Component: Monetary layer | signal=mixed | confidence=0.75 | display_only=True | probability_impact=No
+Component: Fed path 2026-06-17 | signal=bearish | confidence=0.75 | display_only=True | probability_impact=No
+Assigned Scenario Impacts: sticky_late_cycle_ai increases 0.25, oil_inflation_tail increases 0.20, reopening_soft_landing decreases 0.25
+
+6. Theme Rankings - Macro Support Score
+# | Theme | Macro Support Score | Best Scenarios | Worst Scenarios | Scenario Contribution Breakdown | Interpretation
+Note: Theme rankings in the macro forecast are based only on macro/scenario support. The score is the probability-weighted scenario exposure of each theme. Crowding, valuation, narrative maturity, consensus gap, and ticker-level dispersion are intentionally excluded here and evaluated by downstream agents.
+Deprecated overlay fields may exist in historical records but are not used in current macro ranking.
+1 | Payroll Human Capital | +1.86 | late_cycle_expansion, expansion_disinflation, inflation_shock | none | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.59; Inflation shock (supply-driven reacceleration) +0.27; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) +0.02; Credit-led recession (spread blowout + contraction) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+2 | Quality ex-AI cash flow | +1.72 | late_cycle_expansion, expansion_disinflation, inflation_shock | none | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.59; Inflation shock (supply-driven reacceleration) +0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) +0.02; Credit-led recession (spread blowout + contraction) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+3 | Environmental Services | +1.53 | late_cycle_expansion, expansion_disinflation, inflation_shock | credit_led_recession | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.59; Credit-led recession (spread blowout + contraction) -0.16; Inflation shock (supply-driven reacceleration) +0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.03; Stagflation (weak growth + persistent inflation) +0.02 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+4 | Auto Parts Salvage | +1.46 | late_cycle_expansion, expansion_disinflation, credit_led_recession | none | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Expansion with disinflation (broadening / soft landing) +0.40; Credit-led recession (spread blowout + contraction) +0.32; Inflation shock (supply-driven reacceleration) +0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.10; Stagflation (weak growth + persistent inflation) +0.06 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+5 | Engineering Construction | +1.33 | late_cycle_expansion, expansion_disinflation, growth_scare_no_credit | credit_led_recession, stagflation | Late-cycle expansion (narrow, capex-led, sticky inflation) +1.36; Credit-led recession (spread blowout + contraction) -0.48; Expansion with disinflation (broadening / soft landing) +0.40; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) -0.02; Inflation shock (supply-driven reacceleration) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+6 | Quality AI leaders | +1.05 | late_cycle_expansion, expansion_disinflation, growth_scare_no_credit | credit_led_recession, inflation_shock, stagflation | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.40; Credit-led recession (spread blowout + contraction) -0.16; Inflation shock (supply-driven reacceleration) -0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) -0.02 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+7 | Insurance Brokers | +1.05 | late_cycle_expansion, expansion_disinflation, growth_scare_no_credit | credit_led_recession | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.40; Credit-led recession (spread blowout + contraction) -0.32; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Inflation shock (supply-driven reacceleration) +0.00; Stagflation (weak growth + persistent inflation) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+8 | Defense and geopolitics | +0.96 | late_cycle_expansion, inflation_shock, credit_led_recession | none | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Inflation shock (supply-driven reacceleration) +0.27; Credit-led recession (spread blowout + contraction) +0.16; Stagflation (weak growth + persistent inflation) +0.04; Growth scare, credit healthy (equity-led, no funding stress) +0.03; Expansion with disinflation (broadening / soft landing) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+9 | Industrial Distribution | +0.74 | late_cycle_expansion, expansion_disinflation, growth_scare_no_credit | credit_led_recession, inflation_shock | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Credit-led recession (spread blowout + contraction) -0.32; Expansion with disinflation (broadening / soft landing) +0.20; Inflation shock (supply-driven reacceleration) -0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) +0.02 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+10 | High-beta AI semiconductors | +0.73 | late_cycle_expansion, expansion_disinflation | credit_led_recession, inflation_shock, growth_scare_no_credit | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.59; Credit-led recession (spread blowout + contraction) -0.48; Inflation shock (supply-driven reacceleration) -0.14; Growth scare, credit healthy (equity-led, no funding stress) -0.10; Stagflation (weak growth + persistent inflation) -0.06 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+11 | Grid and power infrastructure | +0.60 | late_cycle_expansion, expansion_disinflation | credit_led_recession, inflation_shock, growth_scare_no_credit | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Credit-led recession (spread blowout + contraction) -0.48; Expansion with disinflation (broadening / soft landing) +0.40; Inflation shock (supply-driven reacceleration) -0.14; Growth scare, credit healthy (equity-led, no funding stress) -0.10; Stagflation (weak growth + persistent inflation) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+12 | Electrical Equipment | +0.58 | late_cycle_expansion, expansion_disinflation | credit_led_recession, inflation_shock, growth_scare_no_credit | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Expansion with disinflation (broadening / soft landing) +0.40; Credit-led recession (spread blowout + contraction) -0.32; Inflation shock (supply-driven reacceleration) -0.27; Growth scare, credit healthy (equity-led, no funding stress) -0.10; Stagflation (weak growth + persistent inflation) -0.04 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+13 | Commodities and real assets | +0.52 | late_cycle_expansion, inflation_shock, stagflation | credit_led_recession, growth_scare_no_credit | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Inflation shock (supply-driven reacceleration) +0.41; Credit-led recession (spread blowout + contraction) -0.32; Growth scare, credit healthy (equity-led, no funding stress) -0.06; Stagflation (weak growth + persistent inflation) +0.04; Expansion with disinflation (broadening / soft landing) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+14 | Financial Data Exchanges | +0.48 | expansion_disinflation, late_cycle_expansion, growth_scare_no_credit | credit_led_recession, inflation_shock, stagflation | Expansion with disinflation (broadening / soft landing) +0.59; Credit-led recession (spread blowout + contraction) -0.48; Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Inflation shock (supply-driven reacceleration) -0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) -0.02 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+15 | Long-duration growth | +0.44 | late_cycle_expansion, expansion_disinflation, growth_scare_no_credit | credit_led_recession, inflation_shock, stagflation | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Expansion with disinflation (broadening / soft landing) +0.40; Credit-led recession (spread blowout + contraction) -0.32; Inflation shock (supply-driven reacceleration) -0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) -0.02 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+16 | Memory semiconductors | +0.43 | late_cycle_expansion, expansion_disinflation | credit_led_recession, inflation_shock, growth_scare_no_credit | Late-cycle expansion (narrow, capex-led, sticky inflation) +0.91; Credit-led recession (spread blowout + contraction) -0.48; Expansion with disinflation (broadening / soft landing) +0.40; Inflation shock (supply-driven reacceleration) -0.27; Growth scare, credit healthy (equity-led, no funding stress) -0.06; Stagflation (weak growth + persistent inflation) -0.06 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+17 | Small caps | +0.33 | late_cycle_expansion, expansion_disinflation | credit_led_recession, stagflation | Credit-led recession (spread blowout + contraction) -0.48; Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Expansion with disinflation (broadening / soft landing) +0.40; Stagflation (weak growth + persistent inflation) -0.04; Inflation shock (supply-driven reacceleration) +0.00; Growth scare, credit healthy (equity-led, no funding stress) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+18 | Energy and oil beta | +0.19 | late_cycle_expansion, inflation_shock, stagflation | credit_led_recession, expansion_disinflation, growth_scare_no_credit | Credit-led recession (spread blowout + contraction) -0.48; Late-cycle expansion (narrow, capex-led, sticky inflation) +0.45; Inflation shock (supply-driven reacceleration) +0.41; Expansion with disinflation (broadening / soft landing) -0.20; Growth scare, credit healthy (equity-led, no funding stress) -0.06; Stagflation (weak growth + persistent inflation) +0.06 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+19 | Cash and short duration | +0.00 | none | none | Expansion with disinflation (broadening / soft landing) +0.00; Late-cycle expansion (narrow, capex-led, sticky inflation) +0.00; Inflation shock (supply-driven reacceleration) +0.00; Stagflation (weak growth + persistent inflation) +0.00; Growth scare, credit healthy (equity-led, no funding stress) +0.00; Credit-led recession (spread blowout + contraction) +0.00 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+20 | Healthcare defensives | -0.09 | credit_led_recession, inflation_shock, growth_scare_no_credit | late_cycle_expansion, expansion_disinflation | Late-cycle expansion (narrow, capex-led, sticky inflation) -0.45; Credit-led recession (spread blowout + contraction) +0.32; Expansion with disinflation (broadening / soft landing) -0.20; Inflation shock (supply-driven reacceleration) +0.14; Growth scare, credit healthy (equity-led, no funding stress) +0.06; Stagflation (weak growth + persistent inflation) +0.04 | Macro-supported research direction; downstream agents evaluate crowding, valuation, narrative maturity, consensus gap, and ticker quality.
+
+6a. Theme Macro Support Math
+Payroll Human Capital: +1.861
+  Late-cycle expansion (narrow, capex-led, sticky inflation): 45.4% x +2.0 = +0.908
+  Expansion with disinflation (broadening / soft landing): 19.8% x +3.0 = +0.595
+  Inflation shock (supply-driven reacceleration): 13.7% x +2.0 = +0.273
+  Growth scare, credit healthy (equity-led, no funding stress): 3.2% x +2.0 = +0.065
+  Stagflation (weak growth + persistent inflation): 2.0% x +1.0 = +0.020
+  Credit-led recession (spread blowout + contraction): 15.8% x +0.0 = +0.000
+  Net: +1.861 (positive +1.861, negative +0.000)
+Quality ex-AI cash flow: +1.725
+  Late-cycle expansion (narrow, capex-led, sticky inflation): 45.4% x +2.0 = +0.908
+  Expansion with disinflation (broadening / soft landing): 19.8% x +3.0 = +0.595
+  Inflation shock (supply-driven reacceleration): 13.7% x +1.0 = +0.137
+  Growth scare, credit healthy (equity-led, no funding stress): 3.2% x +2.0 = +0.065
+  Stagflation (weak growth + persistent inflation): 2.0% x +1.0 = +0.020
+  Credit-led recession (spread blowout + contraction): 15.8% x +0.0 = +0.000
+  Net: +1.725 (positive +1.725, negative +0.000)
+Environmental Services: +1.534
+  Late-cycle expansion (narrow, capex-led, sticky inflation): 45.4% x +2.0 = +0.908
+  Expansion with disinflation (broadening / soft landing): 19.8% x +3.0 = +0.595
+  Credit-led recession (spread blowout + contraction): 15.8% x -1.0 = -0.158
+  Inflation shock (supply-driven reacceleration): 13.7% x +1.0 = +0.137
+  Growth scare, credit healthy (equity-led, no funding stress): 3.2% x +1.0 = +0.032
+  Stagflation (weak growth + persistent inflation): 2.0% x +1.0 = +0.020
+  Net: +1.534 (positive +1.692, negative -0.158)
+Auto Parts Salvage: +1.462
+  Late-cycle expansion (narrow, capex-led, sticky inflation): 45.4% x +1.0 = +0.454
+  Expansion with disinflation (broadening / soft landing): 19.8% x +2.0 = +0.397
+  Credit-led recession (spread blowout + contraction): 15.8% x +2.0 = +0.317
+  Inflation shock (supply-driven reacceleration): 13.7% x +1.0 = +0.137
+  Growth scare, credit healthy (equity-led, no funding stress): 3.2% x +3.0 = +0.097
+  Stagflation (weak growth + persistent inflation): 2.0% x +3.0 = +0.061
+  Net: +1.462 (positive +1.462, negative +0.000)
+Engineering Construction: +1.328
+  Late-cycle expansion (narrow, capex-led, sticky inflation): 45.4% x +3.0 = +1.362
+  Credit-led recession (spread blowout + contraction): 15.8% x -3.0 = -0.475
+  Expansion with disinflation (broadening / soft landing): 19.8% x +2.0 = +0.397
+  Growth scare, credit healthy (equity-led, no funding stress): 3.2% x +2.0 = +0.065
+  Stagflation (weak growth + persistent inflation): 2.0% x -1.0 = -0.020
+  Inflation shock (supply-driven reacceleration): 13.7% x +0.0 = +0.000
+  Net: +1.328 (positive +1.823, negative -0.496)
+
+7. Sector & Instrument Rankings
+# | Sector/Instrument | Score | Top Theme Drivers
+1 | XLI | +0.91 | Quality ex-AI cash flow +0.34, Grid and power infrastructure +0.33, Defense and geopolitics +0.24
+2 | XLK | +0.79 | Quality AI leaders +0.47, High-beta AI semiconductors +0.18, Long-duration growth +0.07
+3 | SMH | +0.75 | High-beta AI semiconductors +0.40, Quality AI leaders +0.26, Memory semiconductors +0.09
+4 | XLU | +0.73 | Grid and power infrastructure +0.39, Quality ex-AI cash flow +0.34, Cash and short duration +0.00
+5 | DBC | +0.42 | Commodities and real assets +0.37, Energy and oil beta +0.06
+6 | XLV | +0.36 | Quality ex-AI cash flow +0.43, Healthcare defensives -0.07
+7 | IWM | +0.36 | Small caps +0.27, Long-duration growth +0.09
+8 | XLE | +0.27 | Energy and oil beta +0.14, Commodities and real assets +0.13
+9 | SHY | +0.00 | Cash and short duration +0.00
+
+8. Factor Rankings
+# | Factor | Score | Top Theme Drivers
+1 | Quality | +0.94 | Quality ex-AI cash flow +0.60, Quality AI leaders +0.37, Healthcare defensives -0.03
+2 | High beta growth | +0.52 | High-beta AI semiconductors +0.26, Long-duration growth +0.11, Memory semiconductors +0.11
+3 | Duration sensitivity | +0.41 | Long-duration growth +0.31, Small caps +0.10
+4 | Commodity beta | +0.37 | Commodities and real assets +0.29, Energy and oil beta +0.08
+5 | Small-cap beta | +0.33 | Small caps +0.33
+6 | Defensive factor | +0.30 | Quality ex-AI cash flow +0.34, Healthcare defensives -0.04, Cash and short duration +0.00
+7 | Cash and carry | +0.00 | Cash and short duration +0.00
+
+9. Probability Shifters / Watchlist
+Deterministic probability shifters are retired; monitoring signals and falsifiers remain display-only.
+
+10. Recommended Research Priorities
+1. Payroll Human Capital candidates with explicit scenario asymmetry tests
+   Rationale: Payroll Human Capital has a positive macro support score with support from Late-cycle expansion (narrow, capex-led, sticky inflation), Expansion with disinflation (broadening / soft landing), Inflation shock (supply-driven reacceleration). Research should focus on instruments that keep downside manageable in no single dominant scenario, then test crowding, valuation, narrative maturity, and bottom-up quality downstream. Current regime: Reopening / Soft Landing narrowly leads a contested tape; sticky AI leadership remains a near-equal runner-up. Top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.. Key drivers: Breadth / participation, AI earnings resilience, Credit conditions.
+   Edge: The market may be underpricing payroll human capital exposures that benefit from the current scenario mix while retaining acceptable downside in the least favorable macro paths.
+2. Quality ex-AI cash-flow compounders with soft-landing and sticky-cycle resilience
+   Rationale: Quality ex-AI ranks highly because it performs well across Late-cycle expansion (narrow, capex-led, sticky inflation), Expansion with disinflation (broadening / soft landing), Inflation shock (supply-driven reacceleration). Downstream research should test whether specific names are genuinely under-owned, attractively valued, and supported by revisions. Current regime: Reopening / Soft Landing narrowly leads a contested tape; sticky AI leadership remains a near-equal runner-up. Top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.. Key drivers: Breadth / participation, AI earnings resilience, Credit conditions.
+   Edge: Macro support may favor high-ROIC cash-generative businesses outside explicit AI leadership, but the actionable edge depends on downstream proof of under-ownership, valuation support, and durable estimate revisions.
+3. Environmental Services candidates with explicit scenario asymmetry tests
+   Rationale: Environmental Services has a positive macro support score with support from Late-cycle expansion (narrow, capex-led, sticky inflation), Expansion with disinflation (broadening / soft landing), Inflation shock (supply-driven reacceleration). Research should focus on instruments that keep downside manageable in Credit-led recession (spread blowout + contraction), then test crowding, valuation, narrative maturity, and bottom-up quality downstream. Current regime: Reopening / Soft Landing narrowly leads a contested tape; sticky AI leadership remains a near-equal runner-up. Top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.. Key drivers: Breadth / participation, AI earnings resilience, Credit conditions.
+   Edge: The market may be underpricing environmental services exposures that benefit from the current scenario mix while retaining acceptable downside in the least favorable macro paths.
+
+11. Input Signal Detail
+monetary_conditions: Net liquidity contracting — structural headwind Monetary layer has a neutral absolute score with a improving trend, so signal strength is moderated.
+  Scenario impacts: reopening_soft_landing increases 0.17, late_cycle_risk_off decreases 0.12
+  Theme impacts: small_caps positive 0.12, long_duration_growth positive 0.15
+credit_conditions: HY spreads tight (284bps) — credit healthy
+  Scenario impacts: late_cycle_risk_off decreases 0.70, reopening_soft_landing increases 0.40, sticky_late_cycle_ai increases 0.25
+  Theme impacts: quality_ai positive 0.35, cash_short_duration neutral 0.10, small_caps positive 0.20
+volatility_layer_summary: Volatility layer converted from RegimeState.
+  Scenario impacts: late_cycle_risk_off decreases 0.30, reopening_soft_landing increases 0.20, sticky_late_cycle_ai increases 0.10
+  Theme impacts: quality_ai positive 0.15, small_caps positive 0.10, cash_short_duration negative 0.10
+market_breadth: Sector ADL slope rising — participation broadening Breadth has a neutral absolute score with a improving trend, so signal strength is moderated.
+  Scenario impacts: reopening_soft_landing increases 0.28, sticky_late_cycle_ai decreases 0.17, late_cycle_risk_off decreases 0.15
+  Theme impacts: small_caps positive 0.25, long_duration_growth positive 0.12
+positioning_hedging: Equity put/call elevated (1.04) — retail fear, contrarian bullish setup
+  Scenario impacts: reopening_soft_landing increases 0.20, late_cycle_risk_off increases 0.20
+  Theme impacts: quality_ai positive 0.15, cash_short_duration positive 0.20
+fed_path: CME FedWatch readings as of 2026-05-19
+  Scenario impacts: sticky_late_cycle_ai increases 0.45, oil_inflation_tail increases 0.35, reopening_soft_landing decreases 0.45
+  Theme impacts: cash_short_duration positive 0.60, long_duration_growth negative 0.50
+sectors_green: sectors_green raw value 0.00.
+  Scenario impacts: sticky_late_cycle_ai increases 0.24, late_cycle_risk_off increases 0.18, reopening_soft_landing decreases 0.22
+  Theme impacts: quality_ai positive 0.14, small_caps negative 0.22
+aaii_bull_minus_bear: aaii_bull_minus_bear raw value -2.78.
+monetary_policy_composite: Composite reconciles layer score 5.32, layer signal mixed with Fed hold/hike probability 80%, cut probability 20%, Fed signal bearish. Component signals are displayed but excluded from probability updates. High hold/hike odds keep policy from being treated as outright bullish.
+  Scenario impacts: sticky_late_cycle_ai increases 0.25, oil_inflation_tail increases 0.20, reopening_soft_landing decreases 0.25
+  Theme impacts: cash_short_duration positive 0.35, long_duration_growth negative 0.30, quality_ex_ai_cash_flow positive 0.15
+ai_earnings_resilience: bullish/stable data-center-tied capital spending remains durable and revision-supported ai infrastructure leaders can keep working even if the broader backdrop is fragile. this is the main force keeping sticky late-cycle ai a near-equal runner-up.
+  Scenario impacts: sticky_late_cycle_ai increases 0.65, ai_capex_rollover decreases 0.55
+  Theme impacts: quality_ai positive 0.65, grid_power_infrastructure positive 0.45, high_beta_ai_semis positive 0.25
+oil_reopening_optionality: mixed/mixed still inflationary but now two-sided. oil remains elevated versus pre-shock levels, but reopening and de-escalation headlines have reduced one-way upside pressure (uso -17.3% over 3m). energy remains a useful hedge, but the trade is tactical and headline-sensitive.
+  Scenario impacts: oil_inflation_tail increases 0.45, reopening_soft_landing increases 0.35
+  Theme impacts: energy_oil_beta positive 0.50, commodities_real_assets positive 0.35
+hyperscaler_capex_falsifier_not_triggered: Hyperscaler capex guidance weakens materially.
+  Scenario impacts: ai_capex_rollover decreases 0.25, sticky_late_cycle_ai increases 0.20
+  Theme impacts: quality_ai positive 0.25, grid_power_infrastructure positive 0.20
+
+12. Methodology Notes
+Input construction:
+Layer summaries, raw components, market/tape signals, regime drivers, and falsifiers are generated for monitoring only.
+Probability sources:
+BVAR contribution = scenario_probabilities_soft from the behavioral-v1 ensemble artifact.
+Analogue contribution = directional analogue trailing maximum of the PIT-observable shrunk recession share.
+Mixture:
+analogue_implied allocates recession and non-recession group mass using the BVAR within-group proportions.
+mixed_probability_s = (1 - alpha) × bvar_soft_s + alpha × analogue_implied_s
+final_probability_s = apply uniform 0.1% numerical floor, then renormalize.
+Retired probability paths:
+Hardcoded priors, deterministic contribution updates, YAML prior overrides, hand-tuned scenario floors/caps, and legacy rolling historical calibration have no probability impact in two_source_v1.
+Theme score:
+macro_support_score_t = Σ scenario_probability_s × behavioral_v1_theme_exposure_score_t,s
+theme_contribution_t,s = scenario_probability_s × theme_exposure_score_t,s
+ranking_score_t = macro_support_score_t
+Sector/factor score:
+sector_score = Σ theme_macro_support_score_t × sector_theme_weight_t
+factor_score = Σ theme_macro_support_score_t × factor_theme_weight_t
+Macro forecast theme rankings intentionally exclude valuation, crowding, narrative maturity, consensus gap, and ticker-level quality. Those are evaluated by downstream research agents.

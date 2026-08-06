@@ -1,7 +1,10 @@
 """Current-regime YAML handoff export for the thematic agent."""
 from __future__ import annotations
 
+import inspect
+import logging
 import re
+import warnings
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -13,6 +16,56 @@ from src.agent_system.schemas.current_regime import (
     CurrentRegimeSeedResearchPriority,
 )
 from src.agent_system.schemas.macro_forecast import MacroForecastResult, MacroInputSignal
+from src.agent_system.forecasting.macro_scenario_source import (
+    MacroScenarioSource,
+    regime_curation_payload_from_macro_source,
+)
+from src.agent_system.forecasting.scenario_classifier.analogue_evidence import (
+    compact_analogue_report_for_yaml,
+)
+
+
+TWO_SOURCE_REWIRE_MESSAGE = (
+    "legacy build_current_regime_handoff is retired by the two_source_v1 rewire; "
+    "use build_current_regime_handoff_from_macro_source."
+)
+
+
+class CurrentRegimeExportError(RuntimeError):
+    """Raised when a retired current-regime export path is called."""
+
+
+_NARRATIVE_FOSSIL_EMITTED = False
+
+
+def _emit_legacy_handoff_invocation(entry_point: str) -> None:
+    global _NARRATIVE_FOSSIL_EMITTED
+    if _NARRATIVE_FOSSIL_EMITTED:
+        return
+    _NARRATIVE_FOSSIL_EMITTED = True
+    caller_module = _caller_module_name()
+    warnings.warn(
+        "legacy narrative current-regime handoff is retired by the two_source_v1 rewire.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    logging.getLogger("narrative_fossil").warning(
+        "legacy_narrative_current_regime_handoff_invoked",
+        extra={
+            "caller_module": caller_module,
+            "entry_point": entry_point,
+            "legacy_module": __name__,
+        },
+    )
+
+
+def _caller_module_name() -> str:
+    for frame_info in inspect.stack()[2:]:
+        module = inspect.getmodule(frame_info.frame)
+        module_name = getattr(module, "__name__", None)
+        if module_name and module_name != __name__:
+            return str(module_name)
+    return "unknown"
 
 
 def _clamp(value: float | None, default: float = 0.50) -> float:
@@ -28,6 +81,12 @@ def _slugify(value: str) -> str:
 
 def _scenario_name(scenario_id: str) -> str:
     labels = {
+        "expansion_disinflation": "Expansion Disinflation",
+        "late_cycle_expansion": "Late-Cycle Expansion",
+        "inflation_shock": "Inflation Shock",
+        "stagflation": "Stagflation",
+        "growth_scare_no_credit": "Growth Scare, No Credit",
+        "credit_led_recession": "Credit-Led Recession",
         "reopening_soft_landing": "Reopening / Soft Landing",
         "sticky_late_cycle_ai": "Sticky Late Cycle AI",
         "oil_inflation_tail": "Oil Inflation Tail",
@@ -268,6 +327,7 @@ def _falsifiers(result: MacroForecastResult) -> list[CurrentRegimeFalsifier]:
 def _priority_from_theme(theme, rank: int) -> CurrentRegimeSeedResearchPriority:
     label = theme.label or theme.theme_id or f"Theme {rank}"
     return CurrentRegimeSeedResearchPriority(
+        scenario_taxonomy="behavioral_v1",
         theme=label,
         rationale=f"{label} ranks highly on macro support in the current forecast.",
         edge_hypothesis=(
@@ -294,6 +354,7 @@ def _seed_research_priorities(
     for index, item in enumerate(result.recommended_research_priorities[:max_seed_priorities], 1):
         priorities.append(
             CurrentRegimeSeedResearchPriority(
+                scenario_taxonomy="behavioral_v1",
                 theme=item.theme,
                 rationale=item.rationale,
                 edge_hypothesis=item.edge_hypothesis,
@@ -317,25 +378,45 @@ def build_current_regime_handoff(
     forecast_result: MacroForecastResult,
     max_seed_priorities: int = 5,
 ) -> CurrentRegimeHandoff:
-    """Convert a finalized MacroForecastResult into thematic-agent YAML content."""
+    """Retired narrative-v0 handoff path retained as a fail-loud stub."""
 
-    interpretation = forecast_result.forecast_interpretation
-    headline = interpretation.headline if interpretation is not None else "Macro forecast regime handoff"
-    return CurrentRegimeHandoff(
-        regime_id=_regime_id(forecast_result),
-        regime_label=_regime_label(forecast_result),
-        regime_call_confidence=_confidence(forecast_result),
-        headline=headline,
-        summary=_summary(forecast_result),
-        risk_summary=_risk_summary(forecast_result),
-        scenario_probabilities=dict(forecast_result.scenario_probabilities),
-        key_drivers=_key_drivers(forecast_result),
-        portfolio_implications=_portfolio_implications(forecast_result),
-        best_positioned=_best_positioned(forecast_result),
-        most_vulnerable=_most_vulnerable(forecast_result),
-        falsifiers=_falsifiers(forecast_result),
-        seed_research_priorities=_seed_research_priorities(forecast_result, max_seed_priorities),
+    _emit_legacy_handoff_invocation("build_current_regime_handoff")
+    raise CurrentRegimeExportError(TWO_SOURCE_REWIRE_MESSAGE)
+
+
+def build_current_regime_handoff_from_macro_source(
+    macro_source: MacroScenarioSource,
+    *,
+    analogue_report_override: dict[str, Any] | None = None,
+    fan_artifact_path: str | None = None,
+) -> CurrentRegimeHandoff:
+    """Build a taxonomy-aware handoff from the coherent macro source service."""
+
+    payload = regime_curation_payload_from_macro_source(macro_source)
+    payload["scenario_taxonomy"] = macro_source.taxonomy
+    analogue_report = analogue_report_override or payload.get("analogue_evidence")
+    compact_report = compact_analogue_report_for_yaml(
+        analogue_report,
+        fan_artifact_path=fan_artifact_path,
     )
+    payload["analogue_evidence"] = compact_report
+    payload["mixture_decomposition"] = compact_report
+    decomposition = payload.get("probability_decomposition")
+    if isinstance(decomposition, dict):
+        for key in ("analogue_mixture", "analogue_evidence"):
+            if isinstance(decomposition.get(key), dict):
+                decomposition[key] = compact_analogue_report_for_yaml(
+                    decomposition[key],
+                    fan_artifact_path=fan_artifact_path,
+                )
+    seed_payloads: list[dict[str, Any]] = []
+    for item in payload.get("seed_research_priorities", []) or []:
+        if isinstance(item, dict):
+            updated = dict(item)
+            updated["scenario_taxonomy"] = macro_source.taxonomy
+            seed_payloads.append(updated)
+    payload["seed_research_priorities"] = seed_payloads
+    return CurrentRegimeHandoff.model_validate(payload)
 
 
 def _fallback_yaml(value: Any, indent: int = 0) -> str:

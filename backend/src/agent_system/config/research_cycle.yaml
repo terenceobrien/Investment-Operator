@@ -1,0 +1,11 @@
+# Research-cycle orchestration controls.
+#
+# macro_forecast_source defaults to ensemble now that the behavioral BVAR path is
+# coherent across scenario probabilities, scenario definitions, the current-regime /
+# seed-priority handoff, and taxonomy-aware theme exposure lookup.
+#
+# Reversibility remains supported while v0 modules are still present: set
+# macro_forecast_source: narrative, or pass --macro-forecast-source narrative, to
+# roll back to the narrative-v0 source. Retiring v0 is a later increment.
+macro_forecast_source: ensemble
+analogue_evidence_enabled: true

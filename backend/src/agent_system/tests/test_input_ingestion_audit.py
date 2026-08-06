@@ -16,13 +16,16 @@ from src.agent_system.diagnostics.input_ingestion_audit import (
     input_audit_warnings_from_input_set,
     provenance_summary_rows_from_input_set,
 )
+from src.agent_system.forecasting import macro_forecast_runner as runner
 from src.agent_system.forecasting.input_signals import build_forecast_input_set
 from src.agent_system.forecasting.macro_forecast_runner import run_macro_forecast
 from src.agent_system.orchestration.stub_agents import make_stub_regime_state
 from src.agent_system.reporting.macro_forecast_docx import generate_macro_forecast_docx
-from src.agent_system.schemas.macro_forecast import HistoricalCalibrationConfig, MacroInputSignal
+from src.agent_system.schemas.macro_forecast import MacroInputSignal
 from src.state.market_state import MarketState
 from src.state.regime_data import RegimeInputs
+
+from two_source_fixtures import patch_two_source_runner
 
 
 def _raw_inputs() -> RegimeInputs:
@@ -249,12 +252,12 @@ def test_ingestion_audit_saves_csv_xlsx_json_and_required_columns(monkeypatch, t
     assert "Group Summary" in workbook_xml
 
 
-def test_report_contains_input_provenance_and_auditable_key_signals(tmp_path):
+def test_report_contains_input_provenance_and_auditable_key_signals(monkeypatch, tmp_path):
+    patch_two_source_runner(monkeypatch, runner)
     result = run_macro_forecast(
         make_stub_regime_state(),
         raw_inputs=_raw_inputs(),
         market_state=_market_state(),
-        historical_calibration_config=HistoricalCalibrationConfig(enabled=False),
     )
 
     path = generate_macro_forecast_docx(result, tmp_path / "macro_forecast.docx")
