@@ -1,0 +1,151 @@
+{
+  "cycle_id": "2ab10019-3378-4a5e-9a35-2f97f17ee3f1",
+  "started_at": "2026-07-10T02:26:20.223125Z",
+  "updated_at": "2026-07-10T02:34:37.248467Z",
+  "completed_at": "2026-07-10T02:34:37.248461Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-07-10T02:26:20.251635Z",
+      "completed_at": "2026-07-10T02:26:20.251645Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-07-10T02:26:21.849464Z",
+      "completed_at": "2026-07-10T02:32:35.093091Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-07-10T02:28:59.474635Z",
+      "completed_at": "2026-07-10T02:32:35.095391Z",
+      "message": "screened 11 candidate(s)",
+      "progress_current": 11,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-07-10T02:29:04.801705Z",
+      "completed_at": "2026-07-10T02:32:35.096271Z",
+      "message": "saved 8 trade idea(s)",
+      "progress_current": 11,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "complete",
+      "started_at": "2026-07-10T02:29:04.805109Z",
+      "completed_at": "2026-07-10T02:32:35.097004Z",
+      "message": "attempted 4 trade expression(s)",
+      "progress_current": 4,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "complete",
+      "started_at": "2026-07-10T02:32:35.105787Z",
+      "completed_at": "2026-07-10T02:34:30.343952Z",
+      "message": "scored 4 trade(s)",
+      "progress_current": 4,
+      "progress_total": 4,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "complete",
+      "started_at": "2026-07-10T02:34:30.786685Z",
+      "completed_at": "2026-07-10T02:34:37.246936Z",
+      "message": "portfolio plan executed 3 trade(s)",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "monte_carlo",
+      "status": "skipped",
+      "started_at": "2026-07-10T02:34:36.360378Z",
+      "completed_at": "2026-07-10T02:34:37.236386Z",
+      "message": "simulation failed: Scenario return assumptions file is missing: data/reference/scenario_return_assumptions.json",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "2ab10019-3378-4a5e-9a35-2f97f17ee3f1",
+    "regime_id": "7e1ed8f4-7447-42fd-ac7d-c5172f505151",
+    "thematic_maps": 1,
+    "candidates_considered": 11,
+    "trade_ideas_saved": 8,
+    "accepted": 4,
+    "rejected": 7,
+    "decision_log_entries": 8,
+    "accepted_underlyings": [
+      "PH",
+      "MCO",
+      "GWW",
+      "CARR"
+    ],
+    "rejected_underlyings": [
+      "BKNG",
+      "JPM",
+      "ROK",
+      "CB",
+      "MCK",
+      "GE",
+      "COWZ"
+    ],
+    "regime_source": "real_snapshot",
+    "regime_asof_date": "2026-06-05",
+    "fallback_reason": null,
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 11,
+    "fundamental_eliminated": 3,
+    "fundamental_passed": 8,
+    "crowding_flags": 3,
+    "trade_expressions_attempted": 4,
+    "trade_expressions_succeeded": 4,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 3,
+    "trade_stocks_selected": 1,
+    "trade_rejections_pre_expression": 4,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 3,
+    "portfolio_trades_reduced": 1,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.1,
+    "portfolio_binding_constraints": [
+      "robustness_demotion"
+    ],
+    "existing_position_filter_enabled": true,
+    "existing_position_filter": {
+      "demoted_same_hypothesis": 0,
+      "same_hypothesis_recently_closed": 0,
+      "cross_hypothesis_confirming": 0,
+      "cross_hypothesis_tension": 0
+    },
+    "monte_carlo_result": null,
+    "_existing_position_filter_report": null,
+    "_portfolio_summary_text": "═══ PORTFOLIO PLAN ═══\nNAV: $18,289.57\nNew deployment: $1,828.96 (10.0% of NAV)\nCash remaining if executed: $2,984.44 (16.3% of NAV)\n\nBy priority:\n  Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk: 4 trades, 10.0% of NAV\n\nBinding constraints: robustness_demotion\n\nDecisions:\n  EXECUTE  PH     PH                                     5.0% of NAV (proposed 5.0%; scenario-weighted exp. return 29.6%; weights=macro_forecast)\n  EXECUTE  MCO    MCO                                    2.0% of NAV (proposed 2.0%; scenario-weighted exp. return 1.8%; weights=macro_forecast)\n  REDUCED  GWW    GWW                                    1.0% of NAV (proposed 2.0%; scenario-weighted exp. return 42.1%; weights=macro_forecast)\n  EXECUTE  CARR   CARR                                   2.0% of NAV (proposed 2.0%; scenario-weighted exp. return 40.7%; weights=macro_forecast)"
+  },
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

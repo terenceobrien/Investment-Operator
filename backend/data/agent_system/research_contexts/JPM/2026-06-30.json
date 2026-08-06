@@ -1,0 +1,1641 @@
+{
+  "ticker": "JPM",
+  "as_of_date": "2026-06-30",
+  "created_at": "2026-06-30T14:21:52.359461",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "status": "not_found",
+      "source_name": "SEC EDGAR",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "No recent SEC 8-K exhibit confidently classified as earnings release."
+    },
+    {
+      "source_type": "company_ir",
+      "document_purpose": "other",
+      "status": "not_found",
+      "source_name": "Company investor relations",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated company IR retrieval not implemented in v1."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/0000019617-26-000241-index-headers.html",
+      "accession_number": "0000019617-26-000241",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/0000019617-26-000241-index.html",
+      "accession_number": "0000019617-26-000241",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/0000019617-26-000241.txt",
+      "accession_number": "0000019617-26-000241",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/jpm-20260624.htm",
+      "accession_number": "0000019617-26-000241",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000241/jpmcpressrelease06252026.htm",
+      "accession_number": "0000019617-26-000241",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/0001628280-26-045169-index-headers.html",
+      "accession_number": "0001628280-26-045169",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/0001628280-26-045169-index.html",
+      "accession_number": "0001628280-26-045169",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/0001628280-26-045169.txt",
+      "accession_number": "0001628280-26-045169",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/jpm-20260624.htm",
+      "accession_number": "0001628280-26-045169",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/0001628280-26-045167-index-headers.html",
+      "accession_number": "0001628280-26-045167",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/0001628280-26-045167-index.html",
+      "accession_number": "0001628280-26-045167",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/0001628280-26-045167.txt",
+      "accession_number": "0001628280-26-045167",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpm-20260624.htm",
+      "accession_number": "0001628280-26-045167",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/0001193125-26-253533-index-headers.html",
+      "accession_number": "0001193125-26-253533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/0001193125-26-253533-index.html",
+      "accession_number": "0001193125-26-253533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/0001193125-26-253533.txt",
+      "accession_number": "0001193125-26-253533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/d113536d8k.htm",
+      "accession_number": "0001193125-26-253533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526253533/d113536dex51.htm",
+      "accession_number": "0001193125-26-253533",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-27",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/0001193125-26-242018-index-headers.html",
+      "accession_number": "0001193125-26-242018",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-27",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/0001193125-26-242018-index.html",
+      "accession_number": "0001193125-26-242018",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-27",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/0001193125-26-242018.txt",
+      "accession_number": "0001193125-26-242018",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-27",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/d51433d8k.htm",
+      "accession_number": "0001193125-26-242018",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-27",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526242018/d51433dex991.htm",
+      "accession_number": "0001193125-26-242018",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/0000019617-26-000228-index-headers.html",
+      "accession_number": "0000019617-26-000228",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/0000019617-26-000228-index.html",
+      "accession_number": "0000019617-26-000228",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/0000019617-26-000228.txt",
+      "accession_number": "0000019617-26-000228",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000228/jpm-20260519.htm",
+      "accession_number": "0000019617-26-000228",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-07",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000119312526211978/0001193125-26-211978-index-headers.html",
+      "accession_number": "0001193125-26-211978",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "error",
+      "source_name": "FMP earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "FMP transcript retrieval failed: HTTP Error 401: Unauthorized"
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "error",
+      "source_name": "Finnhub earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Finnhub transcript retrieval failed: HTTP Error 403: Forbidden"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "error",
+      "source_name": "NewsAPI company news",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=8a94fa4e829af1d33aaf2e155e81c81a186824000617ec84b6dc35172cdfe7d3",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=f37869294df390c47a6b0e455b8a4716db266b470a38abaef480afbf37c5ce92",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=90375ff2ac11117613050562a74026d9e363b9165657a752489ad9832ab212f8",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=21fbb7d233b5ef01e47e3f6ffaf620fe01965b4eb89b31cf3f62def8c21e7f97",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=36323080414e37512a2f329a9472fd37d1076240621ba22ce863f0b87196ece8",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-29",
+      "source_url": "https://finnhub.io/api/news?id=289ab362e4391d3ef89601eeda341500831aaa2a15925e65eda5993e7c761945",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-29",
+      "source_url": "https://finnhub.io/api/news?id=9ce9979c0c932a2ff5385212eeb53c471231dfd86a3ac873374bcb3702ab185a",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-29",
+      "source_url": "https://finnhub.io/api/news?id=700fdc138ae8cb5988476c67c41e796c7a8385e3b14e65c0816d8cb713123b27",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-29",
+      "source_url": "https://finnhub.io/api/news?id=b14b31a32793181de242f5a3ac8e0508838929548e62ba0d44eaa41355f37bfa",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-29",
+      "source_url": "https://finnhub.io/api/news?id=67211c0aae9bd678d26de15cefaf489c72cf1767eb0aa4adfc3d8f82be628cbe",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "status": "found",
+      "source_name": "yfinance",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "document_purpose": "peer_commentary",
+      "status": "skipped",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: BAC, C, WFC."
+    }
+  ],
+  "source_coverage_summary": "company_ir:company_ir_not_found=1; earnings_release:sec_not_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:news_found=10; news:newsapi_error=1; other_8k:sec_found=24; peer_commentary:peer_commentary_skipped=1; stress_test:sec_found=6; transcript:finnhub_error=1; transcript:fmp_error=1; extraction_selected=19",
+  "earnings_release_evidence": [],
+  "filing_evidence": [
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase disclosed that Chase will become the new issuer of Apple Card and entered a forward purchase commitment to acquire the Apple credit card portfolio, with closing expected approximately 24 months after December 30, 2025.",
+      "summary": "The 10-Q confirms a planned Apple Card portfolio acquisition and issuer transition to Chase.",
+      "excerpt": "On January 7, 2026, JPMorganChase announced that Chase will become the new issuer of Apple Card. The Firm entered into a forward purchase commitment on December 30, 2025 to acquire the Apple credit card portfolio (the \u201cApple Card transaction\u201d), with an expected closing date approximately 24 months thereafter.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "consumer_banking",
+        "credit_cards",
+        "strategic_growth",
+        "portfolio_acquisition"
+      ],
+      "related_metrics": [
+        "credit_card_portfolio"
+      ],
+      "evidence_tags": [
+        "Apple_Card",
+        "portfolio_acquisition",
+        "strategic_transaction",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase reported $4.9 trillion in assets and $364.0 billion in stockholders' equity as of March 31, 2026.",
+      "summary": "The quarterly filing states JPMorganChase's asset and equity base at quarter-end.",
+      "excerpt": "JPMorganChase had $4.9 trillion in assets and $364.0 billion in stockholders\u2019 equity as of March 31, 2026.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "balance_sheet",
+        "capital_base",
+        "firmwide_scale"
+      ],
+      "related_metrics": [
+        "total_assets",
+        "stockholders_equity"
+      ],
+      "evidence_tags": [
+        "balance_sheet",
+        "company_scale",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "At both March 31, 2026 and December 31, 2025, JPMorganChase's Advanced risk-based capital ratios were more binding than its Standardized risk-based ratios.",
+      "summary": "The filing identifies the binding capital regime for JPMorganChase at quarter-end.",
+      "excerpt": "At each of March 31, 2026 and December 31, 2025, the Advanced risk-based ratios were more binding on the Firm than the Standardized risk-based ratios. Refer to Capital Risk Management on pages 33-40 of this Form 10-Q and pages 89\u201399 of JPMorganChase\u2019s 2025 Form 10-K for additional information.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "regulatory_capital",
+        "capital_requirements",
+        "capital_risk_management"
+      ],
+      "related_metrics": [
+        "Advanced risk-based ratios",
+        "Standardized risk-based ratios",
+        "CET1 capital ratio"
+      ],
+      "evidence_tags": [
+        "capital_ratios",
+        "regulatory_capital",
+        "Advanced_approach",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase organizes management reporting into three reportable business segments: Consumer & Community Banking, Commercial & Investment Bank, and Asset & Wealth Management, with remaining activities in Corporate.",
+      "summary": "The filing defines JPMorganChase's reportable segment structure for investor analysis.",
+      "excerpt": "For management reporting purposes, the Firm has three reportable business segments \u2013 Consumer & Community Banking (\u201cCCB\u201d), Commercial & Investment Bank (\u201cCIB\u201d) and Asset & Wealth Management (\u201cAWM\u201d) \u2013 with the remaining activities in Corporate. The Firm's consumer business segment is CCB, and the Firm's wholesale business segments are CIB and AWM.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.75,
+      "related_topics": [
+        "business_mix",
+        "segment_reporting",
+        "consumer_banking",
+        "investment_banking",
+        "asset_management"
+      ],
+      "related_metrics": [
+        "business_segment_results"
+      ],
+      "evidence_tags": [
+        "business_segments",
+        "management_reporting",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase's principal bank subsidiary operates U.S. branches in 48 states and Washington, D.C., and the firm also operates through overseas branches, subsidiaries, representative offices and foreign subsidiary banks.",
+      "summary": "The quarterly filing describes the breadth of JPMorganChase's banking and broker-dealer footprint.",
+      "excerpt": "JPMorganChase\u2019s principal bank subsidiary is JPMorgan Chase Bank, National Association (\u201cJPMorgan Chase Bank, N.A.\u201d), a national banking association with U.S. branches in 48 states and Washington, D.C. JPMorganChase\u2019s principal non-bank subsidiary is J.P. Morgan Securities LLC (\u201cJ.P. Morgan Securities\u201d), a U.S. broker-dealer. The bank and non-bank subsidiaries of JPMorganChase operate nationally as well as through overseas branches and subsidiaries, representative offices and subsidiary foreign banks.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.72,
+      "related_topics": [
+        "geographic_exposure",
+        "franchise_footprint",
+        "banking_operations"
+      ],
+      "related_metrics": [
+        "branch_footprint"
+      ],
+      "evidence_tags": [
+        "geographic_footprint",
+        "subsidiaries",
+        "distribution",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    }
+  ],
+  "transcript_evidence": [],
+  "news_evidence": [],
+  "estimate_evidence": [],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "JPMorganChase's board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval.",
+      "summary": "Planned dividend increase signals capital-return capacity following stress-capital update.",
+      "excerpt": "JPMorgan Chase & Co. (NYSE: JPM) (\u201cJPMorganChase\u201d or the \u201cFirm\u201d) announced today that its Board of Directors intends to increase the quarterly common stock dividend to $1.65 per share (up from the current $1.50 per share) for the third quarter of 2026. The Firm\u2019s quarterly common stock dividends are subject to approval by the Board of Directors at the customary times that those dividends are declared.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "capital_return",
+        "shareholder_returns",
+        "regulatory_capital"
+      ],
+      "related_metrics": [
+        "quarterly_common_stock_dividend",
+        "dividend_per_share"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "dividend_increase",
+        "board_authorization",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "JPMorganChase authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion.",
+      "summary": "A large buyback authorization provides flexibility for shareholder capital returns.",
+      "excerpt": "In addition, the Firm\u2019s Board of Directors has authorized a new common share repurchase program of $50 billion, effective July 1, 2026. The authorization to repurchase common shares will be used at management\u2019s discretion, and the amount and timing of common share repurchases under the new authorization will be subject to various factors.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "capital_return",
+        "shareholder_returns",
+        "capital_management"
+      ],
+      "related_metrics": [
+        "share_repurchase_authorization",
+        "common_share_repurchases"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "share_repurchase",
+        "buyback_authorization",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "The Federal Reserve's February 2026 announcement left JPMorganChase's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+      "summary": "SCB stability reduces near-term uncertainty around regulatory capital requirements.",
+      "excerpt": "Following the Federal Reserve\u2019s announcement in February 2026, the Firm\u2019s current Stress Capital Buffer (\u201cSCB\u201d) requirement of 2.5% will remain unchanged through September 30, 2027, with new requirements to be calculated in 2027 based on revised supervisory stress testing models that incorporate public feedback.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "regulatory_capital",
+        "stress_test",
+        "capital_requirements"
+      ],
+      "related_metrics": [
+        "Stress Capital Buffer",
+        "SCB"
+      ],
+      "evidence_tags": [
+        "SCB",
+        "regulatory_capital",
+        "stress_capital_buffer",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "JPMorganChase disclosed that its current standardized CET1 capital ratio requirement, including regulatory buffers, remains 11.5%.",
+      "summary": "The filing states the applicable standardized CET1 requirement including buffers.",
+      "excerpt": "As a result, the Firm\u2019s current Standardized Common Equity Tier 1 (\u201cCET1\u201d) capital ratio requirement including regulatory buffers continues to be 11.5%.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "regulatory_capital",
+        "capital_requirements",
+        "stress_test"
+      ],
+      "related_metrics": [
+        "Standardized CET1 capital ratio requirement",
+        "CET1"
+      ],
+      "evidence_tags": [
+        "CET1",
+        "regulatory_capital",
+        "capital_requirement",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "Management attributed the dividend increase and repurchase authorization to excess capital, liquidity, strong financial performance, and flexibility to enhance shareholder value, while acknowledging a complex risk environment.",
+      "summary": "CEO commentary is constructive on capital strength but flags elevated complexity of risks.",
+      "excerpt": "Jamie Dimon, Chairman and CEO of JPMorganChase said: \u201cOur fortress balance sheet, with significant excess capital and robust liquidity, enables us to be a pillar of strength, allowing us to consistently serve our clients and communities. The current environment reflects an increasingly complex set of risks. As always, we are prepared for a wide range of scenarios, including the hypothetical 2026 supervisory severely adverse scenario. We continue to serve our clients and communities and invest in products, people, and technology that foster organic growth and promote proper management of our capital. The Board\u2019s intended dividend increase is supported by our consistent investment in our business and strong financial performance. The new share repurchase program provides us with the flexibility to deploy capital in ways that enhance shareholder value over time.\u201d",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "management_tone",
+        "capital_return",
+        "risk_environment",
+        "organic_growth"
+      ],
+      "related_metrics": [
+        "excess_capital",
+        "liquidity",
+        "dividend",
+        "share_repurchases"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "capital_management",
+        "risk_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "JPMorganChase reported $4.9 trillion in assets and $364 billion in stockholders' equity as of March 31, 2026.",
+      "summary": "The release provides firmwide balance-sheet scale as of quarter-end March 2026.",
+      "excerpt": "JPMorganChase had $4.9 trillion in assets and $364 billion in stockholders\u2019 equity as of March 31, 2026.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "balance_sheet",
+        "capital_base"
+      ],
+      "related_metrics": [
+        "total_assets",
+        "stockholders_equity"
+      ],
+      "evidence_tags": [
+        "balance_sheet",
+        "company_scale",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase's 2026 DFAST disclosure covers forecasted measures for the nine-quarter 1Q26 through 1Q28 projection period under the Federal Reserve's Supervisory Severely Adverse Scenario, and the results are hypothetical rather than JPMorganChase forecasts.",
+      "summary": "Important framing: DFAST results are scenario-based and not management's expected forecast.",
+      "excerpt": "The results reflect certain forecasted financial measures for the nine-quarter projection period (1Q26 through 1Q28) under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve. The stress test has been conducted in accordance with the regulations and other requirements of the Federal Reserve. The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (\u201cRWA\u201d), or capital ratios.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "stress_test",
+        "DFAST",
+        "regulatory_capital"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net_income_before_taxes",
+        "RWA",
+        "capital_ratios"
+      ],
+      "evidence_tags": [
+        "DFAST",
+        "stress_test",
+        "hypothetical_results",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase disclosed that Federal Reserve SCB requirements for large banks, including JPMorganChase, will stay at current levels through September 30, 2027, with revised-model requirements calculated in 2027.",
+      "summary": "The DFAST disclosure reiterates no new SCB calculation until 2027 under revised models.",
+      "excerpt": "In February 2026, the Federal Reserve announced that the Stress Capital Buffer (\u201cSCB\u201d) requirements for large banks, including JPMorganChase, will remain at current levels through September 30, 2027 with new requirements to be calculated in 2027 based on revised supervisory models that incorporate public feedback. This report does not include any further information on the Firm\u2019s 2026 SCB requirement.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "capital_requirements",
+        "regulatory_capital",
+        "stress_test"
+      ],
+      "related_metrics": [
+        "Stress Capital Buffer",
+        "SCB"
+      ],
+      "evidence_tags": [
+        "SCB",
+        "regulatory_capital",
+        "Federal_Reserve",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "The DFAST capital-action assumptions exclude common dividends, capital instrument redemptions or repurchases, and common or preferred stock issuances during the projection period.",
+      "summary": "Standardized DFAST capital assumptions constrain capital actions for stress-test modeling purposes.",
+      "excerpt": "JPMorganChase's results reflect the standardized set of capital action assumptions that are specified in the Federal Reserve's DFAST Rule1 for each quarter of the projection period, as follows: \u26ab No dividends on any instruments that qualify as common equity tier 1 capital (\u201cCET1\u201d); \u26ab Payments on instruments that qualify as additional tier 1 capital or tier 2 capital equal to the stated dividend, interest, or principal due on such instrument; \u26ab No redemption or repurchase of any capital instrument that is eligible for inclusion in the numerator of a regulatory capital ratio; and \u26ab No issuances of common stock or preferred stock",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "stress_test_methodology",
+        "capital_actions",
+        "regulatory_capital"
+      ],
+      "related_metrics": [
+        "CET1",
+        "Tier 1 capital",
+        "Tier 2 capital"
+      ],
+      "evidence_tags": [
+        "DFAST_assumptions",
+        "capital_actions",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Management states that maintaining a strong balance sheet through economic volatility is a strategic imperative for the board, CEO, and operating committee.",
+      "summary": "The filing emphasizes capital strength as central to strategy and competitive position.",
+      "excerpt": "A strong capital position is essential to the Firm's business strategy and competitive position. Maintaining a strong balance sheet to manage through economic volatility is a strategic imperative of the Firm\u2019s Board of Directors, Chief Executive Officer and Operating Committee.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "capital_management",
+        "risk_management",
+        "balance_sheet_strength"
+      ],
+      "related_metrics": [
+        "capital_position"
+      ],
+      "evidence_tags": [
+        "capital_strategy",
+        "balance_sheet",
+        "risk_management",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "The 2026 severely adverse scenario assumes a severe global recession, including U.S. unemployment peaking at 10.0%, a 58% stock-market decline, a 30% house-price decline, and a 39% CRE-price decline.",
+      "summary": "Scenario assumptions provide context for evaluating JPMorganChase's stressed capital and loss projections.",
+      "excerpt": "The Supervisory Severely Adverse Scenario assumes the following stress to key economic variables over a nine-quarter planning horizon: KEY ECONOMIC VARIABLES IN THE SUPERVISORY SEVERELY ADVERSE SCENARIO \u26ab The Firm is also tested against the following add-on components to the 2026 Supervisory Severely Adverse Scenario: \u26ab Global market shock \u2013 set of hypothetical shocks to a large set of risk factors which stress trading and certain other fair-valued positions \u26ab Counterparty default \u2013 the unexpected default of the Firm\u2019s largest counterparty determined by net stressed losses across derivatives and securities financing transactions ADDITIONAL COMPONENTS1 Key economic variables U.S. real GDP - 4Q25 to trough (4.6%) U.S. unemployment rate - peak 10.0% 3-month Treasury yield - trough 0.1% 10-year Treasury yield - trough 2.3% BBB spreads - 4Q25 to peak 4.7% Stock market index - 4Q25 to trough (58%) House price index - 4Q25 to trough (30%) CRE price index - 4Q25 to trough (39%)",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "stress_test",
+        "macroeconomic_risk",
+        "market_risk",
+        "credit_risk"
+      ],
+      "related_metrics": [
+        "U.S. unemployment rate",
+        "U.S. real GDP",
+        "stock market index",
+        "house price index",
+        "CRE price index",
+        "BBB spreads"
+      ],
+      "evidence_tags": [
+        "stress_scenario",
+        "macroeconomic_assumptions",
+        "credit_risk",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Under the severely adverse scenario, JPMorganChase projects its CET1 ratio falling from an actual 14.6% in 4Q25 to a projected minimum of 12.4%, with supplementary leverage ratio minimum of 5.3%.",
+      "summary": "Stressed capital ratios show projected capital drawdown under the severe scenario.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Projected Minimum2 Common equity tier 1 capital ratio (%) 14.6% 14.4% 12.4% Tier 1 risk-based capital ratio (%) 15.5% 15.3% 13.3% Total risk-based capital ratio (%) 17.4% 17.5% 15.3% Tier 1 leverage ratio (%) 6.9% 6.9% 6.2% Supplementary leverage ratio (%) 5.8% 5.8% 5.3% Stressed capital ratios",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "regulatory_capital",
+        "stress_test_results",
+        "capital_resilience"
+      ],
+      "related_metrics": [
+        "CET1 ratio",
+        "Tier 1 risk-based capital ratio",
+        "Total risk-based capital ratio",
+        "Tier 1 leverage ratio",
+        "Supplementary leverage ratio"
+      ],
+      "evidence_tags": [
+        "CET1",
+        "stressed_capital_ratios",
+        "SLR",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase projects Basel III Standardized RWA rising from $1.982 trillion in 4Q25 to $2.089 trillion by 1Q28 under the severely adverse scenario.",
+      "summary": "RWA expansion is a key driver of stressed capital ratios.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Basel III Standardized RWA ($B) $1,982 $2,089",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "regulatory_capital",
+        "RWA",
+        "stress_test_results"
+      ],
+      "related_metrics": [
+        "Basel III Standardized RWA",
+        "risk-weighted assets"
+      ],
+      "evidence_tags": [
+        "RWA",
+        "capital_projection",
+        "Basel_III",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase projects $135.9 billion of nine-quarter cumulative PPNR and $11.4 billion of net income before taxes under the severely adverse scenario, after $95.6 billion of provisions for credit losses and $10.9 billion of trading and counterparty losses.",
+      "summary": "Stress-test P&L shows positive pretax income despite large projected provisions and trading/counterparty losses.",
+      "excerpt": "9-QUARTER CUMULATIVE PROJECTED PPNR, LOSSES, NET INCOME BEFORE TAXES, AND OTHER COMPREHENSIVE INCOME (1Q26 \u2013 1Q28) See notes 1-9 on slide 12 Billions of dollars Pre-provision net revenue $135.9 2.9 % equals Net interest income 235.2 5.1 Noninterest income2 136.2 2.9 less Noninterest expense3 235.5 5.1 Other revenue4 0.0 less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "stress_test_results",
+        "earnings_resilience",
+        "credit_losses",
+        "market_risk"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net_interest_income",
+        "noninterest_income",
+        "noninterest_expense",
+        "provision_for_credit_losses",
+        "trading_and_counterparty_losses",
+        "net_income_before_taxes"
+      ],
+      "evidence_tags": [
+        "PPNR",
+        "provision_for_credit_losses",
+        "trading_losses",
+        "stress_test_results",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase projects total nine-quarter cumulative loan losses of $70.2 billion, equal to a 5.0% portfolio loss rate, under the severely adverse scenario.",
+      "summary": "The severe scenario entails substantial cumulative loan losses across the loan portfolio.",
+      "excerpt": "9-QUARTER CUMULATIVE PROJECTED LOAN LOSSES, BY TYPE OF LOAN (1Q26 \u2013 1Q28) $1.4 0.5 % 0.1 1.1 27.1 12.1 6.9 4.5 26.2 12.8 1.3 1.8 7.2 1.6 $70.2 5.0 % Credit cards Loan type First lien mortgages, domestic Junior liens and home equity lines of credit, domestic Commercial & industrial2 Billions of dollars Portfolio loss rates1 (%) Other consumer3 Other4 Total projected loan losses Commercial real estate, domestic",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "credit_risk",
+        "stress_test_results",
+        "loan_portfolio"
+      ],
+      "related_metrics": [
+        "projected_loan_losses",
+        "portfolio_loss_rate"
+      ],
+      "evidence_tags": [
+        "loan_losses",
+        "credit_risk",
+        "stress_test_results",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "The supplied text preserves the table imperfectly, but the total projected loan losses and total portfolio loss rate are visible."
+    }
+  ],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [],
+  "management_guidance": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase's 2026 DFAST disclosure covers forecasted measures for the nine-quarter 1Q26 through 1Q28 projection period under the Federal Reserve's Supervisory Severely Adverse Scenario, and the results are hypothetical rather than JPMorganChase forecasts.",
+      "summary": "Important framing: DFAST results are scenario-based and not management's expected forecast.",
+      "excerpt": "The results reflect certain forecasted financial measures for the nine-quarter projection period (1Q26 through 1Q28) under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve. The stress test has been conducted in accordance with the regulations and other requirements of the Federal Reserve. The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (\u201cRWA\u201d), or capital ratios.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "stress_test",
+        "DFAST",
+        "regulatory_capital"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net_income_before_taxes",
+        "RWA",
+        "capital_ratios"
+      ],
+      "evidence_tags": [
+        "DFAST",
+        "stress_test",
+        "hypothetical_results",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    }
+  ],
+  "segment_kpis": [
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase organizes management reporting into three reportable business segments: Consumer & Community Banking, Commercial & Investment Bank, and Asset & Wealth Management, with remaining activities in Corporate.",
+      "summary": "The filing defines JPMorganChase's reportable segment structure for investor analysis.",
+      "excerpt": "For management reporting purposes, the Firm has three reportable business segments \u2013 Consumer & Community Banking (\u201cCCB\u201d), Commercial & Investment Bank (\u201cCIB\u201d) and Asset & Wealth Management (\u201cAWM\u201d) \u2013 with the remaining activities in Corporate. The Firm's consumer business segment is CCB, and the Firm's wholesale business segments are CIB and AWM.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.75,
+      "related_topics": [
+        "business_mix",
+        "segment_reporting",
+        "consumer_banking",
+        "investment_banking",
+        "asset_management"
+      ],
+      "related_metrics": [
+        "business_segment_results"
+      ],
+      "evidence_tags": [
+        "business_segments",
+        "management_reporting",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    }
+  ],
+  "consensus_narrative": [],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "JPMorganChase's board intends to raise the quarterly common dividend to $1.65 per share from $1.50 for 3Q26, subject to customary board approval.",
+      "summary": "Planned dividend increase signals capital-return capacity following stress-capital update.",
+      "excerpt": "JPMorgan Chase & Co. (NYSE: JPM) (\u201cJPMorganChase\u201d or the \u201cFirm\u201d) announced today that its Board of Directors intends to increase the quarterly common stock dividend to $1.65 per share (up from the current $1.50 per share) for the third quarter of 2026. The Firm\u2019s quarterly common stock dividends are subject to approval by the Board of Directors at the customary times that those dividends are declared.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "capital_return",
+        "shareholder_returns",
+        "regulatory_capital"
+      ],
+      "related_metrics": [
+        "quarterly_common_stock_dividend",
+        "dividend_per_share"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "dividend_increase",
+        "board_authorization",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "JPMorganChase authorized a new $50 billion common share repurchase program effective July 1, 2026, with execution at management discretion.",
+      "summary": "A large buyback authorization provides flexibility for shareholder capital returns.",
+      "excerpt": "In addition, the Firm\u2019s Board of Directors has authorized a new common share repurchase program of $50 billion, effective July 1, 2026. The authorization to repurchase common shares will be used at management\u2019s discretion, and the amount and timing of common share repurchases under the new authorization will be subject to various factors.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "capital_return",
+        "shareholder_returns",
+        "capital_management"
+      ],
+      "related_metrics": [
+        "share_repurchase_authorization",
+        "common_share_repurchases"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "share_repurchase",
+        "buyback_authorization",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "The Federal Reserve's February 2026 announcement left JPMorganChase's 2.5% Stress Capital Buffer requirement unchanged through September 30, 2027.",
+      "summary": "SCB stability reduces near-term uncertainty around regulatory capital requirements.",
+      "excerpt": "Following the Federal Reserve\u2019s announcement in February 2026, the Firm\u2019s current Stress Capital Buffer (\u201cSCB\u201d) requirement of 2.5% will remain unchanged through September 30, 2027, with new requirements to be calculated in 2027 based on revised supervisory stress testing models that incorporate public feedback.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "regulatory_capital",
+        "stress_test",
+        "capital_requirements"
+      ],
+      "related_metrics": [
+        "Stress Capital Buffer",
+        "SCB"
+      ],
+      "evidence_tags": [
+        "SCB",
+        "regulatory_capital",
+        "stress_capital_buffer",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Management states that maintaining a strong balance sheet through economic volatility is a strategic imperative for the board, CEO, and operating committee.",
+      "summary": "The filing emphasizes capital strength as central to strategy and competitive position.",
+      "excerpt": "A strong capital position is essential to the Firm's business strategy and competitive position. Maintaining a strong balance sheet to manage through economic volatility is a strategic imperative of the Firm\u2019s Board of Directors, Chief Executive Officer and Operating Committee.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "capital_management",
+        "risk_management",
+        "balance_sheet_strength"
+      ],
+      "related_metrics": [
+        "capital_position"
+      ],
+      "evidence_tags": [
+        "capital_strategy",
+        "balance_sheet",
+        "risk_management",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Under the severely adverse scenario, JPMorganChase projects its CET1 ratio falling from an actual 14.6% in 4Q25 to a projected minimum of 12.4%, with supplementary leverage ratio minimum of 5.3%.",
+      "summary": "Stressed capital ratios show projected capital drawdown under the severe scenario.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Projected Minimum2 Common equity tier 1 capital ratio (%) 14.6% 14.4% 12.4% Tier 1 risk-based capital ratio (%) 15.5% 15.3% 13.3% Total risk-based capital ratio (%) 17.4% 17.5% 15.3% Tier 1 leverage ratio (%) 6.9% 6.9% 6.2% Supplementary leverage ratio (%) 5.8% 5.8% 5.3% Stressed capital ratios",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "regulatory_capital",
+        "stress_test_results",
+        "capital_resilience"
+      ],
+      "related_metrics": [
+        "CET1 ratio",
+        "Tier 1 risk-based capital ratio",
+        "Total risk-based capital ratio",
+        "Tier 1 leverage ratio",
+        "Supplementary leverage ratio"
+      ],
+      "evidence_tags": [
+        "CET1",
+        "stressed_capital_ratios",
+        "SLR",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "JPM",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-01",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase disclosed that Chase will become the new issuer of Apple Card and entered a forward purchase commitment to acquire the Apple credit card portfolio, with closing expected approximately 24 months after December 30, 2025.",
+      "summary": "The 10-Q confirms a planned Apple Card portfolio acquisition and issuer transition to Chase.",
+      "excerpt": "On January 7, 2026, JPMorganChase announced that Chase will become the new issuer of Apple Card. The Firm entered into a forward purchase commitment on December 30, 2025 to acquire the Apple credit card portfolio (the \u201cApple Card transaction\u201d), with an expected closing date approximately 24 months thereafter.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "consumer_banking",
+        "credit_cards",
+        "strategic_growth",
+        "portfolio_acquisition"
+      ],
+      "related_metrics": [
+        "credit_card_portfolio"
+      ],
+      "evidence_tags": [
+        "Apple_Card",
+        "portfolio_acquisition",
+        "strategic_transaction",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "SEC filing form type is 10-Q."
+    }
+  ],
+  "bearish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase projects total nine-quarter cumulative loan losses of $70.2 billion, equal to a 5.0% portfolio loss rate, under the severely adverse scenario.",
+      "summary": "The severe scenario entails substantial cumulative loan losses across the loan portfolio.",
+      "excerpt": "9-QUARTER CUMULATIVE PROJECTED LOAN LOSSES, BY TYPE OF LOAN (1Q26 \u2013 1Q28) $1.4 0.5 % 0.1 1.1 27.1 12.1 6.9 4.5 26.2 12.8 1.3 1.8 7.2 1.6 $70.2 5.0 % Credit cards Loan type First lien mortgages, domestic Junior liens and home equity lines of credit, domestic Commercial & industrial2 Billions of dollars Portfolio loss rates1 (%) Other consumer3 Other4 Total projected loan losses Commercial real estate, domestic",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "credit_risk",
+        "stress_test_results",
+        "loan_portfolio"
+      ],
+      "related_metrics": [
+        "projected_loan_losses",
+        "portfolio_loss_rate"
+      ],
+      "evidence_tags": [
+        "loan_losses",
+        "credit_risk",
+        "stress_test_results",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "The supplied text preserves the table imperfectly, but the total projected loan losses and total portfolio loss rate are visible."
+    }
+  ],
+  "mixed_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045167/jpmc2026ccarresultsex99.htm",
+      "accession_number": "0001628280-26-045167",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: jpmc2026ccarresultsex99.htm",
+      "claim": "Management attributed the dividend increase and repurchase authorization to excess capital, liquidity, strong financial performance, and flexibility to enhance shareholder value, while acknowledging a complex risk environment.",
+      "summary": "CEO commentary is constructive on capital strength but flags elevated complexity of risks.",
+      "excerpt": "Jamie Dimon, Chairman and CEO of JPMorganChase said: \u201cOur fortress balance sheet, with significant excess capital and robust liquidity, enables us to be a pillar of strength, allowing us to consistently serve our clients and communities. The current environment reflects an increasingly complex set of risks. As always, we are prepared for a wide range of scenarios, including the hypothetical 2026 supervisory severely adverse scenario. We continue to serve our clients and communities and invest in products, people, and technology that foster organic growth and promote proper management of our capital. The Board\u2019s intended dividend increase is supported by our consistent investment in our business and strong financial performance. The new share repurchase program provides us with the flexibility to deploy capital in ways that enhance shareholder value over time.\u201d",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "management_tone",
+        "capital_return",
+        "risk_environment",
+        "organic_growth"
+      ],
+      "related_metrics": [
+        "excess_capital",
+        "liquidity",
+        "dividend",
+        "share_repurchases"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "capital_management",
+        "risk_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "document_purpose": "stress_test",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorganChase projects $135.9 billion of nine-quarter cumulative PPNR and $11.4 billion of net income before taxes under the severely adverse scenario, after $95.6 billion of provisions for credit losses and $10.9 billion of trading and counterparty losses.",
+      "summary": "Stress-test P&L shows positive pretax income despite large projected provisions and trading/counterparty losses.",
+      "excerpt": "9-QUARTER CUMULATIVE PROJECTED PPNR, LOSSES, NET INCOME BEFORE TAXES, AND OTHER COMPREHENSIVE INCOME (1Q26 \u2013 1Q28) See notes 1-9 on slide 12 Billions of dollars Pre-provision net revenue $135.9 2.9 % equals Net interest income 235.2 5.1 Noninterest income2 136.2 2.9 less Noninterest expense3 235.5 5.1 Other revenue4 0.0 less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "stress_test_results",
+        "earnings_resilience",
+        "credit_losses",
+        "market_risk"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net_interest_income",
+        "noninterest_income",
+        "noninterest_expense",
+        "provision_for_credit_losses",
+        "trading_and_counterparty_losses",
+        "net_income_before_taxes"
+      ],
+      "evidence_tags": [
+        "PPNR",
+        "provision_for_credit_losses",
+        "trading_losses",
+        "stress_test_results",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    }
+  ],
+  "unresolved_questions": [
+    "The 1Q26 Form 10-Q source text provided is truncated and does not include many underlying numerical financial-highlight table values, limiting extraction from that filing to facts visible in the supplied text."
+  ],
+  "data_gaps": [
+    "Earnings release not confidently retrieved via SEC 8-K exhibit.",
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "The 1Q26 Form 10-Q source text provided is truncated and does not include many underlying numerical financial-highlight table values, limiting extraction from that filing to facts visible in the supplied text."
+  ],
+  "warnings": [
+    "Dropped 23 duplicate or lower-quality source documents before evidence extraction.",
+    "Some source text appears table-extracted or truncated; evidence items avoid facts not visible in the supplied text."
+  ],
+  "raw_source_count": 48,
+  "evidence_item_count": 20
+}

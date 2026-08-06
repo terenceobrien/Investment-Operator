@@ -10,7 +10,7 @@ from src.agent_system.scenarios.loader import agent_data_dir
 from src.agent_system.schemas.trade import TradeIdea
 
 
-DEFAULT_SCHEMA_RECORDS_PATH = Path("data/agent_system/schema_records.jsonl")
+DEFAULT_SCHEMA_RECORDS_PATH = agent_data_dir() / "schema_records.jsonl"
 
 
 def schema_records_path() -> Path:

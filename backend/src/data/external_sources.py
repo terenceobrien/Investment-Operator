@@ -13,6 +13,8 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
+from src.agent_system.paths import cache_dir, raw_data_dir
+
 
 CFTC_COT_URL = "https://publicreporting.cftc.gov/resource/jun7-fc8e.json"
 AAII_URL = "https://www.aaii.com/files/surveys/sentiment.xls"
@@ -53,7 +55,7 @@ def _rolling_zscore(s: pd.Series, window: int) -> pd.Series:
 def fetch_cot_history(
     start_date: str = "2000-01-01",
     contract_code: str = "13874A",
-    cache_path: str | Path = "backend/data/cache/cot_history.parquet",
+    cache_path: str | Path | None = None,
 ) -> pd.DataFrame:
     """
     Fetch CFTC legacy COT large-spec net positioning for E-mini S&P 500.
@@ -62,7 +64,7 @@ def fetch_cot_history(
       cot_net_large_spec     — noncommercial long minus short
       cot_net_large_spec_z   — rolling 104-week z-score, forward-filled daily
     """
-    path = _as_path(cache_path)
+    path = _as_path(cache_path or (cache_dir(create=False) / "cot_history.parquet"))
     if _is_cache_fresh(path, max_age_days=7):
         try:
             cached = pd.read_parquet(path)
@@ -165,7 +167,7 @@ def _to_decimal(series: pd.Series) -> pd.Series:
 
 
 def load_aaii_sentiment(
-    file_path: str | Path = "backend/data/raw/aaii_sentiment.xls",
+    file_path: str | Path | None = None,
 ) -> pd.DataFrame:
     """
     Load manually downloaded AAII sentiment XLS and forward-fill to daily.
@@ -174,7 +176,7 @@ def load_aaii_sentiment(
     Output column: aaii_bull_minus_bear in percentage-point form
     (15.0 = +15pp), matching regime_layers.py thresholds.
     """
-    path = _as_path(file_path)
+    path = _as_path(file_path or (raw_data_dir(create=False) / "aaii_sentiment.xls"))
     if not path.exists():
         raise FileNotFoundError(
             f"AAII sentiment file missing at {path}. Download {AAII_URL} "

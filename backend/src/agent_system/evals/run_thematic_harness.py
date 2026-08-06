@@ -60,14 +60,14 @@ from src.agent_system.schemas.regime import (
     ResearchPriority,
 )
 from src.agent_system.schemas.thematic import ThematicMap
+from src.agent_system.paths import macro_agent_evals_dir, thematic_agent_evals_dir
 
 logger = logging.getLogger("agent_system.evals.thematic_harness")
 
 # Resolve against the backend application root so repo-root invocation via the
 # `src` import shim reaches the same persisted macro runs used by the backend.
-BACKEND_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_MACRO_DIR = BACKEND_ROOT / "data/agent_system/macro_agent_evals"
-DEFAULT_OUTPUT_DIR = BACKEND_ROOT / "data/agent_system/thematic_agent_evals"
+DEFAULT_MACRO_DIR = macro_agent_evals_dir(create=False)
+DEFAULT_OUTPUT_DIR = thematic_agent_evals_dir(create=False)
 
 
 def _list_available_macro_runs(macro_dir: Path) -> list[str]:

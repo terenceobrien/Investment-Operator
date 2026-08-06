@@ -1,0 +1,1522 @@
+{
+  "ticker": "JPM",
+  "as_of_date": "2026-06-29",
+  "created_at": "2026-06-29T15:29:53.218060",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "notes": null
+    },
+    {
+      "source_type": "filing",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026029344/jpm-20260331.htm",
+      "accession_number": "0001628280-26-029344",
+      "notes": null
+    },
+    {
+      "source_type": "transcript",
+      "status": "not_found",
+      "source_name": "Earnings call transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+    },
+    {
+      "source_type": "news",
+      "status": "skipped",
+      "source_name": "News",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "News retrieval skipped; NEWS_API_KEY or NEWSDATA_API_KEY is not configured."
+    },
+    {
+      "source_type": "estimate",
+      "status": "found",
+      "source_name": "yfinance",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "status": "skipped",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: BAC, C, WFC."
+    }
+  ],
+  "source_coverage_summary": "estimate:found=1; filing:found=1; news:skipped=1; peer_commentary:skipped=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan disclosed that its 2026 DFAST results are hypothetical supervisory stress estimates, not management forecasts of actual performance or capital ratios.",
+      "summary": "The DFAST exhibit is a regulatory stress-test disclosure rather than forward-looking operating guidance.",
+      "excerpt": "The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (\u201cRWA\u201d), or capital ratios.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "stress testing",
+        "capital planning",
+        "regulatory disclosures"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net income before taxes",
+        "capital ratios",
+        "RWA"
+      ],
+      "evidence_tags": [
+        "stress_test",
+        "dodd_frank",
+        "scenario_disclosure",
+        "not_guidance"
+      ],
+      "notes": "Important framing: DFAST outputs should not be treated as company guidance."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "The Federal Reserve kept JPMorgan's Stress Capital Buffer requirement unchanged through September 30, 2027, with new requirements to be calculated in 2027 under revised supervisory models.",
+      "summary": "SCB requirements for large banks including JPM remain at current levels through September 2027.",
+      "excerpt": "In February 2026, the Federal Reserve announced that the Stress Capital Buffer (\u201cSCB\u201d) requirements for large banks, including JPMorganChase, will remain at current levels through September 30, 2027 with new requirements to be calculated in 2027 based on revised supervisory models that incorporate public feedback.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "regulatory capital",
+        "Federal Reserve",
+        "capital returns"
+      ],
+      "related_metrics": [
+        "Stress Capital Buffer",
+        "CET1 requirement"
+      ],
+      "evidence_tags": [
+        "stress_capital_buffer",
+        "regulatory_capital",
+        "federal_reserve"
+      ],
+      "notes": "Provides near-term regulatory capital requirement visibility, though the filing says it does not disclose the firm's 2026 SCB requirement."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Under the severe stress scenario, JPMorgan's projected minimum CET1 ratio is 12.4%, down from an actual 14.6% in 4Q25, indicating a 220 bp stressed drawdown while remaining above double digits.",
+      "summary": "JPM's stress-test capital depletion leaves projected minimum CET1 at 12.4%.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Projected Minimum2 Common equity tier 1 capital ratio (%) 14.6% 14.4% 12.4%",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "capital adequacy",
+        "stress testing",
+        "balance sheet strength"
+      ],
+      "related_metrics": [
+        "CET1 ratio",
+        "Projected minimum CET1",
+        "4Q25 CET1"
+      ],
+      "evidence_tags": [
+        "capital_resilience",
+        "cet1",
+        "stress_test_results"
+      ],
+      "notes": "Stressed minimum is within JPMorgan-run DFAST methodology and may differ from Federal Reserve-published results."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan's other stressed regulatory capital ratios also remain above their actual-period lows, with projected minimum Tier 1 risk-based capital of 13.3%, total risk-based capital of 15.3%, Tier 1 leverage of 6.2%, and SLR of 5.3%.",
+      "summary": "JPM discloses stressed capital and leverage ratios that remain materially positive in the severe scenario.",
+      "excerpt": "Tier 1 risk-based capital ratio (%) 15.5% 15.3% 13.3% Total risk-based capital ratio (%) 17.4% 17.5% 15.3% Tier 1 leverage ratio (%) 6.9% 6.9% 6.2% Supplementary leverage ratio (%) 5.8% 5.8% 5.3%",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "capital adequacy",
+        "leverage",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "Tier 1 risk-based capital ratio",
+        "Total risk-based capital ratio",
+        "Tier 1 leverage ratio",
+        "Supplementary leverage ratio"
+      ],
+      "evidence_tags": [
+        "capital_ratios",
+        "leverage",
+        "stress_test_results"
+      ],
+      "notes": "Shows stressed capital and leverage ratio floors under the supervisory severely adverse scenario."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Projected standardized RWA rises from $1.982 trillion in 4Q25 to $2.089 trillion by 1Q28 under the severe scenario, increasing capital intensity by roughly $107 billion.",
+      "summary": "Stress scenario assumptions increase JPM's projected RWA base.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Basel III Standardized RWA ($B) $1,982 $2,089",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "capital requirements",
+        "balance sheet",
+        "risk-weighted assets"
+      ],
+      "related_metrics": [
+        "Basel III Standardized RWA",
+        "risk-weighted assets"
+      ],
+      "evidence_tags": [
+        "rwa",
+        "capital_intensity",
+        "stress_test"
+      ],
+      "notes": "RWA expansion affects capital ratios during the stress horizon."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "In the nine-quarter stress horizon, JPMorgan projects $135.9 billion of PPNR but only $11.4 billion of net income before taxes after credit provisions, trading/counterparty losses, and other losses.",
+      "summary": "Stress-test P&L shows strong PPNR but heavy loss absorption over nine quarters.",
+      "excerpt": "Billions of dollars Pre-provision net revenue $135.9 2.9 % equals Net interest income 235.2 5.1 Noninterest income2 136.2 2.9 less Noninterest expense3 235.5 5.1 Other revenue4 0.0 less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "earnings resilience",
+        "credit losses",
+        "market risk",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net interest income",
+        "noninterest income",
+        "noninterest expense",
+        "provision for credit losses",
+        "trading and counterparty losses",
+        "net income before taxes"
+      ],
+      "evidence_tags": [
+        "ppnr",
+        "profitability",
+        "stress_losses"
+      ],
+      "notes": "Highlights stress profitability: substantial PPNR absorbs large loss assumptions, leaving positive pre-tax income."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Projected credit-loss provisioning is the largest stress P&L drag at $95.6 billion over nine quarters, with $10.9 billion of trading and counterparty losses and $17.8 billion of other losses/gains.",
+      "summary": "Loss assumptions materially reduce JPM's stress-scenario earnings.",
+      "excerpt": "less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "credit risk",
+        "market risk",
+        "counterparty risk",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "Provision for credit losses",
+        "Trading and counterparty losses",
+        "Other losses/(gains)",
+        "Net income before taxes"
+      ],
+      "evidence_tags": [
+        "credit_risk",
+        "provisions",
+        "trading_losses",
+        "counterparty_risk"
+      ],
+      "notes": "Stress scenario embeds material credit and market/counterparty loss assumptions."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan projects total loan losses of $70.2 billion and a 5.0% portfolio loss rate over the nine-quarter severe scenario, with credit cards and commercial & industrial lending among the largest disclosed loss categories.",
+      "summary": "DFAST loan-loss projections show significant cumulative credit losses under severe stress.",
+      "excerpt": "9-QUARTER CUMULATIVE PROJECTED LOAN LOSSES, BY TYPE OF LOAN (1Q26 \u2013 1Q28) $1.4 0.5 % 0.1 1.1 27.1 12.1 6.9 4.5 26.2 12.8 1.3 1.8 7.2 1.6 $70.2 5.0 % Credit cards Loan type First lien mortgages, domestic Junior liens and home equity lines of credit, domestic Commercial & industrial2 Billions of dollars Portfolio loss rates1 (%) Other consumer3 Other4 Total projected loan losses Commercial real estate, domestic",
+      "polarity": "challenges",
+      "confidence": "medium",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "credit quality",
+        "consumer credit",
+        "commercial lending",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "Total projected loan losses",
+        "Portfolio loss rate",
+        "Credit card losses",
+        "Commercial & industrial losses"
+      ],
+      "evidence_tags": [
+        "loan_losses",
+        "credit_cards",
+        "commercial_industrial",
+        "credit_quality"
+      ],
+      "notes": "The extracted table text is order-disrupted, but it clearly discloses total projected loan losses of $70.2B and total portfolio loss rate of 5.0%; category mapping is limited by table text formatting."
+    }
+  ],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [],
+  "estimate_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Consensus EPS for the current fiscal year is $22.41394, implying 13.6% growth versus year-ago EPS of $19.73, with 15 analysts in the estimate set.",
+      "summary": "Analyst consensus embeds double-digit current-year EPS growth for JPM.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "earnings estimates",
+        "analyst consensus",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Current-year EPS estimate",
+        "EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "consensus_estimate",
+        "eps_growth",
+        "analyst_estimates"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata: avg 0y, growth 0y, yearAgoEps 0y, numberOfAnalysts 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Consensus EPS for the next fiscal year is $23.5657, implying 5.14% growth from the current-year estimate, based on 17 analysts.",
+      "summary": "Consensus expects EPS growth to continue next year, though at a slower rate than current-year growth.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "earnings estimates",
+        "forward earnings",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year EPS estimate",
+        "EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "consensus_estimate",
+        "forward_eps",
+        "eps_growth"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata: avg +1y, growth +1y, yearAgoEps +1y, numberOfAnalysts +1y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current-year EPS estimates have been revised upward over 90 days, from $21.69965 to $22.41394, and upward over 30 days, from $22.30846 to $22.41394.",
+      "summary": "Current-year EPS consensus has moved higher across both 90-day and 30-day windows.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "estimate revisions",
+        "analyst sentiment",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "Current-year EPS estimate",
+        "90-day EPS trend",
+        "30-day EPS trend"
+      ],
+      "evidence_tags": [
+        "eps_revision",
+        "estimate_trend",
+        "positive_revision"
+      ],
+      "notes": "Derived from eps_trend metadata for 0y: 90daysAgo, 30daysAgo, current."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Revision breadth for current-year EPS is positive: 11 upward revisions and zero downward revisions in the last 30 days, plus 3 upward revisions and zero downward revisions in the last 7 days.",
+      "summary": "Analyst EPS revisions skew materially positive for the current fiscal year.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "estimate revisions",
+        "analyst sentiment",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "Up revisions last 30 days",
+        "Down revisions last 30 days",
+        "Up revisions last 7 days",
+        "Down revisions last 7 days"
+      ],
+      "evidence_tags": [
+        "revision_breadth",
+        "positive_revision",
+        "eps_revisions"
+      ],
+      "notes": "Derived from eps_revisions metadata for 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current-quarter EPS consensus is $5.49087, implying 10.7% growth versus year-ago EPS of $4.96, with 15 analysts contributing estimates.",
+      "summary": "Consensus expects double-digit EPS growth in the current quarter.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "quarterly earnings",
+        "analyst consensus",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Current-quarter EPS estimate",
+        "Quarterly EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "quarterly_estimate",
+        "eps_growth",
+        "consensus_estimate"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata for 0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Revenue consensus for the current fiscal year is $197.214 billion, implying 8.09% growth versus year-ago revenue of $182.447 billion, with 14 analysts in the estimate set.",
+      "summary": "Analysts expect high-single-digit current-year revenue growth for JPM.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "revenue estimates",
+        "analyst consensus",
+        "top-line growth"
+      ],
+      "related_metrics": [
+        "Current-year revenue estimate",
+        "Revenue growth",
+        "Year-ago revenue",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "revenue_growth",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for 0y; dollar values rounded in claim for readability."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Next-year revenue consensus is $204.575 billion, implying 3.73% growth versus the current-year revenue base, indicating expected revenue growth deceleration from the current year.",
+      "summary": "Consensus revenue still grows next year but at a slower rate than the current year.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "revenue estimates",
+        "growth outlook",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year revenue estimate",
+        "Revenue growth",
+        "Current-year revenue growth"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_deceleration",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for +1y and 0y; the growth rate for +1y is 0.0373 versus 0y growth of 0.0809."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current analyst recommendations are balanced rather than uniformly bullish: 4 strong buys, 8 buys, 12 holds, and no sell or strong sell ratings.",
+      "summary": "Sell-side recommendation mix has more positive than negative ratings, but holds are the largest category.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.7,
+      "related_topics": [
+        "analyst sentiment",
+        "recommendations",
+        "market expectations"
+      ],
+      "related_metrics": [
+        "Strong buy count",
+        "Buy count",
+        "Hold count",
+        "Sell count",
+        "Strong sell count"
+      ],
+      "evidence_tags": [
+        "recommendations",
+        "analyst_ratings",
+        "sentiment"
+      ],
+      "notes": "Derived from recommendations_summary metadata for period 0m."
+    }
+  ],
+  "peer_commentary_evidence": [],
+  "management_guidance": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan disclosed that its 2026 DFAST results are hypothetical supervisory stress estimates, not management forecasts of actual performance or capital ratios.",
+      "summary": "The DFAST exhibit is a regulatory stress-test disclosure rather than forward-looking operating guidance.",
+      "excerpt": "The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (\u201cRWA\u201d), or capital ratios.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "stress testing",
+        "capital planning",
+        "regulatory disclosures"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net income before taxes",
+        "capital ratios",
+        "RWA"
+      ],
+      "evidence_tags": [
+        "stress_test",
+        "dodd_frank",
+        "scenario_disclosure",
+        "not_guidance"
+      ],
+      "notes": "Important framing: DFAST outputs should not be treated as company guidance."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Next-year revenue consensus is $204.575 billion, implying 3.73% growth versus the current-year revenue base, indicating expected revenue growth deceleration from the current year.",
+      "summary": "Consensus revenue still grows next year but at a slower rate than the current year.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "revenue estimates",
+        "growth outlook",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year revenue estimate",
+        "Revenue growth",
+        "Current-year revenue growth"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_deceleration",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for +1y and 0y; the growth rate for +1y is 0.0373 versus 0y growth of 0.0809."
+    }
+  ],
+  "segment_kpis": [],
+  "consensus_narrative": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan disclosed that its 2026 DFAST results are hypothetical supervisory stress estimates, not management forecasts of actual performance or capital ratios.",
+      "summary": "The DFAST exhibit is a regulatory stress-test disclosure rather than forward-looking operating guidance.",
+      "excerpt": "The results represent hypothetical estimates under the Supervisory Severely Adverse Scenario prescribed by the Federal Reserve on February 4, 2026 and do not represent JPMorganChase's forecasts of actual expected gains, losses, pre-provision net revenue (\"PPNR\"), net income before taxes, capital, risk-weighted assets (\u201cRWA\u201d), or capital ratios.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "stress testing",
+        "capital planning",
+        "regulatory disclosures"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net income before taxes",
+        "capital ratios",
+        "RWA"
+      ],
+      "evidence_tags": [
+        "stress_test",
+        "dodd_frank",
+        "scenario_disclosure",
+        "not_guidance"
+      ],
+      "notes": "Important framing: DFAST outputs should not be treated as company guidance."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Consensus EPS for the current fiscal year is $22.41394, implying 13.6% growth versus year-ago EPS of $19.73, with 15 analysts in the estimate set.",
+      "summary": "Analyst consensus embeds double-digit current-year EPS growth for JPM.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "earnings estimates",
+        "analyst consensus",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Current-year EPS estimate",
+        "EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "consensus_estimate",
+        "eps_growth",
+        "analyst_estimates"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata: avg 0y, growth 0y, yearAgoEps 0y, numberOfAnalysts 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Consensus EPS for the next fiscal year is $23.5657, implying 5.14% growth from the current-year estimate, based on 17 analysts.",
+      "summary": "Consensus expects EPS growth to continue next year, though at a slower rate than current-year growth.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "earnings estimates",
+        "forward earnings",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year EPS estimate",
+        "EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "consensus_estimate",
+        "forward_eps",
+        "eps_growth"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata: avg +1y, growth +1y, yearAgoEps +1y, numberOfAnalysts +1y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current-year EPS estimates have been revised upward over 90 days, from $21.69965 to $22.41394, and upward over 30 days, from $22.30846 to $22.41394.",
+      "summary": "Current-year EPS consensus has moved higher across both 90-day and 30-day windows.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "estimate revisions",
+        "analyst sentiment",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "Current-year EPS estimate",
+        "90-day EPS trend",
+        "30-day EPS trend"
+      ],
+      "evidence_tags": [
+        "eps_revision",
+        "estimate_trend",
+        "positive_revision"
+      ],
+      "notes": "Derived from eps_trend metadata for 0y: 90daysAgo, 30daysAgo, current."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Revision breadth for current-year EPS is positive: 11 upward revisions and zero downward revisions in the last 30 days, plus 3 upward revisions and zero downward revisions in the last 7 days.",
+      "summary": "Analyst EPS revisions skew materially positive for the current fiscal year.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "estimate revisions",
+        "analyst sentiment",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "Up revisions last 30 days",
+        "Down revisions last 30 days",
+        "Up revisions last 7 days",
+        "Down revisions last 7 days"
+      ],
+      "evidence_tags": [
+        "revision_breadth",
+        "positive_revision",
+        "eps_revisions"
+      ],
+      "notes": "Derived from eps_revisions metadata for 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current-quarter EPS consensus is $5.49087, implying 10.7% growth versus year-ago EPS of $4.96, with 15 analysts contributing estimates.",
+      "summary": "Consensus expects double-digit EPS growth in the current quarter.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "quarterly earnings",
+        "analyst consensus",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Current-quarter EPS estimate",
+        "Quarterly EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "quarterly_estimate",
+        "eps_growth",
+        "consensus_estimate"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata for 0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Revenue consensus for the current fiscal year is $197.214 billion, implying 8.09% growth versus year-ago revenue of $182.447 billion, with 14 analysts in the estimate set.",
+      "summary": "Analysts expect high-single-digit current-year revenue growth for JPM.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "revenue estimates",
+        "analyst consensus",
+        "top-line growth"
+      ],
+      "related_metrics": [
+        "Current-year revenue estimate",
+        "Revenue growth",
+        "Year-ago revenue",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "revenue_growth",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for 0y; dollar values rounded in claim for readability."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Next-year revenue consensus is $204.575 billion, implying 3.73% growth versus the current-year revenue base, indicating expected revenue growth deceleration from the current year.",
+      "summary": "Consensus revenue still grows next year but at a slower rate than the current year.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "revenue estimates",
+        "growth outlook",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year revenue estimate",
+        "Revenue growth",
+        "Current-year revenue growth"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_deceleration",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for +1y and 0y; the growth rate for +1y is 0.0373 versus 0y growth of 0.0809."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current analyst recommendations are balanced rather than uniformly bullish: 4 strong buys, 8 buys, 12 holds, and no sell or strong sell ratings.",
+      "summary": "Sell-side recommendation mix has more positive than negative ratings, but holds are the largest category.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.7,
+      "related_topics": [
+        "analyst sentiment",
+        "recommendations",
+        "market expectations"
+      ],
+      "related_metrics": [
+        "Strong buy count",
+        "Buy count",
+        "Hold count",
+        "Sell count",
+        "Strong sell count"
+      ],
+      "evidence_tags": [
+        "recommendations",
+        "analyst_ratings",
+        "sentiment"
+      ],
+      "notes": "Derived from recommendations_summary metadata for period 0m."
+    }
+  ],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "The Federal Reserve kept JPMorgan's Stress Capital Buffer requirement unchanged through September 30, 2027, with new requirements to be calculated in 2027 under revised supervisory models.",
+      "summary": "SCB requirements for large banks including JPM remain at current levels through September 2027.",
+      "excerpt": "In February 2026, the Federal Reserve announced that the Stress Capital Buffer (\u201cSCB\u201d) requirements for large banks, including JPMorganChase, will remain at current levels through September 30, 2027 with new requirements to be calculated in 2027 based on revised supervisory models that incorporate public feedback.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "regulatory capital",
+        "Federal Reserve",
+        "capital returns"
+      ],
+      "related_metrics": [
+        "Stress Capital Buffer",
+        "CET1 requirement"
+      ],
+      "evidence_tags": [
+        "stress_capital_buffer",
+        "regulatory_capital",
+        "federal_reserve"
+      ],
+      "notes": "Provides near-term regulatory capital requirement visibility, though the filing says it does not disclose the firm's 2026 SCB requirement."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Under the severe stress scenario, JPMorgan's projected minimum CET1 ratio is 12.4%, down from an actual 14.6% in 4Q25, indicating a 220 bp stressed drawdown while remaining above double digits.",
+      "summary": "JPM's stress-test capital depletion leaves projected minimum CET1 at 12.4%.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Projected Minimum2 Common equity tier 1 capital ratio (%) 14.6% 14.4% 12.4%",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "capital adequacy",
+        "stress testing",
+        "balance sheet strength"
+      ],
+      "related_metrics": [
+        "CET1 ratio",
+        "Projected minimum CET1",
+        "4Q25 CET1"
+      ],
+      "evidence_tags": [
+        "capital_resilience",
+        "cet1",
+        "stress_test_results"
+      ],
+      "notes": "Stressed minimum is within JPMorgan-run DFAST methodology and may differ from Federal Reserve-published results."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan's other stressed regulatory capital ratios also remain above their actual-period lows, with projected minimum Tier 1 risk-based capital of 13.3%, total risk-based capital of 15.3%, Tier 1 leverage of 6.2%, and SLR of 5.3%.",
+      "summary": "JPM discloses stressed capital and leverage ratios that remain materially positive in the severe scenario.",
+      "excerpt": "Tier 1 risk-based capital ratio (%) 15.5% 15.3% 13.3% Total risk-based capital ratio (%) 17.4% 17.5% 15.3% Tier 1 leverage ratio (%) 6.9% 6.9% 6.2% Supplementary leverage ratio (%) 5.8% 5.8% 5.3%",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "capital adequacy",
+        "leverage",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "Tier 1 risk-based capital ratio",
+        "Total risk-based capital ratio",
+        "Tier 1 leverage ratio",
+        "Supplementary leverage ratio"
+      ],
+      "evidence_tags": [
+        "capital_ratios",
+        "leverage",
+        "stress_test_results"
+      ],
+      "notes": "Shows stressed capital and leverage ratio floors under the supervisory severely adverse scenario."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Consensus EPS for the current fiscal year is $22.41394, implying 13.6% growth versus year-ago EPS of $19.73, with 15 analysts in the estimate set.",
+      "summary": "Analyst consensus embeds double-digit current-year EPS growth for JPM.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "earnings estimates",
+        "analyst consensus",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Current-year EPS estimate",
+        "EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "consensus_estimate",
+        "eps_growth",
+        "analyst_estimates"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata: avg 0y, growth 0y, yearAgoEps 0y, numberOfAnalysts 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Consensus EPS for the next fiscal year is $23.5657, implying 5.14% growth from the current-year estimate, based on 17 analysts.",
+      "summary": "Consensus expects EPS growth to continue next year, though at a slower rate than current-year growth.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "earnings estimates",
+        "forward earnings",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year EPS estimate",
+        "EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "consensus_estimate",
+        "forward_eps",
+        "eps_growth"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata: avg +1y, growth +1y, yearAgoEps +1y, numberOfAnalysts +1y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current-year EPS estimates have been revised upward over 90 days, from $21.69965 to $22.41394, and upward over 30 days, from $22.30846 to $22.41394.",
+      "summary": "Current-year EPS consensus has moved higher across both 90-day and 30-day windows.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "estimate revisions",
+        "analyst sentiment",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "Current-year EPS estimate",
+        "90-day EPS trend",
+        "30-day EPS trend"
+      ],
+      "evidence_tags": [
+        "eps_revision",
+        "estimate_trend",
+        "positive_revision"
+      ],
+      "notes": "Derived from eps_trend metadata for 0y: 90daysAgo, 30daysAgo, current."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Revision breadth for current-year EPS is positive: 11 upward revisions and zero downward revisions in the last 30 days, plus 3 upward revisions and zero downward revisions in the last 7 days.",
+      "summary": "Analyst EPS revisions skew materially positive for the current fiscal year.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "estimate revisions",
+        "analyst sentiment",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "Up revisions last 30 days",
+        "Down revisions last 30 days",
+        "Up revisions last 7 days",
+        "Down revisions last 7 days"
+      ],
+      "evidence_tags": [
+        "revision_breadth",
+        "positive_revision",
+        "eps_revisions"
+      ],
+      "notes": "Derived from eps_revisions metadata for 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current-quarter EPS consensus is $5.49087, implying 10.7% growth versus year-ago EPS of $4.96, with 15 analysts contributing estimates.",
+      "summary": "Consensus expects double-digit EPS growth in the current quarter.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "quarterly earnings",
+        "analyst consensus",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Current-quarter EPS estimate",
+        "Quarterly EPS growth",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "quarterly_estimate",
+        "eps_growth",
+        "consensus_estimate"
+      ],
+      "notes": "Derived directly from earnings_estimate metadata for 0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Revenue consensus for the current fiscal year is $197.214 billion, implying 8.09% growth versus year-ago revenue of $182.447 billion, with 14 analysts in the estimate set.",
+      "summary": "Analysts expect high-single-digit current-year revenue growth for JPM.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "revenue estimates",
+        "analyst consensus",
+        "top-line growth"
+      ],
+      "related_metrics": [
+        "Current-year revenue estimate",
+        "Revenue growth",
+        "Year-ago revenue",
+        "Number of analysts"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "revenue_growth",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for 0y; dollar values rounded in claim for readability."
+    }
+  ],
+  "bearish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Projected standardized RWA rises from $1.982 trillion in 4Q25 to $2.089 trillion by 1Q28 under the severe scenario, increasing capital intensity by roughly $107 billion.",
+      "summary": "Stress scenario assumptions increase JPM's projected RWA base.",
+      "excerpt": "Actual 4Q25 Projected 1Q28 Basel III Standardized RWA ($B) $1,982 $2,089",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "capital requirements",
+        "balance sheet",
+        "risk-weighted assets"
+      ],
+      "related_metrics": [
+        "Basel III Standardized RWA",
+        "risk-weighted assets"
+      ],
+      "evidence_tags": [
+        "rwa",
+        "capital_intensity",
+        "stress_test"
+      ],
+      "notes": "RWA expansion affects capital ratios during the stress horizon."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "Projected credit-loss provisioning is the largest stress P&L drag at $95.6 billion over nine quarters, with $10.9 billion of trading and counterparty losses and $17.8 billion of other losses/gains.",
+      "summary": "Loss assumptions materially reduce JPM's stress-scenario earnings.",
+      "excerpt": "less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "credit risk",
+        "market risk",
+        "counterparty risk",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "Provision for credit losses",
+        "Trading and counterparty losses",
+        "Other losses/(gains)",
+        "Net income before taxes"
+      ],
+      "evidence_tags": [
+        "credit_risk",
+        "provisions",
+        "trading_losses",
+        "counterparty_risk"
+      ],
+      "notes": "Stress scenario embeds material credit and market/counterparty loss assumptions."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "JPMorgan projects total loan losses of $70.2 billion and a 5.0% portfolio loss rate over the nine-quarter severe scenario, with credit cards and commercial & industrial lending among the largest disclosed loss categories.",
+      "summary": "DFAST loan-loss projections show significant cumulative credit losses under severe stress.",
+      "excerpt": "9-QUARTER CUMULATIVE PROJECTED LOAN LOSSES, BY TYPE OF LOAN (1Q26 \u2013 1Q28) $1.4 0.5 % 0.1 1.1 27.1 12.1 6.9 4.5 26.2 12.8 1.3 1.8 7.2 1.6 $70.2 5.0 % Credit cards Loan type First lien mortgages, domestic Junior liens and home equity lines of credit, domestic Commercial & industrial2 Billions of dollars Portfolio loss rates1 (%) Other consumer3 Other4 Total projected loan losses Commercial real estate, domestic",
+      "polarity": "challenges",
+      "confidence": "medium",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "credit quality",
+        "consumer credit",
+        "commercial lending",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "Total projected loan losses",
+        "Portfolio loss rate",
+        "Credit card losses",
+        "Commercial & industrial losses"
+      ],
+      "evidence_tags": [
+        "loan_losses",
+        "credit_cards",
+        "commercial_industrial",
+        "credit_quality"
+      ],
+      "notes": "The extracted table text is order-disrupted, but it clearly discloses total projected loan losses of $70.2B and total portfolio loss rate of 5.0%; category mapping is limited by table text formatting."
+    }
+  ],
+  "mixed_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "JPM",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026045169/a2026_resultsandmethodol.htm",
+      "accession_number": "0001628280-26-045169",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K earnings-release exhibit: a2026_resultsandmethodol.htm",
+      "claim": "In the nine-quarter stress horizon, JPMorgan projects $135.9 billion of PPNR but only $11.4 billion of net income before taxes after credit provisions, trading/counterparty losses, and other losses.",
+      "summary": "Stress-test P&L shows strong PPNR but heavy loss absorption over nine quarters.",
+      "excerpt": "Billions of dollars Pre-provision net revenue $135.9 2.9 % equals Net interest income 235.2 5.1 Noninterest income2 136.2 2.9 less Noninterest expense3 235.5 5.1 Other revenue4 0.0 less Provision for credit losses5 95.6 Credit losses on investment securities (AFS/HTM)6 0.2 Trading and counterparty losses7 10.9 Other losses/(gains)8 17.8 equals Net income before taxes $11.4 0.2 %",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "earnings resilience",
+        "credit losses",
+        "market risk",
+        "stress testing"
+      ],
+      "related_metrics": [
+        "PPNR",
+        "net interest income",
+        "noninterest income",
+        "noninterest expense",
+        "provision for credit losses",
+        "trading and counterparty losses",
+        "net income before taxes"
+      ],
+      "evidence_tags": [
+        "ppnr",
+        "profitability",
+        "stress_losses"
+      ],
+      "notes": "Highlights stress profitability: substantial PPNR absorbs large loss assumptions, leaving positive pre-tax income."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Next-year revenue consensus is $204.575 billion, implying 3.73% growth versus the current-year revenue base, indicating expected revenue growth deceleration from the current year.",
+      "summary": "Consensus revenue still grows next year but at a slower rate than the current year.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "revenue estimates",
+        "growth outlook",
+        "analyst consensus"
+      ],
+      "related_metrics": [
+        "Next-year revenue estimate",
+        "Revenue growth",
+        "Current-year revenue growth"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_deceleration",
+        "consensus_estimate"
+      ],
+      "notes": "Derived from revenue_estimate metadata for +1y and 0y; the growth rate for +1y is 0.0373 versus 0y growth of 0.0809."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "JPM",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates",
+      "claim": "Current analyst recommendations are balanced rather than uniformly bullish: 4 strong buys, 8 buys, 12 holds, and no sell or strong sell ratings.",
+      "summary": "Sell-side recommendation mix has more positive than negative ratings, but holds are the largest category.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.7,
+      "related_topics": [
+        "analyst sentiment",
+        "recommendations",
+        "market expectations"
+      ],
+      "related_metrics": [
+        "Strong buy count",
+        "Buy count",
+        "Hold count",
+        "Sell count",
+        "Strong sell count"
+      ],
+      "evidence_tags": [
+        "recommendations",
+        "analyst_ratings",
+        "sentiment"
+      ],
+      "notes": "Derived from recommendations_summary metadata for period 0m."
+    }
+  ],
+  "unresolved_questions": [
+    "The provided 10-Q source text is dominated by raw XBRL/tag content in the available excerpt and the filing text is truncated, so no high-signal 10-Q evidence items were extracted without risking unsupported claims.",
+    "The estimate source does not provide top-level source_name, source_date, or source_url in the visible SourceDocument fields; those metadata fields are returned as null for estimate-derived evidence."
+  ],
+  "data_gaps": [
+    "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+    "News source unavailable, skipped, or returned no recent items.",
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "The provided 10-Q source text is dominated by raw XBRL/tag content in the available excerpt and the filing text is truncated, so no high-signal 10-Q evidence items were extracted without risking unsupported claims.",
+    "The estimate source does not provide top-level source_name, source_date, or source_url in the visible SourceDocument fields; those metadata fields are returned as null for estimate-derived evidence."
+  ],
+  "warnings": [
+    "DFAST evidence is based on JPMorganChase-modeled hypothetical supervisory severely adverse scenario results and should not be interpreted as management guidance.",
+    "No investment recommendation is provided; evidence items are source-backed facts or metadata-derived observations only."
+  ],
+  "raw_source_count": 6,
+  "evidence_item_count": 16
+}

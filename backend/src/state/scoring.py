@@ -10,6 +10,7 @@ import csv
 import numpy as np
 
 from .market_state import MarketState
+from src.agent_system.paths import data_root
 
 
 DEFAULT_WEIGHTS: Dict[str, float] = {
@@ -33,14 +34,14 @@ DEFAULT_THRESHOLDS: Dict[str, Tuple[float, float]] = {
 
 
 @lru_cache(maxsize=1)
-def _load_thresholds(path: str | Path = "data/scoring_thresholds.csv") -> Dict[str, Tuple[float, float]]:
+def _load_thresholds(path: str | Path | None = None) -> Dict[str, Tuple[float, float]]:
     """
     Load scoring thresholds from a CSV file.
     Expected columns: name, lo, hi
     Any missing/invalid entries fall back to DEFAULT_THRESHOLDS.
     """
     out = dict(DEFAULT_THRESHOLDS)
-    p = Path(path)
+    p = Path(path or (data_root(create=False) / "scoring_thresholds.csv"))
     if not p.exists():
         return out
 
@@ -65,14 +66,14 @@ def _load_thresholds(path: str | Path = "data/scoring_thresholds.csv") -> Dict[s
 
 
 @lru_cache(maxsize=1)
-def _load_weights(path: str | Path = "data/scoring_weights.csv") -> Dict[str, float]:
+def _load_weights(path: str | Path | None = None) -> Dict[str, float]:
     """
     Load component weights from CSV.
     Expected columns: name, weight
     Weights are normalized to sum to 1.0. Missing/invalid => DEFAULT_WEIGHTS.
     """
     out = dict(DEFAULT_WEIGHTS)
-    p = Path(path)
+    p = Path(path or (data_root(create=False) / "scoring_weights.csv"))
     if not p.exists():
         return out
 

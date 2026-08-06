@@ -1,0 +1,45 @@
+{
+  "id": "efc13d9b-4ea9-4a23-81d5-202dbdf3240b",
+  "schema_type": "ResearchPriority",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:04:50.727194+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:04:50.727194Z",
+    "id": "efc13d9b-4ea9-4a23-81d5-202dbdf3240b",
+    "theme": "Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+    "rationale": "The relevant swing factor is the regime\u2019s explicit breadth conflict: equal weight is still lagging cap weight, with RSP up 11.9% over 3M versus SPY up 14.8%, but the internal breadth measures are improving \u2014 81.8% of stocks are above their 200-day moving average, ADL slope is +0.62, and IWM has led SPY by 5.8 percentage points over 3M. That makes a broadening-away-from-AI thesis plausible, but not clean enough to simply buy all beta. Credit is supportive, with the credit layer bullish at 8.3 and HY OAS tight around 276bps, which helps non-AI cyclicals and quality cash-flow compounders participate. The constraint is that sticky AI leadership remains a near-equal regime runner-up, with Reopening / Soft Landing at 36.2% versus Sticky Late Cycle AI at 34.1%, and AI earnings resilience is still a named bullish driver. This priority therefore focuses on quality ex-AI broadening beneficiaries rather than duplicating the existing small-cap priority or chasing high-beta cyclicals. Edge should decay over weeks because the thesis is tied to leadership rotation, breadth confirmation/falsification, and near-term macro catalysts: May CPI on 2026-06-11 and the June FOMC on 2026-06-17, where the stale Fed path still showed 70% hold and roughly 80% hold/hike odds.",
+    "edge_hypothesis": "The market may be mispricing broadening as either an AI-continuation trade or a generic small-cap/high-beta catch-up trade. The regime data points to a narrower opportunity: profitable ex-AI large- and mid-cap companies with durable free cash flow, improving relative breadth, and limited balance-sheet sensitivity. Consensus appears still anchored to cap-weight AI leadership because RSP continues to lag SPY and AI earnings resilience remains a major regime driver, while the improving ADL, high percent-above-200D, and small-cap relative strength indicate participation is broadening underneath the index. The mispricing is that quality ex-AI beneficiaries of broad participation are not being credited for soft-landing breadth improvement, while lower-quality beta may already be too vulnerable to the still-restrictive Fed path.",
+    "sub_questions": [
+      "Which ex-AI sectors and industries have outperformed the S&P 500 equal-weight index over the last 4-8 weeks while also showing positive earnings-revision breadth?",
+      "Which profitable large- and mid-cap ex-AI companies combine positive free-cash-flow yield, net debt/EBITDA below sector median, and improving relative strength versus SPY?",
+      "Is recent broadening being led by quality factors or by lower-quality/high-beta short-covering, as measured by factor returns, balance-sheet quality, and short-interest changes?",
+      "Which non-AI cyclicals have the strongest sensitivity to tight credit spreads but the least sensitivity to a renewed rise in Fed hold/hike probabilities?",
+      "Where do ETF flows and active-fund holdings show under-ownership of ex-AI quality cash-flow beneficiaries relative to their improving price and revision trends?"
+    ],
+    "priority_rank": 2,
+    "expected_edge_decay": "weeks",
+    "supporting_evidence": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:50.727172Z",
+        "id": null,
+        "claim": "Seed research priority from current_regime.yaml: Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+        "supports": true,
+        "retrieved_at": "2026-07-30T15:04:50.727182Z",
+        "notes": "",
+        "source_type": "derived",
+        "computation": "manually curated regime overlay",
+        "upstream_claims": [
+          "current_regime.yaml seed_research_priorities"
+        ]
+      }
+    ],
+    "source_theme_id": null,
+    "source_scenario_ids": [],
+    "source_macro_forecast_id": null
+  }
+}

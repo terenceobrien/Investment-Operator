@@ -1,0 +1,135 @@
+{
+  "cycle_id": "3af1eeb9-52e1-4df7-98a8-b410e4b835ce",
+  "started_at": "2026-06-01T04:31:23.875094Z",
+  "updated_at": "2026-06-01T04:46:11.482139Z",
+  "completed_at": "2026-06-01T04:46:11.482133Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "complete",
+      "started_at": "2026-06-01T04:31:23.940951Z",
+      "completed_at": "2026-06-01T04:31:57.742535Z",
+      "message": "produced 1 priority and 0 clarification(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-06-01T04:31:57.752439Z",
+      "completed_at": "2026-06-01T04:40:06.731642Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-06-01T04:35:02.616742Z",
+      "completed_at": "2026-06-01T04:40:06.732536Z",
+      "message": "screened 11 candidate(s)",
+      "progress_current": 11,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-06-01T04:35:03.339450Z",
+      "completed_at": "2026-06-01T04:40:06.733001Z",
+      "message": "saved 11 trade idea(s)",
+      "progress_current": 11,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "complete",
+      "started_at": "2026-06-01T04:35:03.340744Z",
+      "completed_at": "2026-06-01T04:40:06.733410Z",
+      "message": "attempted 8 trade expression(s)",
+      "progress_current": 8,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "complete",
+      "started_at": "2026-06-01T04:40:06.747177Z",
+      "completed_at": "2026-06-01T04:46:11.472078Z",
+      "message": "scored 8 trade(s)",
+      "progress_current": 8,
+      "progress_total": 8,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "complete",
+      "started_at": "2026-06-01T04:46:11.477495Z",
+      "completed_at": "2026-06-01T04:46:11.479817Z",
+      "message": "portfolio plan executed 0 trade(s)",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "3af1eeb9-52e1-4df7-98a8-b410e4b835ce",
+    "regime_id": "71212d3f-9ef9-463a-a302-75abfcce0b36",
+    "thematic_maps": 1,
+    "candidates_considered": 11,
+    "trade_ideas_saved": 11,
+    "accepted": 8,
+    "rejected": 3,
+    "decision_log_entries": 11,
+    "accepted_underlyings": [
+      "QUAL",
+      "SPGI",
+      "DHI",
+      "ADBE",
+      "INTU",
+      "VNQ",
+      "IWM",
+      "ARKK"
+    ],
+    "rejected_underlyings": [
+      "NOW",
+      "VUG",
+      "XLU"
+    ],
+    "regime_source": "real_snapshot",
+    "regime_asof_date": "2026-05-31",
+    "fallback_reason": null,
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 11,
+    "fundamental_eliminated": 0,
+    "fundamental_passed": 11,
+    "crowding_flags": 0,
+    "trade_expressions_attempted": 8,
+    "trade_expressions_succeeded": 8,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 8,
+    "trade_stocks_selected": 0,
+    "trade_rejections_pre_expression": 3,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 0,
+    "portfolio_trades_reduced": 8,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.15,
+    "portfolio_binding_constraints": [
+      "robustness_demotion",
+      "priority_concentration:Clean-duration equities versus generic dovish-pivot beta"
+    ],
+    "_portfolio_summary_text": "═══ PORTFOLIO PLAN ═══\nNAV: $18,289.57\nNew deployment: $2,743.44 (15.0% of NAV)\nCash remaining if executed: $2,069.96 (11.3% of NAV)\n\nBy priority:\n  Clean-duration equities versus generic dovish-pivot beta: 8 trades, 15.0% of NAV\n\nBinding constraints: robustness_demotion, priority_concentration:Clean-duration equities versus generic dovish-pivot beta\n\nDecisions:\n  REDUCED  QUAL   QUAL                                   2.0% of NAV (proposed 5.0%)\n  REDUCED  SPGI   SPGI                                   4.1% of NAV (proposed 5.0%)\n  REDUCED  DHI    DHI                                    0.8% of NAV (proposed 2.0%)\n  REDUCED  ADBE   ADBE                                   1.6% of NAV (proposed 2.0%)\n  REDUCED  INTU   INTU                                   1.6% of NAV (proposed 2.0%)\n  REDUCED  VNQ    VNQ                                    1.6% of NAV (proposed 2.0%)\n  REDUCED  IWM    IWM                                    1.6% of NAV (proposed 2.0%)\n  REDUCED  ARKK   ARKK                                   1.6% of NAV (proposed 2.0%)"
+  },
+  "fatal_error": null,
+  "user_inputs_preview": [
+    "Dovish pivot beneficiaries"
+  ]
+}

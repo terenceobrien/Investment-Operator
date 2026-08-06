@@ -18,6 +18,7 @@ from src.agent_system.schemas.deep_fundamental import (
     ThemeMappingItem,
     ThemeMappingResult,
 )
+from src.agent_system.paths import theme_mappings_dir
 
 
 FIT_WEIGHTS = {
@@ -29,9 +30,7 @@ FIT_WEIGHTS = {
 }
 
 
-THEME_MAPPING_ROOT = (
-    Path(__file__).resolve().parents[4] / "data" / "theme_mappings"
-)
+THEME_MAPPING_ROOT = theme_mappings_dir(create=False)
 
 
 THEME_MAPPING_STOPWORDS = {

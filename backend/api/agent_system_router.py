@@ -23,6 +23,7 @@ if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
 from api.auth import verify_clerk_token
+from src.agent_system.paths import agent_system_data_root
 
 logger = logging.getLogger("api.agent_system")
 agent_system_router = APIRouter(prefix="/api/agent-system", tags=["agent-system"])
@@ -30,7 +31,7 @@ agent_system_security = HTTPBearer(auto_error=False)
 
 
 def _storage_dir() -> Path:
-    return Path(os.getenv("AGENT_SYSTEM_DATA_DIR", str(ROOT_DIR / "data" / "agent_system")))
+    return agent_system_data_root(create=True)
 
 
 def _read_jsonl(path: Path) -> List[Dict[str, Any]]:

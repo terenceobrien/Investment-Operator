@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import {
   Area,
@@ -176,6 +176,12 @@ const signedPct1 = (v: number | null | undefined) => {
   const sign = v > 0 ? '+' : '';
   return `${sign}${(v * 100).toFixed(1)}%`;
 };
+function errorMessage(error: unknown): string | null {
+  if (!error) return null;
+  if (error instanceof Error && error.message) return error.message;
+  if (typeof error === 'string') return error;
+  return 'Forecast unavailable. Generate it with PYTHONPATH=backend python3 -m src.agent_system.forecasting.macro_forecast_runner --allow-stale-bvar.';
+}
 
 function normalizeIndicatorHistory(raw: unknown): IndicatorHistoryMap {
   const payload = safeObj(raw);
@@ -296,12 +302,6 @@ function resolveHistoryForSignal(
   return null;
 }
 
-function formatHistorySource(source: string): string {
-  if (source === 'regime_timeseries') return 'regime states';
-  if (source === 'backtest_master_file') return 'backtest master';
-  return source || 'not available';
-}
-
 const LAYER_NAMES: Record<string, string> = {
   monetary: 'Monetary & Liquidity',
   credit: 'Credit & Stress',
@@ -326,8 +326,10 @@ function normalizeForecast(
   raw: MacroForecastPayload | null | undefined,
   history: IndicatorHistoryMap = {},
   scenarioMeta: ScenarioMetaMap = {},
+  unavailableMessage: string | null = null,
 ) {
   const payload = safeObj(raw);
+  const available = Boolean(raw) && !unavailableMessage;
   const fi = safeObj(payload.forecast_interpretation);
   const sp = safeObj(payload.scenario_probabilities) as Record<string, unknown>;
   const mixture = (payload.mixture_report ?? {}) as MixtureReport;
@@ -339,10 +341,10 @@ function normalizeForecast(
   const scenarios = Object.keys(sp)
     .map((id) => {
       const row = perScenario[id] ?? {};
-      const blended = safeNum(sp[id]) ?? safeNum(row.final) ?? 0;
+      const blended = safeNum(sp[id]) ?? safeNum(row.final);
       const bvar = safeNum(row.bvar_soft) ?? safeNum(bvarSoft[id]);
       const analogue = safeNum(row.analogue_implied) ?? safeNum(analogueImplied[id]);
-      const delta = safeNum(row.delta) ?? (bvar === null ? null : blended - bvar);
+      const delta = safeNum(row.delta) ?? (bvar === null || blended === null ? null : blended - bvar);
       const meta = scenarioMeta[id];
       return {
         id,
@@ -355,7 +357,7 @@ function normalizeForecast(
         isRecession: recessionGroup.has(id),
       };
     })
-    .sort((a, b) => b.blended - a.blended);
+    .sort((a, b) => (b.blended ?? Number.NEGATIVE_INFINITY) - (a.blended ?? Number.NEGATIVE_INFINITY));
 
   // Five layer summaries from input_signals where role === layer_summary
   const signals = safeArray<AnyRecord>(payload.input_signals);
@@ -364,7 +366,7 @@ function normalizeForecast(
     .map((s) => ({
       layer: safeStr(s.parent_layer),
       name: LAYER_NAMES[safeStr(s.parent_layer)] ?? safeStr(s.parent_layer),
-      score: safeNum(s.current_value) ?? 0,
+      score: safeNum(s.current_value),
       signal: safeStr(s.signal),
       trend: safeStr(s.trend),
     }));
@@ -394,11 +396,14 @@ function normalizeForecast(
   });
 
   const topScenario = scenarios[0];
-  const composite = layers.length
-    ? (layers.reduce((a, l) => a + l.score, 0) / layers.length) * 10
+  const layerScores = layers.map((l) => l.score).filter((score): score is number => score !== null);
+  const composite = layerScores.length
+    ? (layerScores.reduce((a, score) => a + score, 0) / layerScores.length) * 10
     : null;
 
   return {
+    available,
+    unavailableMessage,
     asof: safeStr(payload.asof_date),
     horizon: safeStr(payload.horizon),
     probMode: safeStr(payload.probability_mode),
@@ -408,7 +413,7 @@ function normalizeForecast(
     confLevel: safeStr(fi.confidence_level),
     confRationale: safeStr(fi.confidence_rationale),
     dominantLabel: topScenario?.label ?? '',
-    dominantProb: topScenario?.blended ?? 0,
+    dominantProb: topScenario?.blended ?? null,
     preferred: safeArray<string>(fi.preferred_exposures),
     avoid: safeArray<string>(fi.exposures_to_avoid),
     tensions: safeArray<string>(fi.key_tensions),
@@ -421,6 +426,19 @@ function normalizeForecast(
   };
 }
 type Forecast = ReturnType<typeof normalizeForecast>;
+type ForecastDataState = {
+  forecast: Forecast;
+  isLoading: boolean;
+  errorMessage: string | null;
+};
+const ForecastDataContext = createContext<ForecastDataState | null>(null);
+function useForecastData(): ForecastDataState {
+  const value = useContext(ForecastDataContext);
+  if (!value) {
+    throw new Error('ForecastDataContext missing');
+  }
+  return value;
+}
 
 type LiveRegimeLayer = {
   key: string;
@@ -676,15 +694,20 @@ function appendHistoryPoint(points: HistoryPoint[], point: HistoryPoint | null):
 }
 
 function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveRegime | null; scoreHistory: HistoryPoint[] }) {
+  const { isLoading, errorMessage } = useForecastData();
+  const forecastUnavailable = !f.available;
   const composite = regime?.scoreTotal ?? f.composite;
-  const runnerUp = f.scenarios[1];
-  const probabilityGap = runnerUp ? f.dominantProb - runnerUp.blended : null;
-  const topBvar = f.scenarios
+  const runnerUp = forecastUnavailable ? undefined : f.scenarios[1];
+  const probabilityGap = runnerUp && f.dominantProb !== null && runnerUp.blended !== null ? f.dominantProb - runnerUp.blended : null;
+  const topBvar = forecastUnavailable ? undefined : f.scenarios
     .filter((scenario) => scenario.bvar !== null && scenario.bvar !== undefined)
-    .sort((a, b) => (b.bvar ?? 0) - (a.bvar ?? 0))[0];
+    .sort((a, b) => (b.bvar ?? Number.NEGATIVE_INFINITY) - (a.bvar ?? Number.NEGATIVE_INFINITY))[0];
   const pulseLabel =
     regime?.environment ||
-    (f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful');
+    (forecastUnavailable
+      ? 'Forecast unavailable'
+      : f.confLevel === 'high' ? 'Constructive, high conviction' : f.confLevel === 'low' ? 'Constructive, selective' : 'Mixed, watchful');
+  const unavailableLabel = isLoading ? 'forecast loading' : errorMessage ? 'forecast unavailable' : 'forecast unavailable';
   const pulseMeta = regime ? `Regime · ${regime.asof || '—'}` : `Forecast fallback · ${f.asof || '—'}`;
   const chartPoints = appendHistoryPoint(
     scoreHistory,
@@ -700,7 +723,7 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
             {pulseLabel}
           </h2>
           <div style={{ marginTop: 10 }}>
-            <Chip label={`${pct1(f.dominantProb)} probability`} color={M.accent} />
+            <Chip label={forecastUnavailable ? unavailableLabel : `${pct1(f.dominantProb)} probability`} color={forecastUnavailable ? M.inkFaint : M.accent} />
           </div>
           {composite !== null ? (
             <div style={{ margin: '13px 0 2px' }}>
@@ -723,7 +746,7 @@ function MarketPulse({ f, regime, scoreHistory }: { f: Forecast; regime: LiveReg
             yLabel="score"
           />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 10 }} className="macro-stat-list">
-            <MiniStat label="Dominant" value={f.dominantLabel || '—'} sub={pct1(f.dominantProb)} color={M.accentBright} />
+            <MiniStat label="Dominant" value={forecastUnavailable ? 'forecast unavailable' : f.dominantLabel || '—'} sub={forecastUnavailable ? 'unavailable' : pct1(f.dominantProb)} color={forecastUnavailable ? M.inkFaint : M.accentBright} />
             <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
             <MiniStat label="Gap" value={probabilityGap === null ? '—' : pct1(probabilityGap)} sub="dominant spread" color={probabilityGap !== null && probabilityGap > 0.08 ? M.pos : M.warn} />
             <MiniStat label="BVAR" value={topBvar?.label ?? '—'} sub={topBvar?.bvar !== null && topBvar?.bvar !== undefined ? pct1(topBvar.bvar) : '—'} />
@@ -745,7 +768,7 @@ function MiniStat({ label, value, sub, color = M.ink }: { label: string; value: 
 }
 
 function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }) {
-  const heading = regime?.environment || f.dominantLabel;
+  const heading = regime?.environment || (f.available ? f.dominantLabel : 'forecast unavailable');
   const layers = regime
     ? regime.layers
     : f.layers.map((l) => ({
@@ -777,34 +800,12 @@ function CurrentRegime({ f, regime }: { f: Forecast; regime: LiveRegime | null }
 }
 
 // ─────────────────────────────────────────────────────────────
-// Section 2: Dominant scenario banner
-// ─────────────────────────────────────────────────────────────
-function DominantBanner({ f }: { f: Forecast }) {
-  return (
-    <section style={{ background: '#0A1E36', border: `1px solid ${M.line2}`, borderRadius: '16px', overflow: 'hidden', boxShadow: M.shadow }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '30px', padding: '32px', flexWrap: 'wrap' }}>
-        <div style={{ flex: '1 1 520px' }}>
-          <div style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.18em', color: M.inkFaint, textTransform: 'uppercase' }}>Dominant scenario</div>
-          <h2 style={{ fontFamily: M.serif, fontSize: '32px', fontWeight: 500, color: '#fff', lineHeight: 1.08, margin: '12px 0 14px', maxWidth: '820px' }}>{f.headline}</h2>
-          <p style={{ margin: 0, fontFamily: M.sans, fontSize: '14px', color: M.inkDim, lineHeight: 1.65, maxWidth: '760px' }}>{f.summary}</p>
-        </div>
-        <div style={{ textAlign: 'right', minWidth: '190px' }}>
-          <div style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase' }}>Confidence · {f.confLevel}</div>
-          <div style={{ marginTop: '6px' }}><ValueText value={pct1(f.dominantProb)} size={40} color="#fff" /></div>
-          <div style={{ height: '6px', background: M.well, borderRadius: '999px', marginTop: '12px', overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${f.dominantProb * 100}%`, background: M.accent, borderRadius: '999px' }} />
-          </div>
-          <div style={{ fontFamily: M.sans, fontSize: '11.5px', color: M.inkFaint, marginTop: '12px', lineHeight: 1.45, textAlign: 'right' }}>{f.confRationale}</div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Section 3: Scenario distribution
+// Scenario distribution
 // ─────────────────────────────────────────────────────────────
 function ScenarioCards({ f }: { f: Forecast }) {
+  if (!f.available) {
+    return <Panel title="Scenario explorer" meta="forecast unavailable"><ErrorMini message={f.unavailableMessage ?? 'Forecast unavailable.'} /></Panel>;
+  }
   const alpha = f.mixture.alpha ?? null;
   const bvarWeight = alpha === null ? null : 1 - alpha;
   const analogueWeight = alpha;
@@ -822,7 +823,7 @@ function ScenarioCards({ f }: { f: Forecast }) {
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(112px, 1fr))', gap: '8px' }} className="scenario-card-grid">
         {f.scenarios.map((s, i) => {
-          const top = s.isRecession ? M.warn : i === 0 ? M.accentBright : s.blended >= 0.15 ? M.pos : M.inkFaint;
+          const top = s.isRecession ? M.warn : i === 0 ? M.accentBright : s.blended !== null && s.blended >= 0.15 ? M.pos : M.inkFaint;
           const deltaColor = s.delta === null || s.delta === undefined ? M.inkFaint : s.delta >= 0 ? M.pos : M.neg;
           return (
             <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '10px', padding: '12px 11px' }}>
@@ -1071,39 +1072,7 @@ function LegendSwatch({ color, label }: { color: string; label: string }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Section 5: Positioning + tensions
-// ─────────────────────────────────────────────────────────────
-function PositioningTensions({ f }: { f: Forecast }) {
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(0, 1fr)', gap: '20px' }} className="helix-fan-grid">
-      <Panel title="Positioning read">
-        <div style={{ marginBottom: '18px' }}>
-          <Chip label="Preferred" color={M.pos} />
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '11px' }}>
-            {f.preferred.map((x) => <Chip key={x} label={x} />)}
-          </div>
-        </div>
-        <div>
-          <Chip label="Avoid" color={M.neg} />
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '11px' }}>
-            {f.avoid.map((x) => <Chip key={x} label={x} />)}
-          </div>
-        </div>
-      </Panel>
-      <Panel title="Key tensions">
-        {f.tensions.map((t, i) => (
-          <div key={i} style={{ display: 'flex', gap: '12px', padding: '13px 0', borderTop: i ? `1px solid ${M.line}` : 'none' }}>
-            <span style={{ fontFamily: M.mono, fontSize: '12px', color: M.accentBright, paddingTop: '2px' }}>0{i + 1}</span>
-            <span style={{ fontFamily: M.sans, fontSize: '13.5px', color: M.inkDim, lineHeight: 1.55 }}>{t}</span>
-          </div>
-        ))}
-      </Panel>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Section 6: Indicator explorer
+// Indicator explorer
 // ─────────────────────────────────────────────────────────────
 function indicatorKey(ind: Indicator): string {
   return `${ind.layer}::${ind.role}::${ind.label}`;
@@ -1207,19 +1176,6 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
     </section>
   );
 }
-const backRowStyle: React.CSSProperties = {
-  width: '100%',
-  border: `1px solid ${M.line}`,
-  background: M.well,
-  color: M.accentBright,
-  borderRadius: '10px',
-  padding: '10px 11px',
-  fontFamily: M.mono,
-  fontSize: '11px',
-  fontWeight: 600,
-  textAlign: 'left',
-  cursor: 'pointer',
-};
 function railRowStyle(active: boolean): React.CSSProperties {
   return {
     width: '100%',
@@ -1240,44 +1196,6 @@ function railRowStyle(active: boolean): React.CSSProperties {
     cursor: 'pointer',
     boxShadow: active ? `0 0 0 1px ${M.accent}33` : undefined,
   };
-}
-function IndicatorDetail({ ind }: { ind: Indicator }) {
-  const value = formatIndicatorValue(ind.val);
-  return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '18px', marginBottom: '18px' }}>
-        <div>
-          <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.14em', textTransform: 'uppercase', color: M.inkFaint, marginBottom: '8px' }}>
-            {ind.cat} · {ind.role.replace(/_/g, ' ')}
-          </div>
-          <h3 style={{ margin: 0, fontFamily: M.serif, fontSize: '26px', fontWeight: 500, color: M.ink, lineHeight: 1.08 }}>{ind.label}</h3>
-        </div>
-        <Chip label={ind.signal || 'neutral'} color={signalColor(ind.signal)} />
-      </div>
-      <ValueText value={value} size={42} color={signalColor(ind.signal)} />
-      <HistoryLineChart
-        points={ind.history}
-        color={signalColor(ind.signal)}
-        height={220}
-        yLabel={ind.unit || 'value'}
-      />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px', marginTop: '16px' }}>
-        <StatBox label="Trend" value={ind.trend || '—'} />
-        <StatBox label="Confidence" value={ind.conf === null ? '—' : ind.conf.toFixed(2)} />
-        <StatBox label="Layer" value={ind.layer || '—'} />
-        <StatBox label="Unit" value={ind.unit || '—'} />
-        <StatBox label="History" value={ind.history.length ? `${ind.history.length} pts · ${formatHistorySource(ind.historySource)}` : '—'} />
-      </div>
-    </div>
-  );
-}
-function StatBox({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: '12px', padding: '12px' }}>
-      <div style={{ fontFamily: M.mono, fontSize: '9.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, marginBottom: '6px' }}>{label}</div>
-      <div style={{ fontFamily: M.sans, fontSize: '13px', color: M.ink, fontWeight: 600, lineHeight: 1.35 }}>{value}</div>
-    </div>
-  );
 }
 function IndicatorStat({ label, value, color = M.ink }: { label: string; value: string; color?: string }) {
   return (
@@ -1421,6 +1339,8 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
 
   const narrativeRows = snap.bullets.length
     ? snap.bullets
+    : !f.available
+      ? [{ label: 'Forecast', text: f.unavailableMessage || 'Forecast unavailable.' }]
     : [
         { label: 'Reality', text: f.regimeRead || f.headline },
         { label: 'Story', text: f.summary },
@@ -1438,13 +1358,13 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
         ))}
       </div>
       <div style={{ borderLeft: `1px solid ${M.line}`, paddingLeft: 18 }}>
-        <ChipCloud label="Preferred" color={M.pos} items={f.preferred} />
+        <ChipCloud label="Preferred" color={M.pos} items={f.available ? f.preferred : ['forecast unavailable']} />
         <div style={{ height: 10 }} />
-        <ChipCloud label="Avoid" color={M.neg} items={f.avoid} />
+        <ChipCloud label="Avoid" color={M.neg} items={f.available ? f.avoid : ['forecast unavailable']} />
       </div>
       <div style={{ borderLeft: `1px solid ${M.line}`, paddingLeft: 18 }}>
         <MutedLabel>Key tensions</MutedLabel>
-        {f.tensions.slice(0, 4).map((item, index) => (
+        {(f.available ? f.tensions : ['forecast unavailable']).slice(0, 4).map((item, index) => (
           <div key={`${item}-${index}`} style={{ display: 'grid', gridTemplateColumns: '24px minmax(0, 1fr)', gap: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.35, marginBottom: 6 }}>
             <span style={{ fontFamily: M.mono, color: M.accentBright }}>0{index + 1}</span>
             <span>{truncate(item, 88)}</span>
@@ -1484,8 +1404,8 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
 
   const renderPositioning = () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }} className="macro-narrative-grid">
-      <ChipCloud label="Preferred" color={M.pos} items={f.preferred} />
-      <ChipCloud label="Avoid" color={M.neg} items={f.avoid} />
+      <ChipCloud label="Preferred" color={M.pos} items={f.available ? f.preferred : ['forecast unavailable']} />
+      <ChipCloud label="Avoid" color={M.neg} items={f.available ? f.avoid : ['forecast unavailable']} />
     </div>
   );
 
@@ -1544,14 +1464,6 @@ function ChipCloud({ label, color, items }: { label: string; color: string; item
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 7 }}>
         {(items.length ? items : ['—']).map((item) => <Chip key={item} label={item} color={color === M.pos || color === M.neg ? color : M.accentBright} />)}
       </div>
-    </div>
-  );
-}
-function SnapChip({ label, value, accent }: { label: string; value: string; accent?: string }) {
-  return (
-    <div style={{ padding: '12px 14px', background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px', borderLeft: accent ? `3px solid ${accent}` : `1px solid ${M.line}` }}>
-      <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 600, marginBottom: '5px' }}>{label}</div>
-      <div style={{ fontFamily: M.sans, fontSize: '13.5px', color: M.ink, fontWeight: 600, lineHeight: 1.45 }}>{value}</div>
     </div>
   );
 }
@@ -1614,9 +1526,24 @@ export default function MacroPage() {
     () => normalizeIndicatorHistory(indicatorHistoryRaw),
     [indicatorHistoryRaw],
   );
+  const forecastUnavailableMessage = forecastError
+    ? errorMessage(forecastError)
+    : forecastLoading
+      ? 'Forecast loading.'
+      : forecastRaw
+        ? null
+        : 'Forecast unavailable. Generate it with PYTHONPATH=backend python3 -m src.agent_system.forecasting.macro_forecast_runner --allow-stale-bvar.';
   const forecast = useMemo<Forecast>(
-    () => normalizeForecast(forecastRaw, indicatorHistory, scenarioMetaRaw ?? {}),
-    [forecastRaw, indicatorHistory, scenarioMetaRaw],
+    () => normalizeForecast(forecastRaw, indicatorHistory, scenarioMetaRaw ?? {}, forecastUnavailableMessage),
+    [forecastRaw, indicatorHistory, scenarioMetaRaw, forecastUnavailableMessage],
+  );
+  const forecastState = useMemo<ForecastDataState>(
+    () => ({
+      forecast,
+      isLoading: forecastLoading,
+      errorMessage: forecastUnavailableMessage,
+    }),
+    [forecast, forecastLoading, forecastUnavailableMessage],
   );
   const compositeScoreHistory = useMemo(
     () => indicatorHistory.score_total?.points ?? [],
@@ -1654,6 +1581,7 @@ export default function MacroPage() {
   }
 
   return (
+    <ForecastDataContext.Provider value={forecastState}>
     <main style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
       <div style={{ width: 'min(1460px, calc(100% - 44px))', margin: '0 auto', padding: '26px 0 46px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '4px' }}>
@@ -1661,12 +1589,12 @@ export default function MacroPage() {
             <Eyebrow>MACRO &amp; REGIME &gt; CURRENT READ</Eyebrow>
             <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>Macro Analysis</h1>
             <div style={{ fontFamily: M.sans, fontSize: '13px', color: M.canvasInkDim, lineHeight: 1.45, maxWidth: '960px', marginTop: 10 }}>
-              {forecast.regimeRead || forecast.headline}
+              {forecast.available ? forecast.regimeRead || forecast.headline : forecast.unavailableMessage}
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Regime · {regime?.asof || '—'}</div>
-            <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Forecast · {forecast.asof || '—'}</div>
+            <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Forecast · {forecast.available ? forecast.asof || '—' : 'unavailable'}</div>
           </div>
         </div>
 
@@ -1709,5 +1637,6 @@ export default function MacroPage() {
         }
       `}</style>
     </main>
+    </ForecastDataContext.Provider>
   );
 }

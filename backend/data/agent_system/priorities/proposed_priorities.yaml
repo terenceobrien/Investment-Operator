@@ -1,0 +1,82 @@
+priorities:
+- theme: 2027-2028 maturity-wall equities with understated refinancing EPS drag
+  rationale: 'Credit conditions look healthy rather than distressed: the credit layer is bullish
+    at 8.1 and HY spreads are tight at 272bps. That is precisely why the better research angle
+    is not broad default risk, but understated EPS pressure from refinancing legacy debt at
+    materially higher rates. The monetary backdrop does not give much near-term relief: the
+    Fed path shows a 70% hold probability at the June 17 FOMC and 55% hold probability at
+    the July 29 meeting, so companies facing 2027-2028 walls cannot rely on imminent cuts
+    being pulled forward. The regime also explicitly lists weak balance sheets and small caps
+    as most vulnerable, which points the screen toward levered issuers where interest expense
+    revisions can matter more than revenue revisions. May CPI and the June FOMC are near-term
+    catalysts for rate assumptions, but the edge should decay over quarters because the mispricing
+    is resolved through refinancing transactions, credit agreement amendments, and multi-quarter
+    EPS estimate revisions rather than a single data print.'
+  edge_hypothesis: "The mispricing is that equity consensus appears to be modeling refinancing\
+    \ risk as a solvency issue only, while the more likely near-term damage is EPS dilution\
+    \ from coupon step-ups. Because HY spreads are tight, default risk screens may look benign;\
+    \ because the forward Fed path still prices mostly holds at the next two meetings, assuming\
+    \ rapid rate relief in 2027-2028 interest expense models may be too generous. Our prior\
+    \ is that sell-side estimates for levered issuers with large 2027-2028 maturities still\
+    \ anchor to current blended cash interest costs rather than refinancing those maturities\
+    \ at today\u2019s all-in yield curve. The edge is in finding companies where debt is refinanceable\
+    \ but EPS estimates do not yet reflect the higher cash interest burden."
+  sub_questions:
+  - Which public companies have 2027-2028 debt maturities exceeding 25% of current market
+    capitalization or 3x trailing free cash flow, and what is the EPS impact if those maturities
+    refinance at current market yields?
+  - Where do consensus 2026-2028 interest expense estimates imply refinancing rates below
+    current bond yields, term loan spreads, or comparable new-issue coupons?
+  - Which companies have large fixed-rate debt walls with coupons materially below current
+    secondary yields, but equity multiples that still screen as if interest expense will remain
+    near the historical run-rate?
+  - Which sectors have the largest mismatch between tight credit-spread signals and equity
+    EPS sensitivity to higher cash interest costs?
+  - Which levered issuers have enough liquidity to avoid distress but insufficient free cash
+    flow growth to absorb refinancing-driven interest expense without margin or EPS estimate
+    cuts?
+  priority_rank: 2
+  expected_edge_decay: quarters
+  supporting_evidence:
+  - claim: Credit layer is bullish at 8.1 and HY spreads are tight at 272bps, indicating healthy
+      credit-market access rather than immediate broad distress.
+    supports: true
+    source_type: derived
+    computation: Drawn from current regime layer scores and credit signal.
+    upstream_claims:
+    - 'regime state: layers.credit.score=8.1'
+    - 'regime state: layers.credit.status=''bullish'''
+    - "regime state: credit signal='HY spreads tight (272bps) \u2014 credit healthy'"
+  - claim: Fed path shows 70% hold probability at the June 17 2026 FOMC and 55% hold probability
+      at the July 29 2026 FOMC.
+    supports: true
+    source_type: derived
+    computation: Drawn from forward-context FedWatch readings.
+    upstream_claims:
+    - 'forward_context.fed_path.2026-06-17: hold=70%, cut25=18%, cut50=2%, hike25=9%, hike50=1%'
+    - 'forward_context.fed_path.2026-07-29: hold=55%, cut25=30%, cut50=5%, hike25=9%, hike50=1%'
+  - claim: Monetary layer is neutral at 6.1, so the regime does not support an aggressive
+      near-term easing assumption.
+    supports: true
+    source_type: derived
+    computation: Drawn from current regime layer scores.
+    upstream_claims:
+    - 'regime state: layers.monetary.score=6.1'
+    - 'regime state: layers.monetary.status=''neutral'''
+  - claim: Weak balance sheets and small caps are explicitly listed as most vulnerable in
+      the current regime.
+    supports: true
+    source_type: derived
+    computation: Drawn from current regime vulnerability list.
+    upstream_claims:
+    - 'regime state: most_vulnerable includes ''Weak balance sheets'''
+    - 'regime state: most_vulnerable includes ''Small caps'''
+  - claim: Near-term catalysts include May CPI on June 11 2026 and the June FOMC meeting on
+      June 17 2026.
+    supports: true
+    source_type: derived
+    computation: Drawn from forward-context catalyst calendar.
+    upstream_claims:
+    - 'forward_context.upcoming_catalysts: 2026-06-11 May CPI Release, high significance'
+    - 'forward_context.upcoming_catalysts: 2026-06-17 FOMC June Meeting, high significance'
+clarifications: []

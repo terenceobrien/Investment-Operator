@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "description": "Manual overrides for scenario × theme cells where historical basket composition diverges meaningfully from today's thematic exposure. With behavioral macro scenarios, fewer cells require override since the scenarios themselves have ample historical analogues.",
+    "last_updated": "2026-06-16",
+    "rules": "Each cell specifies expected_return and volatility as decimals. Cells listed here will NOT be recalibrated from historical data; the calibration script writes these values directly and sets source='manual_override' in the CSV."
+  },
+  "overrides": {
+    "growth_scare_no_credit": {
+      "grid_power_infrastructure": {"expected_return": -0.18, "volatility": 0.28, "rationale": "Grid/power names are now AI infrastructure proxies; historical industrial contractor returns understate their current AI capex sensitivity in a growth scare with AI concerns."},
+      "electrical_equipment":      {"expected_return": -0.18, "volatility": 0.28, "rationale": "Same as grid/power — modern thesis tied to AI data center buildout."},
+      "high_beta_ai_semis":        {"expected_return": -0.25, "volatility": 0.38, "rationale": "Direct exposure to AI capex; historical semi performance in growth scares understates current AI concentration."}
+    },
+    "credit_led_recession": {
+      "grid_power_infrastructure": {"expected_return": -0.25, "volatility": 0.32, "rationale": "Grid/power names would be hit on both credit channel (leverage) and AI capex channel."},
+      "high_beta_ai_semis":        {"expected_return": -0.35, "volatility": 0.42, "rationale": "Direct AI capex exposure plus broad equity beta in a credit-led recession."}
+    }
+  }
+}

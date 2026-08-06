@@ -20,8 +20,10 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 import pandas as pd
 
+from src.agent_system.paths import snapshots_dir
 
-SNAPSHOT_DIR = Path(os.environ.get("SNAPSHOT_DIR", "data/snapshots"))
+
+SNAPSHOT_DIR = Path(os.environ.get("SNAPSHOT_DIR", str(snapshots_dir(create=False))))
 
 
 # ── Regime State dataclass ────────────────────────────────────────────────────

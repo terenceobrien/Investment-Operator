@@ -23,6 +23,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BACKEND_ROOT = REPO_ROOT / "backend"
+PATH_RESOLVER_ENV_VARS = ("HELIX_DATA_ROOT", "AGENT_SYSTEM_DATA_DIR")
 
 if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
@@ -32,9 +33,13 @@ def _load_env_files() -> None:
     try:
         from dotenv import load_dotenv
 
+        protected = {key: os.environ.get(key) for key in PATH_RESOLVER_ENV_VARS}
         load_dotenv(REPO_ROOT / ".env")
         load_dotenv(REPO_ROOT / ".env.local")
         load_dotenv(BACKEND_ROOT / ".env", override=True)
+        for key, value in protected.items():
+            if value is not None:
+                os.environ[key] = value
         return
     except Exception:
         pass
@@ -49,6 +54,8 @@ def _load_env_files() -> None:
             key, value = clean.split("=", 1)
             key = key.strip()
             value = value.strip().strip('"').strip("'")
+            if key in PATH_RESOLVER_ENV_VARS and key in os.environ:
+                continue
             if key and (path == BACKEND_ROOT / ".env" or key not in os.environ):
                 os.environ[key] = value
 

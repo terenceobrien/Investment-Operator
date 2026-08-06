@@ -22,6 +22,7 @@ When to keep a helper local to one test file:
 from __future__ import annotations
 
 import sys
+import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -32,6 +33,8 @@ import pytest
 BACKEND_DIR = Path(__file__).resolve().parents[3]
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
+os.environ["HELIX_DATA_ROOT"] = str(BACKEND_DIR / "data")
+os.environ["AGENT_SYSTEM_DATA_DIR"] = str(BACKEND_DIR / "data" / "agent_system")
 
 from src.agent_system.schemas.common import (
     AnalysisConviction,
@@ -65,6 +68,12 @@ from src.agent_system.schemas.regime import (
     RegimeLayerStatus,
     ResearchPriority,
 )
+
+
+@pytest.fixture(autouse=True)
+def stable_helix_data_root(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(BACKEND_DIR / "data"))
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(BACKEND_DIR / "data" / "agent_system"))
 
 
 # ─────────────────────────────────────────────────────────────────────────────

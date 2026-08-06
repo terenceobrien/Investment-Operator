@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from src.agent_system.paths import macro_json_dir
 from src.agent_system.forecasting.bvar_ensemble.bounds import validate_registry_bounds
 from src.agent_system.forecasting.bvar_ensemble.diagnostics import print_tail_diagnostics
 from src.agent_system.forecasting.bvar_ensemble.estimation import (
@@ -855,10 +856,7 @@ def _print_correlation_matrix(variable_order: list[str], matrix) -> None:
 
 
 def _latest_narrative_forecast_path() -> Path:
-    roots = [
-        Path("data/agent_system/reports/macro_forecasts"),
-        Path("backend/data/agent_system/reports/macro_forecasts"),
-    ]
+    roots = [macro_json_dir(create=False)]
     candidates: list[Path] = []
     for root in roots:
         if not root.is_dir():

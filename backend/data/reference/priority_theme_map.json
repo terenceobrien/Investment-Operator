@@ -1,0 +1,13 @@
+{
+  "description": "Maps full research priority label strings to short-form theme IDs used in theme_betas.json and scenario_theme_returns.csv. Add new entries as new research priorities appear in cycles.",
+  "mappings": {
+    "second-order grid and power infrastructure beneficiaries with cross-scenario support": "grid_power_infrastructure",
+    "quality ex-ai cash-flow compounders with soft-landing and sticky-cycle resilience": "quality_ex_ai_cash_flow",
+    "grid and power infrastructure": "grid_power_infrastructure",
+    "quality ex-ai cash flow": "quality_ex_ai_cash_flow",
+    "hormuz-duration second-order beneficiaries versus crowded crude beta": "energy_oil_beta",
+    "quantum picks-and-shovels versus overvalued pure-play commercialization optionality": "quality_ai",
+    "paid cash optionality versus forced deployment into narrow leadership": "cash_short_duration",
+    "quality rate-sensitive equities with underpriced fed-cut convexity": "long_duration_growth"
+  }
+}

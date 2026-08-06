@@ -1,0 +1,1755 @@
+{
+  "ticker": "MU",
+  "as_of_date": "2026-06-29",
+  "created_at": "2026-06-29T15:25:47.515107",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "notes": null
+    },
+    {
+      "source_type": "filing",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000015/mu-20260528.htm",
+      "accession_number": "0000723125-26-000015",
+      "notes": null
+    },
+    {
+      "source_type": "transcript",
+      "status": "not_found",
+      "source_name": "Earnings call transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+    },
+    {
+      "source_type": "news",
+      "status": "skipped",
+      "source_name": "News",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "News retrieval skipped; NEWS_API_KEY or NEWSDATA_API_KEY is not configured."
+    },
+    {
+      "source_type": "estimate",
+      "status": "found",
+      "source_name": "yfinance",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "status": "skipped",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: SSNLF, 000660.KS, WDC."
+    }
+  ],
+  "source_coverage_summary": "estimate:found=1; filing:found=1; news:skipped=1; peer_commentary:skipped=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Micron reported record fiscal Q3 2026 revenue of $41.46 billion, up sharply from $23.86 billion in the prior quarter and $9.30 billion year over year.",
+      "summary": "Record revenue substantially exceeded prior-quarter and year-ago levels.",
+      "excerpt": "Fiscal Q3 2026 highlights \u2022 Revenue of $41.46 billion versus $23.86 billion for the prior quarter and $9.30 billion for the same period last year",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "earnings",
+        "growth",
+        "AI memory demand"
+      ],
+      "related_metrics": [
+        "revenue",
+        "quarterly revenue",
+        "year-over-year revenue",
+        "sequential revenue"
+      ],
+      "evidence_tags": [
+        "earnings_result",
+        "record_revenue",
+        "qoq_growth",
+        "yoy_growth"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Profitability expanded materially in fiscal Q3 2026, with GAAP gross margin of 84.6% versus 74.4% in Q2 and 37.7% in the year-ago quarter.",
+      "summary": "Gross margin rose sharply both sequentially and year over year.",
+      "excerpt": "Gross margin 35,056 17,755 3,508 35,199 17,876 3,623 Percent of revenue 84.6 % 74.4 % 37.7 % 84.9 % 74.9 % 39.0 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "profitability",
+        "pricing",
+        "operating leverage"
+      ],
+      "related_metrics": [
+        "GAAP gross margin",
+        "non-GAAP gross margin",
+        "gross profit"
+      ],
+      "evidence_tags": [
+        "margin_expansion",
+        "earnings_result",
+        "gross_margin"
+      ],
+      "notes": "Excerpt includes GAAP and non-GAAP gross margin rows; GAAP percentages are 84.6%, 74.4%, and 37.7%."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Micron delivered GAAP EPS of $24.67 and non-GAAP EPS of $25.11 in fiscal Q3 2026, compared with $1.68 and $1.91, respectively, in the year-ago quarter.",
+      "summary": "EPS and net income reached very elevated levels versus the prior year.",
+      "excerpt": "GAAP net income of $28.24 billion, or $24.67 per diluted share \u2022 Non-GAAP net income of $28.86 billion, or $25.11 per diluted share",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "earnings",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP EPS",
+        "non-GAAP EPS",
+        "net income"
+      ],
+      "evidence_tags": [
+        "eps_growth",
+        "earnings_result",
+        "net_income"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Operating cash flow rose to $25.39 billion in fiscal Q3 2026, and adjusted free cash flow was $18.3 billion after $7.1 billion of net capex.",
+      "summary": "Cash generation scaled significantly while the company continued heavy investment.",
+      "excerpt": "Operating cash flow of $25.39 billion versus $11.90 billion for the prior quarter and $4.61 billion for the same period last year",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "cash generation",
+        "capex",
+        "liquidity"
+      ],
+      "related_metrics": [
+        "operating cash flow",
+        "adjusted free cash flow",
+        "capital expenditures"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "free_cash_flow",
+        "capex",
+        "liquidity"
+      ],
+      "notes": "The same release states: \u201cFor the third quarter of 2026, investments in capital expenditures, net (2) were $7.1 billion and adjusted free cash flow (2) was $18.3 billion.\u201d"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Management attributed record Q3 results and a stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand.",
+      "summary": "CEO commentary was strongly positive on AI-driven memory demand and investment needs.",
+      "excerpt": "\u201cMicron\u2019s record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,\u201d said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology. \u201cMicron is investing at record levels in technology, products and supply to address our customers\u2019 rapidly growing demand.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "AI",
+        "memory demand",
+        "management tone",
+        "investment cycle"
+      ],
+      "related_metrics": [
+        "revenue outlook",
+        "capex",
+        "customer demand"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "AI_demand",
+        "guidance_tone",
+        "customer_demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Micron said multi-year Strategic Customer Agreements should improve the durability and predictability of financial performance.",
+      "summary": "Strategic customer agreements are presented as improving predictability of future performance.",
+      "excerpt": "We believe our multi-year Strategic Customer Agreements will significantly enhance the durability and predictability of Micron\u2019s strong financial performance.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "customer agreements",
+        "demand visibility",
+        "business durability"
+      ],
+      "related_metrics": [
+        "revenue visibility",
+        "financial performance"
+      ],
+      "evidence_tags": [
+        "strategic_customer_agreements",
+        "customer_commitments",
+        "revenue_visibility"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Cloud Memory Business Unit revenue reached $13.77 billion in fiscal Q3 2026, with 83% gross margin and 78% operating margin.",
+      "summary": "Cloud Memory showed strong revenue growth and very high margins.",
+      "excerpt": "Cloud Memory Business Unit Revenue $ 13,769 $ 7,749 $ 3,386 Gross margin 83 % 74 % 58 % Operating margin 78 % 66 % 46 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "cloud memory",
+        "segment performance",
+        "AI infrastructure"
+      ],
+      "related_metrics": [
+        "Cloud Memory Business Unit revenue",
+        "Cloud Memory gross margin",
+        "Cloud Memory operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "cloud_memory",
+        "gross_margin",
+        "operating_margin"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Core Data Center Business Unit revenue more than doubled sequentially to $11.52 billion, with 87% gross margin and 83% operating margin.",
+      "summary": "Core Data Center revenue and margins improved substantially.",
+      "excerpt": "Core Data Center Business Unit Revenue $ 11,524 $ 5,687 $ 1,530 Gross margin 87 % 74 % 38 % Operating margin 83 % 67 % 20 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "data center",
+        "AI infrastructure",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Core Data Center revenue",
+        "Core Data Center gross margin",
+        "Core Data Center operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "data_center",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Mobile and Client Business Unit revenue was $11.52 billion in fiscal Q3 2026, with 87% gross margin and 86% operating margin, up from 24% and 15% margins a year earlier.",
+      "summary": "Mobile and Client margins expanded sharply year over year.",
+      "excerpt": "Mobile and Client Business Unit Revenue $ 11,521 $ 7,711 $ 3,255 Gross margin 87 % 79 % 24 % Operating margin 86 % 76 % 15 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "mobile",
+        "client",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Mobile and Client revenue",
+        "Mobile and Client gross margin",
+        "Mobile and Client operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "mobile_client",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Automotive and Embedded Business Unit revenue rose to $4.63 billion, with 79% gross margin and 75% operating margin in fiscal Q3 2026.",
+      "summary": "Automotive and Embedded revenue and margins improved across comparison periods.",
+      "excerpt": "Automotive and Embedded Business Unit Revenue $ 4,634 $ 2,708 $ 1,127 Gross margin 79 % 68 % 26 % Operating margin 75 % 62 % 11 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "automotive",
+        "embedded",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Automotive and Embedded revenue",
+        "Automotive and Embedded gross margin",
+        "Automotive and Embedded operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "automotive",
+        "embedded",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Fiscal Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin, and non-GAAP EPS of $31.00 \u00b1 $1.00.",
+      "summary": "Q4 outlook implies sequential revenue and EPS growth from already elevated Q3 results.",
+      "excerpt": "Business Outlook The following table presents Micron\u2019s guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion \u00b1 $1.0 billion $50.0 billion \u00b1 $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 \u00b1 $1.00 $31.00 \u00b1 $1.00",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Q4 revenue guidance",
+        "Q4 gross margin guidance",
+        "Q4 EPS guidance",
+        "operating expenses guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "revenue_guidance",
+        "gross_margin_guidance",
+        "eps_guidance"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "HBM product execution appears advanced, with HBM4 in high-volume shipments for a lead customer platform and HBM4E volume production expected in calendar 2027.",
+      "summary": "The HBM roadmap and shipment status support Micron\u2019s AI memory positioning.",
+      "excerpt": "\u2022 HBM4, built on 1-beta DRAM technology, is in high-volume shipments for our lead customer's platform, and qualification samples have been shipped to multiple end-customers. \u2022 Development of HBM4E, built on 1-gamma DRAM technology, is well underway, with volume production expected in calendar 2027.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "HBM",
+        "DRAM technology",
+        "AI accelerators",
+        "product roadmap"
+      ],
+      "related_metrics": [
+        "HBM4 shipments",
+        "HBM4E production timing"
+      ],
+      "evidence_tags": [
+        "product_highlight",
+        "HBM",
+        "AI_memory",
+        "customer_qualification"
+      ],
+      "notes": null
+    }
+  ],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [],
+  "estimate_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter EPS estimates for MU increased to 31.32479 from 24.18138 seven days earlier and 22.83096 thirty days earlier; there were 4 upward revisions and no downward revisions over the last 30 days.",
+      "summary": "Near-term EPS estimates have moved sharply higher with no recent downward revisions in the supplied dataset.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "analyst estimates",
+        "earnings revisions"
+      ],
+      "related_metrics": [
+        "current-quarter EPS estimate",
+        "EPS revisions up last 30 days",
+        "EPS revisions down last 30 days"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "eps_revision",
+        "positive_revision_breadth"
+      ],
+      "notes": "Derived from supplied metadata fields earnings_estimate.avg.0q, eps_trend.current.0q, eps_trend.7daysAgo.0q, eps_trend.30daysAgo.0q, and eps_revisions for 0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter EPS estimates increased to 34.73633 from 27.63408 seven days earlier, 25.52651 thirty days earlier, and 24.26999 ninety days earlier.",
+      "summary": "Next-quarter EPS expectations have been revised substantially upward across multiple lookback windows.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "analyst estimates",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "next-quarter EPS estimate",
+        "EPS trend"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "eps_revision",
+        "forward_estimates"
+      ],
+      "notes": "Derived from supplied metadata fields eps_trend.current.+1q, eps_trend.7daysAgo.+1q, eps_trend.30daysAgo.+1q, and eps_trend.90daysAgo.+1q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Current fiscal-year EPS estimates rose to 73.36288 from 60.99951 seven days earlier and 57.64156 ninety days earlier, with 5 upward revisions and no downward revisions in the last 30 days.",
+      "summary": "Annual EPS expectations show broad upward revision momentum.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "analyst estimates",
+        "earnings revisions"
+      ],
+      "related_metrics": [
+        "current fiscal-year EPS estimate",
+        "annual EPS revisions"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "annual_eps",
+        "positive_revision_breadth"
+      ],
+      "notes": "Derived from supplied metadata fields eps_trend.current.0y, eps_trend.7daysAgo.0y, eps_trend.90daysAgo.0y, and eps_revisions for 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+      "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook"
+      ],
+      "related_metrics": [
+        "current-quarter revenue estimate",
+        "revenue growth estimate",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_estimate",
+        "analyst_consensus"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+      "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.8,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook",
+        "estimate dispersion"
+      ],
+      "related_metrics": [
+        "next-quarter revenue estimate",
+        "revenue estimate high",
+        "revenue estimate low",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "forward_estimates",
+        "estimate_dispersion"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Current recommendations are skewed positive, with 9 strongBuy, 29 buy, and 4 hold ratings, but also 1 strongSell in the supplied recommendations summary.",
+      "summary": "Analyst recommendation distribution is broadly favorable but not unanimous.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.72,
+      "related_topics": [
+        "analyst recommendations",
+        "sentiment"
+      ],
+      "related_metrics": [
+        "strongBuy ratings",
+        "buy ratings",
+        "hold ratings",
+        "strongSell ratings"
+      ],
+      "evidence_tags": [
+        "recommendations",
+        "analyst_sentiment",
+        "rating_mix"
+      ],
+      "notes": "Derived from supplied metadata fields recommendations_summary for period 0m."
+    }
+  ],
+  "peer_commentary_evidence": [],
+  "management_guidance": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Management attributed record Q3 results and a stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand.",
+      "summary": "CEO commentary was strongly positive on AI-driven memory demand and investment needs.",
+      "excerpt": "\u201cMicron\u2019s record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,\u201d said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology. \u201cMicron is investing at record levels in technology, products and supply to address our customers\u2019 rapidly growing demand.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "AI",
+        "memory demand",
+        "management tone",
+        "investment cycle"
+      ],
+      "related_metrics": [
+        "revenue outlook",
+        "capex",
+        "customer demand"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "AI_demand",
+        "guidance_tone",
+        "customer_demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Fiscal Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin, and non-GAAP EPS of $31.00 \u00b1 $1.00.",
+      "summary": "Q4 outlook implies sequential revenue and EPS growth from already elevated Q3 results.",
+      "excerpt": "Business Outlook The following table presents Micron\u2019s guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion \u00b1 $1.0 billion $50.0 billion \u00b1 $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 \u00b1 $1.00 $31.00 \u00b1 $1.00",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Q4 revenue guidance",
+        "Q4 gross margin guidance",
+        "Q4 EPS guidance",
+        "operating expenses guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "revenue_guidance",
+        "gross_margin_guidance",
+        "eps_guidance"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+      "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook"
+      ],
+      "related_metrics": [
+        "current-quarter revenue estimate",
+        "revenue growth estimate",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_estimate",
+        "analyst_consensus"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+      "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.8,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook",
+        "estimate dispersion"
+      ],
+      "related_metrics": [
+        "next-quarter revenue estimate",
+        "revenue estimate high",
+        "revenue estimate low",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "forward_estimates",
+        "estimate_dispersion"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+    }
+  ],
+  "segment_kpis": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Cloud Memory Business Unit revenue reached $13.77 billion in fiscal Q3 2026, with 83% gross margin and 78% operating margin.",
+      "summary": "Cloud Memory showed strong revenue growth and very high margins.",
+      "excerpt": "Cloud Memory Business Unit Revenue $ 13,769 $ 7,749 $ 3,386 Gross margin 83 % 74 % 58 % Operating margin 78 % 66 % 46 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "cloud memory",
+        "segment performance",
+        "AI infrastructure"
+      ],
+      "related_metrics": [
+        "Cloud Memory Business Unit revenue",
+        "Cloud Memory gross margin",
+        "Cloud Memory operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "cloud_memory",
+        "gross_margin",
+        "operating_margin"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Core Data Center Business Unit revenue more than doubled sequentially to $11.52 billion, with 87% gross margin and 83% operating margin.",
+      "summary": "Core Data Center revenue and margins improved substantially.",
+      "excerpt": "Core Data Center Business Unit Revenue $ 11,524 $ 5,687 $ 1,530 Gross margin 87 % 74 % 38 % Operating margin 83 % 67 % 20 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "data center",
+        "AI infrastructure",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Core Data Center revenue",
+        "Core Data Center gross margin",
+        "Core Data Center operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "data_center",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Mobile and Client Business Unit revenue was $11.52 billion in fiscal Q3 2026, with 87% gross margin and 86% operating margin, up from 24% and 15% margins a year earlier.",
+      "summary": "Mobile and Client margins expanded sharply year over year.",
+      "excerpt": "Mobile and Client Business Unit Revenue $ 11,521 $ 7,711 $ 3,255 Gross margin 87 % 79 % 24 % Operating margin 86 % 76 % 15 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "mobile",
+        "client",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Mobile and Client revenue",
+        "Mobile and Client gross margin",
+        "Mobile and Client operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "mobile_client",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Automotive and Embedded Business Unit revenue rose to $4.63 billion, with 79% gross margin and 75% operating margin in fiscal Q3 2026.",
+      "summary": "Automotive and Embedded revenue and margins improved across comparison periods.",
+      "excerpt": "Automotive and Embedded Business Unit Revenue $ 4,634 $ 2,708 $ 1,127 Gross margin 79 % 68 % 26 % Operating margin 75 % 62 % 11 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "automotive",
+        "embedded",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Automotive and Embedded revenue",
+        "Automotive and Embedded gross margin",
+        "Automotive and Embedded operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "automotive",
+        "embedded",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    }
+  ],
+  "consensus_narrative": [
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter EPS estimates for MU increased to 31.32479 from 24.18138 seven days earlier and 22.83096 thirty days earlier; there were 4 upward revisions and no downward revisions over the last 30 days.",
+      "summary": "Near-term EPS estimates have moved sharply higher with no recent downward revisions in the supplied dataset.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "analyst estimates",
+        "earnings revisions"
+      ],
+      "related_metrics": [
+        "current-quarter EPS estimate",
+        "EPS revisions up last 30 days",
+        "EPS revisions down last 30 days"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "eps_revision",
+        "positive_revision_breadth"
+      ],
+      "notes": "Derived from supplied metadata fields earnings_estimate.avg.0q, eps_trend.current.0q, eps_trend.7daysAgo.0q, eps_trend.30daysAgo.0q, and eps_revisions for 0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter EPS estimates increased to 34.73633 from 27.63408 seven days earlier, 25.52651 thirty days earlier, and 24.26999 ninety days earlier.",
+      "summary": "Next-quarter EPS expectations have been revised substantially upward across multiple lookback windows.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "analyst estimates",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "next-quarter EPS estimate",
+        "EPS trend"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "eps_revision",
+        "forward_estimates"
+      ],
+      "notes": "Derived from supplied metadata fields eps_trend.current.+1q, eps_trend.7daysAgo.+1q, eps_trend.30daysAgo.+1q, and eps_trend.90daysAgo.+1q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Current fiscal-year EPS estimates rose to 73.36288 from 60.99951 seven days earlier and 57.64156 ninety days earlier, with 5 upward revisions and no downward revisions in the last 30 days.",
+      "summary": "Annual EPS expectations show broad upward revision momentum.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "analyst estimates",
+        "earnings revisions"
+      ],
+      "related_metrics": [
+        "current fiscal-year EPS estimate",
+        "annual EPS revisions"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "annual_eps",
+        "positive_revision_breadth"
+      ],
+      "notes": "Derived from supplied metadata fields eps_trend.current.0y, eps_trend.7daysAgo.0y, eps_trend.90daysAgo.0y, and eps_revisions for 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+      "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook"
+      ],
+      "related_metrics": [
+        "current-quarter revenue estimate",
+        "revenue growth estimate",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_estimate",
+        "analyst_consensus"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+      "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.8,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook",
+        "estimate dispersion"
+      ],
+      "related_metrics": [
+        "next-quarter revenue estimate",
+        "revenue estimate high",
+        "revenue estimate low",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "forward_estimates",
+        "estimate_dispersion"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Current recommendations are skewed positive, with 9 strongBuy, 29 buy, and 4 hold ratings, but also 1 strongSell in the supplied recommendations summary.",
+      "summary": "Analyst recommendation distribution is broadly favorable but not unanimous.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.72,
+      "related_topics": [
+        "analyst recommendations",
+        "sentiment"
+      ],
+      "related_metrics": [
+        "strongBuy ratings",
+        "buy ratings",
+        "hold ratings",
+        "strongSell ratings"
+      ],
+      "evidence_tags": [
+        "recommendations",
+        "analyst_sentiment",
+        "rating_mix"
+      ],
+      "notes": "Derived from supplied metadata fields recommendations_summary for period 0m."
+    }
+  ],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Micron reported record fiscal Q3 2026 revenue of $41.46 billion, up sharply from $23.86 billion in the prior quarter and $9.30 billion year over year.",
+      "summary": "Record revenue substantially exceeded prior-quarter and year-ago levels.",
+      "excerpt": "Fiscal Q3 2026 highlights \u2022 Revenue of $41.46 billion versus $23.86 billion for the prior quarter and $9.30 billion for the same period last year",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "earnings",
+        "growth",
+        "AI memory demand"
+      ],
+      "related_metrics": [
+        "revenue",
+        "quarterly revenue",
+        "year-over-year revenue",
+        "sequential revenue"
+      ],
+      "evidence_tags": [
+        "earnings_result",
+        "record_revenue",
+        "qoq_growth",
+        "yoy_growth"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Profitability expanded materially in fiscal Q3 2026, with GAAP gross margin of 84.6% versus 74.4% in Q2 and 37.7% in the year-ago quarter.",
+      "summary": "Gross margin rose sharply both sequentially and year over year.",
+      "excerpt": "Gross margin 35,056 17,755 3,508 35,199 17,876 3,623 Percent of revenue 84.6 % 74.4 % 37.7 % 84.9 % 74.9 % 39.0 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "profitability",
+        "pricing",
+        "operating leverage"
+      ],
+      "related_metrics": [
+        "GAAP gross margin",
+        "non-GAAP gross margin",
+        "gross profit"
+      ],
+      "evidence_tags": [
+        "margin_expansion",
+        "earnings_result",
+        "gross_margin"
+      ],
+      "notes": "Excerpt includes GAAP and non-GAAP gross margin rows; GAAP percentages are 84.6%, 74.4%, and 37.7%."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Micron delivered GAAP EPS of $24.67 and non-GAAP EPS of $25.11 in fiscal Q3 2026, compared with $1.68 and $1.91, respectively, in the year-ago quarter.",
+      "summary": "EPS and net income reached very elevated levels versus the prior year.",
+      "excerpt": "GAAP net income of $28.24 billion, or $24.67 per diluted share \u2022 Non-GAAP net income of $28.86 billion, or $25.11 per diluted share",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "earnings",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP EPS",
+        "non-GAAP EPS",
+        "net income"
+      ],
+      "evidence_tags": [
+        "eps_growth",
+        "earnings_result",
+        "net_income"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Operating cash flow rose to $25.39 billion in fiscal Q3 2026, and adjusted free cash flow was $18.3 billion after $7.1 billion of net capex.",
+      "summary": "Cash generation scaled significantly while the company continued heavy investment.",
+      "excerpt": "Operating cash flow of $25.39 billion versus $11.90 billion for the prior quarter and $4.61 billion for the same period last year",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "cash generation",
+        "capex",
+        "liquidity"
+      ],
+      "related_metrics": [
+        "operating cash flow",
+        "adjusted free cash flow",
+        "capital expenditures"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "free_cash_flow",
+        "capex",
+        "liquidity"
+      ],
+      "notes": "The same release states: \u201cFor the third quarter of 2026, investments in capital expenditures, net (2) were $7.1 billion and adjusted free cash flow (2) was $18.3 billion.\u201d"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Management attributed record Q3 results and a stronger Q4 outlook to the strategic value of memory in the AI era and rapidly growing customer demand.",
+      "summary": "CEO commentary was strongly positive on AI-driven memory demand and investment needs.",
+      "excerpt": "\u201cMicron\u2019s record fiscal Q3 financial results and even stronger outlook for Q4 reflect the strategic value of memory in the AI era,\u201d said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology. \u201cMicron is investing at record levels in technology, products and supply to address our customers\u2019 rapidly growing demand.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "AI",
+        "memory demand",
+        "management tone",
+        "investment cycle"
+      ],
+      "related_metrics": [
+        "revenue outlook",
+        "capex",
+        "customer demand"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "AI_demand",
+        "guidance_tone",
+        "customer_demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Micron said multi-year Strategic Customer Agreements should improve the durability and predictability of financial performance.",
+      "summary": "Strategic customer agreements are presented as improving predictability of future performance.",
+      "excerpt": "We believe our multi-year Strategic Customer Agreements will significantly enhance the durability and predictability of Micron\u2019s strong financial performance.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "customer agreements",
+        "demand visibility",
+        "business durability"
+      ],
+      "related_metrics": [
+        "revenue visibility",
+        "financial performance"
+      ],
+      "evidence_tags": [
+        "strategic_customer_agreements",
+        "customer_commitments",
+        "revenue_visibility"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Cloud Memory Business Unit revenue reached $13.77 billion in fiscal Q3 2026, with 83% gross margin and 78% operating margin.",
+      "summary": "Cloud Memory showed strong revenue growth and very high margins.",
+      "excerpt": "Cloud Memory Business Unit Revenue $ 13,769 $ 7,749 $ 3,386 Gross margin 83 % 74 % 58 % Operating margin 78 % 66 % 46 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "cloud memory",
+        "segment performance",
+        "AI infrastructure"
+      ],
+      "related_metrics": [
+        "Cloud Memory Business Unit revenue",
+        "Cloud Memory gross margin",
+        "Cloud Memory operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "cloud_memory",
+        "gross_margin",
+        "operating_margin"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Core Data Center Business Unit revenue more than doubled sequentially to $11.52 billion, with 87% gross margin and 83% operating margin.",
+      "summary": "Core Data Center revenue and margins improved substantially.",
+      "excerpt": "Core Data Center Business Unit Revenue $ 11,524 $ 5,687 $ 1,530 Gross margin 87 % 74 % 38 % Operating margin 83 % 67 % 20 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "data center",
+        "AI infrastructure",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Core Data Center revenue",
+        "Core Data Center gross margin",
+        "Core Data Center operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "data_center",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Mobile and Client Business Unit revenue was $11.52 billion in fiscal Q3 2026, with 87% gross margin and 86% operating margin, up from 24% and 15% margins a year earlier.",
+      "summary": "Mobile and Client margins expanded sharply year over year.",
+      "excerpt": "Mobile and Client Business Unit Revenue $ 11,521 $ 7,711 $ 3,255 Gross margin 87 % 79 % 24 % Operating margin 86 % 76 % 15 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "mobile",
+        "client",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Mobile and Client revenue",
+        "Mobile and Client gross margin",
+        "Mobile and Client operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "mobile_client",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Automotive and Embedded Business Unit revenue rose to $4.63 billion, with 79% gross margin and 75% operating margin in fiscal Q3 2026.",
+      "summary": "Automotive and Embedded revenue and margins improved across comparison periods.",
+      "excerpt": "Automotive and Embedded Business Unit Revenue $ 4,634 $ 2,708 $ 1,127 Gross margin 79 % 68 % 26 % Operating margin 75 % 62 % 11 %",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "automotive",
+        "embedded",
+        "segment performance"
+      ],
+      "related_metrics": [
+        "Automotive and Embedded revenue",
+        "Automotive and Embedded gross margin",
+        "Automotive and Embedded operating margin"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "automotive",
+        "embedded",
+        "margin_expansion"
+      ],
+      "notes": "Dollar figures are in millions, per table header context."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "Fiscal Q4 2026 guidance calls for approximately $50.0 billion of revenue, approximately 86% gross margin, and non-GAAP EPS of $31.00 \u00b1 $1.00.",
+      "summary": "Q4 outlook implies sequential revenue and EPS growth from already elevated Q3 results.",
+      "excerpt": "Business Outlook The following table presents Micron\u2019s guidance for the fourth quarter of 2026: FQ4-26 GAAP (1) Outlook Non-GAAP (2) Outlook Revenue $50.0 billion \u00b1 $1.0 billion $50.0 billion \u00b1 $1.0 billion Gross margin Approximately 86% Approximately 86% Operating expenses Approximately $1.86 billion Approximately $1.65 billion Diluted earnings per share $30.73 \u00b1 $1.00 $31.00 \u00b1 $1.00",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Q4 revenue guidance",
+        "Q4 gross margin guidance",
+        "Q4 EPS guidance",
+        "operating expenses guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "revenue_guidance",
+        "gross_margin_guidance",
+        "eps_guidance"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "MU",
+      "source_date": "2026-06-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a2026q3ex991-pressrelease.htm",
+      "claim": "HBM product execution appears advanced, with HBM4 in high-volume shipments for a lead customer platform and HBM4E volume production expected in calendar 2027.",
+      "summary": "The HBM roadmap and shipment status support Micron\u2019s AI memory positioning.",
+      "excerpt": "\u2022 HBM4, built on 1-beta DRAM technology, is in high-volume shipments for our lead customer's platform, and qualification samples have been shipped to multiple end-customers. \u2022 Development of HBM4E, built on 1-gamma DRAM technology, is well underway, with volume production expected in calendar 2027.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "HBM",
+        "DRAM technology",
+        "AI accelerators",
+        "product roadmap"
+      ],
+      "related_metrics": [
+        "HBM4 shipments",
+        "HBM4E production timing"
+      ],
+      "evidence_tags": [
+        "product_highlight",
+        "HBM",
+        "AI_memory",
+        "customer_qualification"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter EPS estimates for MU increased to 31.32479 from 24.18138 seven days earlier and 22.83096 thirty days earlier; there were 4 upward revisions and no downward revisions over the last 30 days.",
+      "summary": "Near-term EPS estimates have moved sharply higher with no recent downward revisions in the supplied dataset.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "analyst estimates",
+        "earnings revisions"
+      ],
+      "related_metrics": [
+        "current-quarter EPS estimate",
+        "EPS revisions up last 30 days",
+        "EPS revisions down last 30 days"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "eps_revision",
+        "positive_revision_breadth"
+      ],
+      "notes": "Derived from supplied metadata fields earnings_estimate.avg.0q, eps_trend.current.0q, eps_trend.7daysAgo.0q, eps_trend.30daysAgo.0q, and eps_revisions for 0q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter EPS estimates increased to 34.73633 from 27.63408 seven days earlier, 25.52651 thirty days earlier, and 24.26999 ninety days earlier.",
+      "summary": "Next-quarter EPS expectations have been revised substantially upward across multiple lookback windows.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "analyst estimates",
+        "earnings momentum"
+      ],
+      "related_metrics": [
+        "next-quarter EPS estimate",
+        "EPS trend"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "eps_revision",
+        "forward_estimates"
+      ],
+      "notes": "Derived from supplied metadata fields eps_trend.current.+1q, eps_trend.7daysAgo.+1q, eps_trend.30daysAgo.+1q, and eps_trend.90daysAgo.+1q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Current fiscal-year EPS estimates rose to 73.36288 from 60.99951 seven days earlier and 57.64156 ninety days earlier, with 5 upward revisions and no downward revisions in the last 30 days.",
+      "summary": "Annual EPS expectations show broad upward revision momentum.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "analyst estimates",
+        "earnings revisions"
+      ],
+      "related_metrics": [
+        "current fiscal-year EPS estimate",
+        "annual EPS revisions"
+      ],
+      "evidence_tags": [
+        "estimate_revision",
+        "annual_eps",
+        "positive_revision_breadth"
+      ],
+      "notes": "Derived from supplied metadata fields eps_trend.current.0y, eps_trend.7daysAgo.0y, eps_trend.90daysAgo.0y, and eps_revisions for 0y."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus current-quarter revenue estimate is approximately $50.68 billion, with estimated growth of 3.4794 and a range from $46.91 billion to $59.81 billion across 30 analysts.",
+      "summary": "Revenue consensus aligns with a very large near-term sales base, though the estimate range is wide.",
+      "excerpt": null,
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook"
+      ],
+      "related_metrics": [
+        "current-quarter revenue estimate",
+        "revenue growth estimate",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "growth_estimate",
+        "analyst_consensus"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.0q, revenue_estimate.growth.0q, revenue_estimate.low.0q, revenue_estimate.high.0q, and revenue_estimate.numberOfAnalysts.0q."
+    }
+  ],
+  "bearish_evidence": [],
+  "mixed_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Consensus next-quarter revenue estimate is approximately $56.46 billion, with 29 analysts and an estimate range of $45.50 billion to $75.37 billion.",
+      "summary": "Next-quarter revenue consensus is higher than current-quarter consensus, but the high-low range indicates substantial dispersion.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.8,
+      "related_topics": [
+        "analyst estimates",
+        "revenue outlook",
+        "estimate dispersion"
+      ],
+      "related_metrics": [
+        "next-quarter revenue estimate",
+        "revenue estimate high",
+        "revenue estimate low",
+        "analyst count"
+      ],
+      "evidence_tags": [
+        "revenue_estimate",
+        "forward_estimates",
+        "estimate_dispersion"
+      ],
+      "notes": "Derived from supplied metadata fields revenue_estimate.avg.+1q, revenue_estimate.low.+1q, revenue_estimate.high.+1q, and revenue_estimate.numberOfAnalysts.+1q."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "source_date": null,
+      "source_name": null,
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimates and revisions",
+      "claim": "Current recommendations are skewed positive, with 9 strongBuy, 29 buy, and 4 hold ratings, but also 1 strongSell in the supplied recommendations summary.",
+      "summary": "Analyst recommendation distribution is broadly favorable but not unanimous.",
+      "excerpt": null,
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.72,
+      "related_topics": [
+        "analyst recommendations",
+        "sentiment"
+      ],
+      "related_metrics": [
+        "strongBuy ratings",
+        "buy ratings",
+        "hold ratings",
+        "strongSell ratings"
+      ],
+      "evidence_tags": [
+        "recommendations",
+        "analyst_sentiment",
+        "rating_mix"
+      ],
+      "notes": "Derived from supplied metadata fields recommendations_summary for period 0m."
+    }
+  ],
+  "unresolved_questions": [
+    "The supplied 10-Q filing text is largely raw XBRL/tag output and truncated in the prompt; no reliable high-signal MD&A, risk, liquidity, debt, capex, or segment narrative excerpt could be extracted from the visible text.",
+    "The estimates source lacks explicit source_name, source_date, source_url, form_type, accession_number, and exhibit_type metadata in the supplied document."
+  ],
+  "data_gaps": [
+    "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+    "News source unavailable, skipped, or returned no recent items.",
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "The supplied 10-Q filing text is largely raw XBRL/tag output and truncated in the prompt; no reliable high-signal MD&A, risk, liquidity, debt, capex, or segment narrative excerpt could be extracted from the visible text.",
+    "The estimates source lacks explicit source_name, source_date, source_url, form_type, accession_number, and exhibit_type metadata in the supplied document."
+  ],
+  "warnings": [
+    "No evidence items were extracted from the 10-Q because the visible supplied text did not provide reliably readable high-signal filing passages beyond raw XBRL/tag fragments.",
+    "Estimate evidence is based on structured metadata rather than quoted source text; excerpts are null for those items."
+  ],
+  "raw_source_count": 6,
+  "evidence_item_count": 18
+}

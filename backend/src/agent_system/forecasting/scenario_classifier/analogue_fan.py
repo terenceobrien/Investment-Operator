@@ -39,6 +39,7 @@ from src.agent_system.forecasting.scenario_classifier.nber_dates import (
     parse_quarter,
     recession_within,
 )
+from src.agent_system.paths import analogue_fans_dir
 
 
 FAN_OUTPUT_TEMPLATE = "analogue_fan_{query_date}.json"
@@ -90,7 +91,7 @@ def default_fan_output_path(
     *,
     output_dir: str | Path | None = None,
 ) -> Path:
-    target_dir = Path(output_dir) if output_dir is not None else default_cache_dir()
+    target_dir = Path(output_dir) if output_dir is not None else analogue_fans_dir(create=False)
     return target_dir / FAN_OUTPUT_TEMPLATE.format(query_date=str(parse_quarter(query_date)))
 
 

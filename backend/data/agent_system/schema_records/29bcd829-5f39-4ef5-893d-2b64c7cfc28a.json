@@ -1,0 +1,46 @@
+{
+  "id": "29bcd829-5f39-4ef5-893d-2b64c7cfc28a",
+  "schema_type": "ResearchPriority",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.345883+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.345883Z",
+    "id": "29bcd829-5f39-4ef5-893d-2b64c7cfc28a",
+    "theme": "Expansion with disinflation (broadening / soft landing) behavioral scenario validation",
+    "rationale": "Expansion with disinflation (broadening / soft landing) is a secondary scenario in the active behavioral macro source with ensemble probability 9.2%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+    "edge_hypothesis": "The market may be under- or over-pricing the transition into Expansion with disinflation (broadening / soft landing). Research should test whether preferred exposures such as small_caps, high_beta_ai_semis, engineering_construction, electrical_equipment offer cleaner risk/reward than vulnerable exposures such as cash_short_duration, using behavioral scenario ids rather than the retired narrative taxonomy.",
+    "sub_questions": [
+      "Which themes have direct positive exposure to Expansion with disinflation (broadening / soft landing) without relying on stale narrative scenario ids?",
+      "Where are preferred exposures (small_caps, high_beta_ai_semis, engineering_construction, electrical_equipment) showing bottom-up confirmation?",
+      "Which vulnerable exposures (cash_short_duration) are beginning to break or de-rate?"
+    ],
+    "priority_rank": 2,
+    "expected_edge_decay": "quarters",
+    "supporting_evidence": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.345880Z",
+        "id": null,
+        "claim": "Behavioral seed priority derived from ensemble probability 9.2% and current_conditions designation 'secondary'.",
+        "supports": true,
+        "retrieved_at": "2026-07-30T15:02:33.345880Z",
+        "notes": "",
+        "source_type": "derived",
+        "computation": "macro_scenario_source behavioral seed-priority builder",
+        "upstream_claims": [
+          "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+          "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+        ]
+      }
+    ],
+    "source_theme_id": "behavioral::expansion_disinflation",
+    "source_scenario_ids": [
+      "expansion_disinflation"
+    ],
+    "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+  }
+}

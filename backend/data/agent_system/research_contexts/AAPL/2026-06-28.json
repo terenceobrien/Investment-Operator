@@ -1,0 +1,916 @@
+{
+  "ticker": "AAPL",
+  "as_of_date": "2026-06-28",
+  "created_at": "2026-06-29T05:38:59.240321",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "notes": null
+    },
+    {
+      "source_type": "filing",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+      "accession_number": "0000320193-26-000013",
+      "notes": null
+    },
+    {
+      "source_type": "transcript",
+      "status": "not_found",
+      "source_name": "Earnings call transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+    }
+  ],
+  "source_coverage_summary": "filing:found=1; sec_8k_exhibit:found=1; transcript:not_found=1",
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple reported a record March quarter with total revenue of $111.2 billion, up 17% year over year.",
+      "summary": "Headline revenue growth was strong and management characterized it as the best March quarter ever.",
+      "excerpt": "The Company posted quarterly revenue of $111.2 billion, up 17 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "financial results",
+        "growth",
+        "earnings release"
+      ],
+      "related_metrics": [
+        "quarterly revenue",
+        "year-over-year revenue growth"
+      ],
+      "evidence_tags": [
+        "earnings_result",
+        "revenue_growth",
+        "march_quarter_record"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Diluted EPS rose 22% year over year to $2.01, setting a March quarter EPS record.",
+      "summary": "EPS growth exceeded revenue growth, indicating earnings leverage in the quarter.",
+      "excerpt": "Diluted earnings per share was $2.01, up 22 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "profitability",
+        "earnings"
+      ],
+      "related_metrics": [
+        "diluted EPS",
+        "EPS growth"
+      ],
+      "evidence_tags": [
+        "earnings_result",
+        "eps_growth",
+        "march_quarter_record"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Management cited double-digit revenue growth across every geographic segment.",
+      "summary": "The release points to broad-based geographic strength rather than concentration in a single region.",
+      "excerpt": "\u201cToday Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "geographic performance",
+        "demand",
+        "management tone"
+      ],
+      "related_metrics": [
+        "geographic segment revenue growth"
+      ],
+      "evidence_tags": [
+        "geographic_growth",
+        "management_commentary",
+        "demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "iPhone revenue reached a March quarter record, with management attributing strength to demand for the iPhone 17 lineup.",
+      "summary": "iPhone, Apple\u2019s largest product category, showed record March-quarter demand according to management.",
+      "excerpt": "\u201ciPhone achieved a March quarter revenue record, fueled by such extraordinary demand for the iPhone 17 lineup.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "iPhone demand",
+        "product cycle",
+        "hardware"
+      ],
+      "related_metrics": [
+        "iPhone revenue"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "product_demand",
+        "record_revenue"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Services revenue reached a new all-time high and grew to $30.976 billion from $26.645 billion in the year-ago quarter.",
+      "summary": "Services, a key higher-margin category, continued to set records.",
+      "excerpt": "Services revenue reaches new all-time high",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "Services",
+        "revenue mix",
+        "installed base monetization"
+      ],
+      "related_metrics": [
+        "Services revenue"
+      ],
+      "evidence_tags": [
+        "services",
+        "all_time_high",
+        "recurring_revenue"
+      ],
+      "notes": "The revenue amounts are shown in the net sales by category table: Services $30,976 versus $26,645, in millions."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Operating cash flow exceeded $28 billion and set a new March quarter record.",
+      "summary": "The quarter generated substantial cash flow alongside record EPS.",
+      "excerpt": "\u201cOur strong business performance during the March quarter generated over $28 billion in operating cash flow and drove new March quarter records for both operating cash flow and EPS,\u201d said Kevan Parekh, Apple\u2019s CFO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "cash generation",
+        "liquidity",
+        "profitability"
+      ],
+      "related_metrics": [
+        "operating cash flow"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "march_quarter_record",
+        "liquidity"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said its installed base of active devices reached a new all-time high across all major product categories and geographic segments.",
+      "summary": "A record installed base supports Apple\u2019s ecosystem and potential services monetization.",
+      "excerpt": "\u201cContinued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "ecosystem",
+        "customer demand",
+        "Services opportunity"
+      ],
+      "related_metrics": [
+        "installed base of active devices"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "ecosystem",
+        "demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "The board increased the quarterly dividend by 4% to $0.27 per share and authorized up to $100 billion of additional share repurchases.",
+      "summary": "The release signals continued large-scale capital returns.",
+      "excerpt": "Apple\u2019s board of directors has declared a cash dividend of $0.27 per share of the Company\u2019s common stock, an increase of 4 percent. The dividend is payable on May 14, 2026, to shareholders of record as of the close of business on May 11, 2026. The board of directors has also authorized an additional program to repurchase up to $100 billion of the Company\u2019s common stock.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "capital allocation",
+        "shareholder returns"
+      ],
+      "related_metrics": [
+        "dividend per share",
+        "share repurchase authorization"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "dividend_increase",
+        "share_repurchase"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Product net sales increased to $80.208 billion from $68.714 billion, while Services net sales increased to $30.976 billion from $26.645 billion.",
+      "summary": "Both Products and Services contributed to year-over-year revenue growth.",
+      "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "revenue mix",
+        "Products",
+        "Services"
+      ],
+      "related_metrics": [
+        "Products net sales",
+        "Services net sales",
+        "total net sales"
+      ],
+      "evidence_tags": [
+        "segment_revenue",
+        "products",
+        "services"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Gross margin dollars expanded to $54.781 billion from $44.867 billion, and operating income rose to $35.885 billion from $29.589 billion.",
+      "summary": "Profit dollars rose despite materially higher operating expenses.",
+      "excerpt": "Gross margin 54,781 44,867 124,012 103,142 Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721 Operating income 35,885 29,589 86,737 72,421",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "profitability",
+        "expense growth",
+        "operating leverage"
+      ],
+      "related_metrics": [
+        "gross margin",
+        "operating expenses",
+        "operating income"
+      ],
+      "evidence_tags": [
+        "margin",
+        "operating_income",
+        "profitability"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Greater China revenue increased to $20.497 billion from $16.002 billion, contributing to broad geographic growth.",
+      "summary": "Greater China showed substantial year-over-year growth in the quarter.",
+      "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "China",
+        "geographic performance",
+        "international revenue"
+      ],
+      "related_metrics": [
+        "Greater China net sales",
+        "regional net sales"
+      ],
+      "evidence_tags": [
+        "greater_china",
+        "geographic_revenue",
+        "regional_growth"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "R&D expense rose to $11.419 billion from $8.550 billion year over year, indicating a significant increase in investment spending.",
+      "summary": "Higher R&D may support innovation but also increases the expense base.",
+      "excerpt": "Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "operating expenses",
+        "innovation investment",
+        "margin"
+      ],
+      "related_metrics": [
+        "research and development expense",
+        "operating expenses"
+      ],
+      "evidence_tags": [
+        "r_and_d",
+        "expense_growth",
+        "investment_spending"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    }
+  ],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [],
+  "estimate_evidence": [],
+  "peer_commentary_evidence": [],
+  "management_guidance": [],
+  "segment_kpis": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Management cited double-digit revenue growth across every geographic segment.",
+      "summary": "The release points to broad-based geographic strength rather than concentration in a single region.",
+      "excerpt": "\u201cToday Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "geographic performance",
+        "demand",
+        "management tone"
+      ],
+      "related_metrics": [
+        "geographic segment revenue growth"
+      ],
+      "evidence_tags": [
+        "geographic_growth",
+        "management_commentary",
+        "demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said its installed base of active devices reached a new all-time high across all major product categories and geographic segments.",
+      "summary": "A record installed base supports Apple\u2019s ecosystem and potential services monetization.",
+      "excerpt": "\u201cContinued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "ecosystem",
+        "customer demand",
+        "Services opportunity"
+      ],
+      "related_metrics": [
+        "installed base of active devices"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "ecosystem",
+        "demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Product net sales increased to $80.208 billion from $68.714 billion, while Services net sales increased to $30.976 billion from $26.645 billion.",
+      "summary": "Both Products and Services contributed to year-over-year revenue growth.",
+      "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "revenue mix",
+        "Products",
+        "Services"
+      ],
+      "related_metrics": [
+        "Products net sales",
+        "Services net sales",
+        "total net sales"
+      ],
+      "evidence_tags": [
+        "segment_revenue",
+        "products",
+        "services"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    }
+  ],
+  "consensus_narrative": [],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple reported a record March quarter with total revenue of $111.2 billion, up 17% year over year.",
+      "summary": "Headline revenue growth was strong and management characterized it as the best March quarter ever.",
+      "excerpt": "The Company posted quarterly revenue of $111.2 billion, up 17 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "financial results",
+        "growth",
+        "earnings release"
+      ],
+      "related_metrics": [
+        "quarterly revenue",
+        "year-over-year revenue growth"
+      ],
+      "evidence_tags": [
+        "earnings_result",
+        "revenue_growth",
+        "march_quarter_record"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Diluted EPS rose 22% year over year to $2.01, setting a March quarter EPS record.",
+      "summary": "EPS growth exceeded revenue growth, indicating earnings leverage in the quarter.",
+      "excerpt": "Diluted earnings per share was $2.01, up 22 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "profitability",
+        "earnings"
+      ],
+      "related_metrics": [
+        "diluted EPS",
+        "EPS growth"
+      ],
+      "evidence_tags": [
+        "earnings_result",
+        "eps_growth",
+        "march_quarter_record"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Management cited double-digit revenue growth across every geographic segment.",
+      "summary": "The release points to broad-based geographic strength rather than concentration in a single region.",
+      "excerpt": "\u201cToday Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "geographic performance",
+        "demand",
+        "management tone"
+      ],
+      "related_metrics": [
+        "geographic segment revenue growth"
+      ],
+      "evidence_tags": [
+        "geographic_growth",
+        "management_commentary",
+        "demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "iPhone revenue reached a March quarter record, with management attributing strength to demand for the iPhone 17 lineup.",
+      "summary": "iPhone, Apple\u2019s largest product category, showed record March-quarter demand according to management.",
+      "excerpt": "\u201ciPhone achieved a March quarter revenue record, fueled by such extraordinary demand for the iPhone 17 lineup.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "iPhone demand",
+        "product cycle",
+        "hardware"
+      ],
+      "related_metrics": [
+        "iPhone revenue"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "product_demand",
+        "record_revenue"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Services revenue reached a new all-time high and grew to $30.976 billion from $26.645 billion in the year-ago quarter.",
+      "summary": "Services, a key higher-margin category, continued to set records.",
+      "excerpt": "Services revenue reaches new all-time high",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "Services",
+        "revenue mix",
+        "installed base monetization"
+      ],
+      "related_metrics": [
+        "Services revenue"
+      ],
+      "evidence_tags": [
+        "services",
+        "all_time_high",
+        "recurring_revenue"
+      ],
+      "notes": "The revenue amounts are shown in the net sales by category table: Services $30,976 versus $26,645, in millions."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Operating cash flow exceeded $28 billion and set a new March quarter record.",
+      "summary": "The quarter generated substantial cash flow alongside record EPS.",
+      "excerpt": "\u201cOur strong business performance during the March quarter generated over $28 billion in operating cash flow and drove new March quarter records for both operating cash flow and EPS,\u201d said Kevan Parekh, Apple\u2019s CFO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "cash generation",
+        "liquidity",
+        "profitability"
+      ],
+      "related_metrics": [
+        "operating cash flow"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "march_quarter_record",
+        "liquidity"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said its installed base of active devices reached a new all-time high across all major product categories and geographic segments.",
+      "summary": "A record installed base supports Apple\u2019s ecosystem and potential services monetization.",
+      "excerpt": "\u201cContinued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "ecosystem",
+        "customer demand",
+        "Services opportunity"
+      ],
+      "related_metrics": [
+        "installed base of active devices"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "ecosystem",
+        "demand"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "The board increased the quarterly dividend by 4% to $0.27 per share and authorized up to $100 billion of additional share repurchases.",
+      "summary": "The release signals continued large-scale capital returns.",
+      "excerpt": "Apple\u2019s board of directors has declared a cash dividend of $0.27 per share of the Company\u2019s common stock, an increase of 4 percent. The dividend is payable on May 14, 2026, to shareholders of record as of the close of business on May 11, 2026. The board of directors has also authorized an additional program to repurchase up to $100 billion of the Company\u2019s common stock.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "capital allocation",
+        "shareholder returns"
+      ],
+      "related_metrics": [
+        "dividend per share",
+        "share repurchase authorization"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "dividend_increase",
+        "share_repurchase"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Product net sales increased to $80.208 billion from $68.714 billion, while Services net sales increased to $30.976 billion from $26.645 billion.",
+      "summary": "Both Products and Services contributed to year-over-year revenue growth.",
+      "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "revenue mix",
+        "Products",
+        "Services"
+      ],
+      "related_metrics": [
+        "Products net sales",
+        "Services net sales",
+        "total net sales"
+      ],
+      "evidence_tags": [
+        "segment_revenue",
+        "products",
+        "services"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Gross margin dollars expanded to $54.781 billion from $44.867 billion, and operating income rose to $35.885 billion from $29.589 billion.",
+      "summary": "Profit dollars rose despite materially higher operating expenses.",
+      "excerpt": "Gross margin 54,781 44,867 124,012 103,142 Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721 Operating income 35,885 29,589 86,737 72,421",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "profitability",
+        "expense growth",
+        "operating leverage"
+      ],
+      "related_metrics": [
+        "gross margin",
+        "operating expenses",
+        "operating income"
+      ],
+      "evidence_tags": [
+        "margin",
+        "operating_income",
+        "profitability"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Greater China revenue increased to $20.497 billion from $16.002 billion, contributing to broad geographic growth.",
+      "summary": "Greater China showed substantial year-over-year growth in the quarter.",
+      "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "China",
+        "geographic performance",
+        "international revenue"
+      ],
+      "related_metrics": [
+        "Greater China net sales",
+        "regional net sales"
+      ],
+      "evidence_tags": [
+        "greater_china",
+        "geographic_revenue",
+        "regional_growth"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    }
+  ],
+  "bearish_evidence": [],
+  "mixed_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K earnings-release exhibit: a8-kex991q2202603282026.htm",
+      "claim": "R&D expense rose to $11.419 billion from $8.550 billion year over year, indicating a significant increase in investment spending.",
+      "summary": "Higher R&D may support innovation but also increases the expense base.",
+      "excerpt": "Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "operating expenses",
+        "innovation investment",
+        "margin"
+      ],
+      "related_metrics": [
+        "research and development expense",
+        "operating expenses"
+      ],
+      "evidence_tags": [
+        "r_and_d",
+        "expense_growth",
+        "investment_spending"
+      ],
+      "notes": "Amounts are in millions for the three months ended March 28, 2026 and March 29, 2025."
+    }
+  ],
+  "unresolved_questions": [
+    "The supplied 10-Q text is largely XBRL tagging/metadata and is truncated before readable MD&A, risk, liquidity, debt, capex, or segment discussion; no high-confidence filing evidence items were extracted from that source."
+  ],
+  "data_gaps": [
+    "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+    "The supplied 10-Q text is largely XBRL tagging/metadata and is truncated before readable MD&A, risk, liquidity, debt, capex, or segment discussion; no high-confidence filing evidence items were extracted from that source."
+  ],
+  "warnings": [
+    "Evidence extraction from the 10-Q was limited because the provided document text did not include readable narrative sections in the prompt."
+  ],
+  "raw_source_count": 3,
+  "evidence_item_count": 12
+}

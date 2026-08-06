@@ -24,18 +24,20 @@ import pandas as pd
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
+from src.agent_system.paths import data_root, strategies_dir
+
 strategy_router = APIRouter(prefix="/api/strategy", tags=["strategy"])
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
 DATA_PATH = Path(os.environ.get(
     "RESEARCH_DATA_PATH",
-    str(Path(__file__).resolve().parents[1] / "data" / "operator_research_v2.csv")
+    str(data_root(create=False) / "operator_research_v2.csv")
 ))
 
 STRATEGY_DIR = Path(os.environ.get(
     "STRATEGY_DIR",
-    str(Path(__file__).resolve().parents[1] / "data" / "strategies")
+    str(strategies_dir(create=False))
 ))
 
 _df_cache: Optional[pd.DataFrame] = None

@@ -1,0 +1,416 @@
+{
+  "id": "f443adf0-67a7-4635-9c23-35802f8f918d",
+  "schema_type": "TradeIdea",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:04:52.451021+00:00",
+  "asof_date": null,
+  "ticker": "IFRA",
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:04:52.451021Z",
+    "id": "f443adf0-67a7-4635-9c23-35802f8f918d",
+    "underlying": "IFRA",
+    "fundamental": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.448676Z",
+      "id": null,
+      "ticker": "IFRA",
+      "thesis_statement": "IFRA can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+      "business_quality": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.448651Z",
+        "id": null,
+        "summary": "iShares U.S. Infrastructure ETF has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review.",
+        "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+        "moat_evidence": [],
+        "cyclicality": "hybrid"
+      },
+      "financials": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.448653Z",
+        "id": null,
+        "key_metrics": [],
+        "balance_sheet_quality": 6.5,
+        "cash_generation_quality": 6.2,
+        "accounting_red_flags": []
+      },
+      "estimates_and_expectations": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.448658Z",
+        "id": null,
+        "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+        "revision_trend": "stable",
+        "where_we_differ": "We expect AI electrical infrastructure demand to sustain order growth and margins longer than consensus models currently imply.",
+        "differ_magnitude": "significant",
+        "differ_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.448641Z",
+            "id": null,
+            "claim": "IFRA backlog/earnings evidence supports differentiated estimates.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.448641Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "IFRA order backlog points to durable electrification demand",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.448638Z",
+            "channel": null
+          }
+        ]
+      },
+      "positioning": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.448663Z",
+        "id": null,
+        "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+        "short_interest": null,
+        "options_skew_signal": null,
+        "crowdedness_assessment": "crowded"
+      },
+      "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+      "bear_case_evidence": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:52.448666Z",
+          "id": null,
+          "claim": "IFRA is exposed to cyclical industrial demand.",
+          "supports": true,
+          "retrieved_at": "2026-07-30T15:04:52.448666Z",
+          "notes": "",
+          "source_type": "news",
+          "publisher": "Helix Stub Research",
+          "title": "IFRA macro sensitivity remains a risk",
+          "url": "https://example.com/helix-stub",
+          "published_at": "2026-07-30T15:04:52.448665Z",
+          "channel": null
+        }
+      ],
+      "what_bear_case_misses": "The bear case underweights the duration of utility and data-center capex plans, which are tied to multi-year power constraints rather than one quarter of industrial activity.",
+      "conviction": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.448673Z",
+        "id": null,
+        "rating": "moderate",
+        "justification": "IFRA has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+        "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity."
+      }
+    },
+    "narrative": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.450480Z",
+      "id": null,
+      "ticker": "IFRA",
+      "current_narrative": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.450469Z",
+        "id": null,
+        "summary": "No current narrative coverage. IFRA does not appear in today's broad-market or tech-heavy narrative snapshots. Thematic agent's consensus view: Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "dominant_archetype": "unknown_unclassified",
+        "secondary_archetype": null,
+        "narrative_strength": 0.0,
+        "narrative_age": "emerging"
+      },
+      "inefficiency_thesis": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.450473Z",
+        "id": null,
+        "archetype": "unknown_unclassified",
+        "description": "No narrative-service inefficiency thesis is available for IFRA because it has absent coverage in the broad SPY/QQQ snapshots.",
+        "evidence": [],
+        "why_it_persists": "No cross-sectional narrative signal has been observed in the current broad-market snapshots.",
+        "expected_resolution_path": "A future daily snapshot must include IFRA with source evidence before the agent system treats narrative as an active input.",
+        "resolution_horizon": "quarters"
+      },
+      "coverage_quality": "absent",
+      "snapshot_date": null,
+      "snapshot_subject": null,
+      "inefficiency_archetype_id": null,
+      "price_confirmation": null,
+      "sector_etf": null,
+      "sector_narrative_alignment": "no_sector_signal",
+      "source_narrative_indices": [],
+      "is_stale": false,
+      "narrative_could_be_wrong_if": [
+        "Future SPY or QQQ narrative snapshots begin to mention IFRA with source evidence."
+      ],
+      "contradicting_signals": [],
+      "conviction": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.450477Z",
+        "id": null,
+        "rating": "weak",
+        "justification": "IFRA has no SPY or QQQ snapshot coverage. This is treated as a neutral no-signal narrative input, not as negative narrative evidence.",
+        "primary_uncertainty": "Broad daily snapshots can miss ticker-specific narratives that would require deeper per-name synthesis."
+      },
+      "source_narrative_state_asof": null
+    },
+    "research_priority": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:50.727194Z",
+      "id": null,
+      "theme": "Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+      "rationale": "The relevant swing factor is the regime\u2019s explicit breadth conflict: equal weight is still lagging cap weight, with RSP up 11.9% over 3M versus SPY up 14.8%, but the internal breadth measures are improving \u2014 81.8% of stocks are above their 200-day moving average, ADL slope is +0.62, and IWM has led SPY by 5.8 percentage points over 3M. That makes a broadening-away-from-AI thesis plausible, but not clean enough to simply buy all beta. Credit is supportive, with the credit layer bullish at 8.3 and HY OAS tight around 276bps, which helps non-AI cyclicals and quality cash-flow compounders participate. The constraint is that sticky AI leadership remains a near-equal regime runner-up, with Reopening / Soft Landing at 36.2% versus Sticky Late Cycle AI at 34.1%, and AI earnings resilience is still a named bullish driver. This priority therefore focuses on quality ex-AI broadening beneficiaries rather than duplicating the existing small-cap priority or chasing high-beta cyclicals. Edge should decay over weeks because the thesis is tied to leadership rotation, breadth confirmation/falsification, and near-term macro catalysts: May CPI on 2026-06-11 and the June FOMC on 2026-06-17, where the stale Fed path still showed 70% hold and roughly 80% hold/hike odds.",
+      "edge_hypothesis": "The market may be mispricing broadening as either an AI-continuation trade or a generic small-cap/high-beta catch-up trade. The regime data points to a narrower opportunity: profitable ex-AI large- and mid-cap companies with durable free cash flow, improving relative breadth, and limited balance-sheet sensitivity. Consensus appears still anchored to cap-weight AI leadership because RSP continues to lag SPY and AI earnings resilience remains a major regime driver, while the improving ADL, high percent-above-200D, and small-cap relative strength indicate participation is broadening underneath the index. The mispricing is that quality ex-AI beneficiaries of broad participation are not being credited for soft-landing breadth improvement, while lower-quality beta may already be too vulnerable to the still-restrictive Fed path.",
+      "sub_questions": [
+        "Which ex-AI sectors and industries have outperformed the S&P 500 equal-weight index over the last 4-8 weeks while also showing positive earnings-revision breadth?",
+        "Which profitable large- and mid-cap ex-AI companies combine positive free-cash-flow yield, net debt/EBITDA below sector median, and improving relative strength versus SPY?",
+        "Is recent broadening being led by quality factors or by lower-quality/high-beta short-covering, as measured by factor returns, balance-sheet quality, and short-interest changes?",
+        "Which non-AI cyclicals have the strongest sensitivity to tight credit spreads but the least sensitivity to a renewed rise in Fed hold/hike probabilities?",
+        "Where do ETF flows and active-fund holdings show under-ownership of ex-AI quality cash-flow beneficiaries relative to their improving price and revision trends?"
+      ],
+      "priority_rank": 2,
+      "expected_edge_decay": "weeks",
+      "supporting_evidence": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.727172Z",
+          "id": null,
+          "claim": "Seed research priority from current_regime.yaml: Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+          "supports": true,
+          "retrieved_at": "2026-07-30T15:04:50.727182Z",
+          "notes": "",
+          "source_type": "derived",
+          "computation": "manually curated regime overlay",
+          "upstream_claims": [
+            "current_regime.yaml seed_research_priorities"
+          ]
+        }
+      ],
+      "source_theme_id": null,
+      "source_scenario_ids": [],
+      "source_macro_forecast_id": null
+    },
+    "regime": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:50.696452Z",
+      "id": "676ca9f9-c51f-48e8-ae3a-bfa99e4747df",
+      "asof_date": "2026-05-19",
+      "horizon": "default",
+      "layers": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:50.696423Z",
+        "id": null,
+        "monetary": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696251Z",
+          "id": null,
+          "score": 3.4,
+          "inputs": {
+            "net_liquidity_z": -0.8
+          },
+          "signals": [
+            "Liquidity tightening"
+          ],
+          "status": "bearish",
+          "data_quality": 0.9
+        },
+        "credit": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696258Z",
+          "id": null,
+          "score": 4.4,
+          "inputs": {
+            "baa_spread_z": 0.4
+          },
+          "signals": [
+            "Credit is contained but no longer easing"
+          ],
+          "status": "neutral",
+          "data_quality": 0.8
+        },
+        "volatility": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696415Z",
+          "id": null,
+          "score": 4.0,
+          "inputs": {
+            "vix": 22.0
+          },
+          "signals": [
+            "Volatility risk premium elevated"
+          ],
+          "status": "neutral",
+          "data_quality": 0.9
+        },
+        "breadth": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696418Z",
+          "id": null,
+          "score": 3.8,
+          "inputs": {
+            "pct_above_200d": 42.0
+          },
+          "signals": [
+            "Narrow leadership"
+          ],
+          "status": "bearish",
+          "data_quality": 0.85
+        },
+        "positioning": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696420Z",
+          "id": null,
+          "score": 5.8,
+          "inputs": {
+            "cot_net_large_spec_z": 0.2
+          },
+          "signals": [
+            "AI leadership still supported"
+          ],
+          "status": "neutral",
+          "data_quality": 0.75
+        }
+      },
+      "weights": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:50.696429Z",
+        "id": null,
+        "monetary": 0.2,
+        "credit": 0.22,
+        "volatility": 0.22,
+        "breadth": 0.2,
+        "positioning": 0.16
+      },
+      "composite": 43.0,
+      "layer_agreement": 0.72,
+      "composite_confidence": 78.0,
+      "environment": "Late-cycle tightening with narrow AI leadership",
+      "environment_drivers": [
+        "Oil shock",
+        "Fed repricing",
+        "AI earnings resilience"
+      ],
+      "regime_id": "two_sided_oil_shock_broadening_watch",
+      "regime_label": "Reopening / Soft Landing narrowly leads a contested tape; sticky AI leadership remains a near-equal runner-up. Top macro-supported themes are Grid and power infrastructure, Quality ex-AI cash flow, Cash and short duration.",
+      "headline": "Forecast narrowly favors broadening soft-landing participation over sticky late-cycle AI leadership, but the two are effectively a coin-flip.",
+      "summary": "The model assigns the highest probability to Reopening / Soft Landing at 36.2%; runner-up sticky_late_cycle_ai at 34.1%. The gap is only ~2 points, so leadership direction is genuinely contested rather than resolved. The largest displayed deterministic driver is weak equal-weight-vs-cap-weight breadth (-0.30), which cuts against broadening, while resilient AI earnings (+0.52 into sticky AI) and healthy credit keep narrow leadership viable. Reported scenario probabilities are historically calibrated after the deterministic update; note that calibration narrowed a large deterministic soft-landing lead (47%) down to a near-tie, so the blended call rests heavily on the analogue layer. Dominant scenario: Reopening / Soft Landing (36%); runner-up scenario: Sticky Late Cycle AI (34%). Probability mode: historically_calibrated. Key macro tension: breadth signals conflict - cap-weight concentration says narrow, but advance-decline, percent-above-200D, and small-cap leadership say participation is improving.",
+      "risk_summary": "Credit is healthy and volatility is orderly, which keeps the regime from becoming fully risk-off. The decisive question is breadth: equal-weight still lags cap-weight, but ADL slope, percent-above-200D, and IWM-over-SPY leadership are improving - a broadening confirmation would tip the balance toward soft landing, while renewed narrowing would restore sticky AI. Fed path remains restrictive (hold/hike ~80%, though that read is dated 05/19 and should be refreshed). Historical analogues disagree with the deterministic engine on downside: analogues map materially more weight to Late Cycle Risk-Off than the rule-based layer does, so the risk-off tail is likely understated by the blended 12%. Tail probabilities remain visible: risk-off 12%, oil inflation tail 10%, AI capex rollover 7% (floored).",
+      "scenario_probabilities": {
+        "ai_capex_rollover": 0.07160971448014973,
+        "late_cycle_risk_off": 0.12283863574952712,
+        "oil_inflation_tail": 0.1026410202818273,
+        "reopening_soft_landing": 0.3618983333259588,
+        "sticky_late_cycle_ai": 0.34101229616253714
+      },
+      "scenario_probability_source": "macro_forecast",
+      "key_drivers": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696437Z",
+          "id": null,
+          "name": "Oil supply shock",
+          "status": "bearish for broad beta / bullish for energy",
+          "explanation": "Elevated oil keeps inflation risk alive and raises input costs."
+        },
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696441Z",
+          "id": null,
+          "name": "AI earnings resilience",
+          "status": "bullish for quality AI infrastructure",
+          "explanation": "Capital spending tied to data-center demand remains durable."
+        }
+      ],
+      "portfolio_implications": [
+        "Favor quality AI infrastructure and short-duration optionality.",
+        "Be selective with broad beta and rate-sensitive cyclicals."
+      ],
+      "best_positioned": [
+        "Energy / oil beta",
+        "Quality AI leaders",
+        "Infrastructure / grid"
+      ],
+      "most_vulnerable": [
+        "Small caps",
+        "Long-duration bonds",
+        "Unprofitable growth"
+      ],
+      "regime_call_confidence": 0.36,
+      "falsifiers": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.696446Z",
+          "id": null,
+          "condition": "Oil falls below $70 while inflation breakevens compress",
+          "observable_in": "data_series",
+          "check_frequency": "daily",
+          "current_status": "not_triggered",
+          "last_checked_at": null,
+          "notes": ""
+        }
+      ],
+      "research_priorities": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.727194Z",
+          "id": null,
+          "theme": "Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+          "rationale": "The relevant swing factor is the regime\u2019s explicit breadth conflict: equal weight is still lagging cap weight, with RSP up 11.9% over 3M versus SPY up 14.8%, but the internal breadth measures are improving \u2014 81.8% of stocks are above their 200-day moving average, ADL slope is +0.62, and IWM has led SPY by 5.8 percentage points over 3M. That makes a broadening-away-from-AI thesis plausible, but not clean enough to simply buy all beta. Credit is supportive, with the credit layer bullish at 8.3 and HY OAS tight around 276bps, which helps non-AI cyclicals and quality cash-flow compounders participate. The constraint is that sticky AI leadership remains a near-equal regime runner-up, with Reopening / Soft Landing at 36.2% versus Sticky Late Cycle AI at 34.1%, and AI earnings resilience is still a named bullish driver. This priority therefore focuses on quality ex-AI broadening beneficiaries rather than duplicating the existing small-cap priority or chasing high-beta cyclicals. Edge should decay over weeks because the thesis is tied to leadership rotation, breadth confirmation/falsification, and near-term macro catalysts: May CPI on 2026-06-11 and the June FOMC on 2026-06-17, where the stale Fed path still showed 70% hold and roughly 80% hold/hike odds.",
+          "edge_hypothesis": "The market may be mispricing broadening as either an AI-continuation trade or a generic small-cap/high-beta catch-up trade. The regime data points to a narrower opportunity: profitable ex-AI large- and mid-cap companies with durable free cash flow, improving relative breadth, and limited balance-sheet sensitivity. Consensus appears still anchored to cap-weight AI leadership because RSP continues to lag SPY and AI earnings resilience remains a major regime driver, while the improving ADL, high percent-above-200D, and small-cap relative strength indicate participation is broadening underneath the index. The mispricing is that quality ex-AI beneficiaries of broad participation are not being credited for soft-landing breadth improvement, while lower-quality beta may already be too vulnerable to the still-restrictive Fed path.",
+          "sub_questions": [
+            "Which ex-AI sectors and industries have outperformed the S&P 500 equal-weight index over the last 4-8 weeks while also showing positive earnings-revision breadth?",
+            "Which profitable large- and mid-cap ex-AI companies combine positive free-cash-flow yield, net debt/EBITDA below sector median, and improving relative strength versus SPY?",
+            "Is recent broadening being led by quality factors or by lower-quality/high-beta short-covering, as measured by factor returns, balance-sheet quality, and short-interest changes?",
+            "Which non-AI cyclicals have the strongest sensitivity to tight credit spreads but the least sensitivity to a renewed rise in Fed hold/hike probabilities?",
+            "Where do ETF flows and active-fund holdings show under-ownership of ex-AI quality cash-flow beneficiaries relative to their improving price and revision trends?"
+          ],
+          "priority_rank": 2,
+          "expected_edge_decay": "weeks",
+          "supporting_evidence": [
+            {
+              "schema_version": "0.1.0",
+              "created_at": "2026-07-30T15:04:50.727172Z",
+              "id": null,
+              "claim": "Seed research priority from current_regime.yaml: Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+              "supports": true,
+              "retrieved_at": "2026-07-30T15:04:50.727182Z",
+              "notes": "",
+              "source_type": "derived",
+              "computation": "manually curated regime overlay",
+              "upstream_claims": [
+                "current_regime.yaml seed_research_priorities"
+              ]
+            }
+          ],
+          "source_theme_id": null,
+          "source_scenario_ids": [],
+          "source_macro_forecast_id": null
+        }
+      ],
+      "forward_context": null
+    },
+    "provenance": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.451028Z",
+      "id": null,
+      "research_priority_id": "efc13d9b-4ea9-4a23-81d5-202dbdf3240b",
+      "thematic_map_id": "c6c471c7-510d-477f-bbb4-0c67954ba433",
+      "fundamental_analysis_id": "2580986e-f415-4f59-8e02-2f340569d525",
+      "narrative_analysis_id": "4ac2a362-190b-44a9-bcae-e63cb0f542e6",
+      "regime_state_id": "676ca9f9-c51f-48e8-ae3a-bfa99e4747df"
+    },
+    "combined_conviction": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.451009Z",
+      "id": "646ffff7-cb84-4d9c-9a53-fb87b0ef22b0",
+      "rating": "pass",
+      "rule_applied": "no_variant_view_pass",
+      "weakest_link": "thematic",
+      "reasoning": "Candidate has thematic fit but no clear variant view. A theme without an articulated edge is not enough to build a trade."
+    },
+    "expression": null,
+    "proposed_sizing": null,
+    "expected_holding_period": null,
+    "thesis_review_cadence": null,
+    "next_review_trigger": null,
+    "trade_falsifiers": [],
+    "invalidation_price": null,
+    "invalidation_thesis": null,
+    "rejection_reason": "Candidate has thematic fit but no clear variant view. A theme without an articulated edge is not enough to build a trade.",
+    "rejection_stage": "thematic",
+    "rejection_rule_fired": "no_variant_view_pass"
+  }
+}

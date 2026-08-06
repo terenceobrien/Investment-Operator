@@ -6,6 +6,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Literal
 
+from src.agent_system.paths import cache_dir, reference_data_dir
+
 
 BetaSource = Literal[
     "yfinance_live",
@@ -35,11 +37,13 @@ class MarketDataCache:
 
     def __init__(
         self,
-        cache_path: str = "data/cache/market_data_cache.json",
-        damodaran_path: str = "data/reference/damodaran_betas_2026.json",
+        cache_path: str | None = None,
+        damodaran_path: str | None = None,
     ) -> None:
-        self.cache_path = Path(cache_path)
-        self.damodaran_path = Path(damodaran_path)
+        self.cache_path = Path(cache_path) if cache_path else cache_dir(create=False) / "market_data_cache.json"
+        self.damodaran_path = (
+            Path(damodaran_path) if damodaran_path else reference_data_dir(create=False) / "damodaran_betas_2026.json"
+        )
         self.cache_path.parent.mkdir(parents=True, exist_ok=True)
         self.damodaran_path.parent.mkdir(parents=True, exist_ok=True)
         self.cache = self._load_json(self.cache_path)

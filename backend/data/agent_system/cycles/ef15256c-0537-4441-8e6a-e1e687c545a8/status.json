@@ -1,0 +1,96 @@
+{
+  "cycle_id": "ef15256c-0537-4441-8e6a-e1e687c545a8",
+  "started_at": "2026-06-01T04:28:35.163923Z",
+  "updated_at": "2026-06-01T04:28:43.020373Z",
+  "completed_at": "2026-06-01T04:28:43.020364Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "complete",
+      "started_at": "2026-06-01T04:28:35.180532Z",
+      "completed_at": "2026-06-01T04:28:43.016602Z",
+      "message": "produced 0 priorities and 1 clarification(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "skipped",
+      "started_at": "2026-06-01T04:28:43.017410Z",
+      "completed_at": "2026-06-01T04:28:43.017415Z",
+      "message": "no macro priorities available",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "skipped",
+      "started_at": "2026-06-01T04:28:43.017934Z",
+      "completed_at": "2026-06-01T04:28:43.017936Z",
+      "message": "no macro priorities available",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "skipped",
+      "started_at": "2026-06-01T04:28:43.018330Z",
+      "completed_at": "2026-06-01T04:28:43.018331Z",
+      "message": "no macro priorities available",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "skipped",
+      "started_at": "2026-06-01T04:28:43.018737Z",
+      "completed_at": "2026-06-01T04:28:43.018738Z",
+      "message": "no macro priorities available",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "skipped",
+      "started_at": "2026-06-01T04:28:43.019051Z",
+      "completed_at": "2026-06-01T04:28:43.019051Z",
+      "message": "no macro priorities available",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "skipped",
+      "started_at": "2026-06-01T04:28:43.019309Z",
+      "completed_at": "2026-06-01T04:28:43.019309Z",
+      "message": "no macro priorities available",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "ef15256c-0537-4441-8e6a-e1e687c545a8",
+    "regime_source": "real_snapshot",
+    "regime_asof_date": "2026-05-31",
+    "fallback_reason": null,
+    "macro_priorities": 0,
+    "clarifications_received": 1,
+    "thematic_maps": 0,
+    "candidates_considered": 0,
+    "trade_ideas_saved": 0,
+    "accepted": 0,
+    "rejected": 0
+  },
+  "fatal_error": null,
+  "user_inputs_preview": [
+    "test"
+  ]
+}

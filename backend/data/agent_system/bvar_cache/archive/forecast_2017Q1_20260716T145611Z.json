@@ -1,0 +1,610 @@
+{
+  "anchor_values": {
+    "activity": 2.0874616941966906,
+    "core_pce": 1.8029940752918971,
+    "credit_spread": 2.216666666666667,
+    "fed_funds": 0.7000000000000001,
+    "lur": 4.566666666666666,
+    "nfci": -0.4818461538461538,
+    "ten_year": 2.4433333333333334
+  },
+  "asof_quarter": "2017Q1",
+  "baseline_mode": "trailing_trend",
+  "classifier_metadata": {
+    "active_variables": [
+      "activity",
+      "lur",
+      "core_pce",
+      "credit_spread",
+      "fed_funds",
+      "ten_year"
+    ],
+    "baseline_data_fingerprint": "6f2cc04e81580097",
+    "full_signature_variables": [
+      "activity",
+      "lur",
+      "core_pce",
+      "credit_spread",
+      "fed_funds",
+      "ten_year"
+    ],
+    "generated_at": "2026-07-15T05:10:25.149517+00:00",
+    "handoff_file": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/frbus_handoffs/frbus_scenario_paths_2026Q3_20260715T051025Z.json",
+    "horizon_quarters": 4,
+    "kernel_sigma": 1.0,
+    "map_version": "behavioral-v1-2026-06",
+    "missing_credit_spread": false,
+    "scales_file": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/scales.json",
+    "scales_fit_timestamp": "2026-07-15T04:38:28Z",
+    "scaling": "std",
+    "scenario_ids": [
+      "expansion_disinflation",
+      "late_cycle_expansion",
+      "inflation_shock",
+      "stagflation",
+      "growth_scare_no_credit",
+      "credit_led_recession"
+    ],
+    "signature_maps": {
+      "activity": "xgdp_growth_4q_pct",
+      "core_pce": "core_pce_inflation_4q_pct",
+      "credit_spread": "rbbbp_pct",
+      "fed_funds": "rff_pct",
+      "lur": "lur_pct",
+      "ten_year": "rg10_pct"
+    },
+    "warnings": []
+  },
+  "classifier_paths_parquet": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2017Q1_20260716T145611Z_paths.parquet",
+  "config": {
+    "estimation_start": "1973Q1",
+    "garch_dist": "student_t",
+    "garch_max_iter": 500,
+    "garch_persistence_warn": 0.99,
+    "garch_t_dof": 6,
+    "horizon": 4,
+    "kernel_sigma": 1.0,
+    "lags": 4,
+    "lambda1": 0.2,
+    "lambda2": 0.5,
+    "lambda3": 1.0,
+    "lambda4": 100.0,
+    "low_margin_threshold": 0.25,
+    "max_redraws_per_path": 5,
+    "min_sample_quarters": 120,
+    "n_paths": 10000,
+    "rejection_warn_pct": 5.0,
+    "report_output_dir": "data/agent_system/bvar_cache/reports",
+    "seed": 42,
+    "shock_dist": "gaussian",
+    "t_dof": 6,
+    "vol_model": "garch"
+  },
+  "garch_diagnostics": {
+    "fallback_variables": [],
+    "fit_timestamp": "20260716T145445Z",
+    "garch_artifact": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/garch_20260716T145445Z.npz",
+    "garch_dist": "student_t",
+    "garch_t_dof": 6,
+    "persistence_warning_variables": [
+      "fed_funds"
+    ],
+    "posterior_fingerprint": "2f0ea01e7945a242",
+    "variables": {
+      "activity": {
+        "alpha": 0.4280896706155372,
+        "beta": 0.4495914313359511,
+        "fallback_constant": false,
+        "omega": 0.1599905524549216,
+        "persistence": 0.8776811019514883,
+        "terminal_conditional_vol": 0.649090015737497,
+        "terminal_vs_unconditional_vol_ratio": 0.5675505381861107,
+        "unconditional_vol": 1.1436691044501275
+      },
+      "core_pce": {
+        "alpha": 0.29875492982397145,
+        "beta": 0.6579997256317348,
+        "fallback_constant": false,
+        "omega": 0.007229208623664585,
+        "persistence": 0.9567546554557063,
+        "terminal_conditional_vol": 0.24088415522421638,
+        "terminal_vs_unconditional_vol_ratio": 0.5891590264998355,
+        "unconditional_vol": 0.4088610110164944
+      },
+      "credit_spread": {
+        "alpha": 0.11091800822141629,
+        "beta": 0.716922995978904,
+        "fallback_constant": false,
+        "omega": 0.010812606758978743,
+        "persistence": 0.8278410042003203,
+        "terminal_conditional_vol": 0.21777461278710147,
+        "terminal_vs_unconditional_vol_ratio": 0.8689742479707521,
+        "unconditional_vol": 0.25061112374233596
+      },
+      "fed_funds": {
+        "alpha": 0.449439675667016,
+        "beta": 0.54411373217659,
+        "fallback_constant": false,
+        "omega": 0.009126330870666983,
+        "persistence": 0.9935534078436059,
+        "terminal_conditional_vol": 0.28609581201145007,
+        "terminal_vs_unconditional_vol_ratio": 0.24045205510088782,
+        "unconditional_vol": 1.1898247735558394
+      },
+      "lur": {
+        "alpha": 0.39238434461231925,
+        "beta": 0.449664805092205,
+        "fallback_constant": false,
+        "omega": 0.013629007779912522,
+        "persistence": 0.8420491497045243,
+        "terminal_conditional_vol": 0.22547560688730417,
+        "terminal_vs_unconditional_vol_ratio": 0.7675884459001251,
+        "unconditional_vol": 0.2937454414427728
+      },
+      "nfci": {
+        "alpha": 0.49779781121139893,
+        "beta": 0.48957879851403335,
+        "fallback_constant": false,
+        "omega": 0.00459071266677602,
+        "persistence": 0.9873766097254323,
+        "terminal_conditional_vol": 0.14651280303855066,
+        "terminal_vs_unconditional_vol_ratio": 0.24295370501543373,
+        "unconditional_vol": 0.603048235174036
+      },
+      "ten_year": {
+        "alpha": 0.11671809210482673,
+        "beta": 0.8301684373248946,
+        "fallback_constant": false,
+        "omega": 0.012030033242591802,
+        "persistence": 0.9468865294297214,
+        "terminal_conditional_vol": 0.3409109955588641,
+        "terminal_vs_unconditional_vol_ratio": 0.7163247145122632,
+        "unconditional_vol": 0.47591684141595797
+      }
+    },
+    "warnings": [
+      "WARNING: GARCH persistence for fed_funds exceeds garch_persistence_warn=0.990."
+    ]
+  },
+  "garch_init_vol_by_variable": {
+    "activity": 0.5778521936078205,
+    "core_pce": 0.16716444073163378,
+    "credit_spread": 0.24542508138165192,
+    "fed_funds": 0.18060666834118194,
+    "lur": 0.28906166278167744,
+    "nfci": 0.10779406180190626,
+    "ten_year": 0.35426205075586303
+  },
+  "generated_at": "2026-07-16T14:56:11Z",
+  "handoff_file": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/frbus_handoffs/frbus_scenario_paths_2026Q3_20260715T051025Z.json",
+  "handoff_fingerprint": "6f2cc04e81580097",
+  "horizon_dispersion": {
+    "activity": {
+      "p10_p90_width_by_quarter": [
+        1.3547019829103168,
+        1.7401367583172773,
+        2.0881869185181237,
+        2.3155296737922733
+      ],
+      "p10_p90_width_change_first_to_last": 0.9608276908819564,
+      "std_by_quarter": [
+        0.5763395799365472,
+        0.762276121903367,
+        0.9116953752045326,
+        1.0215952173802285
+      ],
+      "std_change_first_to_last": 0.44525563744368135,
+      "widens_p10_p90": true,
+      "widens_std": true
+    },
+    "core_pce": {
+      "p10_p90_width_by_quarter": [
+        0.390643858188535,
+        0.5502065991200591,
+        0.6966334752602663,
+        0.8294390352491792
+      ],
+      "p10_p90_width_change_first_to_last": 0.4387951770606442,
+      "std_by_quarter": [
+        0.16621896504664355,
+        0.23478290569210242,
+        0.29722716228685253,
+        0.3554317701507911
+      ],
+      "std_change_first_to_last": 0.18921280510414754,
+      "widens_p10_p90": true,
+      "widens_std": true
+    },
+    "credit_spread": {
+      "p10_p90_width_by_quarter": [
+        0.5878819540309259,
+        0.7933403103927732,
+        0.938651313269377,
+        1.0603416492857913
+      ],
+      "p10_p90_width_change_first_to_last": 0.4724596952548654,
+      "std_by_quarter": [
+        0.2385308559356232,
+        0.3277375856868986,
+        0.38660539721749454,
+        0.43345387597144575
+      ],
+      "std_change_first_to_last": 0.19492302003582254,
+      "widens_p10_p90": true,
+      "widens_std": true
+    },
+    "fed_funds": {
+      "p10_p90_width_by_quarter": [
+        0.4364793794317341,
+        0.6737916751665923,
+        0.8884265657580381,
+        1.1215482341050906
+      ],
+      "p10_p90_width_change_first_to_last": 0.6850688546733565,
+      "std_by_quarter": [
+        0.17932031519979136,
+        0.2826634495655333,
+        0.37042635959189224,
+        0.4613129572154519
+      ],
+      "std_change_first_to_last": 0.28199264201566054,
+      "widens_p10_p90": true,
+      "widens_std": true
+    },
+    "lur": {
+      "p10_p90_width_by_quarter": [
+        0.6942366310185255,
+        0.8615993918762568,
+        0.9695106797507158,
+        1.09147148400226
+      ],
+      "p10_p90_width_change_first_to_last": 0.3972348529837344,
+      "std_by_quarter": [
+        0.2843823879575845,
+        0.37513742312326087,
+        0.42697230544089054,
+        0.47257380139375876
+      ],
+      "std_change_first_to_last": 0.18819141343617424,
+      "widens_p10_p90": true,
+      "widens_std": true
+    },
+    "nfci": {
+      "p10_p90_width_by_quarter": [
+        0.25876477747029814,
+        0.3579328960984404,
+        0.4369864449342456,
+        0.49644946422757674
+      ],
+      "p10_p90_width_change_first_to_last": 0.2376846867572786,
+      "std_by_quarter": [
+        0.10667841846037393,
+        0.1549233153353218,
+        0.18852218039738347,
+        0.22276432511535463
+      ],
+      "std_change_first_to_last": 0.1160859066549807,
+      "widens_p10_p90": true,
+      "widens_std": true
+    },
+    "ten_year": {
+      "p10_p90_width_by_quarter": [
+        0.8596648187394069,
+        1.2320389700417114,
+        1.5045257549165683,
+        1.7269453405483655
+      ],
+      "p10_p90_width_change_first_to_last": 0.8672805218089585,
+      "std_by_quarter": [
+        0.3491384680445342,
+        0.49844576282554,
+        0.6078116387316069,
+        0.6985835500557306
+      ],
+      "std_change_first_to_last": 0.3494450820111964,
+      "widens_p10_p90": true,
+      "widens_std": true
+    }
+  },
+  "horizon_quarters": 4,
+  "margin_stats": {
+    "mean": 0.1862226412859138,
+    "p25": 0.0785345000528701,
+    "share_low_margin": 0.7234
+  },
+  "n_paths": 10000,
+  "paths_parquet": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2017Q1_20260716T145611Z_paths.parquet",
+  "posterior_artifact": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+  "posterior_artifact_fingerprint": "2f0ea01e7945a242",
+  "posterior_hyperparameters": {
+    "lambda1": 0.2,
+    "lambda2": 0.5,
+    "lambda3": 1.0,
+    "lambda4": 100.0
+  },
+  "scenario_probabilities": {
+    "credit_led_recession": 0.0,
+    "expansion_disinflation": 0.4035,
+    "growth_scare_no_credit": 0.011,
+    "inflation_shock": 0.0026,
+    "late_cycle_expansion": 0.5828,
+    "stagflation": 0.0001
+  },
+  "scenario_probabilities_soft": {
+    "credit_led_recession": 2.150055468627916e-12,
+    "expansion_disinflation": 0.41960002528492824,
+    "growth_scare_no_credit": 0.0427454391333645,
+    "inflation_shock": 0.04464627699406519,
+    "late_cycle_expansion": 0.4865850006720309,
+    "stagflation": 0.006423257913461056
+  },
+  "seed": 42,
+  "shock_dist": "gaussian",
+  "simulation_paths_parquet": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2017Q1_20260716T145611Z_spine_paths.parquet",
+  "tail_diagnostics": {
+    "activity": {
+      "ensemble": {
+        "max": 7.221792152824472,
+        "p50": 0.3476175915523019,
+        "p90": 1.5014843470325816,
+        "p99": 3.0606000385098295
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 19.78428426821748,
+        "p50": -0.2184816296166403,
+        "p90": 3.297393023129898,
+        "p99": 8.441189471307213
+      }
+    },
+    "core_pce": {
+      "ensemble": {
+        "max": 2.562232928663576,
+        "p50": 0.1794307719115763,
+        "p90": 0.6012142107291985,
+        "p99": 1.1378703129607335
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 4.978717283393653,
+        "p50": -0.09391223686023853,
+        "p90": 0.8626063210878511,
+        "p99": 4.130260912706294
+      }
+    },
+    "credit_spread": {
+      "ensemble": {
+        "max": 2.2155387172757504,
+        "p50": -0.006149185197422247,
+        "p90": 0.5245454682980519,
+        "p99": 1.074013187364524
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 3.336666666666668,
+        "p50": 8.881784197001252e-16,
+        "p90": 0.771999999999999,
+        "p99": 1.6153333333333337
+      }
+    },
+    "fed_funds": {
+      "ensemble": {
+        "max": 2.9661332892880146,
+        "p50": 0.5263769128810984,
+        "p90": 1.101327924057636,
+        "p99": 1.8141100453356467
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 7.739999999999998,
+        "p50": -0.003333333333333327,
+        "p90": 2.1366666666666685,
+        "p99": 4.927199999999994
+      }
+    },
+    "lur": {
+      "ensemble": {
+        "max": 5.295712555423783,
+        "p50": 0.3123386103799848,
+        "p90": 0.8610868475475563,
+        "p99": 1.5501197657627677
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 9.366666666666667,
+        "p50": -0.2666666666666666,
+        "p90": 1.5400000000000005,
+        "p99": 3.9426666666666623
+      }
+    },
+    "nfci": {
+      "ensemble": {
+        "max": 3.77307292008037,
+        "p50": 0.012642611801249898,
+        "p90": 0.26188297217604223,
+        "p99": 0.608921382557215
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 2.7594615384615384,
+        "p50": -0.022538461538461618,
+        "p90": 0.7549846153846171,
+        "p99": 2.488206153846152
+      }
+    },
+    "ten_year": {
+      "ensemble": {
+        "max": 3.717193799023905,
+        "p50": 0.14332971364546365,
+        "p90": 1.0194696909290308,
+        "p99": 1.899347643021612
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 3.8933333333333326,
+        "p50": -0.08333333333333304,
+        "p90": 1.333999999999999,
+        "p99": 2.8621333333333294
+      }
+    }
+  },
+  "tail_flags": [],
+  "validity": {
+    "clips": 0,
+    "per_variable_violations": {
+      "activity": 2,
+      "credit_spread": 13,
+      "fed_funds": 229,
+      "lur": 8,
+      "nfci": 22,
+      "ten_year": 18
+    },
+    "redraws": 199,
+    "rejection_rate_pct": 1.9900000000000002,
+    "rejection_warn_pct": 5.0,
+    "rejections": 199,
+    "warning": null
+  },
+  "vol_model": "garch",
+  "volatility_diagnostics": {
+    "garch_fallback_variables": [],
+    "garch_init_vol_by_variable": {
+      "activity": 0.5778521936078205,
+      "core_pce": 0.16716444073163378,
+      "credit_spread": 0.24542508138165192,
+      "fed_funds": 0.18060666834118194,
+      "lur": 0.28906166278167744,
+      "nfci": 0.10779406180190626,
+      "ten_year": 0.35426205075586303
+    },
+    "horizon_dispersion": {
+      "activity": {
+        "p10_p90_width_by_quarter": [
+          1.3547019829103168,
+          1.7401367583172773,
+          2.0881869185181237,
+          2.3155296737922733
+        ],
+        "p10_p90_width_change_first_to_last": 0.9608276908819564,
+        "std_by_quarter": [
+          0.5763395799365472,
+          0.762276121903367,
+          0.9116953752045326,
+          1.0215952173802285
+        ],
+        "std_change_first_to_last": 0.44525563744368135,
+        "widens_p10_p90": true,
+        "widens_std": true
+      },
+      "core_pce": {
+        "p10_p90_width_by_quarter": [
+          0.390643858188535,
+          0.5502065991200591,
+          0.6966334752602663,
+          0.8294390352491792
+        ],
+        "p10_p90_width_change_first_to_last": 0.4387951770606442,
+        "std_by_quarter": [
+          0.16621896504664355,
+          0.23478290569210242,
+          0.29722716228685253,
+          0.3554317701507911
+        ],
+        "std_change_first_to_last": 0.18921280510414754,
+        "widens_p10_p90": true,
+        "widens_std": true
+      },
+      "credit_spread": {
+        "p10_p90_width_by_quarter": [
+          0.5878819540309259,
+          0.7933403103927732,
+          0.938651313269377,
+          1.0603416492857913
+        ],
+        "p10_p90_width_change_first_to_last": 0.4724596952548654,
+        "std_by_quarter": [
+          0.2385308559356232,
+          0.3277375856868986,
+          0.38660539721749454,
+          0.43345387597144575
+        ],
+        "std_change_first_to_last": 0.19492302003582254,
+        "widens_p10_p90": true,
+        "widens_std": true
+      },
+      "fed_funds": {
+        "p10_p90_width_by_quarter": [
+          0.4364793794317341,
+          0.6737916751665923,
+          0.8884265657580381,
+          1.1215482341050906
+        ],
+        "p10_p90_width_change_first_to_last": 0.6850688546733565,
+        "std_by_quarter": [
+          0.17932031519979136,
+          0.2826634495655333,
+          0.37042635959189224,
+          0.4613129572154519
+        ],
+        "std_change_first_to_last": 0.28199264201566054,
+        "widens_p10_p90": true,
+        "widens_std": true
+      },
+      "lur": {
+        "p10_p90_width_by_quarter": [
+          0.6942366310185255,
+          0.8615993918762568,
+          0.9695106797507158,
+          1.09147148400226
+        ],
+        "p10_p90_width_change_first_to_last": 0.3972348529837344,
+        "std_by_quarter": [
+          0.2843823879575845,
+          0.37513742312326087,
+          0.42697230544089054,
+          0.47257380139375876
+        ],
+        "std_change_first_to_last": 0.18819141343617424,
+        "widens_p10_p90": true,
+        "widens_std": true
+      },
+      "nfci": {
+        "p10_p90_width_by_quarter": [
+          0.25876477747029814,
+          0.3579328960984404,
+          0.4369864449342456,
+          0.49644946422757674
+        ],
+        "p10_p90_width_change_first_to_last": 0.2376846867572786,
+        "std_by_quarter": [
+          0.10667841846037393,
+          0.1549233153353218,
+          0.18852218039738347,
+          0.22276432511535463
+        ],
+        "std_change_first_to_last": 0.1160859066549807,
+        "widens_p10_p90": true,
+        "widens_std": true
+      },
+      "ten_year": {
+        "p10_p90_width_by_quarter": [
+          0.8596648187394069,
+          1.2320389700417114,
+          1.5045257549165683,
+          1.7269453405483655
+        ],
+        "p10_p90_width_change_first_to_last": 0.8672805218089585,
+        "std_by_quarter": [
+          0.3491384680445342,
+          0.49844576282554,
+          0.6078116387316069,
+          0.6985835500557306
+        ],
+        "std_change_first_to_last": 0.3494450820111964,
+        "widens_p10_p90": true,
+        "widens_std": true
+      }
+    },
+    "vol_model": "garch"
+  }
+}

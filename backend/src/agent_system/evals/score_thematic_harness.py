@@ -27,8 +27,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-BACKEND_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_OUTPUT_DIR = BACKEND_ROOT / "data/agent_system/thematic_agent_evals"
+from src.agent_system.paths import thematic_agent_evals_dir
+
+DEFAULT_OUTPUT_DIR = thematic_agent_evals_dir(create=False)
 
 
 # Rubric definition. Each tuple is (key, label, description).

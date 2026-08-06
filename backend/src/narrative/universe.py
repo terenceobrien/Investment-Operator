@@ -6,7 +6,9 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, Iterable, Optional, Set
 
-UNIVERSE_DIR = Path(__file__).resolve().parents[3] / "data" / "universe"
+from src.agent_system.paths import universe_dir
+
+UNIVERSE_DIR = universe_dir(create=False)
 UNIVERSE_FILES = (
     ("S&P 500", UNIVERSE_DIR / "sp500.csv"),
     ("Nasdaq-100", UNIVERSE_DIR / "nasdaq100.csv"),

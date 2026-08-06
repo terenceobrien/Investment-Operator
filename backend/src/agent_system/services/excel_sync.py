@@ -29,11 +29,12 @@ from src.agent_system.storage.repository import (
     load_trade_outcomes,
     save_trade_outcome,
 )
+from src.agent_system.paths import agent_system_data_root
 
 logger = logging.getLogger(__name__)
 
 
-EXCEL_LOG_PATH = Path("data/agent_system/helix_trade_log.xlsx")
+EXCEL_LOG_PATH = agent_system_data_root(create=False) / "helix_trade_log.xlsx"
 DATA_START_ROW = 3
 MAIN_LOG_DATA_START_ROW = 2
 HEADER_ROW = 1

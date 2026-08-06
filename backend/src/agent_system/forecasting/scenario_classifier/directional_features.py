@@ -259,7 +259,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--cache-dir",
         default=None,
-        help="Classifier cache directory; defaults to data/agent_system/classifier_cache.",
+        help="Classifier cache directory; defaults to the resolved classifier_cache directory.",
     )
 
     inspect = subparsers.add_parser("inspect", parents=[common])

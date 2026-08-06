@@ -37,9 +37,10 @@ from src.narrative.ticker_profiles import (
     watch_tickers_for_profile,
 )
 from src.data.market import fetch_market_moves
+from src.agent_system.paths import snapshots_dir
 
 
-SNAPSHOT_DIR = Path("data/snapshots")
+SNAPSHOT_DIR = snapshots_dir(create=False)
 DEFAULT_SUBJECTS = ("SPY", "QQQ")
 logger = logging.getLogger("narrative.daily_refresh")
 

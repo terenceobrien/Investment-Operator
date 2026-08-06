@@ -16,11 +16,13 @@ from typing import Any
 
 import pandas as pd
 
+from src.agent_system.paths import agent_system_data_root
+
 
 logger = logging.getLogger(__name__)
 
 
-CONFIG_FILE_PATH = Path("data/agent_system/AGENT_SYSTEM_INPUTS.xlsx")
+CONFIG_FILE_PATH = agent_system_data_root(create=False) / "AGENT_SYSTEM_INPUTS.xlsx"
 PARAMETER_CONFIG_SHEETS = (
     "regime_layers",
     "classify_environment",

@@ -1,0 +1,522 @@
+{
+  "id": "97e1a848-4647-44ea-a1ed-c45d41381a6a",
+  "schema_type": "TradeIdea",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.526773+00:00",
+  "asof_date": null,
+  "ticker": "VST",
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.526773Z",
+    "id": "97e1a848-4647-44ea-a1ed-c45d41381a6a",
+    "underlying": "VST",
+    "fundamental": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.522806Z",
+      "id": null,
+      "ticker": "VST",
+      "thesis_statement": "VST can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+      "business_quality": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.522786Z",
+        "id": null,
+        "summary": "Vistra has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review.",
+        "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+        "moat_evidence": [],
+        "cyclicality": "hybrid"
+      },
+      "financials": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.522789Z",
+        "id": null,
+        "key_metrics": [],
+        "balance_sheet_quality": 6.5,
+        "cash_generation_quality": 6.2,
+        "accounting_red_flags": []
+      },
+      "estimates_and_expectations": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.522791Z",
+        "id": null,
+        "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+        "revision_trend": "stable",
+        "where_we_differ": null,
+        "differ_magnitude": null,
+        "differ_evidence": []
+      },
+      "positioning": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.522795Z",
+        "id": null,
+        "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+        "short_interest": null,
+        "options_skew_signal": null,
+        "crowdedness_assessment": "crowded"
+      },
+      "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+      "bear_case_evidence": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.522797Z",
+          "id": null,
+          "claim": "VST is exposed to cyclical industrial demand.",
+          "supports": true,
+          "retrieved_at": "2026-07-30T15:02:33.522798Z",
+          "notes": "",
+          "source_type": "news",
+          "publisher": "Helix Stub Research",
+          "title": "VST macro sensitivity remains a risk",
+          "url": "https://example.com/helix-stub",
+          "published_at": "2026-07-30T15:02:33.522796Z",
+          "channel": null
+        }
+      ],
+      "what_bear_case_misses": "The bear case underweights the duration of utility and data-center capex plans, which are tied to multi-year power constraints rather than one quarter of industrial activity.",
+      "conviction": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.522803Z",
+        "id": null,
+        "rating": "moderate",
+        "justification": "VST has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+        "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity."
+      }
+    },
+    "narrative": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.526218Z",
+      "id": null,
+      "ticker": "VST",
+      "current_narrative": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.526204Z",
+        "id": null,
+        "summary": "No current narrative coverage. VST does not appear in today's broad-market or tech-heavy narrative snapshots. Thematic agent's consensus view: Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "dominant_archetype": "unknown_unclassified",
+        "secondary_archetype": null,
+        "narrative_strength": 0.0,
+        "narrative_age": "emerging"
+      },
+      "inefficiency_thesis": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.526208Z",
+        "id": null,
+        "archetype": "unknown_unclassified",
+        "description": "No narrative-service inefficiency thesis is available for VST because it has absent coverage in the broad SPY/QQQ snapshots.",
+        "evidence": [],
+        "why_it_persists": "No cross-sectional narrative signal has been observed in the current broad-market snapshots.",
+        "expected_resolution_path": "A future daily snapshot must include VST with source evidence before the agent system treats narrative as an active input.",
+        "resolution_horizon": "quarters"
+      },
+      "coverage_quality": "absent",
+      "snapshot_date": null,
+      "snapshot_subject": null,
+      "inefficiency_archetype_id": null,
+      "price_confirmation": null,
+      "sector_etf": "XLU",
+      "sector_narrative_alignment": "no_sector_signal",
+      "source_narrative_indices": [],
+      "is_stale": false,
+      "narrative_could_be_wrong_if": [
+        "Future SPY or QQQ narrative snapshots begin to mention VST with source evidence."
+      ],
+      "contradicting_signals": [],
+      "conviction": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.526212Z",
+        "id": null,
+        "rating": "weak",
+        "justification": "VST has no SPY or QQQ snapshot coverage. This is treated as a neutral no-signal narrative input, not as negative narrative evidence.",
+        "primary_uncertainty": "Broad daily snapshots can miss ticker-specific narratives that would require deeper per-name synthesis."
+      },
+      "source_narrative_state_asof": null
+    },
+    "research_priority": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.345845Z",
+      "id": null,
+      "theme": "Late-cycle expansion (narrow, capex-led, sticky inflation) behavioral scenario validation",
+      "rationale": "Late-cycle expansion (narrow, capex-led, sticky inflation) is a primary scenario in the active behavioral macro source with ensemble probability 84.2%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+      "edge_hypothesis": "The market may be under- or over-pricing the transition into Late-cycle expansion (narrow, capex-led, sticky inflation). Research should test whether preferred exposures such as grid_power_infrastructure, quality_ai, electrical_equipment, engineering_construction offer cleaner risk/reward than vulnerable exposures such as small_caps, auto_parts_salvage, using behavioral scenario ids rather than the retired narrative taxonomy.",
+      "sub_questions": [
+        "Which themes have direct positive exposure to Late-cycle expansion (narrow, capex-led, sticky inflation) without relying on stale narrative scenario ids?",
+        "Where are preferred exposures (grid_power_infrastructure, quality_ai, electrical_equipment, engineering_construction) showing bottom-up confirmation?",
+        "Which vulnerable exposures (small_caps, auto_parts_salvage) are beginning to break or de-rate?",
+        "Are confirming catalysts appearing: Hormuz reopening framework announced and tanker traffic normalizes?",
+        "What would invalidate this path: Oil rebounds above recent shock highs on renewed disruption?",
+        "Are confirming catalysts appearing: Renewed Hormuz disruption or attacks on shipping infrastructure?"
+      ],
+      "priority_rank": 1,
+      "expected_edge_decay": "quarters",
+      "supporting_evidence": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.345831Z",
+          "id": null,
+          "claim": "Behavioral seed priority derived from ensemble probability 84.2% and current_conditions designation 'primary'.",
+          "supports": true,
+          "retrieved_at": "2026-07-30T15:02:33.345837Z",
+          "notes": "",
+          "source_type": "derived",
+          "computation": "macro_scenario_source behavioral seed-priority builder",
+          "upstream_claims": [
+            "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+            "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+          ]
+        }
+      ],
+      "source_theme_id": "behavioral::late_cycle_expansion",
+      "source_scenario_ids": [
+        "late_cycle_expansion"
+      ],
+      "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+    },
+    "regime": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.022261Z",
+      "id": "a7313858-7673-43f6-81f2-1f41eff51dbc",
+      "asof_date": "2026-05-19",
+      "horizon": "default",
+      "layers": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.022234Z",
+        "id": null,
+        "monetary": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022116Z",
+          "id": null,
+          "score": 3.4,
+          "inputs": {
+            "net_liquidity_z": -0.8
+          },
+          "signals": [
+            "Liquidity tightening"
+          ],
+          "status": "bearish",
+          "data_quality": 0.9
+        },
+        "credit": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022122Z",
+          "id": null,
+          "score": 4.4,
+          "inputs": {
+            "baa_spread_z": 0.4
+          },
+          "signals": [
+            "Credit is contained but no longer easing"
+          ],
+          "status": "neutral",
+          "data_quality": 0.8
+        },
+        "volatility": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022127Z",
+          "id": null,
+          "score": 4.0,
+          "inputs": {
+            "vix": 22.0
+          },
+          "signals": [
+            "Volatility risk premium elevated"
+          ],
+          "status": "neutral",
+          "data_quality": 0.9
+        },
+        "breadth": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022229Z",
+          "id": null,
+          "score": 3.8,
+          "inputs": {
+            "pct_above_200d": 42.0
+          },
+          "signals": [
+            "Narrow leadership"
+          ],
+          "status": "bearish",
+          "data_quality": 0.85
+        },
+        "positioning": {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022231Z",
+          "id": null,
+          "score": 5.8,
+          "inputs": {
+            "cot_net_large_spec_z": 0.2
+          },
+          "signals": [
+            "AI leadership still supported"
+          ],
+          "status": "neutral",
+          "data_quality": 0.75
+        }
+      },
+      "weights": {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.022240Z",
+        "id": null,
+        "monetary": 0.2,
+        "credit": 0.22,
+        "volatility": 0.22,
+        "breadth": 0.2,
+        "positioning": 0.16
+      },
+      "composite": 43.0,
+      "layer_agreement": 0.72,
+      "composite_confidence": 78.0,
+      "environment": "Late-cycle tightening with narrow AI leadership",
+      "environment_drivers": [
+        "Oil shock",
+        "Fed repricing",
+        "AI earnings resilience"
+      ],
+      "regime_id": "late_cycle_expansion",
+      "regime_label": "Late-cycle expansion (narrow, capex-led, sticky inflation)",
+      "headline": "Late-cycle expansion with narrow, capex-led leadership and sticky-but-easing inflation. A two-sided oil risk sits on top: de-escalation broadens toward expansion_disinflation, re-escalation pushes toward inflation_shock. Credit is healthy, so the recessionary tails (growth_scare_no_credit, credit_led_recession) are watch-only, gated on a spread blowout that has not begun.",
+      "summary": "Late-cycle expansion with narrow, capex-led leadership and sticky-but-easing inflation. A two-sided oil risk sits on top: de-escalation broadens toward expansion_disinflation, re-escalation pushes toward inflation_shock. Credit is healthy, so the recessionary tails (growth_scare_no_credit, credit_led_recession) are watch-only, gated on a spread blowout that has not begun.",
+      "risk_summary": "Tail watch: inflation_shock, credit_led_recession",
+      "scenario_probabilities": {
+        "credit_led_recession": 0.0002,
+        "expansion_disinflation": 0.092,
+        "growth_scare_no_credit": 0.014,
+        "inflation_shock": 0.0484,
+        "late_cycle_expansion": 0.8421,
+        "stagflation": 0.0033
+      },
+      "scenario_probability_source": "macro_forecast",
+      "key_drivers": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022247Z",
+          "id": null,
+          "name": "Oil supply shock",
+          "status": "bearish for broad beta / bullish for energy",
+          "explanation": "Elevated oil keeps inflation risk alive and raises input costs."
+        },
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022250Z",
+          "id": null,
+          "name": "AI earnings resilience",
+          "status": "bullish for quality AI infrastructure",
+          "explanation": "Capital spending tied to data-center demand remains durable."
+        }
+      ],
+      "portfolio_implications": [
+        "Favor quality AI infrastructure and short-duration optionality.",
+        "Be selective with broad beta and rate-sensitive cyclicals."
+      ],
+      "best_positioned": [
+        "Energy / oil beta",
+        "Quality AI leaders",
+        "Infrastructure / grid"
+      ],
+      "most_vulnerable": [
+        "Small caps",
+        "Long-duration bonds",
+        "Unprofitable growth"
+      ],
+      "regime_call_confidence": 0.78,
+      "falsifiers": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.022255Z",
+          "id": null,
+          "condition": "Oil falls below $70 while inflation breakevens compress",
+          "observable_in": "data_series",
+          "check_frequency": "daily",
+          "current_status": "not_triggered",
+          "last_checked_at": null,
+          "notes": ""
+        }
+      ],
+      "research_priorities": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.345845Z",
+          "id": null,
+          "theme": "Late-cycle expansion (narrow, capex-led, sticky inflation) behavioral scenario validation",
+          "rationale": "Late-cycle expansion (narrow, capex-led, sticky inflation) is a primary scenario in the active behavioral macro source with ensemble probability 84.2%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+          "edge_hypothesis": "The market may be under- or over-pricing the transition into Late-cycle expansion (narrow, capex-led, sticky inflation). Research should test whether preferred exposures such as grid_power_infrastructure, quality_ai, electrical_equipment, engineering_construction offer cleaner risk/reward than vulnerable exposures such as small_caps, auto_parts_salvage, using behavioral scenario ids rather than the retired narrative taxonomy.",
+          "sub_questions": [
+            "Which themes have direct positive exposure to Late-cycle expansion (narrow, capex-led, sticky inflation) without relying on stale narrative scenario ids?",
+            "Where are preferred exposures (grid_power_infrastructure, quality_ai, electrical_equipment, engineering_construction) showing bottom-up confirmation?",
+            "Which vulnerable exposures (small_caps, auto_parts_salvage) are beginning to break or de-rate?",
+            "Are confirming catalysts appearing: Hormuz reopening framework announced and tanker traffic normalizes?",
+            "What would invalidate this path: Oil rebounds above recent shock highs on renewed disruption?",
+            "Are confirming catalysts appearing: Renewed Hormuz disruption or attacks on shipping infrastructure?"
+          ],
+          "priority_rank": 1,
+          "expected_edge_decay": "quarters",
+          "supporting_evidence": [
+            {
+              "schema_version": "0.1.0",
+              "created_at": "2026-07-30T15:02:33.345831Z",
+              "id": null,
+              "claim": "Behavioral seed priority derived from ensemble probability 84.2% and current_conditions designation 'primary'.",
+              "supports": true,
+              "retrieved_at": "2026-07-30T15:02:33.345837Z",
+              "notes": "",
+              "source_type": "derived",
+              "computation": "macro_scenario_source behavioral seed-priority builder",
+              "upstream_claims": [
+                "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+                "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+              ]
+            }
+          ],
+          "source_theme_id": "behavioral::late_cycle_expansion",
+          "source_scenario_ids": [
+            "late_cycle_expansion"
+          ],
+          "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+        },
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.345883Z",
+          "id": null,
+          "theme": "Expansion with disinflation (broadening / soft landing) behavioral scenario validation",
+          "rationale": "Expansion with disinflation (broadening / soft landing) is a secondary scenario in the active behavioral macro source with ensemble probability 9.2%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+          "edge_hypothesis": "The market may be under- or over-pricing the transition into Expansion with disinflation (broadening / soft landing). Research should test whether preferred exposures such as small_caps, high_beta_ai_semis, engineering_construction, electrical_equipment offer cleaner risk/reward than vulnerable exposures such as cash_short_duration, using behavioral scenario ids rather than the retired narrative taxonomy.",
+          "sub_questions": [
+            "Which themes have direct positive exposure to Expansion with disinflation (broadening / soft landing) without relying on stale narrative scenario ids?",
+            "Where are preferred exposures (small_caps, high_beta_ai_semis, engineering_construction, electrical_equipment) showing bottom-up confirmation?",
+            "Which vulnerable exposures (cash_short_duration) are beginning to break or de-rate?"
+          ],
+          "priority_rank": 2,
+          "expected_edge_decay": "quarters",
+          "supporting_evidence": [
+            {
+              "schema_version": "0.1.0",
+              "created_at": "2026-07-30T15:02:33.345880Z",
+              "id": null,
+              "claim": "Behavioral seed priority derived from ensemble probability 9.2% and current_conditions designation 'secondary'.",
+              "supports": true,
+              "retrieved_at": "2026-07-30T15:02:33.345880Z",
+              "notes": "",
+              "source_type": "derived",
+              "computation": "macro_scenario_source behavioral seed-priority builder",
+              "upstream_claims": [
+                "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+                "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+              ]
+            }
+          ],
+          "source_theme_id": "behavioral::expansion_disinflation",
+          "source_scenario_ids": [
+            "expansion_disinflation"
+          ],
+          "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+        },
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.345908Z",
+          "id": null,
+          "theme": "Inflation shock (supply-driven reacceleration) behavioral scenario validation",
+          "rationale": "Inflation shock (supply-driven reacceleration) is a tail_watch scenario in the active behavioral macro source with ensemble probability 4.8%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+          "edge_hypothesis": "The market may be under- or over-pricing the transition into Inflation shock (supply-driven reacceleration). Research should test whether preferred exposures such as cash_short_duration, insurance_brokers, financial_data_exchanges offer cleaner risk/reward than vulnerable exposures such as long_duration_growth, high_beta_ai_semis, small_caps, using behavioral scenario ids rather than the retired narrative taxonomy.",
+          "sub_questions": [
+            "Which themes have direct positive exposure to Inflation shock (supply-driven reacceleration) without relying on stale narrative scenario ids?",
+            "Where are preferred exposures (cash_short_duration, insurance_brokers, financial_data_exchanges) showing bottom-up confirmation?",
+            "Which vulnerable exposures (long_duration_growth, high_beta_ai_semis, small_caps) are beginning to break or de-rate?"
+          ],
+          "priority_rank": 3,
+          "expected_edge_decay": "quarters",
+          "supporting_evidence": [
+            {
+              "schema_version": "0.1.0",
+              "created_at": "2026-07-30T15:02:33.345905Z",
+              "id": null,
+              "claim": "Behavioral seed priority derived from ensemble probability 4.8% and current_conditions designation 'tail_watch'.",
+              "supports": true,
+              "retrieved_at": "2026-07-30T15:02:33.345906Z",
+              "notes": "",
+              "source_type": "derived",
+              "computation": "macro_scenario_source behavioral seed-priority builder",
+              "upstream_claims": [
+                "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+                "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+              ]
+            }
+          ],
+          "source_theme_id": "behavioral::inflation_shock",
+          "source_scenario_ids": [
+            "inflation_shock"
+          ],
+          "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+        },
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:02:33.345935Z",
+          "id": null,
+          "theme": "Credit-led recession (spread blowout + contraction) behavioral scenario validation",
+          "rationale": "Credit-led recession (spread blowout + contraction) is a tail_watch scenario in the active behavioral macro source with ensemble probability 0.0%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+          "edge_hypothesis": "The market may be under- or over-pricing the transition into Credit-led recession (spread blowout + contraction). Research should test whether preferred exposures such as cash_short_duration, quality_ex_ai_cash_flow offer cleaner risk/reward than vulnerable exposures such as high_beta_ai_semis, small_caps, auto_parts_salvage, long_duration_growth, using behavioral scenario ids rather than the retired narrative taxonomy.",
+          "sub_questions": [
+            "Which themes have direct positive exposure to Credit-led recession (spread blowout + contraction) without relying on stale narrative scenario ids?",
+            "Where are preferred exposures (cash_short_duration, quality_ex_ai_cash_flow) showing bottom-up confirmation?",
+            "Which vulnerable exposures (high_beta_ai_semis, small_caps, auto_parts_salvage, long_duration_growth) are beginning to break or de-rate?",
+            "Are confirming catalysts appearing: Payrolls, claims, retail sales, or PMIs deteriorate abruptly?",
+            "What would invalidate this path: Credit spreads remain tight while breadth improves?"
+          ],
+          "priority_rank": 4,
+          "expected_edge_decay": "quarters",
+          "supporting_evidence": [
+            {
+              "schema_version": "0.1.0",
+              "created_at": "2026-07-30T15:02:33.345932Z",
+              "id": null,
+              "claim": "Behavioral seed priority derived from ensemble probability 0.0% and current_conditions designation 'tail_watch'.",
+              "supports": true,
+              "retrieved_at": "2026-07-30T15:02:33.345933Z",
+              "notes": "",
+              "source_type": "derived",
+              "computation": "macro_scenario_source behavioral seed-priority builder",
+              "upstream_claims": [
+                "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+                "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+              ]
+            }
+          ],
+          "source_theme_id": "behavioral::credit_led_recession",
+          "source_scenario_ids": [
+            "credit_led_recession"
+          ],
+          "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+        }
+      ],
+      "forward_context": null
+    },
+    "provenance": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.526781Z",
+      "id": null,
+      "research_priority_id": "ecf799a6-56ee-490a-b743-1a3ad441e8b1",
+      "thematic_map_id": "4eb02a84-302c-4412-9b75-87f3111d7fa9",
+      "fundamental_analysis_id": "bf4d0fd1-abc9-426e-a0ed-3e51266a66b8",
+      "narrative_analysis_id": "9f902aa7-3932-4194-ba8e-503a309bc280",
+      "regime_state_id": "a7313858-7673-43f6-81f2-1f41eff51dbc"
+    },
+    "combined_conviction": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.526760Z",
+      "id": "ac84b7d7-60e7-4a14-a0d8-d26a4f084c01",
+      "rating": "pass",
+      "rule_applied": "no_fundamental_variant_view_pass",
+      "weakest_link": "fundamental",
+      "reasoning": "Fundamental view agrees with consensus; without a differentiated estimate or expectation edge, there is no tradeable advantage."
+    },
+    "expression": null,
+    "proposed_sizing": null,
+    "expected_holding_period": null,
+    "thesis_review_cadence": null,
+    "next_review_trigger": null,
+    "trade_falsifiers": [],
+    "invalidation_price": null,
+    "invalidation_thesis": null,
+    "rejection_reason": "Fundamental view agrees with consensus; without a differentiated estimate or expectation edge, there is no tradeable advantage.",
+    "rejection_stage": "single_name",
+    "rejection_rule_fired": "no_fundamental_variant_view_pass"
+  }
+}

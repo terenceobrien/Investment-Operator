@@ -1,0 +1,155 @@
+{
+  "ticker": "GE",
+  "company_name": "GE Aerospace",
+  "sector": "Industrials",
+  "industry": "Aerospace & Defense",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-07-01",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge and the supplied financial context; it should be verified against GE Aerospace filings, investor presentations, and segment disclosures.",
+    "Financial context supplied indicates GE has recent trailing revenue, margin, free cash flow, and leverage data, but does not provide verified business segment mix.",
+    "research_context was supplied to the profile agent."
+  ],
+  "profile_data_gaps": [
+    "No source-backed research context or filing excerpts were supplied for this profile.",
+    "Segment revenue and profit share estimates were not verified and are left null.",
+    "Customer concentration, backlog, and contract-level details were not verified.",
+    "Supplier concentration and program-specific exposure details were not verified."
+  ],
+  "business_description": "GE Aerospace is a global aerospace propulsion, services, and systems company focused primarily on commercial and military aircraft engines. Following General Electric's portfolio separations, GE is principally an aerospace company whose economics are driven by installed engine fleets, aftermarket maintenance, repair, overhaul, spare parts, and new engine deliveries. The company participates in commercial narrowbody and widebody propulsion, military engines, avionics, power and mechanical aircraft systems, and related digital/service offerings.",
+  "business_model": "GE Aerospace sells aircraft engines, engine components, systems, and long-cycle service agreements to airframers, airlines, lessors, defense agencies, and maintenance channels. New engine sales can carry lower margins and are strategically important because they build the installed base that supports higher-margin aftermarket revenue over multi-decade engine lives. Profitability depends on engine utilization, shop-visit demand, spare-parts pricing, production execution, technology investment, and defense program funding.",
+  "segments": [
+    {
+      "name": "Commercial Engines & Services",
+      "description": "Designs, manufactures, and services commercial aircraft engines and propulsion systems for narrowbody, widebody, regional, and business aviation applications. Economics are heavily tied to engine deliveries, installed base growth, flight hours, spare parts, and shop visits.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Aircraft delivery rates",
+        "Installed base growth",
+        "Flight hours and departures",
+        "Shop-visit volume",
+        "Spare-parts pricing and availability",
+        "Engine reliability and time on wing",
+        "Airline capital spending"
+      ]
+    },
+    {
+      "name": "Defense & Propulsion Technologies",
+      "description": "Provides military aircraft engines, propulsion systems, and related sustainment for defense customers, along with advanced technologies used in next-generation aerospace and defense programs.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "U.S. and allied defense budgets",
+        "Military aircraft production and modernization programs",
+        "Sustainment and upgrade demand",
+        "Program execution and development milestones",
+        "Export approvals and geopolitical demand"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Sale of commercial aircraft engines and related propulsion hardware",
+    "Aftermarket maintenance, repair, overhaul, spare parts, and long-term service agreements tied to the installed engine base",
+    "Military engine production, upgrades, sustainment, and related defense services",
+    "Aircraft systems, avionics, power, and mechanical systems revenue where applicable",
+    "Technology, digital, and support services for engine performance and fleet operations"
+  ],
+  "cost_drivers": [
+    "High-precision manufacturing labor and factory overhead",
+    "Specialty metals, superalloys, forgings, castings, composites, and electronic components",
+    "Engineering, research and development, certification, and new engine program investment",
+    "Supplier quality, capacity, and logistics costs across a complex aerospace supply chain",
+    "Warranty, service contract, and field-support obligations",
+    "Defense program development and compliance costs",
+    "Capital expenditures for tooling, testing, and manufacturing capacity"
+  ],
+  "margin_drivers": [
+    "Mix shift toward aftermarket services, spare parts, and long-term service agreements",
+    "Size, age, and utilization of the installed engine base",
+    "Shop-visit volume, turnaround time, and spare-parts availability",
+    "Pricing discipline on proprietary parts and service contracts",
+    "New engine production learning curves, delivery volumes, and cost absorption",
+    "Supplier performance, material inflation, and labor productivity",
+    "Warranty, contract margin revisions, and engine durability outcomes",
+    "Defense program mix and fixed-price development exposure"
+  ],
+  "key_customers": [
+    "Commercial airlines and aircraft lessors",
+    "Airframe manufacturers including Boeing and Airbus programs",
+    "U.S. Department of Defense and allied defense ministries",
+    "Maintenance, repair, and overhaul channels"
+  ],
+  "key_suppliers": [
+    "Specialty metals and superalloy producers",
+    "Precision casting, forging, machining, and rotating-component suppliers",
+    "Aerospace electronics and control-system suppliers",
+    "Composite materials and advanced ceramics suppliers",
+    "Global logistics and maintenance support providers"
+  ],
+  "peer_group": [
+    {
+      "ticker": "RTX",
+      "name": "RTX Corporation",
+      "relevance": "Major aerospace and defense peer with Pratt & Whitney aircraft engines and Collins Aerospace systems exposure."
+    },
+    {
+      "ticker": "RYCEY",
+      "name": "Rolls-Royce Holdings plc",
+      "relevance": "Global aircraft engine manufacturer with significant widebody engine and aftermarket exposure."
+    },
+    {
+      "ticker": "SAF.PA",
+      "name": "Safran SA",
+      "relevance": "Aerospace propulsion and equipment peer; GE's CFM International partner through Safran Aircraft Engines."
+    },
+    {
+      "ticker": "MTUAY",
+      "name": "MTU Aero Engines AG",
+      "relevance": "Commercial and military engine module and MRO peer with exposure to engine production and aftermarket cycles."
+    },
+    {
+      "ticker": "HON",
+      "name": "Honeywell International Inc.",
+      "relevance": "Diversified industrial with aerospace systems, avionics, and aftermarket exposure."
+    },
+    {
+      "ticker": "TDG",
+      "name": "TransDigm Group Incorporated",
+      "relevance": "Aerospace components and aftermarket peer with high-margin proprietary parts exposure."
+    }
+  ],
+  "thematic_exposures": [
+    "Commercial aerospace recovery",
+    "Aircraft engine aftermarket",
+    "Global air travel growth",
+    "Defense modernization",
+    "Aerospace supply-chain normalization",
+    "Narrowbody aircraft production",
+    "Widebody fleet renewal",
+    "Fuel efficiency and lower-emission propulsion",
+    "Geopolitical defense spending"
+  ],
+  "macro_sensitivities": [
+    "Commercial air traffic growth and aircraft utilization drive aftermarket shop visits and spare-parts demand",
+    "Airline profitability, fuel prices, and financing conditions influence aircraft delivery schedules and fleet renewal",
+    "Aircraft production rates at Boeing and Airbus affect new engine shipments and supply-chain absorption",
+    "Defense budgets and geopolitical priorities influence military engine demand and program funding",
+    "Interest rates and credit conditions affect airline and lessor aircraft financing and inventory decisions",
+    "U.S. dollar strength affects translated international revenue and competitiveness",
+    "Commodity and specialty-metal prices affect input costs and working capital",
+    "Aerospace supply-chain tightness, labor availability, and logistics constraints affect deliveries and margins"
+  ],
+  "major_risks": [
+    "Aircraft production delays or quality issues at major airframers could reduce engine delivery timing and factory efficiency",
+    "Aerospace supply-chain shortages could constrain output, increase costs, and delay aftermarket turnaround times",
+    "Engine durability, reliability, or safety issues could lead to warranty costs, inspections, groundings, or reputational damage",
+    "Cyclicality in airline traffic, aircraft orders, and airline capital spending could pressure commercial demand",
+    "Defense budget shifts, program cancellations, or procurement delays could reduce military growth",
+    "Execution risk in new engine technologies, certification, and production ramp-ups",
+    "Aftermarket assumptions may be affected by fleet retirements, lower utilization, or customer deferrals",
+    "Regulatory, export-control, sanctions, and geopolitical risks in global aerospace markets",
+    "Competition from other engine and aerospace suppliers could pressure pricing, technology position, or program wins"
+  ]
+}

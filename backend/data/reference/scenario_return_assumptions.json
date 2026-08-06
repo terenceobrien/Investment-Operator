@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "description": "Scenario-conditioned return and volatility assumptions for Monte Carlo simulation. Market-level returns are annualized percentages. Volatility is annualized. Manually seeded; intended to be calibrated against historical analogue forward returns over time.",
+    "last_updated": "2026-06-14",
+    "horizon_days": 63,
+    "probability_weighted_check": "sum(scenario_probability * market.SPY.expected_return) should approximate current analogue median forward return"
+  },
+  "scenarios": {
+    "sticky_late_cycle_ai": {
+      "market": {
+        "SPY": {"expected_return": 0.04, "volatility": 0.14},
+        "QQQ": {"expected_return": 0.07, "volatility": 0.18},
+        "IWM": {"expected_return": -0.02, "volatility": 0.18}
+      },
+      "themes": {
+        "grid_power_infrastructure": {"expected_return": 0.09, "volatility": 0.22},
+        "quality_ex_ai_cash_flow": {"expected_return": 0.03, "volatility": 0.13},
+        "electrical_equipment": {"expected_return": 0.08, "volatility": 0.20},
+        "engineering_construction": {"expected_return": 0.07, "volatility": 0.19},
+        "industrial_distribution": {"expected_return": 0.04, "volatility": 0.16},
+        "environmental_services": {"expected_return": 0.02, "volatility": 0.12},
+        "financial_data_exchanges": {"expected_return": 0.03, "volatility": 0.14},
+        "insurance_brokers": {"expected_return": 0.03, "volatility": 0.12},
+        "payroll_human_capital": {"expected_return": 0.02, "volatility": 0.12},
+        "auto_parts_salvage": {"expected_return": 0.01, "volatility": 0.16},
+        "cash_short_duration": {"expected_return": 0.01, "volatility": 0.01},
+        "quality_ai": {"expected_return": 0.08, "volatility": 0.20},
+        "high_beta_ai_semis": {"expected_return": 0.10, "volatility": 0.30},
+        "small_caps": {"expected_return": -0.02, "volatility": 0.20},
+        "long_duration_growth": {"expected_return": 0.04, "volatility": 0.20},
+        "unclassified": {"expected_return": 0.04, "volatility": 0.16}
+      }
+    },
+    "reopening_soft_landing": {
+      "market": {
+        "SPY": {"expected_return": 0.06, "volatility": 0.13},
+        "QQQ": {"expected_return": 0.06, "volatility": 0.16},
+        "IWM": {"expected_return": 0.10, "volatility": 0.20}
+      },
+      "themes": {
+        "grid_power_infrastructure": {"expected_return": 0.06, "volatility": 0.18},
+        "quality_ex_ai_cash_flow": {"expected_return": 0.05, "volatility": 0.12},
+        "electrical_equipment": {"expected_return": 0.07, "volatility": 0.17},
+        "engineering_construction": {"expected_return": 0.08, "volatility": 0.18},
+        "industrial_distribution": {"expected_return": 0.07, "volatility": 0.16},
+        "environmental_services": {"expected_return": 0.04, "volatility": 0.11},
+        "financial_data_exchanges": {"expected_return": 0.06, "volatility": 0.13},
+        "insurance_brokers": {"expected_return": 0.05, "volatility": 0.11},
+        "payroll_human_capital": {"expected_return": 0.05, "volatility": 0.11},
+        "auto_parts_salvage": {"expected_return": 0.06, "volatility": 0.16},
+        "cash_short_duration": {"expected_return": 0.005, "volatility": 0.01},
+        "quality_ai": {"expected_return": 0.05, "volatility": 0.18},
+        "high_beta_ai_semis": {"expected_return": 0.06, "volatility": 0.26},
+        "small_caps": {"expected_return": 0.10, "volatility": 0.20},
+        "long_duration_growth": {"expected_return": 0.08, "volatility": 0.20},
+        "unclassified": {"expected_return": 0.06, "volatility": 0.15}
+      }
+    },
+    "oil_inflation_tail": {
+      "market": {
+        "SPY": {"expected_return": -0.02, "volatility": 0.18},
+        "QQQ": {"expected_return": -0.05, "volatility": 0.22},
+        "IWM": {"expected_return": -0.05, "volatility": 0.22}
+      },
+      "themes": {
+        "grid_power_infrastructure": {"expected_return": -0.01, "volatility": 0.20},
+        "quality_ex_ai_cash_flow": {"expected_return": 0.01, "volatility": 0.13},
+        "electrical_equipment": {"expected_return": -0.01, "volatility": 0.20},
+        "engineering_construction": {"expected_return": -0.02, "volatility": 0.20},
+        "industrial_distribution": {"expected_return": -0.02, "volatility": 0.17},
+        "environmental_services": {"expected_return": 0.01, "volatility": 0.13},
+        "financial_data_exchanges": {"expected_return": -0.01, "volatility": 0.15},
+        "insurance_brokers": {"expected_return": 0.02, "volatility": 0.13},
+        "payroll_human_capital": {"expected_return": -0.01, "volatility": 0.13},
+        "auto_parts_salvage": {"expected_return": -0.03, "volatility": 0.18},
+        "cash_short_duration": {"expected_return": 0.015, "volatility": 0.01},
+        "quality_ai": {"expected_return": -0.04, "volatility": 0.22},
+        "high_beta_ai_semis": {"expected_return": -0.08, "volatility": 0.32},
+        "small_caps": {"expected_return": -0.06, "volatility": 0.24},
+        "long_duration_growth": {"expected_return": -0.07, "volatility": 0.26},
+        "unclassified": {"expected_return": -0.02, "volatility": 0.18}
+      }
+    },
+    "late_cycle_risk_off": {
+      "market": {
+        "SPY": {"expected_return": -0.10, "volatility": 0.24},
+        "QQQ": {"expected_return": -0.12, "volatility": 0.28},
+        "IWM": {"expected_return": -0.18, "volatility": 0.30}
+      },
+      "themes": {
+        "grid_power_infrastructure": {"expected_return": -0.12, "volatility": 0.26},
+        "quality_ex_ai_cash_flow": {"expected_return": -0.05, "volatility": 0.14},
+        "electrical_equipment": {"expected_return": -0.12, "volatility": 0.26},
+        "engineering_construction": {"expected_return": -0.14, "volatility": 0.28},
+        "industrial_distribution": {"expected_return": -0.12, "volatility": 0.24},
+        "environmental_services": {"expected_return": -0.06, "volatility": 0.16},
+        "financial_data_exchanges": {"expected_return": -0.07, "volatility": 0.18},
+        "insurance_brokers": {"expected_return": -0.04, "volatility": 0.14},
+        "payroll_human_capital": {"expected_return": -0.06, "volatility": 0.15},
+        "auto_parts_salvage": {"expected_return": -0.14, "volatility": 0.26},
+        "cash_short_duration": {"expected_return": 0.02, "volatility": 0.01},
+        "quality_ai": {"expected_return": -0.10, "volatility": 0.26},
+        "high_beta_ai_semis": {"expected_return": -0.20, "volatility": 0.38},
+        "small_caps": {"expected_return": -0.18, "volatility": 0.32},
+        "long_duration_growth": {"expected_return": -0.14, "volatility": 0.30},
+        "unclassified": {"expected_return": -0.10, "volatility": 0.22}
+      }
+    },
+    "ai_capex_rollover": {
+      "market": {
+        "SPY": {"expected_return": -0.05, "volatility": 0.20},
+        "QQQ": {"expected_return": -0.10, "volatility": 0.26},
+        "IWM": {"expected_return": -0.06, "volatility": 0.22}
+      },
+      "themes": {
+        "grid_power_infrastructure": {"expected_return": -0.15, "volatility": 0.28},
+        "quality_ex_ai_cash_flow": {"expected_return": 0.01, "volatility": 0.13},
+        "electrical_equipment": {"expected_return": -0.14, "volatility": 0.28},
+        "engineering_construction": {"expected_return": -0.13, "volatility": 0.26},
+        "industrial_distribution": {"expected_return": -0.08, "volatility": 0.20},
+        "environmental_services": {"expected_return": 0.00, "volatility": 0.13},
+        "financial_data_exchanges": {"expected_return": -0.03, "volatility": 0.16},
+        "insurance_brokers": {"expected_return": 0.01, "volatility": 0.12},
+        "payroll_human_capital": {"expected_return": -0.02, "volatility": 0.13},
+        "auto_parts_salvage": {"expected_return": -0.04, "volatility": 0.18},
+        "cash_short_duration": {"expected_return": 0.015, "volatility": 0.01},
+        "quality_ai": {"expected_return": -0.12, "volatility": 0.28},
+        "high_beta_ai_semis": {"expected_return": -0.22, "volatility": 0.40},
+        "small_caps": {"expected_return": -0.06, "volatility": 0.22},
+        "long_duration_growth": {"expected_return": -0.10, "volatility": 0.26},
+        "unclassified": {"expected_return": -0.05, "volatility": 0.18}
+      }
+    }
+  }
+}

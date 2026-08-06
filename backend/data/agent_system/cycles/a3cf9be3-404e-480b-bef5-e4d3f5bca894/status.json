@@ -1,0 +1,92 @@
+{
+  "cycle_id": "a3cf9be3-404e-480b-bef5-e4d3f5bca894",
+  "started_at": "2026-07-29T14:53:22.784529Z",
+  "updated_at": "2026-07-29T14:53:24.368825Z",
+  "completed_at": null,
+  "overall_status": "running",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-07-29T14:53:24.368813Z",
+      "completed_at": "2026-07-29T14:53:24.368818Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "monte_carlo",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {},
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

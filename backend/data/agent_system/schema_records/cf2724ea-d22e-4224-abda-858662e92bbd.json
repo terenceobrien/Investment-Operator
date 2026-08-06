@@ -1,0 +1,80 @@
+{
+  "id": "cf2724ea-d22e-4224-abda-858662e92bbd",
+  "schema_type": "FundamentalAnalysis",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:04:52.441986+00:00",
+  "asof_date": null,
+  "ticker": "VST",
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:04:52.441986Z",
+    "id": "cf2724ea-d22e-4224-abda-858662e92bbd",
+    "ticker": "VST",
+    "thesis_statement": "VST can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+    "business_quality": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.441962Z",
+      "id": null,
+      "summary": "Vistra has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review.",
+      "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+      "moat_evidence": [],
+      "cyclicality": "hybrid"
+    },
+    "financials": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.441966Z",
+      "id": null,
+      "key_metrics": [],
+      "balance_sheet_quality": 6.5,
+      "cash_generation_quality": 6.2,
+      "accounting_red_flags": []
+    },
+    "estimates_and_expectations": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.441969Z",
+      "id": null,
+      "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+      "revision_trend": "stable",
+      "where_we_differ": null,
+      "differ_magnitude": null,
+      "differ_evidence": []
+    },
+    "positioning": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.441973Z",
+      "id": null,
+      "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+      "short_interest": null,
+      "options_skew_signal": null,
+      "crowdedness_assessment": "crowded"
+    },
+    "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+    "bear_case_evidence": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.441976Z",
+        "id": null,
+        "claim": "VST is exposed to cyclical industrial demand.",
+        "supports": true,
+        "retrieved_at": "2026-07-30T15:04:52.441977Z",
+        "notes": "",
+        "source_type": "news",
+        "publisher": "Helix Stub Research",
+        "title": "VST macro sensitivity remains a risk",
+        "url": "https://example.com/helix-stub",
+        "published_at": "2026-07-30T15:04:52.441975Z",
+        "channel": null
+      }
+    ],
+    "what_bear_case_misses": "The bear case underweights the duration of utility and data-center capex plans, which are tied to multi-year power constraints rather than one quarter of industrial activity.",
+    "conviction": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.441983Z",
+      "id": null,
+      "rating": "moderate",
+      "justification": "VST has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity."
+    }
+  }
+}

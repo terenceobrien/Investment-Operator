@@ -1,0 +1,2620 @@
+{
+  "ticker": "PLTR",
+  "as_of_date": "2026-07-16",
+  "created_at": "2026-07-17T04:27:12.037347",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000033/0001321655-26-000033-index-headers.html",
+      "accession_number": "0001321655-26-000033",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000033/0001321655-26-000033-index.html",
+      "accession_number": "0001321655-26-000033",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000033/0001321655-26-000033.txt",
+      "accession_number": "0001321655-26-000033",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000033/pltr-20260603.htm",
+      "accession_number": "0001321655-26-000033",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/0001321655-26-000026-index-headers.html",
+      "accession_number": "0001321655-26-000026",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/0001321655-26-000026-index.html",
+      "accession_number": "0001321655-26-000026",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/0001321655-26-000026.txt",
+      "accession_number": "0001321655-26-000026",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/pltr-20260504.htm",
+      "accession_number": "0001321655-26-000026",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/0001321655-26-000004-index-headers.html",
+      "accession_number": "0001321655-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/0001321655-26-000004-index.html",
+      "accession_number": "0001321655-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/0001321655-26-000004.txt",
+      "accession_number": "0001321655-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/pltr-20260202.htm",
+      "accession_number": "0001321655-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-11-03",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000130/0001321655-25-000130-index-headers.html",
+      "accession_number": "0001321655-25-000130",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-11-03",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000130/0001321655-25-000130-index.html",
+      "accession_number": "0001321655-25-000130",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-11-03",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000130/0001321655-25-000130.txt",
+      "accession_number": "0001321655-25-000130",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-11-03",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000130/pltr-20251103.htm",
+      "accession_number": "0001321655-25-000130",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-08-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000105/0001321655-25-000105-index-headers.html",
+      "accession_number": "0001321655-25-000105",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-08-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000105/0001321655-25-000105-index.html",
+      "accession_number": "0001321655-25-000105",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-08-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000105/0001321655-25-000105.txt",
+      "accession_number": "0001321655-25-000105",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-08-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000105/pltr-20250804.htm",
+      "accession_number": "0001321655-25-000105",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000084/0001321655-25-000084-index-headers.html",
+      "accession_number": "0001321655-25-000084",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000084/0001321655-25-000084-index.html",
+      "accession_number": "0001321655-25-000084",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000084/0001321655-25-000084.txt",
+      "accession_number": "0001321655-25-000084",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000084/pltr-20250605.htm",
+      "accession_number": "0001321655-25-000084",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000063/0001321655-25-000063-index-headers.html",
+      "accession_number": "0001321655-25-000063",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000063/0001321655-25-000063-index.html",
+      "accession_number": "0001321655-25-000063",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "fmp",
+      "source_name": "FMP earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "FMP transcript endpoint is plan-restricted for current subscription."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "finnhub",
+      "source_name": "Finnhub earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Finnhub transcript endpoint is not available under current entitlement."
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "error",
+      "provider_status": "error",
+      "provider": "newsapi",
+      "source_name": "NewsAPI company news",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=11a51d097e7346bdba0161cf1b98ddf1982049f71c2070985dde3f4405b6b145",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=764880d73bf0d3aa20b66f54787f88cc3db669f4f547a428628348d055fc6cea",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=45a8b14194ec984b75aeee82536351ca138359dcf5b46354a10e661b6f205b66",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=6878023f3a6f49c3474743d728dabca96bd985da14e313e529ca197cb568345b",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=e4e37eb5cc64ccfb65317770b5f18023106ef1935b318eb4e2b63a6c2e191d59",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Benzinga",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=9dd1c678d0ad966e9c8a8f4fcc8583af2f55b59b1d7d8121301f565212be18ec",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Benzinga",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=00f290c27cc37b58c3c1fd07a09fa0e2fbb24893d4157feac4cc14c57d34ab87",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-15",
+      "source_url": "https://finnhub.io/api/news?id=5206db0ef9c5fe81b1576c3f9106ddb287b8fdb456338651f8f724445c19e927",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-07-15",
+      "source_url": "https://finnhub.io/api/news?id=7d57ec04cea960f89c28a1bb2265f2bb0fbba7f1e363f7fb974f302465f4e289",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "SeekingAlpha",
+      "source_date": "2026-07-15",
+      "source_url": "https://finnhub.io/api/news?id=665e28bf9bba575067329f980252c3681a64a331dc5d3fe5a0f6e012998956e2",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "yfinance",
+      "source_name": "yfinance analyst estimates",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "document_purpose": "peer_commentary",
+      "status": "skipped",
+      "provider_status": null,
+      "provider": "peer commentary",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Peer commentary skipped; no peer tickers supplied."
+    }
+  ],
+  "source_coverage_summary": "earnings_release:sec_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:finnhub_found=10; news:newsapi_error=1; other_8k:sec_found=26; peer_commentary:peer commentary_skipped=1; transcript:finnhub_plan_restricted=1; transcript:fmp_plan_restricted=1; earnings_release:sec_selected=1; estimates:yfinance_selected=1; filing:sec_selected=1; news:finnhub_selected=10; other_8k:sec_selected=6; extraction_selected=19; duplicate_dropped=20",
+  "extraction_source_summary": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "source_date": "2026-05-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "text_len": 21976,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "source_name": "SEC EDGAR",
+      "title": "10-Q",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "text_len": 96035,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "latest_sec_filing"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Benzinga",
+      "title": "Mira Murati Unveils Open-Weight AI Model as Alex Karp, Satya Nadella Warn Companies Are Giving Away Their IP",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=00f290c27cc37b58c3c1fd07a09fa0e2fbb24893d4157feac4cc14c57d34ab87",
+      "text_len": 243,
+      "text_excerpt_len": 134,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Alex Karp Grouped Palantir With These 3 Unstoppable Stocks as the Only True Artificial Intelligence (AI) Infrastructure Winners",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=11a51d097e7346bdba0161cf1b98ddf1982049f71c2070985dde3f4405b6b145",
+      "text_len": 315,
+      "text_excerpt_len": 187,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Palantir Technologies Inc (PLTR) Pairs with SNP to Target SAP Transformation Projects",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=45a8b14194ec984b75aeee82536351ca138359dcf5b46354a10e661b6f205b66",
+      "text_len": 403,
+      "text_excerpt_len": 317,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "XNTK vs. QQQ: Does a 35-Stock Tech ETF Beat Just Buying the Nasdaq-100?",
+      "source_date": "2026-07-15",
+      "source_url": "https://finnhub.io/api/news?id=5206db0ef9c5fe81b1576c3f9106ddb287b8fdb456338651f8f724445c19e927",
+      "text_len": 250,
+      "text_excerpt_len": 178,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "SeekingAlpha",
+      "title": "FFLC: Active Management That Has Actually Beaten The S&P 500",
+      "source_date": "2026-07-15",
+      "source_url": "https://finnhub.io/api/news?id=665e28bf9bba575067329f980252c3681a64a331dc5d3fe5a0f6e012998956e2",
+      "text_len": 217,
+      "text_excerpt_len": 156,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Palantir and Sandisk Stocks Are Down 35% and 25%, but Only One Is a Buy Now",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=6878023f3a6f49c3474743d728dabca96bd985da14e313e529ca197cb568345b",
+      "text_len": 134,
+      "text_excerpt_len": 58,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Palantir CTO Warns AI Distillation Threat Could Undermine U.S. AI Lead",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=764880d73bf0d3aa20b66f54787f88cc3db669f4f547a428628348d055fc6cea",
+      "text_len": 205,
+      "text_excerpt_len": 134,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Expanded SBA Fraud Push and New Alliances Might Change The Case For Investing In Palantir Technologies (PLTR)",
+      "source_date": "2026-07-15",
+      "source_url": "https://finnhub.io/api/news?id=7d57ec04cea960f89c28a1bb2265f2bb0fbba7f1e363f7fb974f302465f4e289",
+      "text_len": 608,
+      "text_excerpt_len": 498,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Benzinga",
+      "title": "Dan Ives Says AI Needs 'New Kind of Bank' as He Announces Launch of Yorkville Ives: 'This Is the Next Step for Me'",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=9dd1c678d0ad966e9c8a8f4fcc8583af2f55b59b1d7d8121301f565212be18ec",
+      "text_len": 232,
+      "text_excerpt_len": 117,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Does Palantir's Latest Partnership With Nvidia Make It a Screaming Buy?",
+      "source_date": "2026-07-16",
+      "source_url": "https://finnhub.io/api/news?id=e4e37eb5cc64ccfb65317770b5f18023106ef1935b318eb4e2b63a6c2e191d59",
+      "text_len": 127,
+      "text_excerpt_len": 55,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "source_name": "yfinance analyst estimates",
+      "title": "Analyst estimate summary",
+      "source_date": null,
+      "source_url": null,
+      "text_len": 6151,
+      "text_excerpt_len": 6151,
+      "provider": "yfinance",
+      "provider_status": "found",
+      "selected_reason": "estimate_selected_for_extraction"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pltr-20250605.htm",
+      "source_date": "2025-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000084/pltr-20250605.htm",
+      "text_len": 4728,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pltr-20250804.htm",
+      "source_date": "2025-08-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000105/pltr-20250804.htm",
+      "text_len": 4566,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pltr-20251103.htm",
+      "source_date": "2025-11-03",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000130/pltr-20251103.htm",
+      "text_len": 4581,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pltr-20260202.htm",
+      "source_date": "2026-02-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/pltr-20260202.htm",
+      "text_len": 4768,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pltr-20260603.htm",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000033/pltr-20260603.htm",
+      "text_len": 6798,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: 0001321655-25-000063-index-headers.html",
+      "source_date": "2025-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165525000063/0001321655-25-000063-index-headers.html",
+      "text_len": 3729,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    }
+  ],
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir reported Q1 2026 revenue of $1.633 billion, up 85% year over year and 16% sequentially, described as its highest-ever year-over-year growth rate.",
+      "summary": "Q1 revenue growth accelerated sharply to 85% year over year.",
+      "excerpt": "Revenue grew 85% year-over-year and 16% quarter-over-quarter to $1.633 billion",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "growth",
+        "AI demand",
+        "quarterly performance"
+      ],
+      "related_metrics": [
+        "revenue",
+        "year-over-year growth",
+        "quarter-over-quarter growth"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "revenue_growth",
+        "quarterly_results",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "U.S. revenue more than doubled in Q1 2026, with U.S. commercial revenue up 133% year over year to $595 million and U.S. government revenue up 84% to $687 million.",
+      "summary": "U.S. business was the primary growth driver, with both commercial and government segments growing rapidly.",
+      "excerpt": "U.S. revenue grew 104% year-over-year and 19% quarter-over-quarter to $1.282 billion \u25e6 U.S. commercial revenue grew 133% year-over-year and 18% quarter-over-quarter to $595 million \u25e6 U.S. government revenue grew 84% year-over-year and 21% quarter-over-quarter to $687 million",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.99,
+      "related_topics": [
+        "U.S. market",
+        "commercial demand",
+        "government demand",
+        "segment growth"
+      ],
+      "related_metrics": [
+        "U.S. revenue",
+        "U.S. commercial revenue",
+        "U.S. government revenue",
+        "year-over-year growth"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "us_revenue",
+        "commercial",
+        "government",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Deal activity remained broad in Q1 2026, with 206 deals of at least $1 million, 72 deals of at least $5 million, and 47 deals of at least $10 million closed.",
+      "summary": "The company reported a high number of large contract wins in the quarter.",
+      "excerpt": "Closed 206 deals of at least $1 million, 72 deals of at least $5 million, and 47 deals of at least $10 million",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "sales execution",
+        "enterprise demand",
+        "large deals"
+      ],
+      "related_metrics": [
+        "deals >= $1 million",
+        "deals >= $5 million",
+        "deals >= $10 million"
+      ],
+      "evidence_tags": [
+        "bookings",
+        "deal_activity",
+        "customer_demand",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Total contract value closed in Q1 2026 was $2.41 billion, up 61% year over year, including $1.176 billion of U.S. commercial TCV, up 45% year over year.",
+      "summary": "Closed contract value grew materially year over year, supporting future revenue visibility subject to conversion.",
+      "excerpt": "Closed total contract value (\u201cTCV\u201d) of $2.41 billion, up 61% year-over-year \u25e6 Closed $1.176 billion of U.S. commercial TCV, up 45% year-over-year",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "bookings",
+        "U.S. commercial",
+        "sales momentum"
+      ],
+      "related_metrics": [
+        "total contract value",
+        "U.S. commercial TCV",
+        "year-over-year growth"
+      ],
+      "evidence_tags": [
+        "bookings",
+        "tcv",
+        "commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "U.S. commercial remaining deal value reached $4.92 billion, up 112% year over year and 12% quarter over quarter.",
+      "summary": "Remaining U.S. commercial deal value more than doubled year over year.",
+      "excerpt": "U.S. commercial remaining deal value (\u201cRDV\u201d) of $4.92 billion, up 112% year-over-year and 12% quarter-over-quarter",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "backlog",
+        "future revenue",
+        "U.S. commercial"
+      ],
+      "related_metrics": [
+        "U.S. commercial RDV",
+        "year-over-year growth",
+        "quarter-over-quarter growth"
+      ],
+      "evidence_tags": [
+        "backlog",
+        "remaining_deal_value",
+        "commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir reported Q1 2026 GAAP income from operations of $754 million at a 46% margin and adjusted income from operations of $984 million at a 60% margin.",
+      "summary": "Operating margins were very high on both GAAP and adjusted bases.",
+      "excerpt": "GAAP income from operations of $754 million, representing a 46% margin \u2022 Adjusted income from operations of $984 million, representing a 60% margin",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "profitability",
+        "operating leverage",
+        "margins"
+      ],
+      "related_metrics": [
+        "GAAP income from operations",
+        "GAAP operating margin",
+        "adjusted income from operations",
+        "adjusted operating margin"
+      ],
+      "evidence_tags": [
+        "profitability",
+        "operating_margin",
+        "non_gaap",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Q1 2026 GAAP net income was $871 million, representing a 53% margin; GAAP diluted EPS was $0.34 and adjusted diluted EPS was $0.33.",
+      "summary": "The company reported substantial GAAP profitability and positive EPS in Q1.",
+      "excerpt": "GAAP net income of $871 million, representing a 53% margin \u2022 GAAP earnings per share (\u201cEPS\u201d) of $0.34 \u2022 Adjusted EPS of $0.33",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "earnings",
+        "profitability",
+        "per-share results"
+      ],
+      "related_metrics": [
+        "GAAP net income",
+        "net income margin",
+        "GAAP EPS",
+        "adjusted EPS"
+      ],
+      "evidence_tags": [
+        "net_income",
+        "eps",
+        "profitability",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Cash generation was strong in Q1 2026, with cash from operations of $899 million at a 55% margin and adjusted free cash flow of $925 million at a 57% margin.",
+      "summary": "Palantir converted revenue into operating and free cash flow at high margins.",
+      "excerpt": "Cash from operations of $899 million, representing a 55% margin \u2022 Adjusted free cash flow of $925 million, representing a 57% margin",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "cash generation",
+        "free cash flow",
+        "liquidity"
+      ],
+      "related_metrics": [
+        "cash from operations",
+        "operating cash flow margin",
+        "adjusted free cash flow",
+        "adjusted free cash flow margin"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "free_cash_flow",
+        "liquidity",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir ended Q1 2026 with $8.0 billion of cash, cash equivalents, and short-term U.S. Treasury securities.",
+      "summary": "The company maintained a large liquidity position at quarter-end.",
+      "excerpt": "Cash, cash equivalents, and short-term U.S. Treasury securities of $8.0 billion",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "liquidity",
+        "balance sheet",
+        "financial flexibility"
+      ],
+      "related_metrics": [
+        "cash",
+        "cash equivalents",
+        "short-term U.S. Treasury securities"
+      ],
+      "evidence_tags": [
+        "balance_sheet",
+        "liquidity",
+        "cash",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "For Q2 2026, Palantir guided to revenue of $1.797 billion to $1.801 billion and adjusted income from operations of $1.063 billion to $1.067 billion.",
+      "summary": "Q2 outlook implies continued high revenue scale and profitability.",
+      "excerpt": "For Q2 2026, we expect: \u2022 Revenue of between $1.797 \u2013 $1.801 billion. \u2022 Adjusted income from operations of between $1.063 \u2013 $1.067 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "guidance",
+        "near-term outlook",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Q2 revenue guidance",
+        "Q2 adjusted income from operations guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "revenue_guidance",
+        "operating_income_guidance",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir raised full-year 2026 revenue guidance to $7.650 billion to $7.662 billion and U.S. commercial revenue guidance to more than $3.224 billion, implying at least 120% growth.",
+      "summary": "Management raised full-year revenue expectations, especially for U.S. commercial.",
+      "excerpt": "For full year 2026: \u2022 We are raising our revenue guidance to between $7.650 \u2013 $7.662 billion. \u2022 We are raising our U.S. commercial revenue guidance to in excess of $3.224 billion, representing a growth rate of at least 120%.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 1.0,
+      "related_topics": [
+        "guidance",
+        "U.S. commercial",
+        "growth outlook"
+      ],
+      "related_metrics": [
+        "FY2026 revenue guidance",
+        "FY2026 U.S. commercial revenue guidance",
+        "U.S. commercial revenue growth"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "revenue_guidance",
+        "us_commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir raised full-year 2026 adjusted income from operations guidance to $4.440 billion to $4.452 billion and adjusted free cash flow guidance to $4.2 billion to $4.4 billion, while continuing to expect GAAP operating income and net income in each quarter.",
+      "summary": "Full-year profitability and cash flow guidance were raised alongside continued GAAP profitability expectations.",
+      "excerpt": "We are raising our adjusted income from operations guidance to between $4.440 \u2013 $4.452 billion. \u2022 We are raising our adjusted free cash flow guidance to between $4.2 \u2013 $4.4 billion. \u2022 And we continue to expect GAAP operating income and net income in each quarter of this year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "profitability outlook",
+        "free cash flow",
+        "guidance"
+      ],
+      "related_metrics": [
+        "FY2026 adjusted income from operations guidance",
+        "FY2026 adjusted free cash flow guidance",
+        "GAAP operating income",
+        "GAAP net income"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "profitability_guidance",
+        "free_cash_flow_guidance",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Management highlighted a Rule of 40 score of 145% and said full-year revenue guidance was raised due to confidence in an accelerating U.S. market.",
+      "summary": "CEO commentary was highly positive on growth quality and U.S. market acceleration.",
+      "excerpt": "\u201cPalantir's Rule of 40 score has soared to 145%. We have shattered the metric, a feat matched only by other fellow AI infrastructure companies: NVIDIA, Micron and SK hynix. Momentum surged as we grew 85% last quarter\u2014our highest-ever year-over-year growth rate\u2014by more than doubling our U.S. business, and now we are raising our full-year revenue guidance to 71% growth, 10 points ahead of our guidance from last quarter, driven by our confidence in an accelerating U.S. market,\u201d said Alex Karp, Co-Founder and Chief Executive Officer of Palantir Technologies.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "management tone",
+        "U.S. market",
+        "AI infrastructure",
+        "growth outlook"
+      ],
+      "related_metrics": [
+        "Rule of 40 score",
+        "revenue growth",
+        "full-year revenue guidance"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "rule_of_40",
+        "demand_commentary",
+        "guidance_raise",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    }
+  ],
+  "filing_evidence": [
+    {
+      "source_type": "filing",
+      "ticker": "PLTR",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "10-Q",
+      "claim": "Palantir states that many customer contracts can be terminated for convenience with less than twelve months\u2019 notice, limiting the certainty of multi-year contracted revenue conversion.",
+      "summary": "Contract termination-for-convenience clauses reduce certainty around backlog and long-term contract value realization.",
+      "excerpt": "The Company\u2019s arrangements with its customers often have terms that span over multiple years. However, the Company allows many of its customers to terminate contracts for convenience prior to the end of the stated term with less than twelve months\u2019 notice.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "contract risk",
+        "revenue visibility",
+        "customer contracts"
+      ],
+      "related_metrics": [
+        "remaining performance obligations",
+        "contracted revenue"
+      ],
+      "evidence_tags": [
+        "risk",
+        "contract_termination",
+        "revenue_visibility",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "Numerical RPO values were not available in the provided text excerpt."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "PLTR",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "10-Q",
+      "claim": "Palantir\u2019s disclosed remaining performance obligations exclude cancelable contracted revenue, including customer deposits, and also exclude contracts with original terms of twelve months or less under a practical expedient.",
+      "summary": "RPO disclosure represents noncancelable revenue and does not capture all contractual activity.",
+      "excerpt": "Revenue allocated to remaining performance obligations represents noncancelable contracted revenue that has not yet been recognized, which includes deferred revenue and, in certain instances, amounts that will be invoiced. The Company has elected the practical expedient allowing the Company to not disclose remaining performance obligations for contracts with original terms of twelve months or less. Cancelable contracted revenue, which includes customer deposits, is not considered a remaining performance obligation.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "revenue recognition",
+        "backlog",
+        "financial disclosure"
+      ],
+      "related_metrics": [
+        "remaining performance obligations",
+        "deferred revenue",
+        "customer deposits"
+      ],
+      "evidence_tags": [
+        "accounting_disclosure",
+        "rpo",
+        "backlog_quality",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "This affects interpretation of RPO/backlog metrics; provided 10-Q text did not include readable RPO amounts."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "PLTR",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "10-Q",
+      "claim": "Palantir disclosed no significant changes to its significant accounting policies during the three months ended March 31, 2026, except for changes noted elsewhere in the filing.",
+      "summary": "No broad accounting policy change was disclosed in the visible 10-Q text.",
+      "excerpt": "There have been no significant changes to these policies during the three months ended March 31, 2026, except for the changes noted below.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.58,
+      "related_topics": [
+        "accounting policies",
+        "financial reporting"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "accounting_policies",
+        "filing_disclosure",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "The provided excerpt does not include the detailed changes referenced by the filing."
+    }
+  ],
+  "transcript_evidence": [],
+  "news_evidence": [
+    {
+      "source_type": "news",
+      "ticker": "PLTR",
+      "document_purpose": "news",
+      "source_date": "2026-07-16",
+      "source_name": "Benzinga",
+      "source_url": "https://finnhub.io/api/news?id=00f290c27cc37b58c3c1fd07a09fa0e2fbb24893d4157feac4cc14c57d34ab87",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Mira Murati Unveils Open-Weight AI Model as Alex Karp, Satya Nadella Warn Companies Are Giving Away Their IP",
+      "claim": "A Benzinga headline/snippet says Mira Murati\u2019s new Inkling AI addresses an enterprise IP crisis that Microsoft\u2019s Satya Nadella and Palantir\u2019s Alex Karp warned about.",
+      "summary": "Snippet links Palantir\u2019s CEO to concerns about enterprise IP exposure in AI use cases, but provides limited detail.",
+      "excerpt": "Mira Murati's new Inkling AI solves the enterprise IP crisis warned by Microsoft's Satya Nadella and Palantir's Alex Karp.",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "AI intellectual property",
+        "enterprise AI",
+        "CEO commentary"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "headline_snippet_only",
+        "ai_ip",
+        "management_commentary",
+        "document_purpose:news",
+        "classification_confidence:medium"
+      ],
+      "notes": "headline/snippet-only evidence."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PLTR",
+      "document_purpose": "news",
+      "source_date": "2026-07-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=11a51d097e7346bdba0161cf1b98ddf1982049f71c2070985dde3f4405b6b145",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Alex Karp Grouped Palantir With These 3 Unstoppable Stocks as the Only True Artificial Intelligence (AI) Infrastructure Winners",
+      "claim": "A Yahoo headline/snippet says Palantir CEO Alex Karp recently grouped Palantir with Nvidia, Micron, and SK Hynix as major beneficiaries of rising AI infrastructure investment.",
+      "summary": "The snippet reports bullish management positioning around Palantir\u2019s role in AI infrastructure spending.",
+      "excerpt": "Palantir CEO Alex Karp recently placed his company alongside Nvidia, Micron, and SK Hynix as the biggest beneficiaries of rising investment in artificial intelligence (AI) infrastructure.",
+      "polarity": "supports",
+      "confidence": "low",
+      "relevance_score": 0.52,
+      "related_topics": [
+        "AI infrastructure",
+        "management positioning",
+        "market demand"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "headline_snippet_only",
+        "ai_infrastructure",
+        "management_commentary",
+        "document_purpose:news",
+        "classification_confidence:medium"
+      ],
+      "notes": "headline/snippet-only evidence."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PLTR",
+      "document_purpose": "news",
+      "source_date": "2026-07-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=45a8b14194ec984b75aeee82536351ca138359dcf5b46354a10e661b6f205b66",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Palantir Technologies Inc (PLTR) Pairs with SNP to Target SAP Transformation Projects",
+      "claim": "A Yahoo headline says Palantir is pairing with SNP to target SAP transformation projects, but the available snippet does not provide transaction or partnership details.",
+      "summary": "Headline indicates a company-specific partnership or go-to-market effort involving SNP and SAP transformation projects, with limited supporting detail in the snippet.",
+      "excerpt": "Palantir Technologies Inc (PLTR) Pairs with SNP to Target SAP Transformation Projects",
+      "polarity": "supports",
+      "confidence": "low",
+      "relevance_score": 0.62,
+      "related_topics": [
+        "partnerships",
+        "SAP transformation",
+        "enterprise software"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "headline_snippet_only",
+        "partnership",
+        "sap_transformation",
+        "document_purpose:news",
+        "classification_confidence:medium"
+      ],
+      "notes": "headline/snippet-only evidence."
+    }
+  ],
+  "estimate_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"downLast7Days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"upLast30days\": {\"+1q\": 2, \"+1y\": 3, \"0q\": 2, \"0y\": 3}, \"upLast7days\": {\"+1q\": 1, \"+1y\": 1, \"0q\": 1, \"0y\": 1}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 0.37127, \"+1y\": 2.08035, \"0q\": 0.34559, \"0y\": 1.47261}, \"60daysAgo\": {\"+1q\": 0.36991, \"+1y\": 2.06464, \"0q\": 0.34491, \"0y\": 1.46358}, \"7daysAgo\": {\"+1q\": 0.37339, \"+1y\": 2.09448, \"0q\": 0.34665, \"0y\": 1.47608}, \"90daysAgo\": {\"+1q\": 0.3407, \"+1y\": 1.86248, \"0q\": 0.30187, \"0y\": 1.32237}, \"current\": {\"+1q\": 0.37339, \"+1y\": 2.09448, \"0q\": 0.34665, \"0y\": 1.47608}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 2001370420, \"+1y\": 11223982140, \"0q\": 1810817530, \"0y\": 7719044390}, \"growth\": {\"+1q\": 0.69449997, \"+1y\": 0.4541, \"0q\": 0.80410004, \"0y\": 0.72480005}, \"high\": {\"+1q\": 2100000000, \"+1y\": 14358018000, \"0q\": 1876913390, \"0y\": 8047583000}, \"low\": {\"+1q\": 1913369000, \"+1y\": 10317900000, \"0q\": 1790000000, \"0y\": 7650000000}, \"numberOfAnalysts\": {\"+1q\": 23, \"+1y\": 31, \"0q\": 24, \"0y\": 30}, \"yearAgoRevenue\": {\"+1q\": 1181092000, \"+1y\": 7719044390, \"0q\": 1003697000, \"0y\": 4475446000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 19, \"1\": 18, \"2\": 18, \"3\": 18}, \"hold\": {\"0\": 10, \"1\": 10, \"2\": 10, \"3\": 10}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 1, \"1\": 1, \"2\": 1, \"3\": 1}, \"strongBuy\": {\"0\": 1, \"1\": 2, \"2\": 1, \"3\": 1}, \"strongSell\": {\"0\": 1, \"1\": 1, \"2\": 1, \"3\": 1}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [],
+  "management_guidance": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "For Q2 2026, Palantir guided to revenue of $1.797 billion to $1.801 billion and adjusted income from operations of $1.063 billion to $1.067 billion.",
+      "summary": "Q2 outlook implies continued high revenue scale and profitability.",
+      "excerpt": "For Q2 2026, we expect: \u2022 Revenue of between $1.797 \u2013 $1.801 billion. \u2022 Adjusted income from operations of between $1.063 \u2013 $1.067 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "guidance",
+        "near-term outlook",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Q2 revenue guidance",
+        "Q2 adjusted income from operations guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "revenue_guidance",
+        "operating_income_guidance",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir raised full-year 2026 revenue guidance to $7.650 billion to $7.662 billion and U.S. commercial revenue guidance to more than $3.224 billion, implying at least 120% growth.",
+      "summary": "Management raised full-year revenue expectations, especially for U.S. commercial.",
+      "excerpt": "For full year 2026: \u2022 We are raising our revenue guidance to between $7.650 \u2013 $7.662 billion. \u2022 We are raising our U.S. commercial revenue guidance to in excess of $3.224 billion, representing a growth rate of at least 120%.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 1.0,
+      "related_topics": [
+        "guidance",
+        "U.S. commercial",
+        "growth outlook"
+      ],
+      "related_metrics": [
+        "FY2026 revenue guidance",
+        "FY2026 U.S. commercial revenue guidance",
+        "U.S. commercial revenue growth"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "revenue_guidance",
+        "us_commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir raised full-year 2026 adjusted income from operations guidance to $4.440 billion to $4.452 billion and adjusted free cash flow guidance to $4.2 billion to $4.4 billion, while continuing to expect GAAP operating income and net income in each quarter.",
+      "summary": "Full-year profitability and cash flow guidance were raised alongside continued GAAP profitability expectations.",
+      "excerpt": "We are raising our adjusted income from operations guidance to between $4.440 \u2013 $4.452 billion. \u2022 We are raising our adjusted free cash flow guidance to between $4.2 \u2013 $4.4 billion. \u2022 And we continue to expect GAAP operating income and net income in each quarter of this year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "profitability outlook",
+        "free cash flow",
+        "guidance"
+      ],
+      "related_metrics": [
+        "FY2026 adjusted income from operations guidance",
+        "FY2026 adjusted free cash flow guidance",
+        "GAAP operating income",
+        "GAAP net income"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "profitability_guidance",
+        "free_cash_flow_guidance",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Management highlighted a Rule of 40 score of 145% and said full-year revenue guidance was raised due to confidence in an accelerating U.S. market.",
+      "summary": "CEO commentary was highly positive on growth quality and U.S. market acceleration.",
+      "excerpt": "\u201cPalantir's Rule of 40 score has soared to 145%. We have shattered the metric, a feat matched only by other fellow AI infrastructure companies: NVIDIA, Micron and SK hynix. Momentum surged as we grew 85% last quarter\u2014our highest-ever year-over-year growth rate\u2014by more than doubling our U.S. business, and now we are raising our full-year revenue guidance to 71% growth, 10 points ahead of our guidance from last quarter, driven by our confidence in an accelerating U.S. market,\u201d said Alex Karp, Co-Founder and Chief Executive Officer of Palantir Technologies.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "management tone",
+        "U.S. market",
+        "AI infrastructure",
+        "growth outlook"
+      ],
+      "related_metrics": [
+        "Rule of 40 score",
+        "revenue growth",
+        "full-year revenue guidance"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "rule_of_40",
+        "demand_commentary",
+        "guidance_raise",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    }
+  ],
+  "segment_kpis": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "U.S. revenue more than doubled in Q1 2026, with U.S. commercial revenue up 133% year over year to $595 million and U.S. government revenue up 84% to $687 million.",
+      "summary": "U.S. business was the primary growth driver, with both commercial and government segments growing rapidly.",
+      "excerpt": "U.S. revenue grew 104% year-over-year and 19% quarter-over-quarter to $1.282 billion \u25e6 U.S. commercial revenue grew 133% year-over-year and 18% quarter-over-quarter to $595 million \u25e6 U.S. government revenue grew 84% year-over-year and 21% quarter-over-quarter to $687 million",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.99,
+      "related_topics": [
+        "U.S. market",
+        "commercial demand",
+        "government demand",
+        "segment growth"
+      ],
+      "related_metrics": [
+        "U.S. revenue",
+        "U.S. commercial revenue",
+        "U.S. government revenue",
+        "year-over-year growth"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "us_revenue",
+        "commercial",
+        "government",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "U.S. commercial remaining deal value reached $4.92 billion, up 112% year over year and 12% quarter over quarter.",
+      "summary": "Remaining U.S. commercial deal value more than doubled year over year.",
+      "excerpt": "U.S. commercial remaining deal value (\u201cRDV\u201d) of $4.92 billion, up 112% year-over-year and 12% quarter-over-quarter",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "backlog",
+        "future revenue",
+        "U.S. commercial"
+      ],
+      "related_metrics": [
+        "U.S. commercial RDV",
+        "year-over-year growth",
+        "quarter-over-quarter growth"
+      ],
+      "evidence_tags": [
+        "backlog",
+        "remaining_deal_value",
+        "commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "PLTR",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "10-Q",
+      "claim": "Palantir states that many customer contracts can be terminated for convenience with less than twelve months\u2019 notice, limiting the certainty of multi-year contracted revenue conversion.",
+      "summary": "Contract termination-for-convenience clauses reduce certainty around backlog and long-term contract value realization.",
+      "excerpt": "The Company\u2019s arrangements with its customers often have terms that span over multiple years. However, the Company allows many of its customers to terminate contracts for convenience prior to the end of the stated term with less than twelve months\u2019 notice.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "contract risk",
+        "revenue visibility",
+        "customer contracts"
+      ],
+      "related_metrics": [
+        "remaining performance obligations",
+        "contracted revenue"
+      ],
+      "evidence_tags": [
+        "risk",
+        "contract_termination",
+        "revenue_visibility",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "Numerical RPO values were not available in the provided text excerpt."
+    },
+    {
+      "source_type": "filing",
+      "ticker": "PLTR",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "10-Q",
+      "claim": "Palantir\u2019s disclosed remaining performance obligations exclude cancelable contracted revenue, including customer deposits, and also exclude contracts with original terms of twelve months or less under a practical expedient.",
+      "summary": "RPO disclosure represents noncancelable revenue and does not capture all contractual activity.",
+      "excerpt": "Revenue allocated to remaining performance obligations represents noncancelable contracted revenue that has not yet been recognized, which includes deferred revenue and, in certain instances, amounts that will be invoiced. The Company has elected the practical expedient allowing the Company to not disclose remaining performance obligations for contracts with original terms of twelve months or less. Cancelable contracted revenue, which includes customer deposits, is not considered a remaining performance obligation.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "revenue recognition",
+        "backlog",
+        "financial disclosure"
+      ],
+      "related_metrics": [
+        "remaining performance obligations",
+        "deferred revenue",
+        "customer deposits"
+      ],
+      "evidence_tags": [
+        "accounting_disclosure",
+        "rpo",
+        "backlog_quality",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "This affects interpretation of RPO/backlog metrics; provided 10-Q text did not include readable RPO amounts."
+    }
+  ],
+  "consensus_narrative": [
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"downLast7Days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"upLast30days\": {\"+1q\": 2, \"+1y\": 3, \"0q\": 2, \"0y\": 3}, \"upLast7days\": {\"+1q\": 1, \"+1y\": 1, \"0q\": 1, \"0y\": 1}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 0.37127, \"+1y\": 2.08035, \"0q\": 0.34559, \"0y\": 1.47261}, \"60daysAgo\": {\"+1q\": 0.36991, \"+1y\": 2.06464, \"0q\": 0.34491, \"0y\": 1.46358}, \"7daysAgo\": {\"+1q\": 0.37339, \"+1y\": 2.09448, \"0q\": 0.34665, \"0y\": 1.47608}, \"90daysAgo\": {\"+1q\": 0.3407, \"+1y\": 1.86248, \"0q\": 0.30187, \"0y\": 1.32237}, \"current\": {\"+1q\": 0.37339, \"+1y\": 2.09448, \"0q\": 0.34665, \"0y\": 1.47608}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 2001370420, \"+1y\": 11223982140, \"0q\": 1810817530, \"0y\": 7719044390}, \"growth\": {\"+1q\": 0.69449997, \"+1y\": 0.4541, \"0q\": 0.80410004, \"0y\": 0.72480005}, \"high\": {\"+1q\": 2100000000, \"+1y\": 14358018000, \"0q\": 1876913390, \"0y\": 8047583000}, \"low\": {\"+1q\": 1913369000, \"+1y\": 10317900000, \"0q\": 1790000000, \"0y\": 7650000000}, \"numberOfAnalysts\": {\"+1q\": 23, \"+1y\": 31, \"0q\": 24, \"0y\": 30}, \"yearAgoRevenue\": {\"+1q\": 1181092000, \"+1y\": 7719044390, \"0q\": 1003697000, \"0y\": 4475446000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PLTR",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 19, \"1\": 18, \"2\": 18, \"3\": 18}, \"hold\": {\"0\": 10, \"1\": 10, \"2\": 10, \"3\": 10}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 1, \"1\": 1, \"2\": 1, \"3\": 1}, \"strongBuy\": {\"0\": 1, \"1\": 2, \"2\": 1, \"3\": 1}, \"strongSell\": {\"0\": 1, \"1\": 1, \"2\": 1, \"3\": 1}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"growth\": {\n      \"+1q\": 0.77800006,\n      \"+1y\": 0.41889998,\n      \"0q\": 1.1666,\n      \"0y\": 0.96809995\n    },\n    \"high\": {\n      \"+1q\": 0.44,\n      \"+1y\": 2.72,\n      \"0q\": 0.4,\n      \"0y\": 1.7\n    },\n    \"low\": {\n      \"+1q\": 0.34,\n      \"+1y\": 1.59,\n      \"0q\": 0.33,\n      \"0y\": 1.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 29,\n      \"0q\": 23,\n      \"0y\": 28\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 0.21,\n      \"+1y\": 1.47608,\n      \"0q\": 0.16,\n      \"0y\": 0.75\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 2,\n      \"+1y\": 3,\n      \"0q\": 2,\n      \"0y\": 3\n    },\n    \"upLast7days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 1,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 0.37127,\n      \"+1y\": 2.08035,\n      \"0q\": 0.34559,\n      \"0y\": 1.47261\n    },\n    \"60daysAgo\": {\n      \"+1q\": 0.36991,\n      \"+1y\": 2.06464,\n      \"0q\": 0.34491,\n      \"0y\": 1.46358\n    },\n    \"7daysAgo\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    },\n    \"90daysAgo\": {\n      \"+1q\": 0.3407,\n      \"+1y\": 1.86248,\n      \"0q\": 0.30187,\n      \"0y\": 1.32237\n    },\n    \"current\": {\n      \"+1q\": 0.37339,\n      \"+1y\": 2.09448,\n      \"0q\": 0.34665,\n      \"0y\": 1.47608\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 19,\n      \"1\": 18,\n      \"2\": 18,\n      \"3\": 18\n    },\n    \"hold\": {\n      \"0\": 10,\n      \"1\": 10,\n      \"2\": 10,\n      \"3\": 10\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongBuy\": {\n      \"0\": 1,\n      \"1\": 2,\n      \"2\": 1,\n      \"3\": 1\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 1,\n      \"2\": 1,\n      \"3\": 1\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 2001370420,\n      \"+1y\": 11223982140,\n      \"0q\": 1810817530,\n      \"0y\": 7719044390\n    },\n    \"growth\": {\n      \"+1q\": 0.69449997,\n      \"+1y\": 0.4541,\n      \"0q\": 0.80410004,\n      \"0y\": 0.72480005\n    },\n    \"high\": {\n      \"+1q\": 2100000000,\n      \"+1y\": 14358018000,\n      \"0q\": 1876913390,\n      \"0y\": 8047583000\n    },\n    \"low\": {\n      \"+1q\": 1913369000,\n      \"+1y\": 10317900000,\n      \"0q\": 1790000000,\n      \"0y\": 7650000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 23,\n      \"+1y\": 31,\n      \"0q\": 24,\n      \"0y\": 30\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 1181092000,\n      \"+1y\": 7719044390,\n      \"0q\": 1003697000,\n      \"0y\": 4475446000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2020-10-26 10:27:52\": \"init\",\n      \"2020-10-26 10:29:12\": \"init\",\n      \"2020-10-26 10:30:48\": \"init\",\n      \"2020-10-26 10:31:49\": \"init\",\n      \"2020-10-26 12:44:17\": \"init\",\n      \"2020-11-13 11:37:15\": \"down\",\n      \"2020-12-02 10:57:31\": \"down\",\n      \"2020-12-18 12:43:12\": \"down\",\n      \"2021-01-13 12:06:00\": \"down\",\n      \"2021-01-20 13:32:24\": \"init\",\n      \"2021-02-17 10:24:52\": \"up\",\n      \"2021-02-17 12:21:43\": \"down\",\n      \"2021-02-17 12:53:41\": \"main\",\n      \"2021-02-17 13:22:25\": \"main\",\n      \"2021-04-23 10:43:40\": \"init\",\n      \"2021-08-13 13:08:30\": \"main\",\n      \"2021-08-13 14:11:15\": \"main\",\n      \"2021-11-02 09:46:42\": \"init\",\n      \"2021-11-10 10:18:11\": \"down\",\n      \"2021-11-10 17:41:18\": \"main\"\n    },\n    \"Firm\": {\n      \"2020-10-26 10:27:52\": \"RBC Capital\",\n      \"2020-10-26 10:29:12\": \"Jefferies\",\n      \"2020-10-26 10:30:48\": \"Credit Suisse\",\n      \"2020-10-26 10:31:49\": \"Goldman Sachs\",\n      \"2020-10-26 12:44:17\": \"Morgan Stanley\",\n      \"2020-11-13 11:37:15\": \"Morgan Stanley\",\n      \"2020-12-02 10:57:31\": \"Morgan Stanley\",\n      \"2020-12-18 12:43:12\": \"Credit Suisse\",\n      \"2021-01-13 12:06:00\": \"Citigroup\",\n      \"2021-01-20 13:32:24\": \"William Blair\",\n      \"2021-02-17 10:24:52\": \"Goldman Sachs\",\n      \"2021-02-17 12:21:43\": \"William Blair\",\n      \"2021-02-17 12:53:41\": \"Morgan Stanley\",\n      \"2021-02-17 13:22:25\": \"Credit Suisse\",\n      \"2021-04-23 10:43:40\": \"Wolfe Research\",\n      \"2021-08-13 13:08:30\": \"Morgan Stanley\",\n      \"2021-08-13 14:11:15\": \"RBC Capital\",\n      \"2021-11-02 09:46:42\": \"Deutsche Bank\",\n      \"2021-11-10 10:18:11\": \"RBC Capital\",\n      \"2021-11-10 17:41:18\": \"Morgan Stanley\"\n    },\n    \"FromGrade\": {\n      \"2020-10-26 10:27:52\": \"\",\n      \"2020-10-26 10:29:12\": \"\",\n      \"2020-10-26 10:30:48\": \"\",\n      \"2020-10-26 10:31:49\": \"\",\n      \"2020-10-26 12:44:17\": \"\",\n      \"2020-11-13 11:37:15\": \"Overweight\",\n      \"2020-12-02 10:57:31\": \"Equal-Weight\",\n      \"2020-12-18 12:43:12\": \"Neutral\",\n      \"2021-01-13 12:06:00\": \"Neutral\",\n      \"2021-01-20 13:32:24\": \"\",\n      \"2021-02-17 10:24:52\": \"Neutral\",\n      \"2021-02-17 12:21:43\": \"Market Perform\",\n      \"2021-02-17 12:53:41\": \"\",\n      \"2021-02-17 13:22:25\": \"\",\n      \"2021-04-23 10:43:40\": \"\",\n      \"2021-08-13 13:08:30\": \"\",\n      \"2021-08-13 14:11:15\": \"\",\n      \"2021-11-02 09:46:42\": \"\",\n      \"2021-11-10 10:18:11\": \"Sector Perform\",\n      \"2021-11-10 17:41:18\": \"\"\n    },\n    \"ToGrade\": {\n      \"2020-10-26 10:27:52\": \"Sector Perform\",\n      \"2020-10-26 10:29:12\": \"Buy\",\n      \"2020-10-26 10:30:48\": \"Neutral\",\n      \"2020-10-26 10:31:49\": \"Neutral\",\n      \"2020-10-26 12:44:17\": \"Overweight\",\n      \"2020-11-13 11:37:15\": \"Equal-Weight\",\n      \"2020-12-02 10:57:31\": \"Underweight\",\n      \"2020-12-18 12:43:12\": \"Underperform\",\n      \"2021-01-13 12:06:00\": \"Sell\",\n      \"2021-01-20 13:32:24\": \"Market Perform\",\n      \"2021-02-17 10:24:52\": \"Buy\",\n      \"2021-02-17 12:21:43\": \"Underperform\",\n      \"2021-02-17 12:53:41\": \"Underweight\",\n      \"2021-02-17 13:22:25\": \"Underperform\",\n      \"2021-04-23 10:43:40\": \"Peer Perform\",\n      \"2021-08-13 13",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir reported Q1 2026 revenue of $1.633 billion, up 85% year over year and 16% sequentially, described as its highest-ever year-over-year growth rate.",
+      "summary": "Q1 revenue growth accelerated sharply to 85% year over year.",
+      "excerpt": "Revenue grew 85% year-over-year and 16% quarter-over-quarter to $1.633 billion",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "growth",
+        "AI demand",
+        "quarterly performance"
+      ],
+      "related_metrics": [
+        "revenue",
+        "year-over-year growth",
+        "quarter-over-quarter growth"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "revenue_growth",
+        "quarterly_results",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "U.S. revenue more than doubled in Q1 2026, with U.S. commercial revenue up 133% year over year to $595 million and U.S. government revenue up 84% to $687 million.",
+      "summary": "U.S. business was the primary growth driver, with both commercial and government segments growing rapidly.",
+      "excerpt": "U.S. revenue grew 104% year-over-year and 19% quarter-over-quarter to $1.282 billion \u25e6 U.S. commercial revenue grew 133% year-over-year and 18% quarter-over-quarter to $595 million \u25e6 U.S. government revenue grew 84% year-over-year and 21% quarter-over-quarter to $687 million",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.99,
+      "related_topics": [
+        "U.S. market",
+        "commercial demand",
+        "government demand",
+        "segment growth"
+      ],
+      "related_metrics": [
+        "U.S. revenue",
+        "U.S. commercial revenue",
+        "U.S. government revenue",
+        "year-over-year growth"
+      ],
+      "evidence_tags": [
+        "segment_performance",
+        "us_revenue",
+        "commercial",
+        "government",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Deal activity remained broad in Q1 2026, with 206 deals of at least $1 million, 72 deals of at least $5 million, and 47 deals of at least $10 million closed.",
+      "summary": "The company reported a high number of large contract wins in the quarter.",
+      "excerpt": "Closed 206 deals of at least $1 million, 72 deals of at least $5 million, and 47 deals of at least $10 million",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "sales execution",
+        "enterprise demand",
+        "large deals"
+      ],
+      "related_metrics": [
+        "deals >= $1 million",
+        "deals >= $5 million",
+        "deals >= $10 million"
+      ],
+      "evidence_tags": [
+        "bookings",
+        "deal_activity",
+        "customer_demand",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Total contract value closed in Q1 2026 was $2.41 billion, up 61% year over year, including $1.176 billion of U.S. commercial TCV, up 45% year over year.",
+      "summary": "Closed contract value grew materially year over year, supporting future revenue visibility subject to conversion.",
+      "excerpt": "Closed total contract value (\u201cTCV\u201d) of $2.41 billion, up 61% year-over-year \u25e6 Closed $1.176 billion of U.S. commercial TCV, up 45% year-over-year",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "bookings",
+        "U.S. commercial",
+        "sales momentum"
+      ],
+      "related_metrics": [
+        "total contract value",
+        "U.S. commercial TCV",
+        "year-over-year growth"
+      ],
+      "evidence_tags": [
+        "bookings",
+        "tcv",
+        "commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "U.S. commercial remaining deal value reached $4.92 billion, up 112% year over year and 12% quarter over quarter.",
+      "summary": "Remaining U.S. commercial deal value more than doubled year over year.",
+      "excerpt": "U.S. commercial remaining deal value (\u201cRDV\u201d) of $4.92 billion, up 112% year-over-year and 12% quarter-over-quarter",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "backlog",
+        "future revenue",
+        "U.S. commercial"
+      ],
+      "related_metrics": [
+        "U.S. commercial RDV",
+        "year-over-year growth",
+        "quarter-over-quarter growth"
+      ],
+      "evidence_tags": [
+        "backlog",
+        "remaining_deal_value",
+        "commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir reported Q1 2026 GAAP income from operations of $754 million at a 46% margin and adjusted income from operations of $984 million at a 60% margin.",
+      "summary": "Operating margins were very high on both GAAP and adjusted bases.",
+      "excerpt": "GAAP income from operations of $754 million, representing a 46% margin \u2022 Adjusted income from operations of $984 million, representing a 60% margin",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "profitability",
+        "operating leverage",
+        "margins"
+      ],
+      "related_metrics": [
+        "GAAP income from operations",
+        "GAAP operating margin",
+        "adjusted income from operations",
+        "adjusted operating margin"
+      ],
+      "evidence_tags": [
+        "profitability",
+        "operating_margin",
+        "non_gaap",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Q1 2026 GAAP net income was $871 million, representing a 53% margin; GAAP diluted EPS was $0.34 and adjusted diluted EPS was $0.33.",
+      "summary": "The company reported substantial GAAP profitability and positive EPS in Q1.",
+      "excerpt": "GAAP net income of $871 million, representing a 53% margin \u2022 GAAP earnings per share (\u201cEPS\u201d) of $0.34 \u2022 Adjusted EPS of $0.33",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "earnings",
+        "profitability",
+        "per-share results"
+      ],
+      "related_metrics": [
+        "GAAP net income",
+        "net income margin",
+        "GAAP EPS",
+        "adjusted EPS"
+      ],
+      "evidence_tags": [
+        "net_income",
+        "eps",
+        "profitability",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Cash generation was strong in Q1 2026, with cash from operations of $899 million at a 55% margin and adjusted free cash flow of $925 million at a 57% margin.",
+      "summary": "Palantir converted revenue into operating and free cash flow at high margins.",
+      "excerpt": "Cash from operations of $899 million, representing a 55% margin \u2022 Adjusted free cash flow of $925 million, representing a 57% margin",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "cash generation",
+        "free cash flow",
+        "liquidity"
+      ],
+      "related_metrics": [
+        "cash from operations",
+        "operating cash flow margin",
+        "adjusted free cash flow",
+        "adjusted free cash flow margin"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "free_cash_flow",
+        "liquidity",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir ended Q1 2026 with $8.0 billion of cash, cash equivalents, and short-term U.S. Treasury securities.",
+      "summary": "The company maintained a large liquidity position at quarter-end.",
+      "excerpt": "Cash, cash equivalents, and short-term U.S. Treasury securities of $8.0 billion",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "liquidity",
+        "balance sheet",
+        "financial flexibility"
+      ],
+      "related_metrics": [
+        "cash",
+        "cash equivalents",
+        "short-term U.S. Treasury securities"
+      ],
+      "evidence_tags": [
+        "balance_sheet",
+        "liquidity",
+        "cash",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "For Q2 2026, Palantir guided to revenue of $1.797 billion to $1.801 billion and adjusted income from operations of $1.063 billion to $1.067 billion.",
+      "summary": "Q2 outlook implies continued high revenue scale and profitability.",
+      "excerpt": "For Q2 2026, we expect: \u2022 Revenue of between $1.797 \u2013 $1.801 billion. \u2022 Adjusted income from operations of between $1.063 \u2013 $1.067 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "guidance",
+        "near-term outlook",
+        "profitability"
+      ],
+      "related_metrics": [
+        "Q2 revenue guidance",
+        "Q2 adjusted income from operations guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "revenue_guidance",
+        "operating_income_guidance",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir raised full-year 2026 revenue guidance to $7.650 billion to $7.662 billion and U.S. commercial revenue guidance to more than $3.224 billion, implying at least 120% growth.",
+      "summary": "Management raised full-year revenue expectations, especially for U.S. commercial.",
+      "excerpt": "For full year 2026: \u2022 We are raising our revenue guidance to between $7.650 \u2013 $7.662 billion. \u2022 We are raising our U.S. commercial revenue guidance to in excess of $3.224 billion, representing a growth rate of at least 120%.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 1.0,
+      "related_topics": [
+        "guidance",
+        "U.S. commercial",
+        "growth outlook"
+      ],
+      "related_metrics": [
+        "FY2026 revenue guidance",
+        "FY2026 U.S. commercial revenue guidance",
+        "U.S. commercial revenue growth"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "revenue_guidance",
+        "us_commercial",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Palantir raised full-year 2026 adjusted income from operations guidance to $4.440 billion to $4.452 billion and adjusted free cash flow guidance to $4.2 billion to $4.4 billion, while continuing to expect GAAP operating income and net income in each quarter.",
+      "summary": "Full-year profitability and cash flow guidance were raised alongside continued GAAP profitability expectations.",
+      "excerpt": "We are raising our adjusted income from operations guidance to between $4.440 \u2013 $4.452 billion. \u2022 We are raising our adjusted free cash flow guidance to between $4.2 \u2013 $4.4 billion. \u2022 And we continue to expect GAAP operating income and net income in each quarter of this year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "profitability outlook",
+        "free cash flow",
+        "guidance"
+      ],
+      "related_metrics": [
+        "FY2026 adjusted income from operations guidance",
+        "FY2026 adjusted free cash flow guidance",
+        "GAAP operating income",
+        "GAAP net income"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "profitability_guidance",
+        "free_cash_flow_guidance",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PLTR",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-04",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm",
+      "accession_number": "0001321655-26-000026",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a2026q1ex991pressrelease.htm",
+      "claim": "Management highlighted a Rule of 40 score of 145% and said full-year revenue guidance was raised due to confidence in an accelerating U.S. market.",
+      "summary": "CEO commentary was highly positive on growth quality and U.S. market acceleration.",
+      "excerpt": "\u201cPalantir's Rule of 40 score has soared to 145%. We have shattered the metric, a feat matched only by other fellow AI infrastructure companies: NVIDIA, Micron and SK hynix. Momentum surged as we grew 85% last quarter\u2014our highest-ever year-over-year growth rate\u2014by more than doubling our U.S. business, and now we are raising our full-year revenue guidance to 71% growth, 10 points ahead of our guidance from last quarter, driven by our confidence in an accelerating U.S. market,\u201d said Alex Karp, Co-Founder and Chief Executive Officer of Palantir Technologies.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "management tone",
+        "U.S. market",
+        "AI infrastructure",
+        "growth outlook"
+      ],
+      "related_metrics": [
+        "Rule of 40 score",
+        "revenue growth",
+        "full-year revenue guidance"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "rule_of_40",
+        "demand_commentary",
+        "guidance_raise",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PLTR",
+      "document_purpose": "news",
+      "source_date": "2026-07-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=11a51d097e7346bdba0161cf1b98ddf1982049f71c2070985dde3f4405b6b145",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Alex Karp Grouped Palantir With These 3 Unstoppable Stocks as the Only True Artificial Intelligence (AI) Infrastructure Winners",
+      "claim": "A Yahoo headline/snippet says Palantir CEO Alex Karp recently grouped Palantir with Nvidia, Micron, and SK Hynix as major beneficiaries of rising AI infrastructure investment.",
+      "summary": "The snippet reports bullish management positioning around Palantir\u2019s role in AI infrastructure spending.",
+      "excerpt": "Palantir CEO Alex Karp recently placed his company alongside Nvidia, Micron, and SK Hynix as the biggest beneficiaries of rising investment in artificial intelligence (AI) infrastructure.",
+      "polarity": "supports",
+      "confidence": "low",
+      "relevance_score": 0.52,
+      "related_topics": [
+        "AI infrastructure",
+        "management positioning",
+        "market demand"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "headline_snippet_only",
+        "ai_infrastructure",
+        "management_commentary",
+        "document_purpose:news",
+        "classification_confidence:medium"
+      ],
+      "notes": "headline/snippet-only evidence."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PLTR",
+      "document_purpose": "news",
+      "source_date": "2026-07-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=45a8b14194ec984b75aeee82536351ca138359dcf5b46354a10e661b6f205b66",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Palantir Technologies Inc (PLTR) Pairs with SNP to Target SAP Transformation Projects",
+      "claim": "A Yahoo headline says Palantir is pairing with SNP to target SAP transformation projects, but the available snippet does not provide transaction or partnership details.",
+      "summary": "Headline indicates a company-specific partnership or go-to-market effort involving SNP and SAP transformation projects, with limited supporting detail in the snippet.",
+      "excerpt": "Palantir Technologies Inc (PLTR) Pairs with SNP to Target SAP Transformation Projects",
+      "polarity": "supports",
+      "confidence": "low",
+      "relevance_score": 0.62,
+      "related_topics": [
+        "partnerships",
+        "SAP transformation",
+        "enterprise software"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "headline_snippet_only",
+        "partnership",
+        "sap_transformation",
+        "document_purpose:news",
+        "classification_confidence:medium"
+      ],
+      "notes": "headline/snippet-only evidence."
+    }
+  ],
+  "bearish_evidence": [
+    {
+      "source_type": "filing",
+      "ticker": "PLTR",
+      "document_purpose": "quarterly_filing",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm",
+      "accession_number": "0001321655-26-000028",
+      "form_type": "10-Q",
+      "exhibit_type": null,
+      "title": "10-Q",
+      "claim": "Palantir states that many customer contracts can be terminated for convenience with less than twelve months\u2019 notice, limiting the certainty of multi-year contracted revenue conversion.",
+      "summary": "Contract termination-for-convenience clauses reduce certainty around backlog and long-term contract value realization.",
+      "excerpt": "The Company\u2019s arrangements with its customers often have terms that span over multiple years. However, the Company allows many of its customers to terminate contracts for convenience prior to the end of the stated term with less than twelve months\u2019 notice.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "contract risk",
+        "revenue visibility",
+        "customer contracts"
+      ],
+      "related_metrics": [
+        "remaining performance obligations",
+        "contracted revenue"
+      ],
+      "evidence_tags": [
+        "risk",
+        "contract_termination",
+        "revenue_visibility",
+        "document_purpose:quarterly_filing",
+        "classification_confidence:high"
+      ],
+      "notes": "Numerical RPO values were not available in the provided text excerpt."
+    }
+  ],
+  "mixed_evidence": [],
+  "unresolved_questions": [
+    "The provided 10-Q text appears cleaned/truncated with many numerical values omitted or blanked, limiting extraction of filing-specific financial metrics.",
+    "Several news documents are headline/snippet-only; evidence from those items is conservative and marked accordingly."
+  ],
+  "data_gaps": [
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "The provided 10-Q text appears cleaned/truncated with many numerical values omitted or blanked, limiting extraction of filing-specific financial metrics.",
+    "Several news documents are headline/snippet-only; evidence from those items is conservative and marked accordingly."
+  ],
+  "warnings": [
+    "Dropped 20 duplicate or lower-quality source documents before evidence extraction.",
+    "Evidence extractor returned no estimate evidence; used deterministic estimate fallback.",
+    "No investment recommendation is provided.",
+    "News evidence is limited to headline/snippet text where full article bodies were unavailable."
+  ],
+  "raw_source_count": 43,
+  "evidence_item_count": 23
+}

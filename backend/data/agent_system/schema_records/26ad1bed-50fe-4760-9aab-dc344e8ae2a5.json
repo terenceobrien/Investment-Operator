@@ -1,0 +1,18 @@
+{
+  "id": "26ad1bed-50fe-4760-9aab-dc344e8ae2a5",
+  "schema_type": "Conviction",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.498155+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.498155Z",
+    "id": "26ad1bed-50fe-4760-9aab-dc344e8ae2a5",
+    "rating": "pass",
+    "rule_applied": "no_fundamental_variant_view_pass",
+    "weakest_link": "fundamental",
+    "reasoning": "Fundamental view agrees with consensus; without a differentiated estimate or expectation edge, there is no tradeable advantage."
+  }
+}

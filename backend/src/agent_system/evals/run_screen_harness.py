@@ -23,9 +23,9 @@ from pathlib import Path
 from src.agent_system.data import FundamentalDataBundle, get_fundamental_data
 from src.agent_system.rules.fundamental_screen import screen_candidate
 from src.agent_system.schemas.fundamental_screen import FundamentalScreen
+from src.agent_system.paths import screen_evals_dir
 
-BACKEND_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_OUTPUT_DIR = BACKEND_ROOT / "data/agent_system/screen_evals"
+DEFAULT_OUTPUT_DIR = screen_evals_dir(create=False)
 
 
 def _default_output_path() -> Path:

@@ -15,14 +15,10 @@ from src.agent_system.services.deep_fundamental_builders import (
     COMPANY_KNOWLEDGE,
     build_company_profile as build_static_company_profile,
 )
+from src.agent_system.paths import company_profiles_dir
 
 
-COMPANY_PROFILE_CACHE_ROOT = (
-    Path(__file__).resolve().parents[4]
-    / "data"
-    / "agent_system"
-    / "company_profiles"
-)
+COMPANY_PROFILE_CACHE_ROOT = company_profiles_dir(create=False)
 
 
 async def build_company_profile_async(

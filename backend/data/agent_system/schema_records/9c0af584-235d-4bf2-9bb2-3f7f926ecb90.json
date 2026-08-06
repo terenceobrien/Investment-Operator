@@ -1,0 +1,18 @@
+{
+  "id": "9c0af584-235d-4bf2-9bb2-3f7f926ecb90",
+  "schema_type": "Conviction",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.419857+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.419857Z",
+    "id": "9c0af584-235d-4bf2-9bb2-3f7f926ecb90",
+    "rating": "pass",
+    "rule_applied": "no_variant_view_pass",
+    "weakest_link": "thematic",
+    "reasoning": "Candidate has thematic fit but no clear variant view. A theme without an articulated edge is not enough to build a trade."
+  }
+}

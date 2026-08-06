@@ -1,0 +1,82 @@
+{
+  "cycle_id": "590ebd87-0a87-4aeb-8696-0c3899226651",
+  "started_at": "2026-06-12T17:04:47.092464Z",
+  "updated_at": "2026-06-12T17:09:08.735439Z",
+  "completed_at": "2026-06-12T17:09:08.735425Z",
+  "overall_status": "failed",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-06-12T17:04:47.108682Z",
+      "completed_at": "2026-06-12T17:04:47.108687Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "running",
+      "started_at": "2026-06-12T17:04:47.111476Z",
+      "completed_at": null,
+      "message": "working on priority 1: Second-order grid and power infrastructure beneficiaries with cross-scenario support",
+      "progress_current": 1,
+      "progress_total": 2,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {},
+  "fatal_error": "Traceback (most recent call last):\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/orchestration/run_research_cycle.py\", line 1002, in main\n    summary = run_research_cycle(\n              ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/orchestration/run_research_cycle.py\", line 776, in run_research_cycle\n    return _execute_cycle(\n           ^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/orchestration/run_research_cycle.py\", line 294, in _execute_cycle\n    agent_result = asyncio.run(\n                   ^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/agents/thematic_agent.py\", line 260, in translate_priority_to_candidates\n    return result.thematic_map.to_thematic_map(priority)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/agents/thematic_agent.py\", line 133, in to_thematic_map\n    candidates=[candidate.to_candidate() for candidate in self.candidates],\n                ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/agents/thematic_agent.py\", line 111, in to_candidate\n    return Candidate.model_validate(data)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pydantic/main.py\", line 716, in model_validate\n    return cls.__pydantic_validator__.validate_python(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\npydantic_core._pydantic_core.ValidationError: 1 validation error for Candidate\nvariant_evidence.1\n  Input tag 'verification_required' found using 'source_type' does not match any of the expected tags: <EvidenceSourceType.FRED: 'fred'>, <EvidenceSourceType.NEWS: 'news'>, <EvidenceSourceType.FILING: 'filing'>, <EvidenceSourceType.PRICE: 'price'>, <EvidenceSourceType.POSITIONING: 'positioning'>, <EvidenceSourceType.DERIVED: 'derived'> [type=union_tag_invalid, input_value={'schema_version': '1.0',...on data by end market.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/union_tag_invalid\n",
+  "user_inputs_preview": []
+}

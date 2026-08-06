@@ -1,0 +1,192 @@
+{
+  "ticker": "GEV",
+  "company_name": "GE Vernova Inc.",
+  "sector": "Industrials",
+  "industry": "Electrical Equipment, Power Generation Equipment & Renewable Energy Infrastructure",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-07-01",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge and the supplied financial context; it should be verified with GE Vernova filings, investor presentations, and earnings materials.",
+    "No source-backed research context was supplied beyond financial summary data, so segment revenue and profit share estimates are left null.",
+    "research_context was supplied to the profile agent."
+  ],
+  "profile_data_gaps": [
+    "No filing-backed segment revenue or profit shares supplied in the input context",
+    "No source-backed backlog, order, or management commentary supplied",
+    "No verified customer concentration or supplier concentration details supplied",
+    "Recent segment-level margin and order trends should be verified against company filings and earnings materials"
+  ],
+  "business_description": "GE Vernova Inc. is a global energy equipment, services, and software company formed from the separation of General Electric's energy businesses. The company provides gas, steam, nuclear, hydro, and wind power generation technologies, grid equipment and systems, and electrification software and services for utilities, independent power producers, grid operators, governments, and large industrial customers. Its business is tied to power generation investment, grid modernization, energy security, electrification, and the build-out of lower-carbon energy infrastructure.",
+  "business_model": "GE Vernova sells large-scale power generation and grid equipment, wind turbines, related installation/project work, long-cycle services, spare parts, upgrades, and software. The model combines cyclical original-equipment sales with recurring and higher-margin service revenue from a large installed base. Profitability depends on project execution, equipment pricing, mix between equipment and services, supply-chain discipline, warranty costs, and demand for gas power, renewables, and grid infrastructure.",
+  "segments": [
+    {
+      "name": "Power",
+      "description": "Provides gas power, steam power, nuclear, hydro, and related services for electricity generation, including equipment, upgrades, outage services, and maintenance for a large installed base.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Gas turbine orders and utilization",
+        "Installed-base service demand",
+        "Energy security and dispatchable power needs",
+        "Outage cycles, upgrades, and parts demand",
+        "Project pricing and execution",
+        "Natural gas power generation investment"
+      ]
+    },
+    {
+      "name": "Wind",
+      "description": "Develops, manufactures, and services onshore and offshore wind turbine technology and related project solutions.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Onshore and offshore wind order activity",
+        "Turbine pricing and contract terms",
+        "Warranty and quality costs",
+        "Supply-chain availability and logistics",
+        "Interest rates and renewable project financing",
+        "Policy incentives, permitting, and grid interconnection timelines"
+      ]
+    },
+    {
+      "name": "Electrification",
+      "description": "Provides grid technologies, power conversion, electrification systems, automation, software, and related solutions for transmission, distribution, and energy management.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Grid modernization capex",
+        "Transmission and distribution investment",
+        "Data center and AI power infrastructure demand",
+        "Renewables interconnection and grid stability needs",
+        "Transformer, switchgear, and power electronics supply",
+        "Software and systems integration demand"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Sale of gas, steam, nuclear, hydro, wind, and grid equipment for power generation and transmission infrastructure",
+    "Long-term service agreements, outage services, spare parts, repairs, upgrades, and maintenance for installed power generation assets",
+    "Wind turbine equipment sales, project-related revenue, and wind services",
+    "Grid equipment, systems integration, automation, power conversion, and software revenue",
+    "Software and digital solutions for grid orchestration, asset performance, energy management, and electrification workflows",
+    "Project-based and long-cycle contract revenue tied to utility, government, industrial, and infrastructure capital spending"
+  ],
+  "cost_drivers": [
+    "Raw materials and engineered components including steel, copper, electrical equipment, castings, forgings, composites, semiconductors, and rare-earth-related inputs",
+    "Labor, engineering, field-service, installation, and project-management costs",
+    "Freight, logistics, oversized equipment transport, and supply-chain expediting costs",
+    "Warranty, remediation, quality, and product reliability costs, particularly in wind and complex power projects",
+    "R&D spending for gas turbine efficiency, grid technologies, wind platforms, electrification software, and decarbonization technologies",
+    "Manufacturing footprint utilization, restructuring, and capacity rationalization costs",
+    "Commodity and energy input costs for manufacturing operations",
+    "Foreign exchange impacts on global cost base and contract execution"
+  ],
+  "margin_drivers": [
+    "Mix between higher-margin services and original equipment/project revenue",
+    "Pricing discipline on new equipment, long-term service agreements, and grid projects",
+    "Execution quality on fixed-price and long-cycle contracts",
+    "Warranty claims, product reliability, and remediation costs, especially in wind",
+    "Factory utilization, supply-chain stability, and manufacturing productivity",
+    "Backlog quality, order selectivity, and contract terms including escalation clauses",
+    "Aftermarket parts, upgrades, outage services, and installed-base monetization",
+    "Segment mix among Power, Wind, and Electrification businesses",
+    "Restructuring benefits, lean initiatives, and overhead absorption"
+  ],
+  "key_customers": [
+    "Electric utilities",
+    "Independent power producers",
+    "Transmission and distribution grid operators",
+    "Renewable energy developers",
+    "Government and public-sector energy agencies",
+    "Large industrial power users and infrastructure operators"
+  ],
+  "key_suppliers": [
+    "Specialty metals and castings suppliers",
+    "Electrical components and transformer suppliers",
+    "Power electronics and semiconductor suppliers",
+    "Composite materials and blade component suppliers",
+    "Logistics and heavy-haul transportation providers",
+    "Engineering, construction, and field-service subcontractors"
+  ],
+  "peer_group": [
+    {
+      "ticker": "SMNEY",
+      "name": "Siemens Energy AG",
+      "relevance": "Global peer in gas power, grid technologies, and energy infrastructure equipment and services."
+    },
+    {
+      "ticker": "VWDRY",
+      "name": "Vestas Wind Systems A/S",
+      "relevance": "Major global wind turbine OEM and services peer."
+    },
+    {
+      "ticker": "NRDXF",
+      "name": "Nordex SE",
+      "relevance": "Wind turbine manufacturer with exposure to onshore wind equipment cycles."
+    },
+    {
+      "ticker": "SBGSY",
+      "name": "Schneider Electric SE",
+      "relevance": "Electrical equipment, grid infrastructure, energy management, and electrification peer."
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton Corporation plc",
+      "relevance": "Electrical equipment and power management peer with exposure to grid, data center, and electrification capex."
+    },
+    {
+      "ticker": "ABBNY",
+      "name": "ABB Ltd",
+      "relevance": "Electrification, automation, power systems, and industrial technology peer."
+    },
+    {
+      "ticker": "MHVYF",
+      "name": "Mitsubishi Heavy Industries, Ltd.",
+      "relevance": "Industrial conglomerate with gas turbine and power systems exposure."
+    },
+    {
+      "ticker": "HTHIY",
+      "name": "Hitachi, Ltd.",
+      "relevance": "Grid, energy systems, industrial technology, and electrification infrastructure peer."
+    }
+  ],
+  "thematic_exposures": [
+    "Grid modernization",
+    "Electrification",
+    "AI and data center power demand",
+    "Energy security",
+    "Gas power and dispatchable generation",
+    "Renewable energy build-out",
+    "Wind power equipment cycle",
+    "Power transmission and distribution capex",
+    "Industrial decarbonization",
+    "Nuclear and hydro services",
+    "Energy infrastructure reshoring and localization"
+  ],
+  "macro_sensitivities": [
+    "Global electricity demand growth and electrification trends",
+    "Utility and grid capital expenditure cycles",
+    "Data center and AI-related power demand and grid interconnection needs",
+    "Natural gas power generation demand, gas turbine utilization, and energy security policy",
+    "Renewable energy project economics, permitting, tax incentives, and power purchase agreement activity",
+    "Interest rates and financing costs for utility-scale power and wind projects",
+    "Copper, steel, resin, composites, and other industrial input prices",
+    "Supply-chain availability for transformers, power electronics, and large engineered components",
+    "Foreign exchange, especially translation and project cost exposure across global operations",
+    "Government energy policy, decarbonization regulation, local-content rules, tariffs, and trade restrictions",
+    "Construction and infrastructure execution cycles for large power and grid projects"
+  ],
+  "major_risks": [
+    "Large-project execution risk, including cost overruns, delays, liquidated damages, and working-capital volatility",
+    "Wind segment profitability and warranty risk from turbine reliability, pricing discipline, offshore project complexity, and supply-chain issues",
+    "Cyclical or policy-driven slowdown in renewable energy, grid, or power generation orders",
+    "Competition from global power equipment, grid, and wind turbine manufacturers",
+    "Commodity inflation and inability to fully pass through higher input, freight, or labor costs",
+    "Product quality, safety, warranty, and remediation liabilities on long-lived installed equipment",
+    "Regulatory, trade, tariff, sanctions, and local-content requirements across global energy markets",
+    "Customer concentration by large utilities and project developers, despite a broad end-market base",
+    "Foreign exchange and geopolitical risk from global manufacturing, sourcing, and sales exposure",
+    "Technology transition risk if customer demand shifts faster or slower than expected across gas, renewables, nuclear, storage, and grid technologies",
+    "Backlog conversion risk if orders are delayed, repriced, canceled, or executed at lower margins than expected"
+  ]
+}

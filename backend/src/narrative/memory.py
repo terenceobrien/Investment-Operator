@@ -6,9 +6,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from src.agent_system.paths import narrative_memory_dir
+
 logger = logging.getLogger("narrative.memory")
 
-MEMORY_DIR = Path("data/narrative/memory")
+MEMORY_DIR = narrative_memory_dir(create=False)
 
 
 def _safe_list(value: Any) -> List[Any]:

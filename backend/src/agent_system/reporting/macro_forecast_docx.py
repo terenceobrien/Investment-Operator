@@ -28,6 +28,7 @@ from src.agent_system.schemas.macro_forecast import (
     ScenarioContribution,
     ScenarioProbabilityUpdate,
 )
+from src.agent_system.paths import diagnostics_dir
 
 
 BODY_FONT = "Arial"
@@ -624,8 +625,8 @@ def _add_forecast_input_set(document: DocumentObject, result: MacroForecastResul
         _add_legacy_input_signal_table(document, result.input_signals)
         return
 
-    diagnostic_path = Path("data/agent_system/diagnostics") / f"input_matrix_{result.asof_date}.csv"
-    ingestion_audit_path = Path("data/agent_system/diagnostics") / f"input_ingestion_audit_{result.asof_date}.csv"
+    diagnostic_path = diagnostics_dir(create=False) / f"input_matrix_{result.asof_date}.csv"
+    ingestion_audit_path = diagnostics_dir(create=False) / f"input_ingestion_audit_{result.asof_date}.csv"
     _paragraph(document, f"Full input diagnostic matrix saved to: {diagnostic_path}", compact=True)
     _paragraph(document, f"Full input ingestion audit saved to: {ingestion_audit_path}", compact=True)
 

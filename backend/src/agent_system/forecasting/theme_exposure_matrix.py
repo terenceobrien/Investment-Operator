@@ -3,12 +3,11 @@ from __future__ import annotations
 
 import csv
 import logging
-import os
 from functools import lru_cache
 from collections.abc import Mapping
-from pathlib import Path
 from typing import Any
 
+from src.agent_system.paths import scenario_theme_returns_path_info
 from src.agent_system.forecasting.behavioral_scenarios_loader import (
     EXPECTED_BEHAVIORAL_SCENARIO_IDS,
     default_behavioral_scenarios_path,
@@ -121,29 +120,9 @@ SCENARIO_THEME_EXPOSURES_NARRATIVE: dict[str, dict[str, float]] = {
 SCENARIO_THEME_EXPOSURES = SCENARIO_THEME_EXPOSURES_NARRATIVE
 
 
-def _reference_data_root() -> Path:
-    data_root, _ = _helix_data_root()
-    return data_root / "reference"
-
-
-def _scenario_theme_returns_path() -> Path:
-    return _reference_data_root() / "scenario_theme_returns.csv"
-
-
-def _repo_root_from_file() -> Path:
-    return Path(__file__).resolve().parents[4]
-
-
-def _helix_data_root() -> tuple[Path, str]:
-    configured = os.getenv("HELIX_DATA_ROOT")
-    if configured:
-        return Path(configured).expanduser(), "env:HELIX_DATA_ROOT"
-    return _repo_root_from_file() / "data", "default:repo_root_from_file"
-
-
-def scenario_theme_returns_artifact_path() -> tuple[Path, str]:
-    data_root, source = _helix_data_root()
-    return data_root / "reference" / "scenario_theme_returns.csv", source
+def scenario_theme_returns_artifact_path():
+    resolved = scenario_theme_returns_path_info(create_parent=False)
+    return resolved.path, resolved.source
 
 
 def _theme_label(theme_id: str) -> str:

@@ -12,6 +12,14 @@ from typing import Any, Literal, Mapping
 import pandas as pd
 from pydantic import BaseModel, ConfigDict, Field
 
+from src.agent_system.paths import (
+    analogue_fans_dir,
+    macro_forecast_dir,
+    macro_json_dir,
+    macro_regime_dir,
+    macro_reports_dir,
+    snapshots_dir,
+)
 from src.agent_system.forecasting.current_regime_export import (
     build_current_regime_handoff_from_macro_source,
     save_current_regime_yaml,
@@ -60,7 +68,7 @@ from src.agent_system.schemas.macro_forecast import (
 from src.agent_system.schemas.regime import RegimeState
 
 
-DEFAULT_REPORTS_DIR = "data/agent_system/reports/macro_forecasts"
+DEFAULT_REPORTS_DIR = str(macro_forecast_dir(create=False))
 TWO_SOURCE_REWIRE_MESSAGE = (
     "retired by the two_source_v1 rewire: macro probabilities now come only from "
     "BVAR scenario_probabilities_soft plus directional analogue evidence mixture."
@@ -98,7 +106,7 @@ class MacroForecastRunConfig(BaseModel):
     allow_stale_bvar: bool = False
 
     save_docx: bool = True
-    reports_dir: str = DEFAULT_REPORTS_DIR
+    reports_dir: str | None = None
     docx_output: str | None = None
     save_json: bool = True
     json_output: str | None = None
@@ -766,36 +774,39 @@ def _run_timestamp(result: MacroForecastResult) -> str:
 
 def _default_docx_output_path(
     result: MacroForecastResult,
-    reports_dir: str | Path,
+    reports_dir: str | Path | None,
 ) -> Path:
+    root = Path(reports_dir) / "Reports" if reports_dir is not None else macro_reports_dir(create=True)
     return (
-        Path(reports_dir)
+        root
         / f"macro_forecast_{result.asof_date}_{_run_timestamp(result)}_math_audit_review.docx"
     )
 
 
 def _default_json_output_path(
     result: MacroForecastResult,
-    reports_dir: str | Path,
+    reports_dir: str | Path | None,
 ) -> Path:
-    return Path(reports_dir) / f"macro_forecast_{result.asof_date}_{_run_timestamp(result)}.json"
+    root = Path(reports_dir) / "JSON" if reports_dir is not None else macro_json_dir(create=True)
+    return root / f"macro_forecast_{result.asof_date}_{_run_timestamp(result)}.json"
 
 
 def _default_current_regime_output_dir(
     *,
-    reports_dir: str | Path,
+    reports_dir: str | Path | None,
     docx_path: Path | None = None,
     json_path: Path | None = None,
 ) -> Path:
-    if docx_path is not None:
-        return docx_path.parent
-    if json_path is not None:
-        return json_path.parent
-    return Path(reports_dir)
+    del docx_path, json_path
+    if reports_dir is not None:
+        return Path(reports_dir) / "Regime"
+    return macro_regime_dir(create=True)
 
 
-def _default_fan_output_dir(reports_dir: str | Path = DEFAULT_REPORTS_DIR) -> Path:
-    return Path(reports_dir) / "analogue_fans"
+def _default_fan_output_dir(reports_dir: str | Path | None = None) -> Path:
+    if reports_dir is not None:
+        return Path(reports_dir) / "analogue_fans"
+    return analogue_fans_dir(create=True)
 
 
 def _compute_analogue_fan_outputs(
@@ -1773,7 +1784,7 @@ def _load_market_state_for_cli(asof_date: str | None = None, horizon: str = "3m"
         from src.state.market_state import build_market_state, load_snapshot
 
         if asof_date:
-            snapshot = load_snapshot("data/snapshots", asof_date)
+            snapshot = load_snapshot(snapshots_dir(create=False), asof_date)
             if snapshot is not None:
                 return snapshot
         return build_market_state(horizon=_market_state_horizon(horizon))

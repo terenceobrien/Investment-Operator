@@ -70,6 +70,7 @@ from src.narrative.ticker_profiles import (
     prompt_subject_profile,
     supported_ticker_label,
 )
+from src.agent_system.paths import narrative_trends_dir, snapshots_dir
 
 logger = logging.getLogger("api.main")
 
@@ -160,8 +161,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-SNAPSHOT_DIR = "data/snapshots"
-TRENDS_OUTPUT_DIR = "data/narrative/trends"
+SNAPSHOT_DIR = str(snapshots_dir(create=False))
+TRENDS_OUTPUT_DIR = str(narrative_trends_dir(create=False))
 
 _jobs: dict[str, dict] = {}
 _regime_build_tasks: dict[str, asyncio.Task] = {}
@@ -293,9 +294,6 @@ async def get_regime_history(
     user: dict = Depends(verify_clerk_token),
 ):
     from src.state.regime_state import RegimeState
-    from pathlib import Path
-
-    snapshot_dir = Path("data/snapshots")
     snapshots = []
 
     for i in range(days):

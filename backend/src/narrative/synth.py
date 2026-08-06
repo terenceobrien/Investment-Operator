@@ -57,6 +57,7 @@ from src.narrative.inefficiency_taxonomy import (
 from src.narrative.runtime_config import assert_llm_calls_allowed
 from src.narrative.schema import NarrativeStateV1
 from src.narrative.ticker_profiles import normalize_ticker, profile_terms, prompt_subject_profile
+from src.agent_system.paths import snapshots_dir
 
 
 _DEFAULT_CLIENT: OpenAI | None = None
@@ -124,19 +125,19 @@ def narrative_snapshot_path(
 
 def save_narrative_snapshot(
     state: Dict[str, Any],
-    base_dir: str | Path = "data/snapshots",
+    base_dir: str | Path | None = None,
     date_str: Optional[str] = None,
     subject_key: Optional[str] = None,
 ) -> Path:
     if date_str is None:
         date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    path = narrative_snapshot_path(base_dir, date_str, subject_key=subject_key)
+    path = narrative_snapshot_path(base_dir or snapshots_dir(create=False), date_str, subject_key=subject_key)
     path.write_text(json.dumps(state, indent=2), encoding="utf-8")
     return path
 
 
 def load_latest_narrative_snapshot(
-    base_dir: str | Path = "data/snapshots",
+    base_dir: str | Path | None = None,
     today_date_str: Optional[str] = None,
     max_lookback_days: int = 14,
     subject_key: Optional[str] = None,
@@ -145,7 +146,7 @@ def load_latest_narrative_snapshot(
 
     for i in range(1, max_lookback_days + 1):
         d = (today - timedelta(days=i)).strftime("%Y-%m-%d")
-        p = narrative_snapshot_path(base_dir, d, subject_key=subject_key)
+        p = narrative_snapshot_path(base_dir or snapshots_dir(create=False), d, subject_key=subject_key)
         if p.exists():
             try:
                 return d, json.loads(p.read_text(encoding="utf-8"))
@@ -1841,7 +1842,7 @@ def synthesize_narrative_state(
 
     try:
         date_str = _date_str_from_iso(payload.get("asof_utc"))
-        input_dir = Path("data/snapshots").resolve()
+        input_dir = snapshots_dir(create=False).resolve()
         input_dir.mkdir(parents=True, exist_ok=True)
         input_path = input_dir / f"synth_input_{date_str}.json"
         debug_dump = {

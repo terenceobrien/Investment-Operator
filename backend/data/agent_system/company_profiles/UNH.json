@@ -1,0 +1,194 @@
+{
+  "ticker": "UNH",
+  "company_name": "UnitedHealth Group Incorporated",
+  "sector": "Healthcare",
+  "industry": "Managed Health Care",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-07-02",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge and the supplied high-level financial context; it should be verified with UnitedHealth Group's latest SEC filings and investor materials.",
+    "No source-backed research context or filing excerpts were supplied for detailed segment economics, recent management commentary, or precise revenue/profit mix.",
+    "research_context was supplied to the profile agent."
+  ],
+  "profile_data_gaps": [
+    "Segment revenue and profit shares should be verified against the latest Form 10-K/10-Q.",
+    "Current membership by product line and geographic mix should be verified with company filings.",
+    "Recent regulatory, litigation, cybersecurity, and CMS reimbursement developments are not independently verified in this profile.",
+    "Customer concentration, contract terms, and supplier relationships are not specified without filing-backed context."
+  ],
+  "business_description": "UnitedHealth Group Incorporated is a diversified U.S.-based healthcare company operating through health insurance benefits and health services businesses. Its UnitedHealthcare business provides commercial, Medicare, Medicaid, and other health benefit plans. Its Optum businesses provide care delivery, pharmacy benefit management and specialty pharmacy services, healthcare data/analytics, revenue cycle, technology, consulting, and other services to payers, providers, employers, governments, and consumers.",
+  "business_model": "UnitedHealth combines a large-scale managed care insurer with vertically integrated healthcare services assets. The company earns premiums and administrative fees from health benefit plans, pharmacy and care delivery revenue through Optum, and technology, analytics, and services fees through Optum Insight. Economic performance depends on membership growth, premium pricing versus medical cost trend, government reimbursement rates, pharmacy spread/rebate economics, care delivery capacity and utilization, and execution across regulated healthcare markets.",
+  "segments": [
+    {
+      "name": "UnitedHealthcare",
+      "description": "Health benefits business providing commercial, Medicare, Medicaid, and other insurance and administrative services to employers, individuals, and government programs.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Membership growth and retention",
+        "Premium yields versus medical cost trend",
+        "Medical loss ratio and utilization management",
+        "Medicare Advantage rates, Stars, and risk adjustment",
+        "Medicaid enrollment and state contract renewals",
+        "Employer hiring and commercial plan demand"
+      ]
+    },
+    {
+      "name": "Optum Health",
+      "description": "Optum business focused on care delivery, population health, value-based care, behavioral health, home/community care, and health services for payers, providers, employers, governments, and consumers.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Patient volume and care delivery capacity",
+        "Value-based care contract performance",
+        "Provider network expansion and integration",
+        "Clinical labor availability and wage inflation",
+        "Utilization management and outcomes improvement",
+        "Cross-selling with UnitedHealthcare and external payer/provider customers"
+      ]
+    },
+    {
+      "name": "Optum Rx",
+      "description": "Optum business providing pharmacy benefit management, formulary management, mail-order pharmacy, specialty pharmacy, and related pharmacy care services.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Prescription volume and specialty drug mix",
+        "Drug cost inflation and rebate economics",
+        "Client retention and repricing",
+        "Formulary management and generic/biosimilar adoption",
+        "Regulatory scrutiny of PBM pricing and transparency",
+        "Pharmacy network and procurement scale"
+      ]
+    },
+    {
+      "name": "Optum Insight",
+      "description": "Optum business providing healthcare technology, analytics, consulting, revenue cycle management, payment integrity, and administrative services to payers, providers, governments, and life sciences customers.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Provider and payer technology spending",
+        "Backlog conversion and implementation execution",
+        "Revenue cycle and payment integrity demand",
+        "Data analytics and AI-enabled workflow adoption",
+        "Client retention and cross-selling",
+        "Cybersecurity, compliance, and data privacy requirements"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Premium revenue from fully insured commercial, Medicare Advantage, Medicare Part D, Medicaid, and other health benefit products",
+    "Administrative-services-only fees from self-funded employer and government health plans",
+    "Pharmacy benefit management, mail-order, specialty pharmacy, and related pharmacy services revenue through Optum Rx",
+    "Care delivery, value-based care, home/community care, behavioral health, and ambulatory service revenue through Optum Health",
+    "Technology, analytics, consulting, revenue cycle management, and administrative services revenue through Optum Insight",
+    "Investment income on insurance-related reserves and cash balances"
+  ],
+  "cost_drivers": [
+    "Medical claims and healthcare utilization, including hospital, physician, outpatient, behavioral health, and pharmacy costs",
+    "Drug acquisition costs, specialty pharmacy costs, and rebate/pass-through dynamics in pharmacy benefit management",
+    "Provider reimbursement rates and value-based care contract performance",
+    "Clinical labor, care delivery staffing, technology, claims processing, compliance, and customer service costs",
+    "Selling, general, and administrative expenses required to administer large benefit programs and regulated healthcare operations",
+    "Technology infrastructure, cybersecurity, data privacy, and systems integration spending",
+    "Interest expense on debt and acquisition-related integration costs"
+  ],
+  "margin_drivers": [
+    "Medical loss ratio and ability to price premiums ahead of medical cost trend",
+    "Membership growth and mix across commercial, Medicare Advantage, Medicaid, and administrative-services-only products",
+    "Government reimbursement rates, risk adjustment accuracy, quality bonuses, and Star Ratings performance",
+    "Optum mix shift toward higher-value services, care delivery, technology, analytics, and specialty pharmacy offerings",
+    "Pharmacy procurement scale, formulary management, rebate economics, and specialty drug management",
+    "Administrative efficiency, claims automation, technology productivity, and operating leverage",
+    "Provider network contracting, value-based care performance, and utilization management effectiveness",
+    "Regulatory compliance costs, litigation costs, and cybersecurity/technology spending"
+  ],
+  "key_customers": [
+    "Large employers and commercial plan sponsors",
+    "Individuals purchasing health coverage",
+    "Medicare Advantage, Medicare Supplement, and prescription drug plan members",
+    "State Medicaid programs and Medicaid beneficiaries",
+    "Federal, state, and local government health program customers",
+    "Healthcare providers, payers, life sciences companies, and other organizations using Optum technology, analytics, pharmacy, care delivery, and administrative services"
+  ],
+  "key_suppliers": [
+    "Hospitals, physician groups, ambulatory centers, laboratories, and other healthcare providers in contracted networks",
+    "Pharmaceutical manufacturers and wholesalers",
+    "Specialty drug suppliers and pharmacy distribution partners",
+    "Healthcare IT, cloud, cybersecurity, and administrative service vendors",
+    "Clinical labor and professional service providers"
+  ],
+  "peer_group": [
+    {
+      "ticker": "ELV",
+      "name": "Elevance Health, Inc.",
+      "relevance": "Large U.S. managed care and health benefits peer with commercial, Medicare, Medicaid, and services exposure."
+    },
+    {
+      "ticker": "CI",
+      "name": "The Cigna Group",
+      "relevance": "Managed care and pharmacy benefit management peer through Evernorth and Cigna Healthcare."
+    },
+    {
+      "ticker": "CVS",
+      "name": "CVS Health Corporation",
+      "relevance": "Healthcare services and insurance peer with Aetna, CVS Caremark PBM, retail pharmacy, and care delivery exposure."
+    },
+    {
+      "ticker": "HUM",
+      "name": "Humana Inc.",
+      "relevance": "Managed care peer with significant Medicare Advantage exposure."
+    },
+    {
+      "ticker": "CNC",
+      "name": "Centene Corporation",
+      "relevance": "Managed care peer focused heavily on Medicaid and government-sponsored programs."
+    },
+    {
+      "ticker": "MOH",
+      "name": "Molina Healthcare, Inc.",
+      "relevance": "Government-sponsored managed care peer with Medicaid and Medicare exposure."
+    },
+    {
+      "ticker": "OSCR",
+      "name": "Oscar Health, Inc.",
+      "relevance": "Smaller technology-enabled health insurance peer focused on individual and small group markets."
+    }
+  ],
+  "thematic_exposures": [
+    "U.S. healthcare utilization",
+    "Managed care consolidation",
+    "Medicare Advantage growth",
+    "Medicaid managed care",
+    "Value-based care",
+    "Healthcare cost containment",
+    "PBM and drug pricing reform",
+    "Healthcare data analytics and automation",
+    "Aging population",
+    "Healthcare regulation and affordability"
+  ],
+  "macro_sensitivities": [
+    "Healthcare utilization and medical cost trend relative to premium pricing",
+    "Medicare Advantage benchmark rates, Star Ratings, risk adjustment, and CMS payment policy",
+    "Medicaid enrollment, state budgets, and eligibility/redetermination cycles",
+    "Employer hiring, unemployment, and wage growth affecting commercial membership",
+    "Interest rates affecting investment income, debt service costs, and valuation of long-duration liabilities",
+    "Drug price inflation, specialty drug adoption, and PBM rebate/regulatory policy",
+    "Healthcare labor wage inflation and provider reimbursement pressure",
+    "Regulatory and political scrutiny of managed care, Medicare Advantage, PBMs, vertical integration, and healthcare affordability",
+    "Cybersecurity threat environment and technology resilience requirements"
+  ],
+  "major_risks": [
+    "Medical costs could exceed pricing assumptions, pressuring medical loss ratios and margins",
+    "Adverse changes to Medicare Advantage, Medicaid, risk adjustment, Star Ratings, PBM, or broader healthcare regulation could reduce revenue or profitability",
+    "Political and regulatory scrutiny of PBMs, managed care practices, prior authorization, vertical integration, and healthcare consolidation could affect business practices and economics",
+    "Cybersecurity incidents, data breaches, claims processing outages, or failures in health data systems could create operational, legal, reputational, and financial losses",
+    "Provider contract disputes, network adequacy issues, or rising provider reimbursement demands could impair competitiveness and margins",
+    "Pharmacy benefit management economics may be pressured by rebate reform, pass-through requirements, transparency rules, or client repricing",
+    "Acquisition integration and execution risk across Optum and care delivery assets",
+    "Litigation, antitrust review, compliance failures, and government audits in highly regulated healthcare markets",
+    "Enrollment mix shifts away from higher-margin products or loss of large government/commercial contracts",
+    "Balance sheet leverage and capital allocation constraints following acquisitions or adverse operating developments"
+  ]
+}

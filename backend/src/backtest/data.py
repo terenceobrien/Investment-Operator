@@ -8,6 +8,8 @@ from typing import Dict, List, Optional, Tuple
 import pandas as pd
 import yfinance as yf
 
+from src.agent_system.paths import backtest_cache_dir
+
 
 DEFAULT_SECTOR_TICKERS = [
     "XLB", "XLC", "XLE", "XLF", "XLI", "XLK", "XLP", "XLRE", "XLU", "XLV", "XLY"
@@ -42,14 +44,14 @@ def fetch_yf_panel(
     end: str,
     interval: str = "1d",
     auto_adjust: bool = False,
-    cache_dir: str | Path = "data/cache/backtest",
+    cache_dir: str | Path | None = None,
     force: bool = False,
 ) -> PricePanel:
     """
     Downloads an OHLCV panel from yfinance and caches to parquet.
     interval: '1d' (recommended first). Intraday intervals are possible but yfinance history is limited.
     """
-    cache_dir = Path(cache_dir)
+    cache_dir = Path(cache_dir or backtest_cache_dir(create=False))
     cache_dir.mkdir(parents=True, exist_ok=True)
     path = _cache_path(cache_dir, tickers, start, end, interval)
 

@@ -23,6 +23,7 @@ from typing import List, Tuple
 from .sources.base import BaseSource
 from .sources.rss import RssSource
 from .sources.local_file import LocalFileSource
+from src.agent_system.paths import narrative_raw_dir
 
 logger = logging.getLogger("narrative.source_loader")
 
@@ -82,7 +83,7 @@ def load_sources_from_csv(path: Path) -> List[Tuple[BaseSource, dict]]:
 
             if _is_local_url(url):
                 # Strip file:// scheme if present; treat bare path as directory
-                directory = url.replace("file://", "").strip() or "data/narrative/raw"
+                directory = url.replace("file://", "").strip() or str(narrative_raw_dir(create=False))
                 source: BaseSource = LocalFileSource(directory=directory)
                 logger.info("Registered LocalFileSource: %s -> %s", source_name, directory)
             else:

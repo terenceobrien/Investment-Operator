@@ -16,6 +16,8 @@ import sys
 import traceback
 from pathlib import Path
 
+from src.agent_system.paths import agent_system_data_root
+
 
 def find_yaml() -> Path | None:
     """Search common locations for current_regime.yaml."""
@@ -23,7 +25,7 @@ def find_yaml() -> Path | None:
         Path("src/agent_system/config/current_regime.yaml"),
         Path("src/agent_system/regime/current_regime.yaml"),
         Path("src/agent_system/current_regime.yaml"),
-        Path("data/agent_system/current_regime.yaml"),
+        agent_system_data_root(create=False) / "current_regime.yaml",
         Path("config/current_regime.yaml"),
         Path("current_regime.yaml"),
     ]
@@ -35,7 +37,7 @@ def find_yaml() -> Path | None:
     print("Not found in standard locations. Scanning repository...")
     for found in Path(".").rglob("current_regime.yaml"):
         # Skip the dated reports directory
-        if "reports/macro_forecasts" in str(found):
+        if "reports" in found.parts and "macro_forecasts" in found.parts:
             continue
         return found
     return None

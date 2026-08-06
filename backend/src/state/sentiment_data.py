@@ -24,11 +24,13 @@ from typing import Optional
 
 import pandas as pd
 
+from src.agent_system.paths import agent_system_data_root
+
 
 logger = logging.getLogger(__name__)
 
 
-AAII_FILE_PATH = Path("data/agent_system/sentiment.xls")
+AAII_FILE_PATH = agent_system_data_root(create=False) / "sentiment.xls"
 
 
 def _parse_aaii_file(path: Path = AAII_FILE_PATH) -> pd.Series:

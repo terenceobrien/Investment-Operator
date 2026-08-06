@@ -14,7 +14,7 @@ from src.agent_system.forecasting.scenario_classifier.registry import (
     VariableRegistry,
     VariableSpec,
 )
-from src.agent_system.paths import agent_system_data_root
+from src.agent_system.paths import classifier_cache_dir
 
 
 class ClassifierDataError(RuntimeError):
@@ -22,7 +22,7 @@ class ClassifierDataError(RuntimeError):
 
 
 def default_cache_dir() -> Path:
-    return agent_system_data_root() / "classifier_cache"
+    return classifier_cache_dir(create=False)
 
 
 def refresh_fred_cache(

@@ -8,7 +8,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-CACHE_ROOT = Path("data/agent_system/data_cache")
+from src.agent_system.paths import agent_data_cache_dir
+
+CACHE_ROOT = agent_data_cache_dir(create=False)
 
 
 def safe_cache_key(s: str) -> str:

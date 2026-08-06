@@ -32,6 +32,7 @@ from backend.src.data.breadth_nyhl import (
 )
 from backend.src.data.external_sources import fetch_cot_history, load_aaii_sentiment
 from backend.src.state.regime_layers import score_all_layers
+from src.agent_system.paths import backtest_cache_dir
 
 FEATURE_VERSION = "v2_layers_2026"
 
@@ -147,7 +148,7 @@ def build_daily_feature_frame(
     vol_window: int = 20,
     zscore_window: int = 252,        # for credit/breadth z-scores
     use_fred: bool = True,           # set False to skip FRED (faster, less accurate)
-    cache_dir: str = "data/cache/backtest",
+    cache_dir: str | None = None,
     force_download: bool = False,
 ) -> pd.DataFrame:
     """
@@ -169,6 +170,7 @@ def build_daily_feature_frame(
     """
     cross_assets = cross_assets or EXTENDED_CROSS_ASSET
     sectors = sectors or DEFAULT_SECTOR_TICKERS
+    resolved_cache_dir = cache_dir or str(backtest_cache_dir(create=False))
 
     tickers = sorted(set(cross_assets + sectors + ["^VIX"]))
     panel = fetch_yf_panel(
@@ -177,7 +179,7 @@ def build_daily_feature_frame(
         end=end,
         interval="1d",
         auto_adjust=False,
-        cache_dir=cache_dir,
+        cache_dir=resolved_cache_dir,
         force=force_download,
     )
 
@@ -688,7 +690,7 @@ def build_research_frame(
     vol_window: int = 20,
     zscore_window: int = 252,
     use_fred: bool = True,
-    cache_dir: str = "data/cache/backtest",
+    cache_dir: str | None = None,
     force_download: bool = False,
     horizon: str = "default",
 ) -> pd.DataFrame:
@@ -708,6 +710,7 @@ def build_research_frame(
       hyg_tlt_ratio_z, rsp_vs_spy_z, pct_above_200d
       new_highs_minus_lows_z, cot_net_large_spec_z, aaii_bull_minus_bear
     """
+    resolved_cache_dir = cache_dir or str(backtest_cache_dir(create=False))
     print(f"Building feature frame: {start} → {end}")
     feats = build_daily_feature_frame(
         start=start,
@@ -718,7 +721,7 @@ def build_research_frame(
         vol_window=vol_window,
         zscore_window=zscore_window,
         use_fred=use_fred,
-        cache_dir=cache_dir,
+        cache_dir=resolved_cache_dir,
         force_download=force_download,
     )
     print(f"  Features: {len(feats)} rows, {feats.index.min().date()} → {feats.index.max().date()}")

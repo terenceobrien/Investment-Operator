@@ -1,0 +1,134 @@
+{
+  "cycle_id": "cc44a07f-89af-49d1-8c28-b4004185f249",
+  "started_at": "2026-06-02T04:57:15.239998Z",
+  "updated_at": "2026-06-02T05:06:24.344109Z",
+  "completed_at": "2026-06-02T05:06:24.344100Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "complete",
+      "started_at": "2026-06-02T04:57:15.256883Z",
+      "completed_at": "2026-06-02T04:57:47.681445Z",
+      "message": "produced 1 priority and 0 clarification(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-06-02T04:57:47.687363Z",
+      "completed_at": "2026-06-02T05:04:28.441740Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-06-02T05:02:14.270580Z",
+      "completed_at": "2026-06-02T05:04:28.442123Z",
+      "message": "screened 11 candidate(s)",
+      "progress_current": 11,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-06-02T05:02:14.844658Z",
+      "completed_at": "2026-06-02T05:04:28.442739Z",
+      "message": "saved 4 trade idea(s)",
+      "progress_current": 9,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "complete",
+      "started_at": "2026-06-02T05:02:14.845281Z",
+      "completed_at": "2026-06-02T05:04:28.443274Z",
+      "message": "attempted 3 trade expression(s)",
+      "progress_current": 3,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "complete",
+      "started_at": "2026-06-02T05:04:28.450673Z",
+      "completed_at": "2026-06-02T05:06:24.327328Z",
+      "message": "scored 3 trade(s)",
+      "progress_current": 3,
+      "progress_total": 3,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "complete",
+      "started_at": "2026-06-02T05:06:24.337994Z",
+      "completed_at": "2026-06-02T05:06:24.342392Z",
+      "message": "portfolio plan executed 2 trade(s)",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "cc44a07f-89af-49d1-8c28-b4004185f249",
+    "regime_id": "62d903b0-1403-439f-bd20-c30a9cc9466a",
+    "thematic_maps": 1,
+    "candidates_considered": 11,
+    "trade_ideas_saved": 4,
+    "accepted": 3,
+    "rejected": 8,
+    "decision_log_entries": 4,
+    "accepted_underlyings": [
+      "CCL",
+      "CVNA",
+      "VNO"
+    ],
+    "rejected_underlyings": [
+      "CHTR",
+      "WBD",
+      "CZR",
+      "AAL",
+      "VFC",
+      "HBI",
+      "W",
+      "HTZ"
+    ],
+    "regime_source": "real_snapshot",
+    "regime_asof_date": "2026-06-02",
+    "fallback_reason": null,
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 11,
+    "fundamental_eliminated": 7,
+    "fundamental_passed": 4,
+    "crowding_flags": 0,
+    "trade_expressions_attempted": 3,
+    "trade_expressions_succeeded": 3,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 3,
+    "trade_stocks_selected": 0,
+    "trade_rejections_pre_expression": 1,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 2,
+    "portfolio_trades_reduced": 1,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.08000000000000002,
+    "portfolio_binding_constraints": [
+      "robustness_demotion"
+    ],
+    "_portfolio_summary_text": "═══ PORTFOLIO PLAN ═══\nNAV: $18,289.57\nNew deployment: $1,463.17 (8.0% of NAV)\nCash remaining if executed: $3,350.23 (18.3% of NAV)\n\nBy priority:\n  Credit-available but EPS-impaired equities facing 2027-2028 refinancing: 3 trades, 8.0% of NAV\n\nBinding constraints: robustness_demotion\n\nDecisions:\n  EXECUTE  CCL    CCL                                    5.0% of NAV (proposed 5.0%)\n  EXECUTE  CVNA   CVNA                                   2.0% of NAV (proposed 2.0%)\n  REDUCED  VNO    VNO                                    1.0% of NAV (proposed 2.0%)"
+  },
+  "fatal_error": null,
+  "user_inputs_preview": [
+    "2027-2028 maturity-wall equities with understated refinancing EPS drag"
+  ]
+}

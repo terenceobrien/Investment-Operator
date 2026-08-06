@@ -1,0 +1,919 @@
+{
+  "ticker": "ETN",
+  "as_of_date": "2026-06-29",
+  "created_at": "2026-06-29T15:50:52.263310",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "unknown",
+      "status": "not_found",
+      "source_name": "SEC EDGAR",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "No recent SEC 8-K exhibit confidently classified as earnings release."
+    },
+    {
+      "source_type": "company_ir",
+      "document_purpose": "other",
+      "status": "not_found",
+      "source_name": "Company investor relations",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated company IR retrieval not implemented in v1."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-11",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index-headers.html",
+      "accession_number": "0000950142-26-001733",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-11",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index.html",
+      "accession_number": "0000950142-26-001733",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-11",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-11",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+      "accession_number": "0000950142-26-001733",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "strategic_transaction",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-11",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_ex9901.htm",
+      "accession_number": "0000950142-26-001733",
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/0001551182-26-000010-index-headers.html",
+      "accession_number": "0001551182-26-000010",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/0001551182-26-000010-index.html",
+      "accession_number": "0001551182-26-000010",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/0001551182-26-000010.txt",
+      "accession_number": "0001551182-26-000010",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/etn-20260505.htm",
+      "accession_number": "0001551182-26-000010",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "strategic_transaction",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000010/etn03312026exhibit99.htm",
+      "accession_number": "0001551182-26-000010",
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/0001140361-26-016399-index-headers.html",
+      "accession_number": "0001140361-26-016399",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/0001140361-26-016399-index.html",
+      "accession_number": "0001140361-26-016399",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/0001140361-26-016399.txt",
+      "accession_number": "0001140361-26-016399",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126016399/ef20071273_8k.htm",
+      "accession_number": "0001140361-26-016399",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/0001140361-26-008836-index-headers.html",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/0001140361-26-008836-index.html",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/0001140361-26-008836.txt",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_8k.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex4-2.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex4-3.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-1.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-10.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-2.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-3.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-4.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-5.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-6.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-7.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-8.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000114036126008836/ef20067414_ex5-9.htm",
+      "accession_number": "0001140361-26-008836",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000013/etn-20260331.htm",
+      "accession_number": "0001551182-26-000013",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "not_found",
+      "source_name": "Earnings call transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Earnings call transcripts are not reliably available from SEC; provide transcript path or configure a third-party transcript provider."
+    }
+  ],
+  "source_coverage_summary": "company_ir:not_found=1; filing:found=1; other:found=28; sec_8k_exhibit:not_found=1; strategic_transaction:found=2; transcript:not_found=1",
+  "earnings_release_evidence": [],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [],
+  "estimate_evidence": [],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton announced it entered into a definitive agreement with Dana Incorporated regarding separation of Eaton's mobility business.",
+      "summary": "The 8-K discloses a definitive agreement with Dana tied to Eaton's mobility business separation.",
+      "excerpt": "On June 11, 2026, Eaton Corporation plc (the \u201cCompany\u201d) issued a press release announcing the Company\u2019s entry into a definitive agreement with Dana Incorporated, a Delaware corporation (\u201cMerger Partner\u201d), regarding the separation of the Company\u2019s mobility business.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "Mobility segment",
+        "Dana Incorporated",
+        "strategic transaction",
+        "portfolio separation"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "definitive_agreement",
+        "mobility_separation",
+        "8k_item_7_01"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton will separate its Mobility segment and combine it with Dana in a Reverse Morris Trust transaction.",
+      "summary": "The filing specifies the planned structure as a Mobility separation followed by a combination with Dana through a Reverse Morris Trust.",
+      "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the \u201cSpinCo Business\u201d) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "Mobility segment",
+        "Reverse Morris Trust",
+        "Dana Incorporated",
+        "portfolio restructuring"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "reverse_morris_trust",
+        "segment_separation",
+        "portfolio_action"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Immediately before the merger, Eaton plans to transfer the Mobility business to SpinCo and distribute SpinCo common stock to Eaton shareholders.",
+      "summary": "Eaton describes the pre-merger separation mechanics, including transfer of the Mobility business to SpinCo and distribution of SpinCo shares to shareholders.",
+      "excerpt": "the Company will, among other things and subject to the terms and conditions of the Separation Agreement, transfer the SpinCo Business to SpinCo and its subsidiaries and, in connection therewith, will distribute to the Company shareholders shares of common stock of SpinCo (the \u201cDistribution\u201d).",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "SpinCo",
+        "Mobility segment",
+        "shareholder distribution",
+        "transaction structure"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "spinco",
+        "distribution",
+        "shareholder_distribution",
+        "transaction_structure"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "After the distribution, a SpinCo subsidiary will merge with Dana, with Dana surviving as a direct wholly owned subsidiary of SpinCo.",
+      "summary": "The filing details the post-distribution merger mechanics and surviving entity.",
+      "excerpt": "Immediately following the Distribution and pursuant to an Agreement and Plan of Merger (the \u201cMerger Agreement\u201d) with Eaton Ohio, SpinCo, Atlas Mobility Sub, Inc., a Delaware corporation and wholly owned subsidiary of SpinCo (\u201cMerger Sub\u201d), Merger Sub will be merged with and into Merger Partner (the \u201cMerger\u201d), with Merger Partner surviving and continuing as the surviving corporation of the Merger and as a direct, wholly owned subsidiary of SpinCo.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "Dana Incorporated",
+        "SpinCo",
+        "merger mechanics",
+        "transaction structure"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "merger_structure",
+        "spinco",
+        "dana_surviving_entity"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Dana shareholders will receive SpinCo shares based on an exchange ratio specified in the merger agreement, subject to adjustment.",
+      "summary": "The consideration to Dana shareholders is SpinCo shares using an exchange ratio in the merger agreement.",
+      "excerpt": "Subject to the terms and conditions of the Merger Agreement, at closing, each share of common stock of Merger Partner that is outstanding as of immediately prior to the closing will be converted into the right to receive a number of SpinCo shares equal to the exchange ratio specified in the Merger Agreement, subject to adjustment.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "Dana Incorporated",
+        "SpinCo",
+        "share consideration",
+        "merger terms"
+      ],
+      "related_metrics": [
+        "exchange ratio"
+      ],
+      "evidence_tags": [
+        "exchange_ratio",
+        "share_consideration",
+        "merger_terms"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton expects to receive approximately $1.1 billion in cash distribution from the transaction.",
+      "summary": "The filing states Eaton will receive about $1.1 billion in cash distribution under the merger agreement.",
+      "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "transaction proceeds",
+        "capital allocation",
+        "Reverse Morris Trust"
+      ],
+      "related_metrics": [
+        "$1.1 billion cash distribution"
+      ],
+      "evidence_tags": [
+        "cash_distribution",
+        "transaction_proceeds",
+        "capital_allocation"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton shareholders are expected to own at least 50.1% of the combined company after the transaction closes.",
+      "summary": "The filing specifies intended majority ownership of the combined company by Eaton shareholders.",
+      "excerpt": "the Company shareholders will receive newly issued shares of the combined company such that the Company shareholders will own at least 50.1% of the combined company\u2019s outstanding shares following the consummation of the transaction.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "combined company",
+        "shareholder ownership",
+        "transaction terms"
+      ],
+      "related_metrics": [
+        "at least 50.1% ownership"
+      ],
+      "evidence_tags": [
+        "ownership",
+        "combined_company",
+        "shareholder_value"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index-headers.html",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733-index-headers.html",
+      "claim": "The 8-K was filed under Item 7.01 Regulation FD Disclosure, Item 8.01 Other Events, and Item 9.01 Financial Statements and Exhibits.",
+      "summary": "The EDGAR header identifies the 8-K items used for the disclosure.",
+      "excerpt": "ITEM INFORMATION: Regulation FD Disclosure ITEM INFORMATION: Other Events ITEM INFORMATION: Financial Statements and Exhibits",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "SEC filing",
+        "Regulation FD",
+        "Other Events"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "8k_items",
+        "regulation_fd",
+        "other_events",
+        "exhibits"
+      ],
+      "notes": "This is filing metadata, included because it identifies the disclosure framework for the transaction filing."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733-index.html",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733-index.html",
+      "claim": "The SEC filing detail page lists a Form 8-K and Exhibit 99.1 press release for the June 2026 filing.",
+      "summary": "The filing index confirms the presence of the Form 8-K and Exhibit 99.1 press release document.",
+      "excerpt": "Interactive Data Document Format Files Seq Description Document Type Size 1 FORM 8-K eh260792115_8k.htm iXBRL 8-K 61136 2 EXHIBIT 99.1 eh260792115_ex9901.htm EX-99.1 38102",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.5,
+      "related_topics": [
+        "SEC filing",
+        "Exhibit 99.1",
+        "press release"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "exhibit_99_1",
+        "press_release",
+        "filing_documents"
+      ],
+      "notes": "The source is an EDGAR filing index and does not include the substantive press release text in the supplied input."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: eh260792115_8k.htm",
+      "claim": "Eaton's Form 8-K states the company entered definitive agreements with Dana on June 10, 2026 for a Mobility segment separation and combination.",
+      "summary": "The primary Form 8-K repeats the central transaction announcement and structure.",
+      "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the \u201cSpinCo Business\u201d) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "Mobility segment",
+        "Dana Incorporated",
+        "Reverse Morris Trust"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "definitive_agreements",
+        "mobility_segment",
+        "reverse_morris_trust"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: eh260792115_8k.htm",
+      "claim": "The Form 8-K says Eaton will receive about $1.1 billion in cash and Eaton shareholders will own at least 50.1% of the combined company after consummation.",
+      "summary": "The primary Form 8-K provides key economic terms for Eaton and its shareholders.",
+      "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution and the Company shareholders will receive newly issued shares of the combined company such that the Company shareholders will own at least 50.1% of the combined company\u2019s outstanding shares following the consummation of the transaction.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "transaction proceeds",
+        "combined company ownership",
+        "capital allocation"
+      ],
+      "related_metrics": [
+        "$1.1 billion cash distribution",
+        "at least 50.1% ownership"
+      ],
+      "evidence_tags": [
+        "cash_distribution",
+        "ownership",
+        "transaction_terms"
+      ],
+      "notes": null
+    }
+  ],
+  "management_guidance": [],
+  "segment_kpis": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton announced it entered into a definitive agreement with Dana Incorporated regarding separation of Eaton's mobility business.",
+      "summary": "The 8-K discloses a definitive agreement with Dana tied to Eaton's mobility business separation.",
+      "excerpt": "On June 11, 2026, Eaton Corporation plc (the \u201cCompany\u201d) issued a press release announcing the Company\u2019s entry into a definitive agreement with Dana Incorporated, a Delaware corporation (\u201cMerger Partner\u201d), regarding the separation of the Company\u2019s mobility business.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "Mobility segment",
+        "Dana Incorporated",
+        "strategic transaction",
+        "portfolio separation"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "definitive_agreement",
+        "mobility_separation",
+        "8k_item_7_01"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton will separate its Mobility segment and combine it with Dana in a Reverse Morris Trust transaction.",
+      "summary": "The filing specifies the planned structure as a Mobility separation followed by a combination with Dana through a Reverse Morris Trust.",
+      "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the \u201cSpinCo Business\u201d) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "Mobility segment",
+        "Reverse Morris Trust",
+        "Dana Incorporated",
+        "portfolio restructuring"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "reverse_morris_trust",
+        "segment_separation",
+        "portfolio_action"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Immediately before the merger, Eaton plans to transfer the Mobility business to SpinCo and distribute SpinCo common stock to Eaton shareholders.",
+      "summary": "Eaton describes the pre-merger separation mechanics, including transfer of the Mobility business to SpinCo and distribution of SpinCo shares to shareholders.",
+      "excerpt": "the Company will, among other things and subject to the terms and conditions of the Separation Agreement, transfer the SpinCo Business to SpinCo and its subsidiaries and, in connection therewith, will distribute to the Company shareholders shares of common stock of SpinCo (the \u201cDistribution\u201d).",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "SpinCo",
+        "Mobility segment",
+        "shareholder distribution",
+        "transaction structure"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "spinco",
+        "distribution",
+        "shareholder_distribution",
+        "transaction_structure"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: eh260792115_8k.htm",
+      "claim": "Eaton's Form 8-K states the company entered definitive agreements with Dana on June 10, 2026 for a Mobility segment separation and combination.",
+      "summary": "The primary Form 8-K repeats the central transaction announcement and structure.",
+      "excerpt": "On June 10, 2026, the Company entered into definitive agreements with Merger Partner pursuant to which the Company will separate its Mobility segment (the \u201cSpinCo Business\u201d) and combine it with Merger Partner in a Reverse Morris Trust transaction.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "Mobility segment",
+        "Dana Incorporated",
+        "Reverse Morris Trust"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "definitive_agreements",
+        "mobility_segment",
+        "reverse_morris_trust"
+      ],
+      "notes": null
+    }
+  ],
+  "consensus_narrative": [],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/0000950142-26-001733.txt",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: 0000950142-26-001733.txt",
+      "claim": "Eaton expects to receive approximately $1.1 billion in cash distribution from the transaction.",
+      "summary": "The filing states Eaton will receive about $1.1 billion in cash distribution under the merger agreement.",
+      "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "transaction proceeds",
+        "capital allocation",
+        "Reverse Morris Trust"
+      ],
+      "related_metrics": [
+        "$1.1 billion cash distribution"
+      ],
+      "evidence_tags": [
+        "cash_distribution",
+        "transaction_proceeds",
+        "capital_allocation"
+      ],
+      "notes": null
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "ETN",
+      "document_purpose": "other",
+      "source_date": "2026-06-11",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551182/000095014226001733/eh260792115_8k.htm",
+      "accession_number": "0000950142-26-001733",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: eh260792115_8k.htm",
+      "claim": "The Form 8-K says Eaton will receive about $1.1 billion in cash and Eaton shareholders will own at least 50.1% of the combined company after consummation.",
+      "summary": "The primary Form 8-K provides key economic terms for Eaton and its shareholders.",
+      "excerpt": "Under the terms of the Merger Agreement, the Company will receive approximately $1.1 billion in cash distribution and the Company shareholders will receive newly issued shares of the combined company such that the Company shareholders will own at least 50.1% of the combined company\u2019s outstanding shares following the consummation of the transaction.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.97,
+      "related_topics": [
+        "transaction proceeds",
+        "combined company ownership",
+        "capital allocation"
+      ],
+      "related_metrics": [
+        "$1.1 billion cash distribution",
+        "at least 50.1% ownership"
+      ],
+      "evidence_tags": [
+        "cash_distribution",
+        "ownership",
+        "transaction_terms"
+      ],
+      "notes": null
+    }
+  ],
+  "bearish_evidence": [],
+  "mixed_evidence": [],
+  "unresolved_questions": [
+    "The SEC index/header source documents contain only filing metadata and document lists, not substantive transaction detail.",
+    "The complete submission text and Form 8-K source text are truncated in the supplied input, so extraction is limited to visible source text."
+  ],
+  "data_gaps": [
+    "Earnings release not confidently retrieved via SEC 8-K exhibit.",
+    "Transcript not provided; automated transcript retrieval is unavailable in v1.",
+    "The SEC index/header source documents contain only filing metadata and document lists, not substantive transaction detail.",
+    "The complete submission text and Form 8-K source text are truncated in the supplied input, so extraction is limited to visible source text."
+  ],
+  "warnings": [
+    "The provided classification labels the documents as document_purpose='other'; this value is preserved in every evidence item even though the visible text describes a strategic transaction.",
+    "No investment recommendation is made."
+  ],
+  "raw_source_count": 34,
+  "evidence_item_count": 11
+}

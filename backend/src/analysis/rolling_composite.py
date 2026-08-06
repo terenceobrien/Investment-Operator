@@ -31,9 +31,10 @@ from .analogues import (
     shock_window_diagnostics_for_analogues,
 )
 from .detailed_analogue_similarity import FeatureSpec
+from src.agent_system.paths import analogue_lookup_cache_dir
 
 
-CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache" / "analogue_lookups"
+CACHE_DIR = analogue_lookup_cache_dir(create=False)
 CSV_MTIME_STAMP = CACHE_DIR / ".csv_mtime"
 ANALOGUE_CACHE_VERSION = "forward_horizons_v2"
 JSON_FIELDS = {"forward_path", "environment_drivers"}

@@ -1,0 +1,146 @@
+{
+  "cycle_id": "1ddbf0e1-b64e-4590-b61f-e716bd935664",
+  "started_at": "2026-07-30T15:04:50.694083Z",
+  "updated_at": "2026-07-30T15:04:52.459021Z",
+  "completed_at": "2026-07-30T15:04:52.459017Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-07-30T15:04:52.410304Z",
+      "completed_at": "2026-07-30T15:04:52.410311Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-07-30T15:04:52.419256Z",
+      "completed_at": "2026-07-30T15:04:52.456907Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-07-30T15:04:52.421828Z",
+      "completed_at": "2026-07-30T15:04:52.457162Z",
+      "message": "screened 0 candidate(s)",
+      "progress_current": 6,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-07-30T15:04:52.427179Z",
+      "completed_at": "2026-07-30T15:04:52.457410Z",
+      "message": "saved 6 trade idea(s)",
+      "progress_current": 6,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "skipped",
+      "started_at": "2026-07-30T15:04:52.457621Z",
+      "completed_at": "2026-07-30T15:04:52.457621Z",
+      "message": "no candidates reached trade expression",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "skipped",
+      "started_at": "2026-07-30T15:04:52.457849Z",
+      "completed_at": "2026-07-30T15:04:52.457850Z",
+      "message": "portfolio construction skipped",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "skipped",
+      "started_at": "2026-07-30T15:04:52.458105Z",
+      "completed_at": "2026-07-30T15:04:52.458106Z",
+      "message": "portfolio construction skipped",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "monte_carlo",
+      "status": "skipped",
+      "started_at": "2026-07-30T15:04:52.458362Z",
+      "completed_at": "2026-07-30T15:04:52.458362Z",
+      "message": "portfolio construction skipped",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "1ddbf0e1-b64e-4590-b61f-e716bd935664",
+    "regime_id": "676ca9f9-c51f-48e8-ae3a-bfa99e4747df",
+    "thematic_maps": 1,
+    "candidates_considered": 6,
+    "trade_ideas_saved": 6,
+    "accepted": 1,
+    "rejected": 5,
+    "decision_log_entries": 6,
+    "accepted_underlyings": [
+      "ETN"
+    ],
+    "rejected_underlyings": [
+      "NVDA",
+      "SMH",
+      "VST",
+      "IFRA",
+      "PAVE"
+    ],
+    "regime_source": "stub",
+    "regime_asof_date": "2026-05-19",
+    "fallback_reason": null,
+    "macro_scenario_source": "narrative",
+    "macro_scenario_taxonomy": "narrative_v0",
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 0,
+    "fundamental_eliminated": 0,
+    "fundamental_passed": 0,
+    "crowding_flags": 0,
+    "trade_expressions_attempted": 0,
+    "trade_expressions_succeeded": 0,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 0,
+    "trade_stocks_selected": 0,
+    "trade_rejections_pre_expression": 5,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 0,
+    "portfolio_trades_reduced": 0,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.0,
+    "portfolio_binding_constraints": [],
+    "existing_position_filter_enabled": true,
+    "existing_position_filter": {
+      "demoted_same_hypothesis": 0,
+      "same_hypothesis_recently_closed": 0,
+      "cross_hypothesis_confirming": 0,
+      "cross_hypothesis_tension": 0
+    },
+    "monte_carlo_result": null,
+    "_existing_position_filter_report": null,
+    "_portfolio_summary_text": null
+  },
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

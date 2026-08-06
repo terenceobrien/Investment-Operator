@@ -20,9 +20,10 @@ from src.narrative.ticker_profiles import (
     normalize_ticker,
     profile_terms,
 )
+from src.agent_system.paths import snapshots_dir
 
 
-SNAPSHOT_DIR = Path("data/snapshots")
+SNAPSHOT_DIR = snapshots_dir(create=False)
 LOOKBACK_DAYS = 7
 DEFAULT_ARCHETYPE_ID = "narrative_fundamental_divergence"
 

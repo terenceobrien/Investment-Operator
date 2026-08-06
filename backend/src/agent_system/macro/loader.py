@@ -1,7 +1,6 @@
 """Load, stage, and promote macro-agent research priorities."""
 from __future__ import annotations
 
-import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,6 +8,7 @@ from typing import Any
 
 import yaml
 
+from src.agent_system.paths import agent_system_data_root
 from src.agent_system.schemas.common import DerivedEvidence
 from src.agent_system.schemas.regime import (
     ClarificationRequest,
@@ -17,8 +17,6 @@ from src.agent_system.schemas.regime import (
 )
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_DATA_ROOT = PROJECT_ROOT / "data" / "agent_system"
 DEFAULT_CURRENT_REGIME_PATH = (
     Path(__file__).resolve().parents[1] / "config" / "current_regime.yaml"
 )
@@ -31,7 +29,7 @@ except Exception:  # pragma: no cover - exercised implicitly in this env
 
 def data_root() -> Path:
     """Return the canonical agent-system data root."""
-    return Path(os.getenv("AGENT_SYSTEM_DATA_DIR", str(DEFAULT_DATA_ROOT)))
+    return agent_system_data_root(create=True)
 
 
 def priorities_dir() -> Path:

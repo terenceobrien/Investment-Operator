@@ -1,0 +1,55 @@
+{
+  "cache_dir": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache",
+  "series": {
+    "BAA": {
+      "fetched_at": "2026-07-31T02:39:03Z",
+      "first_date": "1919-01-01",
+      "last_date": "2026-06-01",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/BAA.parquet",
+      "row_count": 1290
+    },
+    "FEDFUNDS": {
+      "fetched_at": "2026-07-31T02:39:03Z",
+      "first_date": "1954-07-01",
+      "last_date": "2026-06-01",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/FEDFUNDS.parquet",
+      "row_count": 864
+    },
+    "GDPC1": {
+      "fetched_at": "2026-07-31T02:39:01Z",
+      "first_date": "1947-01-01",
+      "last_date": "2026-04-01",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/GDPC1.parquet",
+      "row_count": 318
+    },
+    "GS10": {
+      "fetched_at": "2026-07-31T02:39:03Z",
+      "first_date": "1953-04-01",
+      "last_date": "2026-06-01",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/GS10.parquet",
+      "row_count": 879
+    },
+    "NFCI": {
+      "fetched_at": "2026-07-31T02:39:04Z",
+      "first_date": "1971-01-08",
+      "last_date": "2026-07-24",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/NFCI.parquet",
+      "row_count": 2899
+    },
+    "PCEPILFE": {
+      "fetched_at": "2026-07-31T02:39:02Z",
+      "first_date": "1959-01-01",
+      "last_date": "2026-06-01",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/PCEPILFE.parquet",
+      "row_count": 810
+    },
+    "UNRATE": {
+      "fetched_at": "2026-07-31T02:39:02Z",
+      "first_date": "1948-01-01",
+      "last_date": "2026-06-01",
+      "path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/UNRATE.parquet",
+      "row_count": 941
+    }
+  },
+  "updated_at": "2026-07-31T02:39:04Z"
+}

@@ -12,9 +12,10 @@ from src.agent_system.schemas.monte_carlo import TradeExposure
 from src.agent_system.schemas.thematic import InstrumentType
 from src.agent_system.schemas.trade import TradeIdea
 from src.agent_system.services.market_data_cache import MarketDataCache
+from src.agent_system.paths import reference_data_dir
 
 
-REFERENCE_DIR = Path("data/reference")
+REFERENCE_DIR = reference_data_dir(create=False)
 logger = logging.getLogger(__name__)
 
 DEFAULT_THEME_BETAS = {

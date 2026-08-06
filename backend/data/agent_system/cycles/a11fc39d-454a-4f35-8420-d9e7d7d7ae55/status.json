@@ -1,0 +1,92 @@
+{
+  "cycle_id": "a11fc39d-454a-4f35-8420-d9e7d7d7ae55",
+  "started_at": "2026-06-24T23:35:33.623386Z",
+  "updated_at": "2026-06-24T23:35:35.080175Z",
+  "completed_at": null,
+  "overall_status": "running",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-06-24T23:35:33.642625Z",
+      "completed_at": "2026-06-24T23:35:33.642633Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "running",
+      "started_at": "2026-06-24T23:35:35.078603Z",
+      "completed_at": null,
+      "message": "working on priority 1: AI power/grid beneficiaries",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "monte_carlo",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {},
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

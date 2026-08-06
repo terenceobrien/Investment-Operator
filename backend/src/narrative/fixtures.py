@@ -10,8 +10,9 @@ from src.narrative.ticker_profiles import (
     normalize_ticker,
     prompt_subject_profile,
 )
+from src.agent_system.paths import fixtures_dir
 
-FIXTURE_DIR = Path(__file__).resolve().parents[2] / "data" / "fixtures" / "narrative"
+FIXTURE_DIR = fixtures_dir(create=False) / "narrative"
 
 
 def _adapt_fixture(base: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, Any]:

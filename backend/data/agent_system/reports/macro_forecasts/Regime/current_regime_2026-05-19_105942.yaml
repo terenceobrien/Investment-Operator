@@ -1,0 +1,149 @@
+regime_id: supply_shock_inflation
+regime_label: Sticky Late Cycle AI leads; top macro-supported themes are Quality ex-AI cash flow, Cash
+  and short duration, Grid and power infrastructure.
+regime_call_confidence: 0.7805
+headline: Forecast favors sticky late-cycle AI leadership over broad soft-landing participation.
+summary: 'The model assigns the highest probability to Sticky Late Cycle AI at 26.5%; runner-up reopening_soft_landing
+  at 26.2%. The largest displayed deterministic driver is AI earnings resilience (+0.507). Healthy credit
+  can keep the regime from becoming fully risk-off, while weak breadth, restrictive Fed pricing, and resilient
+  AI earnings determine whether leadership stays narrow. Reported scenario probabilities are historically
+  calibrated after the deterministic update. Dominant scenario: Sticky Late Cycle AI (27%); runner-up
+  scenario: Reopening / Soft Landing (26%). Probability mode: historically_calibrated. Key macro tension:
+  Fed path remains restrictive despite some monetary-layer improvement.'
+risk_summary: 'Fed path remains restrictive despite some monetary-layer improvement. Oil risk remains
+  two-sided between inflation pressure and reopening relief. Sticky Late Cycle AI could fade if Breadth
+  broadens materially with equal-weight and small-cap leadership. Reopening / Soft Landing could fade
+  if Breadth narrows further. Tail probabilities remain visible: risk-off 24%, AI capex rollover 8%.'
+scenario_probabilities:
+  reopening_soft_landing: 0.26236377701294605
+  sticky_late_cycle_ai: 0.26505874802591034
+  late_cycle_risk_off: 0.2411374090780037
+  oil_inflation_tail: 0.15187279190031042
+  ai_capex_rollover: 0.07956727398282953
+key_drivers:
+- name: AI earnings resilience
+  status: bullish/stable
+  explanation: bullish for quality ai infrastructure capital spending tied to data-center demand remains
+    durable.
+- name: Breadth / participation
+  status: bearish/deteriorating
+  explanation: Narrow leadership Breadth remains weak on an absolute basis.
+- name: Credit conditions
+  status: bearish/deteriorating
+  explanation: Credit is contained but no longer easing
+- name: Fed path / monetary policy
+  status: bearish/stable
+  explanation: Composite reconciles layer score 3.40, layer signal bearish with Fed signal neutral. Component
+    signals are displayed but excluded from probability updates.
+- name: Oil shock and reopening optionality
+  status: mixed/mixed
+  explanation: bearish for broad beta / bullish for energy elevated oil keeps inflation risk alive and
+    raises input costs.
+- name: Volatility / hedging
+  status: bearish/deteriorating
+  explanation: Volatility risk premium elevated
+portfolio_implications:
+- Favor themes with positive macro support across the highest-probability scenarios.
+- Maintain hedges or cash-like exposure while risk-off analogue probability remains elevated.
+- Distinguish quality AI and grid beneficiaries from high-beta crowded semiconductor beta.
+- Best supported exposures include Quality ex-AI cash flow, Cash and short duration, Grid and power infrastructure,
+  Healthcare defensives.
+- Be cautious with Small caps, High-beta AI semiconductors, Long-duration growth, Memory semiconductors.
+- Treat oil and energy exposure as tactical because oil-shock risk remains two-sided.
+best_positioned:
+- Quality ex-AI cash flow
+- Cash and short duration
+- Grid and power infrastructure
+- Healthcare defensives
+- Commodities and real assets
+- Cash and carry
+- Defensive factor
+- Quality
+most_vulnerable:
+- Small caps
+- High-beta AI semiconductors
+- Long-duration growth
+- Memory semiconductors
+- High beta growth
+- Duration sensitivity
+- Small-cap beta
+- Weak balance sheets
+- Crowded capex beta if capex rollover risk rises
+falsifiers:
+- condition: Breadth broadens materially with equal-weight and small-cap leadership.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Fed cut probabilities rise.
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Breadth remains weak while AI earnings revisions stay positive.
+  observable_in: price_action
+  check_frequency: event_driven
+- condition: Breadth narrows further.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Fed hold/hike odds rise.
+  observable_in: data_series
+  check_frequency: weekly
+- condition: RSP begins outperforming SPY and small caps outperform.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Credit stays tight.
+  observable_in: data_series
+  check_frequency: daily
+- condition: Breadth improves and volatility remains contained.
+  observable_in: price_action
+  check_frequency: daily
+- condition: HY spreads widen or credit-sensitive equities underperform.
+  observable_in: price_action
+  check_frequency: daily
+- condition: Hormuz reopening is confirmed and oil risk premium compresses.
+  observable_in: price_action
+  check_frequency: daily
+seed_research_priorities:
+- theme: Quality ex-AI cash-flow compounders with soft-landing and sticky-cycle resilience
+  rationale: 'Quality ex-AI ranks highly because it performs well across Sticky Late Cycle AI, Late Cycle
+    Risk-Off, Reopening / Soft Landing. Downstream research should test whether specific names are genuinely
+    under-owned, attractively valued, and supported by revisions. Current regime: Supply-shock inflation
+    / late-cycle tightening. Key drivers: Oil supply shock, AI earnings resilience.'
+  edge_hypothesis: Macro support may favor high-ROIC cash-generative businesses outside explicit AI leadership,
+    but the actionable edge depends on downstream proof of under-ownership, valuation support, and durable
+    estimate revisions.
+  sub_questions:
+  - Which non-AI cash-flow compounders have positive estimate revision potential?
+  - Where are balance-sheet quality and free-cash-flow durability mispriced versus AI-led scarcity names?
+  - Which candidates still work if policy stays restrictive and broad beta remains uneven?
+  - Which names have hidden cyclicality that would fail in a late-cycle risk-off scenario?
+  priority_rank: 1
+  expected_edge_decay: quarters
+- theme: Cash and short duration candidates with explicit scenario asymmetry tests
+  rationale: 'Cash and short duration has a positive macro support score with support from Late Cycle
+    Risk-Off, Sticky Late Cycle AI, Oil Inflation Tail. Research should focus on instruments that keep
+    downside manageable in Reopening / Soft Landing, then test crowding, valuation, narrative maturity,
+    and bottom-up quality downstream. Current regime: Supply-shock inflation / late-cycle tightening.
+    Key drivers: Oil supply shock, AI earnings resilience.'
+  edge_hypothesis: The market may be underpricing cash and short duration exposures that benefit from
+    the current scenario mix while retaining acceptable downside in the least favorable macro paths.
+  sub_questions:
+  - Which instruments provide the cleanest exposure to Cash and short duration?
+  - Where do valuation and positioning leave room for upside rather than only macro beta?
+  - What breaks the thesis in Reopening / Soft Landing?
+  priority_rank: 2
+  expected_edge_decay: quarters
+- theme: Second-order grid and power infrastructure beneficiaries with cross-scenario support
+  rationale: 'Grid/power ranks highly because it has positive macro support across Sticky Late Cycle AI,
+    Reopening / Soft Landing, Oil Inflation Tail. Research should now test whether the best expressions
+    are obvious AI-grid leaders or less-obvious second-order beneficiaries. Crowding, valuation, and narrative
+    maturity should be evaluated downstream. Worst scenarios to underwrite: Late Cycle Risk-Off, AI Capex
+    Rollover. Current regime: Supply-shock inflation / late-cycle tightening. Key drivers: Oil supply
+    shock, AI earnings resilience.'
+  edge_hypothesis: Macro support for grid and power infrastructure may create attractive research paths,
+    but the edge depends on finding specific suppliers, service providers, or infrastructure names where
+    ownership, valuation, revisions, and narrative maturity still leave room for upside.
+  sub_questions:
+  - Which names have direct but under-discussed data-center, grid, or power exposure?
+  - Which names have positive estimate revision potential without extreme AI-infrastructure crowding?
+  - Which names remain resilient if AI capex continues but rates stay restrictive?
+  - Which names would fail if AI capex rollover probability rises?
+  priority_rank: 3
+  expected_edge_decay: quarters

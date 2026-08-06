@@ -1,0 +1,336 @@
+Directional Analogue Forward-Outcome Test
+library: /Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/directional_feature_library.csv
+output_csv: /Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/forward_outcome_results.csv
+horizon_quarters: 8
+w: 0.500
+prior_strength: 3.000
+min_pool: 30
+eligible_queries: 194
+insufficient_pool: 29; unprecedented_state: 40; scored_rows: 125
+unprecedented_share_of_min_pool_eligible: 0.242424
+unprecedented_state_dates: 1983Q2, 1983Q3, 1983Q4, 1984Q1, 1985Q1, 1985Q2, 1985Q3, 1985Q4, 1986Q1, 1986Q2, 1987Q4, 1990Q2, 1990Q3, 1991Q1, 1991Q3, 1992Q1, 1992Q2, 1992Q3, 1998Q4, 2008Q1, 2008Q2, 2008Q4, 2009Q1, 2009Q2, 2009Q3, 2009Q4, 2010Q1, 2010Q2, 2020Q2, 2020Q3, 2021Q1, 2021Q2, 2021Q3, 2021Q4, 2022Q1, 2022Q2, 2022Q3, 2022Q4, 2023Q1, 2023Q4
+base_rates:
+  pit_observable: 0.272727
+  in_sample: 0.272727
+
+Metrics: mode=pit_observable share=shrunk sample=all scored queries
+  total_queries: 194
+  scored_queries: 121
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 4
+  dropped_unresolved_count: 115
+  base_rate_used: 0.272727
+  Spearman share vs actual_recession: 0.360969
+  Spearman share vs fwd_credit_spread_change: 0.323691
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=121 rho=0.360969
+    n>=3: n=101 rho=0.457611
+    n>=5: n=80 rho=0.446106
+    n>=8: n=67 rho=0.451938
+  bucket method: quintile
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+Q5                  24     0.3437     0.6105     0.5833           0.5218
+Q2                  24     0.1388     0.1752     0.1667          -0.0201
+Q4                  24     0.2259     0.3431     0.4167          -0.0322
+Q3                  24     0.1772     0.2253     0.3750           0.2211
+Q1                  25     0.0457     0.1286     0.0800          -0.2053
+
+Metrics: mode=pit_observable share=shrunk sample=excluding forward windows that intersect 2020Q1-2020Q2
+  total_queries: 185
+  scored_queries: 112
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 4
+  dropped_unresolved_count: 96
+  base_rate_used: 0.230769
+  Spearman share vs actual_recession: 0.339875
+  Spearman share vs fwd_credit_spread_change: 0.302745
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=112 rho=0.339875
+    n>=3: n=92 rho=0.436229
+    n>=5: n=71 rho=0.396177
+    n>=8: n=58 rho=0.384043
+  bucket method: quintile
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+Q5                  23     0.3085     0.6105     0.4348           0.3686
+Q2                  22     0.1388     0.1735     0.1818          -0.0298
+Q4                  22     0.2234     0.3063     0.3182          -0.0477
+Q3                  22     0.1751     0.2225     0.4091           0.3412
+Q1                  23     0.0457     0.1281     0.0000          -0.1946
+
+Metrics: mode=pit_observable share=raw sample=all scored queries
+  total_queries: 194
+  scored_queries: 121
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 4
+  dropped_unresolved_count: 115
+  base_rate_used: 0.272727
+  Spearman share vs actual_recession: 0.319473
+  Spearman share vs fwd_credit_spread_change: 0.415716
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=121 rho=0.319473
+    n>=3: n=101 rho=0.464115
+    n>=5: n=80 rho=0.425547
+    n>=8: n=67 rho=0.442608
+  bucket method: distinct-value groups
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+share=1.000000       6     1.0000     1.0000     0.1667           0.2872
+share=0.000000      40     0.0000     0.0000     0.1500          -0.2988
+  suppressed singleton distinct groups: 75
+
+Metrics: mode=pit_observable share=raw sample=excluding forward windows that intersect 2020Q1-2020Q2
+  total_queries: 185
+  scored_queries: 112
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 4
+  dropped_unresolved_count: 96
+  base_rate_used: 0.230769
+  Spearman share vs actual_recession: 0.265883
+  Spearman share vs fwd_credit_spread_change: 0.414493
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=112 rho=0.265883
+    n>=3: n=92 rho=0.424731
+    n>=5: n=71 rho=0.368924
+    n>=8: n=58 rho=0.372382
+  bucket method: distinct-value groups
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+share=1.000000       6     1.0000     1.0000     0.1667           0.2872
+share=0.000000      40     0.0000     0.0000     0.1500          -0.2988
+  suppressed singleton distinct groups: 66
+
+Metrics: mode=in_sample share=shrunk sample=all scored queries
+  total_queries: 194
+  scored_queries: 125
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 0
+  dropped_unresolved_count: 115
+  base_rate_used: 0.272727
+  Spearman share vs actual_recession: 0.371821
+  Spearman share vs fwd_credit_spread_change: 0.336405
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=125 rho=0.371821
+    n>=3: n=102 rho=0.485060
+    n>=5: n=81 rho=0.498780
+    n>=8: n=68 rho=0.510892
+  bucket method: quintile
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+Q5                  25     0.3431     0.6105     0.5200           0.3901
+Q2                  25     0.1300     0.1823     0.2000          -0.2476
+Q3                  25     0.1830     0.2244     0.3200           0.2141
+Q4                  25     0.2249     0.3354     0.4800           0.2495
+Q1                  25     0.0386     0.1286     0.0400          -0.2253
+
+Metrics: mode=in_sample share=shrunk sample=excluding forward windows that intersect 2020Q1-2020Q2
+  total_queries: 185
+  scored_queries: 116
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 0
+  dropped_unresolved_count: 96
+  base_rate_used: 0.230769
+  Spearman share vs actual_recession: 0.352769
+  Spearman share vs fwd_credit_spread_change: 0.325105
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=116 rho=0.352769
+    n>=3: n=93 rho=0.465014
+    n>=5: n=72 rho=0.455557
+    n>=8: n=59 rho=0.458653
+  bucket method: quintile
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+Q5                  23     0.3354     0.6105     0.4348           0.3703
+Q2                  23     0.1300     0.1772     0.1739          -0.2297
+Q4                  23     0.2234     0.3306     0.3478           0.1236
+Q3                  23     0.1823     0.2225     0.3478           0.3083
+Q1                  24     0.0386     0.1226     0.0000          -0.2203
+
+Metrics: mode=in_sample share=raw sample=all scored queries
+  total_queries: 194
+  scored_queries: 125
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 0
+  dropped_unresolved_count: 115
+  base_rate_used: 0.272727
+  Spearman share vs actual_recession: 0.320073
+  Spearman share vs fwd_credit_spread_change: 0.430769
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=125 rho=0.320073
+    n>=3: n=102 rho=0.475127
+    n>=5: n=81 rho=0.484811
+    n>=8: n=68 rho=0.511698
+  bucket method: distinct-value groups
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+share=1.000000       7     1.0000     1.0000     0.1429           0.3000
+share=0.000000      42     0.0000     0.0000     0.1429          -0.3363
+  suppressed singleton distinct groups: 76
+
+Metrics: mode=in_sample share=raw sample=excluding forward windows that intersect 2020Q1-2020Q2
+  total_queries: 185
+  scored_queries: 116
+  insufficient_pool: 29
+  unprecedented_state: 40
+  no_evaluable_neighbors: 0
+  dropped_unresolved_count: 96
+  base_rate_used: 0.230769
+  Spearman share vs actual_recession: 0.270513
+  Spearman share vs fwd_credit_spread_change: 0.438522
+  Spearman vs actual_recession by minimum evaluable-neighbor cut:
+    n>=1: n=116 rho=0.270513
+    n>=3: n=93 rho=0.441944
+    n>=5: n=72 rho=0.435916
+    n>=8: n=59 rho=0.452541
+  bucket method: distinct-value groups
+bucket               n  share_min  share_max   rec_rate  mean_credit_chg
+share=1.000000       7     1.0000     1.0000     0.1429           0.3000
+share=0.000000      42     0.0000     0.0000     0.1429          -0.3363
+  suppressed singleton distinct groups: 67
+
+In-sample label contamination summary
+  scored_queries: 125
+  mean_contamination_fraction: 0.088458
+  max_contamination_fraction: 1.000000
+  top 10 contaminated queries:
+    query      fraction  unresolved_wt   in_sample_wt
+    1986Q3     1.000000       0.645443       0.645443
+    1986Q4     1.000000       1.458255       1.458255
+    1991Q2     1.000000       0.676064       0.676064
+    1991Q4     1.000000       0.627523       0.627523
+    2015Q4     0.509875       0.641703       1.258549
+    2012Q1     0.393574       1.445051       3.671608
+    1994Q1     0.354614       1.974994       5.569416
+    1995Q2     0.320165       0.635493       1.984893
+    1998Q3     0.267891       2.307791       8.614660
+    1992Q4     0.257543       0.688165       2.672036
+
+Lead-time trajectories: mode=pit_observable, raw and shrunk share over 8 quarters before each NBER peak plus the peak quarter
+Peak 1969Q4: skipped_no_library_coverage
+Peak 1973Q4: skipped_no_library_coverage
+Peak 1980Q1: ok
+  1978Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1978Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1978Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1978Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+Peak 1981Q3: ok
+  1979Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1981Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1981Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1981Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+Peak 1990Q3: ok
+  1988Q3: status=ok                     raw=0.323326 shrunk=0.292621 n_matches=3 evaluable=3
+  1988Q4: status=ok                     raw=0.494727 shrunk=0.379372 n_matches=4 evaluable=4
+  1989Q1: status=ok                     raw=0.502514 shrunk=0.382887 n_matches=4 evaluable=4
+  1989Q2: status=ok                     raw=0.650608 shrunk=0.426298 n_matches=3 evaluable=3
+  1989Q3: status=ok                     raw=0.000000 shrunk=0.190366 n_matches=2 evaluable=2
+  1989Q4: status=ok                     raw=0.000000 shrunk=0.142654 n_matches=4 evaluable=4
+  1990Q1: status=ok                     raw=0.000000 shrunk=0.185405 n_matches=2 evaluable=2
+  1990Q2: status=unprecedented_state    raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1990Q3: status=unprecedented_state    raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+Peak 2001Q1: ok
+  1999Q1: status=ok                     raw=0.000000 shrunk=0.226674 n_matches=1 evaluable=1
+  1999Q2: status=ok                     raw=0.310356 shrunk=0.298095 n_matches=10 evaluable=9
+  1999Q3: status=ok                     raw=0.330904 shrunk=0.306269 n_matches=6 evaluable=6
+  1999Q4: status=ok                     raw=0.122919 shrunk=0.177182 n_matches=8 evaluable=8
+  2000Q1: status=ok                     raw=0.527611 shrunk=0.453050 n_matches=11 evaluable=11
+  2000Q2: status=ok                     raw=0.120051 shrunk=0.173510 n_matches=9 evaluable=8
+  2000Q3: status=ok                     raw=0.203205 shrunk=0.235721 n_matches=5 evaluable=5
+  2000Q4: status=ok                     raw=0.168752 shrunk=0.212576 n_matches=6 evaluable=6
+  2001Q1: status=ok                     raw=0.140948 shrunk=0.192031 n_matches=7 evaluable=7
+Peak 2007Q4: ok
+  2005Q4: status=ok                     raw=0.419012 shrunk=0.385132 n_matches=16 evaluable=14
+  2006Q1: status=ok                     raw=0.441809 shrunk=0.408878 n_matches=21 evaluable=18
+  2006Q2: status=ok                     raw=0.531284 shrunk=0.474322 n_matches=19 evaluable=15
+  2006Q3: status=ok                     raw=0.523001 shrunk=0.472777 n_matches=21 evaluable=17
+  2006Q4: status=ok                     raw=0.210724 shrunk=0.220190 n_matches=27 evaluable=23
+  2007Q1: status=ok                     raw=0.136531 shrunk=0.155271 n_matches=30 evaluable=26
+  2007Q2: status=ok                     raw=0.116279 shrunk=0.140286 n_matches=27 evaluable=23
+  2007Q3: status=ok                     raw=0.213282 shrunk=0.227786 n_matches=14 evaluable=14
+  2007Q4: status=ok                     raw=0.503725 shrunk=0.382446 n_matches=4 evaluable=4
+Peak 2019Q4: ok
+  2017Q4: status=ok                     raw=0.175806 shrunk=0.184895 n_matches=43 evaluable=40
+  2018Q1: status=ok                     raw=0.245866 shrunk=0.248986 n_matches=35 evaluable=32
+  2018Q2: status=ok                     raw=0.353155 shrunk=0.343682 n_matches=35 evaluable=32
+  2018Q3: status=ok                     raw=0.366371 shrunk=0.356239 n_matches=39 evaluable=35
+  2018Q4: status=ok                     raw=0.354244 shrunk=0.344220 n_matches=33 evaluable=30
+  2019Q1: status=ok                     raw=0.382015 shrunk=0.367813 n_matches=31 evaluable=29
+  2019Q2: status=ok                     raw=0.270099 shrunk=0.270428 n_matches=32 evaluable=30
+  2019Q3: status=ok                     raw=0.087135 shrunk=0.116523 n_matches=24 evaluable=23
+  2019Q4: status=ok                     raw=0.106518 shrunk=0.128648 n_matches=29 evaluable=29
+
+Lead-time trajectories: mode=in_sample, raw and shrunk share over 8 quarters before each NBER peak plus the peak quarter
+Peak 1969Q4: skipped_no_library_coverage
+Peak 1973Q4: skipped_no_library_coverage
+Peak 1980Q1: ok
+  1978Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1978Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1978Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1978Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+Peak 1981Q3: ok
+  1979Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1979Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1980Q4: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1981Q1: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1981Q2: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1981Q3: status=insufficient_pool      raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+Peak 1990Q3: ok
+  1988Q3: status=ok                     raw=0.323326 shrunk=0.292621 n_matches=3 evaluable=3
+  1988Q4: status=ok                     raw=0.494727 shrunk=0.379372 n_matches=4 evaluable=4
+  1989Q1: status=ok                     raw=0.502514 shrunk=0.382887 n_matches=4 evaluable=4
+  1989Q2: status=ok                     raw=0.650608 shrunk=0.426298 n_matches=3 evaluable=3
+  1989Q3: status=ok                     raw=0.000000 shrunk=0.190366 n_matches=2 evaluable=2
+  1989Q4: status=ok                     raw=0.000000 shrunk=0.142654 n_matches=4 evaluable=4
+  1990Q1: status=ok                     raw=0.000000 shrunk=0.185405 n_matches=2 evaluable=2
+  1990Q2: status=unprecedented_state    raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+  1990Q3: status=unprecedented_state    raw=     n/a shrunk=     n/a n_matches=0 evaluable=0
+Peak 2001Q1: ok
+  1999Q1: status=ok                     raw=0.000000 shrunk=0.226674 n_matches=1 evaluable=1
+  1999Q2: status=ok                     raw=0.279989 shrunk=0.277784 n_matches=10 evaluable=10
+  1999Q3: status=ok                     raw=0.330904 shrunk=0.306269 n_matches=6 evaluable=6
+  1999Q4: status=ok                     raw=0.122919 shrunk=0.177182 n_matches=8 evaluable=8
+  2000Q1: status=ok                     raw=0.527611 shrunk=0.453050 n_matches=11 evaluable=11
+  2000Q2: status=ok                     raw=0.107025 shrunk=0.160792 n_matches=9 evaluable=9
+  2000Q3: status=ok                     raw=0.203205 shrunk=0.235721 n_matches=5 evaluable=5
+  2000Q4: status=ok                     raw=0.168752 shrunk=0.212576 n_matches=6 evaluable=6
+  2001Q1: status=ok                     raw=0.140948 shrunk=0.192031 n_matches=7 evaluable=7
+Peak 2007Q4: ok
+  2005Q4: status=ok                     raw=0.363251 shrunk=0.344497 n_matches=16 evaluable=16
+  2006Q1: status=ok                     raw=0.372168 shrunk=0.355336 n_matches=21 evaluable=21
+  2006Q2: status=ok                     raw=0.418102 shrunk=0.391656 n_matches=19 evaluable=19
+  2006Q3: status=ok                     raw=0.414888 shrunk=0.391278 n_matches=21 evaluable=21
+  2006Q4: status=ok                     raw=0.220839 shrunk=0.227621 n_matches=27 evaluable=27
+  2007Q1: status=ok                     raw=0.189058 shrunk=0.199177 n_matches=30 evaluable=30
+  2007Q2: status=ok                     raw=0.211526 shrunk=0.219730 n_matches=27 evaluable=27
+  2007Q3: status=ok                     raw=0.213282 shrunk=0.227786 n_matches=14 evaluable=14
+  2007Q4: status=ok                     raw=0.503725 shrunk=0.382446 n_matches=4 evaluable=4
+Peak 2019Q4: ok
+  2017Q4: status=ok                     raw=0.163182 shrunk=0.172782 n_matches=43 evaluable=43
+  2018Q1: status=ok                     raw=0.222442 shrunk=0.227784 n_matches=35 evaluable=35
+  2018Q2: status=ok                     raw=0.318119 shrunk=0.313246 n_matches=35 evaluable=35
+  2018Q3: status=ok                     raw=0.327995 shrunk=0.322580 n_matches=39 evaluable=39
+  2018Q4: status=ok                     raw=0.353333 shrunk=0.344188 n_matches=33 evaluable=33
+  2019Q1: status=ok                     raw=0.388992 shrunk=0.374696 n_matches=31 evaluable=31
+  2019Q2: status=ok                     raw=0.283982 shrunk=0.282645 n_matches=32 evaluable=32
+  2019Q3: status=ok                     raw=0.124135 shrunk=0.146856 n_matches=24 evaluable=24
+  2019Q4: status=ok                     raw=0.106518 shrunk=0.128648 n_matches=29 evaluable=29
+

@@ -1,0 +1,1555 @@
+{
+  "ticker": "MU",
+  "as_of_date": "2026-06-30",
+  "created_at": "2026-07-01T05:19:48.291614",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "accession_number": "0000723125-26-000013",
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/0000723125-26-000013-index-headers.html",
+      "accession_number": "0000723125-26-000013",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/0000723125-26-000013-index.html",
+      "accession_number": "0000723125-26-000013",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/0000723125-26-000013.txt",
+      "accession_number": "0000723125-26-000013",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/mu-20260624.htm",
+      "accession_number": "0000723125-26-000013",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926071845/0001104659-26-071845-index-headers.html",
+      "accession_number": "0001104659-26-071845",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926071845/0001104659-26-071845-index.html",
+      "accession_number": "0001104659-26-071845",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926071845/0001104659-26-071845.txt",
+      "accession_number": "0001104659-26-071845",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926071845/tm2617112d1_8k.htm",
+      "accession_number": "0001104659-26-071845",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926071845/tm2617112d1_ex99-1.htm",
+      "accession_number": "0001104659-26-071845",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/0001104659-26-038249-index-headers.html",
+      "accession_number": "0001104659-26-038249",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/0001104659-26-038249-index.html",
+      "accession_number": "0001104659-26-038249",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/0001104659-26-038249.txt",
+      "accession_number": "0001104659-26-038249",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/tm2610810d1_8k.htm",
+      "accession_number": "0001104659-26-038249",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/tm2610810d1_ex99-1.htm",
+      "accession_number": "0001104659-26-038249",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/tm2610810d1_ex99-2.htm",
+      "accession_number": "0001104659-26-038249",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926034174/0001104659-26-034174-index-headers.html",
+      "accession_number": "0001104659-26-034174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926034174/0001104659-26-034174-index.html",
+      "accession_number": "0001104659-26-034174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926034174/0001104659-26-034174.txt",
+      "accession_number": "0001104659-26-034174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926034174/tm269755d1_8k.htm",
+      "accession_number": "0001104659-26-034174",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926034174/tm269755d1_ex99-1.htm",
+      "accession_number": "0001104659-26-034174",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000004/0000723125-26-000004-index-headers.html",
+      "accession_number": "0000723125-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000004/0000723125-26-000004-index.html",
+      "accession_number": "0000723125-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000004/0000723125-26-000004.txt",
+      "accession_number": "0000723125-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000004/mu-20260318.htm",
+      "accession_number": "0000723125-26-000004",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926005366/0001104659-26-005366-index-headers.html",
+      "accession_number": "0001104659-26-005366",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926005366/0001104659-26-005366-index.html",
+      "accession_number": "0001104659-26-005366",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926005366/0001104659-26-005366.txt",
+      "accession_number": "0001104659-26-005366",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926005366/tm263707d1_8k.htm",
+      "accession_number": "0001104659-26-005366",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000015/mu-20260528.htm",
+      "accession_number": "0000723125-26-000015",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "found",
+      "provider_status": null,
+      "provider": "manual",
+      "source_name": "Manual transcript",
+      "source_date": null,
+      "source_url": "/Users/terenceobrien/AI_Financial_Operator/data/manual_sources/MU_transcript.txt",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "fmp",
+      "source_name": "FMP earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "FMP transcript endpoint is plan-restricted for current subscription."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "finnhub",
+      "source_name": "Finnhub earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Finnhub transcript endpoint is not available under current entitlement."
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "error",
+      "provider_status": "error",
+      "provider": "newsapi",
+      "source_name": "NewsAPI company news",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=d1290712fd25527bb9af0947c1fa569fe7e33138fabfabaa3d29656ebcedaa49",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=43b1e6754b8979dbac5bee8587da3a10f7c46246c10712b0eca09f41734d2213",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=0c33935880cb501fa457ec6608dcf929e32411e22c71348a3f66d628d29d52fa",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=f73d50b7fe9a181e3ff9e55b4b71de35686b35a0718d85b9ec67f77d412e2aae",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=4904725d474b0cdd8240208a11f28e1e369f4dbb396a1f2b16b14fb68a753074",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=fbde51f25385e508d075373f9be92e82de4af3eb90d5bdb872cd92c318c93177",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=70dbf0d1a3b480214d68d390850120fe52235f5b034cebeb5939ab737b6d757d",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=ebdf1f100b31973d9b21f86ef426c7e50e8645e45c9f76625c339221c126e493",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=d74bc712ee8492dafdd33b494cca940433cb538edbbf3dda5ab57aba05b66e92",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=fde9c77d30ab13d00f8699cc92f7b29b0fe445bfe268b3a0d779fdfb508a309f",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "yfinance",
+      "source_name": "yfinance analyst estimates",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "document_purpose": "peer_commentary",
+      "status": "skipped",
+      "provider_status": null,
+      "provider": "peer commentary",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: SSNLF, 000660.KS, WDC."
+    }
+  ],
+  "source_coverage_summary": "earnings_release:sec_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:finnhub_found=10; news:newsapi_error=1; other_8k:sec_found=27; peer_commentary:peer commentary_skipped=1; stress_test:sec_found=1; transcript:finnhub_plan_restricted=1; transcript:fmp_plan_restricted=1; transcript:manual_found=1; earnings_release:sec_selected=1; estimates:yfinance_selected=1; filing:sec_selected=1; news:finnhub_selected=10; other_8k:sec_selected=4; stress_test:sec_selected=1; transcript:manual_selected=1; extraction_selected=19; duplicate_dropped=23",
+  "extraction_source_summary": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: a2026q3ex991-pressrelease.htm",
+      "source_date": "2026-06-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000013/a2026q3ex991-pressrelease.htm",
+      "text_len": 17661,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: tm2617112d1_ex99-1.htm",
+      "source_date": "2026-06-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926071845/tm2617112d1_ex99-1.htm",
+      "text_len": 3509,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "source_name": "SEC EDGAR",
+      "title": "10-Q",
+      "source_date": "2026-06-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000015/mu-20260528.htm",
+      "text_len": 92953,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "latest_sec_filing"
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "source_name": "Manual transcript",
+      "title": "MU_transcript.txt",
+      "source_date": null,
+      "source_url": "/Users/terenceobrien/AI_Financial_Operator/data/manual_sources/MU_transcript.txt",
+      "text_len": 26498,
+      "text_excerpt_len": 2500,
+      "provider": "manual",
+      "provider_status": null,
+      "selected_reason": "highest_priority_transcript_provider"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Micron, Intel and AMD add $2 trillion in value in Q2 rally",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=0c33935880cb501fa457ec6608dcf929e32411e22c71348a3f66d628d29d52fa",
+      "text_len": 250,
+      "text_excerpt_len": 191,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Why Intel (INTC) Stock Is Up Today",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=43b1e6754b8979dbac5bee8587da3a10f7c46246c10712b0eca09f41734d2213",
+      "text_len": 315,
+      "text_excerpt_len": 280,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Investors are abandoning Mag7 stocks as AI boom transforms",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=4904725d474b0cdd8240208a11f28e1e369f4dbb396a1f2b16b14fb68a753074",
+      "text_len": 357,
+      "text_excerpt_len": 298,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Micron Stock Notches Best Ever Quarter. Why 1 Analyst Sees Even More Gains.",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=70dbf0d1a3b480214d68d390850120fe52235f5b034cebeb5939ab737b6d757d",
+      "text_len": 184,
+      "text_excerpt_len": 108,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Why Is IPG Photonics (IPGP) Stock Soaring Today",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=d1290712fd25527bb9af0947c1fa569fe7e33138fabfabaa3d29656ebcedaa49",
+      "text_len": 301,
+      "text_excerpt_len": 253,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Sector Update: Tech Stocks Rise Late Afternoon",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=d74bc712ee8492dafdd33b494cca940433cb538edbbf3dda5ab57aba05b66e92",
+      "text_len": 147,
+      "text_excerpt_len": 100,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "MU Stock Alert: What to Know as Micron Commits $250M to Trump Accounts",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=ebdf1f100b31973d9b21f86ef426c7e50e8645e45c9f76625c339221c126e493",
+      "text_len": 175,
+      "text_excerpt_len": 104,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=f73d50b7fe9a181e3ff9e55b4b71de35686b35a0718d85b9ec67f77d412e2aae",
+      "text_len": 410,
+      "text_excerpt_len": 336,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Micron and Other Memory Makers Are Being Sued Over Price Fixing Claims. This Is Nothing More Than Headline Risk for MU Stock.",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=fbde51f25385e508d075373f9be92e82de4af3eb90d5bdb872cd92c318c93177",
+      "text_len": 333,
+      "text_excerpt_len": 207,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "How Micron Used The AI Boom To Tame Its Oldest Demon",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=fde9c77d30ab13d00f8699cc92f7b29b0fe445bfe268b3a0d779fdfb508a309f",
+      "text_len": 183,
+      "text_excerpt_len": 130,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "source_name": "yfinance analyst estimates",
+      "title": "Analyst estimate summary",
+      "source_date": null,
+      "source_url": null,
+      "text_len": 6151,
+      "text_excerpt_len": 6151,
+      "provider": "yfinance",
+      "provider_status": "found",
+      "selected_reason": "estimate_selected_for_extraction"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: tm269755d1_ex99-1.htm",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926034174/tm269755d1_ex99-1.htm",
+      "text_len": 6604,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: tm2610810d1_ex99-1.htm",
+      "source_date": "2026-04-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926038249/tm2610810d1_ex99-1.htm",
+      "text_len": 7413,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: mu-20260318.htm",
+      "source_date": "2026-03-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000072312526000004/mu-20260318.htm",
+      "text_len": 3465,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: tm263707d1_8k.htm",
+      "source_date": "2026-01-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926005366/tm263707d1_8k.htm",
+      "text_len": 5743,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    }
+  ],
+  "earnings_release_evidence": [],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=0c33935880cb501fa457ec6608dcf929e32411e22c71348a3f66d628d29d52fa",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Micron, Intel and AMD add $2 trillion in value in Q2 rally",
+      "claim": "Micron, Intel and AMD add $2 trillion in value in Q2 rally",
+      "summary": "Investing.com -- Three major chipmakers gained about $2 trillion in combined market value during the second quarter as investors expanded their artificial intelligence holdings beyond Nvidia.",
+      "excerpt": "Investing.com -- Three major chipmakers gained about $2 trillion in combined market value during the second quarter as investors expanded their artificial intelligence holdings beyond Nvidia.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=43b1e6754b8979dbac5bee8587da3a10f7c46246c10712b0eca09f41734d2213",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Why Intel (INTC) Stock Is Up Today",
+      "claim": "Why Intel (INTC) Stock Is Up Today",
+      "summary": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 7.2% in the afternoon session after a wave of positive sentiment swept through the semiconductor sector, fueled by analyst price target increases and optimism about artificial intelligence (AI) infrastructure spending.",
+      "excerpt": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 7.2% in the afternoon session after a wave of positive sentiment swept through the semiconductor sector, fueled by analyst price target increases and optimism about artificial intelligence (AI) infrastructure spending.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=4904725d474b0cdd8240208a11f28e1e369f4dbb396a1f2b16b14fb68a753074",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Investors are abandoning Mag7 stocks as AI boom transforms",
+      "claim": "Investors are abandoning Mag7 stocks as AI boom transforms",
+      "summary": "The market might be all-in on the AI trade, but a growing chorus of traders and analysts is changing strategies. Mega-cap tech companies like Microsoft, Meta, and Amazon have been hit particularly hard in recent weeks as their plans to spend billions on AI infrastructure have attracted growing ...",
+      "excerpt": "The market might be all-in on the AI trade, but a growing chorus of traders and analysts is changing strategies. Mega-cap tech companies like Microsoft, Meta, and Amazon have been hit particularly hard in recent weeks as their plans to spend billions on AI infrastructure have attracted growing ...",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=70dbf0d1a3b480214d68d390850120fe52235f5b034cebeb5939ab737b6d757d",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Micron Stock Notches Best Ever Quarter. Why 1 Analyst Sees Even More Gains.",
+      "claim": "Micron Stock Notches Best Ever Quarter. Why 1 Analyst Sees Even More Gains.",
+      "summary": "Micron stock has gained 232% this quarter coming into Tuesday\u2019s session, according to Dow Jones Market Data.",
+      "excerpt": "Micron stock has gained 232% this quarter coming into Tuesday\u2019s session, according to Dow Jones Market Data.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=d1290712fd25527bb9af0947c1fa569fe7e33138fabfabaa3d29656ebcedaa49",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Why Is IPG Photonics (IPGP) Stock Soaring Today",
+      "claim": "Why Is IPG Photonics (IPGP) Stock Soaring Today",
+      "summary": "Shares of fiber laser manufacturer IPG Photonics (NASDAQ:IPGP) jumped 5.3% in the afternoon session after Stifel reiterated its Buy rating and $125 price target on the stock, with the move also supported by a broader rebound in the semiconductor sector.",
+      "excerpt": "Shares of fiber laser manufacturer IPG Photonics (NASDAQ:IPGP) jumped 5.3% in the afternoon session after Stifel reiterated its Buy rating and $125 price target on the stock, with the move also supported by a broader rebound in the semiconductor sector.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=d74bc712ee8492dafdd33b494cca940433cb538edbbf3dda5ab57aba05b66e92",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Sector Update: Tech Stocks Rise Late Afternoon",
+      "claim": "Sector Update: Tech Stocks Rise Late Afternoon",
+      "summary": "Tech stocks advanced late Tuesday afternoon, with the State Street Technology Select Sector SPDR ETF",
+      "excerpt": "Tech stocks advanced late Tuesday afternoon, with the State Street Technology Select Sector SPDR ETF",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=ebdf1f100b31973d9b21f86ef426c7e50e8645e45c9f76625c339221c126e493",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "MU Stock Alert: What to Know as Micron Commits $250M to Trump Accounts",
+      "claim": "MU Stock Alert: What to Know as Micron Commits $250M to Trump Accounts",
+      "summary": "Micron just pledged $250 million to the Trump Accounts. Here\u2019s what the announcement means for MU stock.",
+      "excerpt": "Micron just pledged $250 million to the Trump Accounts. Here\u2019s what the announcement means for MU stock.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=f73d50b7fe9a181e3ff9e55b4b71de35686b35a0718d85b9ec67f77d412e2aae",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "claim": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "summary": "Palo Alto Networks, Inc. (NASDAQ:PANW) is one of the 14 AI Stocks Making Moves on Wall Street: Nvidia, Micron, and More. Robust revenue/ ARR beats in its fiscal Q3 2026 results have recently led Wall Street to reaffirm its positive rating on Palo Alto Networks. On June 26, Cantor Fitzgerald analyst Jonathan Ruykhaver reiterated an [\u2026]",
+      "excerpt": "Palo Alto Networks, Inc. (NASDAQ:PANW) is one of the 14 AI Stocks Making Moves on Wall Street: Nvidia, Micron, and More. Robust revenue/ ARR beats in its fiscal Q3 2026 results have recently led Wall Street to reaffirm its positive rating on Palo Alto Networks. On June 26, Cantor Fitzgerald analyst Jonathan Ruykhaver reiterated an [\u2026]",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=fbde51f25385e508d075373f9be92e82de4af3eb90d5bdb872cd92c318c93177",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Micron and Other Memory Makers Are Being Sued Over Price Fixing Claims. This Is Nothing More Than Headline Risk for MU Stock.",
+      "claim": "Micron and Other Memory Makers Are Being Sued Over Price Fixing Claims. This Is Nothing More Than Headline Risk for MU Stock.",
+      "summary": "Micron Technology, along with Samsung and SK Hynix, faces a class-action lawsuit alleging collusion to fix DRAM prices by restricting production of older chips while focusing on high-bandwidth memory for AI.",
+      "excerpt": "Micron Technology, along with Samsung and SK Hynix, faces a class-action lawsuit alleging collusion to fix DRAM prices by restricting production of older chips while focusing on high-bandwidth memory for AI.",
+      "polarity": "challenges",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=fde9c77d30ab13d00f8699cc92f7b29b0fe445bfe268b3a0d779fdfb508a309f",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "How Micron Used The AI Boom To Tame Its Oldest Demon",
+      "claim": "How Micron Used The AI Boom To Tame Its Oldest Demon",
+      "summary": "Beyond surging demand, the stock\u2019s incredible run was powered by a new kind of deal designed to kill the company\u2019s cyclical curse.",
+      "excerpt": "Beyond surging demand, the stock\u2019s incredible run was powered by a new kind of deal designed to kill the company\u2019s cyclical curse.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "estimate_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"downLast7Days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"upLast30days\": {\"+1q\": 4, \"+1y\": 6, \"0q\": 4, \"0y\": 5}, \"upLast7days\": {\"+1q\": 2, \"+1y\": 2, \"0q\": 2, \"0y\": 2}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 25.64734, \"+1y\": 105.11877, \"0q\": 22.888, \"0y\": 58.7364}, \"60daysAgo\": {\"+1q\": 24.93254, \"+1y\": 100.94313, \"0q\": 22.46554, \"0y\": 57.96829}, \"7daysAgo\": {\"+1q\": 27.81892, \"+1y\": 119.07037, \"0q\": 24.27693, \"0y\": 61.14678}, \"90daysAgo\": {\"+1q\": 24.32479, \"+1y\": 98.11361, \"0q\": 22.08303, \"0y\": 57.66417}, \"current\": {\"+1q\": 34.76712, \"+1y\": 149.4045, \"0q\": 31.2878, \"0y\": 73.3252}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 56571554530, \"+1y\": 235708758080, \"0q\": 50762910450, \"0y\": 129576907870}, \"growth\": {\"+1q\": 3.1466, \"+1y\": 0.8191, \"0q\": 3.4863, \"0y\": 2.4667}, \"high\": {\"+1q\": 75369000000, \"+1y\": 342515000000, \"0q\": 59805000000, \"0y\": 138764000000}, \"low\": {\"+1q\": 45500000000, \"+1y\": 101608000000, \"0q\": 46911000000, \"0y\": 122598000000}, \"numberOfAnalysts\": {\"+1q\": 29, \"+1y\": 40, \"0q\": 31, \"0y\": 35}, \"yearAgoRevenue\": {\"+1q\": 13643000000, \"+1y\": 129576907870, \"0q\": 11315000000, \"0y\": 37378000000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 29, \"1\": 30, \"2\": 30, \"3\": 28}, \"hold\": {\"0\": 4, \"1\": 4, \"2\": 5, \"3\": 5}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 0, \"1\": 1, \"2\": 0, \"3\": 0}, \"strongBuy\": {\"0\": 9, \"1\": 9, \"2\": 9, \"3\": 10}, \"strongSell\": {\"0\": 1, \"1\": 0, \"2\": 0, \"3\": 0}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [],
+  "management_guidance": [],
+  "segment_kpis": [],
+  "consensus_narrative": [
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=43b1e6754b8979dbac5bee8587da3a10f7c46246c10712b0eca09f41734d2213",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Why Intel (INTC) Stock Is Up Today",
+      "claim": "Why Intel (INTC) Stock Is Up Today",
+      "summary": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 7.2% in the afternoon session after a wave of positive sentiment swept through the semiconductor sector, fueled by analyst price target increases and optimism about artificial intelligence (AI) infrastructure spending.",
+      "excerpt": "Shares of computer processor maker Intel (NASDAQ:INTC) jumped 7.2% in the afternoon session after a wave of positive sentiment swept through the semiconductor sector, fueled by analyst price target increases and optimism about artificial intelligence (AI) infrastructure spending.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=4904725d474b0cdd8240208a11f28e1e369f4dbb396a1f2b16b14fb68a753074",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Investors are abandoning Mag7 stocks as AI boom transforms",
+      "claim": "Investors are abandoning Mag7 stocks as AI boom transforms",
+      "summary": "The market might be all-in on the AI trade, but a growing chorus of traders and analysts is changing strategies. Mega-cap tech companies like Microsoft, Meta, and Amazon have been hit particularly hard in recent weeks as their plans to spend billions on AI infrastructure have attracted growing ...",
+      "excerpt": "The market might be all-in on the AI trade, but a growing chorus of traders and analysts is changing strategies. Mega-cap tech companies like Microsoft, Meta, and Amazon have been hit particularly hard in recent weeks as their plans to spend billions on AI infrastructure have attracted growing ...",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=70dbf0d1a3b480214d68d390850120fe52235f5b034cebeb5939ab737b6d757d",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Micron Stock Notches Best Ever Quarter. Why 1 Analyst Sees Even More Gains.",
+      "claim": "Micron Stock Notches Best Ever Quarter. Why 1 Analyst Sees Even More Gains.",
+      "summary": "Micron stock has gained 232% this quarter coming into Tuesday\u2019s session, according to Dow Jones Market Data.",
+      "excerpt": "Micron stock has gained 232% this quarter coming into Tuesday\u2019s session, according to Dow Jones Market Data.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=f73d50b7fe9a181e3ff9e55b4b71de35686b35a0718d85b9ec67f77d412e2aae",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "claim": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "summary": "Palo Alto Networks, Inc. (NASDAQ:PANW) is one of the 14 AI Stocks Making Moves on Wall Street: Nvidia, Micron, and More. Robust revenue/ ARR beats in its fiscal Q3 2026 results have recently led Wall Street to reaffirm its positive rating on Palo Alto Networks. On June 26, Cantor Fitzgerald analyst Jonathan Ruykhaver reiterated an [\u2026]",
+      "excerpt": "Palo Alto Networks, Inc. (NASDAQ:PANW) is one of the 14 AI Stocks Making Moves on Wall Street: Nvidia, Micron, and More. Robust revenue/ ARR beats in its fiscal Q3 2026 results have recently led Wall Street to reaffirm its positive rating on Palo Alto Networks. On June 26, Cantor Fitzgerald analyst Jonathan Ruykhaver reiterated an [\u2026]",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"downLast7Days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"upLast30days\": {\"+1q\": 4, \"+1y\": 6, \"0q\": 4, \"0y\": 5}, \"upLast7days\": {\"+1q\": 2, \"+1y\": 2, \"0q\": 2, \"0y\": 2}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 25.64734, \"+1y\": 105.11877, \"0q\": 22.888, \"0y\": 58.7364}, \"60daysAgo\": {\"+1q\": 24.93254, \"+1y\": 100.94313, \"0q\": 22.46554, \"0y\": 57.96829}, \"7daysAgo\": {\"+1q\": 27.81892, \"+1y\": 119.07037, \"0q\": 24.27693, \"0y\": 61.14678}, \"90daysAgo\": {\"+1q\": 24.32479, \"+1y\": 98.11361, \"0q\": 22.08303, \"0y\": 57.66417}, \"current\": {\"+1q\": 34.76712, \"+1y\": 149.4045, \"0q\": 31.2878, \"0y\": 73.3252}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 56571554530, \"+1y\": 235708758080, \"0q\": 50762910450, \"0y\": 129576907870}, \"growth\": {\"+1q\": 3.1466, \"+1y\": 0.8191, \"0q\": 3.4863, \"0y\": 2.4667}, \"high\": {\"+1q\": 75369000000, \"+1y\": 342515000000, \"0q\": 59805000000, \"0y\": 138764000000}, \"low\": {\"+1q\": 45500000000, \"+1y\": 101608000000, \"0q\": 46911000000, \"0y\": 122598000000}, \"numberOfAnalysts\": {\"+1q\": 29, \"+1y\": 40, \"0q\": 31, \"0y\": 35}, \"yearAgoRevenue\": {\"+1q\": 13643000000, \"+1y\": 129576907870, \"0q\": 11315000000, \"0y\": 37378000000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "MU",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 29, \"1\": 30, \"2\": 30, \"3\": 28}, \"hold\": {\"0\": 4, \"1\": 4, \"2\": 5, \"3\": 5}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 0, \"1\": 1, \"2\": 0, \"3\": 0}, \"strongBuy\": {\"0\": 9, \"1\": 9, \"2\": 9, \"3\": 10}, \"strongSell\": {\"0\": 1, \"1\": 0, \"2\": 0, \"3\": 0}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    },\n    \"growth\": {\n      \"+1q\": 6.2735,\n      \"+1y\": 1.0376,\n      \"0q\": 9.326,\n      \"0y\": 7.845\n    },\n    \"high\": {\n      \"+1q\": 47.81,\n      \"+1y\": 221.27,\n      \"0q\": 37.44,\n      \"0y\": 80.16\n    },\n    \"low\": {\n      \"+1q\": 25.64,\n      \"+1y\": 70.77,\n      \"0q\": 28.04,\n      \"0y\": 67.39\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 30,\n      \"+1y\": 36,\n      \"0q\": 30,\n      \"0y\": 32\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 4.78,\n      \"+1y\": 73.3252,\n      \"0q\": 3.03,\n      \"0y\": 8.29\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 4,\n      \"+1y\": 6,\n      \"0q\": 4,\n      \"0y\": 5\n    },\n    \"upLast7days\": {\n      \"+1q\": 2,\n      \"+1y\": 2,\n      \"0q\": 2,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 25.64734,\n      \"+1y\": 105.11877,\n      \"0q\": 22.888,\n      \"0y\": 58.7364\n    },\n    \"60daysAgo\": {\n      \"+1q\": 24.93254,\n      \"+1y\": 100.94313,\n      \"0q\": 22.46554,\n      \"0y\": 57.96829\n    },\n    \"7daysAgo\": {\n      \"+1q\": 27.81892,\n      \"+1y\": 119.07037,\n      \"0q\": 24.27693,\n      \"0y\": 61.14678\n    },\n    \"90daysAgo\": {\n      \"+1q\": 24.32479,\n      \"+1y\": 98.11361,\n      \"0q\": 22.08303,\n      \"0y\": 57.66417\n    },\n    \"current\": {\n      \"+1q\": 34.76712,\n      \"+1y\": 149.4045,\n      \"0q\": 31.2878,\n      \"0y\": 73.3252\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 29,\n      \"1\": 30,\n      \"2\": 30,\n      \"3\": 28\n    },\n    \"hold\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 0,\n      \"1\": 1,\n      \"2\": 0,\n      \"3\": 0\n    },\n    \"strongBuy\": {\n      \"0\": 9,\n      \"1\": 9,\n      \"2\": 9,\n      \"3\": 10\n    },\n    \"strongSell\": {\n      \"0\": 1,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 56571554530,\n      \"+1y\": 235708758080,\n      \"0q\": 50762910450,\n      \"0y\": 129576907870\n    },\n    \"growth\": {\n      \"+1q\": 3.1466,\n      \"+1y\": 0.8191,\n      \"0q\": 3.4863,\n      \"0y\": 2.4667\n    },\n    \"high\": {\n      \"+1q\": 75369000000,\n      \"+1y\": 342515000000,\n      \"0q\": 59805000000,\n      \"0y\": 138764000000\n    },\n    \"low\": {\n      \"+1q\": 45500000000,\n      \"+1y\": 101608000000,\n      \"0q\": 46911000000,\n      \"0y\": 122598000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 29,\n      \"+1y\": 40,\n      \"0q\": 31,\n      \"0y\": 35\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 13643000000,\n      \"+1y\": 129576907870,\n      \"0q\": 11315000000,\n      \"0y\": 37378000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-02-10 08:48:00\": \"main\",\n      \"2012-02-13 12:27:00\": \"main\",\n      \"2012-02-29 12:32:00\": \"main\",\n      \"2012-03-21 10:27:00\": \"main\",\n      \"2012-03-26 10:11:00\": \"down\",\n      \"2012-05-18 11:19:00\": \"init\",\n      \"2012-06-21 10:02:00\": \"main\",\n      \"2012-06-21 10:59:00\": \"main\",\n      \"2012-06-21 11:54:00\": \"main\",\n      \"2012-09-28 09:58:00\": \"main\",\n      \"2012-09-28 10:00:00\": \"main\",\n      \"2012-09-28 10:56:00\": \"main\",\n      \"2012-10-11 11:52:00\": \"main\",\n      \"2012-10-15 13:35:00\": \"main\",\n      \"2012-12-07 15:35:06\": \"init\",\n      \"2012-12-14 17:18:42\": \"up\",\n      \"2012-12-21 12:44:18\": \"down\",\n      \"2012-12-21 13:07:41\": \"main\",\n      \"2012-12-21 15:18:08\": \"down\",\n      \"2012-12-21 16:00:05\": \"down\"\n    },\n    \"Firm\": {\n      \"2012-02-10 08:48:00\": \"Goldman Sachs\",\n      \"2012-02-13 12:27:00\": \"Piper Sandler\",\n      \"2012-02-29 12:32:00\": \"Wedbush\",\n      \"2012-03-21 10:27:00\": \"Citigroup\",\n      \"2012-03-26 10:11:00\": \"Oppenheimer\",\n      \"2012-05-18 11:19:00\": \"ThinkEquity\",\n      \"2012-06-21 10:02:00\": \"Deutsche Bank\",\n      \"2012-06-21 10:59:00\": \"Sterne Agee\",\n      \"2012-06-21 11:54:00\": \"Stifel\",\n      \"2012-09-28 09:58:00\": \"Jefferies\",\n      \"2012-09-28 10:00:00\": \"Citigroup\",\n      \"2012-09-28 10:56:00\": \"JP Morgan\",\n      \"2012-10-11 11:52:00\": \"Nomura\",\n      \"2012-10-15 13:35:00\": \"Piper Sandler\",\n      \"2012-12-07 15:35:06\": \"Cross Research\",\n      \"2012-12-14 17:18:42\": \"Drexel Hamilton\",\n      \"2012-12-21 12:44:18\": \"Stifel\",\n      \"2012-12-21 13:07:41\": \"Citigroup\",\n      \"2012-12-21 15:18:08\": \"Credit Agricole\",\n      \"2012-12-21 16:00:05\": \"Credit Agricole\"\n    },\n    \"FromGrade\": {\n      \"2012-02-10 08:48:00\": \"\",\n      \"2012-02-13 12:27:00\": \"\",\n      \"2012-02-29 12:32:00\": \"\",\n      \"2012-03-21 10:27:00\": \"\",\n      \"2012-03-26 10:11:00\": \"Outperform\",\n      \"2012-05-18 11:19:00\": \"\",\n      \"2012-06-21 10:02:00\": \"\",\n      \"2012-06-21 10:59:00\": \"\",\n      \"2012-06-21 11:54:00\": \"\",\n      \"2012-09-28 09:58:00\": \"\",\n      \"2012-09-28 10:00:00\": \"\",\n      \"2012-09-28 10:56:00\": \"\",\n      \"2012-10-11 11:52:00\": \"\",\n      \"2012-10-15 13:35:00\": \"\",\n      \"2012-12-07 15:35:06\": \"\",\n      \"2012-12-14 17:18:42\": \"Hold\",\n      \"2012-12-21 12:44:18\": \"\",\n      \"2012-12-21 13:07:41\": \"\",\n      \"2012-12-21 15:18:08\": \"Buy\",\n      \"2012-12-21 16:00:05\": \"Buy\"\n    },\n    \"ToGrade\": {\n      \"2012-02-10 08:48:00\": \"Neutral\",\n      \"2012-02-13 12:27:00\": \"Overweight\",\n      \"2012-02-29 12:32:00\": \"Outperform\",\n      \"2012-03-21 10:27:00\": \"Buy\",\n      \"2012-03-26 10:11:00\": \"Perform\",\n      \"2012-05-18 11:19:00\": \"Buy\",\n      \"2012-06-21 10:02:00\": \"Hold\",\n      \"2012-06-21 10:59:00\": \"Buy\",\n      \"2012-06-21 11:54:00\": \"Buy\",\n      \"2012-09-28 09:58:00\": \"Buy\",\n      \"2012-09-28 10:00:00\": \"Buy\",\n      \"2012-09-28 10:56:00\": \"Neutral\",\n      \"2012-10-11 11:52:00\": \"Neutral\",\n      \"2012-10-15 13:35:00\": \"Overweight\",\n      \"2012-12-07 15:35:06\": \"Buy\",\n      \"2012-12-14 17:18:42\": \"Buy\",\n      \"2012-12-21 12:44:18\": \"Buy\",\n      \"2012-12-21 13:07:41\": \"Buy\",\n      \"2012-12-21 15:18:08\": \"Outperform",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "bullish_evidence": [
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=f73d50b7fe9a181e3ff9e55b4b71de35686b35a0718d85b9ec67f77d412e2aae",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "claim": "Palo Alto Networks (PANW) Gains Momentum in AI Security and Observability",
+      "summary": "Palo Alto Networks, Inc. (NASDAQ:PANW) is one of the 14 AI Stocks Making Moves on Wall Street: Nvidia, Micron, and More. Robust revenue/ ARR beats in its fiscal Q3 2026 results have recently led Wall Street to reaffirm its positive rating on Palo Alto Networks. On June 26, Cantor Fitzgerald analyst Jonathan Ruykhaver reiterated an [\u2026]",
+      "excerpt": "Palo Alto Networks, Inc. (NASDAQ:PANW) is one of the 14 AI Stocks Making Moves on Wall Street: Nvidia, Micron, and More. Robust revenue/ ARR beats in its fiscal Q3 2026 results have recently led Wall Street to reaffirm its positive rating on Palo Alto Networks. On June 26, Cantor Fitzgerald analyst Jonathan Ruykhaver reiterated an [\u2026]",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "bearish_evidence": [
+    {
+      "source_type": "news",
+      "ticker": "MU",
+      "document_purpose": "news",
+      "source_date": "2026-06-30",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=fbde51f25385e508d075373f9be92e82de4af3eb90d5bdb872cd92c318c93177",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Micron and Other Memory Makers Are Being Sued Over Price Fixing Claims. This Is Nothing More Than Headline Risk for MU Stock.",
+      "claim": "Micron and Other Memory Makers Are Being Sued Over Price Fixing Claims. This Is Nothing More Than Headline Risk for MU Stock.",
+      "summary": "Micron Technology, along with Samsung and SK Hynix, faces a class-action lawsuit alleging collusion to fix DRAM prices by restricting production of older chips while focusing on high-bandwidth memory for AI.",
+      "excerpt": "Micron Technology, along with Samsung and SK Hynix, faces a class-action lawsuit alleging collusion to fix DRAM prices by restricting production of older chips while focusing on high-bandwidth memory for AI.",
+      "polarity": "challenges",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "mixed_evidence": [],
+  "unresolved_questions": [],
+  "data_gaps": [
+    "Peer commentary retrieval skipped or unavailable in v1."
+  ],
+  "warnings": [
+    "Dropped 23 duplicate or lower-quality source documents before evidence extraction.",
+    "Evidence extraction failed: Connection error.",
+    "Evidence extractor returned no news evidence; used deterministic headline/snippet fallback.",
+    "Evidence extractor returned no estimate evidence; used deterministic estimate fallback."
+  ],
+  "raw_source_count": 46,
+  "evidence_item_count": 14
+}

@@ -46,11 +46,12 @@ from src.agent_system.schemas.regime import (
     ClarificationRequest,
     ResearchPriority,
 )
+from src.agent_system.paths import macro_agent_evals_dir
 
 logger = logging.getLogger("agent_system.evals.macro_harness")
 
 DEFAULT_INPUTS_PATH = Path(__file__).parent / "macro_agent_inputs.yaml"
-DEFAULT_OUTPUT_DIR = Path("data/agent_system/macro_agent_evals")
+DEFAULT_OUTPUT_DIR = macro_agent_evals_dir(create=False)
 
 
 async def run_one_input(

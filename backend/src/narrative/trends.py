@@ -36,6 +36,8 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
+from src.agent_system.paths import narrative_cache_dir, narrative_trends_dir
+
 logger = logging.getLogger("narrative.trends")
 logger.addHandler(logging.NullHandler())
 
@@ -177,7 +179,7 @@ class TrendScanResult:
 # Cache helpers
 # ---------------------------------------------------------------------------
 
-CACHE_DIR = os.path.join("data", "narrative", "cache")
+CACHE_DIR = str(narrative_cache_dir(create=False))
 TRENDS_CACHE_PATH = os.path.join(CACHE_DIR, "trends_cache.parquet")
 TRENDS_JSONL_PATH = os.path.join(CACHE_DIR, "trends_cache.jsonl")
 
@@ -728,7 +730,7 @@ def run_trend_scan(
 # Persistence helpers
 # ---------------------------------------------------------------------------
 
-SCAN_OUTPUT_DIR = os.path.join("data", "narrative", "trends")
+SCAN_OUTPUT_DIR = str(narrative_trends_dir(create=False))
 
 
 def save_scan_result(result: TrendScanResult, base_dir: str = SCAN_OUTPUT_DIR) -> Path:

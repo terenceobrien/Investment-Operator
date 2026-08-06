@@ -1,0 +1,18 @@
+{
+  "id": "2f9d6de4-2d44-491f-a041-beefa9ed5f8e",
+  "schema_type": "Conviction",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:04:52.427603+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:04:52.427603Z",
+    "id": "2f9d6de4-2d44-491f-a041-beefa9ed5f8e",
+    "rating": "moderate",
+    "rule_applied": "moderate_fundamental_variant_no_narrative_signal",
+    "weakest_link": "none",
+    "reasoning": "The setup has a strong variant view and sufficient fundamentals, but no current narrative snapshot coverage, so conviction is capped at MODERATE."
+  }
+}

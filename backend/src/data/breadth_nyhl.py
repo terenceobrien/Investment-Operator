@@ -17,6 +17,8 @@ from typing import Iterable, List
 import numpy as np
 import pandas as pd
 
+from src.agent_system.paths import cache_dir
+
 
 SP500_WIKI_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
 
@@ -31,7 +33,7 @@ def _yf_symbol(symbol: str) -> str:
 
 
 def get_sp500_membership(
-    cache_path: str | Path = "backend/data/cache/sp500_membership.txt",
+    cache_path: str | Path | None = None,
 ) -> List[str]:
     """
     Return current S&P 500 membership as yfinance-compatible tickers.
@@ -39,7 +41,7 @@ def get_sp500_membership(
     The first successful scrape is cached as one ticker per line. Subsequent
     calls load the cache instantly unless the file is removed.
     """
-    path = _as_path(cache_path)
+    path = _as_path(cache_path or (cache_dir(create=False) / "sp500_membership.txt"))
     if path.exists():
         tickers = [line.strip() for line in path.read_text(encoding="utf-8").splitlines()]
         return [t for t in tickers if t]
@@ -76,7 +78,7 @@ def bulk_fetch_sp500_history(
     tickers: List[str],
     start: str,
     end: str,
-    cache_path: str | Path = "backend/data/cache/sp500_prices.parquet",
+    cache_path: str | Path | None = None,
     force_download: bool = False,
     batch_size: int = 75,
     retries: int = 3,
@@ -87,7 +89,7 @@ def bulk_fetch_sp500_history(
     Returns a wide daily DataFrame indexed by date with one column per ticker.
     Cached parquet loads immediately unless force_download=True.
     """
-    path = _as_path(cache_path)
+    path = _as_path(cache_path or (cache_dir(create=False) / "sp500_prices.parquet"))
     if path.exists() and not force_download:
         try:
             df = pd.read_parquet(path)

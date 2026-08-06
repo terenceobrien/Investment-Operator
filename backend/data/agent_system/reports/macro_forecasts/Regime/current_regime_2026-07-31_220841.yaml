@@ -1,0 +1,1221 @@
+regime_id: late_cycle_expansion
+regime_label: Late-cycle expansion (narrow, capex-led, sticky inflation)
+regime_call_confidence: 0.45404614764843165
+headline: Late-cycle expansion (narrow, capex-led, sticky inflation) leads the operator read; Expansion
+  with disinflation (broadening / soft landing) is secondary.
+summary: 'Late-cycle expansion with narrow, capex-led leadership and sticky-but-easing inflation. A two-sided
+  oil risk sits on top: de-escalation broadens toward expansion_disinflation, re-escalation pushes toward
+  inflation_shock. Credit is healthy, so the recessionary tails (growth_scare_no_credit, credit_led_recession)
+  are watch-only, gated on a spread blowout that has not begun.'
+risk_summary: 'Tail watch: inflation_shock, credit_led_recession. credit_led_recession probability is
+  directionally correct and correctly ordered across anchors (elevated at pre-crisis configurations vs
+  benign calm), but magnitudes are conservative. The crisis-honest regime labeling (~6% stress fraction)
+  limits transition events available to the entry-probability logistic, lowering stress entry rates. Operator
+  judgment should lean against the model on acute credit-stress setups the model may under-weight.'
+scenario_taxonomy: behavioral_v1
+scenario_probabilities:
+  credit_led_recession: 0.15840605723880147
+  expansion_disinflation: 0.19832275974120736
+  growth_scare_no_credit: 0.032250977892844625
+  inflation_shock: 0.13655781071451706
+  late_cycle_expansion: 0.45404614764843165
+  stagflation: 0.020416246764197846
+mixture_decomposition:
+  enabled: true
+  applied: true
+  reason: trailing_max_linear_mixture
+  combination: linear_mixture
+  numerical_floor: 0.001
+  floor_note: Uniform numerical floor applied after mixing and renormalized; not a judgmental scenario
+    floor.
+  alpha: 0.3
+  alpha_effective: 0.3
+  s: 0.5278429148428068
+  b: 0.2727272727272727
+  membership_groups:
+    recession:
+    - credit_led_recession
+    non_recession:
+    - expansion_disinflation
+    - late_cycle_expansion
+    - inflation_shock
+    - stagflation
+    - growth_scare_no_credit
+  stress_advisory: false
+  abstention_state: null
+  evidence:
+    query_date: 2026Q2
+    current_state: scored
+    spot_share: 0.4518174940894545
+    trailing_max: 0.5278429148428068
+    trailing_max_quarter: 2025Q2
+    base_rate: 0.2727272727272727
+    kernel_weight_sum: 21.849139903837496
+    stress_advisory: false
+    window_states:
+    - quarter: 2025Q1
+      state: scored
+      share: 0.5189056896383331
+      share_raw: 0.5782575516209382
+      n_matches: 18
+      evaluable_neighbor_count: 18
+      dropped_unresolved_count: 0
+      kernel_weight_sum: 12.443337513987903
+      pit_candidate_pool_size: 197
+      top_matches:
+      - 1990Q2 (w=0.82, rec, lag 1)
+      - 2007Q2 (w=0.80, rec, lag 2)
+      - 1999Q2 (w=0.79, rec, lag 7)
+      - 1990Q1 (w=0.77, rec, lag 2)
+      - 1996Q2 (w=0.76, benign)
+    - quarter: 2025Q2
+      state: scored
+      share: 0.5278429148428068
+      share_raw: 0.6174268150612452
+      n_matches: 13
+      evaluable_neighbor_count: 12
+      dropped_unresolved_count: 1
+      kernel_weight_sum: 8.543353487405724
+      pit_candidate_pool_size: 198
+      top_matches:
+      - 1999Q2 (w=0.87, rec, lag 7)
+      - 1990Q2 (w=0.80, rec, lag 1)
+      - 2007Q3 (w=0.78, rec, lag 1)
+      - 1996Q2 (w=0.77, benign)
+      - 2007Q2 (w=0.76, rec, lag 2)
+    - quarter: 2025Q3
+      state: scored
+      share: 0.4948171203274153
+      share_raw: 0.5180765312391621
+      n_matches: 43
+      evaluable_neighbor_count: 41
+      dropped_unresolved_count: 2
+      kernel_weight_sum: 28.64515981631927
+      pit_candidate_pool_size: 199
+      top_matches:
+      - 2007Q2 (w=0.88, rec, lag 2)
+      - 2007Q3 (w=0.86, rec, lag 1)
+      - 2024Q3 (w=0.85, unresolved)
+      - 1996Q1 (w=0.81, benign)
+      - 2018Q4 (w=0.79, rec, lag 4)
+    - quarter: 2025Q4
+      state: scored
+      share: 0.4147300363667588
+      share_raw: 0.4269607547220608
+      n_matches: 53
+      evaluable_neighbor_count: 50
+      dropped_unresolved_count: 3
+      kernel_weight_sum: 34.831011437180564
+      pit_candidate_pool_size: 200
+      top_matches:
+      - 2024Q4 (w=0.91, unresolved)
+      - 2024Q3 (w=0.88, unresolved)
+      - 2007Q2 (w=0.87, rec, lag 2)
+      - 1996Q1 (w=0.86, benign)
+      - 2007Q1 (w=0.84, rec, lag 3)
+    - quarter: 2026Q1
+      state: scored
+      share: 0.3942713168253352
+      share_raw: 0.4076006579728888
+      n_matches: 44
+      evaluable_neighbor_count: 40
+      dropped_unresolved_count: 4
+      kernel_weight_sum: 27.35560057003338
+      pit_candidate_pool_size: 201
+      top_matches:
+      - 2024Q4 (w=0.92, unresolved)
+      - 2025Q1 (w=0.88, unresolved)
+      - 1997Q1 (w=0.80, benign)
+      - 2007Q2 (w=0.80, rec, lag 2)
+      - 1997Q2 (w=0.79, benign)
+    - quarter: 2026Q2
+      state: scored
+      share: 0.4518174940894545
+      share_raw: 0.4764075084539184
+      n_matches: 36
+      evaluable_neighbor_count: 32
+      dropped_unresolved_count: 4
+      kernel_weight_sum: 21.849139903837496
+      pit_candidate_pool_size: 202
+      top_matches:
+      - 2025Q1 (w=0.91, unresolved)
+      - 2024Q4 (w=0.88, unresolved)
+      - 2025Q2 (w=0.85, unresolved)
+      - 1996Q2 (w=0.78, benign)
+      - 1999Q2 (w=0.77, rec, lag 7)
+    trailing_max_onset_lag_distribution:
+      horizon_quarters: 8
+      histogram:
+        '1': 0.40164750561995766
+        '2': 0.37735286193716
+        '3': 0.0
+        '4': 0.0
+        '5': 0.0
+        '6': 0.0
+        '7': 0.22099963244288232
+        '8': 0.0
+      weighted_mean_lag: 2.703350656594454
+      weighted_median_lag: 2.0
+      effective_n: 5.274895533671298
+      low_n: true
+      in_recession_at_match:
+        count: 1
+        kernel_weight: 0.6164836863661449
+      peak_at_match:
+        count: 1
+        kernel_weight: 0.7140863900048243
+      conditional_timing:
+        elapsed_quarters: 4
+        spent_mass: 0.7790003675571177
+        remaining_mass: 0.22099963244288232
+        conditional_share: 0.5278429148428067
+        share_shrunk: 0.5278429148428068
+        formula: remaining_mass / (1 - spent_mass) * share_shrunk
+    analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+  bvar_soft:
+    expansion_disinflation: 0.23563345933537466
+    late_cycle_expansion: 0.5394663961307827
+    inflation_shock: 0.16224859607599088
+    stagflation: 0.024257179851521662
+    growth_scare_no_credit: 0.03831839319781647
+    credit_led_recession: 7.597540851346038e-05
+  analogue_implied:
+    credit_led_recession: 0.5278429148428068
+    expansion_disinflation: 0.11126446068815035
+    late_cycle_expansion: 0.2547322345229456
+    inflation_shock: 0.07661264487107805
+    stagflation: 0.011454069560442263
+    growth_scare_no_credit: 0.018093675514576975
+  mixed_pre_floor:
+    expansion_disinflation: 0.19832275974120733
+    late_cycle_expansion: 0.4540461476484316
+    inflation_shock: 0.13655781071451703
+    stagflation: 0.020416246764197843
+    growth_scare_no_credit: 0.03225097789284462
+    credit_led_recession: 0.15840605723880144
+  probabilities_before:
+    expansion_disinflation: 0.23563345933537466
+    late_cycle_expansion: 0.5394663961307827
+    inflation_shock: 0.16224859607599088
+    stagflation: 0.024257179851521662
+    growth_scare_no_credit: 0.03831839319781647
+    credit_led_recession: 7.597540851346038e-05
+  probabilities_after:
+    expansion_disinflation: 0.19832275974120736
+    late_cycle_expansion: 0.45404614764843165
+    inflation_shock: 0.13655781071451706
+    stagflation: 0.020416246764197846
+    growth_scare_no_credit: 0.032250977892844625
+    credit_led_recession: 0.15840605723880147
+  floor_applied:
+    expansion_disinflation: false
+    late_cycle_expansion: false
+    inflation_shock: false
+    stagflation: false
+    growth_scare_no_credit: false
+    credit_led_recession: false
+  per_scenario:
+    expansion_disinflation:
+      bvar_soft: 0.23563345933537466
+      analogue_implied: 0.11126446068815035
+      mixed_pre_floor: 0.19832275974120733
+      final: 0.19832275974120736
+      delta: -0.0373106995941673
+      floor_applied: false
+    late_cycle_expansion:
+      bvar_soft: 0.5394663961307827
+      analogue_implied: 0.2547322345229456
+      mixed_pre_floor: 0.4540461476484316
+      final: 0.45404614764843165
+      delta: -0.08542024848235108
+      floor_applied: false
+    inflation_shock:
+      bvar_soft: 0.16224859607599088
+      analogue_implied: 0.07661264487107805
+      mixed_pre_floor: 0.13655781071451703
+      final: 0.13655781071451706
+      delta: -0.025690785361473817
+      floor_applied: false
+    stagflation:
+      bvar_soft: 0.024257179851521662
+      analogue_implied: 0.011454069560442263
+      mixed_pre_floor: 0.020416246764197843
+      final: 0.020416246764197846
+      delta: -0.003840933087323816
+      floor_applied: false
+    growth_scare_no_credit:
+      bvar_soft: 0.03831839319781647
+      analogue_implied: 0.018093675514576975
+      mixed_pre_floor: 0.03225097789284462
+      final: 0.032250977892844625
+      delta: -0.006067415304971846
+      floor_applied: false
+    credit_led_recession:
+      bvar_soft: 7.597540851346038e-05
+      analogue_implied: 0.5278429148428068
+      mixed_pre_floor: 0.15840605723880144
+      final: 0.15840605723880147
+      delta: 0.15833008183028802
+      floor_applied: false
+  movement_total_abs: 0.31666016366057587
+  analogue_fan:
+    artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+    note: Full analogue fan arrays are stored in the JSON artifact, not embedded in current-regime YAML.
+  analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+analogue_evidence:
+  enabled: true
+  applied: true
+  reason: trailing_max_linear_mixture
+  combination: linear_mixture
+  numerical_floor: 0.001
+  floor_note: Uniform numerical floor applied after mixing and renormalized; not a judgmental scenario
+    floor.
+  alpha: 0.3
+  alpha_effective: 0.3
+  s: 0.5278429148428068
+  b: 0.2727272727272727
+  membership_groups:
+    recession:
+    - credit_led_recession
+    non_recession:
+    - expansion_disinflation
+    - late_cycle_expansion
+    - inflation_shock
+    - stagflation
+    - growth_scare_no_credit
+  stress_advisory: false
+  abstention_state: null
+  evidence:
+    query_date: 2026Q2
+    current_state: scored
+    spot_share: 0.4518174940894545
+    trailing_max: 0.5278429148428068
+    trailing_max_quarter: 2025Q2
+    base_rate: 0.2727272727272727
+    kernel_weight_sum: 21.849139903837496
+    stress_advisory: false
+    window_states:
+    - quarter: 2025Q1
+      state: scored
+      share: 0.5189056896383331
+      share_raw: 0.5782575516209382
+      n_matches: 18
+      evaluable_neighbor_count: 18
+      dropped_unresolved_count: 0
+      kernel_weight_sum: 12.443337513987903
+      pit_candidate_pool_size: 197
+      top_matches:
+      - 1990Q2 (w=0.82, rec, lag 1)
+      - 2007Q2 (w=0.80, rec, lag 2)
+      - 1999Q2 (w=0.79, rec, lag 7)
+      - 1990Q1 (w=0.77, rec, lag 2)
+      - 1996Q2 (w=0.76, benign)
+    - quarter: 2025Q2
+      state: scored
+      share: 0.5278429148428068
+      share_raw: 0.6174268150612452
+      n_matches: 13
+      evaluable_neighbor_count: 12
+      dropped_unresolved_count: 1
+      kernel_weight_sum: 8.543353487405724
+      pit_candidate_pool_size: 198
+      top_matches:
+      - 1999Q2 (w=0.87, rec, lag 7)
+      - 1990Q2 (w=0.80, rec, lag 1)
+      - 2007Q3 (w=0.78, rec, lag 1)
+      - 1996Q2 (w=0.77, benign)
+      - 2007Q2 (w=0.76, rec, lag 2)
+    - quarter: 2025Q3
+      state: scored
+      share: 0.4948171203274153
+      share_raw: 0.5180765312391621
+      n_matches: 43
+      evaluable_neighbor_count: 41
+      dropped_unresolved_count: 2
+      kernel_weight_sum: 28.64515981631927
+      pit_candidate_pool_size: 199
+      top_matches:
+      - 2007Q2 (w=0.88, rec, lag 2)
+      - 2007Q3 (w=0.86, rec, lag 1)
+      - 2024Q3 (w=0.85, unresolved)
+      - 1996Q1 (w=0.81, benign)
+      - 2018Q4 (w=0.79, rec, lag 4)
+    - quarter: 2025Q4
+      state: scored
+      share: 0.4147300363667588
+      share_raw: 0.4269607547220608
+      n_matches: 53
+      evaluable_neighbor_count: 50
+      dropped_unresolved_count: 3
+      kernel_weight_sum: 34.831011437180564
+      pit_candidate_pool_size: 200
+      top_matches:
+      - 2024Q4 (w=0.91, unresolved)
+      - 2024Q3 (w=0.88, unresolved)
+      - 2007Q2 (w=0.87, rec, lag 2)
+      - 1996Q1 (w=0.86, benign)
+      - 2007Q1 (w=0.84, rec, lag 3)
+    - quarter: 2026Q1
+      state: scored
+      share: 0.3942713168253352
+      share_raw: 0.4076006579728888
+      n_matches: 44
+      evaluable_neighbor_count: 40
+      dropped_unresolved_count: 4
+      kernel_weight_sum: 27.35560057003338
+      pit_candidate_pool_size: 201
+      top_matches:
+      - 2024Q4 (w=0.92, unresolved)
+      - 2025Q1 (w=0.88, unresolved)
+      - 1997Q1 (w=0.80, benign)
+      - 2007Q2 (w=0.80, rec, lag 2)
+      - 1997Q2 (w=0.79, benign)
+    - quarter: 2026Q2
+      state: scored
+      share: 0.4518174940894545
+      share_raw: 0.4764075084539184
+      n_matches: 36
+      evaluable_neighbor_count: 32
+      dropped_unresolved_count: 4
+      kernel_weight_sum: 21.849139903837496
+      pit_candidate_pool_size: 202
+      top_matches:
+      - 2025Q1 (w=0.91, unresolved)
+      - 2024Q4 (w=0.88, unresolved)
+      - 2025Q2 (w=0.85, unresolved)
+      - 1996Q2 (w=0.78, benign)
+      - 1999Q2 (w=0.77, rec, lag 7)
+    trailing_max_onset_lag_distribution:
+      horizon_quarters: 8
+      histogram:
+        '1': 0.40164750561995766
+        '2': 0.37735286193716
+        '3': 0.0
+        '4': 0.0
+        '5': 0.0
+        '6': 0.0
+        '7': 0.22099963244288232
+        '8': 0.0
+      weighted_mean_lag: 2.703350656594454
+      weighted_median_lag: 2.0
+      effective_n: 5.274895533671298
+      low_n: true
+      in_recession_at_match:
+        count: 1
+        kernel_weight: 0.6164836863661449
+      peak_at_match:
+        count: 1
+        kernel_weight: 0.7140863900048243
+      conditional_timing:
+        elapsed_quarters: 4
+        spent_mass: 0.7790003675571177
+        remaining_mass: 0.22099963244288232
+        conditional_share: 0.5278429148428067
+        share_shrunk: 0.5278429148428068
+        formula: remaining_mass / (1 - spent_mass) * share_shrunk
+    analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+  bvar_soft:
+    expansion_disinflation: 0.23563345933537466
+    late_cycle_expansion: 0.5394663961307827
+    inflation_shock: 0.16224859607599088
+    stagflation: 0.024257179851521662
+    growth_scare_no_credit: 0.03831839319781647
+    credit_led_recession: 7.597540851346038e-05
+  analogue_implied:
+    credit_led_recession: 0.5278429148428068
+    expansion_disinflation: 0.11126446068815035
+    late_cycle_expansion: 0.2547322345229456
+    inflation_shock: 0.07661264487107805
+    stagflation: 0.011454069560442263
+    growth_scare_no_credit: 0.018093675514576975
+  mixed_pre_floor:
+    expansion_disinflation: 0.19832275974120733
+    late_cycle_expansion: 0.4540461476484316
+    inflation_shock: 0.13655781071451703
+    stagflation: 0.020416246764197843
+    growth_scare_no_credit: 0.03225097789284462
+    credit_led_recession: 0.15840605723880144
+  probabilities_before:
+    expansion_disinflation: 0.23563345933537466
+    late_cycle_expansion: 0.5394663961307827
+    inflation_shock: 0.16224859607599088
+    stagflation: 0.024257179851521662
+    growth_scare_no_credit: 0.03831839319781647
+    credit_led_recession: 7.597540851346038e-05
+  probabilities_after:
+    expansion_disinflation: 0.19832275974120736
+    late_cycle_expansion: 0.45404614764843165
+    inflation_shock: 0.13655781071451706
+    stagflation: 0.020416246764197846
+    growth_scare_no_credit: 0.032250977892844625
+    credit_led_recession: 0.15840605723880147
+  floor_applied:
+    expansion_disinflation: false
+    late_cycle_expansion: false
+    inflation_shock: false
+    stagflation: false
+    growth_scare_no_credit: false
+    credit_led_recession: false
+  per_scenario:
+    expansion_disinflation:
+      bvar_soft: 0.23563345933537466
+      analogue_implied: 0.11126446068815035
+      mixed_pre_floor: 0.19832275974120733
+      final: 0.19832275974120736
+      delta: -0.0373106995941673
+      floor_applied: false
+    late_cycle_expansion:
+      bvar_soft: 0.5394663961307827
+      analogue_implied: 0.2547322345229456
+      mixed_pre_floor: 0.4540461476484316
+      final: 0.45404614764843165
+      delta: -0.08542024848235108
+      floor_applied: false
+    inflation_shock:
+      bvar_soft: 0.16224859607599088
+      analogue_implied: 0.07661264487107805
+      mixed_pre_floor: 0.13655781071451703
+      final: 0.13655781071451706
+      delta: -0.025690785361473817
+      floor_applied: false
+    stagflation:
+      bvar_soft: 0.024257179851521662
+      analogue_implied: 0.011454069560442263
+      mixed_pre_floor: 0.020416246764197843
+      final: 0.020416246764197846
+      delta: -0.003840933087323816
+      floor_applied: false
+    growth_scare_no_credit:
+      bvar_soft: 0.03831839319781647
+      analogue_implied: 0.018093675514576975
+      mixed_pre_floor: 0.03225097789284462
+      final: 0.032250977892844625
+      delta: -0.006067415304971846
+      floor_applied: false
+    credit_led_recession:
+      bvar_soft: 7.597540851346038e-05
+      analogue_implied: 0.5278429148428068
+      mixed_pre_floor: 0.15840605723880144
+      final: 0.15840605723880147
+      delta: 0.15833008183028802
+      floor_applied: false
+  movement_total_abs: 0.31666016366057587
+  analogue_fan:
+    artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+    note: Full analogue fan arrays are stored in the JSON artifact, not embedded in current-regime YAML.
+  analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+probability_decomposition:
+  bvar_soft:
+    credit_led_recession: 7.597540851346038e-05
+    expansion_disinflation: 0.23563345933537466
+    growth_scare_no_credit: 0.03831839319781647
+    inflation_shock: 0.16224859607599088
+    late_cycle_expansion: 0.5394663961307827
+    stagflation: 0.024257179851521662
+  ensemble_posteriors:
+    credit_led_recession: 7.597540851346038e-05
+    expansion_disinflation: 0.23563345933537466
+    growth_scare_no_credit: 0.03831839319781647
+    inflation_shock: 0.16224859607599088
+    late_cycle_expansion: 0.5394663961307827
+    stagflation: 0.024257179851521662
+  analogue_mixture:
+    enabled: true
+    applied: true
+    reason: trailing_max_linear_mixture
+    combination: linear_mixture
+    numerical_floor: 0.001
+    floor_note: Uniform numerical floor applied after mixing and renormalized; not a judgmental scenario
+      floor.
+    alpha: 0.3
+    alpha_effective: 0.3
+    s: 0.5278429148428068
+    b: 0.2727272727272727
+    membership_groups:
+      recession:
+      - credit_led_recession
+      non_recession:
+      - expansion_disinflation
+      - late_cycle_expansion
+      - inflation_shock
+      - stagflation
+      - growth_scare_no_credit
+    stress_advisory: false
+    abstention_state: null
+    evidence:
+      query_date: 2026Q2
+      current_state: scored
+      spot_share: 0.4518174940894545
+      trailing_max: 0.5278429148428068
+      trailing_max_quarter: 2025Q2
+      base_rate: 0.2727272727272727
+      kernel_weight_sum: 21.849139903837496
+      stress_advisory: false
+      window_states:
+      - quarter: 2025Q1
+        state: scored
+        share: 0.5189056896383331
+        share_raw: 0.5782575516209382
+        n_matches: 18
+        evaluable_neighbor_count: 18
+        dropped_unresolved_count: 0
+        kernel_weight_sum: 12.443337513987903
+        pit_candidate_pool_size: 197
+        top_matches:
+        - 1990Q2 (w=0.82, rec, lag 1)
+        - 2007Q2 (w=0.80, rec, lag 2)
+        - 1999Q2 (w=0.79, rec, lag 7)
+        - 1990Q1 (w=0.77, rec, lag 2)
+        - 1996Q2 (w=0.76, benign)
+      - quarter: 2025Q2
+        state: scored
+        share: 0.5278429148428068
+        share_raw: 0.6174268150612452
+        n_matches: 13
+        evaluable_neighbor_count: 12
+        dropped_unresolved_count: 1
+        kernel_weight_sum: 8.543353487405724
+        pit_candidate_pool_size: 198
+        top_matches:
+        - 1999Q2 (w=0.87, rec, lag 7)
+        - 1990Q2 (w=0.80, rec, lag 1)
+        - 2007Q3 (w=0.78, rec, lag 1)
+        - 1996Q2 (w=0.77, benign)
+        - 2007Q2 (w=0.76, rec, lag 2)
+      - quarter: 2025Q3
+        state: scored
+        share: 0.4948171203274153
+        share_raw: 0.5180765312391621
+        n_matches: 43
+        evaluable_neighbor_count: 41
+        dropped_unresolved_count: 2
+        kernel_weight_sum: 28.64515981631927
+        pit_candidate_pool_size: 199
+        top_matches:
+        - 2007Q2 (w=0.88, rec, lag 2)
+        - 2007Q3 (w=0.86, rec, lag 1)
+        - 2024Q3 (w=0.85, unresolved)
+        - 1996Q1 (w=0.81, benign)
+        - 2018Q4 (w=0.79, rec, lag 4)
+      - quarter: 2025Q4
+        state: scored
+        share: 0.4147300363667588
+        share_raw: 0.4269607547220608
+        n_matches: 53
+        evaluable_neighbor_count: 50
+        dropped_unresolved_count: 3
+        kernel_weight_sum: 34.831011437180564
+        pit_candidate_pool_size: 200
+        top_matches:
+        - 2024Q4 (w=0.91, unresolved)
+        - 2024Q3 (w=0.88, unresolved)
+        - 2007Q2 (w=0.87, rec, lag 2)
+        - 1996Q1 (w=0.86, benign)
+        - 2007Q1 (w=0.84, rec, lag 3)
+      - quarter: 2026Q1
+        state: scored
+        share: 0.3942713168253352
+        share_raw: 0.4076006579728888
+        n_matches: 44
+        evaluable_neighbor_count: 40
+        dropped_unresolved_count: 4
+        kernel_weight_sum: 27.35560057003338
+        pit_candidate_pool_size: 201
+        top_matches:
+        - 2024Q4 (w=0.92, unresolved)
+        - 2025Q1 (w=0.88, unresolved)
+        - 1997Q1 (w=0.80, benign)
+        - 2007Q2 (w=0.80, rec, lag 2)
+        - 1997Q2 (w=0.79, benign)
+      - quarter: 2026Q2
+        state: scored
+        share: 0.4518174940894545
+        share_raw: 0.4764075084539184
+        n_matches: 36
+        evaluable_neighbor_count: 32
+        dropped_unresolved_count: 4
+        kernel_weight_sum: 21.849139903837496
+        pit_candidate_pool_size: 202
+        top_matches:
+        - 2025Q1 (w=0.91, unresolved)
+        - 2024Q4 (w=0.88, unresolved)
+        - 2025Q2 (w=0.85, unresolved)
+        - 1996Q2 (w=0.78, benign)
+        - 1999Q2 (w=0.77, rec, lag 7)
+      trailing_max_onset_lag_distribution:
+        horizon_quarters: 8
+        histogram:
+          '1': 0.40164750561995766
+          '2': 0.37735286193716
+          '3': 0.0
+          '4': 0.0
+          '5': 0.0
+          '6': 0.0
+          '7': 0.22099963244288232
+          '8': 0.0
+        weighted_mean_lag: 2.703350656594454
+        weighted_median_lag: 2.0
+        effective_n: 5.274895533671298
+        low_n: true
+        in_recession_at_match:
+          count: 1
+          kernel_weight: 0.6164836863661449
+        peak_at_match:
+          count: 1
+          kernel_weight: 0.7140863900048243
+        conditional_timing:
+          elapsed_quarters: 4
+          spent_mass: 0.7790003675571177
+          remaining_mass: 0.22099963244288232
+          conditional_share: 0.5278429148428067
+          share_shrunk: 0.5278429148428068
+          formula: remaining_mass / (1 - spent_mass) * share_shrunk
+      analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+    bvar_soft:
+      credit_led_recession: 7.597540851346038e-05
+      expansion_disinflation: 0.23563345933537466
+      growth_scare_no_credit: 0.03831839319781647
+      inflation_shock: 0.16224859607599088
+      late_cycle_expansion: 0.5394663961307827
+      stagflation: 0.024257179851521662
+    analogue_implied:
+      credit_led_recession: 0.5278429148428068
+      expansion_disinflation: 0.11126446068815035
+      late_cycle_expansion: 0.2547322345229456
+      inflation_shock: 0.07661264487107805
+      stagflation: 0.011454069560442263
+      growth_scare_no_credit: 0.018093675514576975
+    mixed_pre_floor:
+      credit_led_recession: 0.15840605723880144
+      expansion_disinflation: 0.19832275974120733
+      growth_scare_no_credit: 0.03225097789284462
+      inflation_shock: 0.13655781071451703
+      late_cycle_expansion: 0.4540461476484316
+      stagflation: 0.020416246764197843
+    probabilities_before:
+      credit_led_recession: 7.597540851346038e-05
+      expansion_disinflation: 0.23563345933537466
+      growth_scare_no_credit: 0.03831839319781647
+      inflation_shock: 0.16224859607599088
+      late_cycle_expansion: 0.5394663961307827
+      stagflation: 0.024257179851521662
+    probabilities_after:
+      credit_led_recession: 0.15840605723880147
+      expansion_disinflation: 0.19832275974120736
+      growth_scare_no_credit: 0.032250977892844625
+      inflation_shock: 0.13655781071451706
+      late_cycle_expansion: 0.45404614764843165
+      stagflation: 0.020416246764197846
+    floor_applied:
+      credit_led_recession: false
+      expansion_disinflation: false
+      growth_scare_no_credit: false
+      inflation_shock: false
+      late_cycle_expansion: false
+      stagflation: false
+    per_scenario:
+      credit_led_recession:
+        bvar_soft: 7.597540851346038e-05
+        analogue_implied: 0.5278429148428068
+        mixed_pre_floor: 0.15840605723880144
+        final: 0.15840605723880147
+        delta: 0.15833008183028802
+        floor_applied: false
+      expansion_disinflation:
+        bvar_soft: 0.23563345933537466
+        analogue_implied: 0.11126446068815035
+        mixed_pre_floor: 0.19832275974120733
+        final: 0.19832275974120736
+        delta: -0.0373106995941673
+        floor_applied: false
+      growth_scare_no_credit:
+        bvar_soft: 0.03831839319781647
+        analogue_implied: 0.018093675514576975
+        mixed_pre_floor: 0.03225097789284462
+        final: 0.032250977892844625
+        delta: -0.006067415304971846
+        floor_applied: false
+      inflation_shock:
+        bvar_soft: 0.16224859607599088
+        analogue_implied: 0.07661264487107805
+        mixed_pre_floor: 0.13655781071451703
+        final: 0.13655781071451706
+        delta: -0.025690785361473817
+        floor_applied: false
+      late_cycle_expansion:
+        bvar_soft: 0.5394663961307827
+        analogue_implied: 0.2547322345229456
+        mixed_pre_floor: 0.4540461476484316
+        final: 0.45404614764843165
+        delta: -0.08542024848235108
+        floor_applied: false
+      stagflation:
+        bvar_soft: 0.024257179851521662
+        analogue_implied: 0.011454069560442263
+        mixed_pre_floor: 0.020416246764197843
+        final: 0.020416246764197846
+        delta: -0.003840933087323816
+        floor_applied: false
+    movement_total_abs: 0.31666016366057587
+    analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+  analogue_evidence:
+    enabled: true
+    applied: true
+    reason: trailing_max_linear_mixture
+    combination: linear_mixture
+    numerical_floor: 0.001
+    floor_note: Uniform numerical floor applied after mixing and renormalized; not a judgmental scenario
+      floor.
+    alpha: 0.3
+    alpha_effective: 0.3
+    s: 0.5278429148428068
+    b: 0.2727272727272727
+    membership_groups:
+      recession:
+      - credit_led_recession
+      non_recession:
+      - expansion_disinflation
+      - late_cycle_expansion
+      - inflation_shock
+      - stagflation
+      - growth_scare_no_credit
+    stress_advisory: false
+    abstention_state: null
+    evidence:
+      query_date: 2026Q2
+      current_state: scored
+      spot_share: 0.4518174940894545
+      trailing_max: 0.5278429148428068
+      trailing_max_quarter: 2025Q2
+      base_rate: 0.2727272727272727
+      kernel_weight_sum: 21.849139903837496
+      stress_advisory: false
+      window_states:
+      - quarter: 2025Q1
+        state: scored
+        share: 0.5189056896383331
+        share_raw: 0.5782575516209382
+        n_matches: 18
+        evaluable_neighbor_count: 18
+        dropped_unresolved_count: 0
+        kernel_weight_sum: 12.443337513987903
+        pit_candidate_pool_size: 197
+        top_matches:
+        - 1990Q2 (w=0.82, rec, lag 1)
+        - 2007Q2 (w=0.80, rec, lag 2)
+        - 1999Q2 (w=0.79, rec, lag 7)
+        - 1990Q1 (w=0.77, rec, lag 2)
+        - 1996Q2 (w=0.76, benign)
+      - quarter: 2025Q2
+        state: scored
+        share: 0.5278429148428068
+        share_raw: 0.6174268150612452
+        n_matches: 13
+        evaluable_neighbor_count: 12
+        dropped_unresolved_count: 1
+        kernel_weight_sum: 8.543353487405724
+        pit_candidate_pool_size: 198
+        top_matches:
+        - 1999Q2 (w=0.87, rec, lag 7)
+        - 1990Q2 (w=0.80, rec, lag 1)
+        - 2007Q3 (w=0.78, rec, lag 1)
+        - 1996Q2 (w=0.77, benign)
+        - 2007Q2 (w=0.76, rec, lag 2)
+      - quarter: 2025Q3
+        state: scored
+        share: 0.4948171203274153
+        share_raw: 0.5180765312391621
+        n_matches: 43
+        evaluable_neighbor_count: 41
+        dropped_unresolved_count: 2
+        kernel_weight_sum: 28.64515981631927
+        pit_candidate_pool_size: 199
+        top_matches:
+        - 2007Q2 (w=0.88, rec, lag 2)
+        - 2007Q3 (w=0.86, rec, lag 1)
+        - 2024Q3 (w=0.85, unresolved)
+        - 1996Q1 (w=0.81, benign)
+        - 2018Q4 (w=0.79, rec, lag 4)
+      - quarter: 2025Q4
+        state: scored
+        share: 0.4147300363667588
+        share_raw: 0.4269607547220608
+        n_matches: 53
+        evaluable_neighbor_count: 50
+        dropped_unresolved_count: 3
+        kernel_weight_sum: 34.831011437180564
+        pit_candidate_pool_size: 200
+        top_matches:
+        - 2024Q4 (w=0.91, unresolved)
+        - 2024Q3 (w=0.88, unresolved)
+        - 2007Q2 (w=0.87, rec, lag 2)
+        - 1996Q1 (w=0.86, benign)
+        - 2007Q1 (w=0.84, rec, lag 3)
+      - quarter: 2026Q1
+        state: scored
+        share: 0.3942713168253352
+        share_raw: 0.4076006579728888
+        n_matches: 44
+        evaluable_neighbor_count: 40
+        dropped_unresolved_count: 4
+        kernel_weight_sum: 27.35560057003338
+        pit_candidate_pool_size: 201
+        top_matches:
+        - 2024Q4 (w=0.92, unresolved)
+        - 2025Q1 (w=0.88, unresolved)
+        - 1997Q1 (w=0.80, benign)
+        - 2007Q2 (w=0.80, rec, lag 2)
+        - 1997Q2 (w=0.79, benign)
+      - quarter: 2026Q2
+        state: scored
+        share: 0.4518174940894545
+        share_raw: 0.4764075084539184
+        n_matches: 36
+        evaluable_neighbor_count: 32
+        dropped_unresolved_count: 4
+        kernel_weight_sum: 21.849139903837496
+        pit_candidate_pool_size: 202
+        top_matches:
+        - 2025Q1 (w=0.91, unresolved)
+        - 2024Q4 (w=0.88, unresolved)
+        - 2025Q2 (w=0.85, unresolved)
+        - 1996Q2 (w=0.78, benign)
+        - 1999Q2 (w=0.77, rec, lag 7)
+      trailing_max_onset_lag_distribution:
+        horizon_quarters: 8
+        histogram:
+          '1': 0.40164750561995766
+          '2': 0.37735286193716
+          '3': 0.0
+          '4': 0.0
+          '5': 0.0
+          '6': 0.0
+          '7': 0.22099963244288232
+          '8': 0.0
+        weighted_mean_lag: 2.703350656594454
+        weighted_median_lag: 2.0
+        effective_n: 5.274895533671298
+        low_n: true
+        in_recession_at_match:
+          count: 1
+          kernel_weight: 0.6164836863661449
+        peak_at_match:
+          count: 1
+          kernel_weight: 0.7140863900048243
+        conditional_timing:
+          elapsed_quarters: 4
+          spent_mass: 0.7790003675571177
+          remaining_mass: 0.22099963244288232
+          conditional_share: 0.5278429148428067
+          share_shrunk: 0.5278429148428068
+          formula: remaining_mass / (1 - spent_mass) * share_shrunk
+      analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+    bvar_soft:
+      credit_led_recession: 7.597540851346038e-05
+      expansion_disinflation: 0.23563345933537466
+      growth_scare_no_credit: 0.03831839319781647
+      inflation_shock: 0.16224859607599088
+      late_cycle_expansion: 0.5394663961307827
+      stagflation: 0.024257179851521662
+    analogue_implied:
+      credit_led_recession: 0.5278429148428068
+      expansion_disinflation: 0.11126446068815035
+      late_cycle_expansion: 0.2547322345229456
+      inflation_shock: 0.07661264487107805
+      stagflation: 0.011454069560442263
+      growth_scare_no_credit: 0.018093675514576975
+    mixed_pre_floor:
+      credit_led_recession: 0.15840605723880144
+      expansion_disinflation: 0.19832275974120733
+      growth_scare_no_credit: 0.03225097789284462
+      inflation_shock: 0.13655781071451703
+      late_cycle_expansion: 0.4540461476484316
+      stagflation: 0.020416246764197843
+    probabilities_before:
+      credit_led_recession: 7.597540851346038e-05
+      expansion_disinflation: 0.23563345933537466
+      growth_scare_no_credit: 0.03831839319781647
+      inflation_shock: 0.16224859607599088
+      late_cycle_expansion: 0.5394663961307827
+      stagflation: 0.024257179851521662
+    probabilities_after:
+      credit_led_recession: 0.15840605723880147
+      expansion_disinflation: 0.19832275974120736
+      growth_scare_no_credit: 0.032250977892844625
+      inflation_shock: 0.13655781071451706
+      late_cycle_expansion: 0.45404614764843165
+      stagflation: 0.020416246764197846
+    floor_applied:
+      credit_led_recession: false
+      expansion_disinflation: false
+      growth_scare_no_credit: false
+      inflation_shock: false
+      late_cycle_expansion: false
+      stagflation: false
+    per_scenario:
+      credit_led_recession:
+        bvar_soft: 7.597540851346038e-05
+        analogue_implied: 0.5278429148428068
+        mixed_pre_floor: 0.15840605723880144
+        final: 0.15840605723880147
+        delta: 0.15833008183028802
+        floor_applied: false
+      expansion_disinflation:
+        bvar_soft: 0.23563345933537466
+        analogue_implied: 0.11126446068815035
+        mixed_pre_floor: 0.19832275974120733
+        final: 0.19832275974120736
+        delta: -0.0373106995941673
+        floor_applied: false
+      growth_scare_no_credit:
+        bvar_soft: 0.03831839319781647
+        analogue_implied: 0.018093675514576975
+        mixed_pre_floor: 0.03225097789284462
+        final: 0.032250977892844625
+        delta: -0.006067415304971846
+        floor_applied: false
+      inflation_shock:
+        bvar_soft: 0.16224859607599088
+        analogue_implied: 0.07661264487107805
+        mixed_pre_floor: 0.13655781071451703
+        final: 0.13655781071451706
+        delta: -0.025690785361473817
+        floor_applied: false
+      late_cycle_expansion:
+        bvar_soft: 0.5394663961307827
+        analogue_implied: 0.2547322345229456
+        mixed_pre_floor: 0.4540461476484316
+        final: 0.45404614764843165
+        delta: -0.08542024848235108
+        floor_applied: false
+      stagflation:
+        bvar_soft: 0.024257179851521662
+        analogue_implied: 0.011454069560442263
+        mixed_pre_floor: 0.020416246764197843
+        final: 0.020416246764197846
+        delta: -0.003840933087323816
+        floor_applied: false
+    movement_total_abs: 0.31666016366057587
+    analogue_fan_artifact_path: data/agent_system/reports/macro_forecasts/analogue_fans/analogue_fan_2026Q2.json
+  post_analogue:
+    credit_led_recession: 0.15840605723880147
+    expansion_disinflation: 0.19832275974120736
+    growth_scare_no_credit: 0.032250977892844625
+    inflation_shock: 0.13655781071451706
+    late_cycle_expansion: 0.45404614764843165
+    stagflation: 0.020416246764197846
+  operator_priors:
+    status: not_applied_in_macro_scenario_source
+    operator_prior_note: The current_regime_read and tail_watch here inform the OPERATOR PRIOR overlay
+      on the ensemble output. Where the operator sees a tail the quarterly ensemble structurally under-weights
+      (e.g. an acute credit setup building faster than macro data confirms), this file is where that judgment
+      is recorded and applied as a Bayesian tilt on the ensemble probabilities.
+    probabilities_before:
+      credit_led_recession: 0.15840605723880147
+      expansion_disinflation: 0.19832275974120736
+      growth_scare_no_credit: 0.032250977892844625
+      inflation_shock: 0.13655781071451706
+      late_cycle_expansion: 0.45404614764843165
+      stagflation: 0.020416246764197846
+    probabilities_after:
+      credit_led_recession: 0.15840605723880147
+      expansion_disinflation: 0.19832275974120736
+      growth_scare_no_credit: 0.032250977892844625
+      inflation_shock: 0.13655781071451706
+      late_cycle_expansion: 0.45404614764843165
+      stagflation: 0.020416246764197846
+  final_distribution:
+    credit_led_recession: 0.15840605723880147
+    expansion_disinflation: 0.19832275974120736
+    growth_scare_no_credit: 0.032250977892844625
+    inflation_shock: 0.13655781071451706
+    late_cycle_expansion: 0.45404614764843165
+    stagflation: 0.020416246764197846
+key_drivers:
+- name: Primary behavioral scenario
+  status: late_cycle_expansion
+  explanation: Operator current-conditions read identifies late_cycle_expansion while the ensemble probability
+    is 45.4%.
+- name: Secondary behavioral scenario
+  status: expansion_disinflation
+  explanation: Operator current-conditions read identifies expansion_disinflation while the ensemble probability
+    is 19.8%.
+- name: Tail watch
+  status: inflation_shock, credit_led_recession
+  explanation: Current conditions annotate these behavioral scenarios as live tails to monitor.
+- name: Toward Expansion Disinflation
+  status: transition catalyst
+  explanation: '{"confirm": ["Hormuz reopening framework announced and tanker traffic normalizes", "Oil
+    holds below $90 for five+ sessions and inflation breakevens roll over", "CPI/PCE show disinflation
+    after the April uptick", "Fed guidance shifts from hold/hike optionality toward explicit cut optionality",
+    "Market breadth improves; small caps and equal-weight outperform"], "from": "late_cycle_expansion",
+    "invalidate": ["Oil rebounds above recent shock highs on renewed disruption", "Fed hike odds rise
+    after hot inflation data", "Credit spreads widen despite lower oil"]}'
+- name: Toward Inflation Shock
+  status: transition catalyst
+  explanation: '{"confirm": ["Renewed Hormuz disruption or attacks on shipping infrastructure", "Oil breaks
+    higher and stays elevated through multiple inflation releases", "Inflation breakevens rise for two+
+    weeks", "Fed hike odds increase and officials push back against cuts", "Consumer discretionary earnings
+    weaken on fuel/input costs"], "from": "late_cycle_expansion", "invalidate": ["Verified tanker normalization
+    and sustained oil decline below $90", "Inflation prints soften despite higher energy prices", "Fed
+    hike odds fade meaningfully"]}'
+- name: Toward Growth Scare Or Credit Recession
+  status: transition catalyst
+  explanation: '{"confirm": ["Payrolls, claims, retail sales, or PMIs deteriorate abruptly", "HY spreads
+    widen materially from tight starting levels (-> credit_led_recession specifically)", "Bank lending
+    or funding-stress indicators worsen (-> credit_led_recession specifically)", "AI leaders sell off
+    despite stable rates, showing leadership exhaustion"], "from": "late_cycle_expansion", "invalidate":
+    ["Credit spreads remain tight while breadth improves", "Labor data stabilize and consumption remains
+    resilient", "Fed pre-emptively eases with credible disinflation cover"], "note": "Which of the two
+    recessionary scenarios depends on CREDIT: spreads holding = growth_scare_no_credit; spreads blowing
+    out = credit_led_recession. The HY spread is the deciding variable."}'
+portfolio_implications:
+- 'Late-cycle expansion (narrow, capex-led, sticky inflation): Cap-weighted holds up better than equal-weight;
+  quality AI, grid, defense, infrastructure lead; small caps lag.'
+- 'Expansion with disinflation (broadening / soft landing): Broad equities rise with improving breadth;
+  small caps and rate-sensitive quality catch up.'
+- 'Credit-led recession (spread blowout + contraction): Broad severe drawdown; high-beta, small caps,
+  weak balance sheets worst; quality/low-leverage least bad.'
+- The current_regime_read and tail_watch here inform the OPERATOR PRIOR overlay on the ensemble output.
+  Where the operator sees a tail the quarterly ensemble structurally under-weights (e.g. an acute credit
+  setup building faster than macro data confirms), this file is where that judgment is recorded and applied
+  as a Bayesian tilt on the ensemble probabilities.
+best_positioned:
+- grid_power_infrastructure
+- quality_ai
+- electrical_equipment
+- engineering_construction
+- industrial_distribution
+- small_caps
+- high_beta_ai_semis
+- long_duration_growth
+- cash_short_duration
+- quality_ex_ai_cash_flow
+most_vulnerable:
+- small_caps
+- auto_parts_salvage
+- cash_short_duration
+- high_beta_ai_semis
+- long_duration_growth
+falsifiers:
+- condition: Oil rebounds above recent shock highs on renewed disruption
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Fed hike odds rise after hot inflation data
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Credit spreads widen despite lower oil
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Verified tanker normalization and sustained oil decline below $90
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Inflation prints soften despite higher energy prices
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Fed hike odds fade meaningfully
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Credit spreads remain tight while breadth improves
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Labor data stabilize and consumption remains resilient
+  observable_in: data_series
+  check_frequency: weekly
+- condition: Fed pre-emptively eases with credible disinflation cover
+  observable_in: data_series
+  check_frequency: weekly
+seed_research_priorities:
+- scenario_taxonomy: behavioral_v1
+  theme: Late-cycle expansion (narrow, capex-led, sticky inflation) behavioral scenario validation
+  rationale: Late-cycle expansion (narrow, capex-led, sticky inflation) is a primary scenario in the active
+    behavioral macro source with ensemble probability 45.4%. The seed exists to validate whether bottom-up
+    evidence and market behavior confirm the same behavioral path.
+  edge_hypothesis: The market may be under- or over-pricing the transition into Late-cycle expansion (narrow,
+    capex-led, sticky inflation). Research should test whether preferred exposures such as grid_power_infrastructure,
+    quality_ai, electrical_equipment, engineering_construction offer cleaner risk/reward than vulnerable
+    exposures such as small_caps, auto_parts_salvage, using behavioral scenario ids rather than the retired
+    narrative taxonomy.
+  sub_questions:
+  - Which themes have direct positive exposure to Late-cycle expansion (narrow, capex-led, sticky inflation)
+    without relying on stale narrative scenario ids?
+  - Where are preferred exposures (grid_power_infrastructure, quality_ai, electrical_equipment, engineering_construction)
+    showing bottom-up confirmation?
+  - Which vulnerable exposures (small_caps, auto_parts_salvage) are beginning to break or de-rate?
+  - 'Are confirming catalysts appearing: Hormuz reopening framework announced and tanker traffic normalizes?'
+  - 'What would invalidate this path: Oil rebounds above recent shock highs on renewed disruption?'
+  - 'Are confirming catalysts appearing: Renewed Hormuz disruption or attacks on shipping infrastructure?'
+  priority_rank: 1
+  expected_edge_decay: quarters
+  source_theme_id: behavioral::late_cycle_expansion
+  source_scenario_ids:
+  - late_cycle_expansion
+  source_macro_forecast_id: '2026-07-31T02:44:37Z'
+- scenario_taxonomy: behavioral_v1
+  theme: Expansion with disinflation (broadening / soft landing) behavioral scenario validation
+  rationale: Expansion with disinflation (broadening / soft landing) is a secondary scenario in the active
+    behavioral macro source with ensemble probability 19.8%. The seed exists to validate whether bottom-up
+    evidence and market behavior confirm the same behavioral path.
+  edge_hypothesis: The market may be under- or over-pricing the transition into Expansion with disinflation
+    (broadening / soft landing). Research should test whether preferred exposures such as small_caps,
+    high_beta_ai_semis, engineering_construction, electrical_equipment offer cleaner risk/reward than
+    vulnerable exposures such as cash_short_duration, using behavioral scenario ids rather than the retired
+    narrative taxonomy.
+  sub_questions:
+  - Which themes have direct positive exposure to Expansion with disinflation (broadening / soft landing)
+    without relying on stale narrative scenario ids?
+  - Where are preferred exposures (small_caps, high_beta_ai_semis, engineering_construction, electrical_equipment)
+    showing bottom-up confirmation?
+  - Which vulnerable exposures (cash_short_duration) are beginning to break or de-rate?
+  priority_rank: 2
+  expected_edge_decay: quarters
+  source_theme_id: behavioral::expansion_disinflation
+  source_scenario_ids:
+  - expansion_disinflation
+  source_macro_forecast_id: '2026-07-31T02:44:37Z'
+- scenario_taxonomy: behavioral_v1
+  theme: Inflation shock (supply-driven reacceleration) behavioral scenario validation
+  rationale: Inflation shock (supply-driven reacceleration) is a tail_watch scenario in the active behavioral
+    macro source with ensemble probability 13.7%. The seed exists to validate whether bottom-up evidence
+    and market behavior confirm the same behavioral path.
+  edge_hypothesis: The market may be under- or over-pricing the transition into Inflation shock (supply-driven
+    reacceleration). Research should test whether preferred exposures such as cash_short_duration, insurance_brokers,
+    financial_data_exchanges offer cleaner risk/reward than vulnerable exposures such as long_duration_growth,
+    high_beta_ai_semis, small_caps, using behavioral scenario ids rather than the retired narrative taxonomy.
+  sub_questions:
+  - Which themes have direct positive exposure to Inflation shock (supply-driven reacceleration) without
+    relying on stale narrative scenario ids?
+  - Where are preferred exposures (cash_short_duration, insurance_brokers, financial_data_exchanges) showing
+    bottom-up confirmation?
+  - Which vulnerable exposures (long_duration_growth, high_beta_ai_semis, small_caps) are beginning to
+    break or de-rate?
+  priority_rank: 3
+  expected_edge_decay: quarters
+  source_theme_id: behavioral::inflation_shock
+  source_scenario_ids:
+  - inflation_shock
+  source_macro_forecast_id: '2026-07-31T02:44:37Z'
+- scenario_taxonomy: behavioral_v1
+  theme: Credit-led recession (spread blowout + contraction) behavioral scenario validation
+  rationale: Credit-led recession (spread blowout + contraction) is a tail_watch scenario in the active
+    behavioral macro source with ensemble probability 15.8%. The seed exists to validate whether bottom-up
+    evidence and market behavior confirm the same behavioral path.
+  edge_hypothesis: The market may be under- or over-pricing the transition into Credit-led recession (spread
+    blowout + contraction). Research should test whether preferred exposures such as cash_short_duration,
+    quality_ex_ai_cash_flow offer cleaner risk/reward than vulnerable exposures such as high_beta_ai_semis,
+    small_caps, auto_parts_salvage, long_duration_growth, using behavioral scenario ids rather than the
+    retired narrative taxonomy.
+  sub_questions:
+  - Which themes have direct positive exposure to Credit-led recession (spread blowout + contraction)
+    without relying on stale narrative scenario ids?
+  - Where are preferred exposures (cash_short_duration, quality_ex_ai_cash_flow) showing bottom-up confirmation?
+  - Which vulnerable exposures (high_beta_ai_semis, small_caps, auto_parts_salvage, long_duration_growth)
+    are beginning to break or de-rate?
+  - 'Are confirming catalysts appearing: Payrolls, claims, retail sales, or PMIs deteriorate abruptly?'
+  - 'What would invalidate this path: Credit spreads remain tight while breadth improves?'
+  priority_rank: 4
+  expected_edge_decay: quarters
+  source_theme_id: behavioral::credit_led_recession
+  source_scenario_ids:
+  - credit_led_recession
+  source_macro_forecast_id: '2026-07-31T02:44:37Z'

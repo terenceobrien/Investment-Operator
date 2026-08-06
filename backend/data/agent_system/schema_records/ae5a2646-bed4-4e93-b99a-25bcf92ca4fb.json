@@ -1,0 +1,18 @@
+{
+  "id": "ae5a2646-bed4-4e93-b99a-25bcf92ca4fb",
+  "schema_type": "Conviction",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.403007+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.403007Z",
+    "id": "ae5a2646-bed4-4e93-b99a-25bcf92ca4fb",
+    "rating": "weak",
+    "rule_applied": "insufficient_fundamental_variant_no_narrative_signal_weak",
+    "weakest_link": "none",
+    "reasoning": "Absent narrative coverage is neutral, but the remaining thematic and fundamental evidence is not strong enough for construction."
+  }
+}

@@ -22,7 +22,7 @@ from src.agent_system.forecasting.scenario_classifier.registry import (
     VariableRegistry,
     VariableSpec,
 )
-from src.agent_system.paths import agent_system_data_root
+from src.agent_system.paths import bvar_cache_dir
 
 
 class BVARFitError(RuntimeError):
@@ -51,7 +51,7 @@ class PosteriorArtifact:
 
 
 def default_bvar_cache_dir() -> Path:
-    return agent_system_data_root() / "bvar_cache"
+    return bvar_cache_dir(create=False)
 
 
 def artifact_candidate_paths(

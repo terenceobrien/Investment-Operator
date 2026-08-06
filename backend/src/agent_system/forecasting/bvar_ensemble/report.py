@@ -13,7 +13,7 @@ import pandas as pd
 
 from src.agent_system.forecasting.bvar_ensemble.estimation import default_bvar_cache_dir
 from src.agent_system.forecasting.scenario_classifier.registry import VariableRegistry
-from src.agent_system.paths import project_root
+from src.agent_system.paths import bvar_reports_dir, data_root
 
 
 class ReportError(RuntimeError):
@@ -58,15 +58,14 @@ def resolve_report_output_dir(
     bvar_cache_dir: str | Path | None = None,
 ) -> Path:
     raw = str(config.get("report_output_dir") or "").strip()
-    default_literal = "data/agent_system/bvar_cache/reports"
-    if bvar_cache_dir is not None and (not raw or raw == default_literal):
+    if bvar_cache_dir is not None and not raw:
         return Path(bvar_cache_dir) / "reports"
     if not raw:
-        return default_bvar_cache_dir() / "reports"
+        return bvar_reports_dir(create=False)
     path = Path(raw)
     if path.is_absolute():
         return path
-    return project_root() / path
+    return data_root(create=False) / path
 
 
 def generate_forecast_report(
@@ -162,7 +161,7 @@ def generate_forecast_report(
     props.created = fixed_time
     props.modified = fixed_time
 
-    target_dir = Path(output_dir) if output_dir is not None else default_bvar_cache_dir() / "reports"
+    target_dir = Path(output_dir) if output_dir is not None else bvar_reports_dir(create=False)
     target_dir.mkdir(parents=True, exist_ok=True)
     out_path = target_dir / (
         f"bvar_forecast_{forecast.get('asof_quarter', 'unknown')}_"
@@ -247,7 +246,7 @@ def _generate_comparison_report(
     fixed_time = _forecast_datetime(primary)
     doc.core_properties.created = fixed_time
     doc.core_properties.modified = fixed_time
-    target_dir = Path(output_dir) if output_dir is not None else default_bvar_cache_dir() / "reports"
+    target_dir = Path(output_dir) if output_dir is not None else bvar_reports_dir(create=False)
     target_dir.mkdir(parents=True, exist_ok=True)
     out_path = target_dir / (
         f"bvar_forecast_compare_{primary.get('asof_quarter', 'unknown')}_"

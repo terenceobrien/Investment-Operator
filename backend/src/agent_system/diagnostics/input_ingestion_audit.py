@@ -34,9 +34,10 @@ from src.agent_system.forecasting.macro_forecast_runner import (
     _load_regime_inputs_for_cli,
 )
 from src.agent_system.schemas.macro_forecast import ForecastInputSet, MacroInputSignal
+from src.agent_system.paths import diagnostics_dir
 
 
-DEFAULT_OUTPUT_DIR = "data/agent_system/diagnostics"
+DEFAULT_OUTPUT_DIR = str(diagnostics_dir(create=False))
 CBOE_PUT_CALL_URL = "https://www.cboe.com/markets/us/options/market-statistics/daily/"
 
 HORIZON_LOOKBACK_LABELS = {

@@ -81,6 +81,7 @@ from src.narrative.synth import (  # noqa: E402
     save_narrative_snapshot,
     synthesize_narrative_state,
 )
+from src.agent_system.paths import snapshots_dir  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO,
@@ -95,7 +96,7 @@ logger = logging.getLogger("run_synth")
 DEFAULT_WATCH_TICKERS = ["SPY", "QQQ", "IWM", "TLT", "HYG", "VIX"]
 
 DEFAULT_SOURCES_CSV = _backend_dir / "config" / "narrative_sources.csv"
-SNAPSHOTS_DIR = _repo_root / "data" / "snapshots"
+SNAPSHOTS_DIR = snapshots_dir(create=False)
 
 
 def _channel_counts(items: list[dict]) -> dict[str, int]:

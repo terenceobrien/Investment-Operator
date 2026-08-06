@@ -1,0 +1,170 @@
+{
+  "ticker": "PLTR",
+  "company_name": "Palantir Technologies Inc.",
+  "sector": "Technology",
+  "industry": "Application Software / Data Analytics and AI Platforms",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-07-16",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge of Palantir and should be verified against the company’s latest Form 10-K, Form 10-Q, investor materials, and earnings calls.",
+    "Financial context supplied through 2026-03-31 supports the characterization of Palantir as a high-gross-margin, low-capex software business, but segment details were not source-verified in the provided context.",
+    "research_context was supplied to the profile agent."
+  ],
+  "profile_data_gaps": [
+    "No filing-verified segment revenue or profit split supplied in the input context",
+    "No source-backed customer concentration, contract backlog, remaining performance obligations, or renewal metrics supplied",
+    "No source-backed geographic revenue split supplied",
+    "No source-backed management commentary or recent product adoption metrics supplied"
+  ],
+  "business_description": "Palantir Technologies Inc. develops software platforms for data integration, analytics, operational decision-making, and artificial intelligence deployment. Its core platforms include offerings used by government agencies for intelligence, defense, and civil missions, and by commercial enterprises to unify complex data, build workflows, and operationalize AI-enabled applications. The company is software-centric with high gross margins, low capital intensity, and a business mix spanning government and commercial customers.",
+  "business_model": "Palantir sells enterprise software platforms through multi-year contracts, subscriptions, term licenses, and related implementation, support, and deployment services. The model depends on landing large government and enterprise customers, expanding usage across workflows, renewing contracts, and scaling deployments with limited incremental cost. Growth is driven by adoption of its AI Platform and broader data operating-system use cases, while profitability depends on software gross margins, sales efficiency, cloud/hosting costs, and operating expense discipline.",
+  "segments": [
+    {
+      "name": "Government",
+      "description": "Software and related services sold to government agencies, including defense, intelligence, civil government, and allied public-sector customers. Use cases include mission planning, intelligence analysis, logistics, readiness, fraud detection, public health, and operational decision support.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Defense and intelligence budgets",
+        "Federal procurement cycles and contract renewals",
+        "Expansion within existing agencies",
+        "Adoption by allied governments",
+        "Mission-critical deployment success and security certifications",
+        "Geopolitical and national security priorities"
+      ]
+    },
+    {
+      "name": "Commercial",
+      "description": "Software platforms sold to enterprises across industries to integrate data, build operational workflows, improve decision-making, and deploy AI-enabled applications into production environments.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Enterprise AI adoption",
+        "Digital transformation budgets",
+        "New customer acquisition",
+        "Expansion of existing customers into more workflows",
+        "Sales productivity and implementation speed",
+        "Competition with cloud-native and internal data platforms"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Subscription and term-license revenue for enterprise software platforms",
+    "Multi-year government and commercial contracts with renewals and expansion opportunities",
+    "Implementation, support, and deployment-related services tied to platform adoption",
+    "Expansion revenue from additional users, workflows, data integrations, AI use cases, and production deployments",
+    "Potential usage-linked or capacity-linked monetization depending on customer deployment structure"
+  ],
+  "cost_drivers": [
+    "Research and development for software engineering, AI capabilities, data security, and platform reliability",
+    "Sales and marketing expense for enterprise customer acquisition, account expansion, pilots, and go-to-market programs",
+    "Customer deployment, implementation, support, and forward-deployed engineering resources",
+    "Cloud infrastructure, hosting, data processing, and third-party software costs",
+    "Security, compliance, certifications, and government-contracting overhead",
+    "Stock-based compensation and other personnel costs"
+  ],
+  "margin_drivers": [
+    "High software gross margins and low capital intensity",
+    "Operating leverage from scaling revenue faster than R&D, sales, and administrative expenses",
+    "Mix between software subscriptions and labor-intensive deployment or implementation services",
+    "Expansion of existing customers into more workflows and higher platform usage",
+    "Commercial sales productivity and payback periods on customer acquisition spending",
+    "Cloud hosting and data processing efficiency",
+    "Renewal rates, contract duration, and pricing power",
+    "Stock-based compensation and personnel cost discipline"
+  ],
+  "key_customers": [
+    "U.S. federal government agencies, including defense, intelligence, and civil agencies",
+    "Allied international government agencies and public-sector organizations",
+    "Large commercial enterprises in sectors such as financial services, healthcare, industrials, energy, manufacturing, and technology"
+  ],
+  "key_suppliers": [
+    "Cloud infrastructure and hosting providers",
+    "Third-party software, cybersecurity, and developer tooling vendors",
+    "Specialized engineering, AI, and security-cleared technical talent"
+  ],
+  "peer_group": [
+    {
+      "ticker": "SNOW",
+      "name": "Snowflake Inc.",
+      "relevance": "Cloud data platform peer focused on enterprise data warehousing, analytics, and AI workloads."
+    },
+    {
+      "ticker": "AI",
+      "name": "C3.ai, Inc.",
+      "relevance": "Enterprise AI software platform peer with industry-specific AI applications."
+    },
+    {
+      "ticker": "MDB",
+      "name": "MongoDB, Inc.",
+      "relevance": "Developer data platform peer benefiting from modern application and AI-driven data workloads."
+    },
+    {
+      "ticker": "ESTC",
+      "name": "Elastic N.V.",
+      "relevance": "Search, observability, and security analytics software peer with AI-enabled enterprise data use cases."
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow, Inc.",
+      "relevance": "Large enterprise software platform peer focused on workflow automation and AI-enabled operations."
+    },
+    {
+      "ticker": "CRM",
+      "name": "Salesforce, Inc.",
+      "relevance": "Enterprise software platform peer with large customer base and AI/data cloud initiatives."
+    },
+    {
+      "ticker": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "relevance": "Government technology and defense services peer serving U.S. federal defense, intelligence, and civil customers."
+    },
+    {
+      "ticker": "LDOS",
+      "name": "Leidos Holdings, Inc.",
+      "relevance": "Defense, intelligence, and civil government IT solutions peer with exposure to federal modernization budgets."
+    },
+    {
+      "ticker": "SAIC",
+      "name": "Science Applications International Corporation",
+      "relevance": "U.S. government IT and defense services peer exposed to federal technology procurement cycles."
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "relevance": "Hyperscale cloud and AI platform competitor/partner in enterprise software and government cloud environments."
+    }
+  ],
+  "thematic_exposures": [
+    "Enterprise AI adoption",
+    "Operational AI platforms",
+    "Defense technology modernization",
+    "Government digital transformation",
+    "Data analytics and data integration",
+    "Cybersecurity and national security software",
+    "Cloud-enabled enterprise software",
+    "Automation of complex workflows"
+  ],
+  "macro_sensitivities": [
+    "U.S. federal budget, defense appropriations, intelligence spending, and government procurement timing",
+    "Commercial enterprise software spending and digital transformation budgets",
+    "AI adoption cycle and demand for operational AI platforms",
+    "Cloud infrastructure costs and cloud capex/pricing trends",
+    "Interest rates and equity risk appetite affecting valuation multiples for high-growth software companies",
+    "Geopolitical tensions and national security priorities that influence defense technology demand",
+    "FX exposure from international customers and overseas operations",
+    "Regulation around AI, data privacy, cybersecurity, and government contracting"
+  ],
+  "major_risks": [
+    "Customer concentration and dependence on large government and enterprise contracts",
+    "Long and complex enterprise and public-sector sales cycles that can create uneven revenue timing",
+    "Competition from hyperscalers, data platforms, analytics vendors, AI application providers, and internal customer-built solutions",
+    "Execution risk in scaling commercial adoption beyond historically large strategic accounts",
+    "AI platform monetization risk if pilots do not convert into durable production workloads",
+    "Government procurement, budget delays, contract protests, or changes in political priorities",
+    "Data privacy, cybersecurity, and reputational risks given sensitive customer use cases",
+    "Regulatory scrutiny around AI, surveillance, defense applications, and public-sector data use",
+    "Margin pressure from increased sales hiring, implementation intensity, cloud costs, or stock-based compensation"
+  ]
+}

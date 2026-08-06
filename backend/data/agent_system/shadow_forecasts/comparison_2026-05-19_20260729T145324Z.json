@@ -1,0 +1,110 @@
+{
+  "comparison_table": [
+    {
+      "behavioral_scenario_id": "expansion_disinflation",
+      "delta_ensemble_minus_narrative": -0.2698983333259588,
+      "ensemble_probability": 0.092,
+      "label": "Expansion with disinflation (broadening / soft landing)",
+      "narrative_derived_probability": 0.3618983333259588
+    },
+    {
+      "behavioral_scenario_id": "late_cycle_expansion",
+      "delta_ensemble_minus_narrative": 0.5010877038374628,
+      "ensemble_probability": 0.8421,
+      "label": "Late-cycle expansion (narrow, capex-led, sticky inflation)",
+      "narrative_derived_probability": 0.34101229616253714
+    },
+    {
+      "behavioral_scenario_id": "inflation_shock",
+      "delta_ensemble_minus_narrative": -0.023448714197279105,
+      "ensemble_probability": 0.0484,
+      "label": "Inflation shock (supply-driven reacceleration)",
+      "narrative_derived_probability": 0.0718487141972791
+    },
+    {
+      "behavioral_scenario_id": "stagflation",
+      "delta_ensemble_minus_narrative": -0.027492306084548186,
+      "ensemble_probability": 0.0033,
+      "label": "Stagflation (weak growth + persistent inflation)",
+      "narrative_derived_probability": 0.030792306084548186
+    },
+    {
+      "behavioral_scenario_id": "growth_scare_no_credit",
+      "delta_ensemble_minus_narrative": -0.10112660373487585,
+      "ensemble_probability": 0.014,
+      "label": "Growth scare, credit healthy (equity-led, no funding stress)",
+      "narrative_derived_probability": 0.11512660373487585
+    },
+    {
+      "behavioral_scenario_id": "credit_led_recession",
+      "delta_ensemble_minus_narrative": -0.07912174649480098,
+      "ensemble_probability": 0.0002,
+      "label": "Credit-led recession (spread blowout + contraction)",
+      "narrative_derived_probability": 0.07932174649480099
+    }
+  ],
+  "consumed_by_live_pipeline": false,
+  "cycle_date": "2026-05-19",
+  "cycle_id": "a3cf9be3-404e-480b-bef5-e4d3f5bca894",
+  "ensemble_source": {
+    "artifact_path": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/shadow_forecasts/shadow_forecast_2026-05-19_20260729T145324Z.json",
+    "asof_quarter": "2026Q1",
+    "generated_at": "2026-07-29T14:53:24Z",
+    "scenario_probabilities": {
+      "credit_led_recession": 0.0002,
+      "expansion_disinflation": 0.092,
+      "growth_scare_no_credit": 0.014,
+      "inflation_shock": 0.0484,
+      "late_cycle_expansion": 0.8421,
+      "stagflation": 0.0033
+    }
+  },
+  "generated_at": "2026-07-29T14:53:24Z",
+  "margin_context": {
+    "ensemble": {
+      "mean": 0.4197897706021301,
+      "p25": 0.2271923820960407,
+      "share_low_margin": 0.2768
+    },
+    "narrative": "N/A"
+  },
+  "mode": "SHADOW_MODE",
+  "model_limitations": {
+    "credit_tail_magnitude": "conservative",
+    "detail": "credit_led_recession probability is directionally correct and correctly ordered across anchors (elevated at pre-crisis configurations vs benign calm), but magnitudes are conservative. The crisis-honest regime labeling (~6% stress fraction) limits transition events available to the entry-probability logistic, lowering stress entry rates. Operator judgment should lean against the model on acute credit-stress setups the model may under-weight.",
+    "known_future_fix": "decouple entry-threshold (looser, more transition events) from dynamics-threshold (tight, crisis-pure) so p_enter is estimated from a broader pre-stress configuration while stress vol/correlation stay crisis-specific.",
+    "quarterly_frequency_note": "fast crash-and-rebound events (e.g. 2020Q2) are smoothed by quarterly frequency and may be underrepresented."
+  },
+  "narrative_source": {
+    "asof_date": "2026-06-05",
+    "horizon": "3m",
+    "probability_mode": "historically_calibrated",
+    "raw_probabilities": {
+      "ai_capex_rollover": 0.07160971448014973,
+      "late_cycle_risk_off": 0.12283863574952712,
+      "oil_inflation_tail": 0.1026410202818273,
+      "reopening_soft_landing": 0.3618983333259588,
+      "sticky_late_cycle_ai": 0.34101229616253714
+    },
+    "translated_probabilities": {
+      "credit_led_recession": 0.07932174649480099,
+      "expansion_disinflation": 0.3618983333259588,
+      "growth_scare_no_credit": 0.11512660373487585,
+      "inflation_shock": 0.0718487141972791,
+      "late_cycle_expansion": 0.34101229616253714,
+      "stagflation": 0.030792306084548186
+    }
+  },
+  "regime_stress_context": {
+    "ensemble": {
+      "anchor_label": "calm",
+      "anchor_p_enter": 0.004303414208238049,
+      "avg_quarters_in_stress": 0.0349,
+      "fraction_entered_stress": 0.0277,
+      "fraction_ever_stress": 0.0277
+    },
+    "narrative": "N/A"
+  },
+  "statement": "The BVAR ensemble is in SHADOW MODE. It is consumed by nothing and is included for evaluation only.",
+  "taxonomy": "behavioral"
+}

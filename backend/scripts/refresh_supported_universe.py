@@ -11,6 +11,7 @@ import argparse
 import csv
 import io
 import re
+import sys
 import urllib.request
 from pathlib import Path
 from typing import Dict, Iterable, List
@@ -18,7 +19,12 @@ from typing import Dict, Iterable, List
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-UNIVERSE_DIR = ROOT / "data" / "universe"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.agent_system.paths import universe_dir
+
+UNIVERSE_DIR = universe_dir(create=False)
 SP500_PATH = UNIVERSE_DIR / "sp500.csv"
 NASDAQ100_PATH = UNIVERSE_DIR / "nasdaq100.csv"
 

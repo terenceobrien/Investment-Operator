@@ -9,11 +9,13 @@ import logging
 from hashlib import sha256
 import os
 
+from src.agent_system.paths import narrative_errors_dir, narrative_raw_dir
+
 logger = logging.getLogger("narrative.sources.localfile")
 
 class LocalFileSource(BaseSource):
-    def __init__(self, directory: Optional[Union[str, Path]] = "data/narrative/raw"):
-        self.directory = Path(directory)
+    def __init__(self, directory: Optional[Union[str, Path]] = None):
+        self.directory = Path(directory) if directory is not None else narrative_raw_dir(create=False)
         # diagnostics
         self.last_parse_errors_count = 0
         self.last_error_files: List[Path] = []
@@ -25,7 +27,7 @@ class LocalFileSource(BaseSource):
         if not self.directory.exists():
             return items
         files = sorted(self.directory.glob("*.jsonl"))
-        errors_dir = Path("data") / "narrative" / "errors"
+        errors_dir = narrative_errors_dir(create=True)
         errors_dir.mkdir(parents=True, exist_ok=True)
         for f in files:
             error_file = errors_dir / f"{f.stem}_errors.jsonl"

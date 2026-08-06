@@ -1,0 +1,240 @@
+{
+  "anchor_values": {
+    "activity": 2.133364682457861,
+    "core_pce": 2.307643923073277,
+    "credit_spread": 2.25,
+    "fed_funds": 4.496666666666667,
+    "lur": 4.8,
+    "nfci": 0.2724615384615384,
+    "ten_year": 4.260000000000001
+  },
+  "asof_quarter": "2007Q4",
+  "baseline_mode": "trailing_trend",
+  "classifier_metadata": {
+    "active_variables": [
+      "activity",
+      "lur",
+      "core_pce",
+      "credit_spread",
+      "fed_funds",
+      "ten_year"
+    ],
+    "baseline_data_fingerprint": "6f2cc04e81580097",
+    "full_signature_variables": [
+      "activity",
+      "lur",
+      "core_pce",
+      "credit_spread",
+      "fed_funds",
+      "ten_year"
+    ],
+    "generated_at": "2026-07-15T05:10:25.149517+00:00",
+    "handoff_file": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/frbus_handoffs/frbus_scenario_paths_2026Q3_20260715T051025Z.json",
+    "horizon_quarters": 4,
+    "kernel_sigma": 1.0,
+    "map_version": "behavioral-v1-2026-06",
+    "missing_credit_spread": false,
+    "scales_file": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/classifier_cache/scales.json",
+    "scales_fit_timestamp": "2026-07-15T04:38:28Z",
+    "scaling": "std",
+    "scenario_ids": [
+      "expansion_disinflation",
+      "late_cycle_expansion",
+      "inflation_shock",
+      "stagflation",
+      "growth_scare_no_credit",
+      "credit_led_recession"
+    ],
+    "signature_maps": {
+      "activity": "xgdp_growth_4q_pct",
+      "core_pce": "core_pce_inflation_4q_pct",
+      "credit_spread": "rbbbp_pct",
+      "fed_funds": "rff_pct",
+      "lur": "lur_pct",
+      "ten_year": "rg10_pct"
+    },
+    "warnings": []
+  },
+  "classifier_paths_parquet": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2007Q4_20260715T142359Z_paths.parquet",
+  "config": {
+    "estimation_start": "1973Q1",
+    "horizon": 4,
+    "kernel_sigma": 1.0,
+    "lags": 4,
+    "lambda1": 0.2,
+    "lambda2": 0.5,
+    "lambda3": 1.0,
+    "lambda4": 100.0,
+    "low_margin_threshold": 0.25,
+    "max_redraws_per_path": 5,
+    "min_sample_quarters": 120,
+    "n_paths": 10000,
+    "rejection_warn_pct": 5.0,
+    "report_output_dir": "data/agent_system/bvar_cache/reports",
+    "seed": 42,
+    "shock_dist": "student_t",
+    "t_dof": 6
+  },
+  "generated_at": "2026-07-15T14:23:59Z",
+  "handoff_file": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/frbus_handoffs/frbus_scenario_paths_2026Q3_20260715T051025Z.json",
+  "handoff_fingerprint": "6f2cc04e81580097",
+  "horizon_quarters": 4,
+  "margin_stats": {
+    "mean": 0.4131805192429607,
+    "p25": 0.1598114437627769,
+    "share_low_margin": 0.3751
+  },
+  "n_paths": 10000,
+  "paths_parquet": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2007Q4_20260715T142359Z_paths.parquet",
+  "posterior_artifact": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260715T052111Z.npz",
+  "posterior_artifact_fingerprint": "bf63ba4f4b07ced0",
+  "posterior_hyperparameters": {
+    "lambda1": 0.2,
+    "lambda2": 0.5,
+    "lambda3": 1.0,
+    "lambda4": 100.0
+  },
+  "scenario_probabilities": {
+    "credit_led_recession": 0.008,
+    "expansion_disinflation": 0.0771,
+    "growth_scare_no_credit": 0.5723,
+    "inflation_shock": 0.0496,
+    "late_cycle_expansion": 0.1796,
+    "stagflation": 0.1134
+  },
+  "scenario_probabilities_soft": {
+    "credit_led_recession": 0.008198904210681587,
+    "expansion_disinflation": 0.12422805679397707,
+    "growth_scare_no_credit": 0.4910106251065894,
+    "inflation_shock": 0.07331481331963524,
+    "late_cycle_expansion": 0.1592985292192402,
+    "stagflation": 0.1439490713498765
+  },
+  "seed": 42,
+  "shock_dist": "student_t",
+  "simulation_paths_parquet": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/forecast_2007Q4_20260715T142359Z_spine_paths.parquet",
+  "tail_diagnostics": {
+    "activity": {
+      "ensemble": {
+        "max": 8.354492987212845,
+        "p50": -0.38532871945881286,
+        "p90": 1.8825351821062344,
+        "p99": 4.132108187980649
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 19.78428426821748,
+        "p50": -0.2184816296166403,
+        "p90": 3.297393023129898,
+        "p99": 8.441189471307213
+      }
+    },
+    "core_pce": {
+      "ensemble": {
+        "max": 3.5786592311935994,
+        "p50": 0.2658666665316196,
+        "p90": 1.1481867103654697,
+        "p99": 2.0169130390192977
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 4.978717283393653,
+        "p50": -0.09391223686023853,
+        "p90": 0.8626063210878511,
+        "p99": 4.130260912706294
+      }
+    },
+    "credit_spread": {
+      "ensemble": {
+        "max": 2.6447351342959404,
+        "p50": 0.16752880427079653,
+        "p90": 0.9161427272453568,
+        "p99": 1.6016361425573273
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 3.336666666666668,
+        "p50": 8.881784197001252e-16,
+        "p90": 0.771999999999999,
+        "p99": 1.6153333333333337
+      }
+    },
+    "fed_funds": {
+      "ensemble": {
+        "max": 5.651613503494821,
+        "p50": -0.909022595104845,
+        "p90": 1.1701466416322632,
+        "p99": 3.0189951234961017
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 7.739999999999998,
+        "p50": -0.003333333333333327,
+        "p90": 2.1366666666666685,
+        "p99": 4.927199999999994
+      }
+    },
+    "lur": {
+      "ensemble": {
+        "max": 6.269236077751223,
+        "p50": 0.702219779735028,
+        "p90": 2.2589991182008675,
+        "p99": 3.5567229090702814
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 9.366666666666667,
+        "p50": -0.2666666666666666,
+        "p90": 1.5400000000000005,
+        "p99": 3.9426666666666623
+      }
+    },
+    "nfci": {
+      "ensemble": {
+        "max": 3.881494416797981,
+        "p50": -0.2153832154004601,
+        "p90": 0.7307491146029949,
+        "p99": 1.56715674726372
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 2.7594615384615384,
+        "p50": -0.022538461538461618,
+        "p90": 0.7549846153846171,
+        "p99": 2.488206153846152
+      }
+    },
+    "ten_year": {
+      "ensemble": {
+        "max": 4.365949970197847,
+        "p50": -0.0003506543327542744,
+        "p90": 1.2723033122475387,
+        "p99": 2.358151783133117
+      },
+      "flag_ensemble_p99_exceeds_historical_max": false,
+      "historical": {
+        "max": 3.8933333333333326,
+        "p50": -0.08333333333333304,
+        "p90": 1.333999999999999,
+        "p99": 2.8621333333333294
+      }
+    }
+  },
+  "tail_flags": [],
+  "validity": {
+    "clips": 0,
+    "per_variable_violations": {
+      "activity": 1,
+      "credit_spread": 18,
+      "fed_funds": 311,
+      "lur": 39,
+      "nfci": 511,
+      "ten_year": 3
+    },
+    "redraws": 590,
+    "rejection_rate_pct": 5.8999999999999995,
+    "rejection_warn_pct": 5.0,
+    "rejections": 590,
+    "warning": "WARNING: BVAR simulation rejection rate exceeds configured threshold; the residual covariance and registry bounds may disagree."
+  }
+}

@@ -9,6 +9,7 @@ from typing import Any
 
 import numpy as np
 
+from src.agent_system.paths import price_history_cache_dir, reference_data_dir
 
 logger = logging.getLogger(__name__)
 
@@ -20,11 +21,13 @@ CACHE_MAX_AGE_DAYS = 7
 class ThemeBasketPricer:
     def __init__(
         self,
-        theme_exposure_matrix_path: str = "data/reference/theme_exposure_matrix.json",
-        cache_dir: str = "data/cache/price_history",
+        theme_exposure_matrix_path: str | None = None,
+        cache_dir: str | None = None,
     ):
-        self.theme_exposure_matrix_path = Path(theme_exposure_matrix_path)
-        self.cache_dir = Path(cache_dir)
+        self.theme_exposure_matrix_path = Path(theme_exposure_matrix_path) if theme_exposure_matrix_path else (
+            reference_data_dir(create=False) / "theme_exposure_matrix.json"
+        )
+        self.cache_dir = Path(cache_dir) if cache_dir else price_history_cache_dir(create=False)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.theme_matrix = self._load_theme_exposure_matrix()
         self.theme_exposure_matrix = self.theme_matrix

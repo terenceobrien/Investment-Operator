@@ -1,0 +1,2374 @@
+{
+  "ticker": "AAPL",
+  "as_of_date": "2026-06-30",
+  "created_at": "2026-06-30T14:25:14.493565",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/0000320193-26-000011-index-headers.html",
+      "accession_number": "0000320193-26-000011",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/0000320193-26-000011-index.html",
+      "accession_number": "0000320193-26-000011",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/0000320193-26-000011.txt",
+      "accession_number": "0000320193-26-000011",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/aapl-20260430.htm",
+      "accession_number": "0000320193-26-000011",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126015711/0001140361-26-015711-index-headers.html",
+      "accession_number": "0001140361-26-015711",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126015711/0001140361-26-015711-index.html",
+      "accession_number": "0001140361-26-015711",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126015711/0001140361-26-015711.txt",
+      "accession_number": "0001140361-26-015711",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126015711/ef20071035_8k.htm",
+      "accession_number": "0001140361-26-015711",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/0001140361-26-006577-index-headers.html",
+      "accession_number": "0001140361-26-006577",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/0001140361-26-006577-index.html",
+      "accession_number": "0001140361-26-006577",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/0001140361-26-006577.txt",
+      "accession_number": "0001140361-26-006577",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/ef20060722_8k.htm",
+      "accession_number": "0001140361-26-006577",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/ef20060722_ex10-1.htm",
+      "accession_number": "0001140361-26-006577",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-02-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126006577/ef20065677_ex10-2.htm",
+      "accession_number": "0001140361-26-006577",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/0000320193-26-000005-index-headers.html",
+      "accession_number": "0000320193-26-000005",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/0000320193-26-000005-index.html",
+      "accession_number": "0000320193-26-000005",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/0000320193-26-000005.txt",
+      "accession_number": "0000320193-26-000005",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/aapl-20260129.htm",
+      "accession_number": "0000320193-26-000005",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126000199/0001140361-26-000199-index-headers.html",
+      "accession_number": "0001140361-26-000199",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126000199/0001140361-26-000199-index.html",
+      "accession_number": "0001140361-26-000199",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126000199/0001140361-26-000199.txt",
+      "accession_number": "0001140361-26-000199",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-01-02",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126000199/ef20060722_8k.htm",
+      "accession_number": "0001140361-26-000199",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-12-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036125044561/0001140361-25-044561-index-headers.html",
+      "accession_number": "0001140361-25-044561",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-12-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036125044561/0001140361-25-044561-index.html",
+      "accession_number": "0001140361-25-044561",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-12-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036125044561/0001140361-25-044561.txt",
+      "accession_number": "0001140361-25-044561",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-12-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036125044561/ef20060722_8k.htm",
+      "accession_number": "0001140361-25-044561",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-10-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/0000320193-25-000077-index-headers.html",
+      "accession_number": "0000320193-25-000077",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2025-10-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/0000320193-25-000077-index.html",
+      "accession_number": "0000320193-25-000077",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-01",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+      "accession_number": "0000320193-26-000013",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "error",
+      "source_name": "FMP earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "FMP transcript retrieval failed: HTTP Error 401: Unauthorized"
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "error",
+      "source_name": "Finnhub earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Finnhub transcript retrieval failed: HTTP Error 403: Forbidden"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "error",
+      "source_name": "NewsAPI company news",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=6e9fbc3b280c1aa03844d458d14cf9c364834ab7fa4f86ecf710b148e1e0a36a",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=1bc5b4ddf2fd8a8b2b7434fc66ad8cacb9cc352b81a0e02ca63c1d2d84ae2f5d",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=12e40529aa35a865650a1c040df89ecce3e0ed7d687c6fc94d6da9be8dd2dda5",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=f27315386ac9996dec5ffe91dffb1383ee1a88ede4ca8917bb323c10d663c44c",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=1995ac5a15733a96e7eed9b358103e9aad9bff2d4e610e51a8d9d42caf17648c",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=84f8021f337f7a84cf7d57f253ff3f4f7deb98fb5c5cabaf5460b0797c8467dc",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=45ae29641062ee38e9160a149e20958cf2a077f54f0351060ba0773e1af1818d",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=28b906e85ca178b8ab38b5504d5c443bf26d41490d39bf018bdeebd26a32b16b",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=a0e4f05361633ce9bec118b41dd2d58c2cfea1da523f57b3c6153ee3a029bfbd",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "source_name": "Yahoo",
+      "source_date": "2026-06-30",
+      "source_url": "https://finnhub.io/api/news?id=96412a46f912b335d22d96fbe1451f011578fb64121a3901fe2fb7895970d1a9",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "status": "found",
+      "source_name": "yfinance",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "document_purpose": "peer_commentary",
+      "status": "skipped",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Automated peer commentary retrieval not implemented in v1. Candidate peers for future readthrough: MSFT, GOOGL, SSNLF."
+    }
+  ],
+  "source_coverage_summary": "earnings_release:sec_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:news_found=10; news:newsapi_error=1; other_8k:sec_found=28; peer_commentary:peer_commentary_skipped=1; stress_test:sec_found=1; transcript:finnhub_error=1; transcript:fmp_error=1; extraction_selected=19",
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple reported fiscal Q2 2026 revenue of $111.2 billion, up 17% year over year, and diluted EPS of $2.01, up 22% year over year.",
+      "summary": "Q2 revenue and EPS both grew double digits year over year.",
+      "excerpt": "The Company posted quarterly revenue of $111.2 billion, up 17 percent year over year. Diluted earnings per share was $2.01, up 22 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "financial_results",
+        "earnings_growth"
+      ],
+      "related_metrics": [
+        "revenue",
+        "revenue_growth_yoy",
+        "diluted_eps",
+        "eps_growth_yoy"
+      ],
+      "evidence_tags": [
+        "quarterly_results",
+        "revenue_growth",
+        "eps_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Management characterized Q2 as Apple\u2019s best March quarter ever, with double-digit growth across every geographic segment.",
+      "summary": "CEO commentary emphasized broad-based geographic strength.",
+      "excerpt": "\u201cToday Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "management_tone",
+        "geographic_segments",
+        "demand"
+      ],
+      "related_metrics": [
+        "revenue",
+        "segment_revenue_growth"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "geographic_growth",
+        "record_quarter",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said iPhone set a March-quarter revenue record, driven by extraordinary demand for the iPhone 17 lineup.",
+      "summary": "The iPhone 17 cycle was cited as a key demand driver.",
+      "excerpt": "\u201ciPhone achieved a March quarter revenue record, fueled by such extraordinary demand for the iPhone 17 lineup.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "iPhone",
+        "product_cycle",
+        "customer_demand"
+      ],
+      "related_metrics": [
+        "iphone_revenue"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "product_demand",
+        "record_revenue",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Services revenue reached another all-time record in fiscal Q2 2026.",
+      "summary": "Services continued to set all-time revenue highs.",
+      "excerpt": "During the quarter, Services achieved yet another all-time record, and we were excited to introduce remarkable new products to our strongest lineup ever.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "Services",
+        "revenue_mix",
+        "installed_base_monetization"
+      ],
+      "related_metrics": [
+        "services_revenue"
+      ],
+      "evidence_tags": [
+        "services",
+        "record_revenue",
+        "recurring_revenue",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple generated more than $28 billion in operating cash flow in the March quarter, setting a March-quarter operating cash flow record.",
+      "summary": "CFO highlighted record March-quarter cash generation and EPS.",
+      "excerpt": "\u201cOur strong business performance during the March quarter generated over $28 billion in operating cash flow and drove new March quarter records for both operating cash flow and EPS,\u201d said Kevan Parekh, Apple\u2019s CFO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "cash_generation",
+        "earnings_quality"
+      ],
+      "related_metrics": [
+        "operating_cash_flow",
+        "eps"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "record_performance",
+        "cfo_commentary",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said continued demand lifted its installed base of active devices to a new all-time high across all major product categories and geographic segments.",
+      "summary": "Installed base reached a new high, supporting ecosystem monetization evidence.",
+      "excerpt": "\u201cContinued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "ecosystem",
+        "customer_retention",
+        "demand"
+      ],
+      "related_metrics": [
+        "installed_base"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "customer_demand",
+        "ecosystem",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple raised its quarterly dividend to $0.27 per share, a 4% increase.",
+      "summary": "Board approved a higher dividend.",
+      "excerpt": "Apple\u2019s board of directors has declared a cash dividend of $0.27 per share of the Company\u2019s common stock, an increase of 4 percent.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "dividend_per_share",
+        "dividend_growth"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "dividend_increase",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Dividend payable May 14, 2026 to shareholders of record as of May 11, 2026 per the same release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple authorized an additional share repurchase program of up to $100 billion.",
+      "summary": "New buyback authorization was a major capital-return action.",
+      "excerpt": "The board of directors has also authorized an additional program to repurchase up to $100 billion of the Company\u2019s common stock.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "repurchase_authorization"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "share_repurchase",
+        "buyback_authorization",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Fiscal Q2 2026 Services net sales were $30.976 billion versus $26.645 billion in the prior-year quarter, while Products net sales were $80.208 billion versus $68.714 billion.",
+      "summary": "Both Services and Products revenue increased year over year in Q2.",
+      "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "revenue_mix",
+        "Services",
+        "Products"
+      ],
+      "related_metrics": [
+        "products_revenue",
+        "services_revenue",
+        "total_net_sales"
+      ],
+      "evidence_tags": [
+        "segment_sales",
+        "services_growth",
+        "products_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Gross margin increased to $54.781 billion from $44.867 billion year over year, and operating income rose to $35.885 billion from $29.589 billion.",
+      "summary": "Profit dollars rose even as operating expenses increased.",
+      "excerpt": "Gross margin 54,781 44,867 124,012 103,142 Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721 Operating income 35,885 29,589 86,737 72,421",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "profitability",
+        "expense_growth"
+      ],
+      "related_metrics": [
+        "gross_margin",
+        "operating_expenses",
+        "operating_income"
+      ],
+      "evidence_tags": [
+        "margin",
+        "operating_income",
+        "profit_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "All listed geographic segments posted higher fiscal Q2 net sales year over year, including Greater China at $20.497 billion versus $16.002 billion.",
+      "summary": "Revenue growth was broad across reported geographies.",
+      "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "geographic_performance",
+        "Greater China"
+      ],
+      "related_metrics": [
+        "Americas_revenue",
+        "Europe_revenue",
+        "Greater_China_revenue",
+        "Japan_revenue",
+        "Rest_of_Asia_Pacific_revenue"
+      ],
+      "evidence_tags": [
+        "geographic_segments",
+        "china",
+        "international_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "iPhone revenue rose to $56.994 billion in fiscal Q2 2026 from $46.841 billion in the prior-year quarter; Services was the second-largest category at $30.976 billion.",
+      "summary": "iPhone and Services were the largest category contributors in Q2.",
+      "excerpt": "Net sales by category: iPhone $ 56,994 $ 46,841 $ 142,263 $ 115,979 Mac 8,399 7,949 16,785 16,936 iPad 6,914 6,402 15,509 14,490 Wearables, Home and Accessories 7,901 7,522 19,394 19,269 Services 30,976 26,645 60,989 52,985 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "product_category_performance",
+        "iPhone",
+        "Services"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "Mac_revenue",
+        "iPad_revenue",
+        "Wearables_Home_and_Accessories_revenue",
+        "Services_revenue"
+      ],
+      "evidence_tags": [
+        "product_categories",
+        "iphone",
+        "services",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    }
+  ],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [],
+  "estimate_evidence": [],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple reported fiscal Q1 2026 revenue of $143.8 billion, up 16% year over year, and diluted EPS of $2.84, up 19% year over year.",
+      "summary": "Q1 revenue and EPS grew double digits year over year.",
+      "excerpt": "The Company posted quarterly revenue of $143.8 billion, up 16 percent year over year. Diluted earnings per share was $2.84, up 19 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "financial_results",
+        "earnings_growth"
+      ],
+      "related_metrics": [
+        "revenue",
+        "revenue_growth_yoy",
+        "diluted_eps",
+        "eps_growth_yoy"
+      ],
+      "evidence_tags": [
+        "quarterly_results",
+        "revenue_growth",
+        "eps_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit; no stress-test capital ratios are present in the supplied text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Management said Q1 2026 revenue was well above Apple\u2019s expectations.",
+      "summary": "CEO commentary indicated performance exceeded internal expectations.",
+      "excerpt": "\u201cToday, Apple is proud to report a remarkable, record-breaking quarter, with revenue of $143.8 billion, up 16 percent from a year ago and well above our expectations,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "management_tone",
+        "financial_results"
+      ],
+      "related_metrics": [
+        "revenue",
+        "revenue_growth_yoy"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "beat_expectations",
+        "record_quarter",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple said iPhone had its best-ever quarter, with all-time records across every geographic segment.",
+      "summary": "iPhone and Services were highlighted as record-setting categories in Q1.",
+      "excerpt": "\u201ciPhone had its best-ever quarter driven by unprecedented demand, with all-time records across every geographic segment, and Services also achieved an all-time revenue record, up 14 percent from a year ago.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "iPhone",
+        "customer_demand",
+        "Services",
+        "geographic_segments"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "services_revenue_growth"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "record_revenue",
+        "geographic_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple disclosed that its installed base exceeded 2.5 billion active devices.",
+      "summary": "Installed base scale was explicitly quantified above 2.5 billion devices.",
+      "excerpt": "We are also excited to announce that our installed base now has more than 2.5 billion active devices, which is a testament to incredible customer satisfaction for the very best products and services in the world.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "ecosystem",
+        "customer_base",
+        "Services_monetization"
+      ],
+      "related_metrics": [
+        "installed_base_active_devices"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "ecosystem",
+        "customer_satisfaction",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple generated nearly $54 billion of operating cash flow in Q1 2026 and returned almost $32 billion to shareholders.",
+      "summary": "Q1 cash generation supported substantial shareholder returns.",
+      "excerpt": "\u201cThese exceptionally strong results generated nearly $54 billion in operating cash flow, allowing us to return almost $32 billion to shareholders.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "cash_generation",
+        "capital_allocation"
+      ],
+      "related_metrics": [
+        "operating_cash_flow",
+        "capital_return"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "capital_return",
+        "shareholder_returns",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple declared a $0.26 per share quarterly cash dividend payable February 12, 2026.",
+      "summary": "Board maintained a quarterly dividend for Q1 2026.",
+      "excerpt": "Apple\u2019s board of directors has declared a cash dividend of $0.26 per share of the Company\u2019s common stock. The dividend is payable on February 12, 2026, to shareholders of record as of the close of business on February 9, 2026.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "dividend_per_share"
+      ],
+      "evidence_tags": [
+        "dividend",
+        "capital_return",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 Services net sales increased to $30.013 billion from $26.340 billion, while Products net sales increased to $113.743 billion from $97.960 billion.",
+      "summary": "Both Products and Services revenue increased year over year in Q1.",
+      "excerpt": "Net sales: Products $ 113,743 $ 97,960 Services 30,013 26,340 Total net sales (1) 143,756 124,300",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "revenue_mix",
+        "Services",
+        "Products"
+      ],
+      "related_metrics": [
+        "products_revenue",
+        "services_revenue",
+        "total_net_sales"
+      ],
+      "evidence_tags": [
+        "segment_sales",
+        "services_growth",
+        "products_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 gross margin rose to $69.231 billion from $58.275 billion, and operating income rose to $50.852 billion from $42.832 billion.",
+      "summary": "Profitability increased year over year despite higher R&D and SG&A spending.",
+      "excerpt": "Gross margin 69,231 58,275 Operating expenses: Research and development 10,887 8,268 Selling, general and administrative 7,492 7,175 Total operating expenses 18,379 15,443 Operating income 50,852 42,832",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "profitability",
+        "expense_growth"
+      ],
+      "related_metrics": [
+        "gross_margin",
+        "operating_expenses",
+        "operating_income"
+      ],
+      "evidence_tags": [
+        "gross_margin",
+        "operating_income",
+        "profitability",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Greater China Q1 revenue increased to $25.526 billion from $18.513 billion, outpacing the total company revenue increase in dollar terms among listed geographies after Americas and Europe.",
+      "summary": "All reported geographies increased year over year, with notable Greater China growth.",
+      "excerpt": "Net sales by reportable segment: Americas $ 58,529 $ 52,648 Europe 38,146 33,861 Greater China 25,526 18,513 Japan 9,413 8,987 Rest of Asia Pacific 12,142 10,291 Total net sales $ 143,756 $ 124,300",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "geographic_performance",
+        "Greater China"
+      ],
+      "related_metrics": [
+        "Greater_China_revenue",
+        "Americas_revenue",
+        "Europe_revenue",
+        "Japan_revenue",
+        "Rest_of_Asia_Pacific_revenue"
+      ],
+      "evidence_tags": [
+        "geographic_segments",
+        "china_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 category data showed strong iPhone and Services growth, while Mac and Wearables, Home and Accessories declined year over year.",
+      "summary": "iPhone and Services were strong, but not all product categories grew.",
+      "excerpt": "Net sales by category: iPhone $ 85,269 $ 69,138 Mac 8,386 8,987 iPad 8,595 8,088 Wearables, Home and Accessories 11,493 11,747 Services 30,013 26,340 Total net sales $ 143,756 $ 124,300",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "product_category_performance",
+        "iPhone",
+        "Services",
+        "Mac",
+        "Wearables"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "Mac_revenue",
+        "iPad_revenue",
+        "Wearables_Home_and_Accessories_revenue",
+        "Services_revenue"
+      ],
+      "evidence_tags": [
+        "product_categories",
+        "iphone_growth",
+        "services_growth",
+        "mac_decline",
+        "wearables_decline",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple\u2019s Q1 balance sheet showed cash and cash equivalents of $45.317 billion versus $35.934 billion at the prior fiscal year-end.",
+      "summary": "Cash increased sequentially from fiscal year-end levels.",
+      "excerpt": "Cash and cash equivalents $ 45,317 $ 35,934 Marketable securities 21,590 18,763 Accounts receivable, net 39,921 39,777 Vendor non-trade receivables 30,399 33,180 Inventories 5,875 5,718 Other current assets 15,002 14,585 Total current assets 158,104 147,957",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "liquidity",
+        "balance_sheet"
+      ],
+      "related_metrics": [
+        "cash_and_cash_equivalents",
+        "marketable_securities",
+        "total_current_assets"
+      ],
+      "evidence_tags": [
+        "balance_sheet",
+        "cash",
+        "liquidity",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are December 27, 2025 and September 27, 2025. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    }
+  ],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [],
+  "management_guidance": [],
+  "segment_kpis": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Management characterized Q2 as Apple\u2019s best March quarter ever, with double-digit growth across every geographic segment.",
+      "summary": "CEO commentary emphasized broad-based geographic strength.",
+      "excerpt": "\u201cToday Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "management_tone",
+        "geographic_segments",
+        "demand"
+      ],
+      "related_metrics": [
+        "revenue",
+        "segment_revenue_growth"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "geographic_growth",
+        "record_quarter",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said continued demand lifted its installed base of active devices to a new all-time high across all major product categories and geographic segments.",
+      "summary": "Installed base reached a new high, supporting ecosystem monetization evidence.",
+      "excerpt": "\u201cContinued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "ecosystem",
+        "customer_retention",
+        "demand"
+      ],
+      "related_metrics": [
+        "installed_base"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "customer_demand",
+        "ecosystem",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Fiscal Q2 2026 Services net sales were $30.976 billion versus $26.645 billion in the prior-year quarter, while Products net sales were $80.208 billion versus $68.714 billion.",
+      "summary": "Both Services and Products revenue increased year over year in Q2.",
+      "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "revenue_mix",
+        "Services",
+        "Products"
+      ],
+      "related_metrics": [
+        "products_revenue",
+        "services_revenue",
+        "total_net_sales"
+      ],
+      "evidence_tags": [
+        "segment_sales",
+        "services_growth",
+        "products_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "All listed geographic segments posted higher fiscal Q2 net sales year over year, including Greater China at $20.497 billion versus $16.002 billion.",
+      "summary": "Revenue growth was broad across reported geographies.",
+      "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "geographic_performance",
+        "Greater China"
+      ],
+      "related_metrics": [
+        "Americas_revenue",
+        "Europe_revenue",
+        "Greater_China_revenue",
+        "Japan_revenue",
+        "Rest_of_Asia_Pacific_revenue"
+      ],
+      "evidence_tags": [
+        "geographic_segments",
+        "china",
+        "international_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple said iPhone had its best-ever quarter, with all-time records across every geographic segment.",
+      "summary": "iPhone and Services were highlighted as record-setting categories in Q1.",
+      "excerpt": "\u201ciPhone had its best-ever quarter driven by unprecedented demand, with all-time records across every geographic segment, and Services also achieved an all-time revenue record, up 14 percent from a year ago.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "iPhone",
+        "customer_demand",
+        "Services",
+        "geographic_segments"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "services_revenue_growth"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "record_revenue",
+        "geographic_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 Services net sales increased to $30.013 billion from $26.340 billion, while Products net sales increased to $113.743 billion from $97.960 billion.",
+      "summary": "Both Products and Services revenue increased year over year in Q1.",
+      "excerpt": "Net sales: Products $ 113,743 $ 97,960 Services 30,013 26,340 Total net sales (1) 143,756 124,300",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "revenue_mix",
+        "Services",
+        "Products"
+      ],
+      "related_metrics": [
+        "products_revenue",
+        "services_revenue",
+        "total_net_sales"
+      ],
+      "evidence_tags": [
+        "segment_sales",
+        "services_growth",
+        "products_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Greater China Q1 revenue increased to $25.526 billion from $18.513 billion, outpacing the total company revenue increase in dollar terms among listed geographies after Americas and Europe.",
+      "summary": "All reported geographies increased year over year, with notable Greater China growth.",
+      "excerpt": "Net sales by reportable segment: Americas $ 58,529 $ 52,648 Europe 38,146 33,861 Greater China 25,526 18,513 Japan 9,413 8,987 Rest of Asia Pacific 12,142 10,291 Total net sales $ 143,756 $ 124,300",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "geographic_performance",
+        "Greater China"
+      ],
+      "related_metrics": [
+        "Greater_China_revenue",
+        "Americas_revenue",
+        "Europe_revenue",
+        "Japan_revenue",
+        "Rest_of_Asia_Pacific_revenue"
+      ],
+      "evidence_tags": [
+        "geographic_segments",
+        "china_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    }
+  ],
+  "consensus_narrative": [],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple reported fiscal Q2 2026 revenue of $111.2 billion, up 17% year over year, and diluted EPS of $2.01, up 22% year over year.",
+      "summary": "Q2 revenue and EPS both grew double digits year over year.",
+      "excerpt": "The Company posted quarterly revenue of $111.2 billion, up 17 percent year over year. Diluted earnings per share was $2.01, up 22 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.98,
+      "related_topics": [
+        "financial_results",
+        "earnings_growth"
+      ],
+      "related_metrics": [
+        "revenue",
+        "revenue_growth_yoy",
+        "diluted_eps",
+        "eps_growth_yoy"
+      ],
+      "evidence_tags": [
+        "quarterly_results",
+        "revenue_growth",
+        "eps_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Management characterized Q2 as Apple\u2019s best March quarter ever, with double-digit growth across every geographic segment.",
+      "summary": "CEO commentary emphasized broad-based geographic strength.",
+      "excerpt": "\u201cToday Apple is proud to report our best March quarter ever, with revenue of $111.2 billion and double-digit growth across every geographic segment,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "management_tone",
+        "geographic_segments",
+        "demand"
+      ],
+      "related_metrics": [
+        "revenue",
+        "segment_revenue_growth"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "geographic_growth",
+        "record_quarter",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said iPhone set a March-quarter revenue record, driven by extraordinary demand for the iPhone 17 lineup.",
+      "summary": "The iPhone 17 cycle was cited as a key demand driver.",
+      "excerpt": "\u201ciPhone achieved a March quarter revenue record, fueled by such extraordinary demand for the iPhone 17 lineup.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "iPhone",
+        "product_cycle",
+        "customer_demand"
+      ],
+      "related_metrics": [
+        "iphone_revenue"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "product_demand",
+        "record_revenue",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Services revenue reached another all-time record in fiscal Q2 2026.",
+      "summary": "Services continued to set all-time revenue highs.",
+      "excerpt": "During the quarter, Services achieved yet another all-time record, and we were excited to introduce remarkable new products to our strongest lineup ever.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "Services",
+        "revenue_mix",
+        "installed_base_monetization"
+      ],
+      "related_metrics": [
+        "services_revenue"
+      ],
+      "evidence_tags": [
+        "services",
+        "record_revenue",
+        "recurring_revenue",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple generated more than $28 billion in operating cash flow in the March quarter, setting a March-quarter operating cash flow record.",
+      "summary": "CFO highlighted record March-quarter cash generation and EPS.",
+      "excerpt": "\u201cOur strong business performance during the March quarter generated over $28 billion in operating cash flow and drove new March quarter records for both operating cash flow and EPS,\u201d said Kevan Parekh, Apple\u2019s CFO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "cash_generation",
+        "earnings_quality"
+      ],
+      "related_metrics": [
+        "operating_cash_flow",
+        "eps"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "record_performance",
+        "cfo_commentary",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple said continued demand lifted its installed base of active devices to a new all-time high across all major product categories and geographic segments.",
+      "summary": "Installed base reached a new high, supporting ecosystem monetization evidence.",
+      "excerpt": "\u201cContinued strong customer demand for our products and services once again helped us achieve a new all-time high for our installed base of active devices across all major product categories and geographic segments.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "ecosystem",
+        "customer_retention",
+        "demand"
+      ],
+      "related_metrics": [
+        "installed_base"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "customer_demand",
+        "ecosystem",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple raised its quarterly dividend to $0.27 per share, a 4% increase.",
+      "summary": "Board approved a higher dividend.",
+      "excerpt": "Apple\u2019s board of directors has declared a cash dividend of $0.27 per share of the Company\u2019s common stock, an increase of 4 percent.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "dividend_per_share",
+        "dividend_growth"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "dividend_increase",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Dividend payable May 14, 2026 to shareholders of record as of May 11, 2026 per the same release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Apple authorized an additional share repurchase program of up to $100 billion.",
+      "summary": "New buyback authorization was a major capital-return action.",
+      "excerpt": "The board of directors has also authorized an additional program to repurchase up to $100 billion of the Company\u2019s common stock.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "repurchase_authorization"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "share_repurchase",
+        "buyback_authorization",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Fiscal Q2 2026 Services net sales were $30.976 billion versus $26.645 billion in the prior-year quarter, while Products net sales were $80.208 billion versus $68.714 billion.",
+      "summary": "Both Services and Products revenue increased year over year in Q2.",
+      "excerpt": "Net sales: Products $ 80,208 $ 68,714 $ 193,951 $ 166,674 Services 30,976 26,645 60,989 52,985 Total net sales (1) 111,184 95,359 254,940 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "revenue_mix",
+        "Services",
+        "Products"
+      ],
+      "related_metrics": [
+        "products_revenue",
+        "services_revenue",
+        "total_net_sales"
+      ],
+      "evidence_tags": [
+        "segment_sales",
+        "services_growth",
+        "products_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "Gross margin increased to $54.781 billion from $44.867 billion year over year, and operating income rose to $35.885 billion from $29.589 billion.",
+      "summary": "Profit dollars rose even as operating expenses increased.",
+      "excerpt": "Gross margin 54,781 44,867 124,012 103,142 Operating expenses: Research and development 11,419 8,550 22,306 16,818 Selling, general and administrative 7,477 6,728 14,969 13,903 Total operating expenses 18,896 15,278 37,275 30,721 Operating income 35,885 29,589 86,737 72,421",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "profitability",
+        "expense_growth"
+      ],
+      "related_metrics": [
+        "gross_margin",
+        "operating_expenses",
+        "operating_income"
+      ],
+      "evidence_tags": [
+        "margin",
+        "operating_income",
+        "profit_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "All listed geographic segments posted higher fiscal Q2 net sales year over year, including Greater China at $20.497 billion versus $16.002 billion.",
+      "summary": "Revenue growth was broad across reported geographies.",
+      "excerpt": "Net sales by reportable segment: Americas $ 45,093 $ 40,315 $ 103,622 $ 92,963 Europe 28,055 24,454 66,201 58,315 Greater China 20,497 16,002 46,023 34,515 Japan 8,401 7,298 17,814 16,285 Rest of Asia Pacific 9,138 7,290 21,280 17,581 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "geographic_performance",
+        "Greater China"
+      ],
+      "related_metrics": [
+        "Americas_revenue",
+        "Europe_revenue",
+        "Greater_China_revenue",
+        "Japan_revenue",
+        "Rest_of_Asia_Pacific_revenue"
+      ],
+      "evidence_tags": [
+        "geographic_segments",
+        "china",
+        "international_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-04-30",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000011/a8-kex991q2202603282026.htm",
+      "accession_number": "0000320193-26-000011",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q2202603282026.htm",
+      "claim": "iPhone revenue rose to $56.994 billion in fiscal Q2 2026 from $46.841 billion in the prior-year quarter; Services was the second-largest category at $30.976 billion.",
+      "summary": "iPhone and Services were the largest category contributors in Q2.",
+      "excerpt": "Net sales by category: iPhone $ 56,994 $ 46,841 $ 142,263 $ 115,979 Mac 8,399 7,949 16,785 16,936 iPad 6,914 6,402 15,509 14,490 Wearables, Home and Accessories 7,901 7,522 19,394 19,269 Services 30,976 26,645 60,989 52,985 Total net sales $ 111,184 $ 95,359 $ 254,940 $ 219,659",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "product_category_performance",
+        "iPhone",
+        "Services"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "Mac_revenue",
+        "iPad_revenue",
+        "Wearables_Home_and_Accessories_revenue",
+        "Services_revenue"
+      ],
+      "evidence_tags": [
+        "product_categories",
+        "iphone",
+        "services",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Amounts are in millions; first two columns are the three months ended March 28, 2026 and March 29, 2025."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple reported fiscal Q1 2026 revenue of $143.8 billion, up 16% year over year, and diluted EPS of $2.84, up 19% year over year.",
+      "summary": "Q1 revenue and EPS grew double digits year over year.",
+      "excerpt": "The Company posted quarterly revenue of $143.8 billion, up 16 percent year over year. Diluted earnings per share was $2.84, up 19 percent year over year.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "financial_results",
+        "earnings_growth"
+      ],
+      "related_metrics": [
+        "revenue",
+        "revenue_growth_yoy",
+        "diluted_eps",
+        "eps_growth_yoy"
+      ],
+      "evidence_tags": [
+        "quarterly_results",
+        "revenue_growth",
+        "eps_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit; no stress-test capital ratios are present in the supplied text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Management said Q1 2026 revenue was well above Apple\u2019s expectations.",
+      "summary": "CEO commentary indicated performance exceeded internal expectations.",
+      "excerpt": "\u201cToday, Apple is proud to report a remarkable, record-breaking quarter, with revenue of $143.8 billion, up 16 percent from a year ago and well above our expectations,\u201d said Tim Cook, Apple\u2019s CEO.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "management_tone",
+        "financial_results"
+      ],
+      "related_metrics": [
+        "revenue",
+        "revenue_growth_yoy"
+      ],
+      "evidence_tags": [
+        "management_commentary",
+        "beat_expectations",
+        "record_quarter",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple said iPhone had its best-ever quarter, with all-time records across every geographic segment.",
+      "summary": "iPhone and Services were highlighted as record-setting categories in Q1.",
+      "excerpt": "\u201ciPhone had its best-ever quarter driven by unprecedented demand, with all-time records across every geographic segment, and Services also achieved an all-time revenue record, up 14 percent from a year ago.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "iPhone",
+        "customer_demand",
+        "Services",
+        "geographic_segments"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "services_revenue_growth"
+      ],
+      "evidence_tags": [
+        "iphone",
+        "record_revenue",
+        "geographic_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple disclosed that its installed base exceeded 2.5 billion active devices.",
+      "summary": "Installed base scale was explicitly quantified above 2.5 billion devices.",
+      "excerpt": "We are also excited to announce that our installed base now has more than 2.5 billion active devices, which is a testament to incredible customer satisfaction for the very best products and services in the world.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "ecosystem",
+        "customer_base",
+        "Services_monetization"
+      ],
+      "related_metrics": [
+        "installed_base_active_devices"
+      ],
+      "evidence_tags": [
+        "installed_base",
+        "ecosystem",
+        "customer_satisfaction",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple generated nearly $54 billion of operating cash flow in Q1 2026 and returned almost $32 billion to shareholders.",
+      "summary": "Q1 cash generation supported substantial shareholder returns.",
+      "excerpt": "\u201cThese exceptionally strong results generated nearly $54 billion in operating cash flow, allowing us to return almost $32 billion to shareholders.\u201d",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "cash_generation",
+        "capital_allocation"
+      ],
+      "related_metrics": [
+        "operating_cash_flow",
+        "capital_return"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "capital_return",
+        "shareholder_returns",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple declared a $0.26 per share quarterly cash dividend payable February 12, 2026.",
+      "summary": "Board maintained a quarterly dividend for Q1 2026.",
+      "excerpt": "Apple\u2019s board of directors has declared a cash dividend of $0.26 per share of the Company\u2019s common stock. The dividend is payable on February 12, 2026, to shareholders of record as of the close of business on February 9, 2026.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "dividend_per_share"
+      ],
+      "evidence_tags": [
+        "dividend",
+        "capital_return",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 Services net sales increased to $30.013 billion from $26.340 billion, while Products net sales increased to $113.743 billion from $97.960 billion.",
+      "summary": "Both Products and Services revenue increased year over year in Q1.",
+      "excerpt": "Net sales: Products $ 113,743 $ 97,960 Services 30,013 26,340 Total net sales (1) 143,756 124,300",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "revenue_mix",
+        "Services",
+        "Products"
+      ],
+      "related_metrics": [
+        "products_revenue",
+        "services_revenue",
+        "total_net_sales"
+      ],
+      "evidence_tags": [
+        "segment_sales",
+        "services_growth",
+        "products_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 gross margin rose to $69.231 billion from $58.275 billion, and operating income rose to $50.852 billion from $42.832 billion.",
+      "summary": "Profitability increased year over year despite higher R&D and SG&A spending.",
+      "excerpt": "Gross margin 69,231 58,275 Operating expenses: Research and development 10,887 8,268 Selling, general and administrative 7,492 7,175 Total operating expenses 18,379 15,443 Operating income 50,852 42,832",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "profitability",
+        "expense_growth"
+      ],
+      "related_metrics": [
+        "gross_margin",
+        "operating_expenses",
+        "operating_income"
+      ],
+      "evidence_tags": [
+        "gross_margin",
+        "operating_income",
+        "profitability",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Greater China Q1 revenue increased to $25.526 billion from $18.513 billion, outpacing the total company revenue increase in dollar terms among listed geographies after Americas and Europe.",
+      "summary": "All reported geographies increased year over year, with notable Greater China growth.",
+      "excerpt": "Net sales by reportable segment: Americas $ 58,529 $ 52,648 Europe 38,146 33,861 Greater China 25,526 18,513 Japan 9,413 8,987 Rest of Asia Pacific 12,142 10,291 Total net sales $ 143,756 $ 124,300",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "geographic_performance",
+        "Greater China"
+      ],
+      "related_metrics": [
+        "Greater_China_revenue",
+        "Americas_revenue",
+        "Europe_revenue",
+        "Japan_revenue",
+        "Rest_of_Asia_Pacific_revenue"
+      ],
+      "evidence_tags": [
+        "geographic_segments",
+        "china_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Apple\u2019s Q1 balance sheet showed cash and cash equivalents of $45.317 billion versus $35.934 billion at the prior fiscal year-end.",
+      "summary": "Cash increased sequentially from fiscal year-end levels.",
+      "excerpt": "Cash and cash equivalents $ 45,317 $ 35,934 Marketable securities 21,590 18,763 Accounts receivable, net 39,921 39,777 Vendor non-trade receivables 30,399 33,180 Inventories 5,875 5,718 Other current assets 15,002 14,585 Total current assets 158,104 147,957",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "liquidity",
+        "balance_sheet"
+      ],
+      "related_metrics": [
+        "cash_and_cash_equivalents",
+        "marketable_securities",
+        "total_current_assets"
+      ],
+      "evidence_tags": [
+        "balance_sheet",
+        "cash",
+        "liquidity",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are December 27, 2025 and September 27, 2025. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    }
+  ],
+  "bearish_evidence": [],
+  "mixed_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "AAPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-01-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm",
+      "accession_number": "0000320193-26-000005",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: a8-kex991q1202612272025.htm",
+      "claim": "Q1 category data showed strong iPhone and Services growth, while Mac and Wearables, Home and Accessories declined year over year.",
+      "summary": "iPhone and Services were strong, but not all product categories grew.",
+      "excerpt": "Net sales by category: iPhone $ 85,269 $ 69,138 Mac 8,386 8,987 iPad 8,595 8,088 Wearables, Home and Accessories 11,493 11,747 Services 30,013 26,340 Total net sales $ 143,756 $ 124,300",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "product_category_performance",
+        "iPhone",
+        "Services",
+        "Mac",
+        "Wearables"
+      ],
+      "related_metrics": [
+        "iphone_revenue",
+        "Mac_revenue",
+        "iPad_revenue",
+        "Wearables_Home_and_Accessories_revenue",
+        "Services_revenue"
+      ],
+      "evidence_tags": [
+        "product_categories",
+        "iphone_growth",
+        "services_growth",
+        "mac_decline",
+        "wearables_decline",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Amounts are in millions; columns are the three months ended December 27, 2025 and December 28, 2024. Document purpose supplied as stress_test, but the source text is an earnings-release exhibit."
+    }
+  ],
+  "unresolved_questions": [
+    "The 2026-05-01 Form 10-Q source text supplied in the prompt is heavily truncated/cleaned and mostly shows section headings without reliable numeric MD&A, liquidity, debt, risk-factor, or segment-performance values; no high-signal filing-specific evidence was extracted from that source.",
+    "The 2026-01-29 8-K exhibit is labeled with document_purpose=stress_test, but the supplied text is an Apple quarterly earnings release and contains no CET1, SCB, RWA, DFAST, CCAR, or other stress-test/regulatory-capital metrics."
+  ],
+  "data_gaps": [
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "The 2026-05-01 Form 10-Q source text supplied in the prompt is heavily truncated/cleaned and mostly shows section headings without reliable numeric MD&A, liquidity, debt, risk-factor, or segment-performance values; no high-signal filing-specific evidence was extracted from that source.",
+    "The 2026-01-29 8-K exhibit is labeled with document_purpose=stress_test, but the supplied text is an Apple quarterly earnings release and contains no CET1, SCB, RWA, DFAST, CCAR, or other stress-test/regulatory-capital metrics."
+  ],
+  "warnings": [
+    "Dropped 23 duplicate or lower-quality source documents before evidence extraction.",
+    "One source document has document_purpose=stress_test despite containing earnings-release language and no stress-test metrics; evidence items from that source preserve the supplied document_purpose as required.",
+    "No investment recommendation or valuation conclusion is provided."
+  ],
+  "raw_source_count": 46,
+  "evidence_item_count": 23
+}

@@ -1,0 +1,48 @@
+{
+  "fit_timestamp": "2026-08-02T00:18:26Z",
+  "horizon_quarters": 4,
+  "variables": {
+    "activity": {
+      "change_count": 310,
+      "history_end": "2026Q2",
+      "history_start": "1948Q1",
+      "mad": 1.8422601830313967,
+      "std": 3.784402046204358
+    },
+    "core_pce": {
+      "change_count": 262,
+      "history_end": "2026Q2",
+      "history_start": "1960Q1",
+      "mad": 0.41219730425375856,
+      "std": 1.086988845715624
+    },
+    "credit_spread": {
+      "change_count": 289,
+      "history_end": "2026Q2",
+      "history_start": "1953Q2",
+      "mad": 0.34999999999999964,
+      "std": 0.6556093796122563
+    },
+    "fed_funds": {
+      "change_count": 284,
+      "history_end": "2026Q2",
+      "history_start": "1954Q3",
+      "mad": 0.9466666666666669,
+      "std": 1.9510785230774141
+    },
+    "lur": {
+      "change_count": 310,
+      "history_end": "2026Q2",
+      "history_start": "1948Q1",
+      "mad": 0.46666666666666545,
+      "std": 1.3980128688809976
+    },
+    "ten_year": {
+      "change_count": 289,
+      "history_end": "2026Q2",
+      "history_start": "1953Q2",
+      "mad": 0.5933333333333333,
+      "std": 1.0453431593478864
+    }
+  }
+}

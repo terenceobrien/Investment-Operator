@@ -31,4 +31,4 @@ regime_proxy_weights:
 max_redraws_per_path: 5
 rejection_warn_pct: 5.0
 low_margin_threshold: 0.25
-report_output_dir: data/agent_system/bvar_cache/reports
+report_output_dir:

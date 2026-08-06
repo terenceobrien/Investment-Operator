@@ -2,18 +2,20 @@ from __future__ import annotations
 
 from typing import Optional
 import os
+from pathlib import Path
 import pandas as pd
 import yfinance as yf
 
 from src.data.macro import _fred_client, _to_series
+from src.agent_system.paths import research_data_dir
 
 
-INDICATOR_XLSX = os.path.join("data", "research", "indicators.xlsx")
+INDICATOR_XLSX = research_data_dir(create=False) / "indicators.xlsx"
 
 
-def _load_indicator_list(path: str = INDICATOR_XLSX) -> pd.DataFrame:
+def _load_indicator_list(path: str | Path = INDICATOR_XLSX) -> pd.DataFrame:
     """Read the spreadsheet listing indicators and their sources."""
-    if not os.path.exists(path):
+    if not Path(path).exists():
         raise FileNotFoundError(f"Indicator configuration not found at {path}")
     df = pd.read_excel(path, sheet_name=0)
     return df
@@ -134,7 +136,11 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Gather indicator time series into CSV")
-    parser.add_argument("--output", default="data/research/indicators_all.csv", help="Output CSV path")
+    parser.add_argument(
+        "--output",
+        default=str(research_data_dir(create=False) / "indicators_all.csv"),
+        help="Output CSV path",
+    )
     parser.add_argument("--start", help="Start date (YYYY-MM-DD)")
     parser.add_argument("--end", help="End date (YYYY-MM-DD)")
     args = parser.parse_args()

@@ -1,21 +1,17 @@
 """Discovery helpers for the Fidelity positions drop directory."""
 from __future__ import annotations
 
-import os
 from datetime import datetime, timezone
 from pathlib import Path
 
+from src.agent_system.paths import agent_system_data_root
 from src.agent_system.positions.parser import parse_fidelity_csv
 from src.agent_system.positions.types import PositionsSnapshot
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_AGENT_DATA_DIR = PROJECT_ROOT / "data" / "agent_system"
-
-
 def data_root() -> Path:
     """Return the canonical agent-system data directory."""
-    return Path(os.getenv("AGENT_SYSTEM_DATA_DIR", str(DEFAULT_AGENT_DATA_DIR)))
+    return agent_system_data_root(create=True)
 
 
 POSITIONS_DROP_DIR = data_root() / "positions"

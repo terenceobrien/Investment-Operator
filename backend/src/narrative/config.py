@@ -19,6 +19,7 @@ from src.narrative.ticker_profiles import (
     SUPPORTED_TICKERS as PROFILE_SUPPORTED_TICKERS,
     is_supported_ticker as _profile_is_supported_ticker,
 )
+from src.agent_system.paths import narrative_cache_dir
 
 # ──────────────────────────────────────────────────────────────────────
 # Model selection
@@ -35,7 +36,7 @@ SOURCE_CONFIG_VERSION: str = os.getenv("NARRATIVE_SOURCE_CONFIG_VERSION", "v2")
 # ──────────────────────────────────────────────────────────────────────
 # Cache
 # ──────────────────────────────────────────────────────────────────────
-CACHE_DIR: Path = Path(os.getenv("NARRATIVE_CACHE_DIR", "data/narrative/cache"))
+CACHE_DIR: Path = Path(os.getenv("NARRATIVE_CACHE_DIR", str(narrative_cache_dir(create=False))))
 
 # ──────────────────────────────────────────────────────────────────────
 # Supported subjects

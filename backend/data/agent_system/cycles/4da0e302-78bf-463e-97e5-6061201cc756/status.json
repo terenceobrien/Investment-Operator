@@ -1,0 +1,82 @@
+{
+  "cycle_id": "4da0e302-78bf-463e-97e5-6061201cc756",
+  "started_at": "2026-06-07T23:23:48.921572Z",
+  "updated_at": "2026-06-07T23:23:48.963439Z",
+  "completed_at": null,
+  "overall_status": "running",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-06-07T23:23:48.947273Z",
+      "completed_at": "2026-06-07T23:23:48.947278Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "running",
+      "started_at": "2026-06-07T23:23:48.960949Z",
+      "completed_at": null,
+      "message": "working on priority 1: 2027-2028 maturity-wall equities with understated refinancing EPS drag",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {},
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

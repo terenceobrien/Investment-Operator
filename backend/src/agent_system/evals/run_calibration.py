@@ -19,15 +19,14 @@ from typing import Any
 import yaml
 
 from src.agent_system.data import FundamentalDataBundle, get_fundamental_data
+from src.agent_system.paths import calibration_dir
 
 BACKEND_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_UNIVERSE_PATH = (
     BACKEND_ROOT / "src/agent_system/config/calibration_universe.txt"
 )
 DEFAULT_BOUNDS_PATH = BACKEND_ROOT / "src/agent_system/config/calibration_bounds.yaml"
-DEFAULT_OUTPUT_PATH = (
-    BACKEND_ROOT / "data/agent_system/calibration/sector_distributions.json"
-)
+DEFAULT_OUTPUT_PATH = calibration_dir(create=False) / "sector_distributions.json"
 
 METRICS = [
     "debt_to_ebitda",

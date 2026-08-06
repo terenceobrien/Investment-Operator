@@ -13,6 +13,7 @@ from src.agent_system.schemas.monte_carlo import (
     ScenarioReturnAssumption,
     ScenarioReturnAssumptions,
 )
+from src.agent_system.paths import reference_data_dir
 
 
 class ScenarioAssumptionsLoader:
@@ -20,15 +21,20 @@ class ScenarioAssumptionsLoader:
 
     def __init__(
         self,
-        path: str = "data/reference/scenario_return_assumptions.json",
+        path: str | None = None,
         *,
-        market_returns_path: str = "data/reference/scenario_market_returns.csv",
-        theme_returns_path: str = "data/reference/scenario_theme_returns.csv",
+        market_returns_path: str | None = None,
+        theme_returns_path: str | None = None,
         prefer_calibrated_csv: bool = True,
     ) -> None:
-        self.path = Path(path)
-        self.market_returns_path = Path(market_returns_path)
-        self.theme_returns_path = Path(theme_returns_path)
+        reference_dir = reference_data_dir(create=False)
+        self.path = Path(path) if path is not None else reference_dir / "scenario_return_assumptions.json"
+        self.market_returns_path = (
+            Path(market_returns_path) if market_returns_path is not None else reference_dir / "scenario_market_returns.csv"
+        )
+        self.theme_returns_path = (
+            Path(theme_returns_path) if theme_returns_path is not None else reference_dir / "scenario_theme_returns.csv"
+        )
         if (
             prefer_calibrated_csv
             and self.market_returns_path.exists()

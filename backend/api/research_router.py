@@ -27,7 +27,7 @@ from src.agent_system.orchestration.cycle_status import (
     StageName,
     StageStatus,
 )
-from src.agent_system.paths import cycles_dir
+from src.agent_system.paths import cycles_dir, deep_fundamental_reports_dir_info, resolved_path_message
 
 
 logger = logging.getLogger("api.research")
@@ -75,17 +75,8 @@ def _deep_fundamental_candidates() -> list[Path]:
     paths: list[Path] = []
     if env_root:
         paths.append(Path(env_root))
-    cwd = Path.cwd()
-    paths.extend(
-        [
-            REPO_ROOT / "data" / "deep_fundamental_reports" / "standalone",
-            BACKEND_ROOT / "data" / "deep_fundamental_reports" / "standalone",
-            cwd / "data" / "deep_fundamental_reports" / "standalone",
-            cwd.parent / "data" / "deep_fundamental_reports" / "standalone",
-            Path("/app/data/deep_fundamental_reports/standalone"),
-            Path("/data/deep_fundamental_reports/standalone"),
-        ]
-    )
+    report_info = deep_fundamental_reports_dir_info(create=False)
+    paths.append(report_info.path / "standalone")
     unique: list[Path] = []
     seen: set[str] = set()
     for path in paths:
@@ -104,10 +95,12 @@ def _deep_fundamental_root() -> Path:
 
 
 def _deep_fundamental_missing_detail() -> str:
+    report_info = deep_fundamental_reports_dir_info(create=False)
     checked = ", ".join(str(path) for path in _deep_fundamental_candidates())
     return (
         "Deep fundamental report directory not found. "
         "Set DEEP_FUNDAMENTAL_DIR to the standalone reports directory. "
+        f"{resolved_path_message('Default deep fundamental reports root', report_info)}. "
         f"Checked: {checked}"
     )
 

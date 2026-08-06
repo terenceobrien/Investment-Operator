@@ -1,0 +1,101 @@
+schema_version: '1.0'
+artifact: current_conditions_annotation
+as_of: '2026-07-27'
+regime_id_basis: two_sided_oil_shock_late_cycle_ai
+horizon_days: 63
+purpose: 'Current-world overlay on the timeless behavioral scenario spine (behavioral_scenarios.yaml).
+  Holds ONLY current interpretation: which behavioral regime we read as live now, current-world catalysts
+  that would confirm/invalidate a move between behavioral scenarios, and within-regime TILTS (like an
+  AI-capex rollover) that are not themselves macro scenarios. Carries NO scenario definitions, NO return
+  assumptions, NO probabilities (probabilities come from the BVAR ensemble; definitions/returns from behavioral_scenarios.yaml).
+  This file is hand-edited each cycle and is explicitly ephemeral. It replaces the current-specific content
+  that used to live in the narrative current_scenarios.yaml.'
+current_regime_read:
+  primary_behavioral_scenario: late_cycle_expansion
+  secondary_behavioral_scenario: expansion_disinflation
+  tail_watch:
+  - inflation_shock
+  - credit_led_recession
+  narrative_summary: 'Late-cycle expansion with narrow, capex-led leadership and sticky-but-easing inflation.
+    A two-sided oil risk sits on top: de-escalation broadens toward expansion_disinflation, re-escalation
+    pushes toward inflation_shock. Credit is healthy, so the recessionary tails (growth_scare_no_credit,
+    credit_led_recession) are watch-only, gated on a spread blowout that has not begun.'
+  note: This is the operator read, NOT the ensemble output. The BVAR ensemble produces the actual scenario
+    probabilities; this field is the human interpretation used for annotation and for the operator prior
+    overlay.
+transition_catalysts:
+  toward_expansion_disinflation:
+    from: late_cycle_expansion
+    confirm:
+    - Hormuz reopening framework announced and tanker traffic normalizes
+    - Oil holds below $90 for five+ sessions and inflation breakevens roll over
+    - CPI/PCE show disinflation after the April uptick
+    - Fed guidance shifts from hold/hike optionality toward explicit cut optionality
+    - Market breadth improves; small caps and equal-weight outperform
+    invalidate:
+    - Oil rebounds above recent shock highs on renewed disruption
+    - Fed hike odds rise after hot inflation data
+    - Credit spreads widen despite lower oil
+  toward_inflation_shock:
+    from: late_cycle_expansion
+    confirm:
+    - Renewed Hormuz disruption or attacks on shipping infrastructure
+    - Oil breaks higher and stays elevated through multiple inflation releases
+    - Inflation breakevens rise for two+ weeks
+    - Fed hike odds increase and officials push back against cuts
+    - Consumer discretionary earnings weaken on fuel/input costs
+    invalidate:
+    - Verified tanker normalization and sustained oil decline below $90
+    - Inflation prints soften despite higher energy prices
+    - Fed hike odds fade meaningfully
+  toward_growth_scare_or_credit_recession:
+    from: late_cycle_expansion
+    note: 'Which of the two recessionary scenarios depends on CREDIT: spreads holding = growth_scare_no_credit;
+      spreads blowing out = credit_led_recession. The HY spread is the deciding variable.'
+    confirm:
+    - Payrolls, claims, retail sales, or PMIs deteriorate abruptly
+    - HY spreads widen materially from tight starting levels (-> credit_led_recession specifically)
+    - Bank lending or funding-stress indicators worsen (-> credit_led_recession specifically)
+    - AI leaders sell off despite stable rates, showing leadership exhaustion
+    invalidate:
+    - Credit spreads remain tight while breadth improves
+    - Labor data stabilize and consumption remains resilient
+    - Fed pre-emptively eases with credible disinflation cover
+within_regime_tilts:
+  ai_capex_rollover:
+    type: within_regime_rotation
+    applies_within:
+    - late_cycle_expansion
+    - expansion_disinflation
+    description: 'Hyperscaler capex guidance for late-2026/2027 comes in flat-to-down as AI revenue-per-compute
+      disappoints and the largest buyers signal restraint. AI infrastructure (compute, power, grid, networking)
+      derates sharply on multiple compression while broad equities and macro hold up. Explicitly NOT a
+      macro scenario: credit and rates stay orderly, the economy does not contract. It is a leadership/rotation
+      event WITHIN a benign regime, which is why it is a tilt here and not a behavioral scenario.'
+    affected_themes_negative:
+    - quality_ai
+    - high_beta_ai_semis
+    - grid_power_infrastructure
+    - electrical_equipment
+    affected_themes_positive:
+    - quality_ex_ai_cash_flow
+    - small_caps
+    - cash_short_duration
+    confirm:
+    - One or more hyperscalers guides 2026 capex flat-to-down on the Q2/Q3 call
+    - AI infrastructure leaders (NVDA, AVGO, CEG, VST, ETN, GEV) show coordinated multiple compression
+      on no macro news
+    - Sell-side begins downgrading AI infrastructure on ROI/utilization concerns
+    - Power-for-AI thesis takes specific hits (PPA cancellations, data-center pauses)
+    - AI software revenue growth decelerates at major enterprise vendors
+    invalidate:
+    - Hyperscaler 2026 capex guidance holds or rises versus consensus
+    - Power-for-AI PPAs and grid-buildout commitments accelerate
+    - AI infrastructure earnings beats reset multiples higher
+    - Enterprise AI software revenue growth re-accelerates
+    handling: Consumed by the theme/priority layer as a rotation risk on AI-linked themes, NOT by the
+      macro forecast as a scenario. The ensemble does not and should not assign it a probability.
+operator_prior_note: The current_regime_read and tail_watch here inform the OPERATOR PRIOR overlay on
+  the ensemble output. Where the operator sees a tail the quarterly ensemble structurally under-weights
+  (e.g. an acute credit setup building faster than macro data confirms), this file is where that judgment
+  is recorded and applied as a Bayesian tilt on the ensemble probabilities.

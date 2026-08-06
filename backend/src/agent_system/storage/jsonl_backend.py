@@ -21,7 +21,7 @@ from src.agent_system.paths import agent_system_data_root
 from src.agent_system.storage.backend import StorageBackend
 
 
-DEFAULT_DATA_ROOT = Path("data/agent_system")
+DEFAULT_DATA_ROOT = agent_system_data_root(create=False)
 MATCH_ALL_LOG_RECORDS = "*"
 REPLACE_EXISTING_BY = "__replace_existing_by__"
 

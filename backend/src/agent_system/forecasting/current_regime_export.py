@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from src.agent_system.paths import macro_regime_dir
 from src.agent_system.schemas.current_regime import (
     CurrentRegimeFalsifier,
     CurrentRegimeHandoff,
@@ -492,7 +493,7 @@ def _collision_safe_path(path: Path, *, overwrite: bool, timestamp: str | None) 
 
 def save_current_regime_yaml(
     handoff: CurrentRegimeHandoff,
-    output_dir: str | Path,
+    output_dir: str | Path | None,
     asof_date: str,
     timestamp: str | None = None,
     overwrite: bool = False,
@@ -500,7 +501,8 @@ def save_current_regime_yaml(
 ) -> Path:
     """Save a thematic-agent-compatible current-regime YAML handoff."""
 
-    path = Path(output_path) if output_path is not None else Path(output_dir) / f"current_regime_{asof_date}.yaml"
+    default_dir = Path(output_dir) if output_dir is not None else macro_regime_dir(create=True)
+    path = Path(output_path) if output_path is not None else default_dir / f"current_regime_{asof_date}.yaml"
     path = _collision_safe_path(path, overwrite=overwrite, timestamp=timestamp)
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = handoff.model_dump(mode="json")

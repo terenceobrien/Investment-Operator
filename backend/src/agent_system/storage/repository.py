@@ -20,6 +20,7 @@ from uuid import uuid4
 
 from src.agent_system.paths import (
     agent_system_data_root,
+    deep_fundamental_reports_dir,
     decision_log_path,
     schema_records_path,
 )
@@ -544,8 +545,7 @@ def load_price_points(trade_id: str) -> list[PricePoint]:
 # Deep Fundamental Reports
 # ---------------------------------------------------------------------
 
-REPO_ROOT = Path(__file__).parents[4]
-DEEP_FUNDAMENTAL_DIR = REPO_ROOT/ "data"/ "deep_fundamental_reports"
+DEEP_FUNDAMENTAL_DIR = deep_fundamental_reports_dir(create=False)
 
 
 def _ensure_deep_fundamental_dir() -> None:

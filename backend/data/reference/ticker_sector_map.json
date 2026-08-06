@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "description": "Ticker to Damodaran sector mapping for current-cycle accepted/enrichment candidates."
+  },
+  "tickers": {
+    "EME": {
+      "sector": "Engineering/Construction",
+      "damodaran_sector": "Engineering/Construction"
+    },
+    "PWR": {
+      "sector": "Engineering/Construction",
+      "damodaran_sector": "Engineering/Construction"
+    },
+    "MTZ": {
+      "sector": "Engineering/Construction",
+      "damodaran_sector": "Engineering/Construction"
+    },
+    "POWL": {
+      "sector": "Electrical Equipment",
+      "damodaran_sector": "Electrical Equipment"
+    },
+    "NVT": {
+      "sector": "Electrical Equipment",
+      "damodaran_sector": "Electrical Equipment"
+    },
+    "FIX": {
+      "sector": "Engineering/Construction",
+      "damodaran_sector": "Engineering/Construction"
+    },
+    "WCC": {
+      "sector": "Electrical Equipment",
+      "damodaran_sector": "Electrical Equipment"
+    },
+    "SPGI": {
+      "sector": "Financial Svcs",
+      "damodaran_sector": "Financial Svcs. (Non-bank & Insur"
+    },
+    "BRO": {
+      "sector": "Insurance",
+      "damodaran_sector": "Insurance (Prop/Cas.)"
+    },
+    "RSG": {
+      "sector": "Environmental",
+      "damodaran_sector": "Environmental & Waste Services"
+    },
+    "ADP": {
+      "sector": "IT Services",
+      "damodaran_sector": "Computer Services"
+    },
+    "CPRT": {
+      "sector": "Auto Parts",
+      "damodaran_sector": "Auto Parts"
+    }
+  }
+}

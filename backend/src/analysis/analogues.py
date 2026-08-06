@@ -22,6 +22,7 @@ from .detailed_analogue_similarity import (
     compute_detailed_similarity,
     result_to_dict,
 )
+from src.agent_system.paths import data_root_info
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
@@ -63,17 +64,14 @@ def _caller_module_name() -> str:
 
 
 def _candidate_data_paths() -> List[Path]:
-    backend_dir = Path(__file__).resolve().parents[2]
-    repo_root = Path(__file__).resolve().parents[3]
+    root_info = data_root_info(create=False)
     env_path = os.environ.get("RESEARCH_DATA_PATH")
     paths: List[Path] = []
     if env_path:
         paths.append(Path(env_path))
     paths.extend([
-        backend_dir / "data" / "operator_research_v3.csv",
-        backend_dir / "data" / "backtest_master_file.csv",
-        repo_root / "data" / "operator_research_v3.csv",
-        repo_root / "data" / "backtest_master_file.csv",
+        root_info.path / "operator_research_v3.csv",
+        root_info.path / "backtest_master_file.csv",
     ])
     return paths
 

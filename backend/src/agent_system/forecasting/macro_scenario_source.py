@@ -16,6 +16,7 @@ from typing import Any, Mapping
 
 import yaml
 
+from src.agent_system.paths import macro_json_dir
 from src.agent_system.forecasting.behavioral_scenarios_loader import (
     CurrentConditions,
     EXPECTED_BEHAVIORAL_SCENARIO_IDS,
@@ -572,13 +573,7 @@ def _apply_analogue_evidence_stage(
 
 
 def _default_narrative_macro_forecast_dir() -> Path:
-    return (
-        Path(__file__).resolve().parents[3]
-        / "data"
-        / "agent_system"
-        / "reports"
-        / "macro_forecasts"
-    )
+    return macro_json_dir(create=False)
 
 
 def _narrative_current_conditions_view(path: Path) -> CurrentConditionsView:

@@ -1,0 +1,483 @@
+{
+  "id": "c6c471c7-510d-477f-bbb4-0c67954ba433",
+  "schema_type": "ThematicMap",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:04:52.420684+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": "efc13d9b-4ea9-4a23-81d5-202dbdf3240b",
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:04:52.420684Z",
+    "id": "c6c471c7-510d-477f-bbb4-0c67954ba433",
+    "source_priority_id": "efc13d9b-4ea9-4a23-81d5-202dbdf3240b",
+    "source_priority": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:50.727194Z",
+      "id": null,
+      "theme": "Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+      "rationale": "The relevant swing factor is the regime\u2019s explicit breadth conflict: equal weight is still lagging cap weight, with RSP up 11.9% over 3M versus SPY up 14.8%, but the internal breadth measures are improving \u2014 81.8% of stocks are above their 200-day moving average, ADL slope is +0.62, and IWM has led SPY by 5.8 percentage points over 3M. That makes a broadening-away-from-AI thesis plausible, but not clean enough to simply buy all beta. Credit is supportive, with the credit layer bullish at 8.3 and HY OAS tight around 276bps, which helps non-AI cyclicals and quality cash-flow compounders participate. The constraint is that sticky AI leadership remains a near-equal regime runner-up, with Reopening / Soft Landing at 36.2% versus Sticky Late Cycle AI at 34.1%, and AI earnings resilience is still a named bullish driver. This priority therefore focuses on quality ex-AI broadening beneficiaries rather than duplicating the existing small-cap priority or chasing high-beta cyclicals. Edge should decay over weeks because the thesis is tied to leadership rotation, breadth confirmation/falsification, and near-term macro catalysts: May CPI on 2026-06-11 and the June FOMC on 2026-06-17, where the stale Fed path still showed 70% hold and roughly 80% hold/hike odds.",
+      "edge_hypothesis": "The market may be mispricing broadening as either an AI-continuation trade or a generic small-cap/high-beta catch-up trade. The regime data points to a narrower opportunity: profitable ex-AI large- and mid-cap companies with durable free cash flow, improving relative breadth, and limited balance-sheet sensitivity. Consensus appears still anchored to cap-weight AI leadership because RSP continues to lag SPY and AI earnings resilience remains a major regime driver, while the improving ADL, high percent-above-200D, and small-cap relative strength indicate participation is broadening underneath the index. The mispricing is that quality ex-AI beneficiaries of broad participation are not being credited for soft-landing breadth improvement, while lower-quality beta may already be too vulnerable to the still-restrictive Fed path.",
+      "sub_questions": [
+        "Which ex-AI sectors and industries have outperformed the S&P 500 equal-weight index over the last 4-8 weeks while also showing positive earnings-revision breadth?",
+        "Which profitable large- and mid-cap ex-AI companies combine positive free-cash-flow yield, net debt/EBITDA below sector median, and improving relative strength versus SPY?",
+        "Is recent broadening being led by quality factors or by lower-quality/high-beta short-covering, as measured by factor returns, balance-sheet quality, and short-interest changes?",
+        "Which non-AI cyclicals have the strongest sensitivity to tight credit spreads but the least sensitivity to a renewed rise in Fed hold/hike probabilities?",
+        "Where do ETF flows and active-fund holdings show under-ownership of ex-AI quality cash-flow beneficiaries relative to their improving price and revision trends?"
+      ],
+      "priority_rank": 2,
+      "expected_edge_decay": "weeks",
+      "supporting_evidence": [
+        {
+          "schema_version": "0.1.0",
+          "created_at": "2026-07-30T15:04:50.727172Z",
+          "id": null,
+          "claim": "Seed research priority from current_regime.yaml: Quality ex-AI cash-flow beneficiaries of breadth broadening without small-cap balance-sheet risk",
+          "supports": true,
+          "retrieved_at": "2026-07-30T15:04:50.727182Z",
+          "notes": "",
+          "source_type": "derived",
+          "computation": "manually curated regime overlay",
+          "upstream_claims": [
+            "current_regime.yaml seed_research_priorities"
+          ]
+        }
+      ],
+      "source_theme_id": null,
+      "source_scenario_ids": [],
+      "source_macro_forecast_id": null
+    },
+    "candidates": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420573Z",
+        "id": null,
+        "ticker": "ETN",
+        "instrument_type": "single_stock",
+        "name": "Eaton",
+        "thematic_fit": "ETN is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+        "fit_strength": 0.86,
+        "fit_strength_components": null,
+        "fit_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420530Z",
+            "id": null,
+            "claim": "ETN has identifiable AI power/grid exposure.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420531Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "ETN mentioned as AI infrastructure beneficiary",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420526Z",
+            "channel": null
+          }
+        ],
+        "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "consensus_type": "narrative",
+        "potential_variant_view": "Consensus still treats Eaton as a high-quality industrial, but AI-driven electrical demand may extend backlog and margins longer than estimates imply.",
+        "variant_strength": "strong",
+        "variant_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420545Z",
+            "id": null,
+            "claim": "ETN variant view is underappreciated relative to consensus focus.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420546Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "ETN grid/power optionality remains debated",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420544Z",
+            "channel": null
+          }
+        ],
+        "catalysts": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420552Z",
+            "id": null,
+            "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+            "catalyst_type": "earnings",
+            "earliest_date": null,
+            "latest_date": null,
+            "is_ongoing": true,
+            "asymmetry": "Positive order/backlog evidence can force estimate revisions."
+          }
+        ],
+        "priority_rank": 1,
+        "recommended_research_depth": "deep",
+        "theme_tags": [
+          "infrastructure",
+          "grid",
+          "quality_ai"
+        ],
+        "existing_position_verdicts": []
+      },
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420605Z",
+        "id": null,
+        "ticker": "NVDA",
+        "instrument_type": "single_stock",
+        "name": "Nvidia",
+        "thematic_fit": "NVDA is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+        "fit_strength": 0.66,
+        "fit_strength_components": null,
+        "fit_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420592Z",
+            "id": null,
+            "claim": "NVDA has identifiable AI power/grid exposure.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420592Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "NVDA mentioned as AI infrastructure beneficiary",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420591Z",
+            "channel": null
+          }
+        ],
+        "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "consensus_type": "narrative",
+        "potential_variant_view": "The AI accelerator thesis is real but widely owned and fully debated.",
+        "variant_strength": "weak",
+        "variant_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420597Z",
+            "id": null,
+            "claim": "NVDA variant view is underappreciated relative to consensus focus.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420597Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "NVDA grid/power optionality remains debated",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420596Z",
+            "channel": null
+          }
+        ],
+        "catalysts": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420600Z",
+            "id": null,
+            "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+            "catalyst_type": "earnings",
+            "earliest_date": null,
+            "latest_date": null,
+            "is_ongoing": true,
+            "asymmetry": "Positive order/backlog evidence can force estimate revisions."
+          }
+        ],
+        "priority_rank": 2,
+        "recommended_research_depth": "standard",
+        "theme_tags": [
+          "quality_ai",
+          "semiconductors",
+          "crowded"
+        ],
+        "existing_position_verdicts": []
+      },
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420624Z",
+        "id": null,
+        "ticker": "SMH",
+        "instrument_type": "etf",
+        "name": "VanEck Semiconductor ETF",
+        "thematic_fit": "SMH is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+        "fit_strength": 0.66,
+        "fit_strength_components": null,
+        "fit_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420613Z",
+            "id": null,
+            "claim": "SMH has identifiable AI power/grid exposure.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420614Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "SMH mentioned as AI infrastructure beneficiary",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420613Z",
+            "channel": null
+          }
+        ],
+        "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "consensus_type": "narrative",
+        "potential_variant_view": "",
+        "variant_strength": "unclear",
+        "variant_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420618Z",
+            "id": null,
+            "claim": "SMH variant view is underappreciated relative to consensus focus.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420618Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "SMH grid/power optionality remains debated",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420617Z",
+            "channel": null
+          }
+        ],
+        "catalysts": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420621Z",
+            "id": null,
+            "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+            "catalyst_type": "earnings",
+            "earliest_date": null,
+            "latest_date": null,
+            "is_ongoing": true,
+            "asymmetry": "Positive order/backlog evidence can force estimate revisions."
+          }
+        ],
+        "priority_rank": 3,
+        "recommended_research_depth": "standard",
+        "theme_tags": [
+          "semiconductors",
+          "quality_ai",
+          "crowded"
+        ],
+        "existing_position_verdicts": []
+      },
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420641Z",
+        "id": null,
+        "ticker": "VST",
+        "instrument_type": "single_stock",
+        "name": "Vistra",
+        "thematic_fit": "VST is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+        "fit_strength": 0.66,
+        "fit_strength_components": null,
+        "fit_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420631Z",
+            "id": null,
+            "claim": "VST has identifiable AI power/grid exposure.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420632Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "VST mentioned as AI infrastructure beneficiary",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420630Z",
+            "channel": null
+          }
+        ],
+        "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "consensus_type": "narrative",
+        "potential_variant_view": "Power scarcity is relevant, but merchant-power cyclicality makes the edge less clean.",
+        "variant_strength": "moderate",
+        "variant_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420635Z",
+            "id": null,
+            "claim": "VST variant view is underappreciated relative to consensus focus.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420636Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "VST grid/power optionality remains debated",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420635Z",
+            "channel": null
+          }
+        ],
+        "catalysts": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420638Z",
+            "id": null,
+            "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+            "catalyst_type": "earnings",
+            "earliest_date": null,
+            "latest_date": null,
+            "is_ongoing": true,
+            "asymmetry": "Positive order/backlog evidence can force estimate revisions."
+          }
+        ],
+        "priority_rank": 4,
+        "recommended_research_depth": "standard",
+        "theme_tags": [
+          "grid",
+          "power",
+          "cyclical"
+        ],
+        "existing_position_verdicts": []
+      },
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420657Z",
+        "id": null,
+        "ticker": "IFRA",
+        "instrument_type": "etf",
+        "name": "iShares U.S. Infrastructure ETF",
+        "thematic_fit": "IFRA is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+        "fit_strength": 0.66,
+        "fit_strength_components": null,
+        "fit_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420648Z",
+            "id": null,
+            "claim": "IFRA has identifiable AI power/grid exposure.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420648Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "IFRA mentioned as AI infrastructure beneficiary",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420647Z",
+            "channel": null
+          }
+        ],
+        "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "consensus_type": "narrative",
+        "potential_variant_view": "",
+        "variant_strength": "unclear",
+        "variant_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420652Z",
+            "id": null,
+            "claim": "IFRA variant view is underappreciated relative to consensus focus.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420652Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "IFRA grid/power optionality remains debated",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420651Z",
+            "channel": null
+          }
+        ],
+        "catalysts": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420655Z",
+            "id": null,
+            "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+            "catalyst_type": "earnings",
+            "earliest_date": null,
+            "latest_date": null,
+            "is_ongoing": true,
+            "asymmetry": "Positive order/backlog evidence can force estimate revisions."
+          }
+        ],
+        "priority_rank": 5,
+        "recommended_research_depth": "standard",
+        "theme_tags": [
+          "infrastructure",
+          "grid"
+        ],
+        "existing_position_verdicts": []
+      },
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420673Z",
+        "id": null,
+        "ticker": "PAVE",
+        "instrument_type": "etf",
+        "name": "Global X U.S. Infrastructure Development ETF",
+        "thematic_fit": "PAVE is tied to data-center electrification and grid/power capacity demand under the AI infrastructure theme.",
+        "fit_strength": 0.66,
+        "fit_strength_components": null,
+        "fit_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420664Z",
+            "id": null,
+            "claim": "PAVE has identifiable AI power/grid exposure.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420664Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "PAVE mentioned as AI infrastructure beneficiary",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420663Z",
+            "channel": null
+          }
+        ],
+        "consensus_view": "Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+        "consensus_type": "narrative",
+        "potential_variant_view": "Theme fit is broad, but instrument dilution weakens the direct variant view.",
+        "variant_strength": "weak",
+        "variant_evidence": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420668Z",
+            "id": null,
+            "claim": "PAVE variant view is underappreciated relative to consensus focus.",
+            "supports": true,
+            "retrieved_at": "2026-07-30T15:04:52.420668Z",
+            "notes": "",
+            "source_type": "news",
+            "publisher": "Helix Stub Research",
+            "title": "PAVE grid/power optionality remains debated",
+            "url": "https://example.com/helix-stub",
+            "published_at": "2026-07-30T15:04:52.420667Z",
+            "channel": null
+          }
+        ],
+        "catalysts": [
+          {
+            "schema_version": "0.1.0",
+            "created_at": "2026-07-30T15:04:52.420670Z",
+            "id": null,
+            "event": "Next earnings update on backlog, orders, and AI infrastructure demand",
+            "catalyst_type": "earnings",
+            "earliest_date": null,
+            "latest_date": null,
+            "is_ongoing": true,
+            "asymmetry": "Positive order/backlog evidence can force estimate revisions."
+          }
+        ],
+        "priority_rank": 6,
+        "recommended_research_depth": "standard",
+        "theme_tags": [
+          "infrastructure",
+          "grid"
+        ],
+        "existing_position_verdicts": []
+      }
+    ],
+    "excluded": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:04:52.420680Z",
+        "id": null,
+        "ticker": "TSLA",
+        "reason": "Considered but excluded because the AI power/grid thesis is indirect and dominated by unrelated auto and robotaxi narratives."
+      }
+    ],
+    "rejected_quick": [],
+    "mapping_logic": "The map favors instruments with direct grid, electrical equipment, and data-center power exposure, then rejects names where the AI theme is already obvious or too diluted.",
+    "universe_considered": 42
+  }
+}

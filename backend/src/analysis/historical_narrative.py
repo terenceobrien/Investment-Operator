@@ -13,10 +13,11 @@ import os
 from pathlib import Path
 from typing import Any, Dict, Optional
 import pandas as pd
+from src.agent_system.paths import data_root
 
 DATA_PATH = Path(os.environ.get(
     "RESEARCH_DATA_PATH",
-    str(Path(__file__).resolve().parents[3] / "data" / "operator_research_v2.csv")
+    str(data_root(create=False) / "operator_research_v2.csv")
 ))
 
 SECTOR_MAP = {

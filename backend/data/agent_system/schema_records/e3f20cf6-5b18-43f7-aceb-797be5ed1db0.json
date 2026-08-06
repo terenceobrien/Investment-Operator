@@ -1,0 +1,58 @@
+{
+  "id": "e3f20cf6-5b18-43f7-aceb-797be5ed1db0",
+  "schema_type": "NarrativeAnalysis",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:04:52.445771+00:00",
+  "asof_date": null,
+  "ticker": "VST",
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:04:52.445771Z",
+    "id": "e3f20cf6-5b18-43f7-aceb-797be5ed1db0",
+    "ticker": "VST",
+    "current_narrative": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.445756Z",
+      "id": null,
+      "summary": "No current narrative coverage. VST does not appear in today's broad-market or tech-heavy narrative snapshots. Thematic agent's consensus view: Consensus recognizes AI demand but mostly rewards obvious semiconductor exposure.",
+      "dominant_archetype": "unknown_unclassified",
+      "secondary_archetype": null,
+      "narrative_strength": 0.0,
+      "narrative_age": "emerging"
+    },
+    "inefficiency_thesis": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.445761Z",
+      "id": null,
+      "archetype": "unknown_unclassified",
+      "description": "No narrative-service inefficiency thesis is available for VST because it has absent coverage in the broad SPY/QQQ snapshots.",
+      "evidence": [],
+      "why_it_persists": "No cross-sectional narrative signal has been observed in the current broad-market snapshots.",
+      "expected_resolution_path": "A future daily snapshot must include VST with source evidence before the agent system treats narrative as an active input.",
+      "resolution_horizon": "quarters"
+    },
+    "coverage_quality": "absent",
+    "snapshot_date": null,
+    "snapshot_subject": null,
+    "inefficiency_archetype_id": null,
+    "price_confirmation": null,
+    "sector_etf": "XLU",
+    "sector_narrative_alignment": "no_sector_signal",
+    "source_narrative_indices": [],
+    "is_stale": false,
+    "narrative_could_be_wrong_if": [
+      "Future SPY or QQQ narrative snapshots begin to mention VST with source evidence."
+    ],
+    "contradicting_signals": [],
+    "conviction": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:04:52.445766Z",
+      "id": null,
+      "rating": "weak",
+      "justification": "VST has no SPY or QQQ snapshot coverage. This is treated as a neutral no-signal narrative input, not as negative narrative evidence.",
+      "primary_uncertainty": "Broad daily snapshots can miss ticker-specific narratives that would require deeper per-name synthesis."
+    },
+    "source_narrative_state_asof": null
+  }
+}

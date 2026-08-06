@@ -1,0 +1,70 @@
+{
+  "id": "17f76fb6-e81f-4916-9ce0-20d210cd962c",
+  "schema_type": "TradeScenarioAnalysis",
+  "schema_version": "1.0",
+  "created_at": "2026-07-30T15:04:06.044112+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "1.0",
+    "created_at": "2026-07-30T15:04:06.044112Z",
+    "id": "17f76fb6-e81f-4916-9ce0-20d210cd962c",
+    "trade_id": "699d58e5-754a-4b42-a527-374a9686a05d",
+    "scenario_set_horizon_months": 12,
+    "scenario_scores": [
+      {
+        "scenario_id": "expansion_disinflation",
+        "expected_pnl_pct": 0.0,
+        "confidence": "low",
+        "reasoning": "LLM scoring failed; treating as neutral for this scenario."
+      },
+      {
+        "scenario_id": "late_cycle_expansion",
+        "expected_pnl_pct": 0.0,
+        "confidence": "low",
+        "reasoning": "LLM scoring failed; treating as neutral for this scenario."
+      },
+      {
+        "scenario_id": "inflation_shock",
+        "expected_pnl_pct": 0.0,
+        "confidence": "low",
+        "reasoning": "LLM scoring failed; treating as neutral for this scenario."
+      },
+      {
+        "scenario_id": "stagflation",
+        "expected_pnl_pct": 0.0,
+        "confidence": "low",
+        "reasoning": "LLM scoring failed; treating as neutral for this scenario."
+      },
+      {
+        "scenario_id": "growth_scare_no_credit",
+        "expected_pnl_pct": 0.0,
+        "confidence": "low",
+        "reasoning": "LLM scoring failed; treating as neutral for this scenario."
+      },
+      {
+        "scenario_id": "credit_led_recession",
+        "expected_pnl_pct": 0.0,
+        "confidence": "low",
+        "reasoning": "LLM scoring failed; treating as neutral for this scenario."
+      }
+    ],
+    "expected_return": 0.0,
+    "worst_case_pnl_pct": 0.0,
+    "best_case_pnl_pct": 0.0,
+    "robustness_score": 0.0,
+    "scenarios_positive": 0,
+    "scenario_weight_source": "macro_forecast",
+    "scenario_weights_used": {
+      "expansion_disinflation": 0.092,
+      "late_cycle_expansion": 0.8421,
+      "inflation_shock": 0.0484,
+      "stagflation": 0.0033,
+      "growth_scare_no_credit": 0.014,
+      "credit_led_recession": 0.0002
+    },
+    "scenario_weight_warning": null,
+    "fallback_used": true
+  }
+}

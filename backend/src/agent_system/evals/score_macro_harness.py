@@ -23,7 +23,9 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-DEFAULT_OUTPUT_DIR = Path("data/agent_system/macro_agent_evals")
+from src.agent_system.paths import macro_agent_evals_dir
+
+DEFAULT_OUTPUT_DIR = macro_agent_evals_dir(create=False)
 
 
 # Rubric definition. Each tuple is (key, label, description).

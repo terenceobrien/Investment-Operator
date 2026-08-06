@@ -9,6 +9,7 @@ from pathlib import Path
 import api.macro_router as macro_router_module
 import api.portfolio_router as portfolio_router_module
 import api.strategy_router as strategy_router_module
+from src.agent_system.paths import macro_json_dir_info
 
 
 logger = logging.getLogger("api.main")
@@ -42,6 +43,7 @@ def required_data_artifacts() -> list[DataArtifactCheck]:
     )
 
     theme_returns_path, theme_returns_source = scenario_theme_returns_artifact_path()
+    macro_json_info = macro_json_dir_info(create=False)
     checks = [
         DataArtifactCheck(
             name="behavioral_scenario_theme_returns_csv",
@@ -54,9 +56,9 @@ def required_data_artifacts() -> list[DataArtifactCheck]:
             resolution_source=_env_source("RESEARCH_DATA_PATH", "default:api.strategy_router.DATA_PATH"),
         ),
         DataArtifactCheck(
-            name="macro_forecast_report_dir",
-            path=macro_router_module._forecast_root(),
-            resolution_source=_env_source("MACRO_FORECAST_DIR", "default:repo_data_macro_forecasts"),
+            name="macro_forecast_json_dir",
+            path=macro_json_info.path,
+            resolution_source=macro_json_info.source,
             kind="dir",
         ),
         DataArtifactCheck(

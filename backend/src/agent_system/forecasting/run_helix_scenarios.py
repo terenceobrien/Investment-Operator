@@ -41,10 +41,11 @@ BACKEND_ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, HERE)
 sys.path.insert(1, BACKEND_ROOT)
 
-FED_MODEL_DIR = os.path.join(HERE, "..", "..", "..", "data", "Fed_Model")
+from src.agent_system.paths import fed_model_dir, frbus_handoffs_dir  # noqa: E402
+
+FED_MODEL_DIR = str(fed_model_dir(create=False))
 sys.path.insert(0, FED_MODEL_DIR)
 
-from src.agent_system.paths import agent_system_data_root  # noqa: E402
 from shock_templates import TEMPLATES, TemplateError  # noqa: E402
 
 from pyfrbus.frbus import Frbus  # noqa: E402
@@ -91,7 +92,7 @@ def file_fingerprint(path: str) -> str:
 
 
 def default_outdir() -> str:
-    return str(agent_system_data_root() / "frbus_handoffs")
+    return str(frbus_handoffs_dir(create=False))
 
 
 # ─── main ───────────────────────────────────────────────────────────────

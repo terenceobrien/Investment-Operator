@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 from pathlib import Path
 
 import pytest
 from fastapi import HTTPException
 
 from api import macro_router
+from src.agent_system.paths import macro_json_dir
 
 
 def _write_json(path: Path, payload: dict) -> Path:
@@ -21,7 +23,8 @@ def _json_response_body(response) -> dict:
 
 
 def test_latest_macro_forecast_returns_newest_two_source_artifact(tmp_path, monkeypatch):
-    monkeypatch.setenv("MACRO_FORECAST_DIR", str(tmp_path))
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    forecast_dir = macro_json_dir(create=True)
     older = {
         "asof_date": "2026-07-31",
         "created_at": "2026-08-03T00:00:00Z",
@@ -36,8 +39,8 @@ def test_latest_macro_forecast_returns_newest_two_source_artifact(tmp_path, monk
         "scenario_probabilities": {"late_cycle_expansion": 1.0},
         "mixture_report": {"analogue_fan_artifact_path": "unused.json"},
     }
-    _write_json(tmp_path / "macro_forecast_older.json", older)
-    latest_path = _write_json(tmp_path / "macro_forecast_newer.json", newer)
+    _write_json(forecast_dir / "macro_forecast_older.json", older)
+    latest_path = _write_json(forecast_dir / "macro_forecast_newer.json", newer)
 
     response = asyncio.run(macro_router.latest_macro_forecast(user={}))
     payload = _json_response_body(response)
@@ -48,9 +51,10 @@ def test_latest_macro_forecast_returns_newest_two_source_artifact(tmp_path, monk
 
 
 def test_latest_macro_forecast_rejects_retired_probability_mode(tmp_path, monkeypatch):
-    monkeypatch.setenv("MACRO_FORECAST_DIR", str(tmp_path))
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    forecast_dir = macro_json_dir(create=True)
     stale_path = _write_json(
-        tmp_path / "macro_forecast_stale.json",
+        forecast_dir / "macro_forecast_stale.json",
         {
             "asof_date": "2026-06-05",
             "created_at": "2026-08-05T00:00:00Z",
@@ -69,7 +73,8 @@ def test_latest_macro_forecast_rejects_retired_probability_mode(tmp_path, monkey
 
 
 def test_latest_analogue_fan_returns_referenced_artifact(tmp_path, monkeypatch):
-    monkeypatch.setenv("MACRO_FORECAST_DIR", str(tmp_path))
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    forecast_dir = macro_json_dir(create=True)
     fan_path = _write_json(
         tmp_path / "fan.json",
         {
@@ -79,7 +84,7 @@ def test_latest_analogue_fan_returns_referenced_artifact(tmp_path, monkeypatch):
         },
     )
     _write_json(
-        tmp_path / "macro_forecast_two_source.json",
+        forecast_dir / "macro_forecast_two_source.json",
         {
             "asof_date": "2026-08-04",
             "created_at": "2026-08-05T00:00:00Z",
@@ -97,9 +102,10 @@ def test_latest_analogue_fan_returns_referenced_artifact(tmp_path, monkeypatch):
 
 
 def test_latest_analogue_fan_404s_when_artifact_missing(tmp_path, monkeypatch):
-    monkeypatch.setenv("MACRO_FORECAST_DIR", str(tmp_path))
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    forecast_dir = macro_json_dir(create=True)
     _write_json(
-        tmp_path / "macro_forecast_two_source.json",
+        forecast_dir / "macro_forecast_two_source.json",
         {
             "asof_date": "2026-08-04",
             "created_at": "2026-08-05T00:00:00Z",
@@ -115,6 +121,50 @@ def test_latest_analogue_fan_404s_when_artifact_missing(tmp_path, monkeypatch):
     assert exc.value.status_code == 404
     assert "Analogue fan artifact not found" in str(exc.value.detail)
     assert "macro_forecast_runner" in str(exc.value.detail)
+    assert "resolution_source=env:HELIX_DATA_ROOT" in str(exc.value.detail)
+
+
+def test_latest_macro_forecast_404_names_resolved_json_dir(tmp_path, monkeypatch):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+
+    with pytest.raises(HTTPException) as exc:
+        asyncio.run(macro_router.latest_macro_forecast(user={}))
+
+    assert exc.value.status_code == 404
+    assert str(macro_json_dir(create=False)) in str(exc.value.detail)
+    assert "resolution_source=env:HELIX_DATA_ROOT" in str(exc.value.detail)
+
+
+def test_latest_macro_forecast_falls_back_to_mtime_when_created_at_missing(tmp_path, monkeypatch, caplog):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    forecast_dir = macro_json_dir(create=True)
+    old_path = _write_json(
+        forecast_dir / "macro_forecast_without_created_at.json",
+        {
+            "asof_date": "2026-07-31",
+            "probability_mode": "two_source_v1",
+            "scenario_probabilities": {"late_cycle_expansion": 1.0},
+            "mixture_report": {"analogue_fan_artifact_path": "unused.json"},
+        },
+    )
+    new_path = _write_json(
+        forecast_dir / "macro_forecast_with_created_at.json",
+        {
+            "asof_date": "2026-08-04",
+            "created_at": "2026-08-05T00:00:00Z",
+            "probability_mode": "two_source_v1",
+            "scenario_probabilities": {"late_cycle_expansion": 1.0},
+            "mixture_report": {"analogue_fan_artifact_path": "unused.json"},
+        },
+    )
+    os.utime(old_path, (1, 1))
+
+    with caplog.at_level("WARNING"):
+        response = asyncio.run(macro_router.latest_macro_forecast(user={}))
+
+    payload = _json_response_body(response)
+    assert payload["asof_metadata"]["artifact_path"] == str(new_path)
+    assert any("falling back to mtime" in record.message for record in caplog.records)
 
 
 def test_macro_scenario_meta_uses_behavioral_taxonomy():

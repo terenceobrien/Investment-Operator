@@ -1,0 +1,131 @@
+{
+  "cycle_id": "a8e92967-1ee0-4b19-a83a-9a64083a1a72",
+  "started_at": "2026-06-07T23:36:22.252695Z",
+  "updated_at": "2026-06-07T23:49:07.773644Z",
+  "completed_at": "2026-06-07T23:49:07.773634Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-06-07T23:36:22.277651Z",
+      "completed_at": "2026-06-07T23:36:22.277656Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-06-07T23:36:22.281663Z",
+      "completed_at": "2026-06-07T23:45:55.362113Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-06-07T23:39:47.644280Z",
+      "completed_at": "2026-06-07T23:45:55.362402Z",
+      "message": "screened 10 candidate(s)",
+      "progress_current": 10,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-06-07T23:39:53.673272Z",
+      "completed_at": "2026-06-07T23:45:55.362618Z",
+      "message": "saved 8 trade idea(s)",
+      "progress_current": 10,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "complete",
+      "started_at": "2026-06-07T23:39:57.975562Z",
+      "completed_at": "2026-06-07T23:45:55.362819Z",
+      "message": "attempted 6 trade expression(s)",
+      "progress_current": 6,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "complete",
+      "started_at": "2026-06-07T23:45:55.369914Z",
+      "completed_at": "2026-06-07T23:49:07.765292Z",
+      "message": "scored 6 trade(s)",
+      "progress_current": 6,
+      "progress_total": 6,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "complete",
+      "started_at": "2026-06-07T23:49:07.769092Z",
+      "completed_at": "2026-06-07T23:49:07.771656Z",
+      "message": "portfolio plan executed 4 trade(s)",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "a8e92967-1ee0-4b19-a83a-9a64083a1a72",
+    "regime_id": "3207d962-77e6-4bc1-a007-90a5be0a2a36",
+    "thematic_maps": 1,
+    "candidates_considered": 10,
+    "trade_ideas_saved": 8,
+    "accepted": 6,
+    "rejected": 4,
+    "decision_log_entries": 8,
+    "accepted_underlyings": [
+      "GD",
+      "TMO",
+      "QCOM",
+      "LDOS",
+      "VMC",
+      "WAB"
+    ],
+    "rejected_underlyings": [
+      "TXN",
+      "WAT",
+      "JCI",
+      "LHX"
+    ],
+    "regime_source": "real_snapshot",
+    "regime_asof_date": "2026-06-05",
+    "fallback_reason": null,
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 10,
+    "fundamental_eliminated": 2,
+    "fundamental_passed": 8,
+    "crowding_flags": 1,
+    "trade_expressions_attempted": 6,
+    "trade_expressions_succeeded": 6,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 2,
+    "trade_stocks_selected": 4,
+    "trade_rejections_pre_expression": 2,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 4,
+    "portfolio_trades_reduced": 2,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.14500000000000002,
+    "portfolio_binding_constraints": [
+      "robustness_demotion"
+    ],
+    "_portfolio_summary_text": "═══ PORTFOLIO PLAN ═══\nNAV: $18,289.57\nNew deployment: $2,651.99 (14.5% of NAV)\nCash remaining if executed: $2,161.41 (11.8% of NAV)\n\nBy priority:\n  Uncrowded quality ex-AI businesses trading at sector-relative discounts: 6 trades, 14.5% of NAV\n\nBinding constraints: robustness_demotion\n\nDecisions:\n  REDUCED  GD     GD                                     2.5% of NAV (proposed 5.0%)\n  EXECUTE  TMO    TMO                                    5.0% of NAV (proposed 5.0%)\n  EXECUTE  QCOM   QCOM                                   2.0% of NAV (proposed 2.0%)\n  REDUCED  LDOS   LDOS                                   1.0% of NAV (proposed 2.0%)\n  EXECUTE  VMC    VMC                                    2.0% of NAV (proposed 2.0%)\n  EXECUTE  WAB    WAB                                    2.0% of NAV (proposed 2.0%)"
+  },
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

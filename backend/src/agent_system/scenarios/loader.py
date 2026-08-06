@@ -1,22 +1,18 @@
 """Scenario artifact loading, writing, and path helpers."""
 from __future__ import annotations
 
-import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
 
+from src.agent_system.paths import agent_system_data_root
 from src.agent_system.scenarios.types import ScenarioSet
 
 
-BACKEND_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_AGENT_DATA_DIR = BACKEND_ROOT / "data" / "agent_system"
-
-
 def agent_data_dir() -> Path:
-    return Path(os.getenv("AGENT_SYSTEM_DATA_DIR", str(DEFAULT_AGENT_DATA_DIR)))
+    return agent_system_data_root(create=True)
 
 
 def scenario_root() -> Path:

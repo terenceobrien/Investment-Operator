@@ -4,7 +4,7 @@
     "last_updated": "2026-06-14"
   },
   "theme_betas": {
-    "grid_power_infrastructure": 0.9,
+    "grid_power_infrastructure": 0.90,
     "quality_ex_ai_cash_flow": 0.72,
     "electrical_equipment": 0.85,
     "engineering_construction": 0.88,
@@ -12,13 +12,13 @@
     "environmental_services": 0.45,
     "financial_data_exchanges": 0.42,
     "insurance_brokers": 0.44,
-    "payroll_human_capital": 0.5,
+    "payroll_human_capital": 0.50,
     "auto_parts_salvage": 0.48,
     "cash_short_duration": 0.08,
     "quality_ai": 1.15,
     "high_beta_ai_semis": 1.45,
-    "small_caps": 1.2,
-    "long_duration_growth": 1.1,
+    "small_caps": 1.20,
+    "long_duration_growth": 1.10,
     "unclassified": 1.0
   }
 }

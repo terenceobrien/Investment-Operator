@@ -59,7 +59,7 @@ def _handoff(tmp_path: Path) -> CurrentRegimeHandoff:
 
 
 def test_current_regime_schema_loads_reference_yaml():
-    path = Path("backend/src/agent_system/config/current_regime.yaml")
+    path = Path(__file__).resolve().parents[1] / "config" / "current_regime.yaml"
     payload = yaml.safe_load(path.read_text(encoding="utf-8"))
 
     handoff = CurrentRegimeHandoff.model_validate(payload)

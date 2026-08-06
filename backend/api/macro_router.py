@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from datetime import datetime, timezone
 from functools import lru_cache
@@ -14,12 +15,20 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import JSONResponse
 
 from api.auth import verify_clerk_token
+from src.agent_system.paths import (
+    analogue_fans_dir_info,
+    data_root_info,
+    macro_json_dir_info,
+    project_root,
+    resolved_path_message,
+)
 
 
 macro_router = APIRouter(prefix="/api/macro", tags=["macro"])
+logger = logging.getLogger(__name__)
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = BACKEND_ROOT.parent
+REPO_ROOT = project_root()
 RUNNER_COMMAND = (
     "PYTHONPATH=backend python3 -m "
     "src.agent_system.forecasting.macro_forecast_runner --allow-stale-bvar"
@@ -33,33 +42,23 @@ load_dotenv(REPO_ROOT / ".env.local")
 load_dotenv(BACKEND_ROOT / ".env")
 
 
+def _forecast_root_info():
+    return macro_json_dir_info(create=False)
+
+
 def _forecast_root() -> Path:
-    default_root = (
-        REPO_ROOT
-        / "data"
-        / "agent_system"
-        / "reports"
-        / "macro_forecasts"
-    )
-    return Path(os.getenv("MACRO_FORECAST_DIR", str(default_root)))
+    return _forecast_root_info().path
 
 
-def _forecast_candidate_paths(root: Path) -> list[Path]:
+def _forecast_candidate_paths(root: Path, source: str) -> list[Path]:
     if not root.exists():
         raise FileNotFoundError(
-            f"Macro forecast directory not found: {root}. "
+            f"Macro forecast JSON directory not found: {root} "
+            f"(resolution_source={source}). "
             f"Generate it with: {RUNNER_COMMAND}"
         )
 
     candidates = list(root.glob("macro_forecast_*.json"))
-    current = root / "current"
-    if current.exists() or current.is_symlink():
-        source = current.resolve(strict=True) if current.is_symlink() else current
-        if source.is_file() and source.name.startswith("macro_forecast_") and source.suffix == ".json":
-            candidates.append(source)
-        elif source.is_dir():
-            candidates.extend(source.glob("macro_forecast_*.json"))
-
     unique: list[Path] = []
     seen: set[Path] = set()
     for candidate in candidates:
@@ -69,7 +68,8 @@ def _forecast_candidate_paths(root: Path) -> list[Path]:
             unique.append(candidate)
     if not unique:
         raise FileNotFoundError(
-            f"No macro_forecast_*.json files found in {root}. "
+            f"No macro_forecast_*.json files found in {root} "
+            f"(resolution_source={source}). "
             f"Generate one with: {RUNNER_COMMAND}"
         )
     return unique
@@ -99,21 +99,19 @@ def _parse_timestamp(value: Any) -> datetime | None:
 
 def _forecast_timestamp(payload: Any, path: Path) -> datetime:
     if isinstance(payload, dict):
-        for value in (
-            payload.get("generated_at"),
-            payload.get("created_at"),
-            (payload.get("bvar_provenance") or {}).get("generated_at")
-            if isinstance(payload.get("bvar_provenance"), dict)
-            else None,
-        ):
-            parsed = _parse_timestamp(value)
-            if parsed is not None:
-                return parsed
+        parsed = _parse_timestamp(payload.get("created_at"))
+        if parsed is not None:
+            return parsed
+        logger.warning(
+            "macro forecast artifact missing/unparseable created_at; falling back to mtime: path=%s",
+            path,
+        )
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
 
 
 def _latest_forecast_artifact() -> tuple[Path, dict[str, Any]]:
-    candidates = _forecast_candidate_paths(_forecast_root())
+    root_info = _forecast_root_info()
+    candidates = _forecast_candidate_paths(root_info.path, root_info.source)
     loaded: list[tuple[datetime, str, Path, dict[str, Any]]] = []
     for candidate in candidates:
         payload = _read_json_file(candidate)
@@ -159,17 +157,22 @@ def _asof_metadata(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
 
 def _resolve_artifact_path(value: Any) -> Path:
     if not isinstance(value, str) or not value.strip():
+        fan_info = analogue_fans_dir_info(create=False)
         raise FileNotFoundError(
             "Latest forecast does not reference analogue_fan_artifact_path. "
+            f"Expected under {fan_info.path} (resolution_source={fan_info.source}). "
             f"Regenerate with: {RUNNER_COMMAND}"
         )
     path = Path(value)
     if path.is_absolute():
         return path
+    root_info = data_root_info(create=False)
+    fan_info = analogue_fans_dir_info(create=False)
+    path_parts = path.parts
+    data_relative = Path(*path_parts[1:]) if path_parts and path_parts[0] == "data" else path
     candidates = [
-        REPO_ROOT / path,
-        BACKEND_ROOT / path,
-        _forecast_root() / path,
+        root_info.path / data_relative,
+        fan_info.path / path.name,
     ]
     for candidate in candidates:
         if candidate.exists():
@@ -204,17 +207,11 @@ def _backtest_master_candidates() -> list[Path]:
         paths.append(Path(explicit_path))
     if env_path:
         paths.append(Path(env_path))
-    cwd = Path.cwd()
+    root_info = data_root_info(create=False)
     paths.extend(
         [
-            BACKEND_ROOT / "data" / "operator_research_v3.csv",
-            BACKEND_ROOT / "data" / "backtest_master_file.csv",
-            REPO_ROOT / "data" / "operator_research_v3.csv",
-            REPO_ROOT / "data" / "backtest_master_file.csv",
-            cwd / "data" / "operator_research_v3.csv",
-            cwd / "data" / "backtest_master_file.csv",
-            cwd.parent / "data" / "operator_research_v3.csv",
-            cwd.parent / "data" / "backtest_master_file.csv",
+            root_info.path / "operator_research_v3.csv",
+            root_info.path / "backtest_master_file.csv",
         ]
     )
     unique: list[Path] = []
@@ -235,8 +232,12 @@ def _resolve_backtest_master_path() -> Path | None:
 
 
 def _backtest_not_found_warning() -> str:
+    root_info = data_root_info(create=False)
     checked = ", ".join(str(path) for path in _backtest_master_candidates())
-    return f"backtest master file not found; checked: {checked}"
+    return (
+        f"{resolved_path_message('Backtest master data root', root_info)}; "
+        f"checked: {checked}"
+    )
 
 
 def _empty_history_frame() -> pd.DataFrame:
@@ -390,8 +391,10 @@ async def latest_analogue_fan(user: dict = Depends(verify_clerk_token)) -> JSONR
             )
         fan_path = _resolve_artifact_path(mixture_report.get("analogue_fan_artifact_path"))
         if not fan_path.exists():
+            fan_info = analogue_fans_dir_info(create=False)
             raise FileNotFoundError(
-                f"Analogue fan artifact not found: {fan_path}. "
+                f"Analogue fan artifact not found: {fan_path} "
+                f"(analogue_fans_dir={fan_info.path}; resolution_source={fan_info.source}). "
                 f"Regenerate with: {RUNNER_COMMAND}"
             )
         payload = _read_json_file(fan_path)

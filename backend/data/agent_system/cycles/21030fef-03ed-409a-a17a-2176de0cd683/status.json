@@ -1,0 +1,125 @@
+{
+  "cycle_id": "21030fef-03ed-409a-a17a-2176de0cd683",
+  "started_at": "2026-06-03T02:12:54.222867Z",
+  "updated_at": "2026-06-03T02:13:00.580789Z",
+  "completed_at": "2026-06-03T02:13:00.580784Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-06-03T02:12:54.223439Z",
+      "completed_at": "2026-06-03T02:12:54.223444Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-06-03T02:12:54.225820Z",
+      "completed_at": "2026-06-03T02:13:00.578426Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-06-03T02:12:54.227114Z",
+      "completed_at": "2026-06-03T02:13:00.578833Z",
+      "message": "screened 6 candidate(s)",
+      "progress_current": 6,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-06-03T02:12:56.236693Z",
+      "completed_at": "2026-06-03T02:13:00.579145Z",
+      "message": "saved 6 trade idea(s)",
+      "progress_current": 6,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "skipped",
+      "started_at": "2026-06-03T02:13:00.579440Z",
+      "completed_at": "2026-06-03T02:13:00.579441Z",
+      "message": "no candidates reached trade expression",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "skipped",
+      "started_at": "2026-06-03T02:13:00.579726Z",
+      "completed_at": "2026-06-03T02:13:00.579727Z",
+      "message": "portfolio construction skipped",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "skipped",
+      "started_at": "2026-06-03T02:13:00.580022Z",
+      "completed_at": "2026-06-03T02:13:00.580023Z",
+      "message": "portfolio construction skipped",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "21030fef-03ed-409a-a17a-2176de0cd683",
+    "regime_id": "f1d76ab3-e78a-4fec-a98c-140766d6ee35",
+    "thematic_maps": 1,
+    "candidates_considered": 6,
+    "trade_ideas_saved": 6,
+    "accepted": 2,
+    "rejected": 4,
+    "decision_log_entries": 6,
+    "accepted_underlyings": [
+      "ETN",
+      "VST"
+    ],
+    "rejected_underlyings": [
+      "NVDA",
+      "SMH",
+      "IFRA",
+      "PAVE"
+    ],
+    "regime_source": "stub",
+    "regime_asof_date": "2026-05-19",
+    "fallback_reason": null,
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 6,
+    "fundamental_eliminated": 0,
+    "fundamental_passed": 6,
+    "crowding_flags": 0,
+    "trade_expressions_attempted": 0,
+    "trade_expressions_succeeded": 0,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 0,
+    "trade_stocks_selected": 0,
+    "trade_rejections_pre_expression": 4,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 0,
+    "portfolio_trades_reduced": 0,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.0,
+    "portfolio_binding_constraints": [],
+    "_portfolio_summary_text": null
+  },
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

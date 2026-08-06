@@ -1,0 +1,48 @@
+{
+  "id": "ecf799a6-56ee-490a-b743-1a3ad441e8b1",
+  "schema_type": "ResearchPriority",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.345935+00:00",
+  "asof_date": null,
+  "ticker": null,
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.345935Z",
+    "id": "ecf799a6-56ee-490a-b743-1a3ad441e8b1",
+    "theme": "Credit-led recession (spread blowout + contraction) behavioral scenario validation",
+    "rationale": "Credit-led recession (spread blowout + contraction) is a tail_watch scenario in the active behavioral macro source with ensemble probability 0.0%. The seed exists to validate whether bottom-up evidence and market behavior confirm the same behavioral path.",
+    "edge_hypothesis": "The market may be under- or over-pricing the transition into Credit-led recession (spread blowout + contraction). Research should test whether preferred exposures such as cash_short_duration, quality_ex_ai_cash_flow offer cleaner risk/reward than vulnerable exposures such as high_beta_ai_semis, small_caps, auto_parts_salvage, long_duration_growth, using behavioral scenario ids rather than the retired narrative taxonomy.",
+    "sub_questions": [
+      "Which themes have direct positive exposure to Credit-led recession (spread blowout + contraction) without relying on stale narrative scenario ids?",
+      "Where are preferred exposures (cash_short_duration, quality_ex_ai_cash_flow) showing bottom-up confirmation?",
+      "Which vulnerable exposures (high_beta_ai_semis, small_caps, auto_parts_salvage, long_duration_growth) are beginning to break or de-rate?",
+      "Are confirming catalysts appearing: Payrolls, claims, retail sales, or PMIs deteriorate abruptly?",
+      "What would invalidate this path: Credit spreads remain tight while breadth improves?"
+    ],
+    "priority_rank": 4,
+    "expected_edge_decay": "quarters",
+    "supporting_evidence": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.345932Z",
+        "id": null,
+        "claim": "Behavioral seed priority derived from ensemble probability 0.0% and current_conditions designation 'tail_watch'.",
+        "supports": true,
+        "retrieved_at": "2026-07-30T15:02:33.345933Z",
+        "notes": "",
+        "source_type": "derived",
+        "computation": "macro_scenario_source behavioral seed-priority builder",
+        "upstream_claims": [
+          "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+          "/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/config/current_conditions.yaml"
+        ]
+      }
+    ],
+    "source_theme_id": "behavioral::credit_led_recession",
+    "source_scenario_ids": [
+      "credit_led_recession"
+    ],
+    "source_macro_forecast_id": "2026-07-29T14:53:24Z"
+  }
+}

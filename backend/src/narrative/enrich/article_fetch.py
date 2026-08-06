@@ -13,9 +13,10 @@ from trafilatura import extract
 
 from narrative.sources.http import make_session
 from narrative.sources.base import RawTextItem
+from src.agent_system.paths import narrative_cache_dir
 
 
-CACHE_DIR = os.path.join("data", "narrative", "cache")
+CACHE_DIR = str(narrative_cache_dir(create=False))
 CACHE_PATH_PQ = os.path.join(CACHE_DIR, "article_text_cache.parquet")
 CACHE_PATH_JSONL = os.path.join(CACHE_DIR, "article_text_cache.jsonl")
 

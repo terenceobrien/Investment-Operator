@@ -1,0 +1,109 @@
+{
+  "classifier_cache_manifest_fingerprint": "0bcc500d500e6d6d",
+  "companion_max_eigenvalue_modulus": 0.9547110818056355,
+  "explosive_dynamics_warning": null,
+  "hyperparameters": {
+    "lambda1": 0.2,
+    "lambda2": 0.5,
+    "lambda3": 1.0,
+    "lambda4": 100.0
+  },
+  "lags": 4,
+  "posterior_artifact": "/Users/terenceobrien/AI_Financial_Operator/data/agent_system/bvar_cache/posterior_20260716T142426Z.npz",
+  "r2_by_equation": {
+    "activity": 0.6890445769790525,
+    "core_pce": 0.9759952441368911,
+    "credit_spread": 0.7888540062722333,
+    "fed_funds": 0.9586738955350407,
+    "lur": 0.8396039661257271,
+    "nfci": 0.8021831765681928,
+    "ten_year": 0.9792298265076051
+  },
+  "residual_correlation": {
+    "activity": {
+      "activity": 1.0,
+      "core_pce": 0.24639322014106235,
+      "credit_spread": -0.31978753666488524,
+      "fed_funds": 0.25346330109078424,
+      "lur": -0.6140244940746209,
+      "nfci": -0.04395911810187164,
+      "ten_year": 0.26222308903234176
+    },
+    "core_pce": {
+      "activity": 0.24639322014106235,
+      "core_pce": 1.0,
+      "credit_spread": -0.17794476260567252,
+      "fed_funds": 0.19728456106418504,
+      "lur": -0.18694948777316078,
+      "nfci": 0.13971729919151388,
+      "ten_year": 0.22810307769473842
+    },
+    "credit_spread": {
+      "activity": -0.31978753666488524,
+      "core_pce": -0.17794476260567252,
+      "credit_spread": 1.0000000000000002,
+      "fed_funds": -0.32823402413368374,
+      "lur": 0.27462003702345916,
+      "nfci": 0.301693182097162,
+      "ten_year": -0.5726717985142022
+    },
+    "fed_funds": {
+      "activity": 0.25346330109078424,
+      "core_pce": 0.19728456106418504,
+      "credit_spread": -0.32823402413368374,
+      "fed_funds": 1.0000000000000002,
+      "lur": -0.23717587007809493,
+      "nfci": 0.4020781760849087,
+      "ten_year": 0.5330265804451821
+    },
+    "lur": {
+      "activity": -0.6140244940746209,
+      "core_pce": -0.18694948777316078,
+      "credit_spread": 0.27462003702345916,
+      "fed_funds": -0.23717587007809493,
+      "lur": 1.0,
+      "nfci": 0.03093993971323429,
+      "ten_year": -0.21619466622783215
+    },
+    "nfci": {
+      "activity": -0.04395911810187164,
+      "core_pce": 0.13971729919151388,
+      "credit_spread": 0.301693182097162,
+      "fed_funds": 0.4020781760849087,
+      "lur": 0.03093993971323429,
+      "nfci": 1.0,
+      "ten_year": 0.16077930029794063
+    },
+    "ten_year": {
+      "activity": 0.26222308903234176,
+      "core_pce": 0.22810307769473842,
+      "credit_spread": -0.5726717985142022,
+      "fed_funds": 0.5330265804451821,
+      "lur": -0.21619466622783215,
+      "nfci": 0.16077930029794063,
+      "ten_year": 0.9999999999999999
+    }
+  },
+  "sample_end": "2026Q1",
+  "sample_observations": 213,
+  "sample_start": "1973Q1",
+  "transforms": {
+    "activity": "yoy_pct",
+    "core_pce": "yoy_pct",
+    "credit_spread": "level",
+    "fed_funds": "level",
+    "lur": "level",
+    "nfci": "level",
+    "ten_year": "level"
+  },
+  "usable_regression_observations": 209,
+  "variable_order": [
+    "activity",
+    "lur",
+    "core_pce",
+    "credit_spread",
+    "fed_funds",
+    "ten_year",
+    "nfci"
+  ]
+}

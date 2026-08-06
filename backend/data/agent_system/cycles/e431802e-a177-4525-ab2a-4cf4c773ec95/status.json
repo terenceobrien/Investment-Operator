@@ -1,0 +1,82 @@
+{
+  "cycle_id": "e431802e-a177-4525-ab2a-4cf4c773ec95",
+  "started_at": "2026-06-12T17:02:17.824170Z",
+  "updated_at": "2026-06-12T17:02:21.563198Z",
+  "completed_at": "2026-06-12T17:02:21.563167Z",
+  "overall_status": "failed",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-06-12T17:02:17.837885Z",
+      "completed_at": "2026-06-12T17:02:17.837890Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "running",
+      "started_at": "2026-06-12T17:02:17.840965Z",
+      "completed_at": null,
+      "message": "working on priority 1: Second-order grid and power infrastructure beneficiaries with cross-scenario support",
+      "progress_current": 1,
+      "progress_total": 2,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "message": "",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {},
+  "fatal_error": "Traceback (most recent call last):\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/orchestration/run_research_cycle.py\", line 1002, in main\n    summary = run_research_cycle(\n              ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/orchestration/run_research_cycle.py\", line 776, in run_research_cycle\n    return _execute_cycle(\n           ^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/orchestration/run_research_cycle.py\", line 294, in _execute_cycle\n    agent_result = asyncio.run(\n                   ^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/agents/thematic_agent.py\", line 240, in translate_priority_to_candidates\n    result = parse_structured(\n             ^^^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/llm/client.py\", line 147, in parse_structured\n    resp = _call_openai_parse(\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/terenceobrien/AI_Financial_Operator/backend/src/agent_system/llm/client.py\", line 72, in _call_openai_parse\n    return client.beta.chat.completions.parse(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py\", line 191, in parse\n    return self._post(\n           ^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/openai/_base_client.py\", line 1297, in post\n    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/openai/_base_client.py\", line 1070, in request\n    raise self._make_status_error_from_response(err.response) from None\nopenai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}\n",
+  "user_inputs_preview": []
+}

@@ -1,0 +1,80 @@
+{
+  "id": "1f8dfc19-b9f1-4eaf-bbc1-00b4de787583",
+  "schema_type": "FundamentalAnalysis",
+  "schema_version": "0.1.0",
+  "created_at": "2026-07-30T15:02:33.457400+00:00",
+  "asof_date": null,
+  "ticker": "PAVE",
+  "source_id": null,
+  "payload_json": {
+    "schema_version": "0.1.0",
+    "created_at": "2026-07-30T15:02:33.457400Z",
+    "id": "1f8dfc19-b9f1-4eaf-bbc1-00b4de787583",
+    "ticker": "PAVE",
+    "thesis_statement": "PAVE can compound earnings above consensus as AI infrastructure demand pulls forward power and grid investment.",
+    "business_quality": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.457380Z",
+      "id": null,
+      "summary": "Global X U.S. Infrastructure Development ETF has meaningful exposure to infrastructure spending and enough business quality to warrant a structured review.",
+      "moat_assessment": "Scale, installed base, and channel depth support pricing power.",
+      "moat_evidence": [],
+      "cyclicality": "hybrid"
+    },
+    "financials": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.457383Z",
+      "id": null,
+      "key_metrics": [],
+      "balance_sheet_quality": 6.5,
+      "cash_generation_quality": 6.2,
+      "accounting_red_flags": []
+    },
+    "estimates_and_expectations": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.457385Z",
+      "id": null,
+      "consensus_summary": "Consensus expects steady growth but remains cautious on macro-sensitive industrial demand.",
+      "revision_trend": "stable",
+      "where_we_differ": null,
+      "differ_magnitude": null,
+      "differ_evidence": []
+    },
+    "positioning": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.457389Z",
+      "id": null,
+      "institutional_positioning": "High-quality buyers are present, but generalists still debate whether the AI grid demand is durable.",
+      "short_interest": null,
+      "options_skew_signal": null,
+      "crowdedness_assessment": "crowded"
+    },
+    "steelman_bear_case": "The bear case is that AI data-center demand is pulled forward, industrial demand rolls over as rates stay high, and backlog normalizes before estimates can move materially higher.",
+    "bear_case_evidence": [
+      {
+        "schema_version": "0.1.0",
+        "created_at": "2026-07-30T15:02:33.457391Z",
+        "id": null,
+        "claim": "PAVE is exposed to cyclical industrial demand.",
+        "supports": true,
+        "retrieved_at": "2026-07-30T15:02:33.457392Z",
+        "notes": "",
+        "source_type": "news",
+        "publisher": "Helix Stub Research",
+        "title": "PAVE macro sensitivity remains a risk",
+        "url": "https://example.com/helix-stub",
+        "published_at": "2026-07-30T15:02:33.457390Z",
+        "channel": null
+      }
+    ],
+    "what_bear_case_misses": "nothing material",
+    "conviction": {
+      "schema_version": "0.1.0",
+      "created_at": "2026-07-30T15:02:33.457397Z",
+      "id": null,
+      "rating": "moderate",
+      "justification": "PAVE has enough evidence for a moderate stub rating, with explicit variant evidence and a named uncertainty.",
+      "primary_uncertainty": "Macro conditions or earnings revisions could move against the theme before the market reprices the opportunity."
+    }
+  }
+}

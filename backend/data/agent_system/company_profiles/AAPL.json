@@ -1,0 +1,214 @@
+{
+  "ticker": "AAPL",
+  "company_name": "Apple Inc.",
+  "sector": "Information Technology",
+  "industry": "Consumer Electronics and Technology Hardware, Storage & Peripherals",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-06-28",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge and the supplied financial context; it should be verified against Apple filings, investor materials, and supplier disclosures.",
+    "Supplied financial context indicates latest financial period end date of 2026-03-31, LTM revenue of approximately $451.4 billion, gross margin of approximately 47.9%, operating margin of approximately 32.6%, and improving free cash flow and leverage trends.",
+    "Company profile is LLM-generated from supplied metadata and general prior knowledge; verify with filings before relying on precise business details."
+  ],
+  "profile_data_gaps": [
+    "No source-backed research context or filing excerpts were supplied for detailed business verification.",
+    "Segment revenue_share_estimate and profit_share_estimate are not provided in the supplied context and are set to null.",
+    "Customer concentration, supplier concentration, and regional revenue mix are not verified from filings in this profile.",
+    "Recent management commentary, legal developments, and product-launch details are not verified in this profile."
+  ],
+  "business_description": "Apple Inc. designs, manufactures, and markets consumer electronics, personal computers, tablets, wearables, accessories, and related software and services. Its core franchise is a vertically integrated hardware, software, and services ecosystem anchored by iPhone, with additional products including Mac, iPad, Apple Watch, AirPods, Apple TV, and subscription, payments, licensing, warranty, advertising, and digital content services. The company sells globally through direct channels, online stores, retail stores, carriers, resellers, and enterprise/education channels.",
+  "business_model": "Apple monetizes a large global installed base through premium-priced devices, recurring and transaction-based services, software integration, and ecosystem lock-in. Hardware sales are driven by product cycles, replacement demand, channel inventory, carrier promotions, and geographic consumer spending. Services revenue is higher-margin and more recurring, supported by App Store activity, subscriptions, AppleCare, iCloud, payments, advertising, and licensing. The model depends on brand strength, supply-chain scale, proprietary silicon/software, developer participation, and continued user engagement across devices.",
+  "segments": [
+    {
+      "name": "iPhone",
+      "description": "Smartphone products centered on iPhone, including premium and mainstream models integrated with iOS, Apple silicon, cameras, services, and carrier channels.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "New model launch cadence and innovation",
+        "Replacement cycles and installed base upgrades",
+        "Carrier promotions and financing offers",
+        "Premium model and storage mix",
+        "China, U.S., Europe, and emerging-market demand",
+        "Competitive positioning versus Android vendors"
+      ]
+    },
+    {
+      "name": "Mac",
+      "description": "Mac desktop and notebook computers running macOS and Apple-designed silicon, sold to consumers, education, creators, developers, and enterprises.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "PC replacement cycle",
+        "Apple silicon performance and battery-life differentiation",
+        "Enterprise and education adoption",
+        "Consumer spending and back-to-school demand",
+        "Competitive pricing versus Windows PCs"
+      ]
+    },
+    {
+      "name": "iPad",
+      "description": "iPad tablets and related accessories used for consumer, education, creative, and enterprise workflows.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Tablet replacement cycles",
+        "Education and consumer demand",
+        "Product refresh cadence",
+        "Accessory attachment such as keyboards and pencils",
+        "Competition from PCs and lower-cost tablets"
+      ]
+    },
+    {
+      "name": "Wearables, Home and Accessories",
+      "description": "Wearables, Home and Accessories includes Apple Watch, AirPods, Beats products, Apple TV hardware, HomePod, accessories, and related device categories.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Health and fitness feature adoption",
+        "Attach rate to the iPhone installed base",
+        "Accessory replacement and upgrade cycles",
+        "Holiday-season demand",
+        "New sensor, audio, and connected-home features"
+      ]
+    },
+    {
+      "name": "Services",
+      "description": "Services includes digital content, subscriptions, App Store, cloud services, AppleCare, payments, advertising, and licensing arrangements tied to Apple platforms and the installed base.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Growth and engagement of active installed base",
+        "Paid subscription adoption and bundling",
+        "App Store developer activity and transaction volume",
+        "Cloud storage usage",
+        "Licensing and advertising economics",
+        "Regulatory changes affecting platform fees and payment rules"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Upfront sales of iPhone, Mac, iPad, wearables, home devices, accessories, and related hardware",
+    "Recurring subscriptions and service fees from iCloud, Apple Music, Apple TV+, Apple Arcade, Apple Fitness+, and other services",
+    "App Store commissions and in-app purchase economics where permitted by regulation",
+    "Licensing and platform payments, including search and other distribution arrangements",
+    "AppleCare warranty and support plans",
+    "Payments, financial services, advertising, and other transaction-based ecosystem revenue",
+    "Direct retail, online, carrier, reseller, distributor, enterprise, education, and government sales channels"
+  ],
+  "cost_drivers": [
+    "Semiconductor and component costs, including application processors, memory, displays, cameras, batteries, sensors, and connectivity components",
+    "Contract manufacturing, assembly, tooling, logistics, freight, and warranty costs",
+    "Research and development spending for custom silicon, operating systems, AI features, devices, services, and developer platforms",
+    "Sales, marketing, retail store operations, customer support, and distribution expenses",
+    "Content, cloud infrastructure, data center, payment processing, and platform operating costs for services",
+    "Foreign exchange translation and hedging impacts on international cost base and reported results",
+    "Tariffs, trade restrictions, customs duties, and compliance costs across global supply chains"
+  ],
+  "margin_drivers": [
+    "Mix shift between hardware and higher-margin Services revenue",
+    "iPhone product mix, pricing discipline, storage-tier mix, and premium model adoption",
+    "Component cost trends, memory/display pricing, supply availability, and manufacturing yields",
+    "Scale benefits from large production volumes and supply-chain purchasing power",
+    "Foreign exchange movements and hedging effectiveness",
+    "Channel mix between direct retail/online sales and third-party distribution",
+    "Services take rates, licensing economics, cloud/content costs, and regulatory limits on platform fees",
+    "R&D intensity for custom silicon, AI, new devices, and platform development",
+    "Warranty, repair, recall, and product quality costs"
+  ],
+  "key_customers": [
+    "Global consumers and households",
+    "Mobile network operators and carrier distribution channels",
+    "Third-party retailers, resellers, and distributors",
+    "Small and medium-sized businesses",
+    "Large enterprises, education institutions, and government customers",
+    "App developers and digital content providers that participate in Apple platforms"
+  ],
+  "key_suppliers": [
+    "Hon Hai Precision Industry / Foxconn and other contract manufacturing partners",
+    "Taiwan Semiconductor Manufacturing Company for advanced chip fabrication",
+    "Display, memory, camera, battery, sensor, and connectivity component suppliers across Asia, the U.S., and Europe",
+    "Logistics, cloud infrastructure, and data center service providers"
+  ],
+  "peer_group": [
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "relevance": "Large-cap technology ecosystem and services platform peer, though with more enterprise software and cloud exposure."
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "relevance": "Consumer technology platform peer with mobile operating system, services, advertising, AI, and regulatory exposure."
+    },
+    {
+      "ticker": "SSNLF",
+      "name": "Samsung Electronics Co., Ltd.",
+      "relevance": "Global smartphone, consumer electronics, display, and semiconductor competitor; U.S. investors may access through OTC/foreign listings."
+    },
+    {
+      "ticker": "DELL",
+      "name": "Dell Technologies Inc.",
+      "relevance": "PC and hardware systems peer with enterprise and consumer device exposure."
+    },
+    {
+      "ticker": "HPQ",
+      "name": "HP Inc.",
+      "relevance": "Personal computer and peripherals peer exposed to PC replacement cycles and hardware margins."
+    },
+    {
+      "ticker": "SONY",
+      "name": "Sony Group Corporation",
+      "relevance": "Consumer electronics, devices, gaming, entertainment, and subscription/content ecosystem peer."
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm Incorporated",
+      "relevance": "Mobile semiconductor and connectivity supplier/competitor exposure tied to smartphone unit cycles and device technology."
+    },
+    {
+      "ticker": "GRMN",
+      "name": "Garmin Ltd.",
+      "relevance": "Wearables and connected device peer in health, fitness, and consumer electronics niches."
+    }
+  ],
+  "thematic_exposures": [
+    "Premium consumer electronics",
+    "Smartphone replacement cycle",
+    "Digital services and subscriptions",
+    "Installed-base monetization",
+    "Mobile app ecosystem regulation",
+    "On-device AI and consumer AI features",
+    "Custom silicon and edge computing",
+    "Wearables and digital health",
+    "Payments and digital wallets",
+    "China consumer and supply-chain exposure",
+    "FX-sensitive mega-cap technology",
+    "Shareholder returns and buybacks"
+  ],
+  "macro_sensitivities": [
+    "Global consumer spending and discretionary electronics demand",
+    "Smartphone and PC replacement cycles",
+    "U.S. dollar strength and foreign exchange translation on international revenue and margins",
+    "China consumer demand, regulatory environment, and supply-chain disruption risk",
+    "Interest rates and consumer financing conditions for premium devices",
+    "Semiconductor supply, foundry capacity, memory pricing, and component cost cycles",
+    "Tariffs, export controls, trade policy, and geopolitical tensions affecting cross-border production and sales",
+    "AI capex and cloud infrastructure requirements for on-device and services-based AI capabilities",
+    "App Store regulation, digital market rules, payment regulation, privacy regulation, and antitrust enforcement",
+    "Seasonality around new product launches and holiday-quarter demand"
+  ],
+  "major_risks": [
+    "High dependence on iPhone as the anchor product and ecosystem gateway",
+    "Slower device replacement cycles or weaker premium smartphone demand",
+    "Intense competition from Android handset vendors, PC makers, streaming services, cloud platforms, and other digital ecosystems",
+    "Regulatory and legal pressure on App Store fees, default settings, payments, search licensing, privacy practices, and platform rules",
+    "Execution risk around new product categories, generative AI features, and maintaining ecosystem differentiation",
+    "Supply-chain concentration and disruption risk, including China manufacturing exposure and reliance on advanced semiconductor foundry capacity",
+    "Geopolitical risk, tariffs, export controls, and potential restrictions affecting China, Taiwan, the U.S., or Europe",
+    "Foreign exchange headwinds due to large international revenue base",
+    "Product quality, cybersecurity, privacy, warranty, or safety issues that could impair brand trust",
+    "Services growth risk if developer economics, licensing arrangements, subscription adoption, or regulatory rules change"
+  ]
+}

@@ -1,0 +1,148 @@
+schema_version: '1.0'
+generated_at: '2026-05-30T22:20:36.011867Z'
+regime_id_basis: two_sided_oil_shock_late_cycle_ai
+horizon_months: 6
+scenarios:
+- id: reopening_soft_landing
+  label: Reopening relief broadens the rally
+  probability: 0.34
+  description: De-escalation or reopening headlines compress the oil risk premium, easing
+    inflation pressure just as late-cycle growth remains slow but positive. The Fed stays
+    patient initially but validates later-2026 cut optionality, allowing broader risk participation
+    beyond AI while quality infrastructure leaders remain supported.
+  factor_implications:
+    rates: Front end rallies as cut odds build; 10y drifts lower toward 3.8-4.2%.
+    equities: Broad equities rise with improved breadth; small caps and rate-sensitive quality
+      catch up while AI infrastructure remains a leader.
+    dollar: Dollar softens modestly as Fed-cut odds rise and global risk appetite improves.
+    credit: IG and HY spreads stay tight or grind tighter as inflation risk fades without
+      a recession signal.
+    commodities: Oil falls toward pre-shock levels; gold supported but less urgent; industrial
+      metals modestly firmer if growth holds.
+  catalysts_that_confirm:
+  - Hormuz reopening framework is announced and tanker traffic normalizes
+  - Oil holds below $90 for at least five sessions and inflation breakevens roll over
+  - May/June CPI and PCE show disinflation after the April uptick
+  - Fed guidance shifts from hold/hike optionality toward explicit cut optionality
+  - Market breadth improves with small caps and equal-weight indices outperforming
+  catalysts_that_invalidate:
+  - Oil rebounds above recent shock highs on renewed shipping disruption
+  - Fed hike odds rise materially after hot inflation data
+  - Credit spreads widen despite lower oil
+  - Hyperscaler capex guidance weakens enough to undercut AI leadership
+- id: sticky_late_cycle_ai
+  label: Sticky late-cycle regime with narrow AI leadership
+  probability: 0.26
+  description: Oil risk remains two-sided but elevated enough to keep inflation risk alive.
+    The Fed mostly stays on hold, financial conditions remain restrictive, and equity indices
+    are supported by quality AI, grid, defense, and infrastructure leaders while broad cyclicals
+    and weak balance sheets lag.
+  factor_implications:
+    rates: Front end remains elevated; 10y range-bound around 4.2-4.7% with breakeven volatility.
+    equities: Cap-weighted indices hold up better than equal weight; quality AI, defense,
+      and infrastructure outperform while small caps lag.
+    dollar: Dollar stays firm versus low-yielders as US real rates remain restrictive.
+    credit: Spreads remain contained but asymmetric; weak balance sheets and consumer cyclicals
+      underperform.
+    commodities: Oil stays volatile in a high range; energy hedges retain value but are tactical;
+      gold supported by inflation/geopolitical uncertainty.
+  catalysts_that_confirm:
+  - Oil remains elevated but below crisis highs while shipping normalization stays incomplete
+  - CPI/PCE remain sticky but not hot enough to force hikes
+  - June and July FOMC communications emphasize patience and data dependence
+  - HY spreads remain near tight levels despite narrow equity breadth
+  - AI earnings revisions and hyperscaler capex guidance remain positive
+  catalysts_that_invalidate:
+  - Oil breaks below $70 and stays there for five sessions
+  - Fed cuts are pulled forward aggressively after weak data
+  - Labor and consumer data deteriorate abruptly
+  - AI leaders miss earnings or guide capex materially lower
+- id: oil_inflation_tail
+  label: Oil shock reignites inflation and Fed hawkishness
+  probability: 0.20
+  description: Oil supply disruption persists or re-escalates, turning the two-sided risk
+    back into an inflation shock. The Fed cannot ease and may reprice toward hikes, pressuring
+    duration, consumers, and crowded growth while energy, defense, and real assets outperform.
+  factor_implications:
+    rates: Breakevens rise and nominal yields back up; 10y tests or exceeds 4.8% and front-end
+      hike risk returns.
+    equities: Energy, defense, and real assets outperform; broad equities derate, with consumers,
+      small caps, and unprofitable growth hit hardest.
+    dollar: Dollar firms on higher US rates and risk aversion.
+    credit: Spreads widen selectively, led by consumer cyclicals, transport, and weak balance
+      sheets.
+    commodities: Oil and refined products remain bid; energy equities outperform; gold benefits
+      from inflation and geopolitical hedging demand.
+  catalysts_that_confirm:
+  - Renewed Hormuz disruption or attacks on shipping infrastructure reverse reopening hopes
+  - Oil breaks higher and stays elevated through multiple inflation releases
+  - Inflation breakevens rise for two or more weeks
+  - Fed hike odds increase and officials push back against cuts
+  - Consumer discretionary earnings weaken from higher fuel and input costs
+  catalysts_that_invalidate:
+  - Verified tanker normalization and sustained oil decline below $90
+  - Inflation prints soften despite higher energy prices
+  - Fed hike odds fade meaningfully
+  - Credit spreads tighten materially despite oil pressure
+- id: late_cycle_risk_off
+  label: Late-cycle break and leadership unwind
+  probability: 0.10
+  description: 'Restrictive rates and energy-cost drag hit late-cycle demand before cuts can
+    help. Tight credit spreads reprice wider, narrow AI leadership cracks, and lower yields
+    fail to prevent a risk-off drawdown. This is the adverse portfolio tail: equity beta,
+    weak balance sheets, and crowded momentum all unwind together.'
+  factor_implications:
+    rates: Curve bull-steepens as the front end prices cuts; 10y falls below 4% if recession
+      risk dominates.
+    equities: Broad equities fall; AI momentum derates with the market, while defensives,
+      cash-like exposure, and low leverage outperform.
+    dollar: Dollar rallies on global risk aversion and funding demand.
+    credit: HY spreads widen sharply and lower-quality issuers underperform; IG widens but
+      less severely.
+    commodities: Oil falls on demand destruction despite geopolitical risk; gold gains from
+      safety demand; industrial metals weaken.
+  catalysts_that_confirm:
+  - Payrolls, claims, retail sales, or PMIs deteriorate abruptly
+  - HY spreads widen materially from tight starting levels
+  - Bank lending or funding stress indicators worsen
+  - AI leaders sell off despite stable rates, showing leadership exhaustion
+  - Hyperscaler capex guidance disappoints or is delayed
+  catalysts_that_invalidate:
+  - Credit spreads remain tight while breadth improves
+  - Labor data stabilize and consumption remains resilient
+  - Fed pre-emptively eases with credible disinflation cover
+  - AI earnings revisions continue to rise and support index leadership
+  - id: ai_capex_rollover
+- label: AI capex cycle peaks and rolls over independent of macro
+  probability: 0.10
+  description: Hyperscaler capex guidance for late-2026 and 2027 comes in flat or down as
+    AI revenue per dollar of compute disappoints, training-cluster ROI questions surface,
+    and the largest buyers (Microsoft, Meta, Google, Amazon) signal restraint. AI infrastructure
+    leaders (compute, power, grid, networking) derate sharply on multiple compression even
+    as broader equities and macro hold up. The break is sector-specific, not a recession
+    — credit and rates remain orderly, but the narrow leadership that has carried the index
+    cracks.
+  factor_implications:
+    rates: 10y stays range-bound near 4.2-4.5%; no major rate move because the shock is
+      sector-specific, not macro.
+    equities: AI infrastructure, power-for-AI, and high-multiple compute names sell off
+      sharply (15-30%); broad equities flat to mildly negative; equal-weight indices outperform
+      cap-weighted as Mag-7 derate.
+    dollar: Dollar mostly unchanged; mild softening as US tech leadership premium fades.
+    credit: IG and HY spreads remain near tights; no credit-led contagion since the issue
+      is equity multiple compression on healthy companies, not solvency.
+    commodities: Energy demand expectations for AI buildout get repriced lower; LNG/nuclear/grid
+      commodity demand assumptions soften. Oil and base metals mostly unchanged on macro
+      grounds.
+  catalysts_that_confirm:
+  - One or more hyperscalers guides 2026 capex flat-to-down on the Q2 or Q3 earnings call
+  - AI infrastructure leaders (NVDA, AVGO, CEG, VST, ETN, GEV) show coordinated multiple
+    compression on no macro news
+  - Sell-side begins downgrading AI infrastructure on ROI/utilization concerns
+  - Power-for-AI thesis takes specific hits (PPA cancellations, data-center buildout pauses)
+  - AI software revenue growth decelerates noticeably at major enterprise vendors
+  catalysts_that_invalidate:
+  - Hyperscaler capex guidance for 2026 holds or rises versus current consensus
+  - Power-for-AI PPAs and grid-buildout commitments accelerate
+  - AI infrastructure earnings beats reset multiples higher
+  - Enterprise AI software revenue growth re-accelerates

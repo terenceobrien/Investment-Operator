@@ -28,10 +28,11 @@ from src.narrative.ticker_profiles import (
     prompt_subject_profile,
     watch_tickers_for_profile,
 )
+from src.agent_system.paths import snapshots_dir
 
 logger = logging.getLogger("narrative.orchestrator")
 
-SNAPSHOT_DIR = "data/snapshots"
+SNAPSHOT_DIR = str(snapshots_dir(create=False))
 
 # Default watchlist when generating SPY's narrative — broad-market ETFs +
 # duration/credit proxies provide enough cross-asset signal for the

@@ -1,0 +1,188 @@
+{
+  "ticker": "V",
+  "company_name": "Visa Inc.",
+  "sector": "Financial Services",
+  "industry": "Payment Networks and Digital Transaction Processing",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-07-02",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge plus supplied financial context and should be verified against Visa's latest Form 10-K, Form 10-Q, investor materials, and regulatory disclosures.",
+    "Supplied financial context indicates a high-margin, asset-light business with trailing revenue of approximately $43.0 billion and operating margin around 67%, consistent with a global payment-network model.",
+    "research_context was supplied to the profile agent."
+  ],
+  "profile_data_gaps": [
+    "No source-backed research context or filing excerpts were supplied to verify current segment definitions, customer concentration, or management commentary.",
+    "Segment revenue_share_estimate and profit_share_estimate are left null because precise current shares were not provided in the input context.",
+    "Key supplier relationships are described by category only because specific supplier dependencies were not supplied."
+  ],
+  "business_description": "Visa Inc. is a global digital payments technology company that operates one of the largest card and account-to-account payment networks. The company connects consumers, merchants, financial institutions, fintechs, businesses, and governments, enabling authorization, clearing, and settlement of electronic payments. Visa generally does not issue cards, extend consumer credit, or set cardholder interest rates; its economics are primarily tied to payment volumes, transactions processed, and cross-border activity rather than credit spread income.",
+  "business_model": "Visa is an asset-light payment network and technology platform. It earns fees from financial institutions, merchants, processors, fintech partners, and other clients for enabling payment acceptance, processing transactions, providing cross-border transaction services, licensing the Visa brand/network, and selling value-added services such as fraud prevention, risk tools, data analytics, tokenization, consulting, and issuer/acquirer processing capabilities. The model benefits from network effects, high incremental margins, global acceptance, and secular cash-to-card/digital-payment conversion.",
+  "segments": [
+    {
+      "name": "Payments Network and Processing",
+      "description": "Core global payment network services that enable card-based and digital payment authorization, clearing, and settlement across issuers, acquirers, merchants, processors, and fintech partners.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Consumer and commercial payment volume",
+        "Processed transaction count",
+        "Merchant acceptance footprint",
+        "Issuer and acquirer relationships",
+        "Cash-to-card and cash-to-digital conversion",
+        "Network reliability, fraud controls, and authorization performance"
+      ]
+    },
+    {
+      "name": "Cross-Border and International Transactions",
+      "description": "Revenue associated with cross-border card-present travel, cross-border e-commerce, remittances, and other international payment activity.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "International travel and tourism",
+        "Cross-border e-commerce growth",
+        "FX volatility and currency conversion activity",
+        "Geographic mix",
+        "Regulatory restrictions and geopolitical constraints"
+      ]
+    },
+    {
+      "name": "Value-Added Services",
+      "description": "Software, data, security, identity, risk, consulting, tokenization, and processing products sold to issuers, acquirers, merchants, fintechs, and other ecosystem participants.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Adoption of fraud and risk tools",
+        "Tokenization and digital credential growth",
+        "Issuer and merchant demand for data analytics and consulting",
+        "Cybersecurity and identity-verification needs",
+        "Attach rate of services to core network clients"
+      ]
+    },
+    {
+      "name": "New Payment Flows and Commercial Solutions",
+      "description": "Money-movement capabilities beyond traditional consumer card payments, including commercial payments, B2B payments, account funding, real-time push payments, remittances, disbursements, and government/corporate payment flows.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Visa Direct adoption",
+        "Commercial and B2B payment digitization",
+        "Fintech and platform partnerships",
+        "Use cases for real-time payouts and disbursements",
+        "Competition from account-to-account and real-time payment systems"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Service fees based primarily on payments volume from card and digital payment activity",
+    "Data processing fees tied to authorization, clearing, settlement, and other transaction-processing activity",
+    "International transaction fees related to cross-border payments, currency conversion support, and international commerce",
+    "Value-added services revenue from fraud tools, risk and identity services, data analytics, consulting, tokenization, issuer/acquirer processing, and acceptance solutions",
+    "Brand, licensing, and other network-related fees from financial institutions and payment ecosystem partners",
+    "New flows and money-movement services, including Visa Direct, commercial payments, remittances, disbursements, and B2B payment capabilities"
+  ],
+  "cost_drivers": [
+    "Technology infrastructure, network reliability, cybersecurity, data centers, cloud/software, and payment-processing capacity",
+    "Personnel costs for engineering, product, sales, client support, compliance, and security functions",
+    "Client incentives and rebates paid to issuers, acquirers, merchants, processors, fintechs, and co-brand partners",
+    "Marketing, sponsorships, brand-building, and consumer/merchant acceptance programs",
+    "Regulatory compliance, litigation, data privacy, anti-money-laundering, sanctions, and operating-risk controls",
+    "Acquisition, integration, and investment costs for value-added services, fintech capabilities, and new payment flows"
+  ],
+  "margin_drivers": [
+    "Payment volume, processed transaction growth, and cross-border volume mix",
+    "Cross-border transaction yield, travel recovery, and international e-commerce growth",
+    "Client incentives as a percentage of gross revenue and competitive renewal intensity",
+    "Operating leverage from high fixed-cost network infrastructure and scalable software platforms",
+    "Value-added services mix, including fraud, risk, data, consulting, tokenization, and processing products",
+    "Pricing actions, network fees, and regulatory constraints on monetization",
+    "Technology, cybersecurity, compliance, and litigation cost inflation",
+    "Foreign exchange translation and geographic revenue mix"
+  ],
+  "key_customers": [
+    "Issuing financial institutions",
+    "Acquiring financial institutions and merchant acquirers",
+    "Merchants and merchant aggregators",
+    "Payment processors and fintech platforms",
+    "Corporates and governments using commercial, disbursement, remittance, or money-movement solutions"
+  ],
+  "key_suppliers": [
+    "Technology infrastructure providers and hardware/software vendors",
+    "Telecommunications and network connectivity providers",
+    "Cybersecurity, fraud-prevention, and data services vendors",
+    "Banks, processors, and other ecosystem partners that enable acceptance, issuance, clearing, and settlement"
+  ],
+  "peer_group": [
+    {
+      "ticker": "MA",
+      "name": "Mastercard Incorporated",
+      "relevance": "Closest global open-loop payment network peer with similar asset-light volume- and transaction-based economics."
+    },
+    {
+      "ticker": "AXP",
+      "name": "American Express Company",
+      "relevance": "Closed-loop payments network and card issuer with exposure to card spending, merchant discount revenue, and travel/entertainment volumes; has more credit risk than Visa."
+    },
+    {
+      "ticker": "PYPL",
+      "name": "PayPal Holdings, Inc.",
+      "relevance": "Digital wallet and online payments platform competing in e-commerce checkout, P2P payments, and merchant services."
+    },
+    {
+      "ticker": "FI",
+      "name": "Fiserv, Inc.",
+      "relevance": "Merchant acquiring, issuer processing, and financial technology provider within the payments ecosystem."
+    },
+    {
+      "ticker": "GPN",
+      "name": "Global Payments Inc.",
+      "relevance": "Merchant acquiring and payment technology provider with exposure to electronic transaction growth."
+    },
+    {
+      "ticker": "ADYEY",
+      "name": "Adyen N.V.",
+      "relevance": "Global merchant payment processor and acquiring platform, especially relevant for enterprise and e-commerce payments."
+    },
+    {
+      "ticker": "XYZ",
+      "name": "Block, Inc.",
+      "relevance": "Merchant acquiring, point-of-sale, Cash App, and digital payments exposure, especially among small businesses and consumers."
+    }
+  ],
+  "thematic_exposures": [
+    "Digital payments adoption",
+    "Cash-to-card conversion",
+    "E-commerce and mobile wallets",
+    "Cross-border travel recovery",
+    "Fintech enablement",
+    "Real-time money movement",
+    "Commercial payments digitization",
+    "Cybersecurity and fraud prevention",
+    "Tokenization and digital identity",
+    "Global consumer spending"
+  ],
+  "macro_sensitivities": [
+    "Consumer spending growth and mix between goods, services, travel, and e-commerce",
+    "Cross-border travel, international e-commerce, and FX-driven cross-border payment volumes",
+    "Inflation effects on nominal payment volume, partly offset by potential pressure on discretionary spending",
+    "Interest rates and credit cycle effects on bank/issuer economics, card issuance, consumer credit availability, and merchant activity",
+    "U.S. dollar strength or weakness affecting reported international revenue and cross-border spending translation",
+    "Employment, wage growth, and household balance sheets affecting transaction volume and ticket size",
+    "Regulation of interchange, network fees, routing, open banking, data privacy, and competition in key jurisdictions",
+    "Secular cash displacement and digital-wallet adoption",
+    "Cybersecurity threat environment and payment-fraud trends",
+    "Geopolitical restrictions, sanctions, and local payment-network nationalism"
+  ],
+  "major_risks": [
+    "Regulatory or legislative actions that cap fees, mandate routing choice, restrict network rules, or reduce economics for issuers, acquirers, or networks",
+    "Competition from Mastercard, domestic payment schemes, real-time account-to-account systems, digital wallets, closed-loop networks, fintech platforms, and central-bank or government-backed payment rails",
+    "Loss or renegotiation of major issuer, acquirer, merchant, co-brand, processor, or fintech relationships, including higher client incentives",
+    "Cybersecurity breach, network outage, fraud event, data-privacy failure, or operational disruption that damages trust in the network",
+    "Slower consumer spending, recession, reduced travel, or weaker cross-border activity pressuring volume and transaction growth",
+    "Geopolitical, sanctions, or local-market restrictions limiting Visa's ability to operate in certain countries",
+    "Litigation and antitrust risk related to network rules, merchant fees, routing, or competitive practices",
+    "Currency translation headwinds and volatility in international markets",
+    "Technology disruption from alternative payment rails or changes in merchant/consumer payment behavior",
+    "Reputational risk from fraud, data use, compliance failures, or partner conduct"
+  ]
+}

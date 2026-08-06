@@ -1,0 +1,150 @@
+{
+  "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+  "started_at": "2026-07-02T14:39:19.852279Z",
+  "updated_at": "2026-07-02T14:55:12.988864Z",
+  "completed_at": "2026-07-02T14:55:12.988860Z",
+  "overall_status": "complete",
+  "stages": [
+    {
+      "stage": "macro_agent",
+      "status": "skipped",
+      "started_at": "2026-07-02T14:39:19.879968Z",
+      "completed_at": "2026-07-02T14:39:19.879977Z",
+      "message": "priorities loaded from regime state",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "thematic_agent",
+      "status": "complete",
+      "started_at": "2026-07-02T14:39:21.394177Z",
+      "completed_at": "2026-07-02T14:53:22.519317Z",
+      "message": "created 1 thematic map(s)",
+      "progress_current": 1,
+      "progress_total": 1,
+      "error": null
+    },
+    {
+      "stage": "fundamental_screen",
+      "status": "complete",
+      "started_at": "2026-07-02T14:48:17.311517Z",
+      "completed_at": "2026-07-02T14:53:22.520750Z",
+      "message": "screened 10 candidate(s)",
+      "progress_current": 10,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "conviction_gate",
+      "status": "complete",
+      "started_at": "2026-07-02T14:48:22.150002Z",
+      "completed_at": "2026-07-02T14:53:22.521580Z",
+      "message": "saved 8 trade idea(s)",
+      "progress_current": 9,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "trade_expression",
+      "status": "complete",
+      "started_at": "2026-07-02T14:48:22.157118Z",
+      "completed_at": "2026-07-02T14:53:22.522431Z",
+      "message": "attempted 5 trade expression(s)",
+      "progress_current": 5,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "scenario_scoring",
+      "status": "complete",
+      "started_at": "2026-07-02T14:53:22.532201Z",
+      "completed_at": "2026-07-02T14:55:06.452193Z",
+      "message": "scored 5 trade(s)",
+      "progress_current": 5,
+      "progress_total": 5,
+      "error": null
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "complete",
+      "started_at": "2026-07-02T14:55:06.902865Z",
+      "completed_at": "2026-07-02T14:55:12.987666Z",
+      "message": "portfolio plan executed 3 trade(s)",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    },
+    {
+      "stage": "monte_carlo",
+      "status": "skipped",
+      "started_at": "2026-07-02T14:55:11.751346Z",
+      "completed_at": "2026-07-02T14:55:12.983417Z",
+      "message": "simulation failed: Scenario return assumptions file is missing: data/reference/scenario_return_assumptions.json",
+      "progress_current": null,
+      "progress_total": null,
+      "error": null
+    }
+  ],
+  "summary_counters": {
+    "cycle_id": "33f422eb-6518-486e-ad48-65f86bb77694",
+    "regime_id": "223ef218-bba8-4f43-ab50-ab37f47e7ddd",
+    "thematic_maps": 1,
+    "candidates_considered": 10,
+    "trade_ideas_saved": 8,
+    "accepted": 5,
+    "rejected": 5,
+    "decision_log_entries": 8,
+    "accepted_underlyings": [
+      "HWKN",
+      "NHC",
+      "SAFT",
+      "CASS",
+      "FCFS"
+    ],
+    "rejected_underlyings": [
+      "CWT",
+      "WDFC",
+      "HCSG",
+      "CBU",
+      "UVV"
+    ],
+    "regime_source": "real_snapshot",
+    "regime_asof_date": "2026-06-05",
+    "fallback_reason": null,
+    "thematic_agent_errors": 0,
+    "clarifications_received": 0,
+    "fundamental_screened": 10,
+    "fundamental_eliminated": 2,
+    "fundamental_passed": 8,
+    "crowding_flags": 1,
+    "trade_expressions_attempted": 5,
+    "trade_expressions_succeeded": 5,
+    "trade_expressions_failed": 0,
+    "trade_expressions_fallback_used": 0,
+    "trade_options_selected": 3,
+    "trade_stocks_selected": 2,
+    "trade_rejections_pre_expression": 3,
+    "trade_rejections_post_expression": 0,
+    "trade_rejections_direction_misalignment": 0,
+    "portfolio_trades_executed": 3,
+    "portfolio_trades_reduced": 2,
+    "portfolio_trades_rejected": 0,
+    "portfolio_total_deployment_pct": 0.10250000000000001,
+    "portfolio_binding_constraints": [
+      "robustness_demotion"
+    ],
+    "existing_position_filter_enabled": true,
+    "existing_position_filter": {
+      "demoted_same_hypothesis": 0,
+      "same_hypothesis_recently_closed": 0,
+      "cross_hypothesis_confirming": 0,
+      "cross_hypothesis_tension": 0
+    },
+    "monte_carlo_result": null,
+    "_existing_position_filter_report": null,
+    "_portfolio_summary_text": "═══ PORTFOLIO PLAN ═══\nNAV: $18,289.57\nNew deployment: $1,874.68 (10.2% of NAV)\nCash remaining if executed: $2,938.72 (16.1% of NAV)\n\nBy priority:\n  Profitable low-beta small caps as a conditional breadth-broadening expression: 5 trades, 10.2% of NAV\n\nBinding constraints: robustness_demotion\n\nDecisions:\n  REDUCED  HWKN   HWKN                                   1.7% of NAV (proposed 3.5%; scenario-weighted exp. return 20.5%; weights=macro_forecast)\n  EXECUTE  NHC    NHC                                    3.5% of NAV (proposed 3.5%; scenario-weighted exp. return 1.4%; weights=macro_forecast)\n  EXECUTE  SAFT   SAFT                                   2.0% of NAV (proposed 2.0%; scenario-weighted exp. return 2.2%; weights=macro_forecast)\n  EXECUTE  CASS   CASS                                   2.0% of NAV (proposed 2.0%; scenario-weighted exp. return 1.4%; weights=macro_forecast)\n  REDUCED  FCFS   FCFS                                   1.0% of NAV (proposed 2.0%; scenario-weighted exp. return 1.4%; weights=macro_forecast)"
+  },
+  "fatal_error": null,
+  "user_inputs_preview": []
+}

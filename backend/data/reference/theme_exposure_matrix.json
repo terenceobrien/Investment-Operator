@@ -1,61 +1,16 @@
 {
   "metadata": {
-    "description": "Theme baskets used by ThemeBasketPricer for scenario return calibration. Tickers are equal-weighted in V1. Scalars (0.0-1.0) represent purity of theme exposure and are reserved for V2 exposure-weighted basket pricing.",
-    "last_updated": "2026-06-15"
+    "description": "Seed theme exposure scalars for Monte Carlo enrichment. Values are deterministic placeholders until a broader theme exposure model is wired."
   },
   "themes": {
-    "grid_power_infrastructure": {
-        "EME": 1.0, "PWR": 1.0, "MTZ": 0.85, "FIX": 0.95, 
-        "WCC": 0.55, "NVT": 0.85, "POWL": 0.9, "HUBB": 0.85, 
-        "ETN": 0.7, "VRT": 0.85, "PRIM": 0.8
-    },
-    "quality_ex_ai_cash_flow": {
-        "SPGI": 0.85, "MCO": 0.85, "BRO": 0.9, "MMC": 0.85,
-        "RSG": 0.95, "WM": 0.95, "ADP": 0.9, "PAYX": 0.9,
-        "CPRT": 0.85, "V": 0.8, "MA": 0.8, "FI": 0.75,
-        "CTAS": 0.85, "GWW": 0.8
-    },
-    "electrical_equipment": {
-        "NVT": 0.95, "POWL": 0.95, "HUBB": 0.9, 
-        "ETN": 0.85, "EMR": 0.7, "ROK": 0.6
-    },
-    "engineering_construction": {
-        "EME": 1.0, "PWR": 1.0, "MTZ": 0.9, "FIX": 0.95,
-        "PRIM": 0.9, "FLR": 0.85, "ACM": 0.85, "J": 0.8
-    },
-    "industrial_distribution": {
-        "WCC": 0.9, "GWW": 0.95, "FAST": 0.9, "MSM": 0.85
-    },
-    "environmental_services": {
-        "RSG": 1.0, "WM": 1.0, "WCN": 0.95, "CWST": 0.85
-    },
-    "financial_data_exchanges": {
-        "SPGI": 0.9, "MCO": 0.95, "MSCI": 0.95, 
-        "ICE": 0.9, "CME": 0.9, "NDAQ": 0.85
-    },
-    "insurance_brokers": {
-        "BRO": 1.0, "AJG": 1.0, "MMC": 0.9, "AON": 0.95, "WTW": 0.85
-    },
-    "payroll_human_capital": {
-        "ADP": 1.0, "PAYX": 1.0, "CTAS": 0.6
-    },
-    "auto_parts_salvage": {
-        "CPRT": 1.0, "LKQ": 0.8, "ORLY": 0.6, "AZO": 0.6
-    },
-    "cash_short_duration": {
-        "SGOV": 1.0, "USFR": 1.0, "JPST": 0.95, "SHV": 1.0, "BIL": 1.0
-    },
-    "quality_ai": {
-        "MSFT": 0.7, "GOOGL": 0.7, "META": 0.7, "AMZN": 0.6
-    },
-    "high_beta_ai_semis": {
-        "NVDA": 1.0, "AMD": 0.9, "AVGO": 0.85, "MRVL": 0.8, "TSM": 0.85
-    },
-    "small_caps": {
-        "IWM": 1.0, "IJR": 0.95
-    },
-    "long_duration_growth": {
-        "ADBE": 0.85, "CRM": 0.85, "NOW": 0.85, "INTU": 0.8, "ORCL": 0.7
-    }
-    }
+    "Second-order grid and power infrastructure beneficiaries with cross-scenario support": 0.9,
+    "Quality ex-AI cash-flow compounders with soft-landing and sticky-cycle resilience": 0.7,
+    "grid and power infrastructure": 0.9,
+    "quality ex-ai cash flow": 0.7,
+    "environmental services": 0.45,
+    "financial data and exchanges": 0.4,
+    "insurance brokers": 0.45,
+    "payroll and human capital management": 0.5,
+    "auto parts and salvage": 0.45
+  }
 }
