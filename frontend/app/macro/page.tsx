@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import {
   Area,
@@ -232,6 +232,32 @@ function firstNonEmpty(...vals: unknown[]): string {
 }
 function titleCase(value: string): string {
   return value.replace(/[_-]+/g, ' ').replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
+function computeYDomain(values: Array<number | null | undefined>, padFraction = 0.05): [number, number] {
+  const finite = values.filter((value): value is number => Number.isFinite(value));
+  if (!finite.length) return [0, 1];
+  const min = Math.min(...finite);
+  const max = Math.max(...finite);
+  const span = max - min;
+  const magnitude = Math.max(Math.abs(min), Math.abs(max), 1);
+  const minPad = Math.max(0.01, magnitude * 0.005);
+  const pad = Math.max(span * padFraction, minPad);
+  return [min - pad, max + pad];
+}
+function filterHistoryWindow(points: HistoryPoint[], days: number): HistoryPoint[] {
+  const dated = points
+    .map((point) => {
+      const timestamp = new Date(`${point.date}T00:00:00`).getTime();
+      return Number.isFinite(timestamp) ? { ...point, timestamp } : null;
+    })
+    .filter((point): point is HistoryPoint & { timestamp: number } => point !== null)
+    .sort((a, b) => a.timestamp - b.timestamp);
+  if (!dated.length) return [];
+  const lastTimestamp = dated[dated.length - 1].timestamp;
+  const cutoff = lastTimestamp - days * 24 * 60 * 60 * 1000;
+  return dated
+    .filter((point) => point.timestamp >= cutoff)
+    .map((point) => ({ date: point.date, value: point.value }));
 }
 const pct1 = (v: number | null | undefined) => (v === null || v === undefined ? '—' : `${(v * 100).toFixed(1)}%`);
 const signedPct1 = (v: number | null | undefined) => {
@@ -772,6 +798,7 @@ function MarketRegimePanel({
   f,
   regime,
   scoreHistory,
+  scoreHistorySource,
   layerDetail,
   layerError,
   layerLoading,
@@ -780,6 +807,7 @@ function MarketRegimePanel({
   f: Forecast;
   regime: LiveRegime | null;
   scoreHistory: HistoryPoint[];
+  scoreHistorySource: string;
   layerDetail?: MacroLayersDetailPayload;
   layerError?: Error;
   layerLoading: boolean;
@@ -807,6 +835,16 @@ function MarketRegimePanel({
       ? { date: regime.asof, value: regime.scoreTotal }
       : null,
   );
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
+    if (scoreHistorySource === 'unavailable') return;
+    if (chartPoints.length > 0 && chartPoints.length < 30) {
+      console.warn('[macro] Regime score history rendered with fewer than 30 points', {
+        pointCount: chartPoints.length,
+        source: scoreHistorySource,
+      });
+    }
+  }, [chartPoints.length, scoreHistorySource]);
   const heading = regime?.environment || (f.available ? f.dominantLabel : 'forecast unavailable');
   const layers = regime
     ? regime.layers
@@ -943,12 +981,7 @@ function MiniSparkline({ points, color = M.accentBright }: { points: HistoryPoin
   const data = points.filter((point) => Number.isFinite(point.value)).slice(-60);
   if (data.length < 2) return <span style={{ color: M.inkFaint }}>no stored history</span>;
   const values = data.map((point) => point.value);
-  let min = Math.min(...values);
-  let max = Math.max(...values);
-  if (min === max) {
-    min -= 1;
-    max += 1;
-  }
+  const [min, max] = computeYDomain(values, 0.06);
   const width = 106;
   const height = 30;
   const x = (index: number) => (index / Math.max(1, data.length - 1)) * (width - 4) + 2;
@@ -1037,6 +1070,8 @@ function ComponentHistoryChart({
 
   const rows = normalizeComponentChartRows(data);
   if (rows.length < 2) return <EmptyMini message="Component history is too sparse to chart." />;
+  const valueDomain = computeYDomain(rows.map((row) => row.value));
+  const layerDomain = computeYDomain(rows.map((row) => row.layerScore));
   return (
     <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
@@ -1068,8 +1103,8 @@ function ComponentHistoryChart({
           <ComposedChart data={rows} margin={{ top: 8, right: showLayer ? 34 : 12, bottom: 6, left: 0 }}>
             <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
             <XAxis dataKey="date" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
-            <YAxis yAxisId="left" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={48} />
-            {showLayer ? <YAxis yAxisId="right" orientation="right" domain={[0, 10]} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={34} /> : null}
+            <YAxis yAxisId="left" domain={valueDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={48} />
+            {showLayer ? <YAxis yAxisId="right" orientation="right" domain={layerDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={34} /> : null}
             <Tooltip content={<ComponentHistoryTooltip />} />
             <Line yAxisId="left" type="monotone" dataKey="value" stroke={M.accentBright} strokeWidth={2} dot={false} isAnimationActive={false} />
             {showLayer ? <Line yAxisId="right" type="monotone" dataKey="layerScore" stroke={M.warn} strokeWidth={1.7} strokeDasharray="5 4" dot={false} connectNulls isAnimationActive={false} /> : null}
@@ -1336,6 +1371,16 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
 
   const variable = fan.variables[selected];
   const rows = fanRows(fan, selected);
+  const fanDomain = computeYDomain(rows.flatMap((row) => [
+    row.p10,
+    row.p25,
+    row.p50,
+    row.p75,
+    row.p90,
+    row.recession,
+    row.benign,
+    row.anchor,
+  ]));
   const h1Eff = variable?.effective_n?.[0] ?? fan.metadata?.match_kernel_weight_sum ?? null;
   const recNote = variable?.subset_notes?.recession_bound;
   const benignNote = variable?.subset_notes?.benign;
@@ -1367,7 +1412,7 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
           <ComposedChart data={rows} margin={{ top: 10, right: 14, bottom: 8, left: 0 }}>
             <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
             <XAxis dataKey="quarter" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
-            <YAxis tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={42} />
+            <YAxis domain={fanDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={42} />
             <Tooltip content={<FanTooltip />} />
             <Area type="monotone" dataKey="p10p90" stroke="none" fill={M.accent} fillOpacity={0.18} isAnimationActive={false} />
             <Area type="monotone" dataKey="p25p75" stroke="none" fill={M.accent} fillOpacity={0.34} isAnimationActive={false} />
@@ -1646,15 +1691,7 @@ function HistoryLineChart({
     );
   }
   const values = data.map((point) => point.value);
-  let mn = Math.min(...values);
-  let mx = Math.max(...values);
-  if (mn === mx) {
-    mn -= 1;
-    mx += 1;
-  }
-  const pad = (mx - mn) * 0.08;
-  mn -= pad;
-  mx += pad;
+  const [mn, mx] = computeYDomain(values, 0.08);
   const x = (index: number) => padL + (index / Math.max(1, data.length - 1)) * (W - padL - padR);
   const y = (value: number) => padT + (1 - (value - mn) / (mx - mn)) * (H - padT - padB);
   const path = data.map((point, index) => `${x(index)},${y(point.value)}`).join(' L');
@@ -1972,8 +2009,15 @@ export default function MacroPage() {
   );
   const regimeScoreHistory = useMemo(
     () => {
+      const indicatorScoreHistory = filterHistoryWindow(compositeScoreHistory, 90);
+      if (indicatorScoreHistory.length) {
+        return { points: indicatorScoreHistory, source: 'macro_indicator_history.score_total' };
+      }
       const fromRegimeHistory = normalizeRegimeScoreHistory(regimeHistoryRaw);
-      return fromRegimeHistory.length ? fromRegimeHistory : compositeScoreHistory;
+      return {
+        points: fromRegimeHistory,
+        source: fromRegimeHistory.length ? 'market_regime_snapshots' : 'unavailable',
+      };
     },
     [regimeHistoryRaw, compositeScoreHistory],
   );
@@ -2019,7 +2063,8 @@ export default function MacroPage() {
         <MarketRegimePanel
           f={forecast}
           regime={regime}
-          scoreHistory={regimeScoreHistory}
+          scoreHistory={regimeScoreHistory.points}
+          scoreHistorySource={regimeScoreHistory.source}
           layerDetail={layerDetailRaw}
           layerError={layerDetailError}
           layerLoading={layerDetailLoading}
