@@ -1,43 +1,69 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuthFetcher } from '../../lib/api';
+import type { CSSProperties, ReactNode } from 'react';
+import { ApiRequestError, useAuthFetcher } from '../../lib/api';
 import AuthRequired from '@/components/AuthRequired';
 import { M } from '../lib/researchOsTheme';
 
-// ═══════════════════════════════════════════════════════════════════
-// Research cycle
-//
-// Flow:
-//   1. Enter a thesis
-//   2. POST to GENERATE_ENDPOINT → generate_priorities_from_text → review
-//      the proposed ResearchPriority
-//   3. Accept → confirm the write to current_regime.yaml (side-effect gated)
-//   4. POST to RUN_ENDPOINT → the 7-stage cycle runs. It's long, so this
-//      subscribes to STREAM_ENDPOINT (SSE) for per-stage progress. If the
-//      stream isn't available it falls back to a simulated progression so the
-//      UI still demonstrates the flow.
-//   5. Output rendered.
-//
-// Point the three endpoint constants at your real API. Until then the page
-// runs in demo mode (simulated priority + simulated stage stream).
-// ═══════════════════════════════════════════════════════════════════
-
-const GENERATE_ENDPOINT = '/api/research/priorities/generate';
-const COMMIT_ENDPOINT = '/api/research/priorities/commit';
+const GENERATE_ENDPOINT = '/api/priorities/generate';
+const APPROVE_ENDPOINT = '/api/priorities/approve';
+const MANUAL_QUEUE_ENDPOINT = '/api/priorities/manual';
 const RUN_ENDPOINT = '/api/research/cycle/run';
 const STREAM_ENDPOINT = (jobId: string) => `/api/research/cycle/${jobId}/stream`;
 
-type AnyRecord = Record<string, unknown>;
+type Evidence = {
+  source_type?: string;
+  claim: string;
+  supports: boolean;
+  computation: string;
+  upstream_claims: string[];
+  notes?: string;
+};
 
 type ResearchPriority = {
-  priority_rank: number;
-  source_theme_id: string;
+  schema_version?: string;
+  created_at?: string;
+  id?: string | null;
   theme: string;
+  rationale: string;
   edge_hypothesis: string;
-  expected_edge_decay: string;
   sub_questions: string[];
+  priority_rank: number;
+  expected_edge_decay: string;
+  supporting_evidence: Evidence[];
+  source_theme_id?: string | null;
+  source_scenario_ids?: string[];
+  source?: string | null;
+  source_macro_forecast_id?: string | null;
+  source_thesis_text?: string | null;
+  approved_by?: string | null;
+  approved_at?: string | null;
 };
+
+type GenerateResponse = {
+  priority: ResearchPriority;
+  raw_llm_output?: string | null;
+};
+
+type ApproveResponse = {
+  success: boolean;
+  manual_priorities_count: number;
+};
+
+type ManualQueueResponse = {
+  manual_priorities_count: number;
+  priorities: ResearchPriority[];
+};
+
+type ApiErrorDetail = {
+  message: string;
+  rawLlmOutput?: string | null;
+  validationError?: string | null;
+};
+
+type Phase = 'compose' | 'review' | 'confirmed' | 'running' | 'done';
+type BusyAction = 'generate' | 'approve' | 'run' | 'queue' | null;
 
 const STAGES = [
   ['Macro context', 'regime + scenario probabilities loaded'],
@@ -45,96 +71,151 @@ const STAGES = [
   ['Fundamental screen', 'candidate names scored on factor matrix'],
   ['Conviction gate', 'narrative + evidence confirmation'],
   ['Trade expression', 'sizing, horizon, benchmark set'],
-  ['Scenario scoring', 'P&L across five scenarios'],
+  ['Scenario scoring', 'P&L across behavioral scenarios'],
   ['Portfolio construction', 'positions + shadow-tracked rejects'],
 ];
 
-// Demo priority used when the generate endpoint isn't wired.
-const DEMO_PRIORITY: ResearchPriority = {
-  priority_rank: 1,
-  source_theme_id: 'grid_power_infrastructure',
-  theme: 'Second-order grid and power infrastructure beneficiaries with cross-scenario support',
-  edge_hypothesis:
-    'Macro support for grid and power infrastructure may create attractive research paths, but the edge depends on finding specific second-order names not already repriced by direct AI demand.',
-  expected_edge_decay: 'quarters',
-  sub_questions: [
-    'Which electrical-equipment and utility names have rate-base or backlog exposure to data-center load growth?',
-    'Where is the market still pricing these as regulated utilities rather than AI-adjacent growth?',
-    'What valuation gap exists versus direct AI infrastructure names?',
-    'Which of these survive an AI capex rollover scenario?',
-  ],
-};
-
-type Phase = 'input' | 'review' | 'confirm' | 'running' | 'done';
+const MANUAL_CYCLE_COMMAND =
+  'PYTHONPATH=backend python3 -m src.agent_system.orchestration.run_research_cycle --priority-source manual';
 
 export default function ResearchCyclePage() {
   const authFetcher = useAuthFetcher();
-  const [thesis, setThesis] = useState(DEMO_PRIORITY.theme);
-  const [phase, setPhase] = useState<Phase>('input');
-  const [priority, setPriority] = useState<ResearchPriority | null>(null);
-  const [busy, setBusy] = useState(false);
+  const [thesis, setThesis] = useState('');
+  const [phase, setPhase] = useState<Phase>('compose');
+  const [draftPriority, setDraftPriority] = useState<ResearchPriority | null>(null);
+  const [generatedSourceText, setGeneratedSourceText] = useState('');
+  const [evidenceText, setEvidenceText] = useState('[]');
+  const [questionsText, setQuestionsText] = useState('');
+  const [busyAction, setBusyAction] = useState<BusyAction>(null);
+  const [generationError, setGenerationError] = useState<ApiErrorDetail | null>(null);
+  const [approvalError, setApprovalError] = useState<string | null>(null);
+  const [cycleError, setCycleError] = useState<string | null>(null);
+  const [manualQueue, setManualQueue] = useState<ResearchPriority[]>([]);
+  const [showQueue, setShowQueue] = useState(false);
+  const [manualCount, setManualCount] = useState<number | null>(null);
   const [stageState, setStageState] = useState<('queued' | 'running' | 'done')[]>(STAGES.map(() => 'queued'));
 
   if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
     return <AuthRequired isLoaded={authFetcher.isLoaded} />;
   }
 
-  // ── Step 2: generate priorities ──
   async function generate() {
-    setBusy(true);
+    const cleaned = thesis.trim();
+    if (!cleaned) return;
+    setBusyAction('generate');
+    setGenerationError(null);
+    setApprovalError(null);
+    setCycleError(null);
     try {
-      const res = await authFetcher.fetcher(GENERATE_ENDPOINT, {
+      const res = (await authFetcher.fetcher(GENERATE_ENDPOINT, {
         method: 'POST',
-        body: JSON.stringify({ text: thesis }),
-      } as RequestInit);
-      const p = (res?.priorities?.[0] ?? res?.priority ?? null) as ResearchPriority | null;
-      setPriority(p ?? { ...DEMO_PRIORITY, theme: thesis });
-    } catch {
-      // Endpoint not available — demo mode.
-      setPriority({ ...DEMO_PRIORITY, theme: thesis });
-    } finally {
-      setBusy(false);
+        body: JSON.stringify({ thesis_text: cleaned }),
+      } as RequestInit)) as GenerateResponse;
+      setDraftPriority(normalizePriority(res.priority));
+      setGeneratedSourceText(cleaned);
+      setQuestionsText((res.priority.sub_questions ?? []).join('\n'));
+      setEvidenceText(JSON.stringify(res.priority.supporting_evidence ?? [], null, 2));
       setPhase('review');
+    } catch (error) {
+      setGenerationError(apiErrorDetail(error));
+    } finally {
+      setBusyAction(null);
     }
   }
 
-  // ── Step 3: accept → confirm write ──
-  function accept() {
-    setPhase('confirm');
+  function updatePriorityField<K extends keyof ResearchPriority>(key: K, value: ResearchPriority[K]) {
+    setDraftPriority((prev) => (prev ? { ...prev, [key]: value } : prev));
   }
 
-  // ── Step 4: confirm write + run ──
-  async function confirmAndRun() {
+  function editedPriority(): ResearchPriority | null {
+    if (!draftPriority) return null;
+    let evidence: Evidence[];
+    try {
+      const parsed = JSON.parse(evidenceText);
+      if (!Array.isArray(parsed)) throw new Error('supporting_evidence must be a JSON array');
+      evidence = parsed as Evidence[];
+    } catch (error) {
+      setApprovalError(error instanceof Error ? error.message : 'supporting_evidence JSON is invalid');
+      return null;
+    }
+    const subQuestions = questionsText
+      .split('\n')
+      .map((item) => item.trim())
+      .filter(Boolean);
+    return {
+      ...draftPriority,
+      theme: draftPriority.theme.trim(),
+      rationale: draftPriority.rationale.trim(),
+      edge_hypothesis: draftPriority.edge_hypothesis.trim(),
+      sub_questions: subQuestions,
+      priority_rank: Number(draftPriority.priority_rank),
+      expected_edge_decay: draftPriority.expected_edge_decay,
+      supporting_evidence: evidence,
+    };
+  }
+
+  async function approve() {
+    const priority = editedPriority();
     if (!priority) return;
-    setBusy(true);
+    setBusyAction('approve');
+    setApprovalError(null);
+    try {
+      const res = (await authFetcher.fetcher(APPROVE_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify({
+          priority,
+          source_thesis_text: generatedSourceText,
+        }),
+      } as RequestInit)) as ApproveResponse;
+      setManualCount(res.manual_priorities_count);
+      setDraftPriority(priority);
+      setPhase('confirmed');
+      await loadManualQueue(true);
+    } catch (error) {
+      setApprovalError(apiErrorDetail(error).message);
+    } finally {
+      setBusyAction(null);
+    }
+  }
+
+  async function loadManualQueue(openAfterLoad = true) {
+    setBusyAction('queue');
+    try {
+      const res = (await authFetcher.fetcher(MANUAL_QUEUE_ENDPOINT)) as ManualQueueResponse;
+      setManualQueue(res.priorities ?? []);
+      setManualCount(res.manual_priorities_count);
+      if (openAfterLoad) setShowQueue(true);
+    } catch (error) {
+      setApprovalError(apiErrorDetail(error).message);
+    } finally {
+      setBusyAction(null);
+    }
+  }
+
+  async function runManualCycle() {
+    setBusyAction('run');
+    setCycleError(null);
     setPhase('running');
     setStageState(STAGES.map(() => 'queued'));
-
-    // Commit the priority to current_regime.yaml (side-effect).
-    let jobId: string | null = null;
     try {
-      await authFetcher.fetcher(COMMIT_ENDPOINT, {
+      const run = (await authFetcher.fetcher(RUN_ENDPOINT, {
         method: 'POST',
-        body: JSON.stringify({ priority }),
-      } as RequestInit);
-      const run = await authFetcher.fetcher(RUN_ENDPOINT, { method: 'POST' } as RequestInit);
-      jobId = safeStr(run?.job_id) || null;
-    } catch {
-      jobId = null; // demo mode
-    }
-    setBusy(false);
-
-    if (jobId) {
-      subscribeToStream(jobId);
-    } else {
-      simulateStages();
+        body: JSON.stringify({ priority_source: 'manual' }),
+      } as RequestInit)) as { job_id?: string };
+      const jobId = safeStr(run.job_id);
+      if (!jobId) throw new Error('Run endpoint did not return a job_id');
+      setBusyAction(null);
+      await subscribeToStream(jobId);
+    } catch (error) {
+      setBusyAction(null);
+      setCycleError(apiErrorDetail(error).message);
+      setPhase('confirmed');
     }
   }
 
-  // Real stream: authenticated SSE per-stage events { stage_index, status }.
   async function subscribeToStream(jobId: string) {
     let receivedDone = false;
-    const handleMessage = (msg: { stage_index?: number; status?: string; done?: boolean }) => {
+    const handleMessage = (msg: { stage_index?: number; status?: string; done?: boolean; error?: string }) => {
       if (typeof msg.stage_index === 'number') {
         setStageState((prev) => {
           const next = [...prev];
@@ -143,6 +224,7 @@ export default function ResearchCyclePage() {
           return next;
         });
       }
+      if (msg.error) setCycleError(msg.error);
       if (msg.done) {
         receivedDone = true;
         setStageState(STAGES.map(() => 'done'));
@@ -150,80 +232,51 @@ export default function ResearchCyclePage() {
       }
     };
 
-    try {
-      const res = await authFetcher.stream(STREAM_ENDPOINT(jobId));
-      if (!res.body) throw new Error('No stream body');
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
+    const res = await authFetcher.stream(STREAM_ENDPOINT(jobId));
+    if (!res.body) throw new Error('No stream body');
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const frames = buffer.split('\n\n');
-        buffer = frames.pop() ?? '';
-
-        for (const frame of frames) {
-          const data = frame
-            .split('\n')
-            .filter((line) => line.startsWith('data:'))
-            .map((line) => line.replace(/^data:\s?/, ''))
-            .join('\n')
-            .trim();
-          if (!data) continue;
-          try {
-            handleMessage(JSON.parse(data));
-          } catch {
-            /* ignore malformed frame */
-          }
-        }
-      }
-
-      if (!receivedDone && buffer.trim()) {
-        const data = buffer
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const frames = buffer.split('\n\n');
+      buffer = frames.pop() ?? '';
+      for (const frame of frames) {
+        const data = frame
           .split('\n')
           .filter((line) => line.startsWith('data:'))
           .map((line) => line.replace(/^data:\s?/, ''))
           .join('\n')
           .trim();
-        if (data) handleMessage(JSON.parse(data));
+        if (!data) continue;
+        handleMessage(JSON.parse(data));
       }
+    }
 
-      if (!receivedDone) simulateStages();
-    } catch {
-      simulateStages();
+    if (!receivedDone) {
+      throw new Error(`Cycle stream closed before completion for job ${jobId}`);
     }
   }
 
-  // Fallback: simulated progression so the flow is demonstrable offline.
-  function simulateStages() {
-    let i = 0;
-    const tick = () => {
-      setStageState((prev) => {
-        const next = [...prev];
-        if (i > 0) next[i - 1] = 'done';
-        if (i < STAGES.length) next[i] = 'running';
-        return next;
-      });
-      if (i < STAGES.length) {
-        i += 1;
-        setTimeout(tick, 900 + Math.random() * 700);
-      } else {
-        setStageState(STAGES.map(() => 'done'));
-        setPhase('done');
-      }
-    };
-    tick();
-  }
+  const canGenerate = thesis.trim().length > 0 && busyAction !== 'generate';
+  const canApprove =
+    !!draftPriority?.theme.trim() &&
+    !!draftPriority?.rationale.trim() &&
+    !!draftPriority?.edge_hypothesis.trim() &&
+    questionsText.split('\n').some((item) => item.trim()) &&
+    !!draftPriority?.expected_edge_decay &&
+    evidenceText.trim().length > 0 &&
+    busyAction !== 'approve';
 
   const stepActive = (n: number) => {
     const map: Record<number, boolean> = {
       1: true,
-      2: phase !== 'input',
-      3: phase === 'confirm' || phase === 'running' || phase === 'done',
+      2: phase !== 'compose',
+      3: phase === 'confirmed' || phase === 'running' || phase === 'done',
       4: phase === 'running' || phase === 'done',
-      5: phase === 'done',
     };
     return map[n];
   };
@@ -233,107 +286,128 @@ export default function ResearchCyclePage() {
       <div style={{ width: 'min(1180px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 18 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; FULL RUN</div>
-            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Run a full cycle</h1>
+            <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; MANUAL THESIS</div>
+            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Manual thesis queue</h1>
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <StatusPill label={phase} />
-            <StatusPill label={`${stageState.filter((s) => s === 'done').length}/7 stages`} />
+            <StatusPill label={manualCount === null ? 'manual queue' : `${manualCount} saved`} />
           </div>
         </div>
 
-        {/* Step 1 */}
-        <StepShell n={1} title="Enter a thesis" active={stepActive(1)}>
+        <StepShell n={1} title="Compose" active={stepActive(1)}>
           <textarea
             value={thesis}
-            onChange={(e) => setThesis(e.target.value)}
-            placeholder="Describe a thesis or edge hypothesis to explore…"
-            style={{
-              width: '100%', minHeight: '120px', resize: 'vertical',
-              background: M.well, border: `1px solid ${M.line}`, borderRadius: '12px',
-              padding: '16px', fontFamily: M.sans, fontSize: '15px', color: M.ink, lineHeight: 1.6,
-              outline: 'none',
-            }}
+            onChange={(event) => setThesis(event.target.value)}
+            placeholder="Describe the investment thesis you want turned into a manual ResearchPriority..."
+            style={textareaStyle(130)}
           />
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '14px' }}>
-            <button onClick={generate} disabled={busy || phase !== 'input'} style={btnPrimary(busy || phase !== 'input')}>
-              {busy && phase === 'input' ? 'Generating…' : 'Generate priorities'}
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 14, flexWrap: 'wrap' }}>
+            <button onClick={generate} disabled={!canGenerate} style={btnPrimary(!canGenerate)}>
+              {busyAction === 'generate' ? 'Generating paid LLM call...' : 'Generate Priority'}
             </button>
-            <span style={{ fontFamily: M.mono, fontSize: '11px', letterSpacing: '0.1em', color: M.inkFaint }}>triggers generate_priorities_from_text</span>
+            <span style={{ fontFamily: M.mono, fontSize: '11px', letterSpacing: '0.1em', color: busyAction === 'generate' ? M.warn : M.inkFaint }}>
+              explicit action only; nothing runs while typing
+            </span>
           </div>
-        </StepShell>
-
-        {/* Step 2 */}
-        <StepShell n={2} title="Review proposed ResearchPriority" active={stepActive(2)} status={priority ? 'generated' : undefined}>
-          {priority ? (
-            <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: '18px' }}>
-              <div style={{ fontFamily: M.serif, fontSize: '21px', fontWeight: 500, color: M.ink, marginBottom: '8px' }}>
-                #{priority.priority_rank} · {priority.source_theme_id}
-              </div>
-              <p style={{ margin: '0 0 12px', fontFamily: M.sans, fontSize: '13.5px', color: M.inkDim, lineHeight: 1.55 }}>
-                <b style={{ color: M.ink }}>Edge hypothesis.</b> {priority.edge_hypothesis}
-              </p>
-              <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 700, marginBottom: '8px' }}>Sub-questions</div>
-              <ul style={{ margin: 0, paddingLeft: '18px', fontFamily: M.sans, fontSize: '13px', color: M.inkDim, lineHeight: 1.6 }}>
-                {priority.sub_questions.map((q, i) => <li key={i} style={{ marginBottom: '5px' }}>{q}</li>)}
-              </ul>
-              <div style={{ marginTop: '14px', fontFamily: M.sans, fontSize: '12px', color: M.inkFaint }}>
-                Expected edge decay: <b style={{ color: M.inkDim }}>{priority.expected_edge_decay}</b>
-              </div>
-              {phase === 'review' ? (
-                <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-                  <button onClick={accept} style={btnPrimary(false)}>Accept &amp; commit</button>
-                  <button onClick={() => setPhase('input')} style={btnGhost()}>Reject</button>
-                </div>
-              ) : null}
+          {generationError ? (
+            <div style={{ ...warnBanner(), marginTop: 14 }}>
+              <b>Generation failed.</b> {generationError.validationError ?? generationError.message}
+              {generationError.rawLlmOutput ? <pre style={errorPre()}>{generationError.rawLlmOutput}</pre> : null}
             </div>
           ) : null}
         </StepShell>
 
-        {/* Step 3 */}
-        <StepShell n={3} title="Commit to current_regime.yaml" active={stepActive(3)} status={phase === 'running' || phase === 'done' ? 'committed' : undefined}>
-          {phase === 'confirm' && priority ? (
-            <>
-              <div style={warnBanner()}>
-                ⚠ This writes to current_regime.yaml — the config the whole system reads from. Confirm before proceeding.
+        <StepShell n={2} title="Review and edit" active={stepActive(2)} status={draftPriority ? 'generated' : undefined}>
+          {draftPriority ? (
+            <div style={{ display: 'grid', gap: 14 }}>
+              <Field label="Theme">
+                <input value={draftPriority.theme} onChange={(event) => updatePriorityField('theme', event.target.value)} style={inputStyle()} />
+              </Field>
+              <Field label="Rationale">
+                <textarea value={draftPriority.rationale} onChange={(event) => updatePriorityField('rationale', event.target.value)} style={textareaStyle(92)} />
+              </Field>
+              <Field label="Edge hypothesis">
+                <textarea value={draftPriority.edge_hypothesis} onChange={(event) => updatePriorityField('edge_hypothesis', event.target.value)} style={textareaStyle(92)} />
+              </Field>
+              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 14 }}>
+                <Field label="Priority rank">
+                  <input
+                    type="number"
+                    min={1}
+                    max={5}
+                    value={draftPriority.priority_rank}
+                    onChange={(event) => updatePriorityField('priority_rank', Number(event.target.value))}
+                    style={inputStyle()}
+                  />
+                </Field>
+                <Field label="Expected edge decay">
+                  <select
+                    value={draftPriority.expected_edge_decay}
+                    onChange={(event) => updatePriorityField('expected_edge_decay', event.target.value)}
+                    style={inputStyle()}
+                  >
+                    {['days', 'weeks', 'months', 'quarters'].map((item) => <option key={item} value={item}>{item}</option>)}
+                  </select>
+                </Field>
               </div>
-              <pre style={yamlBox()}>
-{`research_priorities:
-  - priority_rank: ${priority.priority_rank}
-    source_theme_id: ${priority.source_theme_id}
-    theme: ${truncate(priority.theme, 60)}
-    expected_edge_decay: ${priority.expected_edge_decay}
-    sub_questions: [${priority.sub_questions.length} items]`}
-              </pre>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '14px' }}>
-                <button onClick={confirmAndRun} disabled={busy} style={btnPrimary(busy)}>Confirm write &amp; run cycle</button>
+              <Field label="Sub-questions">
+                <textarea value={questionsText} onChange={(event) => setQuestionsText(event.target.value)} style={textareaStyle(110)} />
+              </Field>
+              <Field label="Supporting evidence">
+                <textarea value={evidenceText} onChange={(event) => setEvidenceText(event.target.value)} style={{ ...textareaStyle(150), fontFamily: M.mono, fontSize: 12 }} />
+              </Field>
+              {approvalError ? <div style={warnBanner()}>{approvalError}</div> : null}
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <button onClick={approve} disabled={!canApprove} style={btnPrimary(!canApprove)}>
+                  {busyAction === 'approve' ? 'Saving...' : 'Approve & Save'}
+                </button>
+                <button onClick={() => setPhase('compose')} style={btnGhost()}>Discard, edit thesis</button>
               </div>
-            </>
+            </div>
+          ) : (
+            <p style={mutedText()}>Generate a priority before review.</p>
+          )}
+        </StepShell>
+
+        <StepShell n={3} title="Confirmed" active={stepActive(3)} status={phase === 'confirmed' || phase === 'running' || phase === 'done' ? 'manual queue' : undefined}>
+          {phase === 'confirmed' || phase === 'running' || phase === 'done' ? (
+            <div style={{ display: 'grid', gap: 14 }}>
+              <div style={successBanner()}>
+                Saved to manual_research_priorities.yaml. Manual cycle runs use the manual queue only.
+              </div>
+              <pre style={yamlBox()}>{MANUAL_CYCLE_COMMAND}</pre>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <button onClick={runManualCycle} disabled={busyAction === 'run' || phase === 'running'} style={btnPrimary(busyAction === 'run' || phase === 'running')}>
+                  {busyAction === 'run' ? 'Starting...' : 'Run research cycle with this priority'}
+                </button>
+                <button onClick={() => loadManualQueue(!showQueue)} disabled={busyAction === 'queue'} style={btnGhost()}>
+                  {showQueue ? 'Refresh manual queue' : 'View manual priorities queue'}
+                </button>
+              </div>
+              {cycleError ? <div style={warnBanner()}>{cycleError}</div> : null}
+              {showQueue ? <ManualQueue priorities={manualQueue} /> : null}
+            </div>
           ) : null}
         </StepShell>
 
-        {/* Step 4 */}
-        <StepShell n={4} title="Run 7-stage cycle" active={stepActive(4)} status={phase === 'done' ? 'complete' : phase === 'running' ? 'running…' : undefined}>
-          {(phase === 'running' || phase === 'done') ? (
+        <StepShell n={4} title="Cycle progress" active={stepActive(4)} status={phase === 'done' ? 'complete' : phase === 'running' ? 'running...' : undefined}>
+          {phase === 'running' || phase === 'done' ? (
             <div>
               {STAGES.map(([name, detail], i) => (
-                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 0', borderTop: i ? `1px solid ${M.line}` : 'none' }}>
+                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderTop: i ? `1px solid ${M.line}` : 'none' }}>
                   <StageIcon state={stageState[i]} />
                   <span style={{ fontFamily: M.sans, fontSize: '13.5px', fontWeight: 600, color: M.ink }}>{name}</span>
-                  <span style={{ marginLeft: 'auto', fontFamily: M.mono, fontSize: '12px', color: M.inkFaint }}>
-                    {stageState[i] === 'done' ? detail : stageState[i] === 'running' ? 'running…' : 'queued'}
+                  <span style={{ marginLeft: 'auto', fontFamily: M.mono, fontSize: 12, color: M.inkFaint }}>
+                    {stageState[i] === 'done' ? detail : stageState[i] === 'running' ? 'running...' : 'queued'}
                   </span>
                 </div>
               ))}
-            </div>
-          ) : null}
-        </StepShell>
-
-        {/* Step 5 */}
-        <StepShell n={5} title="Cycle output" active={stepActive(5)} status={phase === 'done' ? '7 stages · complete' : undefined}>
-          {phase === 'done' && priority ? (
-            <div style={{ ...successBanner() }}>
-              ✓ Cycle complete. Output written to reports/. Priority “{truncate(priority.theme, 60)}” committed and evaluated across five scenarios.
+              {phase === 'done' && draftPriority ? (
+                <div style={{ ...successBanner(), marginTop: 14 }}>
+                  Cycle complete. Priority &quot;{truncate(draftPriority.theme, 70)}&quot; ran with priority_source=&quot;manual&quot;.
+                </div>
+              ) : null}
             </div>
           ) : null}
         </StepShell>
@@ -342,16 +416,43 @@ export default function ResearchCyclePage() {
   );
 }
 
-// ── step shell ──
-function StepShell({ n, title, active, status, children }: { n: number; title: string; active: boolean; status?: string; children?: React.ReactNode }) {
+function ManualQueue({ priorities }: { priorities: ResearchPriority[] }) {
+  if (!priorities.length) return <div style={warnBanner()}>Manual queue is empty.</div>;
+  return (
+    <div style={{ display: 'grid', gap: 10 }}>
+      {priorities.map((priority) => (
+        <div key={`${priority.priority_rank}-${priority.theme}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'baseline' }}>
+            <div style={{ fontFamily: M.serif, fontSize: 18, color: M.ink }}>{priority.theme}</div>
+            <div style={{ fontFamily: M.mono, fontSize: 11, color: M.inkFaint }}>rank {priority.priority_rank}</div>
+          </div>
+          <div style={{ marginTop: 6, fontFamily: M.sans, fontSize: 12.5, color: M.inkDim }}>
+            approved {priority.approved_at ? new Date(priority.approved_at).toLocaleString() : 'date unavailable'}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <label style={{ display: 'grid', gap: 7 }}>
+      <span style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 700 }}>{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function StepShell({ n, title, active, status, children }: { n: number; title: string; active: boolean; status?: string; children?: ReactNode }) {
   return (
     <section style={{ background: M.card, border: `1px solid ${active ? M.line2 : M.line}`, borderRadius: 16, overflow: 'hidden', boxShadow: M.shadow, opacity: active ? 1 : 0.48, transition: 'opacity 0.3s, border-color 0.3s' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '17px 22px', borderBottom: `1px solid ${M.line}`, background: 'linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0))' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <span style={{ width: '30px', height: '30px', borderRadius: '50%', background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: M.mono, fontSize: '12px', fontWeight: 600, color: active ? M.accentBright : M.inkFaint }}>{String(n).padStart(2, '0')}</span>
-          <span style={{ fontFamily: M.serif, fontSize: '20px', fontWeight: 500, color: M.ink }}>{title}</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span style={{ width: 30, height: 30, borderRadius: '50%', background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: M.mono, fontSize: 12, fontWeight: 600, color: active ? M.accentBright : M.inkFaint }}>{String(n).padStart(2, '0')}</span>
+          <span style={{ fontFamily: M.serif, fontSize: 20, fontWeight: 500, color: M.ink }}>{title}</span>
         </span>
-        {status ? <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.1em', color: M.inkFaint, textTransform: 'uppercase' }}>{status}</span> : null}
+        {status ? <span style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.1em', color: M.inkFaint, textTransform: 'uppercase' }}>{status}</span> : null}
       </div>
       {children ? <div style={{ padding: 22 }}>{children}</div> : null}
     </section>
@@ -359,26 +460,45 @@ function StepShell({ n, title, active, status, children }: { n: number; title: s
 }
 
 function StageIcon({ state }: { state: 'queued' | 'running' | 'done' }) {
-  if (state === 'done') return <span style={{ width: '20px', height: '20px', borderRadius: '50%', background: M.pos, flexShrink: 0 }} />;
-  if (state === 'running') return <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: `2px solid ${M.accent}`, borderTopColor: 'transparent', flexShrink: 0, animation: 'helixSpin 0.8s linear infinite' }} />;
-  return <span style={{ width: '20px', height: '20px', borderRadius: '50%', border: `2px solid ${M.line2}`, flexShrink: 0 }} />;
+  if (state === 'done') return <span style={{ width: 20, height: 20, borderRadius: '50%', background: M.pos, flexShrink: 0 }} />;
+  if (state === 'running') return <span style={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${M.accent}`, borderTopColor: 'transparent', flexShrink: 0, animation: 'helixSpin 0.8s linear infinite' }} />;
+  return <span style={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${M.line2}`, flexShrink: 0 }} />;
 }
 
-// ── styles ──
-function btnPrimary(disabled: boolean): React.CSSProperties {
-  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkFaint : '#06172A', border: 'none', borderRadius: '10px', padding: '10px 18px', fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
+function btnPrimary(disabled: boolean): CSSProperties {
+  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkFaint : '#06172A', border: 'none', borderRadius: 10, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
 }
-function btnGhost(): React.CSSProperties {
-  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: '10px', padding: '10px 18px', fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
+
+function btnGhost(): CSSProperties {
+  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: 10, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
 }
-function warnBanner(): React.CSSProperties {
-  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: '10px', padding: '12px 16px', fontFamily: M.sans, fontSize: '13px', color: M.warn, marginBottom: '12px' };
+
+function inputStyle(): CSSProperties {
+  return { width: '100%', background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: '11px 13px', fontFamily: M.sans, fontSize: 14, color: M.ink, outline: 'none' };
 }
-function successBanner(): React.CSSProperties {
-  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: '10px', padding: '12px 16px', fontFamily: M.sans, fontSize: '13px', color: M.pos };
+
+function textareaStyle(minHeight: number): CSSProperties {
+  return { width: '100%', minHeight, resize: 'vertical', background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 14, fontFamily: M.sans, fontSize: 14, color: M.ink, lineHeight: 1.55, outline: 'none' };
 }
-function yamlBox(): React.CSSProperties {
-  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: '10px', padding: '16px', fontFamily: M.mono, fontSize: '12.5px', lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
+
+function warnBanner(): CSSProperties {
+  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: 10, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.warn };
+}
+
+function successBanner(): CSSProperties {
+  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: 10, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.pos };
+}
+
+function yamlBox(): CSSProperties {
+  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: 16, fontFamily: M.mono, fontSize: 12.5, lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
+}
+
+function errorPre(): CSSProperties {
+  return { ...yamlBox(), marginTop: 10, color: M.inkDim, maxHeight: 220, overflow: 'auto' };
+}
+
+function mutedText(): CSSProperties {
+  return { margin: 0, fontFamily: M.sans, fontSize: 13, color: M.inkFaint };
 }
 
 function StatusPill({ label }: { label: string }) {
@@ -398,6 +518,43 @@ function StatusPill({ label }: { label: string }) {
   );
 }
 
-// ── helpers ──
+function normalizePriority(priority: ResearchPriority): ResearchPriority {
+  return {
+    ...priority,
+    sub_questions: priority.sub_questions ?? [],
+    supporting_evidence: priority.supporting_evidence ?? [],
+    source_theme_id: priority.source_theme_id ?? 'free_text',
+  };
+}
+
+function apiErrorDetail(error: unknown): ApiErrorDetail {
+  if (error instanceof ApiRequestError) {
+    const detail = nestedDetail(error.detail);
+    return {
+      message: strField(detail, 'error') || error.message,
+      rawLlmOutput: strField(detail, 'raw_llm_output'),
+      validationError: strField(detail, 'validation_error'),
+    };
+  }
+  if (error instanceof Error) return { message: error.message };
+  return { message: 'Unknown API error' };
+}
+
+function nestedDetail(payload: unknown): Record<string, unknown> | null {
+  if (!isRecord(payload)) return null;
+  const detail = payload.detail;
+  if (isRecord(detail)) return detail;
+  return payload;
+}
+
+function strField(payload: Record<string, unknown> | null, key: string): string | null {
+  const value = payload?.[key];
+  return typeof value === 'string' ? value : null;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
 function safeStr(v: unknown, fb = ''): string { return typeof v === 'string' ? v : fb; }
-function truncate(s: string, max = 200): string { return !s || s.length <= max ? s : s.slice(0, max).trimEnd() + '…'; }
+function truncate(s: string, max = 200): string { return !s || s.length <= max ? s : `${s.slice(0, max).trimEnd()}...`; }

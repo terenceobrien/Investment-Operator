@@ -20,6 +20,18 @@ type AuthPostFetcher = ((url: string, body: any) => Promise<any>) & {
   isReady: boolean
 }
 
+export class ApiRequestError extends Error {
+  status: number
+  detail: unknown
+
+  constructor(message: string, status: number, detail: unknown) {
+    super(message)
+    this.name = 'ApiRequestError'
+    this.status = status
+    this.detail = detail
+  }
+}
+
 function debugAuth(path: string, hasToken: boolean) {
   if (DEBUG_AUTH || process.env.NODE_ENV === 'development') {
     console.debug('[helix-api] protected request auth', { path, hasToken })
@@ -55,13 +67,18 @@ async function requestJson(path: string, token?: string, init: RequestInit = {})
   });
   if (!res.ok) {
     let detail = ''
+    let payload: unknown = null
     try {
-      const payload = await res.json()
+      payload = await res.json()
       detail = responseDetail(payload)
     } catch {
       detail = await res.text()
     }
-    throw new Error(detail ? `API error: ${res.status} · ${detail}` : `API error: ${res.status}`)
+    throw new ApiRequestError(
+      detail ? `API error: ${res.status} · ${detail}` : `API error: ${res.status}`,
+      res.status,
+      payload,
+    )
   }
   if (res.status === 204) return null;
   return res.json();
@@ -76,13 +93,18 @@ async function requestStream(path: string, token?: string, init: RequestInit = {
   });
   if (!res.ok) {
     let detail = ''
+    let payload: unknown = null
     try {
-      const payload = await res.json()
+      payload = await res.json()
       detail = responseDetail(payload)
     } catch {
       detail = await res.text()
     }
-    throw new Error(detail ? `API error: ${res.status} · ${detail}` : `API error: ${res.status}`)
+    throw new ApiRequestError(
+      detail ? `API error: ${res.status} · ${detail}` : `API error: ${res.status}`,
+      res.status,
+      payload,
+    )
   }
   return res;
 }

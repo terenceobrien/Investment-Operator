@@ -1,37 +1,48 @@
 """
-Generate seed ResearchPriority YAML blocks from free-text user inputs.
+Generate and approve manual ResearchPriority entries from free-text theses.
 
 This is a small eval/ops utility, not a new agent. It reuses the same
 free-text-to-ResearchPriority converter used by the macro harness:
 ``translate_to_priority`` from ``src.agent_system.agents.macro_agent``.
 
 Usage:
-    # Generate priority blocks from the four sample inputs:
+    # Generate one priority from a file, review it, then choose whether to append
+    # it to data/agent_system/priorities/manual_research_priorities.yaml:
+    python -m src.agent_system.evals.generate_priorities_from_text \
+        /tmp/manual_thesis.txt
+
+    # Generate-only batch rendering remains available for inspection:
     python -m src.agent_system.evals.generate_priorities_from_text \
         --inputs-file src/agent_system/evals/sample_inputs.txt \
-        --out /tmp/new_priorities.yaml
-
-    # Then paste the contents of /tmp/new_priorities.yaml into the
-    # seed_research_priorities list in src/agent_system/config/current_regime.yaml,
-    # replacing or appending to the existing entries.
+        --out /tmp/generated_priorities.yaml
 
 Blank lines and lines starting with "#" in the inputs file are ignored.
-The default YAML output matches the seed_research_priorities field shape in
-current_regime.yaml; the regime adapter fills supporting_evidence for seed
-priorities when it loads the YAML.
+The default append target is the HELIX_DATA_ROOT-aware manual priority queue.
 """
 from __future__ import annotations
 
 import argparse
 import asyncio
 import json
+import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable, Literal
+from typing import Any, Iterable, Literal
 
 import yaml
 
-from src.agent_system.agents.macro_agent import translate_to_priority
+from src.agent_system.agents.macro_agent import (
+    MacroAgentValidationError,
+    translate_to_priority,
+)
+from src.agent_system.forecasting.macro_scenario_source import (
+    MANUAL_RESEARCH_PRIORITIES_FILENAME,
+    MANUAL_RESEARCH_PRIORITY_SOURCE,
+    MANUAL_RESEARCH_PRIORITIES_SOURCE_MACRO_FORECAST_ID,
+    default_manual_research_priorities_path,
+    load_manual_research_priorities,
+)
 from src.agent_system.orchestration.run_research_cycle import _select_regime_state
 from src.agent_system.schemas.regime import ClarificationRequest, ResearchPriority
 
@@ -60,6 +71,40 @@ def _represent_folded_string(
 _PriorityYamlDumper.add_representer(_FoldedString, _represent_folded_string)
 
 
+class PriorityGenerationError(RuntimeError):
+    """Raised when thesis text cannot be converted into a valid priority."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        raw_output: str | None = None,
+        validation_error: str | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.raw_output = raw_output
+        self.validation_error = validation_error or message
+
+
+class ManualPriorityAppendError(RuntimeError):
+    """Raised when an approved manual priority cannot be appended safely."""
+
+
+def _extract_raw_output(exc: BaseException) -> str | None:
+    """Best-effort raw-output extraction from current/future LLM errors."""
+
+    seen: set[int] = set()
+    cursor: BaseException | None = exc
+    while cursor is not None and id(cursor) not in seen:
+        seen.add(id(cursor))
+        for attr in ("raw_output", "raw_response", "response_text", "raw"):
+            value = getattr(cursor, attr, None)
+            if isinstance(value, str) and value.strip():
+                return value
+        cursor = cursor.__cause__ or cursor.__context__
+    return None
+
+
 def load_input_lines(path: Path) -> list[str]:
     """Load non-blank, non-comment free-text inputs from a text file."""
     lines: list[str] = []
@@ -86,20 +131,31 @@ async def convert_text_to_priority(
     if regime_state is None:
         regime_state, _regime_source, _fallback_reason = _select_regime_state()
 
-    result = await translate_to_priority(
-        user_input=text,
-        regime_state=regime_state,
-    )
+    try:
+        result = await translate_to_priority(
+            user_input=text,
+            regime_state=regime_state,
+        )
+    except MacroAgentValidationError as exc:
+        raise PriorityGenerationError(
+            f"Macro converter failed to produce a valid ResearchPriority for input {text!r}: {exc}",
+            raw_output=_extract_raw_output(exc),
+            validation_error=str(exc),
+        ) from exc
     if isinstance(result, ResearchPriority):
         return result
     if isinstance(result, ClarificationRequest):
-        raise RuntimeError(
+        raise PriorityGenerationError(
             "Macro converter returned a clarification instead of a priority "
-            f"for input {text!r}: {result.question}"
+            f"for input {text!r}: {result.question}",
+            raw_output=result.model_dump_json(indent=2),
+            validation_error=result.question,
         )
-    raise RuntimeError(
+    raise PriorityGenerationError(
         f"Macro converter returned unexpected type {type(result).__name__} "
-        f"for input {text!r}"
+        f"for input {text!r}",
+        raw_output=str(result),
+        validation_error=f"unexpected result type {type(result).__name__}",
     )
 
 
@@ -140,6 +196,166 @@ def priority_to_seed_dict(priority: ResearchPriority) -> dict:
     }
 
 
+def _plain_json_dict(value: Any) -> dict[str, Any]:
+    if hasattr(value, "model_dump"):
+        payload = value.model_dump(mode="json")
+    elif isinstance(value, dict):
+        payload = dict(value)
+    else:
+        raise TypeError(f"cannot serialize value of type {type(value).__name__}")
+    return {key: item for key, item in payload.items() if item is not None}
+
+
+def _evidence_to_manual_dict(evidence: Any) -> dict[str, Any]:
+    payload = _plain_json_dict(evidence)
+    for metadata_key in ("schema_version", "created_at", "id"):
+        payload.pop(metadata_key, None)
+    return payload
+
+
+def priority_to_manual_dict(
+    priority: ResearchPriority,
+    *,
+    source_thesis_text: str,
+    approved_by: str | None = None,
+    approved_at: datetime | None = None,
+) -> dict[str, Any]:
+    """Convert an approved priority into manual_research_priorities.yaml shape."""
+
+    approved_at = approved_at or datetime.now(timezone.utc)
+    payload: dict[str, Any] = {
+        "theme": priority.theme,
+        "rationale": _FoldedString(priority.rationale),
+        "edge_hypothesis": _FoldedString(priority.edge_hypothesis),
+        "sub_questions": list(priority.sub_questions),
+        "priority_rank": priority.priority_rank,
+        "expected_edge_decay": priority.expected_edge_decay.value,
+        "supporting_evidence": [
+            _evidence_to_manual_dict(evidence)
+            for evidence in priority.supporting_evidence
+        ],
+        "source": MANUAL_RESEARCH_PRIORITY_SOURCE,
+        "source_macro_forecast_id": MANUAL_RESEARCH_PRIORITIES_SOURCE_MACRO_FORECAST_ID,
+        "source_thesis_text": _FoldedString(source_thesis_text),
+        "approved_at": approved_at.isoformat(),
+    }
+    if approved_by:
+        payload["approved_by"] = approved_by
+    if priority.source_theme_id:
+        payload["source_theme_id"] = priority.source_theme_id
+    if priority.source_scenario_ids:
+        payload["source_scenario_ids"] = list(priority.source_scenario_ids)
+    return payload
+
+
+def _render_manual_entry(entry: dict[str, Any]) -> str:
+    rendered = yaml.dump(
+        [entry],
+        Dumper=_PriorityYamlDumper,
+        sort_keys=False,
+        allow_unicode=False,
+        width=88,
+    )
+    return "".join(f"  {line}" if line.strip() else line for line in rendered.splitlines(True))
+
+
+def _manual_yaml_payload_count(path: Path) -> tuple[str, list[Any]]:
+    if not path.exists():
+        return "priorities:\n", []
+    text = path.read_text(encoding="utf-8")
+    try:
+        raw = yaml.safe_load(text)
+    except yaml.YAMLError as exc:
+        raise ManualPriorityAppendError(
+            f"Manual research priorities file is invalid YAML: {path}: {exc}"
+        ) from exc
+    if raw is None:
+        return "priorities:\n", []
+    if not isinstance(raw, dict):
+        raise ManualPriorityAppendError(
+            f"Manual research priorities file must contain a mapping with 'priorities': {path}"
+        )
+    items = raw.get("priorities")
+    if items is None:
+        raise ManualPriorityAppendError(
+            f"Manual research priorities file missing required field 'priorities': {path}"
+        )
+    if not isinstance(items, list):
+        raise ManualPriorityAppendError(
+            f"Manual research priorities field must be a list: {path}.priorities"
+        )
+    if not items:
+        return "priorities:\n", []
+    return text, list(items)
+
+
+def _next_priority_rank(items: list[Any]) -> int:
+    ranks: list[int] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        raw_rank = item.get("priority_rank")
+        try:
+            ranks.append(int(raw_rank))
+        except (TypeError, ValueError):
+            continue
+    return max(ranks, default=0) + 1
+
+
+def append_manual_priority(
+    priority: ResearchPriority,
+    source_text: str,
+    approved_by: str | None = None,
+    *,
+    path: str | Path | None = None,
+) -> list[ResearchPriority]:
+    """
+    Append an approved priority to the manual queue with atomic round-trip validation.
+
+    The manual queue is append-only from this helper's perspective. Existing
+    bytes are preserved as a prefix; the new entry is rendered and appended to
+    the ``priorities`` list, then validated through
+    ``load_manual_research_priorities`` before the atomic rename.
+    """
+
+    target = Path(path).expanduser() if path is not None else default_manual_research_priorities_path()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    existing_text, existing_items = _manual_yaml_payload_count(target)
+    next_rank = _next_priority_rank(existing_items)
+    prepared = priority.model_copy_validate(
+        update={
+            "priority_rank": next_rank,
+            "source": MANUAL_RESEARCH_PRIORITY_SOURCE,
+            "source_macro_forecast_id": MANUAL_RESEARCH_PRIORITIES_SOURCE_MACRO_FORECAST_ID,
+            "source_thesis_text": source_text,
+            "approved_by": approved_by,
+            "approved_at": datetime.now(timezone.utc),
+        }
+    )
+    entry = priority_to_manual_dict(
+        prepared,
+        source_thesis_text=source_text,
+        approved_by=approved_by,
+        approved_at=prepared.approved_at,
+    )
+    separator = "" if existing_text.endswith("\n") else "\n"
+    new_text = f"{existing_text}{separator}{_render_manual_entry(entry)}"
+    tmp_path = target.with_name(f".{target.name}.tmp")
+    tmp_path.write_text(new_text, encoding="utf-8")
+    try:
+        loaded = load_manual_research_priorities(tmp_path)
+    except Exception as exc:
+        try:
+            tmp_path.unlink()
+        except FileNotFoundError:
+            pass
+        raise ManualPriorityAppendError(
+            f"Round-trip validation failed for appended manual priority file {target}: {exc}"
+        ) from exc
+    os.replace(tmp_path, target)
+    return loaded
+
+
 def render_priorities(
     priorities: Iterable[ResearchPriority],
     *,
@@ -171,14 +387,20 @@ def render_priorities(
 def _build_argparser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Generate current_regime.yaml seed ResearchPriority blocks from "
-            "free-text user inputs."
+            "Generate a manual ResearchPriority from free text and optionally "
+            "append it to manual_research_priorities.yaml."
         )
+    )
+    parser.add_argument(
+        "input_file",
+        nargs="?",
+        type=Path,
+        help="File containing one free-text thesis. Defaults to stdin.",
     )
     parser.add_argument(
         "--inputs-file",
         type=Path,
-        required=True,
+        default=None,
         help="Text file with one free-text input per line.",
     )
     parser.add_argument(
@@ -191,18 +413,44 @@ def _build_argparser() -> argparse.ArgumentParser:
         "--format",
         choices=("yaml", "json"),
         default="yaml",
-        help="Output format. YAML is suitable for current_regime.yaml paste.",
+        help="Generate-only output format when --out or --no-persist is used.",
+    )
+    parser.add_argument(
+        "--no-persist",
+        action="store_true",
+        help="Generate and print priorities without prompting to append them.",
+    )
+    parser.add_argument(
+        "--manual-path",
+        type=Path,
+        default=None,
+        help="Override manual_research_priorities.yaml path for append mode.",
     )
     return parser
 
 
 async def _run(args: argparse.Namespace) -> int:
-    inputs = load_input_lines(args.inputs_file)
+    if args.inputs_file is not None:
+        inputs = load_input_lines(args.inputs_file)
+    elif args.input_file is not None:
+        thesis = args.input_file.read_text(encoding="utf-8").strip()
+        inputs = [thesis] if thesis else []
+    else:
+        thesis = sys.stdin.read().strip()
+        inputs = [thesis] if thesis else []
     if not inputs:
-        print(f"No inputs found in {args.inputs_file}", file=sys.stderr)
+        source = args.inputs_file or args.input_file or "stdin"
+        print(f"No inputs found in {source}", file=sys.stderr)
         return 1
 
-    priorities = await convert_inputs_to_priorities(inputs)
+    try:
+        priorities = await convert_inputs_to_priorities(inputs)
+    except PriorityGenerationError as exc:
+        print(f"Priority generation failed: {exc.validation_error}", file=sys.stderr)
+        if exc.raw_output:
+            print("Raw model output:", file=sys.stderr)
+            print(exc.raw_output, file=sys.stderr)
+        return 1
     rendered = render_priorities(priorities, output_format=args.format)
 
     if args.out is None:
@@ -211,6 +459,31 @@ async def _run(args: argparse.Namespace) -> int:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(rendered, encoding="utf-8")
         print(f"Wrote {len(priorities)} priority blocks to {args.out}", file=sys.stderr)
+    if args.out is not None or args.no_persist:
+        return 0
+
+    if len(priorities) != 1:
+        print(
+            "Append mode requires exactly one generated priority. "
+            "Use --out or --no-persist for batch generation.",
+            file=sys.stderr,
+        )
+        return 1
+    answer = input("Append this priority to manual_research_priorities.yaml? [y/N] ").strip().lower()
+    if answer not in {"y", "yes"}:
+        print("Not appended.", file=sys.stderr)
+        return 0
+    appended = append_manual_priority(
+        priorities[0],
+        inputs[0],
+        approved_by="cli",
+        path=args.manual_path,
+    )
+    target = args.manual_path or default_manual_research_priorities_path()
+    print(
+        f"Appended priority to {target}; manual priority count={len(appended)}",
+        file=sys.stderr,
+    )
     return 0
 
 

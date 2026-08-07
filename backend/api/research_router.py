@@ -10,7 +10,7 @@ import traceback
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from threading import Lock
-from typing import Any, AsyncIterator
+from typing import Any, AsyncIterator, Literal
 from uuid import uuid4
 
 from dotenv import load_dotenv
@@ -19,8 +19,16 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from api.agent_system_router import verify_agent_system_access
-from src.agent_system.evals.generate_priorities_from_text import convert_text_to_priority
-from src.agent_system.macro import loader as regime_loader
+from src.agent_system.evals.generate_priorities_from_text import (
+    ManualPriorityAppendError,
+    PriorityGenerationError,
+    append_manual_priority,
+    convert_text_to_priority,
+)
+from src.agent_system.forecasting.macro_scenario_source import (
+    MacroScenarioSourceError,
+    load_manual_research_priorities,
+)
 from src.agent_system.orchestration.cycle_status import (
     CycleStatus,
     CycleStatusEmitter,
@@ -28,10 +36,12 @@ from src.agent_system.orchestration.cycle_status import (
     StageStatus,
 )
 from src.agent_system.paths import cycles_dir, deep_fundamental_reports_dir_info, resolved_path_message
+from src.agent_system.schemas.regime import ResearchPriority
 
 
 logger = logging.getLogger("api.research")
 research_router = APIRouter(prefix="/api/research", tags=["research"])
+priorities_router = APIRouter(prefix="/api/priorities", tags=["priorities"])
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = BACKEND_ROOT.parent
@@ -62,12 +72,25 @@ class GeneratePrioritiesRequest(BaseModel):
     text: str = Field(min_length=1, max_length=5000)
 
 
+class GeneratePriorityRequest(BaseModel):
+    thesis_text: str = Field(min_length=1, max_length=5000)
+
+
 class CommitPriorityRequest(BaseModel):
     priority: dict[str, Any]
 
 
+class ApprovePriorityRequest(BaseModel):
+    priority: ResearchPriority
+    source_thesis_text: str = Field(min_length=1, max_length=10000)
+
+
 class RunCycleResponse(BaseModel):
     job_id: str
+
+
+class RunCycleRequest(BaseModel):
+    priority_source: Literal["macro", "manual", "both"] = "macro"
 
 
 def _deep_fundamental_candidates() -> list[Path]:
@@ -137,13 +160,17 @@ def _ticker_dir(ticker: str) -> Path:
     return _deep_fundamental_root() / normalized
 
 
-def _run_research_cycle_process(cycle_id: str) -> None:
+def _run_research_cycle_process(cycle_id: str, priority_source: str = "macro") -> None:
     """Worker-process entry point. Durable progress is written by the emitter."""
     from src.agent_system.orchestration.run_research_cycle import run_research_cycle
 
     emitter = CycleStatusEmitter(cycle_id)
     try:
-        run_research_cycle(cycle_id=cycle_id, emitter=emitter)
+        run_research_cycle(
+            cycle_id=cycle_id,
+            emitter=emitter,
+            priority_source=priority_source,
+        )
     except Exception:
         emitter.fail_cycle(traceback.format_exc())
 
@@ -200,6 +227,58 @@ def _priority_payload(priority: Any) -> dict[str, Any]:
     if not payload.get("source_theme_id"):
         payload["source_theme_id"] = "free_text"
     return payload
+
+
+def _priority_generation_error_detail(exc: PriorityGenerationError) -> dict[str, Any]:
+    return {
+        "error": str(exc),
+        "raw_llm_output": exc.raw_output,
+        "validation_error": exc.validation_error,
+    }
+
+
+async def _generate_priority_from_text(text: str) -> dict[str, Any]:
+    cleaned = text.strip()
+    if not cleaned:
+        raise HTTPException(status_code=400, detail="thesis_text must not be blank")
+    try:
+        priority = await convert_text_to_priority(cleaned)
+    except PriorityGenerationError as exc:
+        logger.warning("Priority generation failed validation: %s", exc)
+        raise HTTPException(
+            status_code=422,
+            detail=_priority_generation_error_detail(exc),
+        ) from exc
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "error": str(exc),
+                "raw_llm_output": None,
+                "validation_error": str(exc),
+            },
+        ) from exc
+    except Exception as exc:
+        logger.exception("Priority generation failed")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return {"priority": _priority_payload(priority), "raw_llm_output": None}
+
+
+def _approve_priority(
+    priority: ResearchPriority,
+    source_thesis_text: str,
+    approved_by: str | None,
+) -> dict[str, Any]:
+    try:
+        priorities = append_manual_priority(
+            priority,
+            source_thesis_text,
+            approved_by=approved_by,
+        )
+    except (ManualPriorityAppendError, MacroScenarioSourceError, ValueError) as exc:
+        logger.exception("Manual priority approval failed")
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return {"success": True, "manual_priorities_count": len(priorities)}
 
 
 @research_router.get("/fundamental/coverage")
@@ -266,18 +345,10 @@ async def generate_priorities(
     req: GeneratePrioritiesRequest,
     user: dict = Depends(verify_agent_system_access),
 ) -> dict[str, Any]:
-    """Convert free text into a ResearchPriority using the existing agent path."""
+    """Compatibility route for the old research-page generate endpoint."""
     del user
-    text = req.text.strip()
-    if not text:
-        raise HTTPException(status_code=400, detail="text must not be blank")
-    try:
-        priority = await convert_text_to_priority(text)
-    except Exception as exc:
-        logger.exception("Priority generation failed")
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
-    payload = _priority_payload(priority)
-    return {"priorities": [payload], "priority": payload}
+    result = await _generate_priority_from_text(req.text)
+    return {"priorities": [result["priority"]], **result}
 
 
 @research_router.post("/priorities/commit")
@@ -285,29 +356,68 @@ def commit_priority(
     req: CommitPriorityRequest,
     user: dict = Depends(verify_agent_system_access),
 ) -> dict[str, Any]:
-    """Write the accepted priority into current_regime.yaml."""
+    """Retired current_regime.yaml commit path."""
     del user
-    target = regime_loader.DEFAULT_CURRENT_REGIME_PATH
+    del req
+    raise HTTPException(
+        status_code=410,
+        detail=(
+            "The current_regime.yaml priority commit path is retired. "
+            "Use POST /api/priorities/approve to append to manual_research_priorities.yaml."
+        ),
+    )
+
+
+@priorities_router.post("/generate")
+async def generate_manual_priority(
+    req: GeneratePriorityRequest,
+    user: dict = Depends(verify_agent_system_access),
+) -> dict[str, Any]:
+    """Generate one structured ResearchPriority for operator review only."""
+
+    del user
+    return await _generate_priority_from_text(req.thesis_text)
+
+
+@priorities_router.post("/approve")
+def approve_manual_priority(
+    req: ApprovePriorityRequest,
+    user: dict = Depends(verify_agent_system_access),
+) -> dict[str, Any]:
+    """Append an operator-approved ResearchPriority to the manual queue."""
+
+    return _approve_priority(
+        req.priority,
+        req.source_thesis_text,
+        approved_by=_user_id(user),
+    )
+
+
+@priorities_router.get("/manual")
+def list_manual_priorities(
+    user: dict = Depends(verify_agent_system_access),
+) -> dict[str, Any]:
+    """Return the current manual operator priority queue."""
+
+    del user
     try:
-        priority = regime_loader._priority_with_default_evidence(req.priority)
-        data, used_ruamel = regime_loader._load_roundtrip_yaml(target)
-        if not isinstance(data, dict):
-            raise ValueError(f"current_regime.yaml must contain a mapping: {target}")
-        data["seed_research_priorities"] = [
-            regime_loader.priority_to_yaml_dict(priority)
-        ]
-        regime_loader._write_roundtrip_yaml(target, data, use_ruamel=used_ruamel)
-    except Exception as exc:
-        logger.exception("Priority commit failed")
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return {"ok": True, "path": str(target)}
+        priorities = load_manual_research_priorities()
+    except MacroScenarioSourceError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    payload = [_priority_payload(priority) for priority in priorities]
+    return {
+        "manual_priorities_count": len(payload),
+        "priorities": payload,
+    }
 
 
 @research_router.post("/cycle/run", response_model=RunCycleResponse)
 def run_cycle(
+    req: RunCycleRequest | None = None,
     user: dict = Depends(verify_agent_system_access),
 ) -> RunCycleResponse:
     """Start a full research cycle unless this user already has one active."""
+    request = req or RunCycleRequest()
     user_id = _user_id(user)
     existing = _active_job_for_user(user_id)
     if existing:
@@ -316,7 +426,7 @@ def run_cycle(
     cycle_id = str(uuid4())
     _active_jobs_by_user[user_id] = cycle_id
     _job_users[cycle_id] = user_id
-    _get_executor().submit(_run_research_cycle_process, cycle_id)
+    _get_executor().submit(_run_research_cycle_process, cycle_id, request.priority_source)
     return RunCycleResponse(job_id=cycle_id)
 
 

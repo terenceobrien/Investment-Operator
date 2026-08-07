@@ -15,6 +15,7 @@ import logging
 import os
 import sys
 import traceback
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -52,7 +53,9 @@ from src.agent_system.forecasting.macro_scenario_source import (
     CurrentConditionsView,
     MacroScenarioSource,
     MacroScenarioSourceConfig,
+    default_manual_research_priorities_path,
     get_macro_scenario_source,
+    load_manual_research_priorities,
     load_latest_narrative_macro_forecast_result,
     load_macro_scenario_source_config,
     preflight_ensemble_source,
@@ -117,6 +120,8 @@ from src.agent_system.storage.repository import (
 )
 
 logger = logging.getLogger("agent_system.cycle")
+
+PRIORITY_SOURCE_CHOICES = ("macro", "manual", "both")
 
 
 def _ensure_status_emitter(
@@ -186,6 +191,61 @@ def _print_scenario_probabilities(probabilities: dict[str, float] | None) -> Non
     for scenario_id, probability in sorted(probabilities.items(), key=lambda kv: -kv[1]):
         print(f"  {scenario_id}: {probability:.1%}")
     print()
+
+
+def _validate_priority_source(priority_source: str) -> str:
+    if priority_source not in PRIORITY_SOURCE_CHOICES:
+        raise ValueError(
+            f"priority_source must be one of {PRIORITY_SOURCE_CHOICES}; got {priority_source!r}"
+        )
+    return priority_source
+
+
+def _macro_source_for_priority_queue(
+    macro_source: MacroScenarioSource,
+    *,
+    include_seed_priorities: bool,
+) -> MacroScenarioSource:
+    if include_seed_priorities:
+        return macro_source
+    return replace(macro_source, seed_research_priorities=[])
+
+
+def _resolve_priority_queue(
+    *,
+    current_regime: PydanticRegimeState,
+    macro_source: MacroScenarioSource,
+    priority_source: str,
+    manual_priorities_path: str | Path | None = None,
+) -> tuple[list[ResearchPriority], dict[str, object]]:
+    """Select the cycle priority queue without changing macro context."""
+
+    resolved = _validate_priority_source(priority_source)
+    metadata: dict[str, object] = {
+        "priority_source": resolved,
+        "macro_priority_count": len(macro_source.seed_research_priorities),
+        "manual_priority_count": 0,
+        "manual_priority_path": None,
+        "queue_construction": (
+            "MacroScenarioSource is still constructed for scenario probabilities "
+            "and factor context; priority_source controls only the research queue."
+        ),
+    }
+    macro_priorities = list(macro_source.seed_research_priorities)
+    if resolved == "macro":
+        return list(current_regime.research_priorities), metadata
+
+    manual_path = (
+        Path(manual_priorities_path)
+        if manual_priorities_path is not None
+        else default_manual_research_priorities_path()
+    )
+    manual_priorities = load_manual_research_priorities(manual_path)
+    metadata["manual_priority_count"] = len(manual_priorities)
+    metadata["manual_priority_path"] = str(manual_path)
+    if resolved == "manual":
+        return manual_priorities, metadata
+    return [*manual_priorities, *macro_priorities], metadata
 
 
 def _decision_label(rating: ConvictionRating) -> str:
@@ -437,12 +497,22 @@ def _execute_cycle(
     use_stub_fundamental: bool = False,
     use_stub_trade_expression: bool = False,
     skip_portfolio_construction: bool = False,
+    priority_source_metadata: dict[str, object] | None = None,
     emitter: CycleStatusEmitter | None = None,
 ) -> dict:
     cycle_id = cycle_id or (emitter.cycle_id if emitter is not None else str(uuid4()))
     cycle_date = str(regime.asof_date)[:10]
     if macro_source is None:
         macro_source = _macro_source_for_cycle_date(cycle_date, macro_source_config)
+    priority_source_metadata = dict(
+        priority_source_metadata
+        or {
+            "priority_source": "macro",
+            "macro_priority_count": len(macro_source.seed_research_priorities),
+            "manual_priority_count": 0,
+            "manual_priority_path": None,
+        }
+    )
     macro_scenario_probabilities = dict(macro_source.scenario_probabilities)
     scenario_set = macro_source.scenario_set
     regime = _regime_with_macro_source(regime, macro_source)
@@ -1084,6 +1154,9 @@ def _execute_cycle(
         "fallback_reason": fallback_reason,
         "macro_scenario_source": macro_source.provenance.get("macro_forecast_source"),
         "macro_scenario_taxonomy": macro_source.taxonomy,
+        "priority_source": priority_source_metadata.get("priority_source"),
+        "priority_source_metadata": priority_source_metadata,
+        "research_priorities_count": len(regime.research_priorities),
         "thematic_agent_errors": thematic_agent_errors,
         "clarifications_received": clarifications_received,
         "fundamental_screened": fundamental_screened,
@@ -1293,6 +1366,7 @@ def _select_regime_state_with_macro_source(
     *,
     asof_date: Optional[str] = None,
     macro_source_config: MacroScenarioSourceConfig | None = None,
+    include_seed_priorities: bool = True,
 ) -> tuple[PydanticRegimeState, str, Optional[str], MacroScenarioSource | None]:
     """
     Live-cycle regime selector.
@@ -1309,7 +1383,11 @@ def _select_regime_state_with_macro_source(
         cycle_date = asof_date or str(regime.asof_date)[:10]
         macro_source = _stub_behavioral_macro_source(cycle_date)
         return (
-            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            _regime_with_macro_source(
+                regime,
+                macro_source,
+                include_seed_priorities=include_seed_priorities,
+            ),
             "stub_fallback",
             f"import_failed: {e}",
             macro_source,
@@ -1325,7 +1403,11 @@ def _select_regime_state_with_macro_source(
         cycle_date = asof_date or str(regime.asof_date)[:10]
         macro_source = _stub_behavioral_macro_source(cycle_date)
         return (
-            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            _regime_with_macro_source(
+                regime,
+                macro_source,
+                include_seed_priorities=include_seed_priorities,
+            ),
             "stub_fallback",
             f"snapshot_load_failed: {e}",
             macro_source,
@@ -1336,7 +1418,11 @@ def _select_regime_state_with_macro_source(
         cycle_date = asof_date or str(regime.asof_date)[:10]
         macro_source = _stub_behavioral_macro_source(cycle_date)
         return (
-            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            _regime_with_macro_source(
+                regime,
+                macro_source,
+                include_seed_priorities=include_seed_priorities,
+            ),
             "stub_fallback",
             "no_snapshot_found",
             macro_source,
@@ -1344,7 +1430,12 @@ def _select_regime_state_with_macro_source(
 
     cycle_date = _cycle_date_from_dataclass_regime(dataclass_state, fallback=asof_date)
     macro_source = _macro_source_for_cycle_date(cycle_date, macro_source_config)
-    curation_payload = regime_curation_payload_from_macro_source(macro_source)
+    curation_payload = regime_curation_payload_from_macro_source(
+        _macro_source_for_priority_queue(
+            macro_source,
+            include_seed_priorities=include_seed_priorities,
+        )
+    )
     try:
         from src.agent_system.adapters.regime import adapt_regime_state
         from src.agent_system.builders.forward_context import ForwardContextBuilder
@@ -1365,7 +1456,11 @@ def _select_regime_state_with_macro_source(
             raise
         regime = make_stub_regime_state()
         return (
-            _regime_with_macro_source(regime, macro_source, include_seed_priorities=True),
+            _regime_with_macro_source(
+                regime,
+                macro_source,
+                include_seed_priorities=include_seed_priorities,
+            ),
             "stub_fallback",
             f"adapter_failed: {e}",
             macro_source,
@@ -1376,6 +1471,8 @@ def run_research_cycle(
     *,
     asof_date: Optional[str] = None,
     macro_forecast_source: str | None = None,
+    priority_source: str = "macro",
+    manual_priorities_path: str | Path | None = None,
     force_stub: bool = False,
     use_stub_thematic: bool = False,
     use_stub_fundamental: bool = False,
@@ -1400,6 +1497,11 @@ def run_research_cycle(
             in "YYYY-MM-DD" format. None means latest.
         macro_forecast_source: Optional "narrative" or "ensemble" override.
             Defaults to backend/src/agent_system/config/research_cycle.yaml.
+        priority_source: One of "macro", "manual", or "both". "manual"
+            still constructs the macro source for scenario context, but the
+            research queue comes only from manual_research_priorities.yaml.
+        manual_priorities_path: Optional override path for the manual priority
+            YAML. Defaults to the HELIX_DATA_ROOT-aware priorities directory.
         force_stub: If True, skip the real path entirely and use the
             stub regime. This does not by itself disable thematic LLM calls.
         use_stub_thematic: If True, use the deterministic thematic map
@@ -1421,9 +1523,11 @@ def run_research_cycle(
         fallback_reason added.
     """
     cycle_id, emitter = _ensure_status_emitter(cycle_id, emitter)
+    priority_source = _validate_priority_source(priority_source)
     macro_source_config = load_macro_scenario_source_config(
         macro_forecast_source=macro_forecast_source,
     )
+    include_macro_seed_priorities = priority_source in {"macro", "both"}
 
     if force_stub:
         regime = make_stub_regime_state()
@@ -1434,18 +1538,36 @@ def run_research_cycle(
         regime = _regime_with_macro_source(
             regime,
             macro_source,
-            include_seed_priorities=True,
+            include_seed_priorities=include_macro_seed_priorities,
         )
     else:
         regime, regime_source, fallback_reason, macro_source = (
             _select_regime_state_with_macro_source(
                 asof_date=asof_date,
                 macro_source_config=macro_source_config,
+                include_seed_priorities=include_macro_seed_priorities,
             )
         )
 
+    priority_source_metadata: dict[str, object]
     if research_priorities is not None:
         regime = regime.model_copy_validate({"research_priorities": research_priorities})
+        priority_source_metadata = {
+            "priority_source": "in_memory_override",
+            "requested_priority_source": priority_source,
+            "manual_priority_path": None,
+            "manual_priority_count": 0,
+            "macro_priority_count": len(macro_source.seed_research_priorities),
+        }
+    else:
+        priorities, priority_source_metadata = _resolve_priority_queue(
+            current_regime=regime,
+            macro_source=macro_source,
+            priority_source=priority_source,
+            manual_priorities_path=manual_priorities_path,
+        )
+        if priority_source != "macro":
+            regime = regime.model_copy_validate({"research_priorities": priorities})
 
     return _execute_cycle(
         regime,
@@ -1458,6 +1580,7 @@ def run_research_cycle(
         use_stub_fundamental=use_stub_fundamental,
         use_stub_trade_expression=use_stub_trade_expression,
         skip_portfolio_construction=skip_portfolio_construction,
+        priority_source_metadata=priority_source_metadata,
         emitter=emitter,
     )
 
@@ -1567,6 +1690,13 @@ def run_cycle_with_inputs(
             "regime_source": regime_source,
             "regime_asof_date": regime.asof_date,
             "fallback_reason": fallback_reason,
+            "priority_source": "user_inputs",
+            "priority_source_metadata": {
+                "priority_source": "user_inputs",
+                "user_input_count": len(cleaned_inputs),
+                "produced_priority_count": 0,
+            },
+            "research_priorities_count": 0,
             "macro_priorities": 0,
             "clarifications_received": clarifications_received,
             "thematic_maps": 0,
@@ -1601,6 +1731,11 @@ def run_cycle_with_inputs(
         use_stub_fundamental=use_stub_fundamental,
         use_stub_trade_expression=use_stub_trade_expression,
         skip_portfolio_construction=skip_portfolio_construction,
+        priority_source_metadata={
+            "priority_source": "user_inputs",
+            "user_input_count": len(cleaned_inputs),
+            "produced_priority_count": len(priorities),
+        },
         emitter=emitter,
     )
 
@@ -1608,6 +1743,8 @@ def run_cycle_with_inputs(
 def run_stub_research_cycle(
     *,
     macro_forecast_source: str | None = None,
+    priority_source: str = "macro",
+    manual_priorities_path: str | Path | None = None,
     use_stub_thematic: bool = True,
     use_stub_fundamental: bool = True,
     use_stub_trade_expression: bool = True,
@@ -1626,6 +1763,7 @@ def run_stub_research_cycle(
     tests, while detailed artifacts live in JSONL storage.
     """
     cycle_id, emitter = _ensure_status_emitter(None, emitter)
+    priority_source = _validate_priority_source(priority_source)
     macro_source_config = load_macro_scenario_source_config(
         macro_forecast_source=macro_forecast_source,
     )
@@ -1634,8 +1772,18 @@ def run_stub_research_cycle(
     regime = _regime_with_macro_source(
         regime,
         macro_source,
-        include_seed_priorities=True,
+        include_seed_priorities=priority_source in {"macro", "both"},
     )
+    priorities, priority_source_metadata = _resolve_priority_queue(
+        current_regime=regime,
+        macro_source=macro_source,
+        priority_source=priority_source,
+        manual_priorities_path=manual_priorities_path,
+    )
+    if priority_source != "macro":
+        regime = regime.model_copy_validate(
+            {"research_priorities": priorities}
+        )
     return _execute_cycle(
         regime,
         cycle_id=cycle_id,
@@ -1647,6 +1795,7 @@ def run_stub_research_cycle(
         use_stub_fundamental=use_stub_fundamental,
         use_stub_trade_expression=use_stub_trade_expression,
         skip_portfolio_construction=skip_portfolio_construction,
+        priority_source_metadata=priority_source_metadata,
         emitter=emitter,
     )
 
@@ -1700,6 +1849,17 @@ def main(argv: list[str] | None = None) -> dict:
         ),
     )
     parser.add_argument(
+        "--priority-source",
+        choices=PRIORITY_SOURCE_CHOICES,
+        default="macro",
+        help=(
+            "Research-priority queue source. 'manual' uses only "
+            "manual_research_priorities.yaml for the queue while retaining "
+            "macro scenario context; 'both' prepends manual priorities to "
+            "macro-derived priorities."
+        ),
+    )
+    parser.add_argument(
         "--use-stub-thematic",
         action="store_true",
         help=(
@@ -1745,6 +1905,7 @@ def main(argv: list[str] | None = None) -> dict:
         summary = run_research_cycle(
             asof_date=resolved_asof_date,
             macro_forecast_source=args.macro_forecast_source,
+            priority_source=args.priority_source,
             force_stub=args.stub,
             use_stub_thematic=args.use_stub_thematic,
             use_stub_fundamental=args.use_stub_fundamental,

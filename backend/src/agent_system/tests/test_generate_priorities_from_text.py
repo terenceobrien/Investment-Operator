@@ -6,9 +6,36 @@ import asyncio
 import pytest
 import yaml
 
+from src.agent_system.agents.macro_agent import MacroAgentValidationError
 from src.agent_system.adapters.regime import _build_seed_research_priorities
 from src.agent_system.evals import generate_priorities_from_text as generator
-from src.agent_system.schemas.regime import ResearchPriority
+from src.agent_system.schemas.common import DerivedEvidence
+from src.agent_system.schemas.regime import EdgeDecayHorizon, ResearchPriority
+
+
+def _priority(theme: str = "Manual breadth rotation") -> ResearchPriority:
+    return ResearchPriority(
+        theme=theme,
+        rationale="Breadth deterioration is visible beneath headline index resilience.",
+        edge_hypothesis=(
+            "The market is underpricing the persistence of dispersion after "
+            "breadth breaks down under narrow mega-cap leadership."
+        ),
+        sub_questions=[
+            "Which defensives are seeing improving revisions?",
+            "Which crowded leaders are losing breadth support?",
+        ],
+        priority_rank=1,
+        expected_edge_decay=EdgeDecayHorizon.MONTHS,
+        supporting_evidence=[
+            DerivedEvidence(
+                claim="Breadth deterioration supports this manual priority.",
+                supports=True,
+                computation="test fixture",
+                upstream_claims=["test"],
+            )
+        ],
+    )
 
 
 def test_load_input_lines_ignores_blanks_and_comments(tmp_path):
@@ -79,10 +106,91 @@ def test_clarification_response_is_not_serialized(monkeypatch):
 
     monkeypatch.setattr(generator, "translate_to_priority", fake_translate_to_priority)
 
-    with pytest.raises(RuntimeError, match="clarification"):
+    with pytest.raises(generator.PriorityGenerationError, match="clarification"):
         asyncio.run(
             generator.convert_text_to_priority(
                 "Energy",
                 regime_state=object(),
             )
         )
+
+
+def test_malformed_llm_output_error_exposes_raw_output(monkeypatch):
+    class RawOutputError(Exception):
+        raw_output = '{"priority": {"theme": ""}}'
+
+    async def fake_translate_to_priority(**_kwargs):
+        raise MacroAgentValidationError("bad structured output") from RawOutputError("raw")
+
+    monkeypatch.setattr(generator, "translate_to_priority", fake_translate_to_priority)
+
+    with pytest.raises(generator.PriorityGenerationError) as excinfo:
+        asyncio.run(
+            generator.convert_text_to_priority(
+                "rotation breadth thesis",
+                regime_state=object(),
+            )
+        )
+
+    assert excinfo.value.raw_output == '{"priority": {"theme": ""}}'
+    assert "bad structured output" in excinfo.value.validation_error
+
+
+def test_append_manual_priority_preserves_existing_entries_and_assigns_next_rank(tmp_path):
+    path = tmp_path / "manual_research_priorities.yaml"
+    original = """
+priorities:
+  - theme: Existing one
+    rationale: Existing rationale one.
+    edge_hypothesis: This existing edge hypothesis is long enough for schema validation.
+    sub_questions:
+      - First existing question?
+    priority_rank: 1
+    expected_edge_decay: weeks
+  - theme: Existing two
+    rationale: Existing rationale two.
+    edge_hypothesis: This second existing edge hypothesis is also valid for tests.
+    sub_questions:
+      - Second existing question?
+    priority_rank: 2
+    expected_edge_decay: months
+""".lstrip()
+    path.write_text(original, encoding="utf-8")
+
+    loaded = generator.append_manual_priority(
+        _priority("Approved rotation thesis"),
+        "The original operator thesis text.",
+        approved_by="tester",
+        path=path,
+    )
+
+    rendered = path.read_text(encoding="utf-8")
+    assert rendered.startswith(original)
+    assert len(loaded) == 3
+    approved = loaded[-1]
+    assert approved.theme == "Approved rotation thesis"
+    assert approved.priority_rank == 3
+    assert approved.source == "operator_manual"
+    assert approved.source_macro_forecast_id is None
+    assert approved.source_thesis_text == "The original operator thesis text."
+    assert approved.approved_by == "tester"
+
+
+def test_append_manual_priority_round_trip_failure_leaves_original_untouched(tmp_path, monkeypatch):
+    path = tmp_path / "manual_research_priorities.yaml"
+    original = "priorities: []\n"
+    path.write_text(original, encoding="utf-8")
+
+    def fail_round_trip(_path):
+        raise RuntimeError("synthetic validation failure")
+
+    monkeypatch.setattr(generator, "load_manual_research_priorities", fail_round_trip)
+
+    with pytest.raises(generator.ManualPriorityAppendError, match="Round-trip validation failed"):
+        generator.append_manual_priority(
+            _priority(),
+            "A thesis that should not corrupt the file.",
+            path=path,
+        )
+
+    assert path.read_text(encoding="utf-8") == original

@@ -19,6 +19,7 @@ Boundary contracts:
 """
 from __future__ import annotations
 
+from datetime import datetime
 from enum import Enum
 from typing import Annotated, Any, Dict, List, Literal, Optional
 
@@ -277,7 +278,32 @@ class ResearchPriority(BaseSchema):
             "held-position repeats from cross-hypothesis diagnostic resurfacing."
         ),
     )
+    source: Optional[str] = Field(
+        default=None,
+        max_length=100,
+        description=(
+            "Priority source tag, e.g. 'operator_manual' for hand-authored "
+            "manual queue entries. None preserves legacy/generated priority shape."
+        ),
+    )
     source_macro_forecast_id: Optional[str] = Field(default=None, max_length=100)
+    source_thesis_text: Optional[str] = Field(
+        default=None,
+        max_length=10000,
+        description=(
+            "Original operator free text used to generate a manual priority. "
+            "Only populated for approved operator_manual queue entries."
+        ),
+    )
+    approved_by: Optional[str] = Field(
+        default=None,
+        max_length=200,
+        description="Operator/user id that approved a manual priority, when available.",
+    )
+    approved_at: Optional[datetime] = Field(
+        default=None,
+        description="UTC timestamp when a manual priority was approved into the queue.",
+    )
 
 
 class ClarificationRequest(BaseSchema):

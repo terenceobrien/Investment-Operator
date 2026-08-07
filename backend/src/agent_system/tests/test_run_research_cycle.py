@@ -72,6 +72,9 @@ SUMMARY_NEW_FIELDS = {
     "portfolio_trades_rejected",
     "portfolio_total_deployment_pct",
     "portfolio_binding_constraints",
+    "priority_source",
+    "priority_source_metadata",
+    "research_priorities_count",
 }
 
 
@@ -218,6 +221,99 @@ def test_run_stub_research_cycle_still_works(tmp_path, monkeypatch):
     assert summary["fallback_reason"] is None
     assert summary["accepted"] >= 1
     assert summary["rejected"] >= 1
+
+
+def _write_manual_priorities(root, *, theme: str = "Manual breadth rotation"):
+    path = root / "agent_system" / "priorities" / "manual_research_priorities.yaml"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"""
+priorities:
+  - theme: {theme}
+    rationale: Breadth has deteriorated while headline index levels remain narrow.
+    edge_hypothesis: The market is underpricing the persistence of dispersion after breadth deterioration.
+    sub_questions:
+      - Which non-megacap compounders are improving?
+      - Which crowded leaders are losing support?
+    priority_rank: 1
+    expected_edge_decay: months
+""".lstrip(),
+        encoding="utf-8",
+    )
+    return path
+
+
+def _capture_execute_cycle(monkeypatch):
+    captured = {}
+
+    def _fake_execute(regime, **kwargs):
+        captured["regime"] = regime
+        captured["kwargs"] = kwargs
+        metadata = kwargs["priority_source_metadata"]
+        return {
+            "priority_source": metadata["priority_source"],
+            "priority_source_metadata": metadata,
+            "research_priorities_count": len(regime.research_priorities),
+            "priority_themes": [priority.theme for priority in regime.research_priorities],
+            "priority_sources": [priority.source for priority in regime.research_priorities],
+        }
+
+    monkeypatch.setattr(
+        "src.agent_system.orchestration.run_research_cycle._execute_cycle",
+        _fake_execute,
+    )
+    return captured
+
+
+def test_priority_source_macro_keeps_default_queue_and_does_not_touch_manual_file(tmp_path, monkeypatch):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path / "agent_system"))
+    manual_path = tmp_path / "agent_system" / "priorities" / "manual_research_priorities.yaml"
+    manual_path.parent.mkdir(parents=True, exist_ok=True)
+    manual_path.write_text("priorities: [not-a-valid-manual-entry]\n", encoding="utf-8")
+    captured = _capture_execute_cycle(monkeypatch)
+
+    default_summary = run_research_cycle(force_stub=True)
+    explicit_macro_summary = run_research_cycle(force_stub=True, priority_source="macro")
+
+    expected_themes = [priority.theme for priority in make_stub_regime_state().research_priorities]
+    assert default_summary["priority_themes"] == expected_themes
+    assert explicit_macro_summary["priority_themes"] == expected_themes
+    assert captured["kwargs"]["priority_source_metadata"]["priority_source"] == "macro"
+    assert explicit_macro_summary["priority_sources"] == [None]
+
+
+def test_priority_source_manual_uses_only_manual_priorities(tmp_path, monkeypatch):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path / "agent_system"))
+    manual_path = _write_manual_priorities(tmp_path)
+    _capture_execute_cycle(monkeypatch)
+
+    summary = run_research_cycle(force_stub=True, priority_source="manual")
+
+    assert summary["priority_source"] == "manual"
+    assert summary["priority_themes"] == ["Manual breadth rotation"]
+    assert summary["priority_sources"] == ["operator_manual"]
+    assert summary["priority_source_metadata"]["manual_priority_path"] == str(manual_path)
+    assert summary["priority_source_metadata"]["manual_priority_count"] == 1
+    assert summary["priority_source_metadata"]["macro_priority_count"] == 1
+
+
+def test_priority_source_both_prepends_manual_then_macro(tmp_path, monkeypatch):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path / "agent_system"))
+    _write_manual_priorities(tmp_path, theme="Manual rotation first")
+    _capture_execute_cycle(monkeypatch)
+
+    summary = run_research_cycle(force_stub=True, priority_source="both")
+
+    assert summary["priority_source"] == "both"
+    assert summary["priority_themes"][0] == "Manual rotation first"
+    assert summary["priority_sources"][0] == "operator_manual"
+    assert summary["priority_themes"][1:] == [
+        priority.theme for priority in make_stub_regime_state().research_priorities
+    ]
+    assert summary["priority_sources"][1:] == [None]
 
 
 def test_cycle_with_real_thematic_agent_mocked(tmp_path, monkeypatch):

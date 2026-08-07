@@ -345,8 +345,12 @@ def frbus_handoffs_dir(*, create: bool = False) -> Path:
     return _child(agent_system_data_root_info(create=False), Path("frbus_handoffs"), create=create).path
 
 
+def priorities_dir_info(*, create: bool = False) -> ResolvedPath:
+    return _child(agent_system_data_root_info(create=False), Path("priorities"), create=create)
+
+
 def priorities_dir(*, create: bool = False) -> Path:
-    return _child(agent_system_data_root_info(create=False), Path("priorities"), create=create).path
+    return priorities_dir_info(create=create).path
 
 
 def scenarios_dir(*, create: bool = False) -> Path:

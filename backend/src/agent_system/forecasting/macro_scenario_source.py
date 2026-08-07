@@ -16,7 +16,12 @@ from typing import Any, Mapping
 
 import yaml
 
-from src.agent_system.paths import macro_json_dir
+from src.agent_system.paths import (
+    ResolvedPath,
+    macro_json_dir,
+    priorities_dir_info,
+    resolved_path_message,
+)
 from src.agent_system.forecasting.behavioral_scenarios_loader import (
     CurrentConditions,
     EXPECTED_BEHAVIORAL_SCENARIO_IDS,
@@ -56,6 +61,16 @@ KNOWN_TAXONOMY_IDS = {
 
 class MacroScenarioSourceError(RuntimeError):
     """Raised when a coherent macro scenario source cannot be built."""
+
+
+MANUAL_RESEARCH_PRIORITIES_FILENAME = "manual_research_priorities.yaml"
+MANUAL_RESEARCH_PRIORITY_SOURCE = "operator_manual"
+MANUAL_RESEARCH_PRIORITIES_SOURCE_MACRO_FORECAST_ID = None
+MANUAL_RESEARCH_PRIORITIES_PROVENANCE_NOTE = (
+    "Manual priorities are tagged source='operator_manual' and carry "
+    "source_macro_forecast_id=None because they do not originate from a macro "
+    "forecast artifact; cycle metadata records the manual file path."
+)
 
 
 @dataclass(frozen=True)
@@ -168,6 +183,124 @@ def load_macro_scenario_source_config(
         payload["macro_forecast_source"] = macro_forecast_source
     config = MacroScenarioSourceConfig(**payload)
     return config
+
+
+def default_manual_research_priorities_path() -> Path:
+    """Return the HELIX_DATA_ROOT-aware manual priority file path."""
+
+    return priorities_dir_info(create=False).path / MANUAL_RESEARCH_PRIORITIES_FILENAME
+
+
+def _manual_research_priorities_path_info(path: str | Path | None = None) -> ResolvedPath:
+    if path is not None:
+        return ResolvedPath(Path(path).expanduser(), "explicit_path")
+    base = priorities_dir_info(create=False)
+    return ResolvedPath(base.path / MANUAL_RESEARCH_PRIORITIES_FILENAME, base.source)
+
+
+def load_manual_research_priorities(path: str | Path | None = None) -> list[ResearchPriority]:
+    """Load the out-of-band operator priority queue.
+
+    This is intentionally separate from the macro-derived queue. Manual entries
+    are tagged with ``source='operator_manual'`` and
+    ``source_macro_forecast_id=None``; the file path is recorded by cycle
+    metadata rather than overloading the macro forecast id field.
+    """
+
+    path_info = _manual_research_priorities_path_info(path)
+    source = path_info.path
+    if not source.is_file():
+        raise MacroScenarioSourceError(
+            resolved_path_message(
+                "Manual research priorities file not found",
+                path_info,
+            )
+        )
+    try:
+        with source.open("r", encoding="utf-8") as fh:
+            raw = yaml.safe_load(fh)
+    except yaml.YAMLError as exc:
+        raise MacroScenarioSourceError(
+            f"Manual research priorities file is invalid YAML: {source}: {exc}"
+        ) from exc
+    if raw is None:
+        raise MacroScenarioSourceError(
+            f"Manual research priorities file is empty: {source}"
+        )
+    if not isinstance(raw, dict):
+        raise MacroScenarioSourceError(
+            f"Manual research priorities file must contain a mapping with 'priorities': {source}"
+        )
+    items = raw.get("priorities")
+    if items is None:
+        raise MacroScenarioSourceError(
+            f"Manual research priorities file missing required field 'priorities': {source}"
+        )
+    if not isinstance(items, list):
+        raise MacroScenarioSourceError(
+            f"Manual research priorities field must be a list: {source}.priorities"
+        )
+    if not items:
+        raise MacroScenarioSourceError(
+            f"Manual research priorities file has an empty priorities list: {source}"
+        )
+
+    required_fields = {
+        "theme",
+        "rationale",
+        "edge_hypothesis",
+        "sub_questions",
+        "priority_rank",
+        "expected_edge_decay",
+    }
+    priorities: list[ResearchPriority] = []
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            raise MacroScenarioSourceError(
+                f"Manual research priorities file {source} entry {index} must be a mapping"
+            )
+        missing = sorted(field for field in required_fields if field not in item)
+        if missing:
+            raise MacroScenarioSourceError(
+                f"Manual research priorities file {source} entry {index} "
+                f"missing required field '{missing[0]}'"
+            )
+        payload = dict(item)
+        supporting_evidence = payload.get("supporting_evidence")
+        if supporting_evidence is None:
+            theme = str(payload.get("theme") or "unknown manual priority")
+            payload["supporting_evidence"] = [
+                DerivedEvidence(
+                    claim=f"Manual research priority: {theme}",
+                    supports=True,
+                    computation="operator manual entry",
+                    upstream_claims=[MANUAL_RESEARCH_PRIORITIES_FILENAME],
+                )
+            ]
+        elif not isinstance(supporting_evidence, list) or not supporting_evidence:
+            raise MacroScenarioSourceError(
+                f"Manual research priorities file {source} entry {index} "
+                "field 'supporting_evidence' must be a non-empty list when provided"
+            )
+        else:
+            payload["supporting_evidence"] = [
+                {
+                    "source_type": "derived",
+                    **evidence,
+                }
+                if isinstance(evidence, dict) and "source_type" not in evidence
+                else evidence
+                for evidence in supporting_evidence
+            ]
+        payload["source"] = MANUAL_RESEARCH_PRIORITY_SOURCE
+        payload["source_macro_forecast_id"] = MANUAL_RESEARCH_PRIORITIES_SOURCE_MACRO_FORECAST_ID
+        try:
+            priorities.append(ResearchPriority.model_validate(payload))
+        except Exception as exc:
+            raise MacroScenarioSourceError(
+                f"Manual research priorities file {source} entry {index} is invalid: {exc}"
+            ) from exc
+    return priorities
 
 
 def get_macro_scenario_source(
@@ -741,6 +874,9 @@ def _priority_to_adapter_payload(priority: ResearchPriority) -> dict[str, Any]:
     payload.pop("id", None)
     payload.pop("created_at", None)
     payload.pop("schema_version", None)
+    for optional_key in ("source", "source_thesis_text", "approved_by", "approved_at"):
+        if payload.get(optional_key) is None:
+            payload.pop(optional_key, None)
     return payload
 
 

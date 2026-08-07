@@ -1,0 +1,16 @@
+priorities:
+  - theme: Breadth deterioration rotation stress test
+    rationale: >
+      Breadth and positioning have weakened while headline index levels remain
+      supported by narrow leadership. Test whether the next leg of returns
+      comes from rotation away from crowded winners rather than broad beta.
+    edge_hypothesis: >
+      The market may be treating narrow breadth as a temporary pause, while
+      weakening participation and crowded positioning make relative-return
+      dispersion more persistent than consensus expects.
+    sub_questions:
+      - Which high-quality non-megacap franchises are improving while index breadth deteriorates?
+      - Which crowded leadership names show valuation or positioning fragility?
+      - Are sector breadth and earnings revisions confirming a rotation rather than a growth scare?
+    priority_rank: 1
+    expected_edge_decay: months
