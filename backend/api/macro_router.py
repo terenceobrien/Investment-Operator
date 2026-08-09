@@ -269,6 +269,66 @@ def _load_regime_history_frame(days: int) -> tuple[pd.DataFrame, str | None]:
         return _empty_history_frame(), f"regime_timeseries unavailable: {exc}"
 
 
+REGIME_SCORE_HISTORY_WINDOWS: dict[str, int | None] = {
+    "90d": 90,
+    "1y": 365,
+    "5y": 365 * 5,
+    "all": None,
+}
+
+
+def _load_regime_score_history_frame(window: str) -> pd.DataFrame:
+    """Load score_total from the canonical regime_states history."""
+    if window not in REGIME_SCORE_HISTORY_WINDOWS:
+        raise ValueError(f"Unsupported regime score history window: {window}")
+
+    from src.agent_system.regime.timeseries import load_regime_timeseries
+
+    end = pd.Timestamp.utcnow().normalize().tz_localize(None)
+    days = REGIME_SCORE_HISTORY_WINDOWS[window]
+    start_date = None if days is None else (end - pd.Timedelta(days=days)).strftime("%Y-%m-%d")
+    df = load_regime_timeseries(
+        start_date=start_date,
+        end_date=end.strftime("%Y-%m-%d"),
+    )
+    if df.empty:
+        raise FileNotFoundError(
+            "No historical regime scores found in canonical regime_states storage. "
+            "Backfill with: PYTHONPATH=backend python3 scripts/backfill_regime_states.py"
+        )
+    df = df.copy()
+    df.index = pd.to_datetime(df.index, errors="coerce")
+    df = df[df.index.notna()].sort_index()
+    df.index.name = "date"
+    if "score_total" not in df.columns:
+        raise FileNotFoundError(
+            "Canonical regime_states storage has no score_total column. "
+            "Backfill with: PYTHONPATH=backend python3 scripts/backfill_regime_states.py"
+        )
+    return df
+
+
+def _build_regime_score_history_payload(window: str) -> dict[str, Any]:
+    df = _load_regime_score_history_frame(window)
+    points = _numeric_points(df, "score_total")
+    if not points:
+        raise FileNotFoundError(
+            "No numeric score_total values found in canonical regime_states storage. "
+            "Backfill with: PYTHONPATH=backend python3 scripts/backfill_regime_states.py"
+        )
+    return {
+        "window": window,
+        "source": "regime_timeseries",
+        "storage_collection": "regime_states",
+        "score_column": "score_total",
+        "start_date": points[0]["date"],
+        "end_date": points[-1]["date"],
+        "n": len(points),
+        "points": points,
+        "available_windows": list(REGIME_SCORE_HISTORY_WINDOWS),
+    }
+
+
 def _load_backtest_history_frame(days: int) -> tuple[pd.DataFrame, str | None]:
     path = _resolve_backtest_master_path()
     if path is None:
@@ -874,6 +934,24 @@ async def macro_indicator_history(
     """
     del user
     payload = _build_indicator_history_payload(days)
+    return JSONResponse(content=payload)
+
+
+@macro_router.get("/regime-score-history")
+async def macro_regime_score_history(
+    window: str = Query("90d", pattern="^(90d|1y|5y|all)$"),
+    user: dict = Depends(verify_clerk_token),
+) -> JSONResponse:
+    """Return score_total history from the canonical regime_states collection."""
+    del user
+    try:
+        payload = _build_regime_score_history_payload(window)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Regime score history unavailable: {exc}") from exc
     return JSONResponse(content=payload)
 
 

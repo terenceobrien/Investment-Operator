@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 
 import pytest
+import pandas as pd
 from fastapi import HTTPException
 
 from api import macro_router
@@ -186,6 +187,49 @@ def test_macro_scenario_meta_uses_behavioral_taxonomy():
     }
     assert payload["credit_led_recession"]["display_name"]
     assert payload["credit_led_recession"]["short_description"]
+
+
+def test_macro_regime_score_history_reads_canonical_regime_states(monkeypatch):
+    frame = pd.DataFrame(
+        {"score_total": [42.0, 55.5, 61.0]},
+        index=pd.to_datetime(["1974-01-02", "2008-10-10", "2026-08-07"]),
+    )
+    seen: dict[str, str] = {}
+
+    def fake_loader(window: str) -> pd.DataFrame:
+        seen["window"] = window
+        return frame
+
+    monkeypatch.setattr(macro_router, "_load_regime_score_history_frame", fake_loader)
+
+    response = asyncio.run(macro_router.macro_regime_score_history(window="all", user={}))
+    payload = _json_response_body(response)
+
+    assert seen["window"] == "all"
+    assert payload["source"] == "regime_timeseries"
+    assert payload["storage_collection"] == "regime_states"
+    assert payload["score_column"] == "score_total"
+    assert payload["start_date"] == "1974-01-02"
+    assert payload["end_date"] == "2026-08-07"
+    assert payload["n"] == 3
+    assert payload["points"] == [
+        {"date": "1974-01-02", "value": 42.0},
+        {"date": "2008-10-10", "value": 55.5},
+        {"date": "2026-08-07", "value": 61.0},
+    ]
+
+
+def test_macro_regime_score_history_404s_when_scores_missing(monkeypatch):
+    def fake_loader(window: str) -> pd.DataFrame:
+        raise FileNotFoundError("No historical regime scores found in canonical regime_states storage.")
+
+    monkeypatch.setattr(macro_router, "_load_regime_score_history_frame", fake_loader)
+
+    with pytest.raises(HTTPException) as exc:
+        asyncio.run(macro_router.macro_regime_score_history(window="90d", user={}))
+
+    assert exc.value.status_code == 404
+    assert "canonical regime_states" in str(exc.value.detail)
 
 
 def _history_series(column: str, values: list[tuple[str, float]], source: str = "fixture") -> dict:

@@ -16,6 +16,8 @@ import { useAuthFetcher } from '../../lib/api';
 import AuthRequired from '@/components/AuthRequired';
 import { M } from '../lib/researchOsTheme';
 
+type RegimeScoreHistoryWindow = '90d' | '1y' | '5y' | 'all';
+
 // ═══════════════════════════════════════════════════════════════════
 // Macro & Regime
 //
@@ -42,12 +44,19 @@ const FAN_ENDPOINT = '/api/macro/analogue-fan/latest';
 const SCENARIO_META_ENDPOINT = '/api/macro/scenario-meta';
 const LAYER_DETAIL_ENDPOINT = '/api/macro/layers/detail';
 const REGIME_ENDPOINT = '/api/market/regime';
-const REGIME_HISTORY_ENDPOINT = '/api/market/regime/history';
+const REGIME_SCORE_HISTORY_ENDPOINT = (window: RegimeScoreHistoryWindow) =>
+  `/api/macro/regime-score-history?window=${window}`;
 const INDICATOR_HISTORY_ENDPOINT = '/api/macro/indicator-history';
 const NARRATIVE_TICKER = 'SPY';
 const NARRATIVE_ENDPOINT = (ticker: string) => `/api/narrative/latest?ticker=${ticker}`;
 const COMPONENT_HISTORY_ENDPOINT = (layerId: string, componentId: string, window: ComponentHistoryWindow) =>
   `/api/macro/layers/${encodeURIComponent(layerId)}/components/${encodeURIComponent(componentId)}/history?window=${window}`;
+const REGIME_SCORE_WINDOW_OPTIONS: Array<{ key: RegimeScoreHistoryWindow; label: string }> = [
+  { key: '90d', label: '90D' },
+  { key: '1y', label: '1Y' },
+  { key: '5y', label: '5Y' },
+  { key: 'all', label: 'All' },
+];
 
 type AnyRecord = Record<string, unknown>;
 type ScenarioMeta = { display_name: string; short_description: string };
@@ -204,12 +213,23 @@ type ComponentHistoryPayload = {
   warnings?: string[];
 };
 type RegimeHistoryPayload = {
-  snapshots?: Array<{
-    date?: string;
-    score_total?: number | null;
-  }>;
+  window?: RegimeScoreHistoryWindow;
+  source?: string;
+  storage_collection?: string;
+  score_column?: string;
+  start_date?: string;
+  end_date?: string;
   n?: number;
+  points?: HistoryPoint[];
 };
+type RegimeScoreHistoryMeta = {
+  source: string;
+  startDate: string | null;
+  endDate: string | null;
+  n: number;
+  window: RegimeScoreHistoryWindow | null;
+};
+type RegimeScoreHistoryView = RegimeScoreHistoryMeta & { points: HistoryPoint[] };
 
 // ─────────────────────────────────────────────────────────────
 // Generic safe accessors (mirrors the narrative page conventions)
@@ -244,20 +264,18 @@ function computeYDomain(values: Array<number | null | undefined>, padFraction = 
   const pad = Math.max(span * padFraction, minPad);
   return [min - pad, max + pad];
 }
-function filterHistoryWindow(points: HistoryPoint[], days: number): HistoryPoint[] {
-  const dated = points
-    .map((point) => {
-      const timestamp = new Date(`${point.date}T00:00:00`).getTime();
-      return Number.isFinite(timestamp) ? { ...point, timestamp } : null;
-    })
-    .filter((point): point is HistoryPoint & { timestamp: number } => point !== null)
-    .sort((a, b) => a.timestamp - b.timestamp);
-  if (!dated.length) return [];
-  const lastTimestamp = dated[dated.length - 1].timestamp;
-  const cutoff = lastTimestamp - days * 24 * 60 * 60 * 1000;
-  return dated
-    .filter((point) => point.timestamp >= cutoff)
-    .map((point) => ({ date: point.date, value: point.value }));
+function sampleHistoryPoints<T>(points: T[], maxPoints = 1400): T[] {
+  if (points.length <= maxPoints) return points;
+  const sampled: T[] = [];
+  let previousIndex = -1;
+  for (let i = 0; i < maxPoints; i += 1) {
+    const index = Math.round((i / Math.max(1, maxPoints - 1)) * (points.length - 1));
+    if (index !== previousIndex) {
+      sampled.push(points[index]);
+      previousIndex = index;
+    }
+  }
+  return sampled;
 }
 const pct1 = (v: number | null | undefined) => (v === null || v === undefined ? '—' : `${(v * 100).toFixed(1)}%`);
 const signedPct1 = (v: number | null | undefined) => {
@@ -584,16 +602,25 @@ function normalizeRegime(raw: unknown): LiveRegime | null {
   };
 }
 
-function normalizeRegimeScoreHistory(raw: unknown): HistoryPoint[] {
+function normalizeRegimeScoreHistory(raw: unknown): RegimeScoreHistoryView {
   const payload = safeObj(raw);
-  return safeArray<AnyRecord>(payload.snapshots)
-    .map((snapshot) => {
-      const date = safeStr(snapshot.date);
-      const value = safeNum(snapshot.score_total);
+  const points = safeArray<AnyRecord>(payload.points)
+    .map((point) => {
+      const date = safeStr(point.date);
+      const value = safeNum(point.value);
       return date && value !== null ? { date, value } : null;
     })
     .filter((point): point is HistoryPoint => point !== null)
     .sort((a, b) => a.date.localeCompare(b.date));
+  const window = safeStr(payload.window) as RegimeScoreHistoryWindow;
+  return {
+    points,
+    source: safeStr(payload.source, points.length ? 'regime_timeseries' : 'unavailable'),
+    startDate: safeStr(payload.start_date) || (points[0]?.date ?? null),
+    endDate: safeStr(payload.end_date) || (points[points.length - 1]?.date ?? null),
+    n: safeNum(payload.n) ?? points.length,
+    window: REGIME_SCORE_WINDOW_OPTIONS.some((option) => option.key === window) ? window : null,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -798,7 +825,12 @@ function MarketRegimePanel({
   f,
   regime,
   scoreHistory,
+  scoreHistoryMeta,
+  scoreHistoryWindow,
+  onScoreHistoryWindowChange,
   scoreHistorySource,
+  scoreHistoryError,
+  scoreHistoryLoading,
   layerDetail,
   layerError,
   layerLoading,
@@ -807,7 +839,12 @@ function MarketRegimePanel({
   f: Forecast;
   regime: LiveRegime | null;
   scoreHistory: HistoryPoint[];
+  scoreHistoryMeta: RegimeScoreHistoryMeta;
+  scoreHistoryWindow: RegimeScoreHistoryWindow;
+  onScoreHistoryWindowChange: (window: RegimeScoreHistoryWindow) => void;
   scoreHistorySource: string;
+  scoreHistoryError?: Error;
+  scoreHistoryLoading: boolean;
   layerDetail?: MacroLayersDetailPayload;
   layerError?: Error;
   layerLoading: boolean;
@@ -835,6 +872,10 @@ function MarketRegimePanel({
       ? { date: regime.asof, value: regime.scoreTotal }
       : null,
   );
+  const activeWindowLabel = REGIME_SCORE_WINDOW_OPTIONS.find((option) => option.key === scoreHistoryWindow)?.label ?? scoreHistoryWindow;
+  const historyRangeLabel = scoreHistoryMeta.startDate && scoreHistoryMeta.endDate
+    ? `${scoreHistoryMeta.startDate} → ${scoreHistoryMeta.endDate}`
+    : scoreHistorySource;
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') return;
     if (scoreHistorySource === 'unavailable') return;
@@ -878,13 +919,47 @@ function MarketRegimePanel({
             <a href="/how-it-works" style={{ display: 'inline-flex', gap: 8, alignItems: 'center', color: M.accentBright, textDecoration: 'none', fontSize: 12.5, marginTop: 9 }}>View methodology →</a>
           </div>
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint, marginBottom: 5 }}>Regime score (90D)</div>
-            <HistoryLineChart
-              points={chartPoints}
-              color={M.accentBright}
-              height={205}
-              yLabel="score"
-            />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', marginBottom: 5 }}>
+              <div>
+                <div style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint }}>Regime score ({activeWindowLabel})</div>
+                <div style={{ fontFamily: M.mono, fontSize: 9.5, color: M.inkFaint, marginTop: 3 }}>
+                  {scoreHistoryLoading ? 'loading history' : `${scoreHistoryMeta.n || chartPoints.length} records · ${historyRangeLabel}`}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                {REGIME_SCORE_WINDOW_OPTIONS.map((option) => (
+                  <button
+                    key={option.key}
+                    type="button"
+                    onClick={() => onScoreHistoryWindowChange(option.key)}
+                    style={{
+                      background: scoreHistoryWindow === option.key ? M.accentSoft : M.cardElev,
+                      color: scoreHistoryWindow === option.key ? M.accentBright : M.inkDim,
+                      border: `1px solid ${scoreHistoryWindow === option.key ? M.accent : M.line2}`,
+                      borderRadius: 8,
+                      padding: '5px 8px',
+                      fontFamily: M.mono,
+                      fontSize: 10,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {scoreHistoryError ? (
+              <ErrorMini message={scoreHistoryError.message} />
+            ) : scoreHistoryLoading ? (
+              <EmptyMini message="Loading canonical regime score history." />
+            ) : (
+              <HistoryLineChart
+                points={chartPoints}
+                color={M.accentBright}
+                height={205}
+                yLabel="score"
+              />
+            )}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 10 }} className="macro-stat-list">
               <MiniStat label="Dominant" value={forecastUnavailable ? 'forecast unavailable' : f.dominantLabel || '—'} sub={forecastUnavailable ? 'unavailable' : pct1(f.dominantProb)} color={forecastUnavailable ? M.inkFaint : M.accentBright} />
               <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
@@ -1657,10 +1732,10 @@ function formatAxisNumber(value: number): string {
   if (abs >= 10) return value.toFixed(1);
   return value.toFixed(2).replace(/\.00$/, '');
 }
-function formatAxisDate(date: string): string {
+function formatAxisDate(date: string, includeYear = false): string {
   const parsed = new Date(`${date}T00:00:00`);
   if (Number.isNaN(parsed.getTime())) return date.slice(5) || date;
-  return parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return parsed.toLocaleDateString('en-US', includeYear ? { month: 'short', year: '2-digit' } : { month: 'short', day: 'numeric' });
 }
 function HistoryLineChart({
   points,
@@ -1674,9 +1749,10 @@ function HistoryLineChart({
   yLabel?: string;
 }) {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const data = (points ?? [])
+  const cleanPoints = (points ?? [])
     .filter((point) => point.date && Number.isFinite(point.value))
-    .slice(-180);
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const data = sampleHistoryPoints(cleanPoints);
   const W = 640;
   const H = height;
   const padL = 54;
@@ -1696,6 +1772,9 @@ function HistoryLineChart({
   const y = (value: number) => padT + (1 - (value - mn) / (mx - mn)) * (H - padT - padB);
   const path = data.map((point, index) => `${x(index)},${y(point.value)}`).join(' L');
   const yTicks = [mn, (mn + mx) / 2, mx];
+  const firstTime = new Date(`${data[0].date}T00:00:00`).getTime();
+  const lastTime = new Date(`${data[data.length - 1].date}T00:00:00`).getTime();
+  const includeYear = Number.isFinite(firstTime) && Number.isFinite(lastTime) && (lastTime - firstTime) > 370 * 24 * 60 * 60 * 1000;
   const xTickIndexes = Array.from(
     new Set([0, Math.floor((data.length - 1) / 2), data.length - 1]),
   );
@@ -1744,7 +1823,7 @@ function HistoryLineChart({
       {xTickIndexes.map((index) => (
         <g key={index}>
           <line x1={x(index)} x2={x(index)} y1={H - padB} y2={H - padB + 4} stroke={M.line2} />
-          <text x={x(index)} y={H - 11} textAnchor="middle" fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{formatAxisDate(data[index].date)}</text>
+          <text x={x(index)} y={H - 11} textAnchor="middle" fill={M.inkFaint} fontSize={10} fontFamily={M.mono}>{formatAxisDate(data[index].date, includeYear)}</text>
         </g>
       ))}
       {yLabel ? (
@@ -1938,6 +2017,7 @@ function ThemeCard({ theme }: { theme: NarrTheme }) {
 // ═══════════════════════════════════════════════════════════════════
 export default function MacroPage() {
   const authFetcher = useAuthFetcher();
+  const [regimeScoreWindow, setRegimeScoreWindow] = useState<RegimeScoreHistoryWindow>('90d');
 
   const { data: forecastRaw, error: forecastError, isLoading: forecastLoading } = useSWR<MacroForecastPayload>(
     authFetcher.isSignedIn ? FORECAST_ENDPOINT : null,
@@ -1987,11 +2067,6 @@ export default function MacroPage() {
     }),
     [forecast, forecastLoading, forecastUnavailableMessage],
   );
-  const compositeScoreHistory = useMemo(
-    () => indicatorHistory.score_total?.points ?? [],
-    [indicatorHistory],
-  );
-
   // Current daily regime read — only the top pulse/layer cards use this.
   const { data: regimeRaw } = useSWR<AnyRecord>(
     authFetcher.isSignedIn ? REGIME_ENDPOINT : null,
@@ -2002,24 +2077,14 @@ export default function MacroPage() {
     () => normalizeRegime(regimeRaw),
     [regimeRaw],
   );
-  const { data: regimeHistoryRaw } = useSWR<RegimeHistoryPayload>(
-    authFetcher.isSignedIn ? `${REGIME_HISTORY_ENDPOINT}?days=90` : null,
+  const { data: regimeHistoryRaw, error: regimeHistoryError, isLoading: regimeHistoryLoading } = useSWR<RegimeHistoryPayload, Error>(
+    authFetcher.isSignedIn ? REGIME_SCORE_HISTORY_ENDPOINT(regimeScoreWindow) : null,
     authFetcher.fetcher,
     { refreshInterval: 300000, revalidateOnFocus: false, onError: () => null },
   );
   const regimeScoreHistory = useMemo(
-    () => {
-      const indicatorScoreHistory = filterHistoryWindow(compositeScoreHistory, 90);
-      if (indicatorScoreHistory.length) {
-        return { points: indicatorScoreHistory, source: 'macro_indicator_history.score_total' };
-      }
-      const fromRegimeHistory = normalizeRegimeScoreHistory(regimeHistoryRaw);
-      return {
-        points: fromRegimeHistory,
-        source: fromRegimeHistory.length ? 'market_regime_snapshots' : 'unavailable',
-      };
-    },
-    [regimeHistoryRaw, compositeScoreHistory],
+    () => normalizeRegimeScoreHistory(regimeHistoryRaw),
+    [regimeHistoryRaw],
   );
 
   // SPY narrative — same endpoint the /narrative page uses.
@@ -2064,7 +2129,12 @@ export default function MacroPage() {
           f={forecast}
           regime={regime}
           scoreHistory={regimeScoreHistory.points}
+          scoreHistoryMeta={regimeScoreHistory}
+          scoreHistoryWindow={regimeScoreWindow}
+          onScoreHistoryWindowChange={setRegimeScoreWindow}
           scoreHistorySource={regimeScoreHistory.source}
+          scoreHistoryError={regimeHistoryError}
+          scoreHistoryLoading={regimeHistoryLoading}
           layerDetail={layerDetailRaw}
           layerError={layerDetailError}
           layerLoading={layerDetailLoading}

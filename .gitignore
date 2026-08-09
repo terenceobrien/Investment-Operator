@@ -21,6 +21,10 @@ __pycache__/
 !backend/data/backtest_master_file.csv
 !backend/data/universe/
 !backend/data/universe/*.csv
+!backend/data/agent_system/classifier_cache/
+!backend/data/agent_system/classifier_cache/**
+!backend/data/agent_system/bvar_cache/
+!backend/data/agent_system/bvar_cache/**
 
 # VS Code settings (optional)
 .vscode/
@@ -46,4 +50,3 @@ data/narrative/errors/
 helix_screener/
 !backend/data/agent_system/classifier_cache/
 !backend/data/agent_system/classifier_cache/**
-backend/data/agent_system/bvar_cache/archive/
