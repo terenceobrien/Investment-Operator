@@ -192,15 +192,20 @@ def _fetch_monetary(
 
     # Net liquidity = Fed balance sheet - TGA - RRP
     walcl = _fred("WALCL", asof_date=asof_date)      # Fed balance sheet (millions)
-    tga   = _fred("WTREGEN", asof_date=asof_date)    # Treasury General Account (billions)
+    tga   = _fred("WTREGEN", asof_date=asof_date)    # Treasury General Account (millions)
     rrp   = _fred("RRPONTSYD", asof_date=asof_date)  # Overnight reverse repo (billions)
 
     if not walcl.empty and not tga.empty and not rrp.empty:
         try:
             walcl_b = walcl / 1000  # millions -> billions
+            tga_b = tga / 1000  # millions -> billions
             # Align to weekly frequency
-            combined = pd.concat([walcl_b, tga, rrp], axis=1).ffill().dropna()
+            combined = pd.concat([walcl_b, tga_b, rrp], axis=1).ffill().dropna()
             combined.columns = ["walcl", "tga", "rrp"]
+            print(combined.tail(3))          # <- add this
+            print("walcl_b last:", walcl_b.iloc[-1], walcl_b.index[-1])
+            print("tga_b last:", tga_b.iloc[-1], tga_b.index[-1])
+            print("rrp last:", rrp.iloc[-1], rrp.index[-1])
             net_liq = combined["walcl"] - combined["tga"] - combined["rrp"]
             inputs.net_liquidity = _safe_last(net_liq)
             z = _z_score(net_liq, window=52)
