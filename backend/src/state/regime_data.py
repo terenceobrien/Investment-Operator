@@ -12,8 +12,10 @@ from __future__ import annotations
 import os
 import requests
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
+from pathlib import Path
 from typing import Optional
+from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 
@@ -51,7 +53,7 @@ class RegimeInputs:
 
     # Layer 4 — Breadth
     pct_above_200d:         Optional[float] = None
-    avg_dist_from_200d:     Optional[float] = None   # avg % distance of 11 sector ETFs from their 200d MA
+    avg_dist_from_200d:     Optional[float] = None   # avg % distance of S&P 500 constituents from their 200d MA
     sectors_green:           Optional[int]   = None
     rsp_vs_spy_z:           Optional[float] = None
     adl_slope:              Optional[float] = None
@@ -65,6 +67,36 @@ class RegimeInputs:
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+
+@dataclass(frozen=True)
+class ConstituentHistoryResult:
+    universe: str
+    data: pd.DataFrame
+    cache_path: Path
+    requested_count: int
+    successful_ticker_count: int
+    failed_tickers: tuple[str, ...]
+    latest_cached_date: Optional[str]
+    live_download_attempted: bool
+    live_download_succeeded: bool
+    cached_fallback_used: bool
+
+
+@dataclass(frozen=True)
+class Breadth200dResult:
+    pct_above_200d: Optional[float]
+    avg_dist_from_200d: Optional[float]
+    valid_count: int
+
+
+SECTOR_ETFS = ["XLK", "XLF", "XLV", "XLY", "XLP", "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
+CONSTITUENT_UNIVERSE_FILES = {
+    "sp500": "sp500.csv",
+    "nasdaq100": "nasdaq100.csv",
+}
+CONSTITUENT_BOOTSTRAP_CALENDAR_DAYS = 450
+CONSTITUENT_CACHE_COLUMNS = ["date", "ticker", "yahoo_symbol", "adjusted_close"]
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -180,6 +212,498 @@ def _yf_close(
     except Exception as e:
         print(f"yfinance fetch failed for {ticker}: {e}")
         return pd.Series(dtype=float)
+
+
+# ── Constituent breadth helpers ───────────────────────────────────────────────
+
+def _constituent_cache_root(cache_root: Optional[Path] = None) -> Path:
+    if cache_root is not None:
+        root = Path(cache_root)
+    else:
+        from src.agent_system.paths import cache_dir
+
+        root = cache_dir(create=True) / "breadth"
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
+
+def _constituent_cache_path(universe: str, cache_root: Optional[Path] = None) -> Path:
+    universe_key = _normalize_universe(universe)
+    return _constituent_cache_root(cache_root) / f"{universe_key}_prices.parquet"
+
+
+def _normalize_universe(universe: str) -> str:
+    key = str(universe).strip().lower().replace("-", "").replace("_", "").replace(" ", "")
+    aliases = {
+        "sp": "sp500",
+        "s&p500": "sp500",
+        "sp500": "sp500",
+        "sandp500": "sp500",
+        "nasdaq": "nasdaq100",
+        "ndx": "nasdaq100",
+        "nasdaq100": "nasdaq100",
+    }
+    if key not in aliases:
+        raise ValueError(
+            f"Unsupported constituent universe '{universe}'. "
+            f"Expected one of {sorted(CONSTITUENT_UNIVERSE_FILES)}."
+        )
+    return aliases[key]
+
+
+def load_constituent_list(
+    universe: str = "sp500",
+    universe_root: Optional[Path] = None,
+) -> list[str]:
+    """Load canonical constituent tickers from backend/data/universe.
+
+    The files represent current membership. That is appropriate for current/live
+    breadth readings, but it is not a point-in-time historical S&P 500 database;
+    using these same members historically would introduce survivorship bias.
+    """
+    universe_key = _normalize_universe(universe)
+    if universe_root is None:
+        from src.agent_system.paths import universe_dir
+
+        root = universe_dir(create=False)
+    else:
+        root = Path(universe_root)
+    path = root / CONSTITUENT_UNIVERSE_FILES[universe_key]
+    if not path.exists():
+        raise FileNotFoundError(f"Constituent universe file not found: {path}")
+
+    frame = pd.read_csv(path)
+    if "ticker" not in frame.columns:
+        raise ValueError(f"Expected 'ticker' column in constituent universe file: {path}")
+    tickers = (
+        frame["ticker"]
+        .dropna()
+        .astype(str)
+        .str.strip()
+        .str.upper()
+    )
+    return list(dict.fromkeys(ticker for ticker in tickers if ticker))
+
+
+def yahoo_symbol(ticker: str) -> str:
+    """Map canonical Helix/index tickers to Yahoo-compatible symbols."""
+    return str(ticker).strip().upper().replace(".", "-")
+
+
+def _latest_completed_daily_bar_date(asof_date: Optional[str] = None) -> pd.Timestamp:
+    if asof_date is not None:
+        return pd.Timestamp(asof_date).normalize().tz_localize(None)
+
+    now_et = datetime.now(ZoneInfo("America/New_York"))
+    today = pd.Timestamp(now_et.date())
+    after_daily_bar_settle = now_et.weekday() < 5 and now_et.time() >= time(18, 0)
+    if after_daily_bar_settle:
+        return today
+    return pd.Timestamp(today - pd.offsets.BDay(1)).normalize()
+
+
+def _empty_constituent_cache() -> pd.DataFrame:
+    return pd.DataFrame(columns=CONSTITUENT_CACHE_COLUMNS)
+
+
+def _clean_constituent_prices(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame is None or frame.empty:
+        return _empty_constituent_cache()
+    missing = [col for col in CONSTITUENT_CACHE_COLUMNS if col not in frame.columns]
+    if missing:
+        raise ValueError(f"Constituent price frame missing columns: {missing}")
+
+    clean = frame[CONSTITUENT_CACHE_COLUMNS].copy()
+    clean["date"] = pd.to_datetime(clean["date"], errors="coerce").dt.tz_localize(None)
+    clean["ticker"] = clean["ticker"].astype(str).str.strip().str.upper()
+    clean["yahoo_symbol"] = clean["yahoo_symbol"].astype(str).str.strip().str.upper()
+    clean["adjusted_close"] = pd.to_numeric(clean["adjusted_close"], errors="coerce")
+    clean = clean.dropna(subset=["date", "ticker", "adjusted_close"])
+    clean = clean[clean["adjusted_close"] > 0]
+    if clean.empty:
+        return _empty_constituent_cache()
+    clean["date"] = clean["date"].dt.normalize()
+    clean = (
+        clean.drop_duplicates(["date", "ticker"], keep="last")
+        .sort_values(["date", "ticker"])
+        .reset_index(drop=True)
+    )
+    return clean
+
+
+def load_constituent_cache(
+    universe: str = "sp500",
+    cache_root: Optional[Path] = None,
+) -> pd.DataFrame:
+    path = _constituent_cache_path(universe, cache_root)
+    if not path.exists():
+        return _empty_constituent_cache()
+    try:
+        return _clean_constituent_prices(pd.read_parquet(path))
+    except Exception as e:
+        print(f"    constituent cache read failed for {path}: {e}")
+        return _empty_constituent_cache()
+
+
+def _write_constituent_cache(frame: pd.DataFrame, path: Path) -> None:
+    clean = _clean_constituent_prices(frame)
+    if clean.empty:
+        raise ValueError("Refusing to write empty constituent cache.")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_name(f"{path.name}.tmp.{os.getpid()}")
+    try:
+        clean.to_parquet(tmp_path, index=False)
+        tmp_path.replace(path)
+    finally:
+        if tmp_path.exists():
+            try:
+                tmp_path.unlink()
+            except OSError:
+                pass
+
+
+def _download_adjusted_close_for_symbol(
+    data: pd.DataFrame,
+    symbol: str,
+) -> pd.Series:
+    if data is None or data.empty:
+        return pd.Series(dtype=float)
+
+    columns = getattr(data, "columns", None)
+    if isinstance(columns, pd.MultiIndex):
+        if symbol in columns.get_level_values(0):
+            sub = data[symbol]
+        elif symbol in columns.get_level_values(1):
+            sub = data.xs(symbol, axis=1, level=1)
+        else:
+            return pd.Series(dtype=float)
+    else:
+        sub = data
+
+    field = "Adj Close" if "Adj Close" in sub.columns else "Close" if "Close" in sub.columns else None
+    if field is None:
+        return pd.Series(dtype=float)
+    series = pd.to_numeric(sub[field].squeeze(), errors="coerce").dropna()
+    if series.empty:
+        return pd.Series(dtype=float)
+    series.index = pd.to_datetime(series.index, errors="coerce").tz_localize(None).normalize()
+    return series.dropna()
+
+
+def fetch_constituent_prices(
+    tickers: list[str],
+    start: pd.Timestamp,
+    end: pd.Timestamp,
+    batch_size: int = 100,
+) -> tuple[pd.DataFrame, list[str]]:
+    """Fetch adjusted closes in Yahoo batches; failures return as ticker symbols."""
+    if not tickers:
+        return _empty_constituent_cache(), []
+
+    import yfinance as yf
+
+    rows: list[pd.DataFrame] = []
+    failed: set[str] = set()
+    symbol_map = {ticker: yahoo_symbol(ticker) for ticker in tickers}
+    ordered = list(symbol_map.items())
+
+    for offset in range(0, len(ordered), batch_size):
+        batch = ordered[offset : offset + batch_size]
+        yahoo_symbols = [symbol for _, symbol in batch]
+        try:
+            data = yf.download(
+                yahoo_symbols,
+                start=start.strftime("%Y-%m-%d"),
+                end=end.strftime("%Y-%m-%d"),
+                progress=False,
+                auto_adjust=False,
+                threads=True,
+                group_by="ticker",
+            )
+        except Exception as e:
+            print(f"    yfinance batch failed ({offset + 1}-{offset + len(batch)}): {e}")
+            failed.update(ticker for ticker, _ in batch)
+            continue
+
+        for ticker, symbol in batch:
+            closes = _download_adjusted_close_for_symbol(data, symbol)
+            if closes.empty:
+                failed.add(ticker)
+                continue
+            rows.append(
+                pd.DataFrame(
+                    {
+                        "date": closes.index,
+                        "ticker": ticker,
+                        "yahoo_symbol": symbol,
+                        "adjusted_close": closes.to_numpy(dtype=float),
+                    }
+                )
+            )
+
+    if not rows:
+        return _empty_constituent_cache(), sorted(failed)
+    downloaded = _clean_constituent_prices(pd.concat(rows, ignore_index=True))
+    successful = set(downloaded["ticker"].unique())
+    failed.update(ticker for ticker in tickers if ticker not in successful)
+    return downloaded, sorted(failed)
+
+
+def update_constituent_cache(
+    universe: str = "sp500",
+    *,
+    asof_date: Optional[str] = None,
+    cache_root: Optional[Path] = None,
+    universe_root: Optional[Path] = None,
+    bootstrap_calendar_days: int = CONSTITUENT_BOOTSTRAP_CALENDAR_DAYS,
+) -> ConstituentHistoryResult:
+    """Load/update constituent adjusted-close history with safe cached fallback."""
+    universe_key = _normalize_universe(universe)
+    tickers = load_constituent_list(universe_key, universe_root=universe_root)
+    cache_path = _constituent_cache_path(universe_key, cache_root)
+    cached = load_constituent_cache(universe_key, cache_root=cache_root)
+    latest_needed = _latest_completed_daily_bar_date(asof_date)
+    bootstrap_start = latest_needed - pd.Timedelta(days=bootstrap_calendar_days)
+
+    if cached.empty:
+        download_start = bootstrap_start
+    else:
+        cache_dates = pd.to_datetime(cached["date"])
+        cache_min = cache_dates.min().normalize()
+        cache_max = cache_dates.max().normalize()
+        if cache_min > bootstrap_start:
+            download_start = bootstrap_start
+        elif cache_max < latest_needed:
+            download_start = cache_max + pd.Timedelta(days=1)
+        else:
+            download_start = None
+
+    live_download_attempted = download_start is not None
+    live_download_succeeded = False
+    cached_fallback_used = False
+    failed_tickers: list[str] = []
+    merged = cached
+
+    if live_download_attempted:
+        download_end = latest_needed + pd.Timedelta(days=1)
+        downloaded = _empty_constituent_cache()
+        try:
+            downloaded, failed_tickers = fetch_constituent_prices(
+                tickers,
+                pd.Timestamp(download_start).normalize(),
+                pd.Timestamp(download_end).normalize(),
+            )
+        except Exception as e:
+            print(f"    constituent history download failed for {universe_key}: {e}")
+            failed_tickers = tickers.copy()
+
+        if not downloaded.empty:
+            live_download_succeeded = True
+            if cached.empty:
+                merged = downloaded
+            else:
+                merged = _clean_constituent_prices(
+                    pd.concat([cached, downloaded], ignore_index=True)
+                )
+            try:
+                _write_constituent_cache(merged, cache_path)
+            except Exception as e:
+                print(f"    constituent cache write failed for {cache_path}: {e}")
+        elif not cached.empty:
+            cached_fallback_used = True
+            print(
+                f"    using cached {universe_key} constituent data after empty/failed download"
+            )
+        else:
+            print(f"    no usable {universe_key} constituent data available")
+
+    if not merged.empty:
+        merged = merged[merged["ticker"].isin(tickers)].copy()
+        if asof_date is not None:
+            asof_ts = pd.Timestamp(asof_date).normalize()
+            merged = merged[pd.to_datetime(merged["date"]) <= asof_ts].copy()
+
+    latest_cached_date = None
+    successful_count = 0
+    if not merged.empty:
+        latest_cached_date = pd.to_datetime(merged["date"]).max().strftime("%Y-%m-%d")
+        successful_count = int(merged["ticker"].nunique())
+        if not failed_tickers:
+            loaded = set(merged["ticker"].unique())
+            failed_tickers = sorted(ticker for ticker in tickers if ticker not in loaded)
+
+    return ConstituentHistoryResult(
+        universe=universe_key,
+        data=merged,
+        cache_path=cache_path,
+        requested_count=len(tickers),
+        successful_ticker_count=successful_count,
+        failed_tickers=tuple(sorted(set(failed_tickers))),
+        latest_cached_date=latest_cached_date,
+        live_download_attempted=live_download_attempted,
+        live_download_succeeded=live_download_succeeded,
+        cached_fallback_used=cached_fallback_used,
+    )
+
+
+def get_constituent_history(
+    universe: str = "sp500",
+    *,
+    asof_date: Optional[str] = None,
+    cache_root: Optional[Path] = None,
+    universe_root: Optional[Path] = None,
+) -> ConstituentHistoryResult:
+    return update_constituent_cache(
+        universe,
+        asof_date=asof_date,
+        cache_root=cache_root,
+        universe_root=universe_root,
+    )
+
+
+def _constituent_price_matrix(history: pd.DataFrame) -> pd.DataFrame:
+    clean = _clean_constituent_prices(history)
+    if clean.empty:
+        return pd.DataFrame(dtype=float)
+    matrix = clean.pivot(index="date", columns="ticker", values="adjusted_close")
+    matrix.index = pd.to_datetime(matrix.index).tz_localize(None).normalize()
+    return matrix.sort_index()
+
+
+def calculate_200d_breadth(prices: pd.DataFrame, window: int = 200) -> Breadth200dResult:
+    if prices is None or prices.empty:
+        return Breadth200dResult(None, None, 0)
+    ma = prices.rolling(window, min_periods=window).mean()
+    latest_date = prices.index.max()
+    current = prices.loc[latest_date]
+    ma_latest = ma.loc[latest_date]
+    valid = current.notna() & ma_latest.notna() & ma_latest.ne(0)
+    valid_count = int(valid.sum())
+    if valid_count == 0:
+        return Breadth200dResult(None, None, 0)
+    above = current[valid] > ma_latest[valid]
+    distances = (current[valid] - ma_latest[valid]) / ma_latest[valid] * 100.0
+    return Breadth200dResult(
+        pct_above_200d=float(above.mean() * 100.0),
+        avg_dist_from_200d=float(distances.mean()),
+        valid_count=valid_count,
+    )
+
+
+def calculate_pct_above_200d(prices: pd.DataFrame, window: int = 200) -> tuple[Optional[float], int]:
+    result = calculate_200d_breadth(prices, window=window)
+    return result.pct_above_200d, result.valid_count
+
+
+def calculate_avg_distance_200d(prices: pd.DataFrame, window: int = 200) -> tuple[Optional[float], int]:
+    result = calculate_200d_breadth(prices, window=window)
+    return result.avg_dist_from_200d, result.valid_count
+
+
+def calculate_advance_decline_line(prices: pd.DataFrame) -> pd.Series:
+    """Return normalized constituent ADL from stock-level advances/declines.
+
+    The score thresholds were built around an 11-sector ADL proxy. A raw
+    500-stock ADL slope would be a different unit and much larger magnitude, so
+    daily net advances are normalized by valid constituent count before the ADL
+    is accumulated. This keeps the input comparable through time and compatible
+    with the existing Layer 4 scoring scale.
+    """
+    if prices is None or prices.empty:
+        return pd.Series(dtype=float)
+    changes = prices.diff()
+    valid = prices.notna() & prices.shift(1).notna()
+    advances = changes.gt(0) & valid
+    declines = changes.lt(0) & valid
+    valid_count = valid.sum(axis=1).replace(0, np.nan)
+    normalized_net_advances = (advances.sum(axis=1) - declines.sum(axis=1)) / valid_count
+    return normalized_net_advances.dropna().cumsum()
+
+
+def calculate_adl_slope(adl: pd.Series, window: int = 20) -> Optional[float]:
+    recent = pd.to_numeric(adl, errors="coerce").dropna().tail(window)
+    if len(recent) < window:
+        return None
+    x = np.arange(len(recent))
+    slope, _ = np.polyfit(x, recent.to_numpy(dtype=float), 1)
+    return float(slope)
+
+
+def calculate_rsp_vs_spy_z(asof_date: Optional[str] = None) -> Optional[float]:
+    rsp = _yf_close("RSP", asof_date=asof_date)
+    spy = _yf_close("SPY", asof_date=asof_date)
+    if rsp.empty or spy.empty:
+        return None
+    ratio = (rsp / spy).dropna()
+    return _z_score(ratio, window=252)
+
+
+def calculate_sectors_green(asof_date: Optional[str] = None) -> Optional[int]:
+    green_count = 0
+    valid_count = 0
+    latest_allowed = _latest_completed_daily_bar_date(asof_date)
+    for etf in SECTOR_ETFS:
+        closes = _yf_close(etf, asof_date=asof_date)
+        if not closes.empty:
+            close_dates = pd.to_datetime(closes.index).tz_localize(None).normalize()
+            closes = closes.loc[close_dates <= latest_allowed]
+        if len(closes) < 2:
+            continue
+        valid_count += 1
+        if closes.iloc[-1] > closes.iloc[-2]:
+            green_count += 1
+    return green_count if valid_count else None
+
+
+def _valid_advance_decline_count(prices: pd.DataFrame) -> int:
+    if prices is None or prices.empty:
+        return 0
+    latest_date = prices.index.max()
+    valid = prices.notna() & prices.shift(1).notna()
+    return int(valid.loc[latest_date].sum()) if latest_date in valid.index else 0
+
+
+def _print_breadth_snapshot(
+    inputs: RegimeInputs,
+    history_result: ConstituentHistoryResult,
+    valid_ma200_count: int,
+    valid_ad_count: int,
+) -> None:
+    print("    Breadth constituent universe:")
+    print(f"      S&P 500 requested: {history_result.requested_count}")
+    print(f"      Successfully loaded: {history_result.successful_ticker_count}")
+    print(f"      Valid MA200: {valid_ma200_count}")
+    print(f"      Valid A/D: {valid_ad_count}")
+    print(f"      Latest cached market data: {history_result.latest_cached_date or 'n/a'}")
+    print(
+        "      Download status: "
+        f"attempted={history_result.live_download_attempted}, "
+        f"succeeded={history_result.live_download_succeeded}, "
+        f"cached_fallback={history_result.cached_fallback_used}"
+    )
+    if history_result.failed_tickers:
+        sample = ", ".join(history_result.failed_tickers[:20])
+        suffix = "..." if len(history_result.failed_tickers) > 20 else ""
+        print(f"      Failed/missing tickers: {sample}{suffix}")
+
+    print(f"    pct_above_200d: {inputs.pct_above_200d if inputs.pct_above_200d is not None else 'n/a'}")
+    print(f"    avg_dist_from_200d: {inputs.avg_dist_from_200d if inputs.avg_dist_from_200d is not None else 'n/a'}")
+    print(f"    rsp_vs_spy_z: {inputs.rsp_vs_spy_z if inputs.rsp_vs_spy_z is not None else 'n/a'}")
+    print(f"    adl_slope: {inputs.adl_slope if inputs.adl_slope is not None else 'n/a'}")
+    print(f"    sectors_green: {inputs.sectors_green if inputs.sectors_green is not None else 'n/a'}")
+    try:
+        from src.state.regime_layers import score_breadth
+
+        layer = score_breadth(
+            pct_above_200d=inputs.pct_above_200d,
+            avg_dist_from_200d=inputs.avg_dist_from_200d,
+            sectors_green=inputs.sectors_green,
+            rsp_vs_spy_z=inputs.rsp_vs_spy_z,
+            adl_slope=inputs.adl_slope,
+        )
+        print(f"    Layer 4 score: {layer.score:.2f}")
+    except Exception as e:
+        print(f"    Layer 4 score snapshot unavailable: {e}")
 
 
 # ── Layer 1: Monetary ─────────────────────────────────────────────────────────
@@ -326,92 +850,61 @@ def _fetch_breadth(
 ) -> None:
     print("  Fetching breadth & participation data...")
 
-    if sectors_green is None and asof_date is not None:
+    if sectors_green is None:
         try:
-            sector_etfs = ["XLK", "XLF", "XLV", "XLY", "XLP",
-                           "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
-            green_count = 0
-            for etf in sector_etfs:
-                closes = _yf_close(etf, asof_date=asof_date)
-                if len(closes) >= 2 and closes.iloc[-1] > closes.iloc[-2]:
-                    green_count += 1
-            sectors_green = green_count
-            print(f"    sectors_green (historical)={sectors_green}/11")
+            sectors_green = calculate_sectors_green(asof_date=asof_date)
+            label = "historical" if asof_date is not None else "fallback"
+            print(f"    sectors_green ({label})={sectors_green}/11")
         except Exception as e:
-            print(f"    sectors_green historical compute failed: {e}")
+            print(f"    sectors_green compute failed: {e}")
 
     inputs.sectors_green = sectors_green
 
     # RSP vs SPY ratio z-score
-    rsp = _yf_close("RSP", asof_date=asof_date)
-    spy = _yf_close("SPY", asof_date=asof_date)
-    if not rsp.empty and not spy.empty:
-        try:
-            ratio = (rsp / spy).dropna()
-            inputs.rsp_vs_spy_z = _z_score(ratio, window=252)
+    try:
+        inputs.rsp_vs_spy_z = calculate_rsp_vs_spy_z(asof_date=asof_date)
+        if inputs.rsp_vs_spy_z is not None:
             print(f"    rsp_vs_spy_z={inputs.rsp_vs_spy_z}")
-        except Exception:
-            pass
-
-    # Continuous breadth proxy: average % distance from 200d MA across 11 sector ETFs.
-    # Replaces the older binary "above/below 200d" indicator which had only 12
-    # possible values. Positive = average sector is above its 200d MA.
-    try:
-        sector_etfs = ["XLK", "XLF", "XLV", "XLY", "XLP",
-                        "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
-        distances_pct = []
-        above_count = 0
-
-        for etf in sector_etfs:
-            closes = _yf_close(etf, period="2y", asof_date=asof_date)
-            if closes.empty or len(closes) < 200:
-                continue
-            ma200 = closes.rolling(200).mean().iloc[-1]
-            if pd.isna(ma200) or ma200 == 0:
-                continue
-            current = closes.iloc[-1]
-            distance_pct = (current - ma200) / ma200 * 100
-            distances_pct.append(float(distance_pct))
-            if current > ma200:
-                above_count += 1
-
-        if distances_pct:
-            inputs.avg_dist_from_200d = round(sum(distances_pct) / len(distances_pct), 2)
-            inputs.pct_above_200d = round(above_count / len(distances_pct) * 100, 1)
-            print(
-                f"    avg_dist_from_200d={inputs.avg_dist_from_200d}%  "
-                f"pct_above_200d={inputs.pct_above_200d}%"
-            )
     except Exception as e:
-        print(f"    breadth distance compute failed: {e}")
+        print(f"    rsp_vs_spy_z compute failed: {e}")
 
-    # Sector-level advance/decline line approximation.
-    # True ADL uses individual stocks. This coarser proxy captures whether
-    # participation is broadening or narrowing across the 11 sector ETFs.
+    history_result: Optional[ConstituentHistoryResult] = None
+    valid_ma200_count = 0
+    valid_ad_count = 0
+
+    # Stock-level breadth from current S&P 500 constituents. This is a live/current
+    # data-quality upgrade, not a point-in-time historical membership database.
     try:
-        sector_etfs = ["XLK", "XLF", "XLV", "XLY", "XLP",
-                        "XLE", "XLI", "XLB", "XLU", "XLRE", "XLC"]
+        history_result = get_constituent_history("sp500", asof_date=asof_date)
+        prices = _constituent_price_matrix(history_result.data)
 
-        daily_changes = {}
-        for etf in sector_etfs:
-            closes = _yf_close(etf, period="2y", asof_date=asof_date)
-            if closes.empty or len(closes) < 30:
-                continue
-            daily_changes[etf] = closes.pct_change()
+        breadth_200d = calculate_200d_breadth(prices)
+        valid_ma200_count = breadth_200d.valid_count
+        if breadth_200d.pct_above_200d is not None:
+            inputs.pct_above_200d = round(breadth_200d.pct_above_200d, 1)
+        if breadth_200d.avg_dist_from_200d is not None:
+            inputs.avg_dist_from_200d = round(breadth_200d.avg_dist_from_200d, 2)
 
-        if len(daily_changes) >= 6:
-            returns_df = pd.DataFrame(daily_changes).dropna(how="all")
-            ad_per_day = (returns_df > 0).sum(axis=1) - (returns_df < 0).sum(axis=1)
-            adl = ad_per_day.cumsum()
+        valid_ad_count = _valid_advance_decline_count(prices)
+        adl = calculate_advance_decline_line(prices)
+        inputs.adl_slope = calculate_adl_slope(adl, window=20)
 
-            if len(adl) >= 20:
-                recent = adl.tail(20).values
-                x = np.arange(len(recent))
-                slope, _ = np.polyfit(x, recent, 1)
-                inputs.adl_slope = float(slope)
-                print(f"    adl_slope (sector-level, 20d)={inputs.adl_slope:+.3f}")
+        print(
+            f"    avg_dist_from_200d={inputs.avg_dist_from_200d}%  "
+            f"pct_above_200d={inputs.pct_above_200d}%"
+        )
+        if inputs.adl_slope is not None:
+            print(f"    adl_slope (normalized constituent ADL, 20d)={inputs.adl_slope:+.3f}")
     except Exception as e:
-        print(f"    adl_slope compute failed: {e}")
+        print(f"    constituent breadth compute failed: {e}")
+
+    if history_result is not None:
+        _print_breadth_snapshot(
+            inputs,
+            history_result,
+            valid_ma200_count=valid_ma200_count,
+            valid_ad_count=valid_ad_count,
+        )
 
 
 # ── Layer 5: Positioning ──────────────────────────────────────────────────────

@@ -435,7 +435,7 @@ def score_breadth(
     avg_dist_from_200d: Optional[float] = None,   # avg % distance from 200d MA
     sectors_green: Optional[int] = None,           # raw count out of 11
     rsp_vs_spy_z: Optional[float] = None,          # equal vs cap weight z-score
-    adl_slope: Optional[float] = None,             # sector-level ADL 20d slope
+    adl_slope: Optional[float] = None,             # normalized constituent ADL 20d slope
 ) -> LayerScore:
     """
     Breadth & Participation layer.
@@ -445,7 +445,7 @@ def score_breadth(
     Inputs (with weights for the weighted average):
         avg_dist_from_200d (35%) — continuous distance from 200d MA
         rsp_vs_spy_z       (30%) — equal vs cap-weight z-score
-        adl_slope          (20%) — sector ADL trend direction
+        adl_slope          (20%) — normalized constituent ADL trend direction
         sectors_green      (15%) — noisy daily snapshot
 
     pct_above_200d is retained for diagnostic display but not scored.
@@ -470,15 +470,15 @@ def score_breadth(
         )
         component_weight_pairs.append((s, P["breadth.avg_dist_from_200d.weight"]))
         if d < P["breadth.avg_dist_from_200d.below_signal_threshold"]:
-            signals.append(f"Sector avg {d:+.1f}% below 200d MA — broad downtrend")
+            signals.append(f"Constituent avg {d:+.1f}% below 200d MA — broad downtrend")
         elif d > P["breadth.avg_dist_from_200d.above_signal_threshold"]:
-            signals.append(f"Sector avg {d:+.1f}% above 200d MA — broad uptrend")
+            signals.append(f"Constituent avg {d:+.1f}% above 200d MA — broad uptrend")
         elif (
             P["breadth.avg_dist_from_200d.transition_zone_lo"]
             <= d
             <= P["breadth.avg_dist_from_200d.transition_zone_hi"]
         ):
-            signals.append(f"Sector avg near 200d MA ({d:+.1f}%) — transition zone")
+            signals.append(f"Constituent avg near 200d MA ({d:+.1f}%) — transition zone")
 
     if inputs["rsp_vs_spy_z"] is not None:
         s = _scale(
@@ -500,9 +500,9 @@ def score_breadth(
         )
         component_weight_pairs.append((s, P["breadth.adl_slope.weight"]))
         if inputs["adl_slope"] < P["breadth.adl_slope.deteriorating_signal_threshold"]:
-            signals.append("Sector ADL slope sharply negative — participation deteriorating")
+            signals.append("Constituent ADL slope sharply negative — participation deteriorating")
         elif inputs["adl_slope"] > P["breadth.adl_slope.broadening_signal_threshold"]:
-            signals.append("Sector ADL slope rising — participation broadening")
+            signals.append("Constituent ADL slope rising — participation broadening")
 
     if inputs["sectors_green"] is not None:
         s = _scale(
