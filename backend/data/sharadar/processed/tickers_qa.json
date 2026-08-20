@@ -1,0 +1,262 @@
+{
+  "generated_at": "2026-08-15T01:04:23.997556+00:00",
+  "total_rows": 62779,
+  "table_counts": [
+    {
+      "table": "SEP",
+      "rows": 21962
+    },
+    {
+      "table": "SF1",
+      "rows": 17817
+    },
+    {
+      "table": "SF3B",
+      "rows": 13209
+    },
+    {
+      "table": "SFP",
+      "rows": 9791
+    }
+  ],
+  "duplicate_tickers": {
+    "label": "duplicate ticker values across all Sharadar tables",
+    "duplicate_keys": 17796,
+    "examples": [
+      {
+        "ticker": "N/A",
+        "rows": 13209
+      },
+      {
+        "ticker": "ADT1",
+        "rows": 2
+      },
+      {
+        "ticker": "AAMCF",
+        "rows": 2
+      },
+      {
+        "ticker": "ADAC1",
+        "rows": 2
+      },
+      {
+        "ticker": "ABIO1",
+        "rows": 2
+      },
+      {
+        "ticker": "ACTI",
+        "rows": 2
+      },
+      {
+        "ticker": "ACVC",
+        "rows": 2
+      },
+      {
+        "ticker": "AERG",
+        "rows": 2
+      },
+      {
+        "ticker": "ADLR",
+        "rows": 2
+      },
+      {
+        "ticker": "ADMS",
+        "rows": 2
+      },
+      {
+        "ticker": "ADSK",
+        "rows": 2
+      },
+      {
+        "ticker": "ADSW",
+        "rows": 2
+      },
+      {
+        "ticker": "AAWW",
+        "rows": 2
+      },
+      {
+        "ticker": "ADZA",
+        "rows": 2
+      },
+      {
+        "ticker": "AEON",
+        "rows": 2
+      },
+      {
+        "ticker": "AIQ1",
+        "rows": 2
+      },
+      {
+        "ticker": "AFIIQ",
+        "rows": 2
+      },
+      {
+        "ticker": "AFLX",
+        "rows": 2
+      },
+      {
+        "ticker": "AFRM",
+        "rows": 2
+      },
+      {
+        "ticker": "AFSC1",
+        "rows": 2
+      },
+      {
+        "ticker": "AHE",
+        "rows": 2
+      },
+      {
+        "ticker": "AHPIQ",
+        "rows": 2
+      },
+      {
+        "ticker": "AIIA",
+        "rows": 2
+      },
+      {
+        "ticker": "AIMC",
+        "rows": 2
+      },
+      {
+        "ticker": "AACC",
+        "rows": 2
+      }
+    ]
+  },
+  "duplicate_permatickers": {
+    "label": "duplicate permaticker values across all Sharadar tables",
+    "duplicate_keys": 17803,
+    "examples": [
+      {
+        "permaticker": 199867,
+        "rows": 3
+      },
+      {
+        "permaticker": 199571,
+        "rows": 3
+      },
+      {
+        "permaticker": 195843,
+        "rows": 3
+      },
+      {
+        "permaticker": 199185,
+        "rows": 3
+      },
+      {
+        "permaticker": 198830,
+        "rows": 3
+      },
+      {
+        "permaticker": 121536,
+        "rows": 3
+      },
+      {
+        "permaticker": 195425,
+        "rows": 3
+      },
+      {
+        "permaticker": 196179,
+        "rows": 3
+      },
+      {
+        "permaticker": 199495,
+        "rows": 3
+      },
+      {
+        "permaticker": 198566,
+        "rows": 3
+      },
+      {
+        "permaticker": 198535,
+        "rows": 3
+      },
+      {
+        "permaticker": 195652,
+        "rows": 3
+      },
+      {
+        "permaticker": 195694,
+        "rows": 3
+      },
+      {
+        "permaticker": 114459,
+        "rows": 3
+      },
+      {
+        "permaticker": 119344,
+        "rows": 3
+      },
+      {
+        "permaticker": 191779,
+        "rows": 3
+      },
+      {
+        "permaticker": 199840,
+        "rows": 3
+      },
+      {
+        "permaticker": 199259,
+        "rows": 3
+      },
+      {
+        "permaticker": 199306,
+        "rows": 3
+      },
+      {
+        "permaticker": 196511,
+        "rows": 3
+      },
+      {
+        "permaticker": 198807,
+        "rows": 3
+      },
+      {
+        "permaticker": 121542,
+        "rows": 3
+      },
+      {
+        "permaticker": 188223,
+        "rows": 3
+      },
+      {
+        "permaticker": 192254,
+        "rows": 3
+      },
+      {
+        "permaticker": 179780,
+        "rows": 3
+      }
+    ]
+  },
+  "duplicate_table_ticker": {
+    "label": "duplicate (table, ticker) combinations",
+    "duplicate_keys": 1,
+    "examples": [
+      {
+        "table": "SF3B",
+        "ticker": "N/A",
+        "rows": 13209
+      }
+    ]
+  },
+  "duplicate_table_permaticker": {
+    "label": "duplicate (table, permaticker) combinations",
+    "duplicate_keys": 0,
+    "examples": []
+  },
+  "ticker_to_multiple_permatickers": [
+    {
+      "table": "SF3B",
+      "ticker": "N/A",
+      "distinct_permatickers": 13209,
+      "sample_min_permaticker": 100044,
+      "sample_max_permaticker": 6401071,
+      "rows": 13209
+    }
+  ],
+  "permaticker_to_multiple_tickers": [],
+  "note": "Ticker and permaticker are diagnostics only here; no historical SP500 membership tickers are rewritten."
+}

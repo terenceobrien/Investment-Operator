@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-08-15T01:04:24.191821+00:00",
+  "coverage": [
+    {
+      "ticker": "IWM",
+      "first_price_date": "2000-05-26",
+      "last_price_date": "2026-08-13",
+      "row_count": 6592
+    },
+    {
+      "ticker": "QQQ",
+      "first_price_date": "1999-03-10",
+      "last_price_date": "2026-08-13",
+      "row_count": 6900
+    },
+    {
+      "ticker": "RSP",
+      "first_price_date": "2003-05-01",
+      "last_price_date": "2026-08-13",
+      "row_count": 5859
+    },
+    {
+      "ticker": "SPY",
+      "first_price_date": "1997-12-31",
+      "last_price_date": "2026-08-13",
+      "row_count": 7198
+    },
+    {
+      "ticker": "XLB",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLC",
+      "first_price_date": "2018-06-19",
+      "last_price_date": "2026-08-13",
+      "row_count": 2049
+    },
+    {
+      "ticker": "XLE",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLF",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLI",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLK",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLP",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLRE",
+      "first_price_date": "2015-10-08",
+      "last_price_date": "2026-08-13",
+      "row_count": 2727
+    },
+    {
+      "ticker": "XLU",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLV",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLY",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    }
+  ],
+  "missing_tickers": []
+}

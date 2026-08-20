@@ -1,0 +1,277 @@
+{
+  "script": "backend/scripts/ingest_sharadar_core.py",
+  "script_version": "2026-08-14.1",
+  "git_commit": "60d2da279f10b4f42f2ad143e9466fda6b2e1577",
+  "ingestion_timestamp": "2026-08-15T01:04:24.213988+00:00",
+  "processed_dir": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed",
+  "tables": {
+    "SEP": {
+      "source": {
+        "path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_SEP_2_da2386a176421f8ccbec6fabe5d11c0e.csv",
+        "file_name": "SHARADAR_SEP_2_da2386a176421f8ccbec6fabe5d11c0e.csv",
+        "size_bytes": 3225064238,
+        "size_human": "3.00 GB",
+        "modified_timestamp": "2026-08-14T14:54:58+00:00",
+        "columns": [
+          "ticker",
+          "date",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "closeadj",
+          "closeunadj",
+          "lastupdated"
+        ],
+        "schema_hash": "aa508a6f36ef4a6c0d2158995c5ea6efd9d0ce829b3ec4db0647f40d5a2c1bb3"
+      },
+      "output": {
+        "table": "SEP",
+        "raw_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_SEP_2_da2386a176421f8ccbec6fabe5d11c0e.csv",
+        "output_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed/sep",
+        "wrote": false,
+        "raw_size_bytes": 3225064238,
+        "processed_size_bytes": 1019670972,
+        "rows": 46273258,
+        "first_date": "1997-12-31",
+        "last_date": "2026-08-13",
+        "unique_tickers": 21962
+      },
+      "compression_ratio_raw_to_parquet": 3.1628
+    },
+    "SFP": {
+      "source": {
+        "path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_SFP_2_4f56514c067b4bbae40297a156380a56.csv",
+        "file_name": "SHARADAR_SFP_2_4f56514c067b4bbae40297a156380a56.csv",
+        "size_bytes": 1101731059,
+        "size_human": "1.03 GB",
+        "modified_timestamp": "2026-08-14T14:53:44+00:00",
+        "columns": [
+          "ticker",
+          "date",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "closeadj",
+          "closeunadj",
+          "lastupdated"
+        ],
+        "schema_hash": "aa508a6f36ef4a6c0d2158995c5ea6efd9d0ce829b3ec4db0647f40d5a2c1bb3"
+      },
+      "output": {
+        "table": "SFP",
+        "raw_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_SFP_2_4f56514c067b4bbae40297a156380a56.csv",
+        "output_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed/sfp",
+        "wrote": false,
+        "raw_size_bytes": 1101731059,
+        "processed_size_bytes": 330890932,
+        "rows": 15488228,
+        "first_date": "1997-12-31",
+        "last_date": "2026-08-13",
+        "unique_tickers": 9792
+      },
+      "compression_ratio_raw_to_parquet": 3.3296
+    },
+    "SP500": {
+      "source": {
+        "path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_SP500_2_a5d269df7633595315f85e40f3491992.csv",
+        "file_name": "SHARADAR_SP500_2_a5d269df7633595315f85e40f3491992.csv",
+        "size_bytes": 3288742,
+        "size_human": "3.14 MB",
+        "modified_timestamp": "2026-08-14T02:39:57+00:00",
+        "columns": [
+          "date",
+          "action",
+          "ticker",
+          "name",
+          "contraticker",
+          "contraname",
+          "note"
+        ],
+        "schema_hash": "8c92528592e74012f8904da0a930dbd21b2ed5a70dc10357f254931770036e86"
+      },
+      "output": {
+        "table": "SP500",
+        "raw_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_SP500_2_a5d269df7633595315f85e40f3491992.csv",
+        "output_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed/sp500.parquet",
+        "wrote": false,
+        "raw_size_bytes": 3288742,
+        "processed_size_bytes": 295956,
+        "action_values": [
+          {
+            "action": "historical",
+            "rows": 57194
+          },
+          {
+            "action": "added",
+            "rows": 1236
+          },
+          {
+            "action": "removed",
+            "rows": 739
+          },
+          {
+            "action": "current",
+            "rows": 503
+          }
+        ],
+        "historical_snapshot_dates": 114,
+        "rows": 59672,
+        "first_date": "1957-03-04",
+        "last_date": "2026-08-13",
+        "unique_tickers": 1203
+      },
+      "compression_ratio_raw_to_parquet": 11.1123
+    },
+    "TICKERS": {
+      "source": {
+        "path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_TICKERS_3_9d55c66cf84cd02091405a84d061ba83.csv",
+        "file_name": "SHARADAR_TICKERS_3_9d55c66cf84cd02091405a84d061ba83.csv",
+        "size_bytes": 20454347,
+        "size_human": "19.51 MB",
+        "modified_timestamp": "2026-08-14T03:15:21+00:00",
+        "columns": [
+          "table",
+          "permaticker",
+          "ticker",
+          "name",
+          "exchange",
+          "isdelisted",
+          "category",
+          "cusips",
+          "siccode",
+          "sicsector",
+          "sicindustry",
+          "figi",
+          "famaindustry",
+          "sector",
+          "industry",
+          "scalemarketcap",
+          "scalerevenue",
+          "relatedtickers",
+          "currency",
+          "location",
+          "lastupdated",
+          "firstadded",
+          "firstpricedate",
+          "lastpricedate",
+          "firstquarter",
+          "lastquarter",
+          "secfilings",
+          "companysite"
+        ],
+        "schema_hash": "658d2fb41d30b5c39302c27a847b26b04d344e26a8ac7b80ca32f40c816c0109"
+      },
+      "output": {
+        "table": "TICKERS",
+        "raw_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/raw/SHARADAR_TICKERS_3_9d55c66cf84cd02091405a84d061ba83.csv",
+        "output_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed/tickers.parquet",
+        "wrote": false,
+        "raw_size_bytes": 20454347,
+        "processed_size_bytes": 3600502,
+        "rows": 62779
+      },
+      "compression_ratio_raw_to_parquet": 5.681
+    }
+  },
+  "benchmark_extract": {
+    "output_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed/benchmarks.parquet",
+    "wrote": false,
+    "coverage": [
+      {
+        "ticker": "IWM",
+        "first_price_date": "2000-05-26",
+        "last_price_date": "2026-08-13",
+        "row_count": 6592
+      },
+      {
+        "ticker": "QQQ",
+        "first_price_date": "1999-03-10",
+        "last_price_date": "2026-08-13",
+        "row_count": 6900
+      },
+      {
+        "ticker": "RSP",
+        "first_price_date": "2003-05-01",
+        "last_price_date": "2026-08-13",
+        "row_count": 5859
+      },
+      {
+        "ticker": "SPY",
+        "first_price_date": "1997-12-31",
+        "last_price_date": "2026-08-13",
+        "row_count": 7198
+      },
+      {
+        "ticker": "XLB",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLC",
+        "first_price_date": "2018-06-19",
+        "last_price_date": "2026-08-13",
+        "row_count": 2049
+      },
+      {
+        "ticker": "XLE",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLF",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLI",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLK",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLP",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLRE",
+        "first_price_date": "2015-10-08",
+        "last_price_date": "2026-08-13",
+        "row_count": 2727
+      },
+      {
+        "ticker": "XLU",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLV",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      },
+      {
+        "ticker": "XLY",
+        "first_price_date": "1998-12-22",
+        "last_price_date": "2026-08-13",
+        "row_count": 6952
+      }
+    ],
+    "missing_tickers": []
+  }
+}

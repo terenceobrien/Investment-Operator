@@ -9,6 +9,7 @@ import { M } from '../lib/researchOsTheme';
 const RISK_ENDPOINT = '/api/portfolio/risk/latest';
 const RISK_EXPORT_ENDPOINT = '/api/portfolio/risk/latest.xlsx';
 const FORECAST_ENDPOINT = '/api/macro/forecast/latest';
+const HEDGE_ENDPOINT = '/api/risk/hedge-trigger';
 
 type AnyRecord = Record<string, unknown>;
 type PortfolioRisk = {
@@ -31,6 +32,51 @@ type PortfolioRisk = {
   per_name_loadings?: { ticker: string; loadings: Record<string, number | null>; r2?: number | null }[];
 };
 type ForecastAlignment = { preferred: string[]; avoid: string[] };
+type HedgeMetric = {
+  label?: string;
+  value?: number | null;
+  threshold?: number | null;
+  direction?: string | null;
+  trigger?: boolean | null;
+  unit?: string;
+  display_value?: string;
+  display_threshold?: string | null;
+};
+type HedgeFamily = {
+  status?: string;
+  latest_observation_date?: string | null;
+  stale?: boolean;
+  state_label?: string;
+  bhr_active?: boolean | null;
+  credit_stress?: boolean | null;
+  vol_stress?: boolean | null;
+  signals_firing?: number;
+  conditions_firing?: number;
+  metrics?: Record<string, HedgeMetric>;
+  firing_signals?: string[];
+  reasons?: string[];
+  data_quality?: AnyRecord;
+};
+type HedgeTriggerState = {
+  as_of?: string;
+  asof_utc?: string;
+  breadth?: HedgeFamily;
+  credit?: HedgeFamily;
+  volatility?: HedgeFamily;
+  hedge_state?: {
+    stage?: number | null;
+    label?: string;
+    combined_trigger?: boolean | null;
+    breadth_active?: boolean | null;
+    credit_active?: boolean | null;
+    vol_active?: boolean | null;
+    families_active_count?: number;
+    reasons?: string[];
+    portfolio_risk?: unknown;
+    target_hedge_size?: unknown;
+  };
+  data_quality?: AnyRecord;
+};
 
 function safeObj(v: unknown): AnyRecord { return v && typeof v === 'object' ? v as AnyRecord : {}; }
 function safeArray<T>(v: unknown): T[] { return Array.isArray(v) ? v as T[] : []; }
@@ -91,6 +137,11 @@ function normalizeForecast(raw: unknown): ForecastAlignment {
   };
 }
 
+function normalizeHedge(raw: unknown): HedgeTriggerState {
+  const r = unwrapPayload(raw);
+  return Object.keys(r).length ? r as HedgeTriggerState : SAMPLE_HEDGE;
+}
+
 const labelStyle: React.CSSProperties = {
   fontFamily: M.mono,
   fontSize: 10.5,
@@ -119,6 +170,132 @@ function Chip({ text, color = M.accentBright }: { text: string; color?: string }
 function Kpi({ label, value, sub }: { label: string; value: string; sub: string }) {
   return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 13, padding: 13 }}><div style={labelStyle}>{label}</div><div style={{ fontFamily: M.serif, fontSize: 24, color: M.ink, marginTop: 6, lineHeight: 1 }}>{value}</div><div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 7 }}>{sub}</div></div>;
 }
+function statusColor(active?: boolean | null, status?: string, stale?: boolean): string {
+  if (active === null || status === 'unavailable') return M.inkFaint;
+  if (active === true) return M.neg;
+  if (status === 'partial' || stale) return M.warn;
+  return M.pos;
+}
+function stateText(value?: boolean | null): string {
+  if (value === true) return 'ACTIVE';
+  if (value === false) return 'INACTIVE';
+  return 'UNAVAILABLE';
+}
+function metricStatusText(metric?: HedgeMetric): string {
+  if (!metric || metric.trigger === null || metric.trigger === undefined) return 'Diagnostic';
+  return metric.trigger ? 'Firing' : 'Clear';
+}
+function hedgeMetric(family: HedgeFamily | undefined, key: string): HedgeMetric {
+  return safeObj(family?.metrics)[key] as HedgeMetric || {};
+}
+function HedgeMonitor({ hedge }: { hedge: HedgeTriggerState }) {
+  const state = safeObj(hedge.hedge_state) as NonNullable<HedgeTriggerState['hedge_state']>;
+  const combined = state.combined_trigger;
+  const combinedColor = combined === true ? M.neg : combined === false ? M.pos : M.warn;
+  const breadthActive = hedge.breadth?.bhr_active;
+  const creditActive = hedge.credit?.credit_stress;
+  const volActive = hedge.volatility?.vol_stress;
+  const reasons = state.reasons ?? [];
+  return (
+    <Panel label="Hedge monitor" meta={hedge.as_of || 'latest'} elevated={combined === true}>
+      <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18 }} className="portfolio-grid">
+        <div style={{ background: M.well, border: `1px solid ${combinedColor}66`, borderRadius: 14, padding: 16 }}>
+          <div style={labelStyle}>Combined trigger</div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginTop: 9 }}>
+            <span style={{ fontFamily: M.serif, fontSize: 42, color: combinedColor, lineHeight: 1 }}>{stateText(combined)}</span>
+            <span style={{ color: M.inkDim, fontSize: 14 }}>{state.label || 'Unavailable'}</span>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16 }}>
+            <Chip text={`Breadth ${stateText(breadthActive)}`} color={statusColor(breadthActive, hedge.breadth?.status, hedge.breadth?.stale)} />
+            <Chip text={`Credit ${stateText(creditActive)}`} color={statusColor(creditActive, hedge.credit?.status, hedge.credit?.stale)} />
+            <Chip text={`Vol ${stateText(volActive)}`} color={statusColor(volActive, hedge.volatility?.status, hedge.volatility?.stale)} />
+            <Chip text={`${state.families_active_count ?? 0} families`} color={combinedColor} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 16 }}>
+            <Kpi label="Portfolio risk" value="—" sub="pending" />
+            <Kpi label="Target hedge" value="—" sub="pending" />
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <HedgeFamilyDetails
+            title="Breadth"
+            family={hedge.breadth}
+            active={breadthActive}
+            summary={`${hedge.breadth?.signals_firing ?? 0} BHR signals · ${hedge.breadth?.state_label ?? 'unavailable'}`}
+            rows={[
+              ['dispersion_20d', 'Dispersion'],
+              ['pct_new_lows_252d', '252d new lows'],
+              ['pct_above_20dma_chg_5d', '5d 20DMA velocity'],
+              ['pct_above_50dma_chg_10d', '10d 50DMA velocity'],
+              ['pct_above_200dma_chg_10d', '10d 200DMA velocity'],
+              ['sectors_50dma_declining_10d', 'Sector deterioration'],
+            ]}
+          />
+          <HedgeFamilyDetails
+            title="Credit"
+            family={hedge.credit}
+            active={creditActive}
+            summary={`${hedge.credit?.conditions_firing ?? 0} conditions · ${hedge.credit?.status ?? 'unavailable'}`}
+            rows={[
+              ['baa10y', 'BAA-10Y'],
+              ['baa_aaa', 'BAA-AAA'],
+              ['baa10y_chg_10d', 'BAA-10Y 10d'],
+              ['baa_aaa_chg_10d', 'BAA-AAA 10d'],
+              ['hy_oas', 'HY OAS'],
+              ['ig_oas', 'IG OAS'],
+            ]}
+          />
+          <HedgeFamilyDetails
+            title="Volatility"
+            family={hedge.volatility}
+            active={volActive}
+            summary={`${hedge.volatility?.conditions_firing ?? 0} conditions · ${hedge.volatility?.status ?? 'unavailable'}`}
+            rows={[
+              ['vix', 'VIX'],
+              ['vix_chg_5d', 'VIX 5d'],
+              ['vvix', 'VVIX'],
+            ]}
+          />
+        </div>
+      </div>
+      {reasons.length ? (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
+          {reasons.slice(0, 5).map((reason) => <Chip key={reason} text={reason} color={combinedColor} />)}
+        </div>
+      ) : null}
+    </Panel>
+  );
+}
+function HedgeFamilyDetails({ title, family, active, summary, rows }: { title: string; family?: HedgeFamily; active?: boolean | null; summary: string; rows: [string, string][] }) {
+  const color = statusColor(active, family?.status, family?.stale);
+  return (
+    <details open style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: '12px 14px' }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <span style={{ ...labelStyle, color }}>{title}</span>
+          <span style={{ color: M.inkFaint, fontSize: 12 }}>{summary}</span>
+        </div>
+      </summary>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
+        {rows.map(([key, fallback]) => <HedgeMetricRow key={key} metric={hedgeMetric(family, key)} fallback={fallback} />)}
+        <div style={{ color: M.inkFaint, fontSize: 11.5, paddingTop: 2 }}>Latest {family?.latest_observation_date || '—'}{family?.stale ? ' · stale' : ''}</div>
+      </div>
+    </details>
+  );
+}
+function HedgeMetricRow({ metric, fallback }: { metric: HedgeMetric; fallback: string }) {
+  const isTrigger = metric.trigger === true;
+  const color = metric.trigger === null || metric.trigger === undefined ? M.inkFaint : isTrigger ? M.neg : M.pos;
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(160px, 1fr) 86px 120px 72px', gap: 10, alignItems: 'center', color: M.inkDim, fontSize: 12.5 }} className="hedge-metric-row">
+      <span>{metric.label || fallback}</span>
+      <span style={{ fontFamily: M.mono, color: M.ink }}>{metric.display_value || '—'}</span>
+      <span style={{ fontFamily: M.mono, color: M.inkFaint }}>{metric.display_threshold || '—'}</span>
+      <span style={{ fontFamily: M.mono, color }}>{metricStatusText(metric)}</span>
+    </div>
+  );
+}
 function factorColor(factor: string, beta?: number | null): string {
   if (factor === 'AI') return beta !== undefined && beta !== null && beta < 0 ? M.neg : M.accentBright;
   if (factor === 'MKT') return M.accentBright;
@@ -139,8 +316,14 @@ export default function PortfolioMonitorPage() {
     authFetcher.fetcher,
     { onError: () => null, revalidateOnFocus: false },
   );
+  const { data: hedgeRaw } = useSWR<unknown>(
+    authFetcher.isSignedIn ? HEDGE_ENDPOINT : null,
+    authFetcher.fetcher,
+    { onError: () => null, revalidateOnFocus: false },
+  );
   const risk = useMemo(() => normalizeRisk(riskRaw ?? SAMPLE_RISK), [riskRaw]);
   const alignment = useMemo(() => normalizeForecast(forecastRaw ?? SAMPLE_ALIGNMENT_RAW), [forecastRaw]);
+  const hedge = useMemo(() => normalizeHedge(hedgeRaw ?? SAMPLE_HEDGE), [hedgeRaw]);
   const factorMap = useMemo(() => Object.fromEntries((risk.factor_exposures ?? []).map((f) => [f.factor, f.beta])), [risk.factor_exposures]);
   const loadingsMap = useMemo(() => Object.fromEntries((risk.per_name_loadings ?? []).map((row) => [row.ticker, row])), [risk.per_name_loadings]);
   const largestTilt = useMemo(() => largestNonMarketTilt(risk.factor_exposures ?? []), [risk.factor_exposures]);
@@ -177,6 +360,8 @@ export default function PortfolioMonitorPage() {
           </div>
           <button type="button" onClick={handleExport} style={{ border: `1px solid ${M.canvasInkFaint}77`, background: 'transparent', color: M.canvasInkDim, borderRadius: 999, padding: '9px 14px', fontFamily: M.mono, fontSize: 11.5, cursor: 'pointer' }}>Export to Excel</button>
         </header>
+
+        <HedgeMonitor hedge={hedge} />
 
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 20 }} className="portfolio-grid">
           <Panel label="Portfolio snapshot" meta={risk.generated_at || 'latest'}>
@@ -272,7 +457,7 @@ export default function PortfolioMonitorPage() {
       </div>
       <style>{`
         @media (max-width: 980px) { .portfolio-grid { grid-template-columns: 1fr !important; } .snapshot-kpis { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 620px) { .snapshot-kpis { grid-template-columns: 1fr !important; } }
+        @media (max-width: 620px) { .snapshot-kpis { grid-template-columns: 1fr !important; } .hedge-metric-row { grid-template-columns: 1fr !important; } }
       `}</style>
     </main>
   );
@@ -385,6 +570,43 @@ const SAMPLE_ALIGNMENT_RAW = {
   forecast_interpretation: {
     preferred_exposures: SAMPLE_ALIGNMENT.preferred,
     exposures_to_avoid: SAMPLE_ALIGNMENT.avoid,
+  },
+};
+const SAMPLE_HEDGE: HedgeTriggerState = {
+  as_of: 'latest',
+  breadth: {
+    status: 'unavailable',
+    state_label: 'unavailable',
+    bhr_active: null,
+    signals_firing: 0,
+    metrics: {},
+  },
+  credit: {
+    status: 'unavailable',
+    credit_stress: null,
+    conditions_firing: 0,
+    metrics: {},
+  },
+  volatility: {
+    status: 'unavailable',
+    vol_stress: null,
+    conditions_firing: 0,
+    metrics: {},
+  },
+  hedge_state: {
+    stage: null,
+    label: 'Unavailable',
+    combined_trigger: null,
+    breadth_active: null,
+    credit_active: null,
+    vol_active: null,
+    families_active_count: 0,
+    reasons: [],
+    portfolio_risk: null,
+    target_hedge_size: null,
+  },
+  data_quality: {
+    unavailable_families: ['breadth', 'credit', 'volatility'],
   },
 };
 const SAMPLE_RISK: PortfolioRisk = {

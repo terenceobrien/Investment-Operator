@@ -29,6 +29,7 @@ from api.cycle_router import cycle_router
 from api.macro_router import macro_router
 from api.portfolio_router import portfolio_router
 from api.research_router import priorities_router, research_router
+from api.risk_router import risk_router
 from screener.screener_router import router as screener_router
 
 from src.state.market_state import (
@@ -80,6 +81,7 @@ app.include_router(agent_system_router)
 app.include_router(cycle_router)
 app.include_router(macro_router)
 app.include_router(portfolio_router)
+app.include_router(risk_router)
 app.include_router(research_router)
 app.include_router(priorities_router)
 app.include_router(screener_router)

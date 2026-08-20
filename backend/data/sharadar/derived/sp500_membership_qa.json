@@ -1,0 +1,3342 @@
+{
+  "generated_at": "2026-08-15T01:04:15.090313+00:00",
+  "script": "backend/scripts/build_sp500_membership.py",
+  "script_version": "2026-08-14.1",
+  "processed_dir": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/processed",
+  "derived_dir": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/derived",
+  "membership_output": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/derived/sp500_membership_daily",
+  "calendar_source": "SFP benchmark extract: SPY",
+  "methodology": "Historical rows are authoritative anchor snapshots on their own dates. Between anchors, only added/removed events effective through each date are replayed. At the next historical snapshot, replayed state is compared to the snapshot for QA and then reset to the snapshot. Current rows are used only as a latest-state validation anchor.",
+  "event_date_semantics": "Added tickers are members on event date D; removed tickers are not members on event date D. For non-trading event dates, the next trading session reflects all events effective through that date. If an event shares a historical snapshot date, the snapshot is authoritative for that anchor date.",
+  "ticker_identity_policy": "Membership uses the ticker exactly as represented in the SP500 table at that time. TICKERS metadata is used for diagnostics only; no ticker is rewritten or substituted.",
+  "snapshot_summary": {
+    "distinct_historical_snapshot_dates": 114,
+    "first_snapshot_date": "1998-03-31",
+    "last_snapshot_date": "2026-06-30",
+    "min_snapshot_member_count": 500,
+    "max_snapshot_member_count": 505,
+    "mean_snapshot_member_count": 501.70175438596493,
+    "median_snapshot_member_count": 500.0,
+    "snapshot_frequency_found": "quarterly historical snapshots from 1998-03-31 through 2026-06-30",
+    "current_constituent_count": 503,
+    "current_date": "2026-08-13",
+    "historical_snapshot_count_by_date": [
+      {
+        "date": "1998-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "1998-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "1998-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "1998-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "1999-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "1999-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "1999-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "1999-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2000-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2000-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2000-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2000-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2001-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2001-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2001-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2001-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2002-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2002-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2002-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2002-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2003-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2003-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2003-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2003-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2004-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2004-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2004-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2004-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2005-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2005-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2005-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2005-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2006-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2006-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2006-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2006-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2007-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2007-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2007-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2007-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2008-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2008-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2008-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2008-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2009-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2009-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2009-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2009-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2010-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2010-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2010-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2010-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2011-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2011-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2011-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2011-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2012-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2012-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2012-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2012-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2013-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2013-06-30",
+        "member_count": 500
+      },
+      {
+        "date": "2013-09-30",
+        "member_count": 500
+      },
+      {
+        "date": "2013-12-31",
+        "member_count": 500
+      },
+      {
+        "date": "2014-03-31",
+        "member_count": 500
+      },
+      {
+        "date": "2014-06-30",
+        "member_count": 501
+      },
+      {
+        "date": "2014-09-30",
+        "member_count": 502
+      },
+      {
+        "date": "2014-12-31",
+        "member_count": 502
+      },
+      {
+        "date": "2015-03-31",
+        "member_count": 502
+      },
+      {
+        "date": "2015-06-30",
+        "member_count": 502
+      },
+      {
+        "date": "2015-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2015-12-31",
+        "member_count": 504
+      },
+      {
+        "date": "2016-03-31",
+        "member_count": 504
+      },
+      {
+        "date": "2016-06-30",
+        "member_count": 505
+      },
+      {
+        "date": "2016-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2016-12-31",
+        "member_count": 505
+      },
+      {
+        "date": "2017-03-31",
+        "member_count": 505
+      },
+      {
+        "date": "2017-06-30",
+        "member_count": 505
+      },
+      {
+        "date": "2017-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2017-12-31",
+        "member_count": 505
+      },
+      {
+        "date": "2018-03-31",
+        "member_count": 505
+      },
+      {
+        "date": "2018-06-30",
+        "member_count": 505
+      },
+      {
+        "date": "2018-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2018-12-31",
+        "member_count": 505
+      },
+      {
+        "date": "2019-03-31",
+        "member_count": 505
+      },
+      {
+        "date": "2019-06-30",
+        "member_count": 505
+      },
+      {
+        "date": "2019-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2019-12-31",
+        "member_count": 505
+      },
+      {
+        "date": "2020-03-31",
+        "member_count": 505
+      },
+      {
+        "date": "2020-06-30",
+        "member_count": 505
+      },
+      {
+        "date": "2020-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2020-12-31",
+        "member_count": 505
+      },
+      {
+        "date": "2021-03-31",
+        "member_count": 505
+      },
+      {
+        "date": "2021-06-30",
+        "member_count": 505
+      },
+      {
+        "date": "2021-09-30",
+        "member_count": 505
+      },
+      {
+        "date": "2021-12-31",
+        "member_count": 505
+      },
+      {
+        "date": "2022-03-31",
+        "member_count": 505
+      },
+      {
+        "date": "2022-06-30",
+        "member_count": 503
+      },
+      {
+        "date": "2022-09-30",
+        "member_count": 503
+      },
+      {
+        "date": "2022-12-31",
+        "member_count": 503
+      },
+      {
+        "date": "2023-03-31",
+        "member_count": 503
+      },
+      {
+        "date": "2023-06-30",
+        "member_count": 503
+      },
+      {
+        "date": "2023-09-30",
+        "member_count": 503
+      },
+      {
+        "date": "2023-12-31",
+        "member_count": 503
+      },
+      {
+        "date": "2024-03-31",
+        "member_count": 503
+      },
+      {
+        "date": "2024-06-30",
+        "member_count": 503
+      },
+      {
+        "date": "2024-09-30",
+        "member_count": 504
+      },
+      {
+        "date": "2024-12-31",
+        "member_count": 503
+      },
+      {
+        "date": "2025-03-31",
+        "member_count": 503
+      },
+      {
+        "date": "2025-06-30",
+        "member_count": 503
+      },
+      {
+        "date": "2025-09-30",
+        "member_count": 503
+      },
+      {
+        "date": "2025-12-31",
+        "member_count": 503
+      },
+      {
+        "date": "2026-03-31",
+        "member_count": 503
+      },
+      {
+        "date": "2026-06-30",
+        "member_count": 503
+      }
+    ]
+  },
+  "action_counts": {
+    "added": 1236,
+    "removed": 739,
+    "historical": 57194,
+    "current": 503
+  },
+  "event_semantics_examples": [
+    {
+      "event_date": "1957-03-04",
+      "action": "removed",
+      "ticker": "WAB",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": false
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "AAMRQ",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "ABT",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "ACKHQ",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "AD2",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": false
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "AN1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "ARC1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "AS1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "ASC1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "BA",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "BFO1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "BMY",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "BNL1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "C1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "CAL",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": false
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "CAT",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "CBE",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "CCK",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "CG1",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": true
+    },
+    {
+      "event_date": "1957-03-04",
+      "action": "added",
+      "ticker": "CGW2",
+      "previous_snapshot_date": null,
+      "in_previous_snapshot": null,
+      "next_snapshot_date": "1998-03-31",
+      "in_next_snapshot": false
+    }
+  ],
+  "membership_write_stats": {
+    "rows_written": 3580605,
+    "trading_dates": 7137,
+    "member_count_min": 499,
+    "member_count_max": 507,
+    "member_count_mean": 501.69609079445144,
+    "member_count_median": 500
+  },
+  "membership_validation": {
+    "duplicate_date_ticker_rows": 0,
+    "count_stats": {
+      "trading_dates": 7137,
+      "first_date": "1998-03-31",
+      "last_date": "2026-08-13",
+      "min_member_count": 499,
+      "max_member_count": 507,
+      "mean_member_count": 501.69609079445144,
+      "median_member_count": 500.0
+    },
+    "dates_outside_reasonable_480_520_range": [],
+    "member_counts_generally_near_500": true,
+    "current_reconstructed_membership_approximately_matches_current_rows": true,
+    "historical_tickers_not_rewritten": true
+  },
+  "snapshot_reconciliation": [
+    {
+      "snapshot_date": "1998-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": null,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "first historical snapshot anchor"
+    },
+    {
+      "snapshot_date": "1998-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "1998-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "1998-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "1999-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "1999-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "1999-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "1999-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2000-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2000-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2000-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2000-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2001-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2001-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2001-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2001-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2002-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2002-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2002-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2002-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2003-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2003-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2003-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2003-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2004-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2004-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2004-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2004-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2005-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2005-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2005-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2005-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2006-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2006-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2006-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2006-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2007-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2007-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2007-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2007-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2008-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2008-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2008-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2008-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2009-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2009-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2009-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2009-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2010-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2010-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2010-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2010-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2011-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2011-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2011-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2011-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2012-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2012-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2012-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2012-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2013-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2013-06-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2013-09-30",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2013-12-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2014-03-31",
+      "snapshot_count": 500,
+      "replayed_count_before_reset": 500,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2014-06-30",
+      "snapshot_count": 501,
+      "replayed_count_before_reset": 501,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2014-09-30",
+      "snapshot_count": 502,
+      "replayed_count_before_reset": 502,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2014-12-31",
+      "snapshot_count": 502,
+      "replayed_count_before_reset": 502,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2015-03-31",
+      "snapshot_count": 502,
+      "replayed_count_before_reset": 502,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2015-06-30",
+      "snapshot_count": 502,
+      "replayed_count_before_reset": 502,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2015-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2015-12-31",
+      "snapshot_count": 504,
+      "replayed_count_before_reset": 504,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2016-03-31",
+      "snapshot_count": 504,
+      "replayed_count_before_reset": 504,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2016-06-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2016-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2016-12-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2017-03-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2017-06-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2017-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2017-12-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2018-03-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2018-06-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2018-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2018-12-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2019-03-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2019-06-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2019-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2019-12-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2020-03-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2020-06-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2020-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2020-12-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2021-03-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2021-06-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2021-09-30",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2021-12-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2022-03-31",
+      "snapshot_count": 505,
+      "replayed_count_before_reset": 505,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2022-06-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2022-09-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2022-12-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2023-03-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2023-06-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2023-09-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2023-12-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2024-03-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2024-06-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2024-09-30",
+      "snapshot_count": 504,
+      "replayed_count_before_reset": 504,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2024-12-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2025-03-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2025-06-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2025-09-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2025-12-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2026-03-31",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    },
+    {
+      "snapshot_date": "2026-06-30",
+      "snapshot_count": 503,
+      "replayed_count_before_reset": 503,
+      "missing_from_replay_count": 0,
+      "extra_in_replay_count": 0,
+      "missing_from_replay_examples": [],
+      "extra_in_replay_examples": [],
+      "note": "state reset to historical snapshot after comparison"
+    }
+  ],
+  "current_reconciliation": {
+    "current_date": "2026-08-13",
+    "current_count": 503,
+    "replayed_count": 503,
+    "missing_from_replay_count": 0,
+    "extra_in_replay_count": 0,
+    "missing_from_replay_examples": [],
+    "extra_in_replay_examples": [],
+    "note": "current rows are validation only; they are not used to rewrite historical membership"
+  },
+  "duplicate_event_date_ticker_cases": [],
+  "price_coverage": {
+    "available": true,
+    "coverage_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/derived/sp500_membership_price_coverage.parquet",
+    "missing_prices_path": "/Users/terenceobrien/AI_Financial_Operator/backend/data/sharadar/derived/sp500_missing_prices.parquet",
+    "first_reliable_sep_coverage_date": "1997-12-31",
+    "first_date_with_95pct_price_coverage": "1998-03-31",
+    "first_date_with_99pct_price_coverage": "1998-03-31",
+    "coverage_stats": {
+      "first_date": "1998-03-31",
+      "last_date": "2026-08-13",
+      "min_coverage_pct": 99.60159362549801,
+      "mean_coverage_pct": 99.99447478182812,
+      "median_coverage_pct": 100.0,
+      "min_missing_members": 0,
+      "max_missing_members": 2,
+      "mean_missing_members": 0.027742749054224466
+    },
+    "dates_with_unusually_high_missing_price_counts": [],
+    "missing_ticker_summary_examples": [
+      {
+        "ticker": "CCE1",
+        "missing_dates": 58,
+        "first_missing_date": "1998-10-08",
+        "last_missing_date": "1998-12-30"
+      },
+      {
+        "ticker": "NBL",
+        "missing_dates": 5,
+        "first_missing_date": "2020-10-05",
+        "last_missing_date": "2020-10-09"
+      },
+      {
+        "ticker": "AGN1",
+        "missing_dates": 4,
+        "first_missing_date": "2015-03-17",
+        "last_missing_date": "2015-03-20"
+      },
+      {
+        "ticker": "COL",
+        "missing_dates": 4,
+        "first_missing_date": "2018-11-27",
+        "last_missing_date": "2018-11-30"
+      },
+      {
+        "ticker": "JNPR",
+        "missing_dates": 4,
+        "first_missing_date": "2025-07-02",
+        "last_missing_date": "2025-07-08"
+      },
+      {
+        "ticker": "RHT",
+        "missing_dates": 4,
+        "first_missing_date": "2019-07-09",
+        "last_missing_date": "2019-07-12"
+      },
+      {
+        "ticker": "SUN1",
+        "missing_dates": 4,
+        "first_missing_date": "2012-10-04",
+        "last_missing_date": "2012-10-09"
+      },
+      {
+        "ticker": "ATVI",
+        "missing_dates": 3,
+        "first_missing_date": "2023-10-13",
+        "last_missing_date": "2023-10-17"
+      },
+      {
+        "ticker": "CTLT",
+        "missing_dates": 3,
+        "first_missing_date": "2024-12-18",
+        "last_missing_date": "2024-12-20"
+      },
+      {
+        "ticker": "DAY",
+        "missing_dates": 3,
+        "first_missing_date": "2026-02-04",
+        "last_missing_date": "2026-02-06"
+      },
+      {
+        "ticker": "HAR",
+        "missing_dates": 3,
+        "first_missing_date": "2017-03-13",
+        "last_missing_date": "2017-03-15"
+      },
+      {
+        "ticker": "POM1",
+        "missing_dates": 3,
+        "first_missing_date": "2016-03-24",
+        "last_missing_date": "2016-03-29"
+      },
+      {
+        "ticker": "PXD",
+        "missing_dates": 3,
+        "first_missing_date": "2024-05-03",
+        "last_missing_date": "2024-05-07"
+      },
+      {
+        "ticker": "SPLS1",
+        "missing_dates": 3,
+        "first_missing_date": "2017-09-13",
+        "last_missing_date": "2017-09-15"
+      },
+      {
+        "ticker": "TOS1",
+        "missing_dates": 3,
+        "first_missing_date": "2001-09-17",
+        "last_missing_date": "2001-09-19"
+      },
+      {
+        "ticker": "TSS",
+        "missing_dates": 3,
+        "first_missing_date": "2019-09-18",
+        "last_missing_date": "2019-09-20"
+      },
+      {
+        "ticker": "VAR",
+        "missing_dates": 3,
+        "first_missing_date": "2021-04-15",
+        "last_missing_date": "2021-04-19"
+      },
+      {
+        "ticker": "AET",
+        "missing_dates": 2,
+        "first_missing_date": "2018-11-29",
+        "last_missing_date": "2018-11-30"
+      },
+      {
+        "ticker": "AFS.A",
+        "missing_dates": 2,
+        "first_missing_date": "2000-12-01",
+        "last_missing_date": "2000-12-04"
+      },
+      {
+        "ticker": "BCR",
+        "missing_dates": 2,
+        "first_missing_date": "2017-12-29",
+        "last_missing_date": "2018-01-02"
+      },
+      {
+        "ticker": "BHI",
+        "missing_dates": 2,
+        "first_missing_date": "2017-07-05",
+        "last_missing_date": "2017-07-06"
+      },
+      {
+        "ticker": "CXO",
+        "missing_dates": 2,
+        "first_missing_date": "2021-01-19",
+        "last_missing_date": "2021-01-20"
+      },
+      {
+        "ticker": "DTV1",
+        "missing_dates": 2,
+        "first_missing_date": "2015-07-27",
+        "last_missing_date": "2015-07-28"
+      },
+      {
+        "ticker": "ETFC",
+        "missing_dates": 2,
+        "first_missing_date": "2020-10-05",
+        "last_missing_date": "2020-10-06"
+      },
+      {
+        "ticker": "FDC1",
+        "missing_dates": 2,
+        "first_missing_date": "2007-09-24",
+        "last_missing_date": "2007-09-25"
+      },
+      {
+        "ticker": "GMCR",
+        "missing_dates": 2,
+        "first_missing_date": "2016-03-03",
+        "last_missing_date": "2016-03-04"
+      },
+      {
+        "ticker": "HES",
+        "missing_dates": 2,
+        "first_missing_date": "2025-07-21",
+        "last_missing_date": "2025-07-22"
+      },
+      {
+        "ticker": "HOLX",
+        "missing_dates": 2,
+        "first_missing_date": "2026-04-07",
+        "last_missing_date": "2026-04-08"
+      },
+      {
+        "ticker": "INFO1",
+        "missing_dates": 2,
+        "first_missing_date": "2022-02-28",
+        "last_missing_date": "2022-03-01"
+      },
+      {
+        "ticker": "JAVA1",
+        "missing_dates": 2,
+        "first_missing_date": "2010-01-27",
+        "last_missing_date": "2010-01-28"
+      },
+      {
+        "ticker": "MRO",
+        "missing_dates": 2,
+        "first_missing_date": "2024-11-22",
+        "last_missing_date": "2024-11-25"
+      },
+      {
+        "ticker": "NFX1",
+        "missing_dates": 2,
+        "first_missing_date": "2019-02-13",
+        "last_missing_date": "2019-02-14"
+      },
+      {
+        "ticker": "TWTR",
+        "missing_dates": 2,
+        "first_missing_date": "2022-10-28",
+        "last_missing_date": "2022-10-31"
+      },
+      {
+        "ticker": "TWX",
+        "missing_dates": 2,
+        "first_missing_date": "2018-06-18",
+        "last_missing_date": "2018-06-19"
+      },
+      {
+        "ticker": "WCG",
+        "missing_dates": 2,
+        "first_missing_date": "2020-01-24",
+        "last_missing_date": "2020-01-27"
+      },
+      {
+        "ticker": "XL1",
+        "missing_dates": 2,
+        "first_missing_date": "2018-09-12",
+        "last_missing_date": "2018-09-13"
+      },
+      {
+        "ticker": "ADT1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-05-02",
+        "last_missing_date": "2016-05-02"
+      },
+      {
+        "ticker": "AGC1",
+        "missing_dates": 1,
+        "first_missing_date": "2001-08-29",
+        "last_missing_date": "2001-08-29"
+      },
+      {
+        "ticker": "AGN",
+        "missing_dates": 1,
+        "first_missing_date": "2020-05-11",
+        "last_missing_date": "2020-05-11"
+      },
+      {
+        "ticker": "ALTR1",
+        "missing_dates": 1,
+        "first_missing_date": "2015-12-28",
+        "last_missing_date": "2015-12-28"
+      },
+      {
+        "ticker": "AT1",
+        "missing_dates": 1,
+        "first_missing_date": "2007-11-16",
+        "last_missing_date": "2007-11-16"
+      },
+      {
+        "ticker": "AWE",
+        "missing_dates": 1,
+        "first_missing_date": "2001-07-06",
+        "last_missing_date": "2001-07-06"
+      },
+      {
+        "ticker": "BLS",
+        "missing_dates": 1,
+        "first_missing_date": "2007-01-03",
+        "last_missing_date": "2007-01-03"
+      },
+      {
+        "ticker": "BUD1",
+        "missing_dates": 1,
+        "first_missing_date": "2008-11-18",
+        "last_missing_date": "2008-11-18"
+      },
+      {
+        "ticker": "CB1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-01-15",
+        "last_missing_date": "2016-01-15"
+      },
+      {
+        "ticker": "CCU1",
+        "missing_dates": 1,
+        "first_missing_date": "2008-07-30",
+        "last_missing_date": "2008-07-30"
+      },
+      {
+        "ticker": "CFL1",
+        "missing_dates": 1,
+        "first_missing_date": "1998-04-28",
+        "last_missing_date": "1998-04-28"
+      },
+      {
+        "ticker": "CFN",
+        "missing_dates": 1,
+        "first_missing_date": "2015-03-17",
+        "last_missing_date": "2015-03-17"
+      },
+      {
+        "ticker": "COC",
+        "missing_dates": 1,
+        "first_missing_date": "2002-09-03",
+        "last_missing_date": "2002-09-03"
+      },
+      {
+        "ticker": "CPGX",
+        "missing_dates": 1,
+        "first_missing_date": "2016-07-01",
+        "last_missing_date": "2016-07-01"
+      },
+      {
+        "ticker": "CTXS",
+        "missing_dates": 1,
+        "first_missing_date": "2022-09-30",
+        "last_missing_date": "2022-09-30"
+      },
+      {
+        "ticker": "CVC",
+        "missing_dates": 1,
+        "first_missing_date": "2016-06-21",
+        "last_missing_date": "2016-06-21"
+      },
+      {
+        "ticker": "CVH",
+        "missing_dates": 1,
+        "first_missing_date": "2013-05-07",
+        "last_missing_date": "2013-05-07"
+      },
+      {
+        "ticker": "DI1",
+        "missing_dates": 1,
+        "first_missing_date": "1998-09-30",
+        "last_missing_date": "1998-09-30"
+      },
+      {
+        "ticker": "EDS",
+        "missing_dates": 1,
+        "first_missing_date": "2008-08-26",
+        "last_missing_date": "2008-08-26"
+      },
+      {
+        "ticker": "EMC1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-09-07",
+        "last_missing_date": "2016-09-07"
+      },
+      {
+        "ticker": "ESRX",
+        "missing_dates": 1,
+        "first_missing_date": "2018-12-21",
+        "last_missing_date": "2018-12-21"
+      },
+      {
+        "ticker": "FDO",
+        "missing_dates": 1,
+        "first_missing_date": "2015-07-07",
+        "last_missing_date": "2015-07-07"
+      },
+      {
+        "ticker": "FTI",
+        "missing_dates": 1,
+        "first_missing_date": "2017-01-13",
+        "last_missing_date": "2017-01-13"
+      },
+      {
+        "ticker": "G1",
+        "missing_dates": 1,
+        "first_missing_date": "2005-10-03",
+        "last_missing_date": "2005-10-03"
+      },
+      {
+        "ticker": "GR",
+        "missing_dates": 1,
+        "first_missing_date": "2012-07-26",
+        "last_missing_date": "2012-07-26"
+      },
+      {
+        "ticker": "HLT1",
+        "missing_dates": 1,
+        "first_missing_date": "2007-10-24",
+        "last_missing_date": "2007-10-24"
+      },
+      {
+        "ticker": "KMG1",
+        "missing_dates": 1,
+        "first_missing_date": "2006-08-10",
+        "last_missing_date": "2006-08-10"
+      },
+      {
+        "ticker": "LSI1",
+        "missing_dates": 1,
+        "first_missing_date": "2014-05-07",
+        "last_missing_date": "2014-05-07"
+      },
+      {
+        "ticker": "MHS",
+        "missing_dates": 1,
+        "first_missing_date": "2012-04-02",
+        "last_missing_date": "2012-04-02"
+      },
+      {
+        "ticker": "MOLX",
+        "missing_dates": 1,
+        "first_missing_date": "2013-12-09",
+        "last_missing_date": "2013-12-09"
+      },
+      {
+        "ticker": "MXIM",
+        "missing_dates": 1,
+        "first_missing_date": "2021-08-27",
+        "last_missing_date": "2021-08-27"
+      },
+      {
+        "ticker": "NLSN",
+        "missing_dates": 1,
+        "first_missing_date": "2022-10-11",
+        "last_missing_date": "2022-10-11"
+      },
+      {
+        "ticker": "PET1",
+        "missing_dates": 1,
+        "first_missing_date": "1998-06-29",
+        "last_missing_date": "1998-06-29"
+      },
+      {
+        "ticker": "PPW",
+        "missing_dates": 1,
+        "first_missing_date": "1999-11-30",
+        "last_missing_date": "1999-11-30"
+      },
+      {
+        "ticker": "RAI",
+        "missing_dates": 1,
+        "first_missing_date": "2017-07-25",
+        "last_missing_date": "2017-07-25"
+      },
+      {
+        "ticker": "RAL1",
+        "missing_dates": 1,
+        "first_missing_date": "2001-12-13",
+        "last_missing_date": "2001-12-13"
+      },
+      {
+        "ticker": "RNB",
+        "missing_dates": 1,
+        "first_missing_date": "2000-01-03",
+        "last_missing_date": "2000-01-03"
+      },
+      {
+        "ticker": "RTN",
+        "missing_dates": 1,
+        "first_missing_date": "2020-04-03",
+        "last_missing_date": "2020-04-03"
+      },
+      {
+        "ticker": "RX",
+        "missing_dates": 1,
+        "first_missing_date": "2010-02-25",
+        "last_missing_date": "2010-02-25"
+      },
+      {
+        "ticker": "SAF2",
+        "missing_dates": 1,
+        "first_missing_date": "2008-09-23",
+        "last_missing_date": "2008-09-23"
+      },
+      {
+        "ticker": "SE1",
+        "missing_dates": 1,
+        "first_missing_date": "2017-02-27",
+        "last_missing_date": "2017-02-27"
+      },
+      {
+        "ticker": "SNDK1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-05-12",
+        "last_missing_date": "2016-05-12"
+      },
+      {
+        "ticker": "SW",
+        "missing_dates": 1,
+        "first_missing_date": "2024-07-05",
+        "last_missing_date": "2024-07-05"
+      },
+      {
+        "ticker": "TDC",
+        "missing_dates": 1,
+        "first_missing_date": "2007-10-01",
+        "last_missing_date": "2007-10-01"
+      },
+      {
+        "ticker": "TEG",
+        "missing_dates": 1,
+        "first_missing_date": "2015-06-30",
+        "last_missing_date": "2015-06-30"
+      },
+      {
+        "ticker": "USB1",
+        "missing_dates": 1,
+        "first_missing_date": "2001-02-26",
+        "last_missing_date": "2001-02-26"
+      },
+      {
+        "ticker": "XLNX",
+        "missing_dates": 1,
+        "first_missing_date": "2022-02-14",
+        "last_missing_date": "2022-02-14"
+      }
+    ]
+  },
+  "ticker_change_diagnostics": {
+    "available": true,
+    "policy": "Diagnostics only. Historical SP500 tickers are not substituted with related/current tickers.",
+    "examples": [
+      {
+        "ticker": "CCE1",
+        "missing_dates": 58,
+        "first_missing_date": "1998-10-08",
+        "last_missing_date": "1998-12-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1998-12-31",
+        "metadata_last_price_date": "2016-05-27",
+        "relatedtickers_examples": "CCE"
+      },
+      {
+        "ticker": "NBL",
+        "missing_dates": 5,
+        "first_missing_date": "2020-10-05",
+        "last_missing_date": "2020-10-09",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2020-10-02",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "AGN1",
+        "missing_dates": 4,
+        "first_missing_date": "2015-03-17",
+        "last_missing_date": "2015-03-20",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1989-06-21",
+        "metadata_last_price_date": "2015-03-16",
+        "relatedtickers_examples": "AGN"
+      },
+      {
+        "ticker": "COL",
+        "missing_dates": 4,
+        "first_missing_date": "2018-11-27",
+        "last_missing_date": "2018-11-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2001-06-15",
+        "metadata_last_price_date": "2018-11-26",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "JNPR",
+        "missing_dates": 4,
+        "first_missing_date": "2025-07-02",
+        "last_missing_date": "2025-07-08",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1999-06-25",
+        "metadata_last_price_date": "2025-07-01",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "RHT",
+        "missing_dates": 4,
+        "first_missing_date": "2019-07-09",
+        "last_missing_date": "2019-07-12",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1999-08-11",
+        "metadata_last_price_date": "2019-07-08",
+        "relatedtickers_examples": "RHAT"
+      },
+      {
+        "ticker": "SUN1",
+        "missing_dates": 4,
+        "first_missing_date": "2012-10-04",
+        "last_missing_date": "2012-10-09",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2012-10-03",
+        "relatedtickers_examples": "SUN"
+      },
+      {
+        "ticker": "ATVI",
+        "missing_dates": 3,
+        "first_missing_date": "2023-10-13",
+        "last_missing_date": "2023-10-17",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1993-10-25",
+        "metadata_last_price_date": "2023-10-12",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "CTLT",
+        "missing_dates": 3,
+        "first_missing_date": "2024-12-18",
+        "last_missing_date": "2024-12-20",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2014-07-31",
+        "metadata_last_price_date": "2024-12-17",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "DAY",
+        "missing_dates": 3,
+        "first_missing_date": "2026-02-04",
+        "last_missing_date": "2026-02-06",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2018-04-26",
+        "metadata_last_price_date": "2026-02-03",
+        "relatedtickers_examples": "CDAY"
+      },
+      {
+        "ticker": "HAR",
+        "missing_dates": 3,
+        "first_missing_date": "2017-03-13",
+        "last_missing_date": "2017-03-15",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-11-14",
+        "metadata_last_price_date": "2017-03-10",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "POM1",
+        "missing_dates": 3,
+        "first_missing_date": "2016-03-24",
+        "last_missing_date": "2016-03-29",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1987-01-02",
+        "metadata_last_price_date": "2016-03-23",
+        "relatedtickers_examples": "POM"
+      },
+      {
+        "ticker": "PXD",
+        "missing_dates": 3,
+        "first_missing_date": "2024-05-03",
+        "last_missing_date": "2024-05-07",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1987-12-22",
+        "metadata_last_price_date": "2024-05-02",
+        "relatedtickers_examples": "PDP"
+      },
+      {
+        "ticker": "SPLS1",
+        "missing_dates": 3,
+        "first_missing_date": "2017-09-13",
+        "last_missing_date": "2017-09-15",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1990-03-26",
+        "metadata_last_price_date": "2017-09-12",
+        "relatedtickers_examples": "SPLS"
+      },
+      {
+        "ticker": "TOS1",
+        "missing_dates": 3,
+        "first_missing_date": "2001-09-17",
+        "last_missing_date": "2001-09-19",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2001-09-10",
+        "relatedtickers_examples": "TOS"
+      },
+      {
+        "ticker": "TSS",
+        "missing_dates": 3,
+        "first_missing_date": "2019-09-18",
+        "last_missing_date": "2019-09-20",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1989-06-30",
+        "metadata_last_price_date": "2019-09-17",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "VAR",
+        "missing_dates": 3,
+        "first_missing_date": "2021-04-15",
+        "last_missing_date": "2021-04-19",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1988-01-05",
+        "metadata_last_price_date": "2021-04-14",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "AET",
+        "missing_dates": 2,
+        "first_missing_date": "2018-11-29",
+        "last_missing_date": "2018-11-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2018-11-28",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "AFS.A",
+        "missing_dates": 2,
+        "first_missing_date": "2000-12-01",
+        "last_missing_date": "2000-12-04",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1996-05-08",
+        "metadata_last_price_date": "2000-11-30",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "BCR",
+        "missing_dates": 2,
+        "first_missing_date": "2017-12-29",
+        "last_missing_date": "2018-01-02",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2017-12-28",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "BHI",
+        "missing_dates": 2,
+        "first_missing_date": "2017-07-05",
+        "last_missing_date": "2017-07-06",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1987-04-07",
+        "metadata_last_price_date": "2017-07-03",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "CXO",
+        "missing_dates": 2,
+        "first_missing_date": "2021-01-19",
+        "last_missing_date": "2021-01-20",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2007-08-03",
+        "metadata_last_price_date": "2021-01-15",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "DTV1",
+        "missing_dates": 2,
+        "first_missing_date": "2015-07-27",
+        "last_missing_date": "2015-07-28",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2003-12-24",
+        "metadata_last_price_date": "2015-07-24",
+        "relatedtickers_examples": "HS DTV"
+      },
+      {
+        "ticker": "ETFC",
+        "missing_dates": 2,
+        "first_missing_date": "2020-10-05",
+        "last_missing_date": "2020-10-06",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1996-08-16",
+        "metadata_last_price_date": "2020-10-02",
+        "relatedtickers_examples": "ET"
+      },
+      {
+        "ticker": "FDC1",
+        "missing_dates": 2,
+        "first_missing_date": "2007-09-24",
+        "last_missing_date": "2007-09-25",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1992-04-09",
+        "metadata_last_price_date": "2007-09-21",
+        "relatedtickers_examples": "FDC"
+      },
+      {
+        "ticker": "GMCR",
+        "missing_dates": 2,
+        "first_missing_date": "2016-03-03",
+        "last_missing_date": "2016-03-04",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1993-09-27",
+        "metadata_last_price_date": "2016-03-02",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "HES",
+        "missing_dates": 2,
+        "first_missing_date": "2025-07-21",
+        "last_missing_date": "2025-07-22",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2025-07-18",
+        "relatedtickers_examples": "HES-PA AHC AMDPP"
+      },
+      {
+        "ticker": "HOLX",
+        "missing_dates": 2,
+        "first_missing_date": "2026-04-07",
+        "last_missing_date": "2026-04-08",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1990-03-26",
+        "metadata_last_price_date": "2026-04-06",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "INFO1",
+        "missing_dates": 2,
+        "first_missing_date": "2022-02-28",
+        "last_missing_date": "2022-03-01",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2014-06-19",
+        "metadata_last_price_date": "2022-02-25",
+        "relatedtickers_examples": "MRKT INFO"
+      },
+      {
+        "ticker": "JAVA1",
+        "missing_dates": 2,
+        "first_missing_date": "2010-01-27",
+        "last_missing_date": "2010-01-28",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-03-04",
+        "metadata_last_price_date": "2010-01-26",
+        "relatedtickers_examples": "JAVA SUNW"
+      },
+      {
+        "ticker": "MRO",
+        "missing_dates": 2,
+        "first_missing_date": "2024-11-22",
+        "last_missing_date": "2024-11-25",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2024-11-21",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "NFX1",
+        "missing_dates": 2,
+        "first_missing_date": "2019-02-13",
+        "last_missing_date": "2019-02-14",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1993-11-12",
+        "metadata_last_price_date": "2019-02-12",
+        "relatedtickers_examples": "NFX"
+      },
+      {
+        "ticker": "TWTR",
+        "missing_dates": 2,
+        "first_missing_date": "2022-10-28",
+        "last_missing_date": "2022-10-31",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2013-11-07",
+        "metadata_last_price_date": "2022-10-27",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "TWX",
+        "missing_dates": 2,
+        "first_missing_date": "2018-06-18",
+        "last_missing_date": "2018-06-19",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1992-03-19",
+        "metadata_last_price_date": "2018-06-15",
+        "relatedtickers_examples": "AOL"
+      },
+      {
+        "ticker": "WCG",
+        "missing_dates": 2,
+        "first_missing_date": "2020-01-24",
+        "last_missing_date": "2020-01-27",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2004-07-01",
+        "metadata_last_price_date": "2020-01-23",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "XL1",
+        "missing_dates": 2,
+        "first_missing_date": "2018-09-12",
+        "last_missing_date": "2018-09-13",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1991-07-19",
+        "metadata_last_price_date": "2018-09-11",
+        "relatedtickers_examples": "XL"
+      },
+      {
+        "ticker": "ADT1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-05-02",
+        "last_missing_date": "2016-05-02",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2012-09-17",
+        "metadata_last_price_date": "2016-04-29",
+        "relatedtickers_examples": "ADT"
+      },
+      {
+        "ticker": "AGC1",
+        "missing_dates": 1,
+        "first_missing_date": "2001-08-29",
+        "last_missing_date": "2001-08-29",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2001-08-28",
+        "relatedtickers_examples": "AGC"
+      },
+      {
+        "ticker": "AGN",
+        "missing_dates": 1,
+        "first_missing_date": "2020-05-11",
+        "last_missing_date": "2020-05-11",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1989-06-22",
+        "metadata_last_price_date": "2020-05-08",
+        "relatedtickers_examples": "AGN-PA ACT WPI"
+      },
+      {
+        "ticker": "ALTR1",
+        "missing_dates": 1,
+        "first_missing_date": "2015-12-28",
+        "last_missing_date": "2015-12-28",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1988-03-31",
+        "metadata_last_price_date": "2015-12-24",
+        "relatedtickers_examples": "ALTR"
+      },
+      {
+        "ticker": "AT1",
+        "missing_dates": 1,
+        "first_missing_date": "2007-11-16",
+        "last_missing_date": "2007-11-16",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2007-11-15",
+        "relatedtickers_examples": "AT"
+      },
+      {
+        "ticker": "AWE",
+        "missing_dates": 1,
+        "first_missing_date": "2001-07-06",
+        "last_missing_date": "2001-07-06",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2001-07-09",
+        "metadata_last_price_date": "2004-10-26",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "BLS",
+        "missing_dates": 1,
+        "first_missing_date": "2007-01-03",
+        "last_missing_date": "2007-01-03",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2006-12-29",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "BUD1",
+        "missing_dates": 1,
+        "first_missing_date": "2008-11-18",
+        "last_missing_date": "2008-11-18",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2008-11-17",
+        "relatedtickers_examples": "BUD"
+      },
+      {
+        "ticker": "CB1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-01-15",
+        "last_missing_date": "2016-01-15",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2016-01-14",
+        "relatedtickers_examples": "CB"
+      },
+      {
+        "ticker": "CCU1",
+        "missing_dates": 1,
+        "first_missing_date": "2008-07-30",
+        "last_missing_date": "2008-07-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2008-07-29",
+        "relatedtickers_examples": "CCU"
+      },
+      {
+        "ticker": "CFL1",
+        "missing_dates": 1,
+        "first_missing_date": "1998-04-28",
+        "last_missing_date": "1998-04-28",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "1998-04-27",
+        "relatedtickers_examples": "CFL"
+      },
+      {
+        "ticker": "CFN",
+        "missing_dates": 1,
+        "first_missing_date": "2015-03-17",
+        "last_missing_date": "2015-03-17",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2009-08-21",
+        "metadata_last_price_date": "2015-03-16",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "COC",
+        "missing_dates": 1,
+        "first_missing_date": "2002-09-03",
+        "last_missing_date": "2002-09-03",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1999-07-13",
+        "metadata_last_price_date": "2002-08-30",
+        "relatedtickers_examples": "COC.B COC.A"
+      },
+      {
+        "ticker": "CPGX",
+        "missing_dates": 1,
+        "first_missing_date": "2016-07-01",
+        "last_missing_date": "2016-07-01",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2015-07-02",
+        "metadata_last_price_date": "2016-06-30",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "CTXS",
+        "missing_dates": 1,
+        "first_missing_date": "2022-09-30",
+        "last_missing_date": "2022-09-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1995-12-08",
+        "metadata_last_price_date": "2022-09-29",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "CVC",
+        "missing_dates": 1,
+        "first_missing_date": "2016-06-21",
+        "last_missing_date": "2016-06-21",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1992-03-17",
+        "metadata_last_price_date": "2016-06-20",
+        "relatedtickers_examples": "RMG RMG2"
+      },
+      {
+        "ticker": "CVH",
+        "missing_dates": 1,
+        "first_missing_date": "2013-05-07",
+        "last_missing_date": "2013-05-07",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1991-04-17",
+        "metadata_last_price_date": "2013-05-06",
+        "relatedtickers_examples": "CVTY"
+      },
+      {
+        "ticker": "DI1",
+        "missing_dates": 1,
+        "first_missing_date": "1998-09-30",
+        "last_missing_date": "1998-09-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "1998-09-29",
+        "relatedtickers_examples": "DI"
+      },
+      {
+        "ticker": "EDS",
+        "missing_dates": 1,
+        "first_missing_date": "2008-08-26",
+        "last_missing_date": "2008-08-26",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2008-08-25",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "EMC1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-09-07",
+        "last_missing_date": "2016-09-07",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1988-12-16",
+        "metadata_last_price_date": "2016-09-06",
+        "relatedtickers_examples": "EMC"
+      },
+      {
+        "ticker": "ESRX",
+        "missing_dates": 1,
+        "first_missing_date": "2018-12-21",
+        "last_missing_date": "2018-12-21",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1992-06-09",
+        "metadata_last_price_date": "2018-12-20",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "FDO",
+        "missing_dates": 1,
+        "first_missing_date": "2015-07-07",
+        "last_missing_date": "2015-07-07",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2015-07-06",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "FTI",
+        "missing_dates": 1,
+        "first_missing_date": "2017-01-13",
+        "last_missing_date": "2017-01-13",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2017-01-17",
+        "metadata_last_price_date": "2026-08-13",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "G1",
+        "missing_dates": 1,
+        "first_missing_date": "2005-10-03",
+        "last_missing_date": "2005-10-03",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2005-09-30",
+        "relatedtickers_examples": "G"
+      },
+      {
+        "ticker": "GR",
+        "missing_dates": 1,
+        "first_missing_date": "2012-07-26",
+        "last_missing_date": "2012-07-26",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2012-07-25",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "HLT1",
+        "missing_dates": 1,
+        "first_missing_date": "2007-10-24",
+        "last_missing_date": "2007-10-24",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2007-10-23",
+        "relatedtickers_examples": "HLT"
+      },
+      {
+        "ticker": "KMG1",
+        "missing_dates": 1,
+        "first_missing_date": "2006-08-10",
+        "last_missing_date": "2006-08-10",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2006-08-09",
+        "relatedtickers_examples": "KMG"
+      },
+      {
+        "ticker": "LSI1",
+        "missing_dates": 1,
+        "first_missing_date": "2014-05-07",
+        "last_missing_date": "2014-05-07",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2014-05-06",
+        "relatedtickers_examples": "LSI"
+      },
+      {
+        "ticker": "MHS",
+        "missing_dates": 1,
+        "first_missing_date": "2012-04-02",
+        "last_missing_date": "2012-04-02",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2003-08-20",
+        "metadata_last_price_date": "2012-03-30",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "MOLX",
+        "missing_dates": 1,
+        "first_missing_date": "2013-12-09",
+        "last_missing_date": "2013-12-09",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2013-12-06",
+        "relatedtickers_examples": "MOLXA"
+      },
+      {
+        "ticker": "MXIM",
+        "missing_dates": 1,
+        "first_missing_date": "2021-08-27",
+        "last_missing_date": "2021-08-27",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1990-03-26",
+        "metadata_last_price_date": "2021-08-26",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "NLSN",
+        "missing_dates": 1,
+        "first_missing_date": "2022-10-11",
+        "last_missing_date": "2022-10-11",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2011-01-27",
+        "metadata_last_price_date": "2022-10-10",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "PET1",
+        "missing_dates": 1,
+        "first_missing_date": "1998-06-29",
+        "last_missing_date": "1998-06-29",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "1998-06-26",
+        "relatedtickers_examples": "PET"
+      },
+      {
+        "ticker": "PPW",
+        "missing_dates": 1,
+        "first_missing_date": "1999-11-30",
+        "last_missing_date": "1999-11-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "1999-11-29",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "RAI",
+        "missing_dates": 1,
+        "first_missing_date": "2017-07-25",
+        "last_missing_date": "2017-07-25",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1999-06-01",
+        "metadata_last_price_date": "2017-07-24",
+        "relatedtickers_examples": "RJR"
+      },
+      {
+        "ticker": "RAL1",
+        "missing_dates": 1,
+        "first_missing_date": "2001-12-13",
+        "last_missing_date": "2001-12-13",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2001-12-12",
+        "relatedtickers_examples": "RAL"
+      },
+      {
+        "ticker": "RNB",
+        "missing_dates": 1,
+        "first_missing_date": "2000-01-03",
+        "last_missing_date": "2000-01-03",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "1999-12-31",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "RTN",
+        "missing_dates": 1,
+        "first_missing_date": "2020-04-03",
+        "last_missing_date": "2020-04-03",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2020-04-02",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "RX",
+        "missing_dates": 1,
+        "first_missing_date": "2010-02-25",
+        "last_missing_date": "2010-02-25",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1996-10-17",
+        "metadata_last_price_date": "2010-02-24",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "SAF2",
+        "missing_dates": 1,
+        "first_missing_date": "2008-09-23",
+        "last_missing_date": "2008-09-23",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2008-09-22",
+        "relatedtickers_examples": "SAFC SAF"
+      },
+      {
+        "ticker": "SE1",
+        "missing_dates": 1,
+        "first_missing_date": "2017-02-27",
+        "last_missing_date": "2017-02-27",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2006-12-14",
+        "metadata_last_price_date": "2017-02-24",
+        "relatedtickers_examples": "SE"
+      },
+      {
+        "ticker": "SNDK1",
+        "missing_dates": 1,
+        "first_missing_date": "2016-05-12",
+        "last_missing_date": "2016-05-12",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1995-11-08",
+        "metadata_last_price_date": "2016-05-11",
+        "relatedtickers_examples": "SNDK"
+      },
+      {
+        "ticker": "SW",
+        "missing_dates": 1,
+        "first_missing_date": "2024-07-05",
+        "last_missing_date": "2024-07-05",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2024-07-08",
+        "metadata_last_price_date": "2026-08-13",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "TDC",
+        "missing_dates": 1,
+        "first_missing_date": "2007-10-01",
+        "last_missing_date": "2007-10-01",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "2007-10-02",
+        "metadata_last_price_date": "2026-08-13",
+        "relatedtickers_examples": null
+      },
+      {
+        "ticker": "TEG",
+        "missing_dates": 1,
+        "first_missing_date": "2015-06-30",
+        "last_missing_date": "2015-06-30",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1988-01-05",
+        "metadata_last_price_date": "2015-06-29",
+        "relatedtickers_examples": "WPS"
+      },
+      {
+        "ticker": "USB1",
+        "missing_dates": 1,
+        "first_missing_date": "2001-02-26",
+        "last_missing_date": "2001-02-26",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1986-01-01",
+        "metadata_last_price_date": "2001-02-23",
+        "relatedtickers_examples": "FBS USB"
+      },
+      {
+        "ticker": "XLNX",
+        "missing_dates": 1,
+        "first_missing_date": "2022-02-14",
+        "last_missing_date": "2022-02-14",
+        "sep_metadata_records": 1,
+        "metadata_first_price_date": "1990-06-18",
+        "metadata_last_price_date": "2022-02-11",
+        "relatedtickers_examples": null
+      }
+    ]
+  },
+  "benchmark_coverage": [
+    {
+      "ticker": "IWM",
+      "first_price_date": "2000-05-26",
+      "last_price_date": "2026-08-13",
+      "row_count": 6592
+    },
+    {
+      "ticker": "QQQ",
+      "first_price_date": "1999-03-10",
+      "last_price_date": "2026-08-13",
+      "row_count": 6900
+    },
+    {
+      "ticker": "RSP",
+      "first_price_date": "2003-05-01",
+      "last_price_date": "2026-08-13",
+      "row_count": 5859
+    },
+    {
+      "ticker": "SPY",
+      "first_price_date": "1997-12-31",
+      "last_price_date": "2026-08-13",
+      "row_count": 7198
+    },
+    {
+      "ticker": "XLB",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLC",
+      "first_price_date": "2018-06-19",
+      "last_price_date": "2026-08-13",
+      "row_count": 2049
+    },
+    {
+      "ticker": "XLE",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLF",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLI",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLK",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLP",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLRE",
+      "first_price_date": "2015-10-08",
+      "last_price_date": "2026-08-13",
+      "row_count": 2727
+    },
+    {
+      "ticker": "XLU",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLV",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    },
+    {
+      "ticker": "XLY",
+      "first_price_date": "1998-12-22",
+      "last_price_date": "2026-08-13",
+      "row_count": 6952
+    }
+  ],
+  "validation_checks": [
+    {
+      "check": "historical snapshot dates exist",
+      "status": "pass"
+    },
+    {
+      "check": "daily membership has no duplicate (date, ticker) rows",
+      "status": "pass"
+    },
+    {
+      "check": "member counts are generally near 500",
+      "status": "pass"
+    },
+    {
+      "check": "current reconstructed membership approximately matches action='current'",
+      "status": "pass"
+    },
+    {
+      "check": "price coverage is calculated",
+      "status": "pass"
+    },
+    {
+      "check": "historical tickers are not silently rewritten",
+      "status": "pass"
+    },
+    {
+      "check": "duplicate event-date/ticker cases checked",
+      "status": "pass"
+    },
+    {
+      "check": "membership parquet can be queried by DuckDB",
+      "status": "pass"
+    },
+    {
+      "check": "current reconciliation has finite diff counts",
+      "status": "pass"
+    }
+  ],
+  "console_lines": [
+    "first date: 1998-03-31",
+    "last date: 2026-08-13",
+    "trading dates: 7137",
+    "median member count: 500.0",
+    "min member count: 499",
+    "max member count: 507",
+    "first >=95% price coverage date: 1998-03-31",
+    "first >=99% price coverage date: 1998-03-31"
+  ]
+}

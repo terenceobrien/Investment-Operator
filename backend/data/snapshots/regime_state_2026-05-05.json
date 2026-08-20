@@ -1,0 +1,59 @@
+{
+  "asof_date": "2026-05-05",
+  "asof_utc": "2026-05-05T03:55:14.247559",
+  "signal_time": "close",
+  "layer_monetary": 4.58,
+  "layer_credit": 8.68,
+  "layer_volatility": 6.25,
+  "layer_breadth": 3.33,
+  "layer_positioning": 6.46,
+  "layer_signals": {
+    "monetary": [
+      "Net liquidity contracting \u2014 structural headwind"
+    ],
+    "credit": [
+      "HY spreads tight (277bps) \u2014 credit healthy"
+    ],
+    "volatility": [
+      "Put/call ratio elevated (1.39) \u2014 fear-driven hedging, contrarian bullish"
+    ],
+    "breadth": [
+      "Equal weight (RSP) lagging cap weight (SPY) \u2014 mega-cap concentration, breadth narrowing"
+    ],
+    "positioning": [
+      "Equity put/call elevated (1.39) \u2014 retail fear, contrarian bullish setup"
+    ]
+  },
+  "layer_statuses": {
+    "monetary": "neutral",
+    "credit": "bullish",
+    "volatility": "neutral",
+    "breadth": "bearish",
+    "positioning": "neutral"
+  },
+  "layer_data_quality": {
+    "monetary": 0.75,
+    "credit": 1.0,
+    "volatility": 1.0,
+    "breadth": 0.6,
+    "positioning": 0.4
+  },
+  "score_total": 59.0,
+  "score_prior": 60.42,
+  "score_delta": -1.42,
+  "environment": "Chop / Layer Divergence",
+  "environment_drivers": [
+    "Bullish: credit",
+    "Bearish: breadth"
+  ],
+  "confidence": 64.5,
+  "layer_agreement": 0.4,
+  "horizon": "default",
+  "vix_level": 18.290000915527344,
+  "vix_term_slope": 2.759998321533203,
+  "hy_spread_level": 277.0,
+  "net_liquidity_z": -1.5143925272959362,
+  "pct_above_200d": 81.8,
+  "new_highs_minus_lows_z": null,
+  "sectors_green": 2
+}

@@ -1,0 +1,57 @@
+{
+  "asof_date": "2026-07-31",
+  "asof_utc": "2026-08-02T16:48:26.817258",
+  "signal_time": "close",
+  "layer_monetary": 5.32,
+  "layer_credit": 8.43,
+  "layer_volatility": 6.86,
+  "layer_breadth": 6.76,
+  "layer_positioning": 5.38,
+  "layer_signals": {
+    "monetary": [
+      "Net liquidity contracting \u2014 structural headwind"
+    ],
+    "credit": [
+      "HY spreads tight (284bps) \u2014 credit healthy"
+    ],
+    "volatility": [],
+    "breadth": [
+      "Sector ADL slope rising \u2014 participation broadening"
+    ],
+    "positioning": [
+      "Equity put/call elevated (1.04) \u2014 retail fear, contrarian bullish setup"
+    ]
+  },
+  "layer_statuses": {
+    "monetary": "neutral",
+    "credit": "bullish",
+    "volatility": "bullish",
+    "breadth": "bullish",
+    "positioning": "neutral"
+  },
+  "layer_data_quality": {
+    "monetary": 0.75,
+    "credit": 1.0,
+    "volatility": 1.0,
+    "breadth": 1.0,
+    "positioning": 0.6
+  },
+  "score_total": 66.41,
+  "score_prior": 65.72,
+  "score_delta": 0.69,
+  "environment": "Risk-On Rotation Day",
+  "environment_drivers": [
+    "Breadth expanding",
+    "Credit supportive"
+  ],
+  "confidence": 72.9,
+  "layer_agreement": 0.4,
+  "horizon": "default",
+  "vix_level": 15.989999771118164,
+  "vix_term_slope": 1.7700004577636719,
+  "hy_spread_level": 284.0,
+  "net_liquidity_z": -1.3753970582186688,
+  "pct_above_200d": 72.7,
+  "avg_dist_from_200d": 5.55,
+  "sectors_green": 4
+}

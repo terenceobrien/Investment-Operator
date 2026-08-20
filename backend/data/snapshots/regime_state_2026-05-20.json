@@ -1,0 +1,52 @@
+{
+  "asof_date": "2026-05-20",
+  "asof_utc": "2026-05-20T15:54:50.865496",
+  "signal_time": "close",
+  "layer_monetary": 6.15,
+  "layer_credit": 8.54,
+  "layer_volatility": 5.6,
+  "layer_breadth": 4.62,
+  "layer_positioning": 5.58,
+  "layer_signals": {
+    "monetary": [],
+    "credit": [
+      "HY spreads tight (283bps) \u2014 credit healthy"
+    ],
+    "volatility": [],
+    "breadth": [
+      "Equal weight (RSP) lagging cap weight (SPY) \u2014 mega-cap concentration, breadth narrowing"
+    ],
+    "positioning": []
+  },
+  "layer_statuses": {
+    "monetary": "neutral",
+    "credit": "bullish",
+    "volatility": "neutral",
+    "breadth": "neutral",
+    "positioning": "neutral"
+  },
+  "layer_data_quality": {
+    "monetary": 0.75,
+    "credit": 1.0,
+    "volatility": 1.0,
+    "breadth": 0.6,
+    "positioning": 0.4
+  },
+  "score_total": 61.58,
+  "score_prior": null,
+  "score_delta": null,
+  "environment": "Mixed / Neutral",
+  "environment_drivers": [
+    "No dominant regime signal"
+  ],
+  "confidence": 73.5,
+  "layer_agreement": 0.7,
+  "horizon": "default",
+  "vix_level": 17.610000610351562,
+  "vix_term_slope": 3.1599998474121094,
+  "hy_spread_level": 283.0,
+  "net_liquidity_z": 0.27727726351945126,
+  "pct_above_200d": 81.8,
+  "new_highs_minus_lows_z": null,
+  "sectors_green": 7
+}
