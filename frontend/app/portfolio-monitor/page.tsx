@@ -44,7 +44,10 @@ type HedgeMetric = {
 };
 type HedgeFamily = {
   status?: string;
+  as_of?: string | null;
+  data_source?: string | null;
   latest_observation_date?: string | null;
+  is_stale?: boolean;
   stale?: boolean;
   state_label?: string;
   bhr_active?: boolean | null;
@@ -55,6 +58,9 @@ type HedgeFamily = {
   metrics?: Record<string, HedgeMetric>;
   firing_signals?: string[];
   reasons?: string[];
+  sector_deterioration_count?: number | null;
+  sectors_50dma_declining_10d?: number | null;
+  valid_sector_count?: number | null;
   data_quality?: AnyRecord;
 };
 type HedgeTriggerState = {
@@ -185,6 +191,13 @@ function metricStatusText(metric?: HedgeMetric): string {
   if (!metric || metric.trigger === null || metric.trigger === undefined) return 'Diagnostic';
   return metric.trigger ? 'Firing' : 'Clear';
 }
+function compactDate(value?: string | null): string {
+  if (!value) return '—';
+  const parsed = new Date(`${value.slice(0, 10)}T12:00:00`);
+  return Number.isNaN(parsed.getTime())
+    ? value
+    : parsed.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
 function hedgeMetric(family: HedgeFamily | undefined, key: string): HedgeMetric {
   return safeObj(family?.metrics)[key] as HedgeMetric || {};
 }
@@ -222,7 +235,7 @@ function HedgeMonitor({ hedge }: { hedge: HedgeTriggerState }) {
             title="Breadth"
             family={hedge.breadth}
             active={breadthActive}
-            summary={`${hedge.breadth?.signals_firing ?? 0} BHR signals · ${hedge.breadth?.state_label ?? 'unavailable'}`}
+            summary={`BHR ${stateText(breadthActive)} · ${hedge.breadth?.signals_firing ?? 0} signals`}
             rows={[
               ['dispersion_20d', 'Dispersion'],
               ['pct_new_lows_252d', '252d new lows'],
@@ -269,6 +282,8 @@ function HedgeMonitor({ hedge }: { hedge: HedgeTriggerState }) {
 }
 function HedgeFamilyDetails({ title, family, active, summary, rows }: { title: string; family?: HedgeFamily; active?: boolean | null; summary: string; rows: [string, string][] }) {
   const color = statusColor(active, family?.status, family?.stale);
+  const isLiveBreadth = title === 'Breadth' && family?.data_source === 'yfinance_live';
+  const observationDate = family?.as_of || family?.latest_observation_date;
   return (
     <details open style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: '12px 14px' }}>
       <summary style={{ cursor: 'pointer', listStyle: 'none' }}>
@@ -279,7 +294,10 @@ function HedgeFamilyDetails({ title, family, active, summary, rows }: { title: s
       </summary>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
         {rows.map(([key, fallback]) => <HedgeMetricRow key={key} metric={hedgeMetric(family, key)} fallback={fallback} />)}
-        <div style={{ color: M.inkFaint, fontSize: 11.5, paddingTop: 2 }}>Latest {family?.latest_observation_date || '—'}{family?.stale ? ' · stale' : ''}</div>
+        <div style={{ color: family?.stale ? M.warn : M.inkFaint, fontSize: 11.5, paddingTop: 2 }}>
+          {isLiveBreadth ? `Live breadth · yfinance · ${compactDate(observationDate)}` : `Latest ${observationDate || '—'}`}
+          {family?.stale ? ' · stale' : ''}
+        </div>
       </div>
     </details>
   );

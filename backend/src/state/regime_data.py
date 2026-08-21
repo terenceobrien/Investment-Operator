@@ -14,10 +14,19 @@ import requests
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, time, timedelta
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
+from pandas.tseries.holiday import (
+    AbstractHolidayCalendar,
+    GoodFriday,
+    Holiday,
+    MO,
+    TH,
+    nearest_workday,
+)
+from pandas.tseries.offsets import CustomBusinessDay, DateOffset
 
 
 # ── Output dataclass ──────────────────────────────────────────────────────────
@@ -97,6 +106,84 @@ CONSTITUENT_UNIVERSE_FILES = {
 }
 CONSTITUENT_BOOTSTRAP_CALENDAR_DAYS = 450
 CONSTITUENT_CACHE_COLUMNS = ["date", "ticker", "yahoo_symbol", "adjusted_close"]
+LIVE_BREADTH_HISTORY_COLUMNS = [
+    "date",
+    "pct_above_20dma",
+    "pct_above_50dma",
+    "pct_above_100dma",
+    "pct_above_200dma",
+    "avg_dist_from_200dma",
+    "dispersion_20d",
+    "pct_new_lows_252d",
+    "adl_slope_20d",
+    "sector_deterioration_count",
+    "sectors_50dma_declining_10d",
+    "valid_sector_count",
+    "constituent_count",
+    "price_count",
+    "price_coverage_pct",
+    "valid_20dma_count",
+    "valid_50dma_count",
+    "valid_100dma_count",
+    "valid_200dma_count",
+    "valid_252d_count",
+    "valid_ad_count",
+    "pct_above_20dma_chg_5d",
+    "pct_above_50dma_chg_10d",
+    "pct_above_200dma_chg_10d",
+]
+
+
+class _UsEquityHolidayCalendar(AbstractHolidayCalendar):
+    """Core full-day U.S. equity-market holidays used for freshness checks."""
+
+    rules = [
+        Holiday("New Year's Day", month=1, day=1, observance=nearest_workday),
+        Holiday(
+            "Martin Luther King Jr. Day",
+            month=1,
+            day=1,
+            offset=DateOffset(weekday=MO(3)),
+            start_date="1998-01-01",
+        ),
+        Holiday(
+            "Washington's Birthday",
+            month=2,
+            day=1,
+            offset=DateOffset(weekday=MO(3)),
+        ),
+        GoodFriday,
+        Holiday(
+            "Memorial Day",
+            month=5,
+            day=31,
+            offset=DateOffset(weekday=MO(-1)),
+        ),
+        Holiday(
+            "Juneteenth",
+            month=6,
+            day=19,
+            observance=nearest_workday,
+            start_date="2022-01-01",
+        ),
+        Holiday("Independence Day", month=7, day=4, observance=nearest_workday),
+        Holiday(
+            "Labor Day",
+            month=9,
+            day=1,
+            offset=DateOffset(weekday=MO(1)),
+        ),
+        Holiday(
+            "Thanksgiving",
+            month=11,
+            day=1,
+            offset=DateOffset(weekday=TH(4)),
+        ),
+        Holiday("Christmas", month=12, day=25, observance=nearest_workday),
+    ]
+
+
+US_EQUITY_BUSINESS_DAY = CustomBusinessDay(calendar=_UsEquityHolidayCalendar())
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -232,6 +319,10 @@ def _constituent_cache_path(universe: str, cache_root: Optional[Path] = None) ->
     return _constituent_cache_root(cache_root) / f"{universe_key}_prices.parquet"
 
 
+def _live_breadth_history_path(cache_root: Optional[Path] = None) -> Path:
+    return _constituent_cache_root(cache_root) / "live_breadth_history.parquet"
+
+
 def _normalize_universe(universe: str) -> str:
     key = str(universe).strip().lower().replace("-", "").replace("_", "").replace(" ", "")
     aliases = {
@@ -292,14 +383,16 @@ def yahoo_symbol(ticker: str) -> str:
 
 def _latest_completed_daily_bar_date(asof_date: Optional[str] = None) -> pd.Timestamp:
     if asof_date is not None:
-        return pd.Timestamp(asof_date).normalize().tz_localize(None)
+        candidate = pd.Timestamp(asof_date).normalize().tz_localize(None)
+    else:
+        now_et = datetime.now(ZoneInfo("America/New_York"))
+        today = pd.Timestamp(now_et.date())
+        after_daily_bar_settle = now_et.weekday() < 5 and now_et.time() >= time(18, 0)
+        candidate = today if after_daily_bar_settle else today - pd.Timedelta(days=1)
 
-    now_et = datetime.now(ZoneInfo("America/New_York"))
-    today = pd.Timestamp(now_et.date())
-    after_daily_bar_settle = now_et.weekday() < 5 and now_et.time() >= time(18, 0)
-    if after_daily_bar_settle:
-        return today
-    return pd.Timestamp(today - pd.offsets.BDay(1)).normalize()
+    # Roll weekends and regular exchange holidays back to the latest completed
+    # session. One-off exchange closures are surfaced by the cache-date warning.
+    return pd.Timestamp(US_EQUITY_BUSINESS_DAY.rollback(candidate)).normalize()
 
 
 def _empty_constituent_cache() -> pd.DataFrame:
@@ -629,6 +722,359 @@ def calculate_adl_slope(adl: pd.Series, window: int = 20) -> Optional[float]:
     return float(slope)
 
 
+def _load_constituent_sector_map(
+    universe: str = "sp500",
+    universe_root: Optional[Path] = None,
+) -> dict[str, str]:
+    universe_key = _normalize_universe(universe)
+    if universe_root is None:
+        from src.agent_system.paths import universe_dir
+
+        root = universe_dir(create=False)
+    else:
+        root = Path(universe_root)
+    path = root / CONSTITUENT_UNIVERSE_FILES[universe_key]
+    frame = pd.read_csv(path)
+    if not {"ticker", "sector"}.issubset(frame.columns):
+        return {}
+    clean = frame[["ticker", "sector"]].dropna().copy()
+    clean["ticker"] = clean["ticker"].astype(str).str.strip().str.upper()
+    clean["sector"] = clean["sector"].astype(str).str.strip()
+    clean = clean[(clean["ticker"] != "") & (clean["sector"] != "")]
+    return dict(clean.drop_duplicates("ticker", keep="last").itertuples(index=False, name=None))
+
+
+def _rolling_linear_slope(series: pd.Series, window: int) -> pd.Series:
+    x = np.arange(window, dtype=float)
+    centered_x = x - x.mean()
+    denominator = float(np.dot(centered_x, centered_x))
+
+    def slope(values: np.ndarray) -> float:
+        return float(np.dot(centered_x, values - values.mean()) / denominator)
+
+    return series.rolling(window, min_periods=window).apply(slope, raw=True)
+
+
+def calculate_live_breadth_history(
+    prices: pd.DataFrame,
+    *,
+    sector_map: Optional[dict[str, str]] = None,
+    constituent_count: Optional[int] = None,
+) -> pd.DataFrame:
+    """Calculate live breadth aggregates once from the shared constituent matrix.
+
+    The input is the same adjusted-close matrix used by Layer 4. Rows are market
+    observations, so all 5d/10d shifts below are trading-observation shifts rather
+    than calendar-day subtraction. Current constituents are intentionally used for
+    this live monitor; this is not a point-in-time historical-membership dataset.
+    """
+    if prices is None or prices.empty:
+        return pd.DataFrame(columns=LIVE_BREADTH_HISTORY_COLUMNS)
+
+    px = prices.copy()
+    px.index = pd.to_datetime(px.index, errors="coerce").tz_localize(None).normalize()
+    px = px[~px.index.isna()].sort_index()
+    px = px[~px.index.duplicated(keep="last")]
+    px = px.apply(pd.to_numeric, errors="coerce")
+    px = px.where(px > 0)
+    if px.empty:
+        return pd.DataFrame(columns=LIVE_BREADTH_HISTORY_COLUMNS)
+
+    total_constituents = max(int(constituent_count or 0), len(px.columns))
+    out = pd.DataFrame(index=px.index)
+    out.index.name = "date"
+    out["constituent_count"] = total_constituents
+    out["price_count"] = px.notna().sum(axis=1).astype(int)
+    out["price_coverage_pct"] = (
+        out["price_count"] / total_constituents * 100.0
+        if total_constituents
+        else np.nan
+    )
+
+    moving_averages: dict[int, pd.DataFrame] = {}
+    for window in (20, 50, 100, 200):
+        ma = px.rolling(window, min_periods=window).mean()
+        moving_averages[window] = ma
+        valid = px.notna() & ma.notna() & ma.ne(0)
+        valid_count = valid.sum(axis=1).astype(int)
+        above_count = (px.gt(ma) & valid).sum(axis=1)
+        out[f"valid_{window}dma_count"] = valid_count
+        out[f"pct_above_{window}dma"] = (
+            100.0 * above_count / valid_count.replace(0, np.nan)
+        )
+
+    valid_200 = px.notna() & moving_averages[200].notna() & moving_averages[200].ne(0)
+    dist_200 = (px / moving_averages[200] - 1.0) * 100.0
+    out["avg_dist_from_200dma"] = dist_200.where(valid_200).mean(axis=1)
+
+    returns_20d = px.pct_change(periods=20, fill_method=None)
+    out["dispersion_20d"] = returns_20d.std(axis=1, ddof=1)
+
+    trailing_low_252d = px.rolling(252, min_periods=252).min()
+    valid_252d = px.notna() & trailing_low_252d.notna()
+    new_low_count = (px.le(trailing_low_252d) & valid_252d).sum(axis=1)
+    out["valid_252d_count"] = valid_252d.sum(axis=1).astype(int)
+    out["pct_new_lows_252d"] = (
+        100.0 * new_low_count / out["valid_252d_count"].replace(0, np.nan)
+    )
+
+    valid_ad = px.notna() & px.shift(1).notna()
+    changes = px.diff()
+    advances = (changes.gt(0) & valid_ad).sum(axis=1)
+    declines = (changes.lt(0) & valid_ad).sum(axis=1)
+    out["valid_ad_count"] = valid_ad.sum(axis=1).astype(int)
+    normalized_net_advances = (
+        (advances - declines) / out["valid_ad_count"].replace(0, np.nan)
+    )
+    normalized_adl = normalized_net_advances.dropna().cumsum()
+    out["adl_slope_20d"] = _rolling_linear_slope(normalized_adl, 20).reindex(out.index)
+
+    out["sector_deterioration_count"] = np.nan
+    out["sectors_50dma_declining_10d"] = np.nan
+    out["valid_sector_count"] = 0
+    sector_map = sector_map or {}
+    represented_sectors = sorted(
+        {sector_map[ticker] for ticker in px.columns if ticker in sector_map}
+    )
+    if represented_sectors:
+        sector_breadth = pd.DataFrame(index=px.index)
+        valid_50 = px.notna() & moving_averages[50].notna()
+        above_50 = px.gt(moving_averages[50]) & valid_50
+        for sector in represented_sectors:
+            tickers = [
+                ticker
+                for ticker in px.columns
+                if sector_map.get(ticker) == sector
+            ]
+            sector_valid_count = valid_50[tickers].sum(axis=1)
+            sector_breadth[sector] = (
+                100.0
+                * above_50[tickers].sum(axis=1)
+                / sector_valid_count.replace(0, np.nan)
+            )
+        prior_sector_breadth = sector_breadth.shift(10)
+        valid_sector = sector_breadth.notna() & prior_sector_breadth.notna()
+        deteriorating = sector_breadth.lt(prior_sector_breadth) & valid_sector
+        valid_sector_count = valid_sector.sum(axis=1).astype(int)
+        deterioration_count = deteriorating.sum(axis=1).astype(float)
+        out["valid_sector_count"] = valid_sector_count
+        out["sector_deterioration_count"] = deterioration_count.where(
+            valid_sector_count.gt(0)
+        )
+        out["sectors_50dma_declining_10d"] = (
+            out["sector_deterioration_count"]
+            / valid_sector_count.replace(0, np.nan)
+        )
+
+    out["pct_above_20dma_chg_5d"] = out["pct_above_20dma"].diff(5)
+    out["pct_above_50dma_chg_10d"] = out["pct_above_50dma"].diff(10)
+    out["pct_above_200dma_chg_10d"] = out["pct_above_200dma"].diff(10)
+    return out.reset_index().sort_values("date").reset_index(drop=True)
+
+
+def load_live_breadth_history(cache_root: Optional[Path] = None) -> pd.DataFrame:
+    path = _live_breadth_history_path(cache_root)
+    if not path.exists():
+        return pd.DataFrame(columns=LIVE_BREADTH_HISTORY_COLUMNS)
+    try:
+        frame = pd.read_parquet(path)
+        if "date" not in frame.columns:
+            raise ValueError("live breadth history has no date column")
+        frame = frame.copy()
+        frame["date"] = pd.to_datetime(frame["date"], errors="coerce").dt.tz_localize(None)
+        return (
+            frame.dropna(subset=["date"])
+            .drop_duplicates("date", keep="last")
+            .sort_values("date")
+            .reset_index(drop=True)
+        )
+    except Exception as e:
+        print(f"    live breadth history read failed for {path}: {e}")
+        return pd.DataFrame(columns=LIVE_BREADTH_HISTORY_COLUMNS)
+
+
+def _write_live_breadth_history(frame: pd.DataFrame, path: Path) -> None:
+    if frame is None or frame.empty or "date" not in frame.columns:
+        raise ValueError("Refusing to write empty live breadth history.")
+    clean = frame.copy()
+    clean["date"] = pd.to_datetime(clean["date"], errors="coerce").dt.tz_localize(None)
+    clean = (
+        clean.dropna(subset=["date"])
+        .drop_duplicates("date", keep="last")
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_name(f"{path.name}.tmp.{os.getpid()}")
+    try:
+        clean.to_parquet(tmp_path, index=False)
+        tmp_path.replace(path)
+    finally:
+        if tmp_path.exists():
+            try:
+                tmp_path.unlink()
+            except OSError:
+                pass
+
+
+def live_breadth_is_stale(
+    latest_observation_date: Any,
+    expected_session_date: Any,
+) -> bool:
+    if latest_observation_date is None or expected_session_date is None:
+        return True
+    latest = pd.Timestamp(latest_observation_date).normalize().tz_localize(None)
+    expected = pd.Timestamp(expected_session_date).normalize().tz_localize(None)
+    return bool(latest < expected)
+
+
+def get_live_breadth_state(
+    *,
+    asof_date: Optional[str] = None,
+    cache_root: Optional[Path] = None,
+    universe_root: Optional[Path] = None,
+    persist_history: Optional[bool] = None,
+) -> dict[str, Any]:
+    """Return the shared current-constituent breadth object for all consumers."""
+    history_result = get_constituent_history(
+        "sp500",
+        asof_date=asof_date,
+        cache_root=cache_root,
+        universe_root=universe_root,
+    )
+    prices = _constituent_price_matrix(history_result.data)
+    sector_map = _load_constituent_sector_map("sp500", universe_root=universe_root)
+    aggregate = calculate_live_breadth_history(
+        prices,
+        sector_map=sector_map,
+        constituent_count=history_result.requested_count,
+    )
+    history_path = _live_breadth_history_path(cache_root)
+    if persist_history is None:
+        persist_history = asof_date is None
+    if persist_history and not aggregate.empty:
+        cached_aggregate = load_live_breadth_history(cache_root)
+        frames = [
+            frame.dropna(axis=1, how="all")
+            for frame in (cached_aggregate, aggregate)
+            if not frame.empty
+        ]
+        merged = pd.concat(frames, ignore_index=True, sort=False)
+        merged = merged.drop_duplicates("date", keep="last").sort_values("date")
+        try:
+            _write_live_breadth_history(merged, history_path)
+        except Exception as e:
+            print(f"    live breadth history write failed for {history_path}: {e}")
+
+    expected_session = _latest_completed_daily_bar_date(asof_date)
+    warnings: list[str] = []
+    if aggregate.empty:
+        warnings.append("No live constituent breadth observations are available")
+        return {
+            "as_of": None,
+            "latest_observation_date": None,
+            "data_source": "yfinance_live",
+            "source": "yfinance_live",
+            "is_stale": True,
+            "history": {"cache_path": str(history_path), "observation_count": 0},
+            "data_quality": {
+                "warnings": warnings,
+                "requested_constituent_count": history_result.requested_count,
+                "successful_ticker_count": history_result.successful_ticker_count,
+            },
+        }
+
+    row = aggregate.iloc[-1]
+    latest_date = pd.Timestamp(row["date"]).normalize()
+    is_stale = live_breadth_is_stale(latest_date, expected_session)
+    valid_sector_count = int(row["valid_sector_count"] or 0)
+    price_coverage = float(row["price_coverage_pct"])
+    if is_stale:
+        warnings.append(
+            f"Latest breadth observation {latest_date.date()} is older than expected "
+            f"completed session {expected_session.date()}"
+        )
+    if valid_sector_count != 11:
+        warnings.append(
+            f"Sector deterioration unavailable for trigger: {valid_sector_count}/11 sectors valid"
+        )
+    if price_coverage < 95.0:
+        warnings.append(f"Current constituent price coverage is {price_coverage:.1f}%")
+    if history_result.cached_fallback_used:
+        warnings.append("Using cached constituent prices after a failed or empty live update")
+
+    def value(name: str) -> Optional[float]:
+        raw = row.get(name)
+        return float(raw) if pd.notna(raw) and np.isfinite(float(raw)) else None
+
+    major_valid_counts = [
+        int(row["valid_20dma_count"]),
+        int(row["valid_50dma_count"]),
+        int(row["valid_200dma_count"]),
+        int(row["valid_252d_count"]),
+    ]
+    total_constituents = int(row["constituent_count"])
+    major_history_coverage_ok = (
+        total_constituents > 0
+        and min(major_valid_counts) / total_constituents >= 0.90
+    )
+
+    return {
+        "as_of": latest_date.date().isoformat(),
+        "latest_observation_date": latest_date.date().isoformat(),
+        "data_source": "yfinance_live",
+        "source": "yfinance_live",
+        "is_stale": is_stale,
+        "expected_latest_session": expected_session.date().isoformat(),
+        "pct_above_20dma": value("pct_above_20dma"),
+        "pct_above_50dma": value("pct_above_50dma"),
+        "pct_above_100dma": value("pct_above_100dma"),
+        "pct_above_200dma": value("pct_above_200dma"),
+        "avg_dist_from_200dma": value("avg_dist_from_200dma"),
+        "dispersion_20d": value("dispersion_20d"),
+        "pct_new_lows_252d": value("pct_new_lows_252d"),
+        "adl_slope_20d": value("adl_slope_20d"),
+        "pct_above_20dma_chg_5d": value("pct_above_20dma_chg_5d"),
+        "pct_above_50dma_chg_10d": value("pct_above_50dma_chg_10d"),
+        "pct_above_200dma_chg_10d": value("pct_above_200dma_chg_10d"),
+        "sector_deterioration_count": value("sector_deterioration_count"),
+        "sectors_50dma_declining_10d": value("sectors_50dma_declining_10d"),
+        "member_count": total_constituents,
+        "price_count": int(row["price_count"]),
+        "price_coverage_pct": price_coverage,
+        "valid_20dma_count": int(row["valid_20dma_count"]),
+        "valid_50dma_count": int(row["valid_50dma_count"]),
+        "valid_100dma_count": int(row["valid_100dma_count"]),
+        "valid_200dma_count": int(row["valid_200dma_count"]),
+        "valid_252d_count": int(row["valid_252d_count"]),
+        "valid_ad_count": int(row["valid_ad_count"]),
+        "valid_sector_count": valid_sector_count,
+        "breadth_data_quality_ok": (
+            price_coverage >= 95.0
+            and valid_sector_count == 11
+            and major_history_coverage_ok
+        ),
+        "history": {
+            "cache_path": str(history_path),
+            "observation_count": len(aggregate),
+            "first_date": pd.Timestamp(aggregate["date"].min()).date().isoformat(),
+            "last_date": latest_date.date().isoformat(),
+        },
+        "data_quality": {
+            "warnings": warnings,
+            "requested_constituent_count": history_result.requested_count,
+            "successful_ticker_count": history_result.successful_ticker_count,
+            "failed_ticker_count": len(history_result.failed_tickers),
+            "failed_tickers": list(history_result.failed_tickers),
+            "valid_sector_count": valid_sector_count,
+            "constituent_cache_path": str(history_result.cache_path),
+            "live_download_attempted": history_result.live_download_attempted,
+            "live_download_succeeded": history_result.live_download_succeeded,
+            "cached_fallback_used": history_result.cached_fallback_used,
+        },
+    }
+
+
 def calculate_rsp_vs_spy_z(asof_date: Optional[str] = None) -> Optional[float]:
     rsp = _yf_close("RSP", asof_date=asof_date)
     spy = _yf_close("SPY", asof_date=asof_date)
@@ -653,57 +1099,6 @@ def calculate_sectors_green(asof_date: Optional[str] = None) -> Optional[int]:
         if closes.iloc[-1] > closes.iloc[-2]:
             green_count += 1
     return green_count if valid_count else None
-
-
-def _valid_advance_decline_count(prices: pd.DataFrame) -> int:
-    if prices is None or prices.empty:
-        return 0
-    latest_date = prices.index.max()
-    valid = prices.notna() & prices.shift(1).notna()
-    return int(valid.loc[latest_date].sum()) if latest_date in valid.index else 0
-
-
-def _print_breadth_snapshot(
-    inputs: RegimeInputs,
-    history_result: ConstituentHistoryResult,
-    valid_ma200_count: int,
-    valid_ad_count: int,
-) -> None:
-    print("    Breadth constituent universe:")
-    print(f"      S&P 500 requested: {history_result.requested_count}")
-    print(f"      Successfully loaded: {history_result.successful_ticker_count}")
-    print(f"      Valid MA200: {valid_ma200_count}")
-    print(f"      Valid A/D: {valid_ad_count}")
-    print(f"      Latest cached market data: {history_result.latest_cached_date or 'n/a'}")
-    print(
-        "      Download status: "
-        f"attempted={history_result.live_download_attempted}, "
-        f"succeeded={history_result.live_download_succeeded}, "
-        f"cached_fallback={history_result.cached_fallback_used}"
-    )
-    if history_result.failed_tickers:
-        sample = ", ".join(history_result.failed_tickers[:20])
-        suffix = "..." if len(history_result.failed_tickers) > 20 else ""
-        print(f"      Failed/missing tickers: {sample}{suffix}")
-
-    print(f"    pct_above_200d: {inputs.pct_above_200d if inputs.pct_above_200d is not None else 'n/a'}")
-    print(f"    avg_dist_from_200d: {inputs.avg_dist_from_200d if inputs.avg_dist_from_200d is not None else 'n/a'}")
-    print(f"    rsp_vs_spy_z: {inputs.rsp_vs_spy_z if inputs.rsp_vs_spy_z is not None else 'n/a'}")
-    print(f"    adl_slope: {inputs.adl_slope if inputs.adl_slope is not None else 'n/a'}")
-    print(f"    sectors_green: {inputs.sectors_green if inputs.sectors_green is not None else 'n/a'}")
-    try:
-        from src.state.regime_layers import score_breadth
-
-        layer = score_breadth(
-            pct_above_200d=inputs.pct_above_200d,
-            avg_dist_from_200d=inputs.avg_dist_from_200d,
-            sectors_green=inputs.sectors_green,
-            rsp_vs_spy_z=inputs.rsp_vs_spy_z,
-            adl_slope=inputs.adl_slope,
-        )
-        print(f"    Layer 4 score: {layer.score:.2f}")
-    except Exception as e:
-        print(f"    Layer 4 score snapshot unavailable: {e}")
 
 
 # ── Layer 1: Monetary ─────────────────────────────────────────────────────────
@@ -868,26 +1263,18 @@ def _fetch_breadth(
     except Exception as e:
         print(f"    rsp_vs_spy_z compute failed: {e}")
 
-    history_result: Optional[ConstituentHistoryResult] = None
-    valid_ma200_count = 0
-    valid_ad_count = 0
-
-    # Stock-level breadth from current S&P 500 constituents. This is a live/current
-    # data-quality upgrade, not a point-in-time historical membership database.
+    # Both the regime score and hedge monitor consume this one live calculation.
+    # The public Layer 4 fields and their rounding remain unchanged.
     try:
-        history_result = get_constituent_history("sp500", asof_date=asof_date)
-        prices = _constituent_price_matrix(history_result.data)
-
-        breadth_200d = calculate_200d_breadth(prices)
-        valid_ma200_count = breadth_200d.valid_count
-        if breadth_200d.pct_above_200d is not None:
-            inputs.pct_above_200d = round(breadth_200d.pct_above_200d, 1)
-        if breadth_200d.avg_dist_from_200d is not None:
-            inputs.avg_dist_from_200d = round(breadth_200d.avg_dist_from_200d, 2)
-
-        valid_ad_count = _valid_advance_decline_count(prices)
-        adl = calculate_advance_decline_line(prices)
-        inputs.adl_slope = calculate_adl_slope(adl, window=20)
+        live_breadth = get_live_breadth_state(asof_date=asof_date)
+        if live_breadth.get("pct_above_200dma") is not None:
+            inputs.pct_above_200d = round(float(live_breadth["pct_above_200dma"]), 1)
+        if live_breadth.get("avg_dist_from_200dma") is not None:
+            inputs.avg_dist_from_200d = round(
+                float(live_breadth["avg_dist_from_200dma"]), 2
+            )
+        if live_breadth.get("adl_slope_20d") is not None:
+            inputs.adl_slope = float(live_breadth["adl_slope_20d"])
 
         print(
             f"    avg_dist_from_200d={inputs.avg_dist_from_200d}%  "
@@ -895,16 +1282,15 @@ def _fetch_breadth(
         )
         if inputs.adl_slope is not None:
             print(f"    adl_slope (normalized constituent ADL, 20d)={inputs.adl_slope:+.3f}")
+        quality = live_breadth.get("data_quality") or {}
+        print("    Breadth constituent universe:")
+        print(f"      S&P 500 requested: {quality.get('requested_constituent_count', 'n/a')}")
+        print(f"      Successfully loaded: {quality.get('successful_ticker_count', 'n/a')}")
+        print(f"      Valid MA200: {live_breadth.get('valid_200dma_count', 'n/a')}")
+        print(f"      Valid A/D: {live_breadth.get('valid_ad_count', 'n/a')}")
+        print(f"      Latest cached market data: {live_breadth.get('as_of') or 'n/a'}")
     except Exception as e:
         print(f"    constituent breadth compute failed: {e}")
-
-    if history_result is not None:
-        _print_breadth_snapshot(
-            inputs,
-            history_result,
-            valid_ma200_count=valid_ma200_count,
-            valid_ad_count=valid_ad_count,
-        )
 
 
 # ── Layer 5: Positioning ──────────────────────────────────────────────────────

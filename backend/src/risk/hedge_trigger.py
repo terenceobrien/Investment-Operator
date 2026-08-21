@@ -11,12 +11,11 @@ from __future__ import annotations
 
 import math
 from datetime import date, datetime, timezone
-from pathlib import Path
 from typing import Any, Mapping
 
 import pandas as pd
 
-from src.agent_system.paths import backend_root, data_root, project_root
+from src.agent_system.paths import backend_root, project_root
 
 
 BREADTH_DISPERSION_20D_THRESHOLD = 0.1243
@@ -184,8 +183,19 @@ def evaluate_breadth_state(metrics: Mapping[str, Any]) -> dict[str, Any]:
     """Evaluate fixed Breadth High-Recall conditions."""
     dispersion = _num(metrics.get("dispersion_20d"))
     dispersion_threshold, dispersion_unit = _dispersion_threshold(dispersion)
-    sector_value = _num(metrics.get("sectors_50dma_declining_10d"))
-    sector_threshold, sector_unit = _sector_threshold(sector_value, metrics)
+    sector_ratio = _num(metrics.get("sectors_50dma_declining_10d"))
+    sector_count = _num(metrics.get("sector_deterioration_count"))
+    valid_sector_count = _num(metrics.get("valid_sector_count"))
+    if valid_sector_count is not None:
+        # The validated rule is exactly 10 of 11 sectors. If all sectors are not
+        # represented, this one condition is unavailable rather than rescaled.
+        sector_value = sector_count if valid_sector_count == 11 else None
+        sector_threshold, sector_unit = BREADTH_SECTOR_DECLINE_COUNT_THRESHOLD, "count"
+    else:
+        # Backward-compatible pure evaluator input for callers/tests that provide
+        # either the legacy count or 0-100 percentage representation.
+        sector_value = sector_ratio
+        sector_threshold, sector_unit = _sector_threshold(sector_value, metrics)
 
     metric_map = {
         "dispersion_20d": _metric(
@@ -270,10 +280,19 @@ def evaluate_breadth_state(metrics: Mapping[str, Any]) -> dict[str, Any]:
     ]
     latest_date = _iso_date(metrics.get("latest_observation_date"))
     stale_days = _age_days(latest_date)
+    is_stale = metrics.get("is_stale")
+    if is_stale is None:
+        is_stale = stale_days is not None and stale_days > 5
+    source_quality = metrics.get("data_quality")
+    if not isinstance(source_quality, Mapping):
+        source_quality = {}
     return {
         "status": _status_from_values(required_values),
+        "as_of": _iso_date(metrics.get("as_of")) or latest_date,
+        "data_source": metrics.get("data_source") or metrics.get("source"),
         "latest_observation_date": latest_date,
-        "stale": stale_days is not None and stale_days > 5,
+        "is_stale": bool(is_stale),
+        "stale": bool(is_stale),
         "stale_days": stale_days,
         "metrics": metric_map,
         "bhr_active": count > 0 if any(v is not None for v in required_values) else None,
@@ -281,13 +300,36 @@ def evaluate_breadth_state(metrics: Mapping[str, Any]) -> dict[str, Any]:
         "firing_signals": firing,
         "state_label": _breadth_label(count),
         "reasons": _reasons(metric_map),
+        "sector_deterioration_count": sector_count,
+        "sectors_50dma_declining_10d": sector_ratio,
+        "valid_sector_count": valid_sector_count,
         "data_quality": {
-            "source": metrics.get("source"),
+            "source": metrics.get("data_source") or metrics.get("source"),
             "source_path": metrics.get("source_path"),
             "member_count": _num(metrics.get("member_count")),
             "price_count": _num(metrics.get("price_count")),
             "price_coverage_pct": _num(metrics.get("price_coverage_pct")),
             "breadth_data_quality_ok": _bool_or_none(metrics.get("breadth_data_quality_ok")),
+            "valid_sector_count": valid_sector_count,
+            "expected_latest_session": metrics.get("expected_latest_session"),
+            "history": metrics.get("history"),
+            "requested_constituent_count": _num(
+                source_quality.get("requested_constituent_count")
+            ),
+            "successful_ticker_count": _num(
+                source_quality.get("successful_ticker_count")
+            ),
+            "failed_ticker_count": _num(source_quality.get("failed_ticker_count")),
+            "failed_tickers": list(source_quality.get("failed_tickers") or []),
+            "valid_20dma_count": _num(metrics.get("valid_20dma_count")),
+            "valid_50dma_count": _num(metrics.get("valid_50dma_count")),
+            "valid_200dma_count": _num(metrics.get("valid_200dma_count")),
+            "valid_252d_count": _num(metrics.get("valid_252d_count")),
+            "live_download_attempted": source_quality.get("live_download_attempted"),
+            "live_download_succeeded": source_quality.get("live_download_succeeded"),
+            "cached_fallback_used": source_quality.get("cached_fallback_used"),
+            "constituent_cache_path": source_quality.get("constituent_cache_path"),
+            "warnings": list(source_quality.get("warnings") or []),
         },
     }
 
@@ -479,83 +521,21 @@ def evaluate_combined_state(
     }
 
 
-def _find_breadth_daily_path() -> Path | None:
-    derived = data_root(create=False) / "sharadar" / "derived"
-    exact = derived / "sp500_breadth_daily.parquet"
-    if exact.exists():
-        return exact
-    candidates = sorted(derived.glob("sp500_breadth_daily*.parquet"))
-    return candidates[0] if candidates else None
-
-
-def _read_latest_breadth_row(path: Path, asof_date: str | None = None) -> dict[str, Any]:
-    import duckdb
-
-    path_sql = str(path).replace("'", "''")
-    where = ""
-    params: list[Any] = []
-    if asof_date:
-        where = "WHERE date <= ?"
-        params.append(asof_date)
-    query = f"""
-        SELECT *
-        FROM read_parquet('{path_sql}')
-        {where}
-        ORDER BY date DESC
-        LIMIT 1
-    """
-    with duckdb.connect(database=":memory:") as con:
-        frame = con.execute(query, params).fetchdf()
-    if frame.empty:
-        return {}
-    return frame.iloc[0].to_dict()
-
-
 def load_breadth_inputs(asof_date: str | None = None) -> dict[str, Any]:
-    """Load current BHR inputs from the existing Sharadar breadth daily cache."""
-    path = _find_breadth_daily_path()
-    if path is None:
-        return {
-            "source": "sharadar_sp500_breadth_daily",
-            "warnings": ["sp500_breadth_daily.parquet not found"],
-        }
+    """Load BHR inputs from the same live breadth object used by Layer 4."""
     try:
-        row = _read_latest_breadth_row(path, asof_date=asof_date)
+        from src.state.regime_data import get_live_breadth_state
+
+        return get_live_breadth_state(asof_date=asof_date)
     except Exception as exc:
         return {
-            "source": "sharadar_sp500_breadth_daily",
-            "source_path": str(path),
-            "warnings": [f"Could not read breadth cache: {exc}"],
+            "source": "yfinance_live",
+            "data_source": "yfinance_live",
+            "is_stale": True,
+            "data_quality": {
+                "warnings": [f"Could not build shared live breadth state: {exc}"]
+            },
         }
-    if not row:
-        return {
-            "source": "sharadar_sp500_breadth_daily",
-            "source_path": str(path),
-            "warnings": ["No breadth rows available for requested as-of date"],
-        }
-    return {
-        "source": "sharadar_sp500_breadth_daily",
-        "source_path": str(path),
-        "latest_observation_date": _iso_date(row.get("date")),
-        "dispersion_20d": _num(row.get("sp500_return_dispersion_20d")),
-        "pct_new_lows_252d": _num(row.get("sp500_pct_new_low_252d")),
-        "pct_above_20dma": _num(row.get("sp500_pct_above_20d")),
-        "pct_above_50dma": _num(row.get("sp500_pct_above_50d")),
-        "pct_above_200dma": _num(row.get("sp500_pct_above_200d")),
-        "pct_above_20dma_chg_5d": _num(row.get("sp500_pct_above_20d_chg_5d")),
-        "pct_above_50dma_chg_10d": _num(row.get("sp500_pct_above_50d_chg_10d")),
-        "pct_above_200dma_chg_10d": _num(row.get("sp500_pct_above_200d_chg_10d")),
-        "sectors_50dma_declining_10d": _num(
-            row.get("pct_sectors_pct_above_50d_declining_10d")
-        ),
-        "sectors_50dma_declining_10d_unit": "percent",
-        "member_count": _num(row.get("sp500_member_count")),
-        "price_count": _num(row.get("sp500_price_count")),
-        "price_coverage_pct": _num(row.get("sp500_price_coverage_pct")),
-        "breadth_data_quality_ok": bool(row.get("breadth_data_quality_ok"))
-        if row.get("breadth_data_quality_ok") is not None
-        else None,
-    }
 
 
 def _series_change(series: pd.Series, periods: int) -> float | None:

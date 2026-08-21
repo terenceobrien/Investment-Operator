@@ -5,6 +5,7 @@ from src.risk.hedge_trigger import (
     evaluate_combined_state,
     evaluate_credit_state,
     evaluate_volatility_state,
+    load_breadth_inputs,
 )
 
 
@@ -100,6 +101,54 @@ def test_breadth_sector_percentage_threshold_equality_counts_as_firing():
         )
     )
     assert state["metrics"]["sectors_50dma_declining_10d"]["trigger"] is True
+
+
+def test_live_breadth_adapter_reuses_regime_data(monkeypatch):
+    from src.state import regime_data
+
+    live = _base_breadth(
+        source="yfinance_live",
+        data_source="yfinance_live",
+        sector_deterioration_count=2,
+        valid_sector_count=11,
+        is_stale=False,
+    )
+    monkeypatch.setattr(regime_data, "get_live_breadth_state", lambda **_kwargs: live)
+
+    loaded = load_breadth_inputs()
+    state = evaluate_breadth_state(loaded)
+
+    assert loaded is live
+    assert state["data_source"] == "yfinance_live"
+    assert state["metrics"]["dispersion_20d"]["value"] is not None
+    assert state["metrics"]["pct_new_lows_252d"]["value"] is not None
+
+
+def test_sector_signal_is_unavailable_without_all_eleven_sectors():
+    state = evaluate_breadth_state(
+        _base_breadth(
+            sector_deterioration_count=10,
+            sectors_50dma_declining_10d=1.0,
+            valid_sector_count=10,
+        )
+    )
+
+    assert state["metrics"]["sectors_50dma_declining_10d"]["value"] is None
+    assert state["metrics"]["sectors_50dma_declining_10d"]["trigger"] is None
+    assert state["status"] == "partial"
+
+
+def test_live_breadth_stale_flag_is_preserved():
+    state = evaluate_breadth_state(
+        _base_breadth(
+            source="yfinance_live",
+            data_source="yfinance_live",
+            is_stale=True,
+        )
+    )
+
+    assert state["is_stale"] is True
+    assert state["stale"] is True
 
 
 def test_credit_level_trigger():
@@ -217,4 +266,3 @@ def test_combined_vol_without_bhr_stays_normal():
     state = evaluate_combined_state(breadth, credit, vol)
     assert state["stage"] == 0
     assert state["combined_trigger"] is False
-
