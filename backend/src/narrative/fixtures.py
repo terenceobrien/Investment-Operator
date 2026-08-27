@@ -39,6 +39,7 @@ def _adapt_fixture(base: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, A
 
     output = record.get("output") or record.get("result") or {}
     output["asof_utc"] = record.get("generated_at") or output.get("asof_utc")
+    asof_date = str(output.get("asof_utc") or "")[:10]
     output["one_paragraph_summary"] = (
         f"Mock Helix read for {name} ({ticker}): the current setup centers on "
         f"{primary_theme}, {secondary_theme}, and relative performance versus "
@@ -62,6 +63,13 @@ def _adapt_fixture(base: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, A
             "title": f"{name} expectation reset",
             "stance": "mixed",
             "confidence": 64,
+            "narrative_id": f"{ticker.lower()}_expectation_reset",
+            "lifecycle_state": "established",
+            "first_seen": asof_date,
+            "last_updated": asof_date,
+            "age_days": 0,
+            "direction": "stable",
+            "fundamental_trend": "unclear",
             "why_now": (
                 f"REALITY: {name} fundamentals and execution are the primary evidence base. "
                 f"STORY: Investors are focused on {primary_theme}. "

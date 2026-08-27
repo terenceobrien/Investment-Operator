@@ -7,6 +7,17 @@ Stance = Literal["risk_on", "risk_off", "mixed", "unclear"]
 RiskAppetite = Literal["high", "medium", "low", "unclear"]
 Fragility = Literal["stable", "fragile", "very_fragile", "unclear"]
 Positioning = Literal["clean", "crowded", "unclear"]
+NarrativeLifecycleState = Literal[
+    "emerging",
+    "strengthening",
+    "established",
+    "consensus",
+    "challenged",
+    "breaking",
+    "dormant",
+]
+NarrativeDirection = Literal["strengthening", "stable", "weakening"]
+FundamentalTrend = Literal["improving", "stable", "deteriorating", "mixed", "unclear"]
 
 
 class EvidenceItem(BaseModel):
@@ -21,6 +32,16 @@ class DominantNarrative(BaseModel):
     title: str
     stance: Stance = "unclear"
     confidence: int = Field(default=50, ge=0, le=100)
+
+    # Persistent-state fields. Defaults keep older saved snapshots valid while
+    # allowing newly generated states to carry stable narrative identity.
+    narrative_id: str = Field(default="")
+    lifecycle_state: NarrativeLifecycleState = "emerging"
+    first_seen: str = Field(default="")
+    last_updated: str = Field(default="")
+    age_days: int = Field(default=0, ge=0)
+    direction: NarrativeDirection = "stable"
+    fundamental_trend: FundamentalTrend = "unclear"
 
     why_now: str = Field(default="")
     # Freeform bullets encourage expressive synthesis without rambling

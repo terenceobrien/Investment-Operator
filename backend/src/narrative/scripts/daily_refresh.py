@@ -113,6 +113,13 @@ def _build_stub_snapshot(
                 title=f"{subject_key} stub narrative refresh",
                 stance="unclear",
                 confidence=1,
+                narrative_id=f"{subject_key.lower()}_stub_narrative_refresh",
+                lifecycle_state="dormant",
+                first_seen=asof_utc[:10],
+                last_updated=asof_utc[:10],
+                age_days=0,
+                direction="stable",
+                fundamental_trend="unclear",
                 why_now="This is a stub for testing; live narrative synthesis was disabled.",
                 takeaways=[
                     "REALITY: this is a stub for testing.",

@@ -41,7 +41,7 @@ import json
 import logging
 import re
 from collections import Counter
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -104,7 +104,11 @@ def _date_str_from_iso(iso_ts: Optional[str]) -> str:
     if not iso_ts:
         return datetime.now(timezone.utc).strftime("%Y-%m-%d")
     try:
+        if re.match(r"^\d{4}-\d{2}-\d{2}$", str(iso_ts).strip()):
+            return str(iso_ts).strip()
         dt = datetime.fromisoformat(iso_ts.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            return dt.strftime("%Y-%m-%d")
         return dt.astimezone(timezone.utc).strftime("%Y-%m-%d")
     except Exception:
         return datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -161,6 +165,107 @@ def _normalize_title(x: Any) -> str:
     s = re.sub(r"\s+", " ", s).strip()
     s = re.sub(r"[^a-z0-9 ]+", "", s)
     return s
+
+
+def _stable_narrative_id_from_title(title: Any) -> str:
+    s = str(title or "").lower()
+    s = re.sub(r"[^a-z0-9]+", "_", s).strip("_")
+    s = re.sub(r"_+", "_", s)
+    if not s:
+        return "market_narrative"
+    return s[:80].strip("_") or "market_narrative"
+
+
+def _parse_utc_date(value: Any) -> Optional[date]:
+    if not value:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    try:
+        if re.match(r"^\d{4}-\d{2}-\d{2}$", text):
+            return datetime.strptime(text, "%Y-%m-%d").date()
+        dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+        if dt.tzinfo is not None:
+            dt = dt.astimezone(timezone.utc)
+        return dt.date()
+    except Exception:
+        return None
+
+
+def _normalize_persistent_narrative_fields(
+    state: Dict[str, Any],
+    prior_state: Optional[Dict[str, Any]],
+    asof_utc: Optional[str],
+) -> None:
+    """
+    Lightweight Stage 1 hygiene for persistent narrative fields.
+
+    The LLM is responsible for semantic continuity. This only fills missing
+    IDs/dates from an exact prior ID/title match, or derives a stable ID from
+    the current title when no prior match exists.
+    """
+    narratives = state.get("dominant_narratives")
+    if not isinstance(narratives, list):
+        return
+
+    asof_date_str = _date_str_from_iso(asof_utc)
+    asof_date = datetime.strptime(asof_date_str, "%Y-%m-%d").date()
+
+    prior_by_id: Dict[str, Dict[str, Any]] = {}
+    prior_by_title: Dict[str, Dict[str, Any]] = {}
+    if prior_state:
+        for raw in prior_state.get("dominant_narratives", []) or []:
+            if not isinstance(raw, dict):
+                continue
+            prior_id = str(raw.get("narrative_id") or "").strip()
+            if prior_id:
+                prior_by_id[prior_id] = raw
+            title_key = _normalize_title(raw.get("title"))
+            if title_key:
+                prior_by_title[title_key] = raw
+
+    for narrative in narratives:
+        if not isinstance(narrative, dict):
+            continue
+
+        narrative_id = str(narrative.get("narrative_id") or "").strip()
+        title_key = _normalize_title(narrative.get("title"))
+        prior_match = prior_by_id.get(narrative_id) if narrative_id else None
+        if prior_match is None and title_key:
+            prior_match = prior_by_title.get(title_key)
+
+        if not narrative_id:
+            prior_id = str((prior_match or {}).get("narrative_id") or "").strip()
+            narrative_id = prior_id or _stable_narrative_id_from_title(narrative.get("title"))
+            narrative["narrative_id"] = narrative_id
+        else:
+            narrative["narrative_id"] = narrative_id
+
+        first_seen = str(narrative.get("first_seen") or "").strip()
+        if not first_seen and prior_match:
+            first_seen = str(prior_match.get("first_seen") or "").strip()
+        if not first_seen and prior_match and prior_state:
+            first_seen = str(prior_state.get("asof_utc") or "").strip()
+        if not first_seen:
+            first_seen = asof_date_str
+
+        first_seen_date = _parse_utc_date(first_seen)
+        if first_seen_date:
+            narrative["first_seen"] = first_seen_date.isoformat()
+            narrative["age_days"] = max((asof_date - first_seen_date).days, 0)
+        else:
+            narrative["first_seen"] = first_seen
+            try:
+                narrative["age_days"] = max(int(narrative.get("age_days") or 0), 0)
+            except Exception:
+                narrative["age_days"] = 0
+
+        last_updated = str(narrative.get("last_updated") or "").strip()
+        last_updated_date = _parse_utc_date(last_updated)
+        narrative["last_updated"] = (
+            last_updated_date.isoformat() if last_updated_date else asof_date_str
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -1625,29 +1730,45 @@ def synthesize_narrative_state(
     )
 
     prior_titles: List[str] = []
+    prior_narratives: List[Dict[str, Any]] = []
     prior_asof = None
     prior_summary = None
     if prior_state:
-        prior_titles = [n.get("title") for n in (prior_state.get("dominant_narratives") or []) if n.get("title")]
+        prior_narratives = prior_state.get("dominant_narratives") or []
+        prior_titles = [n.get("title") for n in prior_narratives if n.get("title")]
         prior_asof = prior_state.get("asof_utc")
         prior_summary = prior_state.get("one_paragraph_summary")
 
     # ---------------- Prompt ----------------
     system = (
-        "You are a senior portfolio manager writing a daily narrative-regime delta note "
-        "for an investment team. Your job is NOT to summarize articles. Your job is to "
-        "compare fundamental reality, policy/company evidence, market narrative, and "
-        "observed price behavior, and to surface where they are aligned or misaligned.\n\n"
+        "You are a senior portfolio manager maintaining a persistent model of the "
+        "major narratives driving markets.\n\n"
+        "Your primary job is to determine:\n"
+        "1. what the market currently believes,\n"
+        "2. how those beliefs have evolved over weeks or months,\n"
+        "3. whether fundamentals are confirming or contradicting them,\n"
+        "4. how prices have behaved across relevant horizons,\n"
+        "5. and whether a persistent gap between narrative, fundamentals, "
+        "expectations, and price creates an investable dislocation.\n\n"
+        "Today's information is an UPDATE to that persistent model, not the entire "
+        "unit of analysis.\n\n"
+        "Do not create a new narrative simply because there is new news today. "
+        "Prefer updating an existing persistent narrative whenever today's evidence "
+        "belongs to an already-established market debate.\n\n"
+        "Your job is NOT to summarize articles. Your job is to compare fundamental "
+        "reality, policy/company evidence, market narrative, and observed price "
+        "behavior across time horizons, and to surface where they are aligned or "
+        "misaligned.\n\n"
         "Do not treat official macro data, central bank communication, or earnings results "
         "as the market narrative by default. Treat them primarily as fundamental/policy/"
         "company evidence. Separately identify how investors, media, analysts, and price "
         "action are interpreting that evidence.\n\n"
-        "Use price_ledger only for price claims.  Do not infer price implications from narrative"
-        "or fundamental items; if you see a narrative or fundamental claim that implies a price move," 
-        "label the claim as REALITY or STORY and mark the price implication as a GAP, then check it" 
+        "Use price_ledger only for price claims. Do not infer price implications from narrative "
+        "or fundamental items; if you see a narrative or fundamental claim that implies a price move, "
+        "label the claim as REALITY or STORY and mark the price implication as a GAP, then check it "
         "against the price_ledger data to confirm or refute.\n\n"
 
-        "For each major narrative, explicitly state whether: 1) price confirmed the narrative,"
+        "For each major narrative, explicitly state whether: 1) price confirmed the narrative, "
         "2) price contradicted the narrative, 3) price partially confirmed the narrative, or "
         "4) price evidence was unavailable or too mixed to draw a conclusion.\n\n"
         "The payload includes a `subject`. If subject_type is ticker, focus on that "
@@ -1656,8 +1777,8 @@ def synthesize_narrative_state(
         "Use cross-asset and sector relationships to identify divergences, especially: "
         "1) equities vs bonds/credit, 2) growth vs. value, 3) large caps vs small caps, "
         "4) energy/oil vs broad equities, 5) defensives vs cyclicals, 6) tech vs the rest of the market, "
-        "7) equal weight vs cap weighted indices, and"
-        "and 8) single-name watchlist tickers vs their sector and vs the overall market.\n\n"
+        "7) equal weight vs cap weighted indices, and "
+        "8) single-name watchlist tickers vs their sector and vs the overall market.\n\n"
 
         "The `regime_state` object is the canonical macro/regime read, decomposed into five "
         "layers: monetary, credit, volatility, breadth, positioning. Each layer carries a 0–100 "
@@ -1675,6 +1796,41 @@ def synthesize_narrative_state(
         "panic/forced liquidation, crowded trade, narrative-fundamental divergence, "
         "regime shift, credit/equity divergence, value/neglect, vol risk premium, etc.)\n"
         "  6. FALSIFIER — what evidence would change the interpretation\n\n"
+        "PERSISTENT NARRATIVE IDENTITY RULES\n\n"
+        "Use prior_context.dominant_narratives as the prior persistent narrative state. "
+        "Preserve an existing `narrative_id` when today's theme represents substantially "
+        "the same underlying market belief as a prior narrative. Do not create a new "
+        "narrative simply because today's catalyst, wording, company, or headline differs. "
+        "Create a new `narrative_id` only when a genuinely distinct market belief has emerged. "
+        "Narrative IDs should be concise, stable, semantic snake_case identifiers such as "
+        "`ai_capex_roi_concerns`, `higher_for_longer_rates`, `soft_landing_without_recession`, "
+        "or `oil_geopolitical_risk_premium`. Do not append dates or random IDs unless "
+        "necessary to distinguish genuinely separate narratives.\n\n"
+        "For continuing narratives, preserve `first_seen`, set `last_updated` to the "
+        "current synthesis date when material new evidence is incorporated, and calculate "
+        "or update `age_days` from `first_seen`. If an older prior narrative lacks "
+        "persistent fields but corresponds to the current narrative, assign a stable "
+        "narrative_id and initialize the missing fields.\n\n"
+        "TIME-HORIZON RULES\n\n"
+        "Treat daily price action as incremental evidence, not the primary basis for "
+        "evaluating a narrative.\n\n"
+        "When assessing whether price confirms or contradicts a narrative:\n"
+        "1. Examine 1M and 3M behavior first.\n"
+        "2. Use 5D to identify recent acceleration or reversal.\n"
+        "3. Use 1D primarily to interpret today's catalyst.\n"
+        "4. Use YTD/1Y when relevant for longer-lived narratives.\n\n"
+        "A one-day move should never overturn a medium-term narrative. For narratives "
+        "older than one week, medium-horizon price behavior should normally carry "
+        "substantially more weight than 1D price action.\n\n"
+        "However, flag that a medium-term narrative could potentially be undergoing an "
+        "abrupt reversal if either condition is present: an unusually large price move "
+        "with abnormality assessed on a sector-relative basis, or a move that is clearly "
+        "catalyst-driven and materially changes the prior trend. For example, a 10% move "
+        "in a healthcare stock would generally be more abnormal than a 10% move in a "
+        "semiconductor stock.\n\n"
+        "When either condition is present, do not automatically declare the prior narrative "
+        "invalid. Instead explicitly flag a possible abrupt narrative reversal that requires "
+        "confirmation from subsequent price action and/or fundamental evidence.\n\n"
         "Use the supplied inefficiency_taxonomy only for final inefficiency_map[] "
         "classification. Choose the most specific applicable taxonomy archetype; "
         "do not default to Narrative-Fundamental Divergence when a more specific "
@@ -1703,6 +1859,7 @@ def synthesize_narrative_state(
             "asof_utc": prior_asof,
             "summary": prior_summary,
             "dominant_titles": prior_titles,
+            "dominant_narratives": prior_narratives,
         },
         # Primary input: the structured ledgers.
         "information_ledgers": information_ledgers,
@@ -1713,16 +1870,47 @@ def synthesize_narrative_state(
         "inefficiency_taxonomy": inefficiency_taxonomy,
         "instructions": {
             "one_paragraph_summary": (
-                "Start with today's net delta vs prior context in 3-6 sentences. "
-                "Lead with what changed in REALITY, then how the STORY shifted, then "
-                "how PRICE responded, then the dominant GAP."
+                "Start with the current medium-horizon narrative state. In 3-6 "
+                "sentences: 1) identify the dominant persistent market beliefs, "
+                "2) explain the most important evolution in those beliefs, "
+                "3) compare those beliefs with the fundamental evidence, "
+                "4) describe relevant medium-horizon price behavior, and "
+                "5) identify the most important current dislocation. Mention today's "
+                "developments only where they materially update that picture. Do not "
+                "structure the summary as a generic recap of today's session."
             ),
             "dominant_narratives": (
-                "Return 1-4 narratives. Within each narrative's takeaways, include "
-                "lines prefixed with REALITY:, STORY:, PRICE:, and GAP: covering that "
-                "specific theme. The narrative's `why_now` must explicitly identify "
-                "what is new today and how it plausibly maps to top_up/top_down moves. "
-                "Place falsifiers under `what_would_change`."
+                "Return 1-4 persistent narratives. Each narrative should populate "
+                "`narrative_id`, `lifecycle_state`, `first_seen`, `last_updated`, "
+                "`age_days`, `direction`, and `fundamental_trend`. Preserve an "
+                "existing `narrative_id` from prior_context.dominant_narratives when "
+                "today's evidence belongs to substantially the same underlying market "
+                "belief; do not create a new narrative merely because today's catalyst, "
+                "wording, company, or headline differs. Preserve `first_seen` for "
+                "continuing narratives, set `last_updated` to the current synthesis "
+                "date when material evidence is incorporated, and calculate `age_days` "
+                "from `first_seen`. Create a new semantic snake_case `narrative_id` "
+                "only for a genuinely distinct market belief. For each narrative, "
+                "explicitly reason across persistent market belief, lifecycle state, "
+                "direction, fundamental trend, medium-horizon price behavior, today's "
+                "incremental evidence, current gap/dislocation, and falsifier. Within "
+                "each narrative's takeaways, include lines prefixed with REALITY:, "
+                "STORY:, PRICE:, and GAP: covering that specific theme. Before "
+                "concluding that PRICE confirms or contradicts a narrative, compare "
+                "1M and 3M behavior with 5D and 1D behavior. If 1D differs from the "
+                "medium-term trend, describe it as a short-term counter-move unless "
+                "there is evidence of a possible abrupt reversal under the "
+                "TIME-HORIZON RULES. `why_now` should explain why the narrative "
+                "deserves attention now: new evidence materially strengthens or "
+                "weakens it, price has diverged further from fundamentals, a catalyst "
+                "tests an existing belief, the narrative has become consensus, the "
+                "narrative is beginning to break, positioning or expectations have "
+                "become unusually stretched, or the risk/reward implied by the "
+                "narrative has materially changed. It does not need to be driven by "
+                "today's price action. If today's event is merely incremental evidence "
+                "within a long-running narrative, explicitly say so rather than "
+                "presenting it as a new narrative. Place falsifiers under "
+                "`what_would_change`."
             ),
             "raw_takeaways": (
                 "5-10 bullets covering cross-cutting points. Prefix EACH bullet with "
@@ -1765,38 +1953,50 @@ def synthesize_narrative_state(
             "executive_snapshot": (
                 "Populate `executive_snapshot` as the answer-first read for the page. "
                 "regime_tone: short label (e.g. 'Risk-on but fragile', 'Mixed / transition', "
-                "'Defensive rotation', 'Macro risk elevated', 'Narrative reset'). "
-                "primary_gap: one sentence naming the main divergence between reality, story, "
-                "and price. primary_archetype: short label (e.g. 'Narrative-fundamental "
+                "'Defensive rotation', 'Macro risk elevated', 'Narrative reset') reflecting "
+                "the current persistent state, not just today's session. primary_gap: one "
+                "sentence naming the main medium-horizon divergence between reality, story, "
+                "and price. Favor persistent divergences over one-day mismatches. "
+                "primary_archetype: short label (e.g. 'Narrative-fundamental "
                 "divergence', 'Crowded trade exhaustion', 'Momentum persistence', "
                 "'Expectation reset', 'Price/story contradiction'). price_confirmation: one of "
                 "Confirming / Contradicting / Mixed / Partially confirming / Not enough price "
-                "evidence. confidence: 0–100. executive_bullets.{reality, story, price}: one "
+                "evidence, based primarily on 1M/3M evidence for persistent narratives. "
+                "Describe a conflicting 1D move as a near-term counter-signal rather than "
+                "automatically changing price_confirmation. If abrupt-reversal criteria are "
+                "met, surface that explicitly in the relevant narrative or executive wording. "
+                "confidence: 0–100. executive_bullets.{reality, story, price}: one "
                 "concise sentence each. Use 'Not specified' or 'Mixed/unclear' rather than "
                 "guessing if a field cannot be determined."
             ),
             "inefficiency_map": (
-                "Populate `inefficiency_map` with 0–4 concrete dislocations between reality, "
-                "story, and price using inefficiency_taxonomy as the canonical classification "
-                "system. For each item choose the most specific applicable archetype, not "
-                "Narrative-Fundamental Divergence by default. Each item must include: subject "
-                "(short label), gap (one sentence), archetype_id (canonical taxonomy id), "
-                "archetype (canonical display name), confidence (0–100), evidence (one short "
-                "citation drawn from the ledgers), falsifier (what would refute it), "
-                "taxonomy_basis (briefly why it matches the taxonomy using ledger evidence), "
-                "and underlying_gap_type if identifiable. Allowed underlying_gap_type values: "
+                "Populate `inefficiency_map` with 0–4 concrete dislocations between "
+                "fundamentals, narrative, expectations, and price using inefficiency_taxonomy "
+                "as the canonical classification system. Prefer persistent divergences. "
+                "Avoid creating an inefficiency solely because today's price move differs "
+                "from today's headline. A daily divergence can support an inefficiency only "
+                "when it reinforces an existing medium-term divergence, materially expands "
+                "an existing gap, or satisfies the possible abrupt-reversal conditions "
+                "described in TIME-HORIZON RULES. For each item choose the most specific "
+                "applicable archetype, not Narrative-Fundamental Divergence by default. "
+                "Each item must include: subject (short label), gap (one sentence), "
+                "archetype_id (canonical taxonomy id), archetype (canonical display name), "
+                "confidence (0–100), evidence (one short citation drawn from the ledgers), "
+                "falsifier (what would refute it), taxonomy_basis (briefly why it matches "
+                "the taxonomy using ledger evidence), and underlying_gap_type if identifiable. "
+                "Allowed underlying_gap_type values: "
                 "positive_narrative_fundamental_divergence, "
                 "negative_narrative_fundamental_divergence, price_narrative_divergence, "
                 "price_fundamental_divergence, cross_asset_divergence, unclear. Return an "
-                "empty list if no high-confidence dislocation exists today."
+                "empty list if no high-confidence persistent dislocation exists."
             ),
             "price_summary": (
                 "Populate `price_summary` with concise one-sentence INTERPRETATIONS of price "
                 "behavior in context — not raw return lists. Fields: cross_asset (broad-tape "
-                "read), sector (leadership/laggards), timeframe (1D vs higher-horizon "
+                "read), sector (leadership/laggards), timeframe (1D/5D vs 1M/3M/YTD/1Y "
                 "context), relationship (key cross-asset/sector relationships and what they "
-                "imply). If price_ledger gives no signal for a field, return 'Price evidence "
-                "unavailable'."
+                "imply). Emphasize 1M/3M behavior when interpreting persistent narratives. "
+                "If price_ledger gives no signal for a field, return 'Price evidence unavailable'."
             ),
         },
     }
@@ -1911,6 +2111,7 @@ def synthesize_narrative_state(
         response_format=NarrativeStateV1,
     )
     out = resp.choices[0].message.parsed.model_dump()
+    _normalize_persistent_narrative_fields(out, prior_state, out.get("asof_utc"))
     out["inefficiency_map"] = _normalize_inefficiency_map_items(out.get("inefficiency_map"))
     out["_meta"] = {
         "subject": subject_profile,
