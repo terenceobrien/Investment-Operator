@@ -1540,7 +1540,7 @@ export default function NarrativePage() {
   const authFetcher = useAuthFetcher();
   const canFetch = authFetcher.isReady;
 
-  const { data: latest } = useSWR<LatestEnvelope>(
+  const { data: latest, error: latestError } = useSWR<LatestEnvelope>(
     canFetch ? `/api/narrative/latest?ticker=${ticker}` : null,
     authFetcher,
     {
@@ -1557,7 +1557,17 @@ export default function NarrativePage() {
     return null;
   }, [latest]);
 
-  const status = latest?.status ?? 'loading';
+  const apiErrorMessage = latestError instanceof Error
+    ? latestError.message
+    : latestError
+      ? String(latestError)
+      : '';
+  const status = latest?.status ?? (latestError ? 'error' : 'loading');
+  const unavailableMessage = !latest && apiErrorMessage
+    ? apiErrorMessage
+    : status === 'error'
+      ? firstNonEmpty(safeStr(latest?.last_error), safeStr(latest?.message), 'Today’s read will appear once it has been generated.')
+    : safeStr(latest?.message) || safeStr(latest?.last_error) || 'Today’s read will appear once it has been generated.';
   const isUnsupported = status === 'unsupported';
   const isGenerating = status === 'generating';
   const isCacheMiss = status === 'cache_miss';
@@ -1603,7 +1613,7 @@ export default function NarrativePage() {
     if (status === 'error') {
       return (
         <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.dn }}>
-          Could not load today&apos;s read. Showing latest available cached read.
+          {result ? "Could not load today's read. Showing latest available cached read." : "Could not load today's read."}
         </span>
       );
     }
@@ -1621,7 +1631,7 @@ export default function NarrativePage() {
       );
     }
     return null;
-  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, ticker, subjectTicker, subjectName, subjectSector]);
+  }, [isUnsupported, isGenerating, cacheHit, generatedAt, status, result, ticker, subjectTicker, subjectName, subjectSector]);
 
   if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
     return <AuthRequired isLoaded={authFetcher.isLoaded} />;
@@ -1740,7 +1750,7 @@ export default function NarrativePage() {
                 {isCacheMiss ? 'No cached narrative read available' : isLlmBlocked ? 'Live generation is disabled' : 'No narrative read available'}
               </span>
               <span style={{ fontFamily: T.sans, fontSize: '13px', color: T.textMuted }}>
-                {safeStr(latest?.message) || safeStr(latest?.last_error) || 'Today’s read will appear once it has been generated.'}
+                {unavailableMessage}
               </span>
             </div>
           </Card>

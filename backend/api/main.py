@@ -831,6 +831,20 @@ async def get_latest_narrative(
 
     # 3. Last attempt errored? Surface that with a stale fallback if available
     last_error = pending.get("error") if (pending and pending.get("done")) else None
+    if last_error:
+        stale = load_latest_narrative_cache(ticker_u)
+        return {
+            "status": "error",
+            "ticker": ticker_u,
+            "subject": subject,
+            "cache_hit": False,
+            "is_mock": False,
+            "narrative_mode": "live",
+            "message": "Narrative generation failed. Showing latest cached read if available.",
+            "last_cached_result": stale,
+            "last_error": last_error,
+            "started_at": pending.get("started_at") if pending else None,
+        }
 
     if not llm_calls_allowed():
         stale = load_latest_narrative_cache(ticker_u)
