@@ -176,6 +176,50 @@ priorities:
     assert approved.approved_by == "tester"
 
 
+def test_replace_manual_priority_discards_existing_entries_and_resets_rank(tmp_path):
+    path = tmp_path / "manual_research_priorities.yaml"
+    original = """
+priorities:
+  - theme: Existing one
+    rationale: Existing rationale one.
+    edge_hypothesis: This existing edge hypothesis is long enough for schema validation.
+    sub_questions:
+      - First existing question?
+    priority_rank: 1
+    expected_edge_decay: weeks
+  - theme: Existing two
+    rationale: Existing rationale two.
+    edge_hypothesis: This second existing edge hypothesis is also valid for tests.
+    sub_questions:
+      - Second existing question?
+    priority_rank: 2
+    expected_edge_decay: months
+""".lstrip()
+    path.write_text(original, encoding="utf-8")
+    candidate = _priority("Replacement rotation thesis").model_copy_validate(
+        update={"priority_rank": 5}
+    )
+
+    loaded = generator.replace_manual_priority(
+        candidate,
+        "The replacement operator thesis text.",
+        approved_by="tester",
+        path=path,
+    )
+
+    rendered = path.read_text(encoding="utf-8")
+    assert "Existing one" not in rendered
+    assert "Existing two" not in rendered
+    assert len(loaded) == 1
+    approved = loaded[0]
+    assert approved.theme == "Replacement rotation thesis"
+    assert approved.priority_rank == 1
+    assert approved.source == "operator_manual"
+    assert approved.source_macro_forecast_id is None
+    assert approved.source_thesis_text == "The replacement operator thesis text."
+    assert approved.approved_by == "tester"
+
+
 def test_append_manual_priority_round_trip_failure_leaves_original_untouched(tmp_path, monkeypatch):
     path = tmp_path / "manual_research_priorities.yaml"
     original = "priorities: []\n"

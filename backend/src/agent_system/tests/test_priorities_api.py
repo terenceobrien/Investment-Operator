@@ -105,3 +105,46 @@ def test_approve_and_list_manual_priorities_round_trip(tmp_path, monkeypatch):
     assert priority["source"] == "operator_manual"
     assert priority["source_thesis_text"] == "Operator sees breadth deterioration under the hood."
     assert priority["approved_by"] == "test-user"
+
+
+def test_approve_replaces_existing_manual_priority_file(tmp_path, monkeypatch):
+    monkeypatch.setenv("HELIX_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path / "agent_system"))
+    manual_path = tmp_path / "agent_system" / "priorities" / "manual_research_priorities.yaml"
+    manual_path.parent.mkdir(parents=True, exist_ok=True)
+    manual_path.write_text(
+        """
+priorities:
+  - theme: Previous manual thesis
+    rationale: Previous rationale.
+    edge_hypothesis: This previous edge hypothesis is long enough for schema validation.
+    sub_questions:
+      - Previous question?
+    priority_rank: 1
+    expected_edge_decay: weeks
+""".lstrip(),
+        encoding="utf-8",
+    )
+    client = _client()
+
+    approve = client.post(
+        "/api/priorities/approve",
+        json={
+            "priority": _priority("Replacement manual thesis").model_dump(mode="json"),
+            "source_thesis_text": "Operator approved a new current thesis.",
+        },
+    )
+
+    assert approve.status_code == 200
+    assert approve.json() == {"success": True, "manual_priorities_count": 1}
+    rendered = manual_path.read_text(encoding="utf-8")
+    assert "Previous manual thesis" not in rendered
+    assert "Replacement manual thesis" in rendered
+
+    listed = client.get("/api/priorities/manual")
+    assert listed.status_code == 200
+    payload = listed.json()
+    assert payload["manual_priorities_count"] == 1
+    priority = payload["priorities"][0]
+    assert priority["theme"] == "Replacement manual thesis"
+    assert priority["priority_rank"] == 1

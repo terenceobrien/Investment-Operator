@@ -87,7 +87,7 @@ class PriorityGenerationError(RuntimeError):
 
 
 class ManualPriorityAppendError(RuntimeError):
-    """Raised when an approved manual priority cannot be appended safely."""
+    """Raised when an approved manual priority cannot be persisted safely."""
 
 
 def _extract_raw_output(exc: BaseException) -> str | None:
@@ -351,6 +351,57 @@ def append_manual_priority(
             pass
         raise ManualPriorityAppendError(
             f"Round-trip validation failed for appended manual priority file {target}: {exc}"
+        ) from exc
+    os.replace(tmp_path, target)
+    return loaded
+
+
+def replace_manual_priority(
+    priority: ResearchPriority,
+    source_text: str,
+    approved_by: str | None = None,
+    *,
+    path: str | Path | None = None,
+) -> list[ResearchPriority]:
+    """
+    Replace the manual queue with one approved priority.
+
+    This is the production approval behavior: the manual priority file is the
+    current operator-selected priority, not a historical backlog. The file is
+    still written through a temp file, validated by ``load_manual_research_priorities``,
+    and then atomically swapped into place.
+    """
+
+    target = Path(path).expanduser() if path is not None else default_manual_research_priorities_path()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    prepared = priority.model_copy_validate(
+        update={
+            "priority_rank": 1,
+            "source": MANUAL_RESEARCH_PRIORITY_SOURCE,
+            "source_macro_forecast_id": MANUAL_RESEARCH_PRIORITIES_SOURCE_MACRO_FORECAST_ID,
+            "source_thesis_text": source_text,
+            "approved_by": approved_by,
+            "approved_at": datetime.now(timezone.utc),
+        }
+    )
+    entry = priority_to_manual_dict(
+        prepared,
+        source_thesis_text=source_text,
+        approved_by=approved_by,
+        approved_at=prepared.approved_at,
+    )
+    new_text = f"priorities:\n{_render_manual_entry(entry)}"
+    tmp_path = target.with_name(f".{target.name}.tmp")
+    tmp_path.write_text(new_text, encoding="utf-8")
+    try:
+        loaded = load_manual_research_priorities(tmp_path)
+    except Exception as exc:
+        try:
+            tmp_path.unlink()
+        except FileNotFoundError:
+            pass
+        raise ManualPriorityAppendError(
+            f"Round-trip validation failed for replaced manual priority file {target}: {exc}"
         ) from exc
     os.replace(tmp_path, target)
     return loaded

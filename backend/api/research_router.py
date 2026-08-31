@@ -22,8 +22,8 @@ from api.agent_system_router import verify_agent_system_access
 from src.agent_system.evals.generate_priorities_from_text import (
     ManualPriorityAppendError,
     PriorityGenerationError,
-    append_manual_priority,
     convert_text_to_priority,
+    replace_manual_priority,
 )
 from src.agent_system.forecasting.macro_scenario_source import (
     MacroScenarioSourceError,
@@ -270,7 +270,7 @@ def _approve_priority(
     approved_by: str | None,
 ) -> dict[str, Any]:
     try:
-        priorities = append_manual_priority(
+        priorities = replace_manual_priority(
             priority,
             source_thesis_text,
             approved_by=approved_by,
@@ -384,7 +384,7 @@ def approve_manual_priority(
     req: ApprovePriorityRequest,
     user: dict = Depends(verify_agent_system_access),
 ) -> dict[str, Any]:
-    """Append an operator-approved ResearchPriority to the manual queue."""
+    """Replace the manual queue with one operator-approved ResearchPriority."""
 
     return _approve_priority(
         req.priority,

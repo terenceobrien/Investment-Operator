@@ -287,11 +287,11 @@ export default function ResearchCyclePage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div>
             <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; MANUAL THESIS</div>
-            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Manual thesis queue</h1>
+            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Current manual thesis</h1>
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <StatusPill label={phase} />
-            <StatusPill label={manualCount === null ? 'manual queue' : `${manualCount} saved`} />
+            <StatusPill label={manualCount === null ? 'manual priority' : `${manualCount} saved`} />
           </div>
         </div>
 
@@ -370,11 +370,11 @@ export default function ResearchCyclePage() {
           )}
         </StepShell>
 
-        <StepShell n={3} title="Confirmed" active={stepActive(3)} status={phase === 'confirmed' || phase === 'running' || phase === 'done' ? 'manual queue' : undefined}>
+        <StepShell n={3} title="Confirmed" active={stepActive(3)} status={phase === 'confirmed' || phase === 'running' || phase === 'done' ? 'manual priority' : undefined}>
           {phase === 'confirmed' || phase === 'running' || phase === 'done' ? (
             <div style={{ display: 'grid', gap: 14 }}>
               <div style={successBanner()}>
-                Saved to manual_research_priorities.yaml. Manual cycle runs use the manual queue only.
+                Saved to manual_research_priorities.yaml. Manual cycle runs use the current manual priority only.
               </div>
               <pre style={yamlBox()}>{MANUAL_CYCLE_COMMAND}</pre>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -382,7 +382,7 @@ export default function ResearchCyclePage() {
                   {busyAction === 'run' ? 'Starting...' : 'Run research cycle with this priority'}
                 </button>
                 <button onClick={() => loadManualQueue(!showQueue)} disabled={busyAction === 'queue'} style={btnGhost()}>
-                  {showQueue ? 'Refresh manual queue' : 'View manual priorities queue'}
+                  {showQueue ? 'Refresh manual priority' : 'View current manual priority'}
                 </button>
               </div>
               {cycleError ? <div style={warnBanner()}>{cycleError}</div> : null}
@@ -417,7 +417,7 @@ export default function ResearchCyclePage() {
 }
 
 function ManualQueue({ priorities }: { priorities: ResearchPriority[] }) {
-  if (!priorities.length) return <div style={warnBanner()}>Manual queue is empty.</div>;
+  if (!priorities.length) return <div style={warnBanner()}>Manual priority file is empty.</div>;
   return (
     <div style={{ display: 'grid', gap: 10 }}>
       {priorities.map((priority) => (
