@@ -1,7 +1,6 @@
 """API endpoints for submitting and inspecting agent-system cycles."""
 from __future__ import annotations
 
-import json
 import logging
 from pathlib import Path
 from typing import Annotated, Any
@@ -12,7 +11,8 @@ from pydantic import BaseModel
 from api.agent_system_router import verify_agent_system_access
 from src.agent_system.api.cycle_runner import submit_cycle
 from src.agent_system.orchestration.cycle_status import CycleStatus
-from src.agent_system.paths import cycles_dir, decision_log_path, schema_records_path
+from src.agent_system.paths import cycles_dir
+from src.agent_system.storage.backend import get_backend
 
 logger = logging.getLogger("api.cycles")
 
@@ -27,24 +27,6 @@ class SubmitCycleResponse(BaseModel):
     cycle_id: str
 
 
-def _read_jsonl(path: Path) -> list[dict[str, Any]]:
-    if not path.exists():
-        return []
-    rows: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                value = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if isinstance(value, dict):
-                rows.append(value)
-    return rows
-
-
 def _cycle_status_path(cycle_id: str) -> Path:
     return cycles_dir() / cycle_id / "status.json"
 
@@ -56,12 +38,32 @@ def _load_cycle_status(cycle_id: str) -> CycleStatus:
     return CycleStatus.model_validate_json(path.read_text(encoding="utf-8"))
 
 
+def _decision_payload(row: dict[str, Any]) -> dict[str, Any]:
+    wrapper = row.get("payload")
+    if isinstance(wrapper, dict):
+        payload = wrapper.get("payload_json")
+        return payload if isinstance(payload, dict) else wrapper
+    payload = row.get("payload_json")
+    return payload if isinstance(payload, dict) else row
+
+
+def _decision_rows_for_cycle(cycle_id: str) -> list[dict[str, Any]]:
+    rows = get_backend().query_log_by_field(
+        log_name="decision_log",
+        field="cycle_id",
+        value=cycle_id,
+    )
+    return [
+        row
+        for row in rows
+        if _decision_payload(row).get("cycle_id") == cycle_id
+    ]
+
+
 def _trade_ids_for_cycle(cycle_id: str) -> set[str]:
     ids: set[str] = set()
-    for row in _read_jsonl(decision_log_path()):
-        payload = row.get("payload_json")
-        if not isinstance(payload, dict) or payload.get("cycle_id") != cycle_id:
-            continue
+    for row in _decision_rows_for_cycle(cycle_id):
+        payload = _decision_payload(row)
         trade_id = payload.get("trade_idea_id")
         if trade_id:
             ids.add(str(trade_id))
@@ -122,17 +124,15 @@ def get_results_endpoint(
     _load_cycle_status(cycle_id)
     trade_ids = _trade_ids_for_cycle(cycle_id)
     records_by_type: dict[str, list[dict[str, Any]]] = {}
-    for row in _read_jsonl(schema_records_path()):
+    for row in get_backend().read_all(collection="schema_records"):
         if not _schema_record_matches_cycle(row, cycle_id=cycle_id, trade_ids=trade_ids):
             continue
         schema_type = str(row.get("schema_type") or "Unknown")
         records_by_type.setdefault(schema_type, []).append(row)
 
     decision_log_entries = []
-    for row in _read_jsonl(decision_log_path()):
-        payload = row.get("payload_json")
-        if isinstance(payload, dict) and payload.get("cycle_id") == cycle_id:
-            decision_log_entries.append(payload)
+    for row in _decision_rows_for_cycle(cycle_id):
+        decision_log_entries.append(_decision_payload(row))
 
     return {
         "cycle_id": cycle_id,

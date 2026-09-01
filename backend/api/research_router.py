@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import re
+import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
@@ -66,6 +67,8 @@ _STAGE_INDEX: dict[StageName, int] = {
 }
 _DONE_STATUSES = {StageStatus.COMPLETE, StageStatus.SKIPPED, StageStatus.FAILED}
 _TICKER_RE = re.compile(r"^[A-Za-z0-9._-]+$")
+_STREAM_POLL_SECONDS = 0.75
+_STREAM_HEARTBEAT_SECONDS = 15.0
 
 
 class GeneratePrioritiesRequest(BaseModel):
@@ -434,6 +437,10 @@ def _sse(payload: dict[str, Any]) -> str:
     return f"data: {json.dumps(payload, separators=(',', ':'))}\n\n"
 
 
+def _sse_keepalive() -> str:
+    return f": keepalive {int(time.time())}\n\n"
+
+
 def _stage_event(status: CycleStatus) -> list[dict[str, Any]]:
     events: list[dict[str, Any]] = []
     for stage in status.stages:
@@ -449,25 +456,34 @@ def _stage_event(status: CycleStatus) -> list[dict[str, Any]]:
 
 async def _status_event_stream(cycle_id: str) -> AsyncIterator[str]:
     last_sent: dict[int, str] = {}
+    last_yielded_at = asyncio.get_running_loop().time()
     while True:
         try:
             status = _load_cycle_status(cycle_id)
         except FileNotFoundError:
-            await asyncio.sleep(0.75)
+            now = asyncio.get_running_loop().time()
+            if now - last_yielded_at >= _STREAM_HEARTBEAT_SECONDS:
+                last_yielded_at = now
+                yield _sse_keepalive()
+            await asyncio.sleep(_STREAM_POLL_SECONDS)
             continue
 
+        yielded_event = False
         for event in _stage_event(status):
             idx = int(event["stage_index"])
             state = str(event["status"])
             if last_sent.get(idx) == state:
                 continue
             last_sent[idx] = state
+            last_yielded_at = asyncio.get_running_loop().time()
+            yielded_event = True
             yield _sse(event)
 
         if status.overall_status in _DONE_STATUSES:
             for idx in range(7):
                 if last_sent.get(idx) != "done":
                     last_sent[idx] = "done"
+                    last_yielded_at = asyncio.get_running_loop().time()
                     yield _sse({"stage_index": idx, "status": "done"})
             final: dict[str, Any] = {"done": True}
             if status.fatal_error:
@@ -475,7 +491,12 @@ async def _status_event_stream(cycle_id: str) -> AsyncIterator[str]:
             yield _sse(final)
             break
 
-        await asyncio.sleep(0.75)
+        now = asyncio.get_running_loop().time()
+        if not yielded_event and now - last_yielded_at >= _STREAM_HEARTBEAT_SECONDS:
+            last_yielded_at = now
+            yield _sse_keepalive()
+
+        await asyncio.sleep(_STREAM_POLL_SECONDS)
 
 
 @research_router.get("/cycle/{job_id}/stream")
@@ -495,7 +516,8 @@ async def stream_cycle(
         _status_event_stream(job_id),
         media_type="text/event-stream",
         headers={
-            "Cache-Control": "no-cache",
+            "Cache-Control": "no-cache, no-transform",
+            "Connection": "keep-alive",
             "X-Accel-Buffering": "no",
         },
     )

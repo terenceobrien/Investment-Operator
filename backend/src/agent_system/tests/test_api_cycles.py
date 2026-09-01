@@ -1,7 +1,7 @@
 """Tests for cycle status files and frontend cycle API helpers."""
 from __future__ import annotations
 
-import json
+import asyncio
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
@@ -9,6 +9,7 @@ import pytest
 from fastapi import HTTPException
 
 from api import cycle_router
+from api import research_router as research_api
 from src.agent_system.api import cycle_runner
 from src.agent_system.orchestration import run_research_cycle as cycle_module
 from src.agent_system.orchestration.cycle_status import (
@@ -239,18 +240,18 @@ def test_status_endpoint_returns_status_and_404s(tmp_path, monkeypatch):
 def test_results_endpoint_filters_records_by_cycle(tmp_path, monkeypatch):
     monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
     _write_status("cycle-a", started_at=datetime.now(timezone.utc), status=StageStatus.COMPLETE)
-    (tmp_path / "decision_log.jsonl").write_text(
-        json.dumps(
-            {
-                "payload_json": {
-                    "cycle_id": "cycle-a",
-                    "candidate": "ETN",
-                    "trade_idea_id": "trade-a",
-                }
-            }
-        )
-        + "\n",
-        encoding="utf-8",
+    get_backend().append_to_log(
+        log_name="decision_log",
+        record={
+            "id": "decision-a",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "payload_json": {
+                "cycle_id": "cycle-a",
+                "candidate": "ETN",
+                "trade_idea_id": "trade-a",
+            },
+        },
+        indexed_fields={"cycle_id": "cycle-a", "candidate": "ETN"},
     )
     schemas = [
         {
@@ -269,13 +270,17 @@ def test_results_endpoint_filters_records_by_cycle(tmp_path, monkeypatch):
             "payload_json": {"id": "other", "cycle_id": "cycle-b"},
         },
     ]
-    (tmp_path / "schema_records.jsonl").write_text(
-        "\n".join(json.dumps(row) for row in schemas),
-        encoding="utf-8",
-    )
+    for row in schemas:
+        get_backend().write_record(
+            collection="schema_records",
+            record_id=str(row["id"]),
+            payload=row,
+            indexed_fields={"schema_type": row["schema_type"]},
+        )
 
     result = cycle_router.get_results_endpoint("cycle-a", user={})
 
+    assert not (tmp_path / "schema_records.jsonl").exists()
     assert set(result["records_by_type"]) == {"TradeIdea", "PortfolioPlan"}
     assert result["records_by_type"]["TradeIdea"][0]["id"] == "trade-a"
     assert result["decision_log_entries"][0]["candidate"] == "ETN"
@@ -296,3 +301,26 @@ def test_recent_cycles_endpoint_sorts_and_limits(tmp_path, monkeypatch):
     assert len(result["cycles"]) == 1
     assert result["cycles"][0]["cycle_id"] == "newer"
     assert result["cycles"][0]["user_inputs_preview"] == ["newer input"]
+
+
+def test_research_cycle_stream_emits_keepalive_when_status_is_unchanged(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(research_api, "_STREAM_HEARTBEAT_SECONDS", 0.0)
+    monkeypatch.setattr(research_api, "_STREAM_POLL_SECONDS", 0.0)
+    emitter = CycleStatusEmitter("cycle-stream-heartbeat")
+    emitter.start_stage(StageName.THEMATIC, "long thematic call")
+
+    async def _read_first_two_events() -> tuple[str, str]:
+        stream = research_api._status_event_stream("cycle-stream-heartbeat")
+        try:
+            first = await anext(stream)
+            second = await anext(stream)
+        finally:
+            await stream.aclose()
+        return first, second
+
+    first, second = asyncio.run(_read_first_two_events())
+
+    assert first == 'data: {"stage_index":1,"status":"running"}\n\n'
+    assert second.startswith(": keepalive ")
+    assert second.endswith("\n\n")

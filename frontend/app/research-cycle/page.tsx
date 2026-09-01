@@ -11,6 +11,8 @@ const APPROVE_ENDPOINT = '/api/priorities/approve';
 const MANUAL_QUEUE_ENDPOINT = '/api/priorities/manual';
 const RUN_ENDPOINT = '/api/research/cycle/run';
 const STREAM_ENDPOINT = (jobId: string) => `/api/research/cycle/${jobId}/stream`;
+const STREAM_RECONNECT_LIMIT = 8;
+const STREAM_RECONNECT_BASE_DELAY_MS = 900;
 
 type Evidence = {
   source_type?: string;
@@ -64,6 +66,7 @@ type ApiErrorDetail = {
 
 type Phase = 'compose' | 'review' | 'confirmed' | 'running' | 'done';
 type BusyAction = 'generate' | 'approve' | 'run' | 'queue' | null;
+type CycleStreamMessage = { stage_index?: number; status?: string; done?: boolean; error?: string };
 
 const STAGES = [
   ['Macro context', 'regime + scenario probabilities loaded'],
@@ -93,6 +96,7 @@ export default function ResearchCyclePage() {
   const [manualQueue, setManualQueue] = useState<ResearchPriority[]>([]);
   const [showQueue, setShowQueue] = useState(false);
   const [manualCount, setManualCount] = useState<number | null>(null);
+  const [cycleJobId, setCycleJobId] = useState<string | null>(null);
   const [stageState, setStageState] = useState<('queued' | 'running' | 'done')[]>(STAGES.map(() => 'queued'));
 
   if (!authFetcher.isLoaded || !authFetcher.isSignedIn) {
@@ -195,6 +199,7 @@ export default function ResearchCyclePage() {
   async function runManualCycle() {
     setBusyAction('run');
     setCycleError(null);
+    setCycleJobId(null);
     setPhase('running');
     setStageState(STAGES.map(() => 'queued'));
     try {
@@ -204,6 +209,7 @@ export default function ResearchCyclePage() {
       } as RequestInit)) as { job_id?: string };
       const jobId = safeStr(run.job_id);
       if (!jobId) throw new Error('Run endpoint did not return a job_id');
+      setCycleJobId(jobId);
       setBusyAction(null);
       await subscribeToStream(jobId);
     } catch (error) {
@@ -215,7 +221,8 @@ export default function ResearchCyclePage() {
 
   async function subscribeToStream(jobId: string) {
     let receivedDone = false;
-    const handleMessage = (msg: { stage_index?: number; status?: string; done?: boolean; error?: string }) => {
+    let reconnects = 0;
+    const handleMessage = (msg: CycleStreamMessage) => {
       if (typeof msg.stage_index === 'number') {
         setStageState((prev) => {
           const next = [...prev];
@@ -232,6 +239,33 @@ export default function ResearchCyclePage() {
       }
     };
 
+    while (!receivedDone) {
+      try {
+        await readStreamOnce(jobId, handleMessage);
+      } catch (error) {
+        if (error instanceof ApiRequestError && [401, 403, 404].includes(error.status)) {
+          throw error;
+        }
+        if (receivedDone) break;
+        if (reconnects >= STREAM_RECONNECT_LIMIT) {
+          throw error;
+        }
+        reconnects += 1;
+        await delay(streamReconnectDelay(reconnects));
+        continue;
+      }
+
+      if (!receivedDone) {
+        if (reconnects >= STREAM_RECONNECT_LIMIT) {
+          throw new Error(`Cycle stream closed before completion for job ${jobId}`);
+        }
+        reconnects += 1;
+        await delay(streamReconnectDelay(reconnects));
+      }
+    }
+  }
+
+  async function readStreamOnce(jobId: string, handleMessage: (msg: CycleStreamMessage) => void) {
     const res = await authFetcher.stream(STREAM_ENDPOINT(jobId));
     if (!res.body) throw new Error('No stream body');
     const reader = res.body.getReader();
@@ -254,10 +288,6 @@ export default function ResearchCyclePage() {
         if (!data) continue;
         handleMessage(JSON.parse(data));
       }
-    }
-
-    if (!receivedDone) {
-      throw new Error(`Cycle stream closed before completion for job ${jobId}`);
     }
   }
 
@@ -384,6 +414,11 @@ export default function ResearchCyclePage() {
                 <button onClick={() => loadManualQueue(!showQueue)} disabled={busyAction === 'queue'} style={btnGhost()}>
                   {showQueue ? 'Refresh manual priority' : 'View current manual priority'}
                 </button>
+                {cycleJobId ? (
+                  <a href={`/agent-system?cycle=${encodeURIComponent(cycleJobId)}`} style={btnGhost()}>
+                    View cycle results
+                  </a>
+                ) : null}
               </div>
               {cycleError ? <div style={warnBanner()}>{cycleError}</div> : null}
               {showQueue ? <ManualQueue priorities={manualQueue} /> : null}
@@ -558,3 +593,5 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function safeStr(v: unknown, fb = ''): string { return typeof v === 'string' ? v : fb; }
 function truncate(s: string, max = 200): string { return !s || s.length <= max ? s : `${s.slice(0, max).trimEnd()}...`; }
+function delay(ms: number): Promise<void> { return new Promise((resolve) => setTimeout(resolve, ms)); }
+function streamReconnectDelay(attempt: number): number { return Math.min(5000, STREAM_RECONNECT_BASE_DELAY_MS * attempt); }
