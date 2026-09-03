@@ -39,13 +39,15 @@ def _parsed_response(value: int = 1):
 
 
 def _mock_client(parse_mock: MagicMock):
-    return SimpleNamespace(
+    client = SimpleNamespace(
         beta=SimpleNamespace(
             chat=SimpleNamespace(
                 completions=SimpleNamespace(parse=parse_mock),
             )
         )
     )
+    client.with_options = MagicMock(return_value=client)
+    return client
 
 
 def test_parse_structured_returns_parsed_instance_on_success(monkeypatch):
@@ -108,6 +110,62 @@ def test_parse_structured_retries_api_connection_error_and_succeeds(monkeypatch)
     assert parse_mock.call_count == 2
     diagnostics = llm_client.get_last_call_diagnostics()
     assert diagnostics["retry_count"] == 1
+
+
+def test_parse_structured_applies_per_call_timeout_override(monkeypatch, capsys):
+    parse_mock = MagicMock(return_value=_parsed_response(11))
+    base_client = _mock_client(MagicMock())
+    override_client = _mock_client(parse_mock)
+    base_client.with_options = MagicMock(return_value=override_client)
+    monkeypatch.setattr(llm_client, "_DEFAULT_CLIENT", base_client)
+    monkeypatch.setattr(llm_client, "assert_llm_calls_allowed", MagicMock())
+
+    result = parse_structured(
+        system="system",
+        user="user",
+        model="test-model",
+        response_schema=DummyResponse,
+        purpose="test purpose",
+        timeout_seconds=300,
+    )
+
+    assert result == DummyResponse(value=11)
+    base_client.with_options.assert_called_once_with(timeout=300.0)
+    parse_mock.assert_called_once()
+    diagnostics = llm_client.get_last_call_diagnostics()
+    assert diagnostics["timeout_seconds"] == 300.0
+    assert "timeout_seconds=300.0" in capsys.readouterr().err
+
+
+def test_parse_structured_escalates_timeout_on_network_retries(monkeypatch):
+    request = httpx.Request("POST", "https://api.openai.com/test")
+    parse_mock = MagicMock(
+        side_effect=[
+            APIConnectionError(request=request),
+            APIConnectionError(request=request),
+            _parsed_response(12),
+        ]
+    )
+    client = _mock_client(parse_mock)
+    monkeypatch.setattr(llm_client, "_DEFAULT_CLIENT", client)
+    monkeypatch.setattr(llm_client, "assert_llm_calls_allowed", MagicMock())
+    monkeypatch.setenv("OPENAI_TIMEOUT_SECONDS", "100")
+    monkeypatch.setenv("OPENAI_MAX_RETRIES", "2")
+    monkeypatch.setattr(llm_client.time, "sleep", lambda _seconds: None)
+
+    result = parse_structured(
+        system="system",
+        user="user",
+        model="test-model",
+        response_schema=DummyResponse,
+        purpose="test purpose",
+    )
+
+    assert result == DummyResponse(value=12)
+    assert parse_mock.call_count == 3
+    assert [
+        call.kwargs["timeout"] for call in client.with_options.call_args_list
+    ] == [130.0, 160.0]
 
 
 def test_parse_structured_raises_after_retries_exhausted(monkeypatch):

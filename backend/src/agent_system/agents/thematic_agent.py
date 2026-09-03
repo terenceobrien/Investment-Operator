@@ -244,6 +244,7 @@ async def translate_priority_to_candidates(
             response_schema=response_schema,
             purpose=f"thematic agent translate_priority_to_candidates: {priority.theme[:60]}",
             temperature=0.3,
+            timeout_seconds=300,
         )
     except StructuredOutputError as e:
         raise ThematicAgentValidationError(str(e)) from e

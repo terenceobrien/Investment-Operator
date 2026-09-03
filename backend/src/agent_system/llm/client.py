@@ -189,6 +189,7 @@ def parse_structured(
     purpose: str,
     temperature: float = 0.3,
     max_retries: int = 1,
+    timeout_seconds: float | None = None,
 ) -> T:
     """
     Make a structured-output OpenAI call returning a validated Pydantic instance.
@@ -212,6 +213,8 @@ def parse_structured(
         max_retries: Deprecated compatibility argument. Validation/schema
             errors are not retried; transient API/network failures use
             OPENAI_MAX_RETRIES.
+        timeout_seconds: Optional per-call timeout override. When omitted,
+            the agent-system default from OPENAI_TIMEOUT_SECONDS is used.
 
     Returns:
         Validated instance of response_schema.
@@ -221,6 +224,11 @@ def parse_structured(
     """
     assert_llm_calls_allowed(purpose)
     client = _get_client()
+    resolved_timeout_seconds = (
+        _openai_timeout_seconds() if timeout_seconds is None else float(timeout_seconds)
+    )
+    if timeout_seconds is not None:
+        client = client.with_options(timeout=resolved_timeout_seconds)
 
     messages = [
         {"role": "system", "content": system},
@@ -235,6 +243,7 @@ def parse_structured(
             "model": model,
             "retry_count": 0,
             "last_error": None,
+            "timeout_seconds": resolved_timeout_seconds,
         }
     )
     _LAST_CALL_DIAGNOSTICS.clear()
@@ -246,14 +255,23 @@ def parse_structured(
         f"chars={diagnostics['prompt_chars']} "
         f"est_tokens={diagnostics['prompt_est_tokens']} "
         f"largest_message_chars={diagnostics['largest_message_chars']} "
-        f"schema={diagnostics['schema_name']}",
+        f"schema={diagnostics['schema_name']} "
+        f"timeout_seconds={diagnostics['timeout_seconds']}",
         file=sys.stderr,
     )
 
     try:
         resp = None
         max_network_attempts = _openai_max_retries() + 1
+        timeout_schedule = [
+            resolved_timeout_seconds,
+            resolved_timeout_seconds * 1.3,
+            resolved_timeout_seconds * 1.6,
+        ]
         for network_attempt in range(max_network_attempts):
+            if network_attempt > 0:
+                attempt_timeout_seconds = timeout_schedule[min(network_attempt, 2)]
+                client = client.with_options(timeout=attempt_timeout_seconds)
             try:
                 resp = _call_openai_parse(
                     client=client,

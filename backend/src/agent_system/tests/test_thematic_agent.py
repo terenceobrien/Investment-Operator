@@ -132,8 +132,10 @@ def test_none_regime_state_raises_value_error():
 
 def test_successful_call_returns_thematic_map(monkeypatch):
     priority = _priority()
+    captured = {}
 
-    def fake_parse_structured(**_kwargs):
+    def fake_parse_structured(**kwargs):
+        captured.update(kwargs)
         return _ThematicAgentResponse(
             response_kind="thematic_map",
             thematic_map=_thematic_output(),
@@ -157,6 +159,7 @@ def test_successful_call_returns_thematic_map(monkeypatch):
     assert result.candidates[0].fit_strength == compute_fit_strength_from_components(
         result.candidates[0].fit_strength_components
     )
+    assert captured["timeout_seconds"] == 300
 
 
 def test_successful_call_returns_clarification_request(monkeypatch):
