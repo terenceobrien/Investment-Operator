@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import asyncio
+from concurrent.futures import Future
+from concurrent.futures.process import BrokenProcessPool
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
@@ -235,6 +237,48 @@ def test_status_endpoint_returns_status_and_404s(tmp_path, monkeypatch):
     with pytest.raises(HTTPException) as missing:
         cycle_router.get_status_endpoint("missing", user={})
     assert missing.value.status_code == 404
+
+
+def test_research_cycle_future_crash_marks_status_failed(tmp_path, monkeypatch):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(
+        research_api,
+        "_discard_executor_after_crash",
+        lambda _executor=None: None,
+    )
+    emitter = CycleStatusEmitter("cycle-crashed")
+    emitter.start_stage(StageName.SCREEN, "fetching candidate fundamentals")
+    research_api._active_jobs_by_user["user-1"] = "cycle-crashed"
+    future: Future[None] = Future()
+    future.set_exception(BrokenProcessPool("worker died"))
+    research_api._cycle_futures["cycle-crashed"] = future
+
+    research_api._handle_cycle_future_done("cycle-crashed", "user-1", future)
+
+    status = cycle_router.get_status_endpoint("cycle-crashed", user={})
+    screen = next(stage for stage in status.stages if stage.stage == StageName.SCREEN)
+    assert status.overall_status == StageStatus.FAILED
+    assert status.fatal_error == research_api._WORKER_CRASH_MESSAGE
+    assert screen.status == StageStatus.FAILED
+    assert "user-1" not in research_api._active_jobs_by_user
+    assert "cycle-crashed" not in research_api._cycle_futures
+
+
+def test_research_cycle_future_without_terminal_status_marks_failed(
+    tmp_path,
+    monkeypatch,
+):
+    monkeypatch.setenv("AGENT_SYSTEM_DATA_DIR", str(tmp_path))
+    emitter = CycleStatusEmitter("cycle-exited")
+    emitter.start_stage(StageName.THEMATIC, "still marked running")
+    future: Future[None] = Future()
+    future.set_result(None)
+
+    research_api._handle_cycle_future_done("cycle-exited", "user-2", future)
+
+    status = cycle_router.get_status_endpoint("cycle-exited", user={})
+    assert status.overall_status == StageStatus.FAILED
+    assert status.fatal_error == research_api._WORKER_EXITED_WITHOUT_STATUS_MESSAGE
 
 
 def test_results_endpoint_filters_records_by_cycle(tmp_path, monkeypatch):

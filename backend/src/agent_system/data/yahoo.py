@@ -2,6 +2,12 @@
 from __future__ import annotations
 
 import logging
+import os
+from concurrent.futures import (
+    ProcessPoolExecutor,
+    TimeoutError as FuturesTimeoutError,
+)
+from concurrent.futures.process import BrokenProcessPool
 from datetime import date, datetime, timedelta
 from typing import Any
 
@@ -22,10 +28,53 @@ _USABLE_INFO_KEYS = {
     "forwardPE",
     "targetMeanPrice",
 }
+_DEFAULT_YAHOO_INFO_TIMEOUT_SECONDS = 30.0
+
+
+def _yahoo_info_timeout_seconds() -> float:
+    try:
+        return max(
+            1.0,
+            float(
+                os.getenv(
+                    "YAHOO_INFO_FETCH_TIMEOUT_SECONDS",
+                    str(_DEFAULT_YAHOO_INFO_TIMEOUT_SECONDS),
+                )
+            ),
+        )
+    except ValueError:
+        return _DEFAULT_YAHOO_INFO_TIMEOUT_SECONDS
 
 
 def _has_usable_info(raw: dict) -> bool:
     return any(raw.get(key) is not None for key in _USABLE_INFO_KEYS)
+
+
+def _fetch_yahoo_info_in_subprocess(key: str) -> dict:
+    import yfinance as yf
+
+    raw = yf.Ticker(key).info
+    return raw if isinstance(raw, dict) else {}
+
+
+def _fetch_yahoo_info_isolated(key: str) -> dict:
+    timeout = _yahoo_info_timeout_seconds()
+    executor = ProcessPoolExecutor(max_workers=1)
+    future = None
+    try:
+        future = executor.submit(_fetch_yahoo_info_in_subprocess, key)
+        return future.result(timeout=timeout)
+    except BrokenProcessPool as exc:
+        logger.warning("Yahoo info subprocess crashed for %s: %s", key, exc)
+    except FuturesTimeoutError:
+        logger.warning("Yahoo info fetch timed out for %s after %.1fs", key, timeout)
+        if future is not None:
+            future.cancel()
+    except Exception as exc:
+        logger.warning("Yahoo info fetch failed for %s: %s", key, exc)
+    finally:
+        executor.shutdown(wait=False, cancel_futures=True)
+    return {}
 
 
 def fetch_yahoo_data(ticker: str, *, force_refresh: bool = False) -> dict:
@@ -37,9 +86,7 @@ def fetch_yahoo_data(ticker: str, *, force_refresh: bool = False) -> dict:
         if isinstance(cached, dict) and _has_usable_info(cached):
             return cached
     try:
-        import yfinance as yf
-
-        raw = yf.Ticker(key).info
+        raw = _fetch_yahoo_info_isolated(key)
         if isinstance(raw, dict) and _has_usable_info(raw):
             cache_set("yahoo_info", key, raw)
             return raw

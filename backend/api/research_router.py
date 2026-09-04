@@ -8,7 +8,9 @@ import os
 import re
 import time
 import traceback
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import Future, ProcessPoolExecutor
+from concurrent.futures.process import BrokenProcessPool
+from datetime import datetime, timezone
 from pathlib import Path
 from threading import Lock
 from typing import Any, AsyncIterator, Literal
@@ -53,6 +55,7 @@ load_dotenv(BACKEND_ROOT / ".env")
 
 _executor: ProcessPoolExecutor | None = None
 _executor_lock = Lock()
+_cycle_futures: dict[str, Future[Any]] = {}
 _active_jobs_by_user: dict[str, str] = {}
 _job_users: dict[str, str] = {}
 
@@ -69,6 +72,12 @@ _DONE_STATUSES = {StageStatus.COMPLETE, StageStatus.SKIPPED, StageStatus.FAILED}
 _TICKER_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 _STREAM_POLL_SECONDS = 0.75
 _STREAM_HEARTBEAT_SECONDS = 15.0
+_WORKER_CRASH_MESSAGE = (
+    "Worker process crashed (possible native-library fault) before completing."
+)
+_WORKER_EXITED_WITHOUT_STATUS_MESSAGE = (
+    "Worker process exited before completing cycle status."
+)
 
 
 class GeneratePrioritiesRequest(BaseModel):
@@ -176,6 +185,88 @@ def _run_research_cycle_process(cycle_id: str, priority_source: str = "macro") -
         )
     except Exception:
         emitter.fail_cycle(traceback.format_exc())
+
+
+def _write_cycle_status(status: CycleStatus) -> None:
+    path = _cycle_status_path(status.cycle_id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.parent / f".{path.name}.{uuid4().hex}.tmp"
+    tmp_path.write_text(status.model_dump_json(indent=2), encoding="utf-8")
+    os.replace(tmp_path, path)
+
+
+def _mark_cycle_failed(cycle_id: str, error: str) -> None:
+    try:
+        status = _load_cycle_status(cycle_id)
+    except FileNotFoundError:
+        emitter = CycleStatusEmitter(cycle_id)
+        emitter.fail_cycle(error)
+        return
+
+    if status.overall_status in _DONE_STATUSES:
+        return
+
+    now = datetime.now(timezone.utc)
+    for stage in status.stages:
+        if stage.status != StageStatus.RUNNING:
+            continue
+        stage.status = StageStatus.FAILED
+        stage.completed_at = now
+        stage.message = error
+        stage.error = error
+
+    status.overall_status = StageStatus.FAILED
+    status.completed_at = now
+    status.updated_at = now
+    status.fatal_error = error
+    _write_cycle_status(status)
+
+
+def _discard_executor_after_crash(
+    executor_to_discard: ProcessPoolExecutor | None = None,
+) -> None:
+    global _executor
+    with _executor_lock:
+        if executor_to_discard is not None and _executor is not executor_to_discard:
+            return
+        executor = _executor
+        _executor = None
+    if executor is None:
+        return
+    try:
+        executor.shutdown(wait=False, cancel_futures=True)
+    except Exception as exc:
+        logger.warning("Failed to shut down broken research executor: %s", exc)
+
+
+def _handle_cycle_future_done(
+    cycle_id: str,
+    user_id: str,
+    future: Future[Any],
+    executor: ProcessPoolExecutor | None = None,
+) -> None:
+    try:
+        result = future.result()
+    except BrokenProcessPool:
+        logger.exception("Research cycle worker process crashed for cycle %s", cycle_id)
+        _mark_cycle_failed(cycle_id, _WORKER_CRASH_MESSAGE)
+        _discard_executor_after_crash(executor)
+    except Exception as exc:
+        logger.exception("Research cycle worker future failed for cycle %s", cycle_id)
+        _mark_cycle_failed(cycle_id, f"Research cycle worker failed: {exc}")
+    else:
+        if result is not None:
+            logger.warning(
+                "Research cycle worker for %s returned unexpected result: %r",
+                cycle_id,
+                result,
+            )
+        if not _cycle_done(cycle_id):
+            _mark_cycle_failed(cycle_id, _WORKER_EXITED_WITHOUT_STATUS_MESSAGE)
+    finally:
+        _cycle_futures.pop(cycle_id, None)
+        if _active_jobs_by_user.get(user_id) == cycle_id and _cycle_done(cycle_id):
+            _active_jobs_by_user.pop(user_id, None)
 
 
 def _get_executor() -> ProcessPoolExecutor:
@@ -429,7 +520,27 @@ def run_cycle(
     cycle_id = str(uuid4())
     _active_jobs_by_user[user_id] = cycle_id
     _job_users[cycle_id] = user_id
-    _get_executor().submit(_run_research_cycle_process, cycle_id, request.priority_source)
+    try:
+        executor = _get_executor()
+        future = executor.submit(
+            _run_research_cycle_process,
+            cycle_id,
+            request.priority_source,
+        )
+    except BrokenProcessPool:
+        logger.exception("Research cycle executor was already broken")
+        _mark_cycle_failed(cycle_id, _WORKER_CRASH_MESSAGE)
+        _discard_executor_after_crash()
+    else:
+        _cycle_futures[cycle_id] = future
+        future.add_done_callback(
+            lambda done_future: _handle_cycle_future_done(
+                cycle_id,
+                user_id,
+                done_future,
+                executor,
+            )
+        )
     return RunCycleResponse(job_id=cycle_id)
 
 

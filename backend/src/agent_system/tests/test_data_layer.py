@@ -2,12 +2,14 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
+from concurrent.futures.process import BrokenProcessPool
 from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from src.agent_system.data import bundle, cache, sec
+from src.agent_system.data import bundle, cache, sec, yahoo
 from src.agent_system.data.types import FundamentalDataBundle
 from src.agent_system.data.yahoo import parse_yahoo_data
 
@@ -463,6 +465,38 @@ def test_sec_data_survives_yahoo_failure(monkeypatch):
     assert result.sec_fetch_success is True
     assert result.company_name == "SEC Only Corp"
     assert result.company_facts is not None
+
+
+def test_yahoo_info_subprocess_crash_degrades_to_empty_dict(monkeypatch, caplog):
+    class FakeFuture:
+        def result(self, *, timeout):
+            del timeout
+            raise BrokenProcessPool("native crash")
+
+        def cancel(self):
+            return None
+
+    class FakeExecutor:
+        def __init__(self, *, max_workers):
+            assert max_workers == 1
+            self.future = FakeFuture()
+
+        def submit(self, fn, key):
+            del fn
+            assert key == "CRASH"
+            return self.future
+
+        def shutdown(self, *, wait, cancel_futures):
+            assert wait is False
+            assert cancel_futures is True
+
+    monkeypatch.setattr(yahoo, "ProcessPoolExecutor", FakeExecutor)
+    caplog.set_level(logging.WARNING, logger="agent_system.data.yahoo")
+
+    result = yahoo.fetch_yahoo_data("CRASH", force_refresh=True)
+
+    assert result == {}
+    assert "Yahoo info subprocess crashed for CRASH" in caplog.text
 
 
 def test_etf_detection_skips_sec_fetches(monkeypatch):
