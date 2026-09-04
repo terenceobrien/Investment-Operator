@@ -477,26 +477,74 @@ def test_yahoo_info_subprocess_crash_degrades_to_empty_dict(monkeypatch, caplog)
             return None
 
     class FakeExecutor:
-        def __init__(self, *, max_workers):
-            assert max_workers == 1
-            self.future = FakeFuture()
-
         def submit(self, fn, key):
             del fn
             assert key == "CRASH"
-            return self.future
+            return FakeFuture()
 
         def shutdown(self, *, wait, cancel_futures):
             assert wait is False
             assert cancel_futures is True
 
-    monkeypatch.setattr(yahoo, "ProcessPoolExecutor", FakeExecutor)
+    executor = FakeExecutor()
+    monkeypatch.setattr(yahoo, "_yahoo_info_executor", executor)
+    monkeypatch.setattr(yahoo, "_get_yahoo_info_executor", lambda: executor)
     caplog.set_level(logging.WARNING, logger="agent_system.data.yahoo")
 
     result = yahoo.fetch_yahoo_data("CRASH", force_refresh=True)
 
     assert result == {}
     assert "Yahoo info subprocess crashed for CRASH" in caplog.text
+    assert yahoo._yahoo_info_executor is None
+
+
+def test_yahoo_info_executor_uses_spawn_context_and_bounded_workers(monkeypatch):
+    created = {}
+    fake_context = object()
+
+    class FakeExecutor:
+        def __init__(self, *, max_workers, mp_context):
+            created["max_workers"] = max_workers
+            created["mp_context"] = mp_context
+
+    def fake_get_context(method):
+        created["start_method"] = method
+        return fake_context
+
+    monkeypatch.setenv("YAHOO_INFO_FETCH_MAX_WORKERS", "6")
+    monkeypatch.setattr(yahoo.multiprocessing, "get_context", fake_get_context)
+    monkeypatch.setattr(yahoo, "ProcessPoolExecutor", FakeExecutor)
+    monkeypatch.setattr(yahoo, "_yahoo_info_executor", None)
+
+    executor = yahoo._get_yahoo_info_executor()
+
+    assert isinstance(executor, FakeExecutor)
+    assert created == {
+        "start_method": "spawn",
+        "max_workers": 6,
+        "mp_context": fake_context,
+    }
+    yahoo._yahoo_info_executor = None
+
+
+def test_yahoo_info_executor_reuses_dedicated_pool(monkeypatch):
+    created = []
+
+    class FakeExecutor:
+        def __init__(self, *, max_workers, mp_context):
+            del max_workers, mp_context
+            created.append(self)
+
+    monkeypatch.setattr(yahoo.multiprocessing, "get_context", lambda _method: object())
+    monkeypatch.setattr(yahoo, "ProcessPoolExecutor", FakeExecutor)
+    monkeypatch.setattr(yahoo, "_yahoo_info_executor", None)
+
+    first = yahoo._get_yahoo_info_executor()
+    second = yahoo._get_yahoo_info_executor()
+
+    assert first is second
+    assert len(created) == 1
+    yahoo._yahoo_info_executor = None
 
 
 def test_etf_detection_skips_sec_fetches(monkeypatch):

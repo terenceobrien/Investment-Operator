@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import multiprocessing
 import os
 from concurrent.futures import (
     ProcessPoolExecutor,
@@ -9,6 +10,7 @@ from concurrent.futures import (
 )
 from concurrent.futures.process import BrokenProcessPool
 from datetime import date, datetime, timedelta
+from threading import Lock
 from typing import Any
 
 from src.agent_system.data.cache import cache_get, cache_set
@@ -29,6 +31,9 @@ _USABLE_INFO_KEYS = {
     "targetMeanPrice",
 }
 _DEFAULT_YAHOO_INFO_TIMEOUT_SECONDS = 30.0
+_DEFAULT_YAHOO_INFO_MAX_WORKERS = 4
+_yahoo_info_executor: ProcessPoolExecutor | None = None
+_yahoo_info_executor_lock = Lock()
 
 
 def _yahoo_info_timeout_seconds() -> float:
@@ -46,6 +51,21 @@ def _yahoo_info_timeout_seconds() -> float:
         return _DEFAULT_YAHOO_INFO_TIMEOUT_SECONDS
 
 
+def _yahoo_info_max_workers() -> int:
+    try:
+        return max(
+            1,
+            int(
+                os.getenv(
+                    "YAHOO_INFO_FETCH_MAX_WORKERS",
+                    str(_DEFAULT_YAHOO_INFO_MAX_WORKERS),
+                )
+            ),
+        )
+    except ValueError:
+        return _DEFAULT_YAHOO_INFO_MAX_WORKERS
+
+
 def _has_usable_info(raw: dict) -> bool:
     return any(raw.get(key) is not None for key in _USABLE_INFO_KEYS)
 
@@ -57,23 +77,58 @@ def _fetch_yahoo_info_in_subprocess(key: str) -> dict:
     return raw if isinstance(raw, dict) else {}
 
 
+def _get_yahoo_info_executor() -> ProcessPoolExecutor:
+    global _yahoo_info_executor
+    with _yahoo_info_executor_lock:
+        if _yahoo_info_executor is None:
+            # yfinance uses curl_cffi/libcurl internally. That stack is not
+            # fork-safe after native state has been initialized, so Yahoo info
+            # fetches use a dedicated spawn-context pool that must stay
+            # separate from the research-cycle ProcessPoolExecutor.
+            ctx = multiprocessing.get_context("spawn")
+            _yahoo_info_executor = ProcessPoolExecutor(
+                max_workers=_yahoo_info_max_workers(),
+                mp_context=ctx,
+            )
+        return _yahoo_info_executor
+
+
+def _discard_yahoo_info_executor(
+    executor_to_discard: ProcessPoolExecutor | None,
+) -> None:
+    global _yahoo_info_executor
+    with _yahoo_info_executor_lock:
+        if (
+            executor_to_discard is not None
+            and _yahoo_info_executor is not executor_to_discard
+        ):
+            return
+        executor = _yahoo_info_executor
+        _yahoo_info_executor = None
+    if executor is None:
+        return
+    try:
+        executor.shutdown(wait=False, cancel_futures=True)
+    except Exception as exc:
+        logger.warning("Failed to shut down broken Yahoo info executor: %s", exc)
+
+
 def _fetch_yahoo_info_isolated(key: str) -> dict:
     timeout = _yahoo_info_timeout_seconds()
-    executor = ProcessPoolExecutor(max_workers=1)
+    executor = _get_yahoo_info_executor()
     future = None
     try:
         future = executor.submit(_fetch_yahoo_info_in_subprocess, key)
         return future.result(timeout=timeout)
     except BrokenProcessPool as exc:
         logger.warning("Yahoo info subprocess crashed for %s: %s", key, exc)
+        _discard_yahoo_info_executor(executor)
     except FuturesTimeoutError:
         logger.warning("Yahoo info fetch timed out for %s after %.1fs", key, timeout)
         if future is not None:
             future.cancel()
     except Exception as exc:
         logger.warning("Yahoo info fetch failed for %s: %s", key, exc)
-    finally:
-        executor.shutdown(wait=False, cancel_futures=True)
     return {}
 
 
