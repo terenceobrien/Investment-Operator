@@ -1,11 +1,14 @@
 """Tests for market-data bundle technical calculations."""
 from __future__ import annotations
 
+import logging
 import os
+from concurrent.futures.process import BrokenProcessPool
 
 import pandas as pd
 import pytest
 
+from src.agent_system.data import market
 from src.agent_system.data.market import get_market_data
 
 
@@ -24,21 +27,13 @@ def _history_from_closes(closes: list[float]) -> pd.DataFrame:
     )
 
 
-class _Ticker:
-    def __init__(self, history: pd.DataFrame | Exception):
-        self._history = history
-
-    def history(self, **_kwargs):
-        if isinstance(self._history, Exception):
-            raise self._history
-        return self._history
-
-
 def _patch_history(monkeypatch, history: pd.DataFrame | Exception):
-    monkeypatch.setattr(
-        "src.agent_system.data.market.yf.Ticker",
-        lambda _ticker: _Ticker(history),
-    )
+    def fake_fetch(_ticker: str) -> list[dict]:
+        if isinstance(history, Exception):
+            raise history
+        return market._rows_from_frame(history)
+
+    monkeypatch.setattr(market, "_fetch_market_history_isolated", fake_fetch)
 
 
 def test_sma_and_atr_are_computed_on_known_series(monkeypatch):
@@ -97,6 +92,130 @@ def test_empty_or_failed_fetch_returns_failed_bundle(monkeypatch):
     assert empty.fetch_errors
     assert failed.fetch_success is False
     assert "provider down" in failed.fetch_errors[0]
+
+
+class _FakeFuture:
+    def __init__(self, result):
+        self._result = result
+        self.timeout = None
+        self.cancelled = False
+
+    def result(self, timeout=None):
+        self.timeout = timeout
+        if isinstance(self._result, Exception):
+            raise self._result
+        return self._result
+
+    def cancel(self):
+        self.cancelled = True
+
+
+class _FakeExecutor:
+    def __init__(self, future: _FakeFuture | None = None):
+        self.future = future
+        self.submissions: list[tuple[object, str]] = []
+        self.shutdown_kwargs = None
+
+    def submit(self, fn, key: str):
+        self.submissions.append((fn, key))
+        return self.future
+
+    def shutdown(self, **kwargs):
+        self.shutdown_kwargs = kwargs
+
+
+class _SubmitRaisesExecutor:
+    def __init__(self, exc: Exception):
+        self.exc = exc
+        self.shutdown_kwargs = None
+
+    def submit(self, _fn, _key: str):
+        raise self.exc
+
+    def shutdown(self, **kwargs):
+        self.shutdown_kwargs = kwargs
+
+
+def test_market_history_subprocess_crash_degrades_to_empty_bundle(monkeypatch, caplog):
+    fake_executor = _FakeExecutor(
+        _FakeFuture(BrokenProcessPool("native crash in yfinance history"))
+    )
+    monkeypatch.setattr(market, "_market_history_executor", fake_executor)
+
+    with caplog.at_level(logging.WARNING, logger="agent_system.data.market"):
+        bundle = get_market_data("CRASH", force_refresh=True)
+
+    assert bundle.fetch_success is False
+    assert bundle.fetch_errors == ["No market history returned"]
+    assert market._market_history_executor is None
+    assert fake_executor.shutdown_kwargs == {"wait": False, "cancel_futures": True}
+    assert "market history subprocess crashed for CRASH" in caplog.text
+
+
+def test_market_history_broken_pool_on_submit_is_discarded(monkeypatch, caplog):
+    fake_executor = _SubmitRaisesExecutor(BrokenProcessPool("pool already broken"))
+    monkeypatch.setattr(market, "_market_history_executor", fake_executor)
+
+    with caplog.at_level(logging.WARNING, logger="agent_system.data.market"):
+        bundle = get_market_data("BROKEN", force_refresh=True)
+
+    assert bundle.fetch_success is False
+    assert market._market_history_executor is None
+    assert fake_executor.shutdown_kwargs == {"wait": False, "cancel_futures": True}
+    assert "market history subprocess crashed for BROKEN" in caplog.text
+
+
+def test_market_history_executor_uses_spawn_context_and_bounded_workers(monkeypatch):
+    created: dict[str, object] = {}
+
+    class FakeProcessPoolExecutor:
+        def __init__(self, *, max_workers: int, mp_context):
+            created["max_workers"] = max_workers
+            created["mp_context"] = mp_context
+
+        def shutdown(self, **_kwargs):
+            pass
+
+    def fake_get_context(method: str):
+        created["method"] = method
+        return "spawn-context"
+
+    monkeypatch.setenv("MARKET_HISTORY_FETCH_MAX_WORKERS", "6")
+    monkeypatch.setattr(market, "_market_history_executor", None)
+    monkeypatch.setattr(market.multiprocessing, "get_context", fake_get_context)
+    monkeypatch.setattr(market, "ProcessPoolExecutor", FakeProcessPoolExecutor)
+
+    executor = market._get_market_history_executor()
+
+    assert created == {
+        "method": "spawn",
+        "max_workers": 6,
+        "mp_context": "spawn-context",
+    }
+    assert isinstance(executor, FakeProcessPoolExecutor)
+    market._discard_market_history_executor(executor)
+
+
+def test_market_history_executor_reuses_dedicated_pool(monkeypatch):
+    created: list[object] = []
+
+    class FakeProcessPoolExecutor:
+        def __init__(self, *, max_workers: int, mp_context):
+            created.append(self)
+
+        def shutdown(self, **_kwargs):
+            pass
+
+    monkeypatch.setattr(market, "_market_history_executor", None)
+    monkeypatch.setattr(market.multiprocessing, "get_context", lambda _method: object())
+    monkeypatch.setattr(market, "ProcessPoolExecutor", FakeProcessPoolExecutor)
+
+    first = market._get_market_history_executor()
+    second = market._get_market_history_executor()
+
+    assert first is second
+    assert created == [first]
+    market._discard_market_history_executor(first)
 
 
 @pytest.mark.skipif(

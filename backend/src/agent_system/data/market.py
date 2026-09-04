@@ -2,11 +2,16 @@
 from __future__ import annotations
 
 import logging
+import multiprocessing
+import os
+from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import TimeoutError as FuturesTimeoutError
+from concurrent.futures.process import BrokenProcessPool
 from datetime import datetime, timedelta, timezone
+from threading import Lock
 from typing import Any
 
 import pandas as pd
-import yfinance as yf
 
 from src.agent_system.data.cache import cache_get, cache_set
 from src.agent_system.data.types import MarketDataBundle, TechnicalContext
@@ -14,6 +19,10 @@ from src.agent_system.data.types import MarketDataBundle, TechnicalContext
 logger = logging.getLogger("agent_system.data.market")
 
 MARKET_HISTORY_TTL = timedelta(hours=1)
+_DEFAULT_MARKET_HISTORY_TIMEOUT_SECONDS = 30.0
+_DEFAULT_MARKET_HISTORY_MAX_WORKERS = 4
+_market_history_executor: ProcessPoolExecutor | None = None
+_market_history_executor_lock = Lock()
 
 
 def _safe_float(value: Any) -> float | None:
@@ -66,6 +75,96 @@ def _frame_from_rows(rows: list[dict]) -> pd.DataFrame:
         }
     )
     return frame
+
+
+def _market_history_timeout_seconds() -> float:
+    raw = os.getenv("MARKET_HISTORY_FETCH_TIMEOUT_SECONDS")
+    if not raw:
+        return _DEFAULT_MARKET_HISTORY_TIMEOUT_SECONDS
+    try:
+        return max(1.0, float(raw))
+    except ValueError:
+        logger.warning(
+            "Invalid MARKET_HISTORY_FETCH_TIMEOUT_SECONDS=%r; using %.1fs",
+            raw,
+            _DEFAULT_MARKET_HISTORY_TIMEOUT_SECONDS,
+        )
+        return _DEFAULT_MARKET_HISTORY_TIMEOUT_SECONDS
+
+
+def _market_history_max_workers() -> int:
+    raw = os.getenv("MARKET_HISTORY_FETCH_MAX_WORKERS")
+    if not raw:
+        return _DEFAULT_MARKET_HISTORY_MAX_WORKERS
+    try:
+        return max(1, int(raw))
+    except ValueError:
+        logger.warning(
+            "Invalid MARKET_HISTORY_FETCH_MAX_WORKERS=%r; using %d",
+            raw,
+            _DEFAULT_MARKET_HISTORY_MAX_WORKERS,
+        )
+        return _DEFAULT_MARKET_HISTORY_MAX_WORKERS
+
+
+def _fetch_market_history_in_subprocess(key: str) -> list[dict]:
+    import yfinance as yf
+
+    history = yf.Ticker(key).history(period="1y", interval="1d")
+    if history is None or history.empty:
+        return []
+    return _rows_from_frame(history)
+
+
+def _get_market_history_executor() -> ProcessPoolExecutor:
+    global _market_history_executor
+    with _market_history_executor_lock:
+        if _market_history_executor is None:
+            # yfinance uses curl_cffi/libcurl internally. Keep history fetches
+            # in a dedicated spawn-context pool, separate from cycle execution,
+            # so fork-unsafe native state cannot kill the research-cycle worker.
+            ctx = multiprocessing.get_context("spawn")
+            _market_history_executor = ProcessPoolExecutor(
+                max_workers=_market_history_max_workers(),
+                mp_context=ctx,
+            )
+        return _market_history_executor
+
+
+def _discard_market_history_executor(executor: ProcessPoolExecutor) -> None:
+    global _market_history_executor
+    with _market_history_executor_lock:
+        if _market_history_executor is executor:
+            _market_history_executor = None
+    try:
+        executor.shutdown(wait=False, cancel_futures=True)
+    except Exception as exc:
+        logger.warning("market history executor shutdown failed: %s", exc)
+
+
+def _fetch_market_history_isolated(key: str) -> list[dict]:
+    executor = _get_market_history_executor()
+    timeout_seconds = _market_history_timeout_seconds()
+    future = None
+    try:
+        future = executor.submit(_fetch_market_history_in_subprocess, key)
+        return future.result(timeout=timeout_seconds)
+    except BrokenProcessPool as exc:
+        logger.warning("market history subprocess crashed for %s: %s", key, exc)
+        _discard_market_history_executor(executor)
+        return []
+    except FuturesTimeoutError:
+        logger.warning(
+            "market history fetch timed out for %s after %.1fs",
+            key,
+            timeout_seconds,
+        )
+        if future is not None:
+            future.cancel()
+        return []
+    except Exception as exc:
+        logger.warning("market history fetch failed for %s: %s", key, exc)
+        return []
 
 
 def _trend_regime(
@@ -192,14 +291,13 @@ def get_market_data(ticker: str, force_refresh: bool = False) -> MarketDataBundl
                 errors.append(f"cache parse failed: {exc}")
 
     try:
-        history = yf.Ticker(normalized).history(period="1y", interval="1d")
+        rows = _fetch_market_history_isolated(normalized)
     except Exception as exc:
         logger.warning("market history fetch failed for %s: %s", normalized, exc)
         return _empty_bundle(normalized, [f"{type(exc).__name__}: {exc}"])
 
-    if history is None or history.empty:
+    if not rows:
         return _empty_bundle(normalized, ["No market history returned"])
 
-    rows = _rows_from_frame(history)
     cache_set("market_history", normalized, rows)
     return _bundle_from_frame(normalized, _frame_from_rows(rows), errors)
