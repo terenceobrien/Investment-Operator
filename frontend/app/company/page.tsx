@@ -195,10 +195,10 @@ function Panel({ label, meta, children, tone }: { label: string; meta?: string; 
   const bg = tone === 'accent' ? M.accentSoft : tone === 'risk' ? M.dangerWell : M.card;
   const border = tone === 'risk' ? `${M.neg}66` : M.line;
   return (
-    <section style={{ background: bg, border: `1px solid ${border}`, borderRadius: 16, overflow: 'hidden', boxShadow: M.shadow }}>
+    <section style={{ background: bg, border: `1px solid ${border}`, borderRadius: 5, overflow: 'hidden', boxShadow: M.shadow }}>
       <div style={{ padding: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, marginBottom: 18 }}>
-          <span style={labelStyle}>{label}</span>
+          <span style={{ fontFamily: M.serif, fontSize: 19, fontWeight: 500, color: M.ink, letterSpacing: '-0.02em' }}>{label}</span>
           {meta ? <span style={{ ...labelStyle, color: M.inkFaint, letterSpacing: '0.08em' }}>{meta}</span> : null}
         </div>
         {children}
@@ -269,8 +269,8 @@ export default function CompanyPage() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1440px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+    <main className="helix-research-workspace" style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
+      <div style={{ width: 'min(1440px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 48px', display: 'flex', flexDirection: 'column', gap: 14 }}>
         <header style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(330px, 0.34fr)', gap: 28, alignItems: 'start' }} className="research-header-grid">
           <div>
             <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 12 }}>COMPANY RESEARCH &gt; {report.ticker}</div>
@@ -285,7 +285,7 @@ export default function CompanyPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 20, alignItems: 'end' }}>
             <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <span style={{ ...labelStyle, color: M.canvasInkFaint }}>Coverage</span>
-              <select value={ticker} onChange={(event) => setTicker(event.target.value)} style={{ width: '100%', background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 10, color: M.ink, padding: '12px 14px', fontFamily: M.sans, fontSize: 14, outline: 'none', boxShadow: '0 10px 34px rgba(0,0,0,0.16)' }}>
+              <select value={ticker} onChange={(event) => setTicker(event.target.value)} style={{ width: '100%', background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 5, color: M.ink, padding: '12px 14px', fontFamily: M.sans, fontSize: 14, outline: 'none', boxShadow: M.shadow }}>
                 {coverage.map((entry) => (
                   <option key={entry.ticker} value={entry.ticker}>{entry.ticker} — {entry.name || entry.ticker}</option>
                 ))}
@@ -369,7 +369,7 @@ function Meta({ label, value }: { label: string; value: string }) {
   return <div style={{ padding: '12px 18px', borderRight: `1px solid ${M.line}` }}><div style={labelStyle}>{label}</div><div style={{ marginTop: 6, color: M.ink, fontSize: 13, fontWeight: 600 }}>{value}</div></div>;
 }
 function TextCallout({ children }: { children: React.ReactNode }) {
-  return <div style={{ minHeight: 116, background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: 16, color: M.ink, fontFamily: M.serif, fontSize: 20, lineHeight: 1.25 }}>{children}</div>;
+  return <div style={{ minHeight: 116, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16, color: M.ink, fontFamily: M.serif, fontSize: 20, lineHeight: 1.25 }}>{children}</div>;
 }
 function FactorRow({ label, value }: { label: string; value: number | null }) {
   return <div><div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, color: M.inkDim, fontSize: 12 }}><span>{label}</span><span style={{ fontFamily: M.mono }}>{value === null ? '—' : value.toFixed(0)}</span></div><Meter value={value} color={(value ?? 0) >= 70 ? M.accentBright : M.warn} /></div>;
@@ -378,7 +378,7 @@ function BulletList({ items }: { items: string[] }) {
   return <ul style={{ margin: 0, paddingLeft: 18, color: M.inkDim, lineHeight: 1.5, fontSize: 13 }}>{items.map((item, idx) => <li key={`${item}-${idx}`} style={{ marginBottom: 8 }}>{item}</li>)}</ul>;
 }
 function VariantBox({ title, text, color }: { title: string; text: string; color: string }) {
-  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 14, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 10 }}>{title}</div><p style={{ margin: 0, color: M.inkDim, lineHeight: 1.5, fontSize: 13.5 }}>{text}</p></div>;
+  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 10 }}>{title}</div><p style={{ margin: 0, color: M.inkDim, lineHeight: 1.5, fontSize: 13.5 }}>{text}</p></div>;
 }
 
 function ScoreSummary({ report }: { report: ViewReport }) {
@@ -386,7 +386,7 @@ function ScoreSummary({ report }: { report: ViewReport }) {
   const confidenceLevel = report.confidence.toLowerCase();
   const confidenceBlocks = confidenceLevel.includes('high') ? 4 : confidenceLevel.includes('medium') ? 3 : confidenceLevel.includes('low') ? 2 : 1;
   return (
-    <section style={{ background: 'linear-gradient(180deg, #102946 0%, #0C213A 100%)', border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden', marginTop: 10 }}>
+    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: M.shadow, overflow: 'hidden', marginTop: 10 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr 1fr 0.68fr' }} className="score-strip">
         <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
           <div style={labelStyle}>Helix research score</div>
@@ -438,7 +438,7 @@ function TrendCard({ kpi, index }: { kpi: ViewReport['kpis'][number]; index: num
   const lower = kpi.value.toLowerCase();
   const color = lower.includes('improv') || lower.includes('positive') || lower.includes('favorable') ? M.pos : lower.includes('deterior') || lower.includes('negative') || lower.includes('pressure') ? M.neg : M.accentBright;
   return (
-    <div style={{ minHeight: 182, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <div style={{ minHeight: 182, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'center' }}>
           <div style={{ width: 42, height: 42, borderRadius: '50%', background: M.accentSoft, color: M.accentBright, display: 'grid', placeItems: 'center', fontFamily: M.mono, fontSize: 14 }}>{String(index + 1).padStart(2, '0')}</div>
@@ -469,7 +469,7 @@ function MetricWatchlist({ items }: { items: string[] }) {
 
 function RiskItem({ text, index }: { text: string; index: number }) {
   return (
-    <div style={{ background: 'rgba(241, 109, 100, 0.08)', border: `1px solid ${M.neg}22`, borderRadius: 12, padding: '15px 16px', display: 'grid', gridTemplateColumns: '38px minmax(0, 1fr) auto', gap: 12, alignItems: 'center' }}>
+    <div style={{ background: 'rgba(241, 109, 100, 0.08)', border: `1px solid ${M.neg}22`, borderRadius: 5, padding: '15px 16px', display: 'grid', gridTemplateColumns: '38px minmax(0, 1fr) auto', gap: 12, alignItems: 'center' }}>
       <div style={{ width: 32, height: 32, borderRadius: '50%', border: `1px solid ${M.neg}88`, color: M.neg, display: 'grid', placeItems: 'center', fontFamily: M.mono, fontSize: 12 }}>!</div>
       <div style={{ color: M.ink, fontSize: 13, lineHeight: 1.42 }}>{text}</div>
       <Chip color={index === 0 ? M.neg : M.warn}>{index === 0 ? 'Active falsifier' : 'Risk'}</Chip>

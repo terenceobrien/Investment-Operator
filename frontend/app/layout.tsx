@@ -130,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <footer
               style={{
                 borderTop: `0.5px solid ${M.line}`,
-                background: M.sidebar,
+                background: M.canvas2,
                 padding: '22px 24px 24px',
                 fontFamily: M.mono,
                 fontSize: '11px',

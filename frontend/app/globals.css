@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
 
 :root {
   --bg: #06192D;
@@ -1103,4 +1103,35 @@ textarea {
   .helix-workflow {
     padding: 34px 22px 30px;
   }
+}
+
+/* Primary research workspace: restrained editorial type and fine controls. */
+.helix-research-workspace {
+  color-scheme: light;
+  font-variant-numeric: tabular-nums;
+}
+.helix-research-workspace h1,
+.helix-research-workspace h2,
+.helix-research-workspace h3 {
+  letter-spacing: -0.025em;
+}
+.helix-research-workspace button,
+.helix-research-workspace input,
+.helix-research-workspace select,
+.helix-research-workspace textarea {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif !important;
+  letter-spacing: normal !important;
+}
+.helix-research-workspace :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #164FC4 !important;
+  outline-offset: 3px;
+}
+.helix-research-workspace button:not(:disabled):hover {
+  filter: brightness(0.96);
+}
+.helix-rail a:hover { background-color: #27313A !important; }
+.helix-rail :is(a, button):focus-visible,
+.helix-rail-mobilebar :is(a, button):focus-visible {
+  outline: 2px solid #C3CBD4;
+  outline-offset: 2px;
 }

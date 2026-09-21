@@ -5,7 +5,19 @@ import { usePathname } from 'next/navigation';
 import { SignInButton, UserButton, useAuth } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import { T } from '@/lib/tokens';
-import { M } from '@/app/lib/researchOsTheme';
+import { M as workspaceTheme } from '@/app/lib/researchOsTheme';
+
+const M = {
+  ...workspaceTheme,
+  ink: '#F1F3F6',
+  inkDim: '#C3CBD4',
+  inkFaint: '#9EAAB7',
+  line: '#28323B',
+  line2: '#3B4651',
+  accent: '#DCE3EB',
+  accentBright: '#F1F3F6',
+  pos: '#64B79A',
+};
 
 // ─────────────────────────────────────────────────────────────
 // Sidebar navigation.
@@ -71,11 +83,12 @@ export default function NavBar() {
     left: 0,
     bottom: 0,
     width: T.sidebarWidth,
-    background: `linear-gradient(180deg, ${M.sidebar} 0%, #061426 100%)`,
+    background: `linear-gradient(180deg, ${M.sidebar} 0%, #121A20 100%)`,
     borderRight: `1px solid ${M.line}`,
     display: 'flex',
     flexDirection: 'column',
-    padding: '26px 20px',
+    padding: '20px 14px',
+    overflowY: 'auto',
     zIndex: 40,
     transform: mobileOpen ? 'translateX(0)' : undefined,
     fontFamily: M.sans,
@@ -87,7 +100,7 @@ export default function NavBar() {
       <div style={mobileBarStyle} className="helix-rail-mobilebar">
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <span style={brandMarkStyle}>H</span>
-          <span style={{ color: M.ink, fontWeight: 800, letterSpacing: '0.18em', fontSize: '14px' }}>HELIX</span>
+          <span style={{ color: M.ink, fontFamily: M.serif, fontWeight: 500, letterSpacing: '0.18em', fontSize: '14px' }}>HELIX</span>
         </Link>
         <button
           type="button"
@@ -103,12 +116,12 @@ export default function NavBar() {
         {/* Brand */}
         <Link
           href="/"
-          style={{ display: 'flex', alignItems: 'center', gap: '13px', textDecoration: 'none', marginBottom: '40px' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '13px', textDecoration: 'none', marginBottom: '28px', paddingBottom: '24px', borderBottom: `1px solid ${M.line}` }}
           aria-label="Helix home"
         >
           <span style={brandMarkStyle}>H</span>
           <span>
-            <span style={{ display: 'block', color: M.ink, fontWeight: 800, letterSpacing: '0.22em', fontSize: '15px' }}>
+            <span style={{ display: 'block', color: M.ink, fontFamily: M.serif, fontWeight: 500, letterSpacing: '0.18em', fontSize: '15px' }}>
               HELIX
             </span>
             <span style={{ display: 'block', color: M.inkFaint, fontSize: '10.5px', letterSpacing: '0.22em', marginTop: '4px' }}>
@@ -197,22 +210,23 @@ export default function NavBar() {
 
 // ── styles ──────────────────────────────────────────────────
 const brandMarkStyle: React.CSSProperties = {
-  width: '42px',
-  height: '42px',
-  borderRadius: '50%',
+  width: '34px',
+  height: '34px',
+  borderRadius: '3px',
+  background: '#28313A',
   border: `1.5px solid ${M.line2}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   color: M.accentBright,
   fontFamily: M.serif,
-  fontSize: '19px',
+  fontSize: '28px',
   flexShrink: 0,
 };
 
 const railLabelStyle: React.CSSProperties = {
   fontSize: '10.5px',
-  letterSpacing: '0.24em',
+  letterSpacing: '0.14em',
   color: M.inkFaint,
   fontWeight: 600,
   marginBottom: '14px',
@@ -223,15 +237,15 @@ function railItemStyle(active: boolean): React.CSSProperties {
     display: 'flex',
     alignItems: 'center',
     gap: '14px',
-    padding: '12px 14px',
-    borderRadius: '11px',
-    fontSize: '14.5px',
+    padding: '10px 12px',
+    borderRadius: '5px',
+    fontSize: '13px',
     fontWeight: 500,
     textDecoration: 'none',
     color: active ? M.ink : M.inkDim,
-    background: active ? 'rgba(47, 125, 255, 0.16)' : 'transparent',
-    border: `1px solid ${active ? M.accent : 'transparent'}`,
-    boxShadow: active ? `0 0 0 1px ${M.accent}55, 0 18px 42px -24px ${M.accent}` : undefined,
+    background: active ? '#27313A' : 'transparent',
+    border: `1px solid ${active ? M.line : 'transparent'}`,
+    boxShadow: undefined,
   };
 }
 
@@ -239,12 +253,12 @@ function railSubItemStyle(active: boolean): React.CSSProperties {
   return {
     display: 'block',
     padding: '9px 14px',
-    borderRadius: '9px',
-    fontSize: '13.5px',
+    borderRadius: '5px',
+    fontSize: '12.5px',
     fontWeight: 500,
     textDecoration: 'none',
     color: active ? M.ink : M.inkDim,
-    background: active ? 'rgba(47, 125, 255, 0.12)' : 'transparent',
+    background: active ? '#27313A' : 'transparent',
   };
 }
 
@@ -253,7 +267,7 @@ const signInStyle: React.CSSProperties = {
   background: M.accent,
   color: '#06172A',
   border: 'none',
-  borderRadius: '10px',
+  borderRadius: '5px',
   padding: '10px 0',
   fontFamily: M.sans,
   fontSize: '13px',

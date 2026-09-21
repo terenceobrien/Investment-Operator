@@ -739,21 +739,21 @@ const CATEGORY_ORDER = ['Monetary & Liquidity', 'Credit & Stress', 'Volatility S
 type Indicator = Forecast['indicators'][number];
 
 // ─────────────────────────────────────────────────────────────
-// Dark-card Research OS primitives
+// Research workspace primitives
 // ─────────────────────────────────────────────────────────────
 function Panel({ title, meta, children, prominent }: { title?: string; meta?: string; children: React.ReactNode; prominent?: boolean }) {
   return (
     <section style={{
-      background: prominent ? '#0A1E36' : M.card,
+      background: prominent ? M.cardElev : M.card,
       border: `1px solid ${prominent ? M.line2 : M.line}`,
-      borderRadius: '16px',
+      borderRadius: '5px',
       overflow: 'hidden',
       boxShadow: M.shadow,
     }}>
       <div style={{ padding: '18px' }}>
         {title ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginBottom: '12px' }}>
-            <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.18em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 600 }}>{title}</span>
+            <span style={{ fontFamily: M.serif, fontSize: 19, letterSpacing: '-0.02em', color: M.ink, fontWeight: 500 }}>{title}</span>
             {meta ? <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.08em', color: M.inkFaint }}>{meta}</span> : null}
           </div>
         ) : null}
@@ -936,7 +936,7 @@ function MarketRegimePanel({
                       background: scoreHistoryWindow === option.key ? M.accentSoft : M.cardElev,
                       color: scoreHistoryWindow === option.key ? M.accentBright : M.inkDim,
                       border: `1px solid ${scoreHistoryWindow === option.key ? M.accent : M.line2}`,
-                      borderRadius: 8,
+                      borderRadius: 5,
                       padding: '5px 8px',
                       fontFamily: M.mono,
                       fontSize: 10,
@@ -997,7 +997,7 @@ function MarketRegimePanel({
 
 function MiniStat({ label, value, sub, color = M.ink }: { label: string; value: string; sub: string; color?: string }) {
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: '9px 10px', minWidth: 0 }}>
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '9px 10px', minWidth: 0 }}>
       <div style={{ ...labelStyleSmall, marginBottom: 5 }}>{label}</div>
       <div style={{ color, fontFamily: M.serif, fontSize: 15.5, lineHeight: 1.05, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</div>
       <div style={{ color: M.inkFaint, fontFamily: M.mono, fontSize: 10.5, marginTop: 5 }}>{sub}</div>
@@ -1112,7 +1112,7 @@ function ComponentHistoryTooltip({ active, payload, label }: { active?: boolean;
   const row = payload?.find((item) => item.payload)?.payload;
   if (!active || !row) return null;
   return (
-    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 8, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
+    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 5, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
       <div style={{ color: M.inkFaint, marginBottom: 5 }}>{label}</div>
       <div>value {formatAxisNumber(row.value)}</div>
       <div>score {scoreNumber(row.componentScore)}</div>
@@ -1148,7 +1148,7 @@ function ComponentHistoryChart({
   const valueDomain = computeYDomain(rows.map((row) => row.value));
   const layerDomain = computeYDomain(rows.map((row) => row.layerScore));
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 12 }}>
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <div>
           <div style={labelStyleSmall}>Component history</div>
@@ -1160,7 +1160,7 @@ function ComponentHistoryChart({
               background: windowValue === item ? M.accentSoft : M.cardElev,
               color: windowValue === item ? M.accentBright : M.inkDim,
               border: `1px solid ${windowValue === item ? M.accent : M.line2}`,
-              borderRadius: 8,
+              borderRadius: 5,
               padding: '6px 9px',
               fontFamily: M.mono,
               fontSize: 10,
@@ -1222,12 +1222,12 @@ function FactorDetailSection({
   return (
     <div style={{ borderTop: `1px solid ${M.line}`, marginTop: 14, paddingTop: 14 }}>
       {warnings.length ? (
-        <div style={{ background: M.dangerWell, border: `1px solid ${M.warn}55`, color: M.warn, borderRadius: 10, padding: '8px 10px', fontFamily: M.sans, fontSize: 11.5, lineHeight: 1.4, marginBottom: 10 }}>
+        <div style={{ background: M.dangerWell, border: `1px solid ${M.warn}55`, color: M.warn, borderRadius: 5, padding: '8px 10px', fontFamily: M.sans, fontSize: 11.5, lineHeight: 1.4, marginBottom: 10 }}>
           History source warning: {truncate(warnings.join(' · '), 240)}
         </div>
       ) : null}
       <div className="macro-factor-grid" style={{ display: 'grid', gridTemplateColumns: '260px minmax(0, 1fr)', gap: 14, alignItems: 'start' }}>
-        <div style={{ background: M.cardElev, border: `1px solid ${M.line}`, borderRadius: 12, padding: 10 }}>
+        <div style={{ background: M.cardElev, border: `1px solid ${M.line}`, borderRadius: 5, padding: 10 }}>
           <div style={{ ...labelStyleSmall, padding: '2px 4px 9px' }}>Layer selector</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {layers.map((layer) => {
@@ -1252,7 +1252,7 @@ function FactorDetailSection({
             </div>
             <div style={{ fontFamily: M.mono, color: deltaColor(activeLayer.delta_1m), fontSize: 12 }}>1M layer {signedScore(activeLayer.delta_1m)}</div>
           </div>
-          <div style={{ overflowX: 'auto', border: `1px solid ${M.line}`, borderRadius: 12 }}>
+          <div style={{ overflowX: 'auto', border: `1px solid ${M.line}`, borderRadius: 5 }}>
             <div style={{ minWidth: 900 }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'minmax(190px, 1.45fr) 105px 72px 72px 92px 82px 116px 132px', gap: 8, padding: '9px 10px', background: M.cardElev, borderBottom: `1px solid ${M.line}`, ...labelStyleSmall }}>
                 <span>component</span><span>value</span><span>score</span><span>weight</span><span>contrib</span><span>1M delta</span><span>1M attribution</span><span>history</span>
@@ -1335,7 +1335,7 @@ function ScenarioCards({ f }: { f: Forecast }) {
           const top = s.isRecession ? M.warn : i === 0 ? M.accentBright : s.blended !== null && s.blended >= 0.15 ? M.pos : M.inkFaint;
           const deltaColor = s.delta === null || s.delta === undefined ? M.inkFaint : s.delta >= 0 ? M.pos : M.neg;
           return (
-            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '10px', padding: '13px 12px', minWidth: 0 }}>
+            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '5px', padding: '13px 12px', minWidth: 0 }}>
               <ValueText value={pct1(s.blended)} size={20} color={top} />
               <h3 style={{ fontFamily: M.serif, fontSize: '16px', fontWeight: 500, color: M.ink, margin: '8px 0 7px', lineHeight: 1.12 }}>{s.label}</h3>
               <p style={{ margin: '0 0 12px', fontFamily: M.sans, fontSize: '11px', color: M.inkDim, lineHeight: 1.42, minHeight: '64px' }}>{s.desc}</p>
@@ -1422,7 +1422,7 @@ function FanTooltip({ active, payload, label }: { active?: boolean; payload?: Ar
   const point = payload?.find((item) => item.payload)?.payload;
   if (!active || !point) return null;
   return (
-    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 8, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
+    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 5, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
       <div style={{ color: M.inkFaint, marginBottom: 5 }}>{label}</div>
       <div>p10 {formatAxisNumber(point.p10)} · p50 {formatAxisNumber(point.p50)} · p90 {formatAxisNumber(point.p90)}</div>
       <div>p25 {formatAxisNumber(point.p25)} · p75 {formatAxisNumber(point.p75)}</div>
@@ -1470,7 +1470,7 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
               background: selected === key ? M.accentSoft : M.well,
               color: selected === key ? M.accentBright : M.inkDim,
               border: `1px solid ${selected === key ? M.accent : M.line}`,
-              borderRadius: 8,
+              borderRadius: 5,
               padding: '5px 8px',
               fontFamily: M.mono,
               fontSize: 10,
@@ -1482,7 +1482,7 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
           </button>
         ))}
       </div>
-      <div style={{ height: 320, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: '8px 4px 2px' }}>
+      <div style={{ height: 320, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '8px 4px 2px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={rows} margin={{ top: 10, right: 14, bottom: 8, left: 0 }}>
             <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
@@ -1510,7 +1510,7 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
 }
 
 function ErrorMini({ message }: { message: string }) {
-  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.neg, fontSize: 12, lineHeight: 1.45, background: M.dangerWell, border: `1px solid ${M.neg}55`, borderRadius: 12, padding: 14, textAlign: 'center' }}>{message}</div>;
+  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.neg, fontSize: 12, lineHeight: 1.45, background: M.dangerWell, border: `1px solid ${M.neg}55`, borderRadius: 5, padding: 14, textAlign: 'center' }}>{message}</div>;
 }
 
 function matchTag(match: TopMatch): { label: string; color: string } {
@@ -1535,7 +1535,7 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
   return (
     <Panel title="Analogue evidence" meta="survival-conditioned">
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 9 }}>
-        <div style={{ gridColumn: '1 / -1', background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 12 }}>
+        <div style={{ gridColumn: '1 / -1', background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 12 }}>
           <div style={{ ...labelStyleSmall, marginBottom: 4 }}>analogue recession evidence</div>
           <ValueText value={pct1(evidence.s_used ?? evidence.trailing_max)} size={30} color={M.warn} />
           <div style={{ fontFamily: M.mono, fontSize: 10.5, color: M.inkFaint, marginTop: 6 }}>
@@ -1548,14 +1548,14 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
           const active = state.quarter === evidence.binding_quarter;
           const color = state.state === 'scored' ? M.pos : state.state === 'unprecedented_state' ? M.warn : M.inkFaint;
           return (
-            <div key={state.quarter} style={{ background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, borderRadius: 8, padding: '7px 6px', minWidth: 0 }}>
+            <div key={state.quarter} style={{ background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, borderRadius: 5, padding: '7px 6px', minWidth: 0 }}>
               <div style={{ fontFamily: M.mono, fontSize: 9.5, color: M.inkFaint }}>{state.quarter}</div>
               <div style={{ fontFamily: M.mono, fontSize: 12, color, marginTop: 3 }}>● {pct1(state.conditioned_share ?? state.share)}</div>
             </div>
           );
         })}
       </div>
-      <div style={{ marginTop: 10, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 11 }}>
+      <div style={{ marginTop: 10, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 11 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontFamily: M.mono, fontSize: 10.5, color: M.inkFaint, marginBottom: 8 }}>
           <span>timing · elapsed {timing?.elapsed_quarters ?? binding?.elapsed_quarters ?? '—'}Q</span>
           <span>conditional {pct1(conditionalShare)}</span>
@@ -1585,7 +1585,7 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
 }
 
 function EmptyMini({ message }: { message: string }) {
-  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.inkFaint, fontSize: 12, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12 }}>{message}</div>;
+  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.inkFaint, fontSize: 12, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5 }}>{message}</div>;
 }
 function LegendSwatch({ color, label }: { color: string; label: string }) {
   return <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ width: '12px', height: '12px', borderRadius: '3px', background: color, border: `1px solid ${M.line2}` }} />{label}</span>;
@@ -1632,7 +1632,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
   };
 
   return (
-    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
+    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: M.shadow, overflow: 'hidden' }}>
       <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '250px minmax(0, 1fr) 380px', minHeight: 342 }}>
         <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: M.cardElev, padding: '14px 10px' }}>
           <div style={{ ...labelStyleSmall, padding: '0 10px 10px' }}>Macro indicators explorer</div>
@@ -1662,7 +1662,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
                 <select
                   value={indicatorKey(selectedIndicator)}
                   onChange={(event) => setSelectedIndicatorKey(event.target.value)}
-                  style={{ maxWidth: 230, background: M.well, border: `1px solid ${M.line2}`, color: M.inkDim, borderRadius: 9, padding: '7px 9px', fontSize: 11.5, outline: 'none' }}
+                  style={{ maxWidth: 230, background: M.well, border: `1px solid ${M.line2}`, color: M.inkDim, borderRadius: 5, padding: '7px 9px', fontSize: 11.5, outline: 'none' }}
                 >
                   {categoryItems.map((ind) => <option key={indicatorKey(ind)} value={indicatorKey(ind)}>{ind.label}</option>)}
                 </select>
@@ -1703,7 +1703,7 @@ function railRowStyle(active: boolean): React.CSSProperties {
     borderLeft: `3px solid ${active ? M.accent : 'transparent'}`,
     background: active ? M.cardElev : 'transparent',
     color: active ? M.ink : M.inkDim,
-    borderRadius: '10px',
+    borderRadius: '5px',
     padding: '10px 10px',
     fontFamily: M.sans,
     fontSize: '12.5px',
@@ -1761,7 +1761,7 @@ function HistoryLineChart({
   const padB = 34;
   if (data.length < 2) {
     return (
-      <div style={{ height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, display: 'grid', placeItems: 'center', color: M.inkFaint, fontFamily: M.sans, fontSize: 12 }}>
+      <div style={{ height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, display: 'grid', placeItems: 'center', color: M.inkFaint, fontFamily: M.sans, fontSize: 12 }}>
         No historical series mapped for this indicator.
       </div>
     );
@@ -1795,7 +1795,7 @@ function HistoryLineChart({
       viewBox={`0 0 ${W} ${H}`}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setHoverIndex(null)}
-      style={{ width: '100%', height, marginTop: 8, background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, cursor: 'crosshair', touchAction: 'none' }}
+      style={{ width: '100%', height, marginTop: 8, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, cursor: 'crosshair', touchAction: 'none' }}
     >
       <rect x={0} y={0} width={W} height={H} fill="transparent" />
       {yTicks.map((tick) => (
@@ -1913,7 +1913,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
   const renderInefficiencies = (all = false) => inefficiency.length ? (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
       {inefficiency.slice(0, all ? undefined : 3).map((row, index) => (
-        <div key={`${row.subject}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: 12, padding: 13 }}>
+        <div key={`${row.subject}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: 5, padding: 13 }}>
           <div style={{ fontFamily: M.serif, fontSize: 16, color: M.ink, lineHeight: 1.15 }}>{row.subject}</div>
           <div style={{ marginTop: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.45 }}>{row.gap || row.archetype}</div>
         </div>
@@ -1924,7 +1924,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
   const renderTensions = (all = false) => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
       {(f.tensions.length ? f.tensions : watch).slice(0, all ? undefined : 4).map((item, index) => (
-        <div key={`${item}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 13 }}>
+        <div key={`${item}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 13 }}>
           <div style={{ fontFamily: M.mono, fontSize: 10, color: M.accentBright, marginBottom: 8 }}>0{index + 1}</div>
           <div style={{ color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{item}</div>
         </div>
@@ -1962,7 +1962,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
           .macro-narrative-content .macro-narrative-grid { grid-template-columns: minmax(0, 1fr) !important; }
         }
       `}</style>
-      <section className="macro-narrative-content" style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
+      <section className="macro-narrative-content" style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: M.shadow, overflow: 'hidden' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, borderBottom: `1px solid ${M.line}`, padding: '0 14px' }}>
           {NARRATIVE_TABS.map((tab) => (
             <button key={tab.key} type="button" onClick={() => setActive(tab.key)} style={narrativeTabStyle(active === tab.key)}>{tab.label}</button>
@@ -1981,13 +1981,13 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
           const bounds = event.currentTarget.getBoundingClientRect();
           if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setExpanded(false);
         }}
-        style={{ width: 'min(1480px, calc(100vw - 32px))', maxWidth: 'none', maxHeight: '90dvh', margin: 'auto', padding: 0, background: M.card, color: M.ink, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: '0 24px 100px rgba(0, 0, 0, 0.5)', overflowY: 'auto', overscrollBehavior: 'contain' }}
+        style={{ width: 'min(1480px, calc(100vw - 32px))', maxWidth: 'none', maxHeight: '90dvh', margin: 'auto', padding: 0, background: M.card, color: M.ink, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: '0 24px 100px rgba(0, 0, 0, 0.5)', overflowY: 'auto', overscrollBehavior: 'contain' }}
       >
         {expanded ? (
           <>
             <div style={{ position: 'sticky', top: 0, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '18px 24px', background: M.card, borderBottom: `1px solid ${M.line}` }}>
               <h2 id="macro-narrative-dialog-title" style={{ margin: 0, fontFamily: M.serif, fontSize: 24, fontWeight: 500 }}>Market narrative · SPY</h2>
-              <button type="button" autoFocus onClick={() => setExpanded(false)} style={{ padding: '8px 12px', border: `1px solid ${M.line}`, borderRadius: 8, background: M.well, color: M.accentBright, fontFamily: M.sans, cursor: 'pointer', flexShrink: 0 }}>Close ✕</button>
+              <button type="button" autoFocus onClick={() => setExpanded(false)} style={{ padding: '8px 12px', border: `1px solid ${M.line}`, borderRadius: 5, background: M.well, color: M.accentBright, fontFamily: M.sans, cursor: 'pointer', flexShrink: 0 }}>Close ✕</button>
             </div>
             <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
               {[
@@ -2044,7 +2044,7 @@ function ThemeCardRow({ label, color, value }: { label: string; color: string; v
 function ThemeCard({ theme }: { theme: NarrTheme }) {
   const sc = STANCE_COLOR[theme.stance.toLowerCase()] ?? M.inkFaint;
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '14px', padding: '16px 18px' }}>
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '5px', padding: '16px 18px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '11px' }}>
         <h3 style={{ fontFamily: M.serif, fontSize: '19px', fontWeight: 500, color: M.ink, lineHeight: 1.15, margin: 0 }}>{theme.title}</h3>
         <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
@@ -2158,8 +2158,8 @@ export default function MacroPage() {
 
   return (
     <ForecastDataContext.Provider value={forecastState}>
-    <main style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1460px, calc(100% - 44px))', margin: '0 auto', padding: '26px 0 46px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
+    <main className="helix-research-workspace" style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
+      <div style={{ width: 'min(1460px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 40px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '4px' }}>
           <div>
             <Eyebrow>MACRO &amp; REGIME &gt; CURRENT READ</Eyebrow>

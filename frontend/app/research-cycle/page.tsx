@@ -312,8 +312,8 @@ export default function ResearchCyclePage() {
   };
 
   return (
-    <main style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1180px, calc(100% - 48px))', margin: '0 auto', padding: '34px 0 76px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+    <main className="helix-research-workspace" style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
+      <div style={{ width: 'min(1180px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 48px', display: 'flex', flexDirection: 'column', gap: 18 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div>
             <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; MANUAL THESIS</div>
@@ -456,7 +456,7 @@ function ManualQueue({ priorities }: { priorities: ResearchPriority[] }) {
   return (
     <div style={{ display: 'grid', gap: 10 }}>
       {priorities.map((priority) => (
-        <div key={`${priority.priority_rank}-${priority.theme}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: 14 }}>
+        <div key={`${priority.priority_rank}-${priority.theme}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 14 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'baseline' }}>
             <div style={{ fontFamily: M.serif, fontSize: 18, color: M.ink }}>{priority.theme}</div>
             <div style={{ fontFamily: M.mono, fontSize: 11, color: M.inkFaint }}>rank {priority.priority_rank}</div>
@@ -481,7 +481,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 
 function StepShell({ n, title, active, status, children }: { n: number; title: string; active: boolean; status?: string; children?: ReactNode }) {
   return (
-    <section style={{ background: M.card, border: `1px solid ${active ? M.line2 : M.line}`, borderRadius: 16, overflow: 'hidden', boxShadow: M.shadow, opacity: active ? 1 : 0.48, transition: 'opacity 0.3s, border-color 0.3s' }}>
+    <section style={{ background: M.card, border: `1px solid ${active ? M.line2 : M.line}`, borderRadius: 5, overflow: 'hidden', boxShadow: M.shadow, opacity: active ? 1 : 0.48, transition: 'opacity 0.3s, border-color 0.3s' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '17px 22px', borderBottom: `1px solid ${M.line}`, background: 'linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0))' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <span style={{ width: 30, height: 30, borderRadius: '50%', background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: M.mono, fontSize: 12, fontWeight: 600, color: active ? M.accentBright : M.inkFaint }}>{String(n).padStart(2, '0')}</span>
@@ -501,31 +501,31 @@ function StageIcon({ state }: { state: 'queued' | 'running' | 'done' }) {
 }
 
 function btnPrimary(disabled: boolean): CSSProperties {
-  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkFaint : '#06172A', border: 'none', borderRadius: 10, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
+  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkDim : '#FFFFFF', border: 'none', borderRadius: 5, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
 }
 
 function btnGhost(): CSSProperties {
-  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: 10, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
+  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: 5, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
 }
 
 function inputStyle(): CSSProperties {
-  return { width: '100%', background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: '11px 13px', fontFamily: M.sans, fontSize: 14, color: M.ink, outline: 'none' };
+  return { width: '100%', background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '11px 13px', fontFamily: M.sans, fontSize: 14, color: M.ink, outline: 'none' };
 }
 
 function textareaStyle(minHeight: number): CSSProperties {
-  return { width: '100%', minHeight, resize: 'vertical', background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 14, fontFamily: M.sans, fontSize: 14, color: M.ink, lineHeight: 1.55, outline: 'none' };
+  return { width: '100%', minHeight, resize: 'vertical', background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 14, fontFamily: M.sans, fontSize: 14, color: M.ink, lineHeight: 1.55, outline: 'none' };
 }
 
 function warnBanner(): CSSProperties {
-  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: 10, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.warn };
+  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: 5, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.warn };
 }
 
 function successBanner(): CSSProperties {
-  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: 10, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.pos };
+  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: 5, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.pos };
 }
 
 function yamlBox(): CSSProperties {
-  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: 10, padding: 16, fontFamily: M.mono, fontSize: 12.5, lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
+  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16, fontFamily: M.mono, fontSize: 12.5, lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
 }
 
 function errorPre(): CSSProperties {
