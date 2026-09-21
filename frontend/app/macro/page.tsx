@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import {
   Area,
@@ -687,9 +687,9 @@ function normalizeThemes(data: AnyRecord) {
       title: safeStr(n.title),
       stance: safeStr(n.stance),
       confidence: safeNum(n.confidence),
-      thesis: parsed.STORY ? '' : truncate(whyNow, 160),
+      thesis: parsed.STORY ? '' : whyNow,
       reality: parsed.REALITY || firstNonEmpty(...catalysts.slice(0, 1)),
-      story: parsed.STORY || (parsed.REALITY ? '' : truncate(whyNow, 140)),
+      story: parsed.STORY || (parsed.REALITY ? '' : whyNow),
       price: parsed.PRICE || safeStr(n.price_action),
       gap: parsed.GAP || safeStr(n.gap),
       falsifier: parsed.FALSIFIER || wouldChange[0] || '',
@@ -1848,6 +1848,20 @@ const NARRATIVE_TABS: { key: NarrativeTab; label: string }[] = [
 function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast }) {
   const [active, setActive] = useState<NarrativeTab>('narrative');
   const [expanded, setExpanded] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    if (!expanded || !dialogRef.current) return;
+    const dialog = dialogRef.current;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
+    };
+  }, [expanded]);
   const snap = result ? extractSnapshot(result) : { bullets: [], regimeTone: '', primaryGap: '', primaryArchetype: '', priceConfirmation: '', confidence: null, fullSummary: '' };
   const themes = result ? normalizeThemes(result) : [];
   const inefficiency = result ? extractInefficiency(result, themes) : [];
@@ -1869,7 +1883,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
         {narrativeRows.slice(0, 3).map((row) => (
           <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '70px minmax(0, 1fr)', gap: 12, marginBottom: 9 }}>
             <span style={{ fontFamily: M.mono, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: row.label === 'Reality' ? M.pos : row.label === 'Story' ? M.accentBright : M.inkFaint, fontWeight: 600 }}>{row.label}</span>
-            <p style={{ margin: 0, color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{truncate(row.text, 150)}</p>
+            <p style={{ margin: 0, color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{row.text}</p>
           </div>
         ))}
       </div>
@@ -1883,33 +1897,33 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
         {(f.available ? f.tensions : ['forecast unavailable']).slice(0, 4).map((item, index) => (
           <div key={`${item}-${index}`} style={{ display: 'grid', gridTemplateColumns: '24px minmax(0, 1fr)', gap: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.35, marginBottom: 6 }}>
             <span style={{ fontFamily: M.mono, color: M.accentBright }}>0{index + 1}</span>
-            <span>{truncate(item, 88)}</span>
+            <span>{item}</span>
           </div>
         ))}
       </div>
     </div>
   );
 
-  const renderThemes = () => themes.length ? (
+  const renderThemes = (all = false) => themes.length ? (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
-      {themes.slice(0, expanded ? 6 : 3).map((theme, index) => <ThemeCard key={`${theme.title}-${index}`} theme={theme} />)}
+      {themes.slice(0, all ? undefined : 3).map((theme, index) => <ThemeCard key={`${theme.title}-${index}`} theme={theme} />)}
     </div>
   ) : <EmptyMini message={result ? 'No dominant themes identified.' : 'No cached SPY narrative read available yet.'} />;
 
-  const renderInefficiencies = () => inefficiency.length ? (
+  const renderInefficiencies = (all = false) => inefficiency.length ? (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
-      {inefficiency.slice(0, expanded ? 6 : 3).map((row, index) => (
+      {inefficiency.slice(0, all ? undefined : 3).map((row, index) => (
         <div key={`${row.subject}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: 12, padding: 13 }}>
           <div style={{ fontFamily: M.serif, fontSize: 16, color: M.ink, lineHeight: 1.15 }}>{row.subject}</div>
-          <div style={{ marginTop: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.45 }}>{truncate(row.gap || row.archetype, 150)}</div>
+          <div style={{ marginTop: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.45 }}>{row.gap || row.archetype}</div>
         </div>
       ))}
     </div>
   ) : <EmptyMini message="No explicit inefficiency classifications in this run." />;
 
-  const renderTensions = () => (
+  const renderTensions = (all = false) => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
-      {(f.tensions.length ? f.tensions : watch).slice(0, expanded ? 8 : 4).map((item, index) => (
+      {(f.tensions.length ? f.tensions : watch).slice(0, all ? undefined : 4).map((item, index) => (
         <div key={`${item}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 12, padding: 13 }}>
           <div style={{ fontFamily: M.mono, fontSize: 10, color: M.accentBright, marginBottom: 8 }}>0{index + 1}</div>
           <div style={{ color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{item}</div>
@@ -1934,28 +1948,64 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
   };
 
   return (
-    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: `1px solid ${M.line}`, padding: '0 14px' }}>
-        {NARRATIVE_TABS.map((tab) => (
-          <button key={tab.key} type="button" onClick={() => setActive(tab.key)} style={narrativeTabStyle(active === tab.key)}>
-            {tab.label}
-          </button>
-        ))}
-        <button type="button" onClick={() => setExpanded((value) => !value)} style={{ marginLeft: 'auto', border: 0, background: 'transparent', color: M.accentBright, fontFamily: M.sans, fontSize: 12.5, cursor: 'pointer' }}>
-          {expanded ? 'Collapse view' : 'Expand all'} →
-        </button>
-      </div>
-      <div style={{ padding: 16 }}>
+    <>
+      <style>{`
+        .macro-narrative-content { overflow-wrap: anywhere; }
+        .macro-narrative-content .macro-narrative-grid > * { min-width: 0; }
+        .macro-narrative-content p { min-width: 0; white-space: pre-wrap; }
+        .macro-narrative-dialog::backdrop {
+          background: rgba(3, 12, 24, 0.55);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+        @media (max-width: 700px) {
+          .macro-narrative-content .macro-narrative-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        }
+      `}</style>
+      <section className="macro-narrative-content" style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: M.shadow, overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, borderBottom: `1px solid ${M.line}`, padding: '0 14px' }}>
+          {NARRATIVE_TABS.map((tab) => (
+            <button key={tab.key} type="button" onClick={() => setActive(tab.key)} style={narrativeTabStyle(active === tab.key)}>{tab.label}</button>
+          ))}
+          <button type="button" aria-haspopup="dialog" onClick={() => setExpanded(true)} style={{ marginLeft: 'auto', padding: '12px 0', border: 0, background: 'transparent', color: M.accentBright, fontFamily: M.sans, fontSize: 12.5, cursor: 'pointer' }}>Expand View ↗</button>
+        </div>
+        <div style={{ padding: 16 }}>{renderActive()}</div>
+      </section>
+      <dialog
+        ref={dialogRef}
+        className="macro-narrative-dialog macro-narrative-content"
+        aria-labelledby="macro-narrative-dialog-title"
+        onCancel={() => setExpanded(false)}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          const bounds = event.currentTarget.getBoundingClientRect();
+          if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setExpanded(false);
+        }}
+        style={{ width: 'min(1480px, calc(100vw - 32px))', maxWidth: 'none', maxHeight: '90dvh', margin: 'auto', padding: 0, background: M.card, color: M.ink, border: `1px solid ${M.line}`, borderRadius: 16, boxShadow: '0 24px 100px rgba(0, 0, 0, 0.5)', overflowY: 'auto', overscrollBehavior: 'contain' }}
+      >
         {expanded ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {renderNarrative()}
-            {renderThemes()}
-            {renderInefficiencies()}
-            {renderTensions()}
-          </div>
-        ) : renderActive()}
-      </div>
-    </section>
+          <>
+            <div style={{ position: 'sticky', top: 0, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '18px 24px', background: M.card, borderBottom: `1px solid ${M.line}` }}>
+              <h2 id="macro-narrative-dialog-title" style={{ margin: 0, fontFamily: M.serif, fontSize: 24, fontWeight: 500 }}>Market narrative · SPY</h2>
+              <button type="button" autoFocus onClick={() => setExpanded(false)} style={{ padding: '8px 12px', border: `1px solid ${M.line}`, borderRadius: 8, background: M.well, color: M.accentBright, fontFamily: M.sans, cursor: 'pointer', flexShrink: 0 }}>Close ✕</button>
+            </div>
+            <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
+              {[
+                { title: 'Narrative & positioning', content: renderNarrative() },
+                { title: 'Themes', content: renderThemes(true) },
+                { title: 'Inefficiencies', content: renderInefficiencies(true) },
+                { title: 'Tensions', content: renderTensions(true) },
+              ].map(({ title, content }) => (
+                <section key={title}>
+                  <h3 style={{ ...labelStyleSmall, margin: '0 0 12px' }}>{title}</h3>
+                  {content}
+                </section>
+              ))}
+            </div>
+          </>
+        ) : null}
+      </dialog>
+    </>
   );
 }
 
@@ -1995,7 +2045,7 @@ function ThemeCard({ theme }: { theme: NarrTheme }) {
   const sc = STANCE_COLOR[theme.stance.toLowerCase()] ?? M.inkFaint;
   return (
     <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '14px', padding: '16px 18px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', marginBottom: '11px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '11px' }}>
         <h3 style={{ fontFamily: M.serif, fontSize: '19px', fontWeight: 500, color: M.ink, lineHeight: 1.15, margin: 0 }}>{theme.title}</h3>
         <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
           {theme.stance ? <Chip label={theme.stance} color={sc} /> : null}

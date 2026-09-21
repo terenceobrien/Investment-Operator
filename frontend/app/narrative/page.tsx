@@ -1606,7 +1606,7 @@ export default function NarrativePage() {
     if (isGenerating) {
       return (
         <span style={{ fontFamily: T.sans, fontSize: '12px', color: T.textMuted }}>
-          Generating today&apos;s {ticker} read… typically 1–2 min.
+          Generating today&apos;s {ticker} read
         </span>
       );
     }

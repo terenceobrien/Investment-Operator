@@ -1,0 +1,3198 @@
+{
+  "ticker": "PYPL",
+  "as_of_date": "2026-09-16",
+  "created_at": "2026-09-16T18:53:33.604421",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/0001633917-26-000080-index-headers.html",
+      "accession_number": "0001633917-26-000080",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/0001633917-26-000080-index.html",
+      "accession_number": "0001633917-26-000080",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/0001633917-26-000080.txt",
+      "accession_number": "0001633917-26-000080",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl-20260728.htm",
+      "accession_number": "0001633917-26-000080",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000076/0001633917-26-000076-index-headers.html",
+      "accession_number": "0001633917-26-000076",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000076/0001633917-26-000076-index.html",
+      "accession_number": "0001633917-26-000076",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000076/0001633917-26-000076.txt",
+      "accession_number": "0001633917-26-000076",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000076/pypl-20260519.htm",
+      "accession_number": "0001633917-26-000076",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/0001193125-26-226653-index-headers.html",
+      "accession_number": "0001193125-26-226653",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/0001193125-26-226653-index.html",
+      "accession_number": "0001193125-26-226653",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/0001193125-26-226653.txt",
+      "accession_number": "0001193125-26-226653",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/d930458d8k.htm",
+      "accession_number": "0001193125-26-226653",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/d930458dex42.htm",
+      "accession_number": "0001193125-26-226653",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/d930458dex51.htm",
+      "accession_number": "0001193125-26-226653",
+      "notes": "Classified as other 8-K exhibit; debt or capital-markets document is not an earnings release."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/0001633917-26-000065-index-headers.html",
+      "accession_number": "0001633917-26-000065",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/0001633917-26-000065-index.html",
+      "accession_number": "0001633917-26-000065",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/0001633917-26-000065.txt",
+      "accession_number": "0001633917-26-000065",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl-20260505.htm",
+      "accession_number": "0001633917-26-000065",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526197533/0001193125-26-197533-index-headers.html",
+      "accession_number": "0001193125-26-197533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526197533/0001193125-26-197533-index.html",
+      "accession_number": "0001193125-26-197533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526197533/0001193125-26-197533.txt",
+      "accession_number": "0001193125-26-197533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526197533/d128781d8k.htm",
+      "accession_number": "0001193125-26-197533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526197533/d128781dex991.htm",
+      "accession_number": "0001193125-26-197533",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/0001633917-26-000059-index-headers.html",
+      "accession_number": "0001633917-26-000059",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/0001633917-26-000059-index.html",
+      "accession_number": "0001633917-26-000059",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/0001633917-26-000059.txt",
+      "accession_number": "0001633917-26-000059",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "accession_number": "0001633917-26-000059",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/pypl-20260320.htm",
+      "accession_number": "0001633917-26-000059",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/pypl-20260630.htm",
+      "accession_number": "0001633917-26-000082",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "found",
+      "provider_status": null,
+      "provider": "manual",
+      "source_name": "Manual transcript",
+      "source_date": null,
+      "source_url": "/Users/terenceobrien/AI_Financial_Operator/data/manual_sources/PYPL.txt",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "fmp",
+      "source_name": "FMP earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "FMP transcript endpoint is plan-restricted for current subscription."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "finnhub",
+      "source_name": "Finnhub earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Finnhub transcript endpoint is not available under current entitlement."
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "error",
+      "provider_status": "error",
+      "provider": "newsapi",
+      "source_name": "NewsAPI company news",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-16",
+      "source_url": "https://finnhub.io/api/news?id=1694278badb9fd6e0c79500b3457c1649b7f1786029438bb6b8ddfd19f1ec24c",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=62f9335d69ca5608a7e9dcfdc5010971325058fcc67997c04f99488dfe9c5ad7",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "ChartMill",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=670d1f1b71a6699308b9a9f7bf87afbb16d3ce726fcfac17f0263fdef639d4a4",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=f3cb1ba656675efa57eb1c312472f5a2c8832e860be8b913011fe2878bc3b4ed",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=1e7919682bda550445fe58f0164d72b8664a21a36dc188cc40b5c08f477047ef",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=045786674724784c8fd3260210349ee86e27a592e03f0191048bc8cc43238694",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=d95a05b8dbcb34bebf6f8fff401073aa6f6b4cd36dc1682a7ce939976c2d7108",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Benzinga",
+      "source_date": "2026-09-13",
+      "source_url": "https://finnhub.io/api/news?id=521de141fd18a3a4d16f3c649987efe21d63fb3b5132efd1c4ac94462cd58bd7",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-11",
+      "source_url": "https://finnhub.io/api/news?id=82301476160cba3bf98c789081d01cf058fbda6b1acd5ae308fa03ab6ab00a67",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-11",
+      "source_url": "https://finnhub.io/api/news?id=bf3e06c4f45b8a0dbecfe9b3b9cb5fc167205edb29b2c147a34b9c287c25da60",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "yfinance",
+      "source_name": "yfinance analyst estimates",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "document_purpose": "peer_commentary",
+      "status": "skipped",
+      "provider_status": null,
+      "provider": "peer commentary",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Peer commentary skipped; no peer tickers supplied."
+    }
+  ],
+  "source_coverage_summary": "earnings_release:sec_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:finnhub_found=10; news:newsapi_error=1; other_8k:sec_found=27; peer_commentary:peer commentary_skipped=1; stress_test:sec_found=2; transcript:finnhub_plan_restricted=1; transcript:fmp_plan_restricted=1; transcript:manual_found=1; earnings_release:sec_selected=1; estimates:yfinance_selected=1; filing:sec_selected=1; news:finnhub_selected=10; other_8k:sec_selected=3; stress_test:sec_selected=2; transcript:manual_selected=1; extraction_selected=19; duplicate_dropped=24",
+  "extraction_source_summary": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "text_len": 38646,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: ahpr.htm",
+      "source_date": "2026-03-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "text_len": 3682,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "text_len": 39949,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "source_name": "SEC EDGAR",
+      "title": "10-Q",
+      "source_date": "2026-07-28",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/pypl-20260630.htm",
+      "text_len": 92024,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "latest_sec_filing"
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "source_name": "Manual transcript",
+      "title": "PYPL.txt",
+      "source_date": null,
+      "source_url": "/Users/terenceobrien/AI_Financial_Operator/data/manual_sources/PYPL.txt",
+      "text_len": 51583,
+      "text_excerpt_len": 2500,
+      "provider": "manual",
+      "provider_status": null,
+      "selected_reason": "highest_priority_transcript_provider"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "PayPal's Agentic Payments: Can These Unlock the Next Growth Leg?",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=045786674724784c8fd3260210349ee86e27a592e03f0191048bc8cc43238694",
+      "text_len": 196,
+      "text_excerpt_len": 131,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Venmo Kicks Off 2026-2027 NIL Season with Nine Standout Student-Athletes and Introduces Money Moves",
+      "source_date": "2026-09-16",
+      "source_url": "https://finnhub.io/api/news?id=1694278badb9fd6e0c79500b3457c1649b7f1786029438bb6b8ddfd19f1ec24c",
+      "text_len": 600,
+      "text_excerpt_len": 500,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Should You Buy Coinbase Stock While Its Revenue Is Shrinking?",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=1e7919682bda550445fe58f0164d72b8664a21a36dc188cc40b5c08f477047ef",
+      "text_len": 422,
+      "text_excerpt_len": 360,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Benzinga",
+      "title": "Top Three Undervalued S&P 500 Stocks the Market Rally Left Behind",
+      "source_date": "2026-09-13",
+      "source_url": "https://finnhub.io/api/news?id=521de141fd18a3a4d16f3c649987efe21d63fb3b5132efd1c4ac94462cd58bd7",
+      "text_len": 181,
+      "text_excerpt_len": 115,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Illumia Appoints Don Smith to Lead Higher Education Portfolio",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=62f9335d69ca5608a7e9dcfdc5010971325058fcc67997c04f99488dfe9c5ad7",
+      "text_len": 561,
+      "text_excerpt_len": 499,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "ChartMill",
+      "title": "PayPal Holdings (NASDAQ:PYPL): A Quality Stock Built on High ROIC and Cash-Backed Growth",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=670d1f1b71a6699308b9a9f7bf87afbb16d3ce726fcfac17f0263fdef639d4a4",
+      "text_len": 230,
+      "text_excerpt_len": 141,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Palantir Co-Founder Peter Thiel's Hedge Fund Just Made a Big Bet on This AI Stock",
+      "source_date": "2026-09-11",
+      "source_url": "https://finnhub.io/api/news?id=82301476160cba3bf98c789081d01cf058fbda6b1acd5ae308fa03ab6ab00a67",
+      "text_len": 139,
+      "text_excerpt_len": 57,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "PayPal's New CEO Rejects $50B Buyout to Pursue High-Stakes Transformation Including A Venmo Revamp, Says Report",
+      "source_date": "2026-09-11",
+      "source_url": "https://finnhub.io/api/news?id=bf3e06c4f45b8a0dbecfe9b3b9cb5fc167205edb29b2c147a34b9c287c25da60",
+      "text_len": 211,
+      "text_excerpt_len": 99,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Latest News In Digital Payment - eToro's Evolving Metrics Highlight Changing Trade Dynamics",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=d95a05b8dbcb34bebf6f8fff401073aa6f6b4cd36dc1682a7ce939976c2d7108",
+      "text_len": 588,
+      "text_excerpt_len": 496,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "PayPal takes No. 1 in tech power ranking",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=f3cb1ba656675efa57eb1c312472f5a2c8832e860be8b913011fe2878bc3b4ed",
+      "text_len": 160,
+      "text_excerpt_len": 119,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "source_name": "yfinance analyst estimates",
+      "title": "Analyst estimate summary",
+      "source_date": null,
+      "source_url": null,
+      "text_len": 6151,
+      "text_excerpt_len": 6151,
+      "provider": "yfinance",
+      "provider_status": "found",
+      "selected_reason": "estimate_selected_for_extraction"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: d128781dex991.htm",
+      "source_date": "2026-04-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526197533/d128781dex991.htm",
+      "text_len": 5057,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: d930458d8k.htm",
+      "source_date": "2026-05-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000119312526226653/d930458d8k.htm",
+      "text_len": 7118,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: pypl-20260519.htm",
+      "source_date": "2026-05-21",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000076/pypl-20260519.htm",
+      "text_len": 8300,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    }
+  ],
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal 1Q26 revenue grew 7% year over year to $8.4 billion, or 5% on a currency-neutral basis.",
+      "summary": "Top-line growth remained positive in 1Q26, with reported revenue growth above currency-neutral growth.",
+      "excerpt": "Net revenues increased 7% to $8.4 billion; 5% currency-neutral (\u201cFXN\u201d).",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "revenue growth",
+        "foreign exchange",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "net revenues",
+        "currency-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "top_line_growth",
+        "fxn_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 transaction margin dollars grew more slowly than revenue, increasing 3% to $3.8 billion.",
+      "summary": "Transaction margin dollar growth lagged the 7% revenue growth rate in the quarter.",
+      "excerpt": "Transaction margin dollars 1 (\u201cTM$\u201d) increased 3% to $3.8 billion; TM$ excluding interest on customer balances 1,2 increased 3% to $3.5 billion.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "transaction margin",
+        "monetization",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "transaction margin dollars",
+        "transaction margin dollars excluding interest on customer balances"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "margin_dollars",
+        "non_gaap_metric",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 operating profitability declined, with GAAP operating income down 3% and non-GAAP operating income down 5%.",
+      "summary": "Operating income contracted despite revenue growth, indicating margin pressure.",
+      "excerpt": "GAAP operating income decreased 3% to $1.5 billion; non-GAAP operating income decreased 5% to $1.5 billion.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "operating income",
+        "profitability",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "GAAP operating income",
+        "non-GAAP operating income"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "profit_decline",
+        "non_gaap_metric",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 operating margins contracted materially year over year.",
+      "summary": "GAAP operating margin fell to 17.8% and non-GAAP operating margin fell to 18.4%.",
+      "excerpt": "GAAP operating margin contracted 182 basis points to 17.8%; non-GAAP operating margin contracted 229 basis points to 18.4%.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "operating margin",
+        "profitability",
+        "cost structure"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "margin_pressure",
+        "financial_results",
+        "non_gaap_metric",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 TPV increased 11% to $464.0 billion, or 8% currency-neutral.",
+      "summary": "Payment volume growth outpaced reported revenue growth in 1Q26.",
+      "excerpt": "Total payment volume (\u201cTPV\u201d) increased 11% to $464.0 billion; 8% FXN.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "payment volume",
+        "operating KPIs",
+        "payments demand"
+      ],
+      "related_metrics": [
+        "total payment volume",
+        "FXN TPV growth"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "volume_growth",
+        "fxn_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 active accounts were broadly flat sequentially despite being up 1% year over year.",
+      "summary": "The active account base reached 439 million, but declined slightly versus the prior quarter.",
+      "excerpt": "Active accounts increased 1% to 439 million. On a sequential basis, active accounts decreased by 0.04%, or by 0.2 million.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "active accounts",
+        "user growth",
+        "operating KPIs"
+      ],
+      "related_metrics": [
+        "active accounts",
+        "sequential active account change"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "user_growth",
+        "sequential_decline",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal generated $1.1 billion of operating cash flow and $0.9 billion of free cash flow in 1Q26.",
+      "summary": "The company remained free-cash-flow positive, while adjusted free cash flow was higher after BNPL receivable timing adjustments.",
+      "excerpt": "Cash flow from operations of $1.1 billion and free cash flow of $0.9 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "cash flow",
+        "free cash flow",
+        "BNPL"
+      ],
+      "related_metrics": [
+        "cash flow from operations",
+        "free cash flow",
+        "adjusted free cash flow"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "financial_results",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal returned $1.5 billion to shareholders through 1Q26 repurchases and declared a $0.14 per share dividend.",
+      "summary": "Capital allocation included substantial share repurchases and a quarterly cash dividend.",
+      "excerpt": "Returned $1.5 billion to stockholders by repurchasing approximately 34 million shares of common stock in 1Q'26.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "capital allocation",
+        "share repurchases",
+        "dividends"
+      ],
+      "related_metrics": [
+        "share repurchases",
+        "shares repurchased",
+        "dividend per share"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "buyback",
+        "dividend",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Dividend evidence also appears in the same release: \u201cPayPal\u2019s Board of Directors (the \u201cBoard\u201d) declared a cash dividend of $0.14 per share...\u201d"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal reiterated FY26 EPS guidance despite a complex operating environment, with GAAP EPS expected to decline mid-single digits and non-GAAP EPS expected to range from low-single-digit decline to slightly positive.",
+      "summary": "The 2026 outlook suggests limited EPS growth and continued macro or operating uncertainty.",
+      "excerpt": "2026 Guidance: PayPal is reiterating full year guidance, building on a solid start to the year while reflecting a complex and dynamic operating environment.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "operating environment"
+      ],
+      "related_metrics": [
+        "FY26 GAAP EPS guidance",
+        "FY26 non-GAAP EPS guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "eps_outlook",
+        "management_commentary",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "The guidance table states FY'26 GAAP EPS: \u201cMid-single digit decline\u201d and non-GAAP EPS: \u201cLow-single digit decline to slightly positive.\u201d"
+    }
+  ],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=045786674724784c8fd3260210349ee86e27a592e03f0191048bc8cc43238694",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal's Agentic Payments: Can These Unlock the Next Growth Leg?",
+      "claim": "PayPal's Agentic Payments: Can These Unlock the Next Growth Leg?",
+      "summary": "PYPL bets on agentic payments as a long-term growth opportunity, building capabilities now for AI-driven commerce from 2028 onward.",
+      "excerpt": "PYPL bets on agentic payments as a long-term growth opportunity, building capabilities now for AI-driven commerce from 2028 onward.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=1694278badb9fd6e0c79500b3457c1649b7f1786029438bb6b8ddfd19f1ec24c",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Venmo Kicks Off 2026-2027 NIL Season with Nine Standout Student-Athletes and Introduces Money Moves",
+      "claim": "Venmo Kicks Off 2026-2027 NIL Season with Nine Standout Student-Athletes and Introduces Money Moves",
+      "summary": "Venmo today announced its roster of Name, Image, and Likeness (NIL) partner athletes for the 2026\u20132027 school year, kicking off collaborations with nine student-athletes spanning five sports. In partnership with the athletes, Venmo is introducing Money Moves, an initiative that reframes and celebrates NIL earnings not just as individual paydays, but as opportunities to pay it forward to the teammates, family, coaches, mentors, and campus communities who help make those paydays possible using Ven",
+      "excerpt": "Venmo today announced its roster of Name, Image, and Likeness (NIL) partner athletes for the 2026\u20132027 school year, kicking off collaborations with nine student-athletes spanning five sports. In partnership with the athletes, Venmo is introducing Money Moves, an initiative that reframes and celebrates NIL earnings not just as individual paydays, but as opportunities to pay it forward to the teammates, family, coaches, mentors, and campus communities who help make those paydays possible using Ven",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=1e7919682bda550445fe58f0164d72b8664a21a36dc188cc40b5c08f477047ef",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Should You Buy Coinbase Stock While Its Revenue Is Shrinking?",
+      "claim": "Should You Buy Coinbase Stock While Its Revenue Is Shrinking?",
+      "summary": "Coinbase Global (COIN) stock has gained about 18% over the past month, and it is still down about 44% over the past year. At about $175 a share, the market pays 7.3 times sales against 3.2 for the S&P 500, more than double the market's price for revenue that is shrinking. The question is whether what Coinbase is building is worth more than what it is losing.",
+      "excerpt": "Coinbase Global (COIN) stock has gained about 18% over the past month, and it is still down about 44% over the past year. At about $175 a share, the market pays 7.3 times sales against 3.2 for the S&P 500, more than double the market's price for revenue that is shrinking. The question is whether what Coinbase is building is worth more than what it is losing.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-13",
+      "source_name": "Benzinga",
+      "source_url": "https://finnhub.io/api/news?id=521de141fd18a3a4d16f3c649987efe21d63fb3b5132efd1c4ac94462cd58bd7",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Top Three Undervalued S&P 500 Stocks the Market Rally Left Behind",
+      "claim": "Top Three Undervalued S&P 500 Stocks the Market Rally Left Behind",
+      "summary": "Here are some of the top three undervalued S&amp;P 500 Index stocks to consider, helped by their numerous catalysts",
+      "excerpt": "Here are some of the top three undervalued S&amp;P 500 Index stocks to consider, helped by their numerous catalysts",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=62f9335d69ca5608a7e9dcfdc5010971325058fcc67997c04f99488dfe9c5ad7",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Illumia Appoints Don Smith to Lead Higher Education Portfolio",
+      "claim": "Illumia Appoints Don Smith to Lead Higher Education Portfolio",
+      "summary": "SCOTTSDALE, Ariz., September 15, 2026--Illumia, a leading provider of technology solutions that power payments, identity, commerce and foodservice operations across higher education, healthcare and corporate campuses, today announced the appointment of Don Smith to senior vice president & general manager, higher education. Smith will work across product, technology, commercial and customer teams to better connect Illumia\u2019s products and experiences. The goal is to make it easier for colleges and",
+      "excerpt": "SCOTTSDALE, Ariz., September 15, 2026--Illumia, a leading provider of technology solutions that power payments, identity, commerce and foodservice operations across higher education, healthcare and corporate campuses, today announced the appointment of Don Smith to senior vice president & general manager, higher education. Smith will work across product, technology, commercial and customer teams to better connect Illumia\u2019s products and experiences. The goal is to make it easier for colleges and",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "ChartMill",
+      "source_url": "https://finnhub.io/api/news?id=670d1f1b71a6699308b9a9f7bf87afbb16d3ce726fcfac17f0263fdef639d4a4",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal Holdings (NASDAQ:PYPL): A Quality Stock Built on High ROIC and Cash-Backed Growth",
+      "claim": "PayPal Holdings (NASDAQ:PYPL): A Quality Stock Built on High ROIC and Cash-Backed Growth",
+      "summary": "PayPal (PYPL) passes Caviar Cruise quality screen on strong ROIC, cash flow, and manageable debt, but margin declines and PEG warrant review.",
+      "excerpt": "PayPal (PYPL) passes Caviar Cruise quality screen on strong ROIC, cash flow, and manageable debt, but margin declines and PEG warrant review.",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-11",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=82301476160cba3bf98c789081d01cf058fbda6b1acd5ae308fa03ab6ab00a67",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Palantir Co-Founder Peter Thiel's Hedge Fund Just Made a Big Bet on This AI Stock",
+      "claim": "Palantir Co-Founder Peter Thiel's Hedge Fund Just Made a Big Bet on This AI Stock",
+      "summary": "Amazon is a fantastic artificial intelligence investment.",
+      "excerpt": "Amazon is a fantastic artificial intelligence investment.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-11",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=bf3e06c4f45b8a0dbecfe9b3b9cb5fc167205edb29b2c147a34b9c287c25da60",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal's New CEO Rejects $50B Buyout to Pursue High-Stakes Transformation Including A Venmo Revamp, Says Report",
+      "claim": "PayPal's New CEO Rejects $50B Buyout to Pursue High-Stakes Transformation Including A Venmo Revamp, Says Report",
+      "summary": "Enrique Lores is rejecting multi-billion-dollar takeover bids to chart PayPal's independent future.",
+      "excerpt": "Enrique Lores is rejecting multi-billion-dollar takeover bids to chart PayPal's independent future.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=d95a05b8dbcb34bebf6f8fff401073aa6f6b4cd36dc1682a7ce939976c2d7108",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Latest News In Digital Payment - eToro's Evolving Metrics Highlight Changing Trade Dynamics",
+      "claim": "Latest News In Digital Payment - eToro's Evolving Metrics Highlight Changing Trade Dynamics",
+      "summary": "In August 2026, digital payment platform eToro experienced significant shifts in its business metrics, highlighting trends in the digital payment landscape. The company reported assets under administration reaching $20.2 billion, marking a 3% increase compared to the previous year, while the number of funded accounts grew by 18% to 4.36 million. The platform saw a 31% rise in the total number of trades within capital markets, although the invested amount per trade decreased by 29%. Crypto...",
+      "excerpt": "In August 2026, digital payment platform eToro experienced significant shifts in its business metrics, highlighting trends in the digital payment landscape. The company reported assets under administration reaching $20.2 billion, marking a 3% increase compared to the previous year, while the number of funded accounts grew by 18% to 4.36 million. The platform saw a 31% rise in the total number of trades within capital markets, although the invested amount per trade decreased by 29%. Crypto...",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=f3cb1ba656675efa57eb1c312472f5a2c8832e860be8b913011fe2878bc3b4ed",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal takes No. 1 in tech power ranking",
+      "claim": "PayPal takes No. 1 in tech power ranking",
+      "summary": "PayPal moves up three places as analysts weigh its profit outlook, buybacks and PYUSD growth against slower user gains.",
+      "excerpt": "PayPal moves up three places as analysts weigh its profit outlook, buybacks and PYUSD growth against slower user gains.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "estimate_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 16, \"+1y\": 11, \"0q\": 18, \"0y\": 3}, \"downLast7Days\": {\"+1q\": 1, \"+1y\": 1, \"0q\": 2, \"0y\": 1}, \"upLast30days\": {\"+1q\": 10, \"+1y\": 26, \"0q\": 11, \"0y\": 36}, \"upLast7days\": {\"+1q\": 0, \"+1y\": 2, \"0q\": 0, \"0y\": 2}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 1.34513, \"+1y\": 5.78525, \"0q\": 1.31608, \"0y\": 5.38219}, \"60daysAgo\": {\"+1q\": 1.36341, \"+1y\": 5.7429, \"0q\": 1.32867, \"0y\": 5.30577}, \"7daysAgo\": {\"+1q\": 1.34512, \"+1y\": 5.78777, \"0q\": 1.31491, \"0y\": 5.38812}, \"90daysAgo\": {\"+1q\": 1.35717, \"+1y\": 5.75129, \"0q\": 1.33063, \"0y\": 5.30348}, \"current\": {\"+1q\": 1.34483, \"+1y\": 5.78521, \"0q\": 1.31463, \"0y\": 5.39098}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 8986415810, \"+1y\": 36210028510, \"0q\": 8709826060, \"0y\": 34751671140}, \"growth\": {\"+1q\": 0.0358, \"+1y\": 0.042, \"0q\": 0.0348, \"0y\": 0.0476}, \"high\": {\"+1q\": 9167100000, \"+1y\": 37654000000, \"0q\": 8867000000, \"0y\": 35150000000}, \"low\": {\"+1q\": 8812000000, \"+1y\": 35083000000, \"0q\": 8588000000, \"0y\": 34490000000}, \"numberOfAnalysts\": {\"+1q\": 33, \"+1y\": 41, \"0q\": 33, \"0y\": 38}, \"yearAgoRevenue\": {\"+1q\": 8676000000, \"+1y\": 34751671140, \"0q\": 8417000000, \"0y\": 33172000000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 4, \"1\": 4, \"2\": 5, \"3\": 5}, \"hold\": {\"0\": 33, \"1\": 33, \"2\": 32, \"3\": 31}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 3, \"1\": 3, \"2\": 3, \"3\": 4}, \"strongBuy\": {\"0\": 3, \"1\": 3, \"2\": 3, \"3\": 3}, \"strongSell\": {\"0\": 0, \"1\": 0, \"2\": 0, \"3\": 0}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-25",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "accession_number": "0001633917-26-000059",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: ahpr.htm",
+      "claim": "PayPal appointed Alyssa Henry, former CEO of Block\u2019s Square business, to its Board of Directors.",
+      "summary": "The board addition brings executive experience from Square, a payments and merchant-services business.",
+      "excerpt": "PayPal Holdings, Inc. (NASDAQ: PYPL) today announced that Alyssa Henry, former CEO of Block\u2019s Square business, has joined the company\u2019s Board of Directors.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.76,
+      "related_topics": [
+        "board composition",
+        "governance",
+        "merchant payments"
+      ],
+      "related_metrics": [
+        "board size",
+        "independent directors"
+      ],
+      "evidence_tags": [
+        "governance",
+        "board_appointment",
+        "merchant_payments_expertise",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-25",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "accession_number": "0001633917-26-000059",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: ahpr.htm",
+      "claim": "Management highlighted Henry\u2019s experience in software-driven merchant solutions, omnichannel payments, and global platform expansion as relevant to PayPal\u2019s merchant strategy.",
+      "summary": "The appointment is positioned as supporting PayPal\u2019s strategic payments partner ambitions for merchants and consumers.",
+      "excerpt": "Her expertise in software-driven merchant solutions, omnichannel payments, and global platform expansion will be invaluable as we strengthen our position as a strategic payments partner to merchants and consumers worldwide.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "merchant solutions",
+        "omnichannel payments",
+        "strategy"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "management_commentary",
+        "strategic_focus",
+        "board_expertise",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-25",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "accession_number": "0001633917-26-000059",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: ahpr.htm",
+      "claim": "After Henry\u2019s appointment, PayPal\u2019s Board was expected to consist of 12 directors, 11 of whom are independent.",
+      "summary": "The release gives concrete board independence and size information.",
+      "excerpt": "With this appointment, PayPal\u2019s Board will consist of 12 directors, 11 of whom are independent.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.66,
+      "related_topics": [
+        "corporate governance",
+        "board independence",
+        "board composition"
+      ],
+      "related_metrics": [
+        "board directors",
+        "independent directors"
+      ],
+      "evidence_tags": [
+        "governance",
+        "board_independence",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal 2Q26 revenue increased 5% year over year to $8.7 billion, or 3% currency-neutral.",
+      "summary": "Revenue growth continued in 2Q26, but growth was lower on a currency-neutral basis.",
+      "excerpt": "Net revenues increased 5% to $8.7 billion; 3% currency-neutral (\u201cFXN\u201d).",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "revenue growth",
+        "foreign exchange",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "net revenues",
+        "currency-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "top_line_growth",
+        "fxn_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 transaction margin dollars increased only 1% to $3.9 billion, while transaction margin excluding interest on customer balances grew 3%.",
+      "summary": "Transaction margin growth was modest versus reported revenue and TPV growth.",
+      "excerpt": "Transaction margin dollars 1 (\u201cTM$\u201d) increased 1% to $3.9 billion; TM$ excluding interest on customer balances 1,2 increased 3% to $3.6 billion.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "transaction margin",
+        "monetization",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "transaction margin dollars",
+        "transaction margin dollars excluding interest on customer balances"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "margin_dollars",
+        "non_gaap_metric",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 operating income declined despite revenue growth, with GAAP operating income down 5% and non-GAAP operating income down 8%.",
+      "summary": "Profitability declined year over year in the quarter.",
+      "excerpt": "GAAP operating income decreased 5% to $1.4 billion; non-GAAP operating income decreased 8% to $1.5 billion.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "operating income",
+        "profitability",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "GAAP operating income",
+        "non-GAAP operating income"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "profit_decline",
+        "non_gaap_metric",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 GAAP operating margin contracted 171 basis points to 16.4%, and non-GAAP operating margin contracted 248 basis points to 17.4%.",
+      "summary": "Operating margin pressure persisted in 2Q26.",
+      "excerpt": "GAAP operating margin contracted 171 basis points to 16.4%; non-GAAP operating margin contracted 248 basis points to 17.4%.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "operating margin",
+        "profitability",
+        "cost structure"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "margin_pressure",
+        "financial_results",
+        "non_gaap_metric",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 TPV grew 10% to $486.4 billion, or 9% currency-neutral.",
+      "summary": "Payment volume growth remained double digit on a reported basis.",
+      "excerpt": "Total payment volume (\u201cTPV\u201d) increased 10% to $486.4 billion; 9% FXN.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "payment volume",
+        "operating KPIs",
+        "payments demand"
+      ],
+      "related_metrics": [
+        "total payment volume",
+        "FXN TPV growth"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "volume_growth",
+        "fxn_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 active accounts increased only 0.3% year over year to 439 million and declined slightly sequentially.",
+      "summary": "The active account base remained nearly flat despite higher transaction activity.",
+      "excerpt": "Active accounts increased 0.3% to 439 million. On a sequential basis, active accounts decreased by 0.04%, or by 0.2 million.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "active accounts",
+        "user growth",
+        "operating KPIs"
+      ],
+      "related_metrics": [
+        "active accounts",
+        "sequential active account change"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "user_growth",
+        "sequential_decline",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal generated $2.0 billion of operating cash flow and $1.8 billion of free cash flow in 2Q26.",
+      "summary": "Cash generation improved substantially from the prior-year period according to the financial table.",
+      "excerpt": "Cash flow from operations of $2.0 billion and free cash flow of $1.8 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "cash flow",
+        "free cash flow",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "cash flow from operations",
+        "free cash flow",
+        "adjusted free cash flow"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "financial_results",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal raised full-year non-GAAP transaction-margin-dollar and EPS guidance after 2Q26 while reaffirming GAAP EPS guidance.",
+      "summary": "Management cited execution and business trajectory as reasons for improved full-year non-GAAP guidance.",
+      "excerpt": "Financial Guidance 2026 Guidance: Following another strong quarter, PayPal is raising full year non-GAAP TM$ and EPS guidance and reaffirming GAAP EPS guidance.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "transaction margin"
+      ],
+      "related_metrics": [
+        "FY26 non-GAAP EPS guidance",
+        "FY26 GAAP EPS guidance",
+        "non-GAAP TM$ guidance"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "eps_outlook",
+        "management_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal returned $1.5 billion to stockholders through 2Q26 share repurchases and declared a $0.14 per share dividend.",
+      "summary": "The company continued capital returns through buybacks and dividends.",
+      "excerpt": "Returned $1.5 billion to stockholders by repurchasing approximately 33 million shares of common stock in 2Q'26.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "capital allocation",
+        "share repurchases",
+        "dividends"
+      ],
+      "related_metrics": [
+        "share repurchases",
+        "shares repurchased",
+        "dividend per share"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "buyback",
+        "dividend",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Dividend evidence also appears in the same release: \u201cPayPal\u2019s Board of Directors declared a cash dividend of $0.14 per share...\u201d"
+    }
+  ],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [],
+  "management_guidance": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal reiterated FY26 EPS guidance despite a complex operating environment, with GAAP EPS expected to decline mid-single digits and non-GAAP EPS expected to range from low-single-digit decline to slightly positive.",
+      "summary": "The 2026 outlook suggests limited EPS growth and continued macro or operating uncertainty.",
+      "excerpt": "2026 Guidance: PayPal is reiterating full year guidance, building on a solid start to the year while reflecting a complex and dynamic operating environment.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "operating environment"
+      ],
+      "related_metrics": [
+        "FY26 GAAP EPS guidance",
+        "FY26 non-GAAP EPS guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "eps_outlook",
+        "management_commentary",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "The guidance table states FY'26 GAAP EPS: \u201cMid-single digit decline\u201d and non-GAAP EPS: \u201cLow-single digit decline to slightly positive.\u201d"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal raised full-year non-GAAP transaction-margin-dollar and EPS guidance after 2Q26 while reaffirming GAAP EPS guidance.",
+      "summary": "Management cited execution and business trajectory as reasons for improved full-year non-GAAP guidance.",
+      "excerpt": "Financial Guidance 2026 Guidance: Following another strong quarter, PayPal is raising full year non-GAAP TM$ and EPS guidance and reaffirming GAAP EPS guidance.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "transaction margin"
+      ],
+      "related_metrics": [
+        "FY26 non-GAAP EPS guidance",
+        "FY26 GAAP EPS guidance",
+        "non-GAAP TM$ guidance"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "eps_outlook",
+        "management_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=f3cb1ba656675efa57eb1c312472f5a2c8832e860be8b913011fe2878bc3b4ed",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal takes No. 1 in tech power ranking",
+      "claim": "PayPal takes No. 1 in tech power ranking",
+      "summary": "PayPal moves up three places as analysts weigh its profit outlook, buybacks and PYUSD growth against slower user gains.",
+      "excerpt": "PayPal moves up three places as analysts weigh its profit outlook, buybacks and PYUSD growth against slower user gains.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "segment_kpis": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 TPV increased 11% to $464.0 billion, or 8% currency-neutral.",
+      "summary": "Payment volume growth outpaced reported revenue growth in 1Q26.",
+      "excerpt": "Total payment volume (\u201cTPV\u201d) increased 11% to $464.0 billion; 8% FXN.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "payment volume",
+        "operating KPIs",
+        "payments demand"
+      ],
+      "related_metrics": [
+        "total payment volume",
+        "FXN TPV growth"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "volume_growth",
+        "fxn_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 active accounts were broadly flat sequentially despite being up 1% year over year.",
+      "summary": "The active account base reached 439 million, but declined slightly versus the prior quarter.",
+      "excerpt": "Active accounts increased 1% to 439 million. On a sequential basis, active accounts decreased by 0.04%, or by 0.2 million.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "active accounts",
+        "user growth",
+        "operating KPIs"
+      ],
+      "related_metrics": [
+        "active accounts",
+        "sequential active account change"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "user_growth",
+        "sequential_decline",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 TPV grew 10% to $486.4 billion, or 9% currency-neutral.",
+      "summary": "Payment volume growth remained double digit on a reported basis.",
+      "excerpt": "Total payment volume (\u201cTPV\u201d) increased 10% to $486.4 billion; 9% FXN.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "payment volume",
+        "operating KPIs",
+        "payments demand"
+      ],
+      "related_metrics": [
+        "total payment volume",
+        "FXN TPV growth"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "volume_growth",
+        "fxn_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 active accounts increased only 0.3% year over year to 439 million and declined slightly sequentially.",
+      "summary": "The active account base remained nearly flat despite higher transaction activity.",
+      "excerpt": "Active accounts increased 0.3% to 439 million. On a sequential basis, active accounts decreased by 0.04%, or by 0.2 million.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "active accounts",
+        "user growth",
+        "operating KPIs"
+      ],
+      "related_metrics": [
+        "active accounts",
+        "sequential active account change"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "user_growth",
+        "sequential_decline",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=045786674724784c8fd3260210349ee86e27a592e03f0191048bc8cc43238694",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal's Agentic Payments: Can These Unlock the Next Growth Leg?",
+      "claim": "PayPal's Agentic Payments: Can These Unlock the Next Growth Leg?",
+      "summary": "PYPL bets on agentic payments as a long-term growth opportunity, building capabilities now for AI-driven commerce from 2028 onward.",
+      "excerpt": "PYPL bets on agentic payments as a long-term growth opportunity, building capabilities now for AI-driven commerce from 2028 onward.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=1694278badb9fd6e0c79500b3457c1649b7f1786029438bb6b8ddfd19f1ec24c",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Venmo Kicks Off 2026-2027 NIL Season with Nine Standout Student-Athletes and Introduces Money Moves",
+      "claim": "Venmo Kicks Off 2026-2027 NIL Season with Nine Standout Student-Athletes and Introduces Money Moves",
+      "summary": "Venmo today announced its roster of Name, Image, and Likeness (NIL) partner athletes for the 2026\u20132027 school year, kicking off collaborations with nine student-athletes spanning five sports. In partnership with the athletes, Venmo is introducing Money Moves, an initiative that reframes and celebrates NIL earnings not just as individual paydays, but as opportunities to pay it forward to the teammates, family, coaches, mentors, and campus communities who help make those paydays possible using Ven",
+      "excerpt": "Venmo today announced its roster of Name, Image, and Likeness (NIL) partner athletes for the 2026\u20132027 school year, kicking off collaborations with nine student-athletes spanning five sports. In partnership with the athletes, Venmo is introducing Money Moves, an initiative that reframes and celebrates NIL earnings not just as individual paydays, but as opportunities to pay it forward to the teammates, family, coaches, mentors, and campus communities who help make those paydays possible using Ven",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "consensus_narrative": [
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=f3cb1ba656675efa57eb1c312472f5a2c8832e860be8b913011fe2878bc3b4ed",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal takes No. 1 in tech power ranking",
+      "claim": "PayPal takes No. 1 in tech power ranking",
+      "summary": "PayPal moves up three places as analysts weigh its profit outlook, buybacks and PYUSD growth against slower user gains.",
+      "excerpt": "PayPal moves up three places as analysts weigh its profit outlook, buybacks and PYUSD growth against slower user gains.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 16, \"+1y\": 11, \"0q\": 18, \"0y\": 3}, \"downLast7Days\": {\"+1q\": 1, \"+1y\": 1, \"0q\": 2, \"0y\": 1}, \"upLast30days\": {\"+1q\": 10, \"+1y\": 26, \"0q\": 11, \"0y\": 36}, \"upLast7days\": {\"+1q\": 0, \"+1y\": 2, \"0q\": 0, \"0y\": 2}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 1.34513, \"+1y\": 5.78525, \"0q\": 1.31608, \"0y\": 5.38219}, \"60daysAgo\": {\"+1q\": 1.36341, \"+1y\": 5.7429, \"0q\": 1.32867, \"0y\": 5.30577}, \"7daysAgo\": {\"+1q\": 1.34512, \"+1y\": 5.78777, \"0q\": 1.31491, \"0y\": 5.38812}, \"90daysAgo\": {\"+1q\": 1.35717, \"+1y\": 5.75129, \"0q\": 1.33063, \"0y\": 5.30348}, \"current\": {\"+1q\": 1.34483, \"+1y\": 5.78521, \"0q\": 1.31463, \"0y\": 5.39098}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 8986415810, \"+1y\": 36210028510, \"0q\": 8709826060, \"0y\": 34751671140}, \"growth\": {\"+1q\": 0.0358, \"+1y\": 0.042, \"0q\": 0.0348, \"0y\": 0.0476}, \"high\": {\"+1q\": 9167100000, \"+1y\": 37654000000, \"0q\": 8867000000, \"0y\": 35150000000}, \"low\": {\"+1q\": 8812000000, \"+1y\": 35083000000, \"0q\": 8588000000, \"0y\": 34490000000}, \"numberOfAnalysts\": {\"+1q\": 33, \"+1y\": 41, \"0q\": 33, \"0y\": 38}, \"yearAgoRevenue\": {\"+1q\": 8676000000, \"+1y\": 34751671140, \"0q\": 8417000000, \"0y\": 33172000000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "PYPL",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 4, \"1\": 4, \"2\": 5, \"3\": 5}, \"hold\": {\"0\": 33, \"1\": 33, \"2\": 32, \"3\": 31}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 3, \"1\": 3, \"2\": 3, \"3\": 4}, \"strongBuy\": {\"0\": 3, \"1\": 3, \"2\": 3, \"3\": 3}, \"strongSell\": {\"0\": 0, \"1\": 0, \"2\": 0, \"3\": 0}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    },\n    \"growth\": {\n      \"+1q\": 0.0934,\n      \"+1y\": 0.0731,\n      \"0q\": -0.0189,\n      \"0y\": 0.0153\n    },\n    \"high\": {\n      \"+1q\": 1.42,\n      \"+1y\": 6.08,\n      \"0q\": 1.4,\n      \"0y\": 5.75\n    },\n    \"low\": {\n      \"+1q\": 1.25,\n      \"+1y\": 5.31206,\n      \"0q\": 1.28,\n      \"0y\": 5.29\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 34,\n      \"+1y\": 43,\n      \"0q\": 36,\n      \"0y\": 42\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.23,\n      \"+1y\": 5.39098,\n      \"0q\": 1.34,\n      \"0y\": 5.31\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 16,\n      \"+1y\": 11,\n      \"0q\": 18,\n      \"0y\": 3\n    },\n    \"downLast7Days\": {\n      \"+1q\": 1,\n      \"+1y\": 1,\n      \"0q\": 2,\n      \"0y\": 1\n    },\n    \"upLast30days\": {\n      \"+1q\": 10,\n      \"+1y\": 26,\n      \"0q\": 11,\n      \"0y\": 36\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 2\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.34513,\n      \"+1y\": 5.78525,\n      \"0q\": 1.31608,\n      \"0y\": 5.38219\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.36341,\n      \"+1y\": 5.7429,\n      \"0q\": 1.32867,\n      \"0y\": 5.30577\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.34512,\n      \"+1y\": 5.78777,\n      \"0q\": 1.31491,\n      \"0y\": 5.38812\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.35717,\n      \"+1y\": 5.75129,\n      \"0q\": 1.33063,\n      \"0y\": 5.30348\n    },\n    \"current\": {\n      \"+1q\": 1.34483,\n      \"+1y\": 5.78521,\n      \"0q\": 1.31463,\n      \"0y\": 5.39098\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 33,\n      \"1\": 33,\n      \"2\": 32,\n      \"3\": 31\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 4\n    },\n    \"strongBuy\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 3,\n      \"3\": 3\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 8986415810,\n      \"+1y\": 36210028510,\n      \"0q\": 8709826060,\n      \"0y\": 34751671140\n    },\n    \"growth\": {\n      \"+1q\": 0.0358,\n      \"+1y\": 0.042,\n      \"0q\": 0.0348,\n      \"0y\": 0.0476\n    },\n    \"high\": {\n      \"+1q\": 9167100000,\n      \"+1y\": 37654000000,\n      \"0q\": 8867000000,\n      \"0y\": 35150000000\n    },\n    \"low\": {\n      \"+1q\": 8812000000,\n      \"+1y\": 35083000000,\n      \"0q\": 8588000000,\n      \"0y\": 34490000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 33,\n      \"+1y\": 41,\n      \"0q\": 33,\n      \"0y\": 38\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 8676000000,\n      \"+1y\": 34751671140,\n      \"0q\": 8417000000,\n      \"0y\": 33172000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2015-07-20 21:38:28\": \"init\",\n      \"2015-07-21 11:20:17\": \"init\",\n      \"2015-07-21 11:22:02\": \"init\",\n      \"2015-07-21 11:27:01\": \"init\",\n      \"2015-07-21 11:56:33\": \"init\",\n      \"2015-07-22 08:04:45\": \"init\",\n      \"2015-07-22 11:24:26\": \"init\",\n      \"2015-07-22 12:59:11\": \"init\",\n      \"2015-07-22 17:36:00\": \"init\",\n      \"2015-07-23 08:06:31\": \"init\",\n      \"2015-07-23 11:46:50\": \"init\",\n      \"2015-07-27 11:14:45\": \"init\",\n      \"2015-07-28 11:29:32\": \"init\",\n      \"2015-07-31 12:34:52\": \"init\",\n      \"2015-08-07 12:26:34\": \"init\",\n      \"2015-09-21 11:09:20\": \"up\",\n      \"2015-09-25 10:47:11\": \"init\",\n      \"2015-09-30 20:28:37\": \"init\",\n      \"2015-10-06 10:21:53\": \"main\",\n      \"2015-10-06 11:21:27\": \"init\"\n    },\n    \"Firm\": {\n      \"2015-07-20 21:38:28\": \"BTIG\",\n      \"2015-07-21 11:20:17\": \"Stifel\",\n      \"2015-07-21 11:22:02\": \"B of A Securities\",\n      \"2015-07-21 11:27:01\": \"RBC Capital\",\n      \"2015-07-21 11:56:33\": \"Piper Sandler\",\n      \"2015-07-22 08:04:45\": \"Barclays\",\n      \"2015-07-22 11:24:26\": \"Citigroup\",\n      \"2015-07-22 12:59:11\": \"Raymond James\",\n      \"2015-07-22 17:36:00\": \"FBN Securities\",\n      \"2015-07-23 08:06:31\": \"Morgan Stanley\",\n      \"2015-07-23 11:46:50\": \"UBS\",\n      \"2015-07-27 11:14:45\": \"First Analysis\",\n      \"2015-07-28 11:29:32\": \"Jefferies\",\n      \"2015-07-31 12:34:52\": \"Compass Point\",\n      \"2015-08-07 12:26:34\": \"Susquehanna\",\n      \"2015-09-21 11:09:20\": \"Stifel\",\n      \"2015-09-25 10:47:11\": \"Canaccord Genuity\",\n      \"2015-09-30 20:28:37\": \"Cowen & Co.\",\n      \"2015-10-06 10:21:53\": \"Evercore ISI Group\",\n      \"2015-10-06 11:21:27\": \"William Blair\"\n    },\n    \"FromGrade\": {\n      \"2015-07-20 21:38:28\": \"\",\n      \"2015-07-21 11:20:17\": \"\",\n      \"2015-07-21 11:22:02\": \"\",\n      \"2015-07-21 11:27:01\": \"\",\n      \"2015-07-21 11:56:33\": \"\",\n      \"2015-07-22 08:04:45\": \"\",\n      \"2015-07-22 11:24:26\": \"\",\n      \"2015-07-22 12:59:11\": \"\",\n      \"2015-07-22 17:36:00\": \"\",\n      \"2015-07-23 08:06:31\": \"\",\n      \"2015-07-23 11:46:50\": \"\",\n      \"2015-07-27 11:14:45\": \"\",\n      \"2015-07-28 11:29:32\": \"\",\n      \"2015-07-31 12:34:52\": \"\",\n      \"2015-08-07 12:26:34\": \"\",\n      \"2015-09-21 11:09:20\": \"Hold\",\n      \"2015-09-25 10:47:11\": \"\",\n      \"2015-09-30 20:28:37\": \"\",\n      \"2015-10-06 10:21:53\": \"\",\n      \"2015-10-06 11:21:27\": \"\"\n    },\n    \"ToGrade\": {\n      \"2015-07-20 21:38:28\": \"Buy\",\n      \"2015-07-21 11:20:17\": \"Hold\",\n      \"2015-07-21 11:22:02\": \"Neutral\",\n      \"2015-07-21 11:27:01\": \"Outperform\",\n      \"2015-07-21 11:56:33\": \"Underweight\",\n      \"2015-07-22 08:04:45\": \"Overweight\",\n      \"2015-07-22 11:24:26\": \"Buy\",\n      \"2015-07-22 12:59:11\": \"Outperform\",\n      \"2015-07-22 17:36:00\": \"Sector Perform\",\n      \"2015-07-23 08:06:31\": \"Equal-Weight\",\n      \"2015-07-23 11:46:50\": \"Neutral\",\n      \"2015-07-27 11:14:45\": \"Overweight\",\n      \"2015-07-28 11:29:32\": \"Buy\",\n      \"2015-07-31 12:34:52\": \"Buy\",\n      \"2015-08-07 12:26:34\": \"Positive\",\n      \"2015-09-21 11:09:20\": \"Buy\",\n      \"2015-09-25 10:47:11\": \"Buy\",\n      \"2015-09-30 20:28:37\": \"Market Perform\",\n      \"2015-10-06 10:21:53\": \"Sell\",\n ",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal 1Q26 revenue grew 7% year over year to $8.4 billion, or 5% on a currency-neutral basis.",
+      "summary": "Top-line growth remained positive in 1Q26, with reported revenue growth above currency-neutral growth.",
+      "excerpt": "Net revenues increased 7% to $8.4 billion; 5% currency-neutral (\u201cFXN\u201d).",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "revenue growth",
+        "foreign exchange",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "net revenues",
+        "currency-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "top_line_growth",
+        "fxn_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 TPV increased 11% to $464.0 billion, or 8% currency-neutral.",
+      "summary": "Payment volume growth outpaced reported revenue growth in 1Q26.",
+      "excerpt": "Total payment volume (\u201cTPV\u201d) increased 11% to $464.0 billion; 8% FXN.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "payment volume",
+        "operating KPIs",
+        "payments demand"
+      ],
+      "related_metrics": [
+        "total payment volume",
+        "FXN TPV growth"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "volume_growth",
+        "fxn_growth",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal generated $1.1 billion of operating cash flow and $0.9 billion of free cash flow in 1Q26.",
+      "summary": "The company remained free-cash-flow positive, while adjusted free cash flow was higher after BNPL receivable timing adjustments.",
+      "excerpt": "Cash flow from operations of $1.1 billion and free cash flow of $0.9 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "cash flow",
+        "free cash flow",
+        "BNPL"
+      ],
+      "related_metrics": [
+        "cash flow from operations",
+        "free cash flow",
+        "adjusted free cash flow"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "financial_results",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal returned $1.5 billion to shareholders through 1Q26 repurchases and declared a $0.14 per share dividend.",
+      "summary": "Capital allocation included substantial share repurchases and a quarterly cash dividend.",
+      "excerpt": "Returned $1.5 billion to stockholders by repurchasing approximately 34 million shares of common stock in 1Q'26.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "capital allocation",
+        "share repurchases",
+        "dividends"
+      ],
+      "related_metrics": [
+        "share repurchases",
+        "shares repurchased",
+        "dividend per share"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "buyback",
+        "dividend",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Dividend evidence also appears in the same release: \u201cPayPal\u2019s Board of Directors (the \u201cBoard\u201d) declared a cash dividend of $0.14 per share...\u201d"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-25",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "accession_number": "0001633917-26-000059",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: ahpr.htm",
+      "claim": "PayPal appointed Alyssa Henry, former CEO of Block\u2019s Square business, to its Board of Directors.",
+      "summary": "The board addition brings executive experience from Square, a payments and merchant-services business.",
+      "excerpt": "PayPal Holdings, Inc. (NASDAQ: PYPL) today announced that Alyssa Henry, former CEO of Block\u2019s Square business, has joined the company\u2019s Board of Directors.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.76,
+      "related_topics": [
+        "board composition",
+        "governance",
+        "merchant payments"
+      ],
+      "related_metrics": [
+        "board size",
+        "independent directors"
+      ],
+      "evidence_tags": [
+        "governance",
+        "board_appointment",
+        "merchant_payments_expertise",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-25",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000059/ahpr.htm",
+      "accession_number": "0001633917-26-000059",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: ahpr.htm",
+      "claim": "Management highlighted Henry\u2019s experience in software-driven merchant solutions, omnichannel payments, and global platform expansion as relevant to PayPal\u2019s merchant strategy.",
+      "summary": "The appointment is positioned as supporting PayPal\u2019s strategic payments partner ambitions for merchants and consumers.",
+      "excerpt": "Her expertise in software-driven merchant solutions, omnichannel payments, and global platform expansion will be invaluable as we strengthen our position as a strategic payments partner to merchants and consumers worldwide.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.78,
+      "related_topics": [
+        "merchant solutions",
+        "omnichannel payments",
+        "strategy"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "management_commentary",
+        "strategic_focus",
+        "board_expertise",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal 2Q26 revenue increased 5% year over year to $8.7 billion, or 3% currency-neutral.",
+      "summary": "Revenue growth continued in 2Q26, but growth was lower on a currency-neutral basis.",
+      "excerpt": "Net revenues increased 5% to $8.7 billion; 3% currency-neutral (\u201cFXN\u201d).",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "revenue growth",
+        "foreign exchange",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "net revenues",
+        "currency-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "top_line_growth",
+        "fxn_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 TPV grew 10% to $486.4 billion, or 9% currency-neutral.",
+      "summary": "Payment volume growth remained double digit on a reported basis.",
+      "excerpt": "Total payment volume (\u201cTPV\u201d) increased 10% to $486.4 billion; 9% FXN.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "payment volume",
+        "operating KPIs",
+        "payments demand"
+      ],
+      "related_metrics": [
+        "total payment volume",
+        "FXN TPV growth"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "volume_growth",
+        "fxn_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal generated $2.0 billion of operating cash flow and $1.8 billion of free cash flow in 2Q26.",
+      "summary": "Cash generation improved substantially from the prior-year period according to the financial table.",
+      "excerpt": "Cash flow from operations of $2.0 billion and free cash flow of $1.8 billion.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "cash flow",
+        "free cash flow",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "cash flow from operations",
+        "free cash flow",
+        "adjusted free cash flow"
+      ],
+      "evidence_tags": [
+        "cash_flow",
+        "financial_results",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal raised full-year non-GAAP transaction-margin-dollar and EPS guidance after 2Q26 while reaffirming GAAP EPS guidance.",
+      "summary": "Management cited execution and business trajectory as reasons for improved full-year non-GAAP guidance.",
+      "excerpt": "Financial Guidance 2026 Guidance: Following another strong quarter, PayPal is raising full year non-GAAP TM$ and EPS guidance and reaffirming GAAP EPS guidance.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "transaction margin"
+      ],
+      "related_metrics": [
+        "FY26 non-GAAP EPS guidance",
+        "FY26 GAAP EPS guidance",
+        "non-GAAP TM$ guidance"
+      ],
+      "evidence_tags": [
+        "guidance_raise",
+        "eps_outlook",
+        "management_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal returned $1.5 billion to stockholders through 2Q26 share repurchases and declared a $0.14 per share dividend.",
+      "summary": "The company continued capital returns through buybacks and dividends.",
+      "excerpt": "Returned $1.5 billion to stockholders by repurchasing approximately 33 million shares of common stock in 2Q'26.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "capital allocation",
+        "share repurchases",
+        "dividends"
+      ],
+      "related_metrics": [
+        "share repurchases",
+        "shares repurchased",
+        "dividend per share"
+      ],
+      "evidence_tags": [
+        "capital_return",
+        "buyback",
+        "dividend",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "Dividend evidence also appears in the same release: \u201cPayPal\u2019s Board of Directors declared a cash dividend of $0.14 per share...\u201d"
+    },
+    {
+      "source_type": "news",
+      "ticker": "PYPL",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "ChartMill",
+      "source_url": "https://finnhub.io/api/news?id=670d1f1b71a6699308b9a9f7bf87afbb16d3ce726fcfac17f0263fdef639d4a4",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "PayPal Holdings (NASDAQ:PYPL): A Quality Stock Built on High ROIC and Cash-Backed Growth",
+      "claim": "PayPal Holdings (NASDAQ:PYPL): A Quality Stock Built on High ROIC and Cash-Backed Growth",
+      "summary": "PayPal (PYPL) passes Caviar Cruise quality screen on strong ROIC, cash flow, and manageable debt, but margin declines and PEG warrant review.",
+      "excerpt": "PayPal (PYPL) passes Caviar Cruise quality screen on strong ROIC, cash flow, and manageable debt, but margin declines and PEG warrant review.",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "bearish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 operating profitability declined, with GAAP operating income down 3% and non-GAAP operating income down 5%.",
+      "summary": "Operating income contracted despite revenue growth, indicating margin pressure.",
+      "excerpt": "GAAP operating income decreased 3% to $1.5 billion; non-GAAP operating income decreased 5% to $1.5 billion.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "operating income",
+        "profitability",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "GAAP operating income",
+        "non-GAAP operating income"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "profit_decline",
+        "non_gaap_metric",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 operating margins contracted materially year over year.",
+      "summary": "GAAP operating margin fell to 17.8% and non-GAAP operating margin fell to 18.4%.",
+      "excerpt": "GAAP operating margin contracted 182 basis points to 17.8%; non-GAAP operating margin contracted 229 basis points to 18.4%.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "operating margin",
+        "profitability",
+        "cost structure"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "margin_pressure",
+        "financial_results",
+        "non_gaap_metric",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 operating income declined despite revenue growth, with GAAP operating income down 5% and non-GAAP operating income down 8%.",
+      "summary": "Profitability declined year over year in the quarter.",
+      "excerpt": "GAAP operating income decreased 5% to $1.4 billion; non-GAAP operating income decreased 8% to $1.5 billion.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "operating income",
+        "profitability",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "GAAP operating income",
+        "non-GAAP operating income"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "profit_decline",
+        "non_gaap_metric",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release; purpose preserved per instruction."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 GAAP operating margin contracted 171 basis points to 16.4%, and non-GAAP operating margin contracted 248 basis points to 17.4%.",
+      "summary": "Operating margin pressure persisted in 2Q26.",
+      "excerpt": "GAAP operating margin contracted 171 basis points to 16.4%; non-GAAP operating margin contracted 248 basis points to 17.4%.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "operating margin",
+        "profitability",
+        "cost structure"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "margin_pressure",
+        "financial_results",
+        "non_gaap_metric",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    }
+  ],
+  "mixed_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 transaction margin dollars grew more slowly than revenue, increasing 3% to $3.8 billion.",
+      "summary": "Transaction margin dollar growth lagged the 7% revenue growth rate in the quarter.",
+      "excerpt": "Transaction margin dollars 1 (\u201cTM$\u201d) increased 3% to $3.8 billion; TM$ excluding interest on customer balances 1,2 increased 3% to $3.5 billion.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "transaction margin",
+        "monetization",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "transaction margin dollars",
+        "transaction margin dollars excluding interest on customer balances"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "margin_dollars",
+        "non_gaap_metric",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 1Q26 active accounts were broadly flat sequentially despite being up 1% year over year.",
+      "summary": "The active account base reached 439 million, but declined slightly versus the prior quarter.",
+      "excerpt": "Active accounts increased 1% to 439 million. On a sequential basis, active accounts decreased by 0.04%, or by 0.2 million.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "active accounts",
+        "user growth",
+        "operating KPIs"
+      ],
+      "related_metrics": [
+        "active accounts",
+        "sequential active account change"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "user_growth",
+        "sequential_decline",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-05-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000065",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl1q-26earningsrelease.htm",
+      "claim": "PayPal reiterated FY26 EPS guidance despite a complex operating environment, with GAAP EPS expected to decline mid-single digits and non-GAAP EPS expected to range from low-single-digit decline to slightly positive.",
+      "summary": "The 2026 outlook suggests limited EPS growth and continued macro or operating uncertainty.",
+      "excerpt": "2026 Guidance: PayPal is reiterating full year guidance, building on a solid start to the year while reflecting a complex and dynamic operating environment.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.92,
+      "related_topics": [
+        "guidance",
+        "earnings outlook",
+        "operating environment"
+      ],
+      "related_metrics": [
+        "FY26 GAAP EPS guidance",
+        "FY26 non-GAAP EPS guidance"
+      ],
+      "evidence_tags": [
+        "guidance",
+        "eps_outlook",
+        "management_commentary",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "The guidance table states FY'26 GAAP EPS: \u201cMid-single digit decline\u201d and non-GAAP EPS: \u201cLow-single digit decline to slightly positive.\u201d"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 transaction margin dollars increased only 1% to $3.9 billion, while transaction margin excluding interest on customer balances grew 3%.",
+      "summary": "Transaction margin growth was modest versus reported revenue and TPV growth.",
+      "excerpt": "Transaction margin dollars 1 (\u201cTM$\u201d) increased 1% to $3.9 billion; TM$ excluding interest on customer balances 1,2 increased 3% to $3.6 billion.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "transaction margin",
+        "monetization",
+        "earnings results"
+      ],
+      "related_metrics": [
+        "transaction margin dollars",
+        "transaction margin dollars excluding interest on customer balances"
+      ],
+      "evidence_tags": [
+        "financial_results",
+        "margin_dollars",
+        "non_gaap_metric",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "PYPL",
+      "document_purpose": "stress_test",
+      "source_date": "2026-07-28",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+      "accession_number": "0001633917-26-000080",
+      "form_type": "8-K",
+      "exhibit_type": null,
+      "title": "8-K exhibit: pypl2q-26earningsrelease.htm",
+      "claim": "PayPal\u2019s 2Q26 active accounts increased only 0.3% year over year to 439 million and declined slightly sequentially.",
+      "summary": "The active account base remained nearly flat despite higher transaction activity.",
+      "excerpt": "Active accounts increased 0.3% to 439 million. On a sequential basis, active accounts decreased by 0.04%, or by 0.2 million.",
+      "polarity": "mixed",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "active accounts",
+        "user growth",
+        "operating KPIs"
+      ],
+      "related_metrics": [
+        "active accounts",
+        "sequential active account change"
+      ],
+      "evidence_tags": [
+        "operating_kpi",
+        "user_growth",
+        "sequential_decline",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but no stress-test or regulatory-capital metrics appear in the text."
+    }
+  ],
+  "unresolved_questions": [
+    "No CET1, SCB, RWA, DFAST, CCAR, stress-loss, PPNR, provision, or regulatory-capital metrics were found in the two source documents whose SourceDocument.document_purpose was stress_test.",
+    "The supplied 8-K exhibit dated 2026-03-25 contains a board appointment press release rather than stress-test or regulatory-capital disclosure.",
+    "No transcript, annual filing, quarterly filing, estimate, news, or peer-commentary documents were supplied."
+  ],
+  "data_gaps": [
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "No CET1, SCB, RWA, DFAST, CCAR, stress-loss, PPNR, provision, or regulatory-capital metrics were found in the two source documents whose SourceDocument.document_purpose was stress_test.",
+    "The supplied 8-K exhibit dated 2026-03-25 contains a board appointment press release rather than stress-test or regulatory-capital disclosure.",
+    "No transcript, annual filing, quarterly filing, estimate, news, or peer-commentary documents were supplied."
+  ],
+  "warnings": [
+    "Dropped 24 duplicate or lower-quality source documents before evidence extraction.",
+    "Evidence extractor returned no news evidence; used deterministic headline/snippet fallback.",
+    "Evidence extractor returned no estimate evidence; used deterministic estimate fallback.",
+    "Two source documents are classified with document_purpose=stress_test, but their text appears to be a board appointment release and an earnings release, respectively; document_purpose was preserved in evidence items as instructed.",
+    "The source_date for accession 0001633917-26-000059 is 2026-03-25, while the release text states \u201cMarch 25, 2025\u201d; source metadata was preserved as supplied.",
+    "Some earnings-release source text was truncated in the input; extracted evidence uses only visible supplied text."
+  ],
+  "raw_source_count": 47,
+  "evidence_item_count": 35
+}

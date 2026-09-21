@@ -1,0 +1,184 @@
+{
+  "ticker": "EBAY",
+  "company_name": "eBay Inc.",
+  "sector": "Consumer Discretionary",
+  "industry": "Online marketplaces / Internet retail",
+  "profile_source": "llm_generated_unverified",
+  "profile_confidence": "medium",
+  "profile_as_of_date": "2026-09-16",
+  "profile_source_notes": [
+    "Profile is LLM-generated from general knowledge, supplemented by supplied financial context showing eBay as a high-gross-margin, cash-generative marketplace business; it should be verified against the latest 10-K, 10-Q, and company segment disclosures.",
+    "No source-backed research context or filing excerpts were supplied, so segment descriptions and business drivers are best-effort and do not include precise revenue or profit shares.",
+    "research_context was supplied to the profile agent."
+  ],
+  "profile_data_gaps": [
+    "Latest filing-verified segment reporting and revenue mix",
+    "Current geographic revenue mix and FX exposure",
+    "Current GMV, active buyer, active seller, and take-rate trends",
+    "Latest advertising revenue, promoted listings adoption, and managed payments economics",
+    "Customer concentration, supplier concentration, and material contractual dependencies, if any"
+  ],
+  "business_description": "eBay Inc. operates a global online marketplace that connects buyers and sellers across new, used, refurbished, collectible, and hard-to-find goods. The company’s platform supports consumer-to-consumer and business-to-consumer commerce, with meaningful exposure to categories such as parts and accessories, collectibles, fashion, electronics, home and garden, and refurbished goods. eBay’s economics are primarily marketplace-based: it facilitates transactions rather than owning most inventory, generating revenue from transaction fees, seller services, payments-related fees, and advertising products.",
+  "business_model": "eBay is an asset-light, two-sided marketplace business. Sellers list inventory on the platform and pay fees when items are listed, sold, promoted, or supported by seller tools; buyers use the marketplace to discover and purchase goods. The model depends on marketplace liquidity, buyer traffic, seller supply, trust and safety, search/recommendation quality, payments functionality, and category-specific vertical experiences. Because eBay generally does not take inventory risk for third-party marketplace sales, gross margins can be structurally high, while profitability is driven by GMV, take rate, advertising penetration, operating expense discipline, payment/fraud costs, technology investment, and marketing efficiency.",
+  "segments": [
+    {
+      "name": "Marketplace",
+      "description": "Core global marketplace connecting buyers and sellers across consumer goods, collectibles, parts, refurbished items, and other categories. Revenue is primarily generated from final value fees, listing fees, and other transaction-related fees tied to gross merchandise volume.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Gross merchandise volume",
+        "Active buyers and active sellers",
+        "Marketplace take rate",
+        "Category mix and vertical focus areas",
+        "Search quality, recommendations, and conversion rates",
+        "Seller inventory depth and pricing competitiveness",
+        "Cross-border trade and international marketplace activity"
+      ]
+    },
+    {
+      "name": "Advertising and Promoted Listings",
+      "description": "Advertising products that allow sellers and brands to promote listings and improve visibility within eBay’s marketplace. Revenue is tied to seller adoption, ad pricing, traffic, conversion, and the competitiveness of marketplace categories.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Promoted listings adoption",
+        "Seller return on advertising spend",
+        "Marketplace traffic and search queries",
+        "Ad load and pricing",
+        "Category competitiveness",
+        "Buyer conversion rates"
+      ]
+    },
+    {
+      "name": "Seller Services, Subscriptions, and Payments-Related Services",
+      "description": "Seller-facing tools and services such as store subscriptions, listing upgrades, managed payments-related fees, and other platform capabilities that help sellers transact and manage their businesses on eBay.",
+      "revenue_share_estimate": null,
+      "profit_share_estimate": null,
+      "key_drivers": [
+        "Seller count and seller retention",
+        "Store subscription adoption",
+        "Payments volume and payment processing economics",
+        "Fraud, chargeback, and loss rates",
+        "Seller tool attach rate",
+        "Regulatory and compliance requirements for payments"
+      ]
+    }
+  ],
+  "revenue_model": [
+    "Final value fees and transaction fees earned when goods are sold on the marketplace",
+    "Listing fees, optional listing upgrades, and seller store subscription fees",
+    "Promoted listings and other marketplace advertising revenue",
+    "Payments-related fees and monetization from managed payments services",
+    "Ancillary seller services and tools that support listing, fulfillment coordination, and marketplace operations"
+  ],
+  "cost_drivers": [
+    "Employee compensation and stock-based compensation for product, engineering, trust and safety, payments, customer support, and corporate functions",
+    "Technology infrastructure, site operations, cloud/data hosting, cybersecurity, and platform reliability costs",
+    "Sales and marketing expense to acquire, retain, and reactivate buyers and sellers",
+    "Payment processing costs, fraud prevention, chargebacks, buyer/seller protection, and compliance costs",
+    "Customer service and dispute resolution costs",
+    "Depreciation and amortization, including internally developed software and technology assets",
+    "Regulatory, legal, tax, data privacy, and marketplace compliance costs",
+    "Capital expenditures for technology infrastructure and platform investments"
+  ],
+  "margin_drivers": [
+    "GMV growth and transaction volume leverage over fixed platform costs",
+    "Marketplace take rate, including pricing, fee structure, and mix of monetizable services",
+    "Growth in promoted listings and advertising revenue, which can carry attractive incremental margins",
+    "Category mix, with different conversion, return, fraud, and fee characteristics by vertical",
+    "Marketing efficiency and ability to generate organic traffic through brand, SEO, direct traffic, and app engagement",
+    "Payment processing economics, fraud losses, chargebacks, and dispute rates",
+    "Operating expense discipline in product development, customer support, and G&A",
+    "International mix and foreign exchange translation effects",
+    "Investment cadence in product modernization, AI-driven search, authentication, and vertical-specific buyer experiences"
+  ],
+  "key_customers": [
+    "Individual buyers seeking new, used, refurbished, collectible, and hard-to-find goods",
+    "Consumer sellers and small businesses using eBay as a marketplace channel",
+    "Professional merchants and specialty sellers in categories such as collectibles, auto parts, fashion, electronics, and refurbished goods",
+    "Advertisers and sellers purchasing promoted listings or marketplace advertising products"
+  ],
+  "key_suppliers": [
+    "Third-party sellers that supply inventory listed on the marketplace",
+    "Payment networks, banks, and payment service providers supporting managed payments",
+    "Technology infrastructure, software, and cloud/data service providers",
+    "Shipping carriers and logistics service providers used by marketplace participants",
+    "Authentication, risk, fraud detection, and identity verification service providers"
+  ],
+  "peer_group": [
+    {
+      "ticker": "ETSY",
+      "name": "Etsy, Inc.",
+      "relevance": "Online marketplace peer with focus on handmade, vintage, custom, and specialty goods."
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "relevance": "Large-scale e-commerce and third-party marketplace competitor for buyers, sellers, advertising budgets, and fulfillment expectations."
+    },
+    {
+      "ticker": "MELI",
+      "name": "MercadoLibre, Inc.",
+      "relevance": "Marketplace and fintech platform peer with marketplace, payments, and advertising monetization in Latin America."
+    },
+    {
+      "ticker": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "relevance": "Global e-commerce marketplace and merchant services peer, particularly relevant for cross-border commerce and marketplace monetization."
+    },
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings Inc.",
+      "relevance": "E-commerce marketplace competitor through Pinduoduo and Temu, with exposure to value-oriented and cross-border online retail."
+    },
+    {
+      "ticker": "SE",
+      "name": "Sea Limited",
+      "relevance": "Operator of Shopee, an e-commerce marketplace competing for sellers, buyers, and advertising dollars in multiple international markets."
+    },
+    {
+      "ticker": "REAL",
+      "name": "The RealReal, Inc.",
+      "relevance": "Specialized resale marketplace peer in authenticated luxury consignment and secondhand commerce."
+    },
+    {
+      "ticker": "SHOP",
+      "name": "Shopify Inc.",
+      "relevance": "Commerce infrastructure and merchant enablement peer competing for seller relationships, tools, and online merchant spending."
+    }
+  ],
+  "thematic_exposures": [
+    "E-commerce and marketplace penetration",
+    "Recommerce and circular economy",
+    "Collectibles and enthusiast commerce",
+    "Digital advertising within commerce platforms",
+    "Small business digitization",
+    "AI-driven search and personalization",
+    "Cross-border online commerce",
+    "Refurbished electronics and value-oriented consumption"
+  ],
+  "macro_sensitivities": [
+    "Consumer discretionary spending affects GMV, especially in categories such as electronics, fashion, home goods, collectibles, and auto parts",
+    "Consumer confidence and household income influence discretionary purchase frequency and average order value",
+    "Interest rates and credit conditions can affect demand for higher-ticket discretionary items and small seller business health",
+    "FX translation and cross-border trade flows are important because eBay operates globally and reports in U.S. dollars",
+    "Shipping costs, fuel prices, and carrier service levels influence seller economics, buyer conversion, and marketplace competitiveness",
+    "Digital advertising budgets and seller ROI expectations affect promoted listings and marketplace ad revenue",
+    "Competitive pricing pressure from large marketplaces and value-commerce platforms can influence traffic, conversion, and seller retention",
+    "Regulation of online marketplaces, payments, data privacy, consumer protection, taxation, counterfeit goods, and platform liability can affect compliance costs and operating flexibility",
+    "Labor market and technology wage inflation can affect product development, trust and safety, and customer support costs"
+  ],
+  "major_risks": [
+    "Intense competition from large e-commerce platforms, vertical marketplaces, social commerce, value-commerce platforms, and direct-to-consumer channels",
+    "Declines in active buyers, active sellers, marketplace traffic, or GMV could reduce transaction revenue and weaken network effects",
+    "Seller churn or reduced seller economics due to fees, advertising costs, shipping costs, policy changes, or competitive alternatives",
+    "Trust and safety failures, counterfeit goods, fraud, chargebacks, account takeovers, or poor buyer experiences could damage marketplace reputation",
+    "Search, discovery, and recommendation underperformance could reduce conversion and seller returns",
+    "Regulatory and legal risks related to payments, marketplace liability, data privacy, consumer protection, tax collection, sanctions, and counterfeit or prohibited goods",
+    "Cybersecurity incidents, system outages, data breaches, or payment disruptions could impair operations and user trust",
+    "FX volatility and international regulatory complexity could pressure reported revenue and margins",
+    "Advertising monetization risk if ad load hurts buyer experience or sellers reduce promoted listings spend due to weak returns",
+    "Execution risk around product modernization, AI adoption, category focus, authentication programs, and buyer/seller experience improvements"
+  ]
+}

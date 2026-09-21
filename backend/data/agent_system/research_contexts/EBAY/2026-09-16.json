@@ -1,0 +1,3100 @@
+{
+  "ticker": "EBAY",
+  "as_of_date": "2026-09-16",
+  "created_at": "2026-09-16T18:23:52.166692",
+  "source_coverage": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-08-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-08-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/0001065088-26-000174-index-headers.html",
+      "accession_number": "0001065088-26-000174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-08-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/0001065088-26-000174-index.html",
+      "accession_number": "0001065088-26-000174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-08-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/0001065088-26-000174.txt",
+      "accession_number": "0001065088-26-000174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-08-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/ebay-20260805.htm",
+      "accession_number": "0001065088-26-000174",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000135/0001065088-26-000135-index-headers.html",
+      "accession_number": "0001065088-26-000135",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000135/0001065088-26-000135-index.html",
+      "accession_number": "0001065088-26-000135",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000135/0001065088-26-000135.txt",
+      "accession_number": "0001065088-26-000135",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-06-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000135/ebay-20260617.htm",
+      "accession_number": "0001065088-26-000135",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/0001552781-26-000322-index-headers.html",
+      "accession_number": "0001552781-26-000322",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/0001552781-26-000322-index.html",
+      "accession_number": "0001552781-26-000322",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/0001552781-26-000322.txt",
+      "accession_number": "0001552781-26-000322",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ebay-8k.htm",
+      "accession_number": "0001552781-26-000322",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "strategic_transaction",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-2.htm",
+      "accession_number": "0001552781-26-000322",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000302/0001552781-26-000302-index-headers.html",
+      "accession_number": "0001552781-26-000302",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000302/0001552781-26-000302-index.html",
+      "accession_number": "0001552781-26-000302",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000302/0001552781-26-000302.txt",
+      "accession_number": "0001552781-26-000302",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000302/e26238_ebay-8k.htm",
+      "accession_number": "0001552781-26-000302",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000302/e26238_ex99-1.htm",
+      "accession_number": "0001552781-26-000302",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/0001065088-26-000092-index-headers.html",
+      "accession_number": "0001065088-26-000092",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/0001065088-26-000092-index.html",
+      "accession_number": "0001065088-26-000092",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/0001065088-26-000092.txt",
+      "accession_number": "0001065088-26-000092",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/ebay-20260429.htm",
+      "accession_number": "0001065088-26-000092",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-04-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/0001065088-26-000060-index-headers.html",
+      "accession_number": "0001065088-26-000060",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/0001065088-26-000060-index.html",
+      "accession_number": "0001065088-26-000060",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/0001065088-26-000060.txt",
+      "accession_number": "0001065088-26-000060",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/ebay-20260319.htm",
+      "accession_number": "0001065088-26-000060",
+      "notes": "Could not classify exhibit as earnings release, strategic transaction, stress test, regulatory capital, or presentation."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-03-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "accession_number": "0001065088-26-000060",
+      "notes": "Classified as stress-test/regulatory capital disclosure due to DFAST, SCB, CET1, CCAR, or Federal Reserve stress-test language."
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "status": "found",
+      "provider_status": null,
+      "provider": "sec",
+      "source_name": "SEC EDGAR",
+      "source_date": "2026-08-06",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000177/ebay-20260630.htm",
+      "accession_number": "0001065088-26-000177",
+      "notes": "SEC filing form type is 10-Q."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "found",
+      "provider_status": null,
+      "provider": "manual",
+      "source_name": "Manual source",
+      "source_date": null,
+      "source_url": "/Users/terenceobrien/AI_Financial_Operator/data/manual_sources/EBAY.txt",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "fmp",
+      "source_name": "FMP earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "FMP transcript endpoint is plan-restricted for current subscription."
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "status": "skipped",
+      "provider_status": "plan_restricted",
+      "provider": "finnhub",
+      "source_name": "Finnhub earnings transcript",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Finnhub transcript endpoint is not available under current entitlement."
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "error",
+      "provider_status": "error",
+      "provider": "newsapi",
+      "source_name": "NewsAPI company news",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "NewsAPI retrieval failed: HTTP Error 426: Upgrade Required"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-16",
+      "source_url": "https://finnhub.io/api/news?id=095c8dcfd9beed5b03c3ea0d7f60ed385ea619a25beaed6e9a142023b0094a1a",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-16",
+      "source_url": "https://finnhub.io/api/news?id=617c203f3582058026a284d7183ffeb8ad38d76a2890da88207e13a3a80e6c4f",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=4cdc966481d08e2160416c3eacc04bd87dc778582c680156837a6cbebdba799f",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=0d896cbb572d30332020d7b8bca7e28d2482579b579de4b98eed5329491ebc07",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=579fbdefa8e5a74819ee36764312d54c7bd7335ceb523e20695741c36abc4285",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=74d217b5a645ccf7eb1c776e56af7b9a7e04dd820e4d64bd452fa494b7aa7b3f",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=9cf88982db0cb348bb8a8a176e4ff962f70b8055ed23e96147557ae68c0401ec",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Benzinga",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=cfc8d2be34f3ffd347bf0439350cbd3260c989c0a54c90ab7bb51de0cb4cde3b",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-13",
+      "source_url": "https://finnhub.io/api/news?id=3af99f53dc281da9cd75138120c4a22d41b7fe5195fe9351ea76df45a58aa17a",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "finnhub",
+      "source_name": "Yahoo",
+      "source_date": "2026-09-11",
+      "source_url": "https://finnhub.io/api/news?id=d6b55d7ca47322e8d50e32868468d24dc8f66e3ad7fbb8929d87dc8aa219a7a6",
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "status": "found",
+      "provider_status": "found",
+      "provider": "yfinance",
+      "source_name": "yfinance analyst estimates",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": null
+    },
+    {
+      "source_type": "peer_commentary",
+      "document_purpose": "peer_commentary",
+      "status": "skipped",
+      "provider_status": null,
+      "provider": "peer commentary",
+      "source_name": "Peer commentary",
+      "source_date": null,
+      "source_url": null,
+      "accession_number": null,
+      "notes": "Peer commentary skipped; no peer tickers supplied."
+    }
+  ],
+  "source_coverage_summary": "earnings_release:sec_found=1; estimates:yfinance_found=1; filing:sec_found=1; news:finnhub_found=10; news:newsapi_error=1; other_8k:sec_found=24; peer_commentary:peer commentary_skipped=1; strategic_transaction:sec_found=1; stress_test:sec_found=4; transcript:finnhub_plan_restricted=1; transcript:fmp_plan_restricted=1; transcript:manual_found=1; earnings_release:sec_selected=1; estimates:yfinance_selected=1; filing:sec_selected=1; news:finnhub_selected=10; other_8k:sec_selected=1; strategic_transaction:sec_selected=1; stress_test:sec_selected=4; transcript:manual_selected=1; extraction_selected=20; duplicate_dropped=23",
+  "extraction_source_summary": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "earnings_release",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "source_date": "2026-08-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "text_len": 38974,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "strategic_transaction",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "text_len": 5042,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: exhibit991briansharplespre.htm",
+      "source_date": "2026-03-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "text_len": 3073,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "source_date": "2026-04-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "text_len": 36566,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: e26238_ex99-1.htm",
+      "source_date": "2026-05-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000302/e26238_ex99-1.htm",
+      "text_len": 5160,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "stress_test",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: e26249_ex99-2.htm",
+      "source_date": "2026-05-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-2.htm",
+      "text_len": 5470,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    },
+    {
+      "source_type": "filing",
+      "document_purpose": "quarterly_filing",
+      "source_name": "SEC EDGAR",
+      "title": "10-Q",
+      "source_date": "2026-08-06",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000177/ebay-20260630.htm",
+      "text_len": 78570,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "latest_sec_filing"
+    },
+    {
+      "source_type": "transcript",
+      "document_purpose": "transcript",
+      "source_name": "Manual source",
+      "title": "EBAY.txt",
+      "source_date": null,
+      "source_url": "/Users/terenceobrien/AI_Financial_Operator/data/manual_sources/EBAY.txt",
+      "text_len": 58520,
+      "text_excerpt_len": 2500,
+      "provider": "manual",
+      "provider_status": null,
+      "selected_reason": "highest_priority_transcript_provider"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "eBay (EBAY) Bans Airbag And Inflator Listings",
+      "source_date": "2026-09-16",
+      "source_url": "https://finnhub.io/api/news?id=095c8dcfd9beed5b03c3ea0d7f60ed385ea619a25beaed6e9a142023b0094a1a",
+      "text_len": 543,
+      "text_excerpt_len": 497,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Debenhams Group Sells Nasty Gal to WSG Brands as It Pursues a Leaner, Efficient Marketplace Model",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=0d896cbb572d30332020d7b8bca7e28d2482579b579de4b98eed5329491ebc07",
+      "text_len": 243,
+      "text_excerpt_len": 145,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "\u2018Sounds Like a 14 Year Old\u2019: Dave Ramsey Rips Husband Sinking 80% of Pay Into Pokemon Cards",
+      "source_date": "2026-09-13",
+      "source_url": "https://finnhub.io/api/news?id=3af99f53dc281da9cd75138120c4a22d41b7fe5195fe9351ea76df45a58aa17a",
+      "text_len": 335,
+      "text_excerpt_len": 243,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Is eBay Stock Worth The Ride?",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=4cdc966481d08e2160416c3eacc04bd87dc778582c680156837a6cbebdba799f",
+      "text_len": 335,
+      "text_excerpt_len": 305,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Oppenheimer Prices Etsy at a 10% Discount to eBay",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=579fbdefa8e5a74819ee36764312d54c7bd7335ceb523e20695741c36abc4285",
+      "text_len": 89,
+      "text_excerpt_len": 39,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Allbirds\u2019 IP owner snaps up Nasty Gal for $16M",
+      "source_date": "2026-09-16",
+      "source_url": "https://finnhub.io/api/news?id=617c203f3582058026a284d7183ffeb8ad38d76a2890da88207e13a3a80e6c4f",
+      "text_len": 182,
+      "text_excerpt_len": 135,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "How to Play GME Stock as GameStop CEO Ryan Cohen Buys $20.3 Million in Shares",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=74d217b5a645ccf7eb1c776e56af7b9a7e04dd820e4d64bd452fa494b7aa7b3f",
+      "text_len": 187,
+      "text_excerpt_len": 109,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Is eBay Stock Outperforming the Dow?",
+      "source_date": "2026-09-15",
+      "source_url": "https://finnhub.io/api/news?id=9cf88982db0cb348bb8a8a176e4ff962f70b8055ed23e96147557ae68c0401ec",
+      "text_len": 154,
+      "text_excerpt_len": 117,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Benzinga",
+      "title": "StoneX Maintains Buy on eBay, Raises Price Target to $136",
+      "source_date": "2026-09-14",
+      "source_url": "https://finnhub.io/api/news?id=cfc8d2be34f3ffd347bf0439350cbd3260c989c0a54c90ab7bb51de0cb4cde3b",
+      "text_len": 176,
+      "text_excerpt_len": 118,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "news",
+      "document_purpose": "news",
+      "source_name": "Yahoo",
+      "title": "Ryan Cohen Doubles Down on GameStop Stock",
+      "source_date": "2026-09-11",
+      "source_url": "https://finnhub.io/api/news?id=d6b55d7ca47322e8d50e32868468d24dc8f66e3ad7fbb8929d87dc8aa219a7a6",
+      "text_len": 98,
+      "text_excerpt_len": 56,
+      "provider": "finnhub",
+      "provider_status": "found",
+      "selected_reason": "news_selected_for_snippet_extraction"
+    },
+    {
+      "source_type": "estimate",
+      "document_purpose": "estimate",
+      "source_name": "yfinance analyst estimates",
+      "title": "Analyst estimate summary",
+      "source_date": null,
+      "source_url": null,
+      "text_len": 6151,
+      "text_excerpt_len": 6151,
+      "provider": "yfinance",
+      "provider_status": "found",
+      "selected_reason": "estimate_selected_for_extraction"
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "document_purpose": "other",
+      "source_name": "SEC EDGAR",
+      "title": "8-K exhibit: ebay-20260617.htm",
+      "source_date": "2026-06-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000135/ebay-20260617.htm",
+      "text_len": 5403,
+      "text_excerpt_len": 2500,
+      "provider": "sec",
+      "provider_status": null,
+      "selected_reason": "classified_sec_8k_document"
+    }
+  ],
+  "earnings_release_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay reported Q2 2026 revenue of $3.1 billion, up 15% as reported and 14% FX-neutral.",
+      "summary": "Top-line growth accelerated in Q2 2026, with revenue rising double digits on both reported and FX-neutral bases.",
+      "excerpt": "Revenue of $3.1 billion, up 15% on an as-reported basis and up 14% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "financial_results",
+        "revenue_growth"
+      ],
+      "related_metrics": [
+        "Revenue",
+        "FX-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "top_line_growth",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Q2 2026 GMV was $22.4 billion, up 15% as reported and 14% FX-neutral.",
+      "summary": "Marketplace activity grew double digits, indicating broad GMV momentum in the quarter.",
+      "excerpt": "Gross Merchandise Volume (\"GMV\") of $22.4 billion, up 15% on an as-reported basis and up 14% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "marketplace_activity",
+        "gmv_growth"
+      ],
+      "related_metrics": [
+        "GMV",
+        "FX-neutral GMV growth"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "gmv",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Q2 2026 GAAP EPS was $1.21 and non-GAAP EPS was $1.60 from continuing operations.",
+      "summary": "Earnings per share increased year over year, with GAAP diluted EPS up 56% and non-GAAP diluted EPS up 17% in the tabular disclosure.",
+      "excerpt": "GAAP and Non-GAAP earnings per diluted share of $1.21 and $1.60, respectively, on a continuing operations basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "earnings",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP EPS",
+        "Non-GAAP EPS",
+        "GAAP net income",
+        "Non-GAAP net income"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "eps_growth",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Q2 2026 operating margins were 21.6% on a GAAP basis and 28.5% on a non-GAAP basis.",
+      "summary": "Operating profitability remained high, with GAAP margin up materially year over year and non-GAAP margin slightly higher.",
+      "excerpt": "GAAP and Non-GAAP operating margins of 21.6% and 28.5%, respectively",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "margin",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "Non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "operating_margin",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay generated $549 million of operating cash flow and $326 million of free cash flow from continuing operations in Q2 2026.",
+      "summary": "Cash generation remained positive in the quarter, supporting shareholder returns and investment capacity.",
+      "excerpt": "Generated $549 million of operating cash flow and $326 million of free cash flow from continuing operations.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "cash_flow",
+        "liquidity"
+      ],
+      "related_metrics": [
+        "Operating cash flow",
+        "Free cash flow"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "free_cash_flow",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay returned $448 million to stockholders in Q2 2026 through repurchases and dividends.",
+      "summary": "Capital returns included $310 million of share repurchases and $138 million of cash dividends.",
+      "excerpt": "Returned $448 million to stockholders in Q2, including $310 million of share repurchases and $138 million paid in cash dividends",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "Share repurchases",
+        "Cash dividends",
+        "Total capital returned"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "buybacks",
+        "dividends",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Advertising revenue reached $596 million in Q2 2026, with first-party advertising revenue up 25% as reported.",
+      "summary": "Advertising monetization continued to grow faster than overall GMV and revenue, representing 2.7% of GMV.",
+      "excerpt": "The company's total advertising offerings generated $596 million of revenue in the second quarter of 2026, representing 2.7% of GMV. First-party advertising products on the eBay platform delivered $570 million of revenue in the second quarter of 2026, up 25% on an as-reported basis and up 24% on an FX-Neutral basis.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "advertising",
+        "monetization"
+      ],
+      "related_metrics": [
+        "Advertising revenue",
+        "Advertising revenue as percentage of GMV",
+        "First-party advertising revenue"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "advertising_growth",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Management increased full-year top- and bottom-line outlook due to strong business momentum.",
+      "summary": "CFO commentary indicates raised guidance for both revenue and earnings/profitability measures, though the visible excerpt does not include the detailed guidance table.",
+      "excerpt": "Given the strong momentum we are seeing in our business, we are increasing our full-year top- and bottom-line outlook.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "guidance",
+        "management_commentary",
+        "business_momentum"
+      ],
+      "related_metrics": [
+        "Full-year outlook"
+      ],
+      "evidence_tags": [
+        "raised_guidance",
+        "q2_2026",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay closed its acquisition of Depop on July 30, 2026 to strengthen its circular fashion and recommerce position.",
+      "summary": "The Depop acquisition adds a C2C fashion marketplace with Gen Z and Millennial engagement to eBay\u2019s recommerce strategy.",
+      "excerpt": "On July 30, 2026, eBay closed its acquisition of Depop Limited (Depop), a leading consumer-to-consumer (C2C) fashion marketplace with a highly engaged Gen Z and Millennial audience, strengthening eBay\u2019s leadership in circular fashion and recommerce.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "m&a",
+        "recommerce",
+        "c2c_marketplace",
+        "fashion"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "depop_acquisition",
+        "strategic_priority",
+        "q2_2026",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay Live GMV grew roughly eight times year over year across seven markets in Q2 2026.",
+      "summary": "The live commerce initiative showed rapid growth and broadened engagement across categories and markets.",
+      "excerpt": "eBay Live posted another record quarter, with GMV growing by roughly eight times year-over-year across its seven markets.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "live_commerce",
+        "gmv_growth",
+        "product_innovation"
+      ],
+      "related_metrics": [
+        "eBay Live GMV growth"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "ebay_live",
+        "growth_initiative",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay expanded Authenticity Guarantee coverage and integrated Enquirus to improve buyer confidence in luxury resale.",
+      "summary": "Trust and authentication investments continued in fashion and luxury watches across the U.S., U.K. and Germany.",
+      "excerpt": "eBay expanded coverage of Authenticity Guarantee to more than 100 fashion brands in the U.S. and U.K. The company also integrated Enquirus, the trusted global database of registered luxury watches, across the U.S., U.K. and Germany, strengthening buyer confidence in eBay\u2019s luxury resale offering.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.79,
+      "related_topics": [
+        "trust",
+        "authentication",
+        "luxury_resale",
+        "fashion"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "authenticity_guarantee",
+        "buyer_confidence",
+        "q2_2026",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    }
+  ],
+  "filing_evidence": [],
+  "transcript_evidence": [],
+  "news_evidence": [
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=095c8dcfd9beed5b03c3ea0d7f60ed385ea619a25beaed6e9a142023b0094a1a",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "eBay (EBAY) Bans Airbag And Inflator Listings",
+      "claim": "eBay (EBAY) Bans Airbag And Inflator Listings",
+      "summary": "eBay (NasdaqGS:EBAY) has banned listings for airbags and airbag inflators after counterfeit and unsafe parts were exposed. The marketplace is removing existing airbag related listings and blocking new ones as part of tighter automotive safety controls. The move follows media scrutiny over potentially dangerous counterfeit airbags sold through third party sellers on the platform. eBay's decision to halt airbag and inflator sales is important, but only one piece of the wider risk picture. We...",
+      "excerpt": "eBay (NasdaqGS:EBAY) has banned listings for airbags and airbag inflators after counterfeit and unsafe parts were exposed. The marketplace is removing existing airbag related listings and blocking new ones as part of tighter automotive safety controls. The move follows media scrutiny over potentially dangerous counterfeit airbags sold through third party sellers on the platform. eBay's decision to halt airbag and inflator sales is important, but only one piece of the wider risk picture. We...",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=0d896cbb572d30332020d7b8bca7e28d2482579b579de4b98eed5329491ebc07",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Debenhams Group Sells Nasty Gal to WSG Brands as It Pursues a Leaner, Efficient Marketplace Model",
+      "claim": "Debenhams Group Sells Nasty Gal to WSG Brands as It Pursues a Leaner, Efficient Marketplace Model",
+      "summary": "The British group has sold Nasty Gal to White Space Group New York for $16 million in cash as it aims to become a bigger marketplace for fashion.",
+      "excerpt": "The British group has sold Nasty Gal to White Space Group New York for $16 million in cash as it aims to become a bigger marketplace for fashion.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-13",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=3af99f53dc281da9cd75138120c4a22d41b7fe5195fe9351ea76df45a58aa17a",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "\u2018Sounds Like a 14 Year Old\u2019: Dave Ramsey Rips Husband Sinking 80% of Pay Into Pokemon Cards",
+      "claim": "\u2018Sounds Like a 14 Year Old\u2019: Dave Ramsey Rips Husband Sinking 80% of Pay Into Pokemon Cards",
+      "summary": "A 35-year-old man routes most of his paycheck into a stack of cardboard he calls a portfolio, and his wife has resorted to keeping separate bank accounts just to cover groceries. Dave Ramsey had thoughts, and the math backing him up is brutal.",
+      "excerpt": "A 35-year-old man routes most of his paycheck into a stack of cardboard he calls a portfolio, and his wife has resorted to keeping separate bank accounts just to cover groceries. Dave Ramsey had thoughts, and the math backing him up is brutal.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=4cdc966481d08e2160416c3eacc04bd87dc778582c680156837a6cbebdba799f",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Is eBay Stock Worth The Ride?",
+      "claim": "Is eBay Stock Worth The Ride?",
+      "summary": "eBay (EBAY) has gained 5.4% over the past five trading days while the S&P 500 fell 1.3%. A stock rising in a falling market pulls money in. Five days say nothing about what a holding does to your money over the years you would own it. eBay's longer-term record presents a more mixed risk-adjusted picture.",
+      "excerpt": "eBay (EBAY) has gained 5.4% over the past five trading days while the S&P 500 fell 1.3%. A stock rising in a falling market pulls money in. Five days say nothing about what a holding does to your money over the years you would own it. eBay's longer-term record presents a more mixed risk-adjusted picture.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=579fbdefa8e5a74819ee36764312d54c7bd7335ceb523e20695741c36abc4285",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Oppenheimer Prices Etsy at a 10% Discount to eBay",
+      "claim": "Oppenheimer Prices Etsy at a 10% Discount to eBay",
+      "summary": "The $90 target rests on 12x 2027 EBITDA",
+      "excerpt": "The $90 target rests on 12x 2027 EBITDA",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-16",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=617c203f3582058026a284d7183ffeb8ad38d76a2890da88207e13a3a80e6c4f",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Allbirds\u2019 IP owner snaps up Nasty Gal for $16M",
+      "claim": "Allbirds\u2019 IP owner snaps up Nasty Gal for $16M",
+      "summary": "Plans are to expand globally via licensing deals and partnerships. WSG Brands also acquired streetwear company Von Dutch two years ago.",
+      "excerpt": "Plans are to expand globally via licensing deals and partnerships. WSG Brands also acquired streetwear company Von Dutch two years ago.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=74d217b5a645ccf7eb1c776e56af7b9a7e04dd820e4d64bd452fa494b7aa7b3f",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "How to Play GME Stock as GameStop CEO Ryan Cohen Buys $20.3 Million in Shares",
+      "claim": "How to Play GME Stock as GameStop CEO Ryan Cohen Buys $20.3 Million in Shares",
+      "summary": "GameStop CEO Ryan Cohen purchases $20.3 million worth of company shares in a show of confidence to investors.",
+      "excerpt": "GameStop CEO Ryan Cohen purchases $20.3 million worth of company shares in a show of confidence to investors.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=9cf88982db0cb348bb8a8a176e4ff962f70b8055ed23e96147557ae68c0401ec",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Is eBay Stock Outperforming the Dow?",
+      "claim": "Is eBay Stock Outperforming the Dow?",
+      "summary": "eBay has outperformed the Dow over the past year, and analysts are cautiously optimistic about the stock\u2019s prospects.",
+      "excerpt": "eBay has outperformed the Dow over the past year, and analysts are cautiously optimistic about the stock\u2019s prospects.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Benzinga",
+      "source_url": "https://finnhub.io/api/news?id=cfc8d2be34f3ffd347bf0439350cbd3260c989c0a54c90ab7bb51de0cb4cde3b",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "StoneX Maintains Buy on eBay, Raises Price Target to $136",
+      "claim": "StoneX Maintains Buy on eBay, Raises Price Target to $136",
+      "summary": "StoneX  analyst Daniel Kurnos   maintains eBay (NASDAQ:EBAY) with a Buy and raises the price target from $134 to $136.",
+      "excerpt": "StoneX  analyst Daniel Kurnos   maintains eBay (NASDAQ:EBAY) with a Buy and raises the price target from $134 to $136.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-11",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=d6b55d7ca47322e8d50e32868468d24dc8f66e3ad7fbb8929d87dc8aa219a7a6",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Ryan Cohen Doubles Down on GameStop Stock",
+      "claim": "Ryan Cohen Doubles Down on GameStop Stock",
+      "summary": "Cohen's latest move raises stakes for GameStop investors",
+      "excerpt": "Cohen's latest move raises stakes for GameStop investors",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.55,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    }
+  ],
+  "estimate_evidence": [
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 9, \"+1y\": 4, \"0q\": 12, \"0y\": 5}, \"downLast7Days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"upLast30days\": {\"+1q\": 0, \"+1y\": 9, \"0q\": 1, \"0y\": 9}, \"upLast7days\": {\"+1q\": 0, \"+1y\": 2, \"0q\": 0, \"0y\": 1}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 1.46358, \"+1y\": 6.72485, \"0q\": 1.40986, \"0y\": 6.12276}, \"60daysAgo\": {\"+1q\": 1.51589, \"+1y\": 6.75196, \"0q\": 1.45432, \"0y\": 6.12596}, \"7daysAgo\": {\"+1q\": 1.46553, \"+1y\": 6.73289, \"0q\": 1.41113, \"0y\": 6.12668}, \"90daysAgo\": {\"+1q\": 1.51971, \"+1y\": 6.76301, \"0q\": 1.45251, \"0y\": 6.13017}, \"current\": {\"+1q\": 1.46735, \"+1y\": 6.72122, \"0q\": 1.41071, \"0y\": 6.12806}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 3195884640, \"+1y\": 13344920490, \"0q\": 3103445910, \"0y\": 12504495710}, \"growth\": {\"+1q\": 0.0779, \"+1y\": 0.0672, \"0q\": 0.1005, \"0y\": 0.1265}, \"high\": {\"+1q\": 3285400000, \"+1y\": 13724000000, \"0q\": 3151000000, \"0y\": 12618000000}, \"low\": {\"+1q\": 3095000000, \"+1y\": 12802000000, \"0q\": 2942883240, \"0y\": 12037000000}, \"numberOfAnalysts\": {\"+1q\": 22, \"+1y\": 28, \"0q\": 23, \"0y\": 27}, \"yearAgoRevenue\": {\"+1q\": 2965000000, \"+1y\": 12504495710, \"0q\": 2820000000, \"0y\": 11100000000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 8, \"1\": 8, \"2\": 6, \"3\": 5}, \"hold\": {\"0\": 17, \"1\": 17, \"2\": 18, \"3\": 19}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 3, \"1\": 3, \"2\": 2, \"3\": 2}, \"strongBuy\": {\"0\": 4, \"1\": 4, \"2\": 5, \"3\": 5}, \"strongSell\": {\"0\": 0, \"1\": 0, \"2\": 0, \"3\": 0}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "peer_commentary_evidence": [],
+  "strategic_transaction_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "GameStop had discussed with TD Securities that it was contemplating an acquisition of or business combination with eBay.",
+      "summary": "The document describes a potential transaction involving GameStop and eBay, but does not state that a definitive agreement existed.",
+      "excerpt": "GameStop Corp. (the \u201c Company \u201d or \u201c you \u201d) has previously discussed with TD Securities (USA) LLC (\u201c TD Securities \u201d, \u201c we \u201d or \u201c us \u201d) that it is currently contemplating the acquisition of or other business combination with eBay Inc. (the \u201c Target \u201d) (such contemplated transaction, the \u201c Transaction \u201d).",
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "strategic_transaction",
+        "potential_acquisition",
+        "m&a"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "potential_transaction",
+        "non_definitive",
+        "project_sling",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Evidence supports the existence of a contemplated transaction discussion, not a signed acquisition agreement."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "TD Securities said it was highly confident GameStop could raise up to $20.0 billion of funded debt to support the contemplated eBay transaction.",
+      "summary": "The financing letter indicates potential debt capacity for a portion of the contemplated transaction, subject to assumptions and conditions.",
+      "excerpt": "TD Securities is highly confident that funded debt of up to $20.0 billion could be raised by the Company in the bank and capital markets to support the effectuation of the Transaction.",
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "deal_financing",
+        "m&a",
+        "capital_markets"
+      ],
+      "related_metrics": [
+        "Potential funded debt"
+      ],
+      "evidence_tags": [
+        "financing_confidence_letter",
+        "potential_transaction",
+        "debt_financing",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Financing confidence was conditional and non-binding."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "TD Securities\u2019 financing confidence depended on investment-grade ratings, due diligence, definitive documentation, approvals, and absence of material adverse changes.",
+      "summary": "The contemplated financing was subject to numerous transaction and market conditions, limiting certainty of deal execution.",
+      "excerpt": "TD Securities\u2019 expression of confidence assumes, amongst other things, as determined in TD Securities\u2019 sole discretion: (i) expected investment grade corporate credit ratings or investment grade unsecured public debt ratings from at least two of S&P, Moody\u2019s or Fitch pro forma for the Transaction; (ii) satisfactory completion of our due diligence of the Target; (iii) receipt of satisfactory financial projections prepared by the Company; (iv) the accuracy and completeness of all information, whether oral or written, provided by the Company and/or the Target to TD Securities; (v) negotiation, execution and delivery of satisfactory definitive documentation for the Transaction and satisfactory completion of all conditions precedent therein; (vi) receipt of all necessary governmental approvals;",
+      "polarity": "challenges",
+      "confidence": "medium",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "deal_risk",
+        "regulatory_approval",
+        "financing_conditions",
+        "m&a"
+      ],
+      "related_metrics": [
+        "Credit ratings"
+      ],
+      "evidence_tags": [
+        "conditional_financing",
+        "execution_risk",
+        "potential_transaction",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "TD Securities explicitly stated the letter was not a financing commitment or undertaking.",
+      "summary": "The document limits reliance on the financing letter and underscores that no underwriting, lending, or arranging commitment had been made.",
+      "excerpt": "This letter is not intended to be, and shall not constitute, a commitment or undertaking by TD Securities or any of its affiliates to underwrite, lend or arrange financing with respect to the Transaction or otherwise.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.85,
+      "related_topics": [
+        "deal_financing",
+        "execution_risk",
+        "m&a"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "non_binding",
+        "no_commitment",
+        "potential_transaction",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    }
+  ],
+  "regulatory_capital_evidence": [],
+  "stress_test_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "accession_number": "0001065088-26-000060",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991briansharplespre.htm",
+      "claim": "eBay appointed Brian Sharples to its Board of Directors effective March 20, 2026.",
+      "summary": "The appointment added a new independent director and left eBay with a 12-member board, 11 of whom were independent.",
+      "excerpt": "today announced the appointment of Brian Sharples to its Board of Directors, effective March 20, 2026. Following Mr. Sharples\u2019 appointment, eBay\u2019s Board of Directors comprises 12 directors, 11 of whom are independent.",
+      "polarity": "neutral",
+      "confidence": "high",
+      "relevance_score": 0.72,
+      "related_topics": [
+        "governance",
+        "board_composition"
+      ],
+      "related_metrics": [
+        "Board size",
+        "Independent directors"
+      ],
+      "evidence_tags": [
+        "board_appointment",
+        "independent_director",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment press release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "accession_number": "0001065088-26-000060",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991briansharplespre.htm",
+      "claim": "eBay highlighted Sharples\u2019 experience building and scaling technology-driven marketplaces.",
+      "summary": "The board chair described Sharples\u2019 background as relevant to eBay\u2019s marketplace strategy and shareholder value creation.",
+      "excerpt": "His track record of building category-defining platforms, scaling global operations, and guiding innovative companies as an operator and board leader makes him uniquely qualified to help steer our next chapter of growth. Brian brings to eBay a deep understanding of technology-driven marketplaces, a disciplined approach to strategy, and a steadfast commitment to customers and shareholders that will strengthen our long-term value creation.",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.68,
+      "related_topics": [
+        "governance",
+        "strategy",
+        "marketplace_expertise"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "board_expertise",
+        "management_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment press release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "accession_number": "0001065088-26-000060",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991briansharplespre.htm",
+      "claim": "eBay stated it enabled nearly $80 billion of GMV in 2025.",
+      "summary": "The company-level background provides a scale marker for eBay\u2019s marketplace activity in 2025.",
+      "excerpt": "In 2025, eBay enabled nearly $80 billion of gross merchandise volume.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.7,
+      "related_topics": [
+        "marketplace_scale",
+        "gmv"
+      ],
+      "related_metrics": [
+        "2025 GMV"
+      ],
+      "evidence_tags": [
+        "company_background",
+        "gmv_scale",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment press release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "eBay reported Q1 2026 revenue of $3.1 billion, up 19% as reported and 17% FX-neutral.",
+      "summary": "First-quarter revenue increased at a high-teens rate on both reported and currency-neutral bases.",
+      "excerpt": "Revenue of $3.1 billion, up 19% on an as-reported basis and up 17% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "financial_results",
+        "revenue_growth"
+      ],
+      "related_metrics": [
+        "Revenue",
+        "FX-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "top_line_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "Q1 2026 GMV was $22.2 billion, up 18% as reported and 14% FX-neutral.",
+      "summary": "Marketplace volume growth was strong in the first quarter, with double-digit GMV growth even excluding FX effects.",
+      "excerpt": "Gross Merchandise Volume (\"GMV\") of $22.2 billion, up 18% on an as-reported basis and up 14% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "gmv_growth",
+        "marketplace_activity"
+      ],
+      "related_metrics": [
+        "GMV",
+        "FX-neutral GMV growth"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "gmv",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "Q1 2026 GAAP EPS was $1.12 and non-GAAP EPS was $1.66 from continuing operations.",
+      "summary": "The company reported positive first-quarter earnings on both GAAP and non-GAAP bases.",
+      "excerpt": "GAAP and Non-GAAP earnings per diluted share of $1.12 and $1.66, respectively, on a continuing operations basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "earnings",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP EPS",
+        "Non-GAAP EPS"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "eps",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "Q1 2026 operating margins were 19.8% on a GAAP basis and 29.4% on a non-GAAP basis.",
+      "summary": "The quarter delivered high non-GAAP operating margin alongside double-digit revenue and GMV growth.",
+      "excerpt": "GAAP and Non-GAAP operating margins of 19.8% and 29.4%, respectively",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "margin",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "Non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "operating_margin",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "eBay returned $639 million to stockholders in Q1 2026, including $500 million of repurchases and $139 million of dividends.",
+      "summary": "The company continued significant shareholder returns during the first quarter.",
+      "excerpt": "Returned $639 million to stockholders in Q1, including $500 million of share repurchases and $139 million paid in cash dividends",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "Share repurchases",
+        "Cash dividends",
+        "Total capital returned"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "buybacks",
+        "dividends",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "CEO commentary said Q1 performance was ahead of expectations and driven by Focus Categories, C2C, and recommerce priorities.",
+      "summary": "Management attributed growth momentum to strategic priorities and said eBay strengthened its position with enthusiasts.",
+      "excerpt": "We accelerated GMV growth and delivered performance ahead of expectations. Our Focus Categories, C2C and recommerce strategic priorities are driving broad-based momentum, and strengthening our position as the marketplace of choice for enthusiasts.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "management_commentary",
+        "strategy",
+        "recommerce",
+        "c2c_marketplace",
+        "focus_categories"
+      ],
+      "related_metrics": [
+        "GMV growth"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "strategic_priorities",
+        "management_tone",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    }
+  ],
+  "investor_presentation_evidence": [],
+  "other_sec_8k_evidence": [],
+  "management_guidance": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Management increased full-year top- and bottom-line outlook due to strong business momentum.",
+      "summary": "CFO commentary indicates raised guidance for both revenue and earnings/profitability measures, though the visible excerpt does not include the detailed guidance table.",
+      "excerpt": "Given the strong momentum we are seeing in our business, we are increasing our full-year top- and bottom-line outlook.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "guidance",
+        "management_commentary",
+        "business_momentum"
+      ],
+      "related_metrics": [
+        "Full-year outlook"
+      ],
+      "evidence_tags": [
+        "raised_guidance",
+        "q2_2026",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    }
+  ],
+  "segment_kpis": [],
+  "consensus_narrative": [
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-15",
+      "source_name": "Yahoo",
+      "source_url": "https://finnhub.io/api/news?id=9cf88982db0cb348bb8a8a176e4ff962f70b8055ed23e96147557ae68c0401ec",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Is eBay Stock Outperforming the Dow?",
+      "claim": "Is eBay Stock Outperforming the Dow?",
+      "summary": "eBay has outperformed the Dow over the past year, and analysts are cautiously optimistic about the stock\u2019s prospects.",
+      "excerpt": "eBay has outperformed the Dow over the past year, and analysts are cautiously optimistic about the stock\u2019s prospects.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "news",
+      "ticker": "EBAY",
+      "document_purpose": "news",
+      "source_date": "2026-09-14",
+      "source_name": "Benzinga",
+      "source_url": "https://finnhub.io/api/news?id=cfc8d2be34f3ffd347bf0439350cbd3260c989c0a54c90ab7bb51de0cb4cde3b",
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "StoneX Maintains Buy on eBay, Raises Price Target to $136",
+      "claim": "StoneX Maintains Buy on eBay, Raises Price Target to $136",
+      "summary": "StoneX  analyst Daniel Kurnos   maintains eBay (NASDAQ:EBAY) with a Buy and raises the price target from $134 to $136.",
+      "excerpt": "StoneX  analyst Daniel Kurnos   maintains eBay (NASDAQ:EBAY) with a Buy and raises the price target from $134 to $136.",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.7000000000000001,
+      "related_topics": [
+        "news"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "news",
+        "headline_snippet_only",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from headline/snippet-only news source; full article body unavailable."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS revision context is available.",
+      "summary": "{\"downLast30days\": {\"+1q\": 9, \"+1y\": 4, \"0q\": 12, \"0y\": 5}, \"downLast7Days\": {\"+1q\": 0, \"+1y\": 0, \"0q\": 0, \"0y\": 0}, \"upLast30days\": {\"+1q\": 0, \"+1y\": 9, \"0q\": 1, \"0y\": 9}, \"upLast7days\": {\"+1q\": 0, \"+1y\": 2, \"0q\": 0, \"0y\": 1}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_revisions",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance EPS trend context is available.",
+      "summary": "{\"30daysAgo\": {\"+1q\": 1.46358, \"+1y\": 6.72485, \"0q\": 1.40986, \"0y\": 6.12276}, \"60daysAgo\": {\"+1q\": 1.51589, \"+1y\": 6.75196, \"0q\": 1.45432, \"0y\": 6.12596}, \"7daysAgo\": {\"+1q\": 1.46553, \"+1y\": 6.73289, \"0q\": 1.41113, \"0y\": 6.12668}, \"90daysAgo\": {\"+1q\": 1.51971, \"+1y\": 6.76301, \"0q\": 1.45251, \"0y\": 6.13017}, \"current\": {\"+1q\": 1.46735, \"+1y\": 6.72122, \"0q\": 1.41071, \"0y\": 6.12806}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "eps_trend",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance revenue estimate context is available.",
+      "summary": "{\"avg\": {\"+1q\": 3195884640, \"+1y\": 13344920490, \"0q\": 3103445910, \"0y\": 12504495710}, \"growth\": {\"+1q\": 0.0779, \"+1y\": 0.0672, \"0q\": 0.1005, \"0y\": 0.1265}, \"high\": {\"+1q\": 3285400000, \"+1y\": 13724000000, \"0q\": 3151000000, \"0y\": 12618000000}, \"low\": {\"+1q\": 3095000000, \"+1y\": 12802000000, \"0q\": 2942883240, \"0y\": 12037000000}, \"numberOfAnalysts\": {\"+1q\": 22, \"+1y\": 28, \"0q\": 23, \"0y\": 27}, \"yearAgoRevenue\": {\"+1q\": 2965000000, \"+1y\": 12504495710, \"0q\": 2820000000, \"0y\": 11100000000}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "medium",
+      "relevance_score": 0.65,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "revenue_estimate",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    },
+    {
+      "source_type": "estimate",
+      "ticker": "EBAY",
+      "document_purpose": "estimate",
+      "source_date": null,
+      "source_name": "yfinance analyst estimates",
+      "source_url": null,
+      "accession_number": null,
+      "form_type": null,
+      "exhibit_type": null,
+      "title": "Analyst estimate summary",
+      "claim": "yfinance recommendation summary context is available.",
+      "summary": "{\"buy\": {\"0\": 8, \"1\": 8, \"2\": 6, \"3\": 5}, \"hold\": {\"0\": 17, \"1\": 17, \"2\": 18, \"3\": 19}, \"period\": {\"0\": \"0m\", \"1\": \"-1m\", \"2\": \"-2m\", \"3\": \"-3m\"}, \"sell\": {\"0\": 3, \"1\": 3, \"2\": 2, \"3\": 2}, \"strongBuy\": {\"0\": 4, \"1\": 4, \"2\": 5, \"3\": 5}, \"strongSell\": {\"0\": 0, \"1\": 0, \"2\": 0, \"3\": 0}}",
+      "excerpt": "yfinance analyst estimate context is available.\nTreat this as a low/medium-confidence vendor-derived summary, not full institutional revision history.\n{\n  \"earnings_estimate\": {\n    \"avg\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    },\n    \"growth\": {\n      \"+1q\": 0.040700004,\n      \"+1y\": 0.0968,\n      \"0q\": 0.0373,\n      \"0y\": 0.1102\n    },\n    \"high\": {\n      \"+1q\": 1.53,\n      \"+1y\": 7.39,\n      \"0q\": 1.48,\n      \"0y\": 6.25\n    },\n    \"low\": {\n      \"+1q\": 1.37682,\n      \"+1y\": 6.05,\n      \"0q\": 1.38,\n      \"0y\": 5.93\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 30,\n      \"0q\": 24,\n      \"0y\": 29\n    },\n    \"yearAgoEps\": {\n      \"+1q\": 1.41,\n      \"+1y\": 6.12806,\n      \"0q\": 1.36,\n      \"0y\": 5.52\n    }\n  },\n  \"eps_revisions\": {\n    \"downLast30days\": {\n      \"+1q\": 9,\n      \"+1y\": 4,\n      \"0q\": 12,\n      \"0y\": 5\n    },\n    \"downLast7Days\": {\n      \"+1q\": 0,\n      \"+1y\": 0,\n      \"0q\": 0,\n      \"0y\": 0\n    },\n    \"upLast30days\": {\n      \"+1q\": 0,\n      \"+1y\": 9,\n      \"0q\": 1,\n      \"0y\": 9\n    },\n    \"upLast7days\": {\n      \"+1q\": 0,\n      \"+1y\": 2,\n      \"0q\": 0,\n      \"0y\": 1\n    }\n  },\n  \"eps_trend\": {\n    \"30daysAgo\": {\n      \"+1q\": 1.46358,\n      \"+1y\": 6.72485,\n      \"0q\": 1.40986,\n      \"0y\": 6.12276\n    },\n    \"60daysAgo\": {\n      \"+1q\": 1.51589,\n      \"+1y\": 6.75196,\n      \"0q\": 1.45432,\n      \"0y\": 6.12596\n    },\n    \"7daysAgo\": {\n      \"+1q\": 1.46553,\n      \"+1y\": 6.73289,\n      \"0q\": 1.41113,\n      \"0y\": 6.12668\n    },\n    \"90daysAgo\": {\n      \"+1q\": 1.51971,\n      \"+1y\": 6.76301,\n      \"0q\": 1.45251,\n      \"0y\": 6.13017\n    },\n    \"current\": {\n      \"+1q\": 1.46735,\n      \"+1y\": 6.72122,\n      \"0q\": 1.41071,\n      \"0y\": 6.12806\n    }\n  },\n  \"recommendations_summary\": {\n    \"buy\": {\n      \"0\": 8,\n      \"1\": 8,\n      \"2\": 6,\n      \"3\": 5\n    },\n    \"hold\": {\n      \"0\": 17,\n      \"1\": 17,\n      \"2\": 18,\n      \"3\": 19\n    },\n    \"period\": {\n      \"0\": \"0m\",\n      \"1\": \"-1m\",\n      \"2\": \"-2m\",\n      \"3\": \"-3m\"\n    },\n    \"sell\": {\n      \"0\": 3,\n      \"1\": 3,\n      \"2\": 2,\n      \"3\": 2\n    },\n    \"strongBuy\": {\n      \"0\": 4,\n      \"1\": 4,\n      \"2\": 5,\n      \"3\": 5\n    },\n    \"strongSell\": {\n      \"0\": 0,\n      \"1\": 0,\n      \"2\": 0,\n      \"3\": 0\n    }\n  },\n  \"revenue_estimate\": {\n    \"avg\": {\n      \"+1q\": 3195884640,\n      \"+1y\": 13344920490,\n      \"0q\": 3103445910,\n      \"0y\": 12504495710\n    },\n    \"growth\": {\n      \"+1q\": 0.0779,\n      \"+1y\": 0.0672,\n      \"0q\": 0.1005,\n      \"0y\": 0.1265\n    },\n    \"high\": {\n      \"+1q\": 3285400000,\n      \"+1y\": 13724000000,\n      \"0q\": 3151000000,\n      \"0y\": 12618000000\n    },\n    \"low\": {\n      \"+1q\": 3095000000,\n      \"+1y\": 12802000000,\n      \"0q\": 2942883240,\n      \"0y\": 12037000000\n    },\n    \"numberOfAnalysts\": {\n      \"+1q\": 22,\n      \"+1y\": 28,\n      \"0q\": 23,\n      \"0y\": 27\n    },\n    \"yearAgoRevenue\": {\n      \"+1q\": 2965000000,\n      \"+1y\": 12504495710,\n      \"0q\": 2820000000,\n      \"0y\": 11100000000\n    }\n  },\n  \"upgrades_downgrades\": {\n    \"Action\": {\n      \"2012-03-15 10:02:00\": \"down\",\n      \"2012-03-19 10:09:00\": \"down\",\n      \"2012-03-26 10:20:00\": \"main\",\n      \"2012-04-19 10:13:00\": \"up\",\n      \"2012-04-19 10:21:00\": \"main\",\n      \"2012-04-19 10:25:00\": \"main\",\n      \"2012-04-19 10:27:00\": \"main\",\n      \"2012-04-19 10:39:00\": \"main\",\n      \"2012-04-19 11:04:00\": \"up\",\n      \"2012-04-19 12:37:00\": \"main\",\n      \"2012-05-29 11:03:00\": \"main\",\n      \"2012-06-06 10:58:00\": \"main\",\n      \"2012-06-26 11:23:00\": \"init\",\n      \"2012-07-06 14:02:00\": \"main\",\n      \"2012-07-16 10:49:00\": \"main\",\n      \"2012-07-17 10:29:00\": \"init\",\n      \"2012-07-19 11:26:00\": \"main\",\n      \"2012-07-19 14:09:00\": \"main\",\n      \"2012-07-19 14:21:00\": \"main\",\n      \"2012-07-20 09:49:00\": \"up\"\n    },\n    \"Firm\": {\n      \"2012-03-15 10:02:00\": \"Credit Suisse\",\n      \"2012-03-19 10:09:00\": \"Citigroup\",\n      \"2012-03-26 10:20:00\": \"Morgan Stanley\",\n      \"2012-04-19 10:13:00\": \"Piper Sandler\",\n      \"2012-04-19 10:21:00\": \"Goldman Sachs\",\n      \"2012-04-19 10:25:00\": \"B of A Securities\",\n      \"2012-04-19 10:27:00\": \"JP Morgan\",\n      \"2012-04-19 10:39:00\": \"Canaccord Genuity\",\n      \"2012-04-19 11:04:00\": \"Benchmark\",\n      \"2012-04-19 12:37:00\": \"Stifel\",\n      \"2012-05-29 11:03:00\": \"Morgan Stanley\",\n      \"2012-06-06 10:58:00\": \"JP Morgan\",\n      \"2012-06-26 11:23:00\": \"Needham\",\n      \"2012-07-06 14:02:00\": \"Wedbush\",\n      \"2012-07-16 10:49:00\": \"Wedbush\",\n      \"2012-07-17 10:29:00\": \"Lazard\",\n      \"2012-07-19 11:26:00\": \"Stifel\",\n      \"2012-07-19 14:09:00\": \"B of A Securities\",\n      \"2012-07-19 14:21:00\": \"Canaccord Genuity\",\n      \"2012-07-20 09:49:00\": \"JP Morgan\"\n    },\n    \"FromGrade\": {\n      \"2012-03-15 10:02:00\": \"Outperform\",\n      \"2012-03-19 10:09:00\": \"Buy\",\n      \"2012-03-26 10:20:00\": \"\",\n      \"2012-04-19 10:13:00\": \"Neutral\",\n      \"2012-04-19 10:21:00\": \"\",\n      \"2012-04-19 10:25:00\": \"\",\n      \"2012-04-19 10:27:00\": \"\",\n      \"2012-04-19 10:39:00\": \"\",\n      \"2012-04-19 11:04:00\": \"Hold\",\n      \"2012-04-19 12:37:00\": \"\",\n      \"2012-05-29 11:03:00\": \"\",\n      \"2012-06-06 10:58:00\": \"\",\n      \"2012-06-26 11:23:00\": \"\",\n      \"2012-07-06 14:02:00\": \"\",\n      \"2012-07-16 10:49:00\": \"\",\n      \"2012-07-17 10:29:00\": \"\",\n      \"2012-07-19 11:26:00\": \"\",\n      \"2012-07-19 14:09:00\": \"\",\n      \"2012-07-19 14:21:00\": \"\",\n      \"2012-07-20 09:49:00\": \"Neutral\"\n    },\n    \"ToGrade\": {\n      \"2012-03-15 10:02:00\": \"Neutral\",\n      \"2012-03-19 10:09:00\": \"Neutral\",\n      \"2012-03-26 10:20:00\": \"Overweight\",\n      \"2012-04-19 10:13:00\": \"Overweight\",\n      \"2012-04-19 10:21:00\": \"Buy\",\n      \"2012-04-19 10:25:00\": \"Buy\",\n      \"2012-04-19 10:27:00\": \"Neutral\",\n      \"2012-04-19 10:39:00\": \"Hold\",\n      \"2012-04-19 11:04:00\": \"Buy\",\n      \"2012-04-19 12:37:00\": \"Buy\",\n      \"2012-05-29 11:03:00\": \"Overweight\",\n      \"2012-06-06 10:58:00\": \"Neutral\",\n      \"2012-06-26 11:23:00\": \"Buy\",\n      \"2012-07-06 14:02:00\": \"Outperform\",\n      \"2012-07-16 10:49:00\": \"Outperform\",\n      \"2012-07-17 10:29:00\": \"Buy\",\n      \"2012-07-19 11:26:00\": \"Buy\",\n      \"2012-07-19 14:09:00\": \"Buy\",\n      \"2012-07-19 14:21:00\": \"Hold\",\n      \"2012",
+      "polarity": "neutral",
+      "confidence": "low",
+      "relevance_score": 0.45,
+      "related_topics": [
+        "estimates"
+      ],
+      "related_metrics": [
+        "eps",
+        "revenue",
+        "revisions"
+      ],
+      "evidence_tags": [
+        "estimate",
+        "yfinance",
+        "recommendations",
+        "deterministic_fallback"
+      ],
+      "notes": "Generated from yfinance estimate summary; not a complete institutional estimate-history feed."
+    }
+  ],
+  "bullish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay reported Q2 2026 revenue of $3.1 billion, up 15% as reported and 14% FX-neutral.",
+      "summary": "Top-line growth accelerated in Q2 2026, with revenue rising double digits on both reported and FX-neutral bases.",
+      "excerpt": "Revenue of $3.1 billion, up 15% on an as-reported basis and up 14% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.96,
+      "related_topics": [
+        "financial_results",
+        "revenue_growth"
+      ],
+      "related_metrics": [
+        "Revenue",
+        "FX-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "top_line_growth",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Q2 2026 GMV was $22.4 billion, up 15% as reported and 14% FX-neutral.",
+      "summary": "Marketplace activity grew double digits, indicating broad GMV momentum in the quarter.",
+      "excerpt": "Gross Merchandise Volume (\"GMV\") of $22.4 billion, up 15% on an as-reported basis and up 14% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.95,
+      "related_topics": [
+        "marketplace_activity",
+        "gmv_growth"
+      ],
+      "related_metrics": [
+        "GMV",
+        "FX-neutral GMV growth"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "gmv",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Q2 2026 GAAP EPS was $1.21 and non-GAAP EPS was $1.60 from continuing operations.",
+      "summary": "Earnings per share increased year over year, with GAAP diluted EPS up 56% and non-GAAP diluted EPS up 17% in the tabular disclosure.",
+      "excerpt": "GAAP and Non-GAAP earnings per diluted share of $1.21 and $1.60, respectively, on a continuing operations basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.94,
+      "related_topics": [
+        "earnings",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP EPS",
+        "Non-GAAP EPS",
+        "GAAP net income",
+        "Non-GAAP net income"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "eps_growth",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Q2 2026 operating margins were 21.6% on a GAAP basis and 28.5% on a non-GAAP basis.",
+      "summary": "Operating profitability remained high, with GAAP margin up materially year over year and non-GAAP margin slightly higher.",
+      "excerpt": "GAAP and Non-GAAP operating margins of 21.6% and 28.5%, respectively",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.91,
+      "related_topics": [
+        "margin",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "Non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "operating_margin",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay generated $549 million of operating cash flow and $326 million of free cash flow from continuing operations in Q2 2026.",
+      "summary": "Cash generation remained positive in the quarter, supporting shareholder returns and investment capacity.",
+      "excerpt": "Generated $549 million of operating cash flow and $326 million of free cash flow from continuing operations.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "cash_flow",
+        "liquidity"
+      ],
+      "related_metrics": [
+        "Operating cash flow",
+        "Free cash flow"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "free_cash_flow",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay returned $448 million to stockholders in Q2 2026 through repurchases and dividends.",
+      "summary": "Capital returns included $310 million of share repurchases and $138 million of cash dividends.",
+      "excerpt": "Returned $448 million to stockholders in Q2, including $310 million of share repurchases and $138 million paid in cash dividends",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "Share repurchases",
+        "Cash dividends",
+        "Total capital returned"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "buybacks",
+        "dividends",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Advertising revenue reached $596 million in Q2 2026, with first-party advertising revenue up 25% as reported.",
+      "summary": "Advertising monetization continued to grow faster than overall GMV and revenue, representing 2.7% of GMV.",
+      "excerpt": "The company's total advertising offerings generated $596 million of revenue in the second quarter of 2026, representing 2.7% of GMV. First-party advertising products on the eBay platform delivered $570 million of revenue in the second quarter of 2026, up 25% on an as-reported basis and up 24% on an FX-Neutral basis.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "advertising",
+        "monetization"
+      ],
+      "related_metrics": [
+        "Advertising revenue",
+        "Advertising revenue as percentage of GMV",
+        "First-party advertising revenue"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "advertising_growth",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "Management increased full-year top- and bottom-line outlook due to strong business momentum.",
+      "summary": "CFO commentary indicates raised guidance for both revenue and earnings/profitability measures, though the visible excerpt does not include the detailed guidance table.",
+      "excerpt": "Given the strong momentum we are seeing in our business, we are increasing our full-year top- and bottom-line outlook.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "guidance",
+        "management_commentary",
+        "business_momentum"
+      ],
+      "related_metrics": [
+        "Full-year outlook"
+      ],
+      "evidence_tags": [
+        "raised_guidance",
+        "q2_2026",
+        "earnings_release",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay closed its acquisition of Depop on July 30, 2026 to strengthen its circular fashion and recommerce position.",
+      "summary": "The Depop acquisition adds a C2C fashion marketplace with Gen Z and Millennial engagement to eBay\u2019s recommerce strategy.",
+      "excerpt": "On July 30, 2026, eBay closed its acquisition of Depop Limited (Depop), a leading consumer-to-consumer (C2C) fashion marketplace with a highly engaged Gen Z and Millennial audience, strengthening eBay\u2019s leadership in circular fashion and recommerce.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "m&a",
+        "recommerce",
+        "c2c_marketplace",
+        "fashion"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "depop_acquisition",
+        "strategic_priority",
+        "q2_2026",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay Live GMV grew roughly eight times year over year across seven markets in Q2 2026.",
+      "summary": "The live commerce initiative showed rapid growth and broadened engagement across categories and markets.",
+      "excerpt": "eBay Live posted another record quarter, with GMV growing by roughly eight times year-over-year across its seven markets.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.84,
+      "related_topics": [
+        "live_commerce",
+        "gmv_growth",
+        "product_innovation"
+      ],
+      "related_metrics": [
+        "eBay Live GMV growth"
+      ],
+      "evidence_tags": [
+        "q2_2026",
+        "ebay_live",
+        "growth_initiative",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "earnings_release",
+      "source_date": "2026-08-05",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000174/exhibit991erebayq22026.htm",
+      "accession_number": "0001065088-26-000174",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq22026.htm",
+      "claim": "eBay expanded Authenticity Guarantee coverage and integrated Enquirus to improve buyer confidence in luxury resale.",
+      "summary": "Trust and authentication investments continued in fashion and luxury watches across the U.S., U.K. and Germany.",
+      "excerpt": "eBay expanded coverage of Authenticity Guarantee to more than 100 fashion brands in the U.S. and U.K. The company also integrated Enquirus, the trusted global database of registered luxury watches, across the U.S., U.K. and Germany, strengthening buyer confidence in eBay\u2019s luxury resale offering.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.79,
+      "related_topics": [
+        "trust",
+        "authentication",
+        "luxury_resale",
+        "fashion"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "authenticity_guarantee",
+        "buyer_confidence",
+        "q2_2026",
+        "document_purpose:earnings_release",
+        "classification_confidence:high"
+      ],
+      "notes": "Classified as earnings release because Item 2.02 and/or multiple financial-results markers dominate the exhibit."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "accession_number": "0001065088-26-000060",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991briansharplespre.htm",
+      "claim": "eBay highlighted Sharples\u2019 experience building and scaling technology-driven marketplaces.",
+      "summary": "The board chair described Sharples\u2019 background as relevant to eBay\u2019s marketplace strategy and shareholder value creation.",
+      "excerpt": "His track record of building category-defining platforms, scaling global operations, and guiding innovative companies as an operator and board leader makes him uniquely qualified to help steer our next chapter of growth. Brian brings to eBay a deep understanding of technology-driven marketplaces, a disciplined approach to strategy, and a steadfast commitment to customers and shareholders that will strengthen our long-term value creation.",
+      "polarity": "supports",
+      "confidence": "medium",
+      "relevance_score": 0.68,
+      "related_topics": [
+        "governance",
+        "strategy",
+        "marketplace_expertise"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "board_expertise",
+        "management_commentary",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment press release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-03-24",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000060/exhibit991briansharplespre.htm",
+      "accession_number": "0001065088-26-000060",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991briansharplespre.htm",
+      "claim": "eBay stated it enabled nearly $80 billion of GMV in 2025.",
+      "summary": "The company-level background provides a scale marker for eBay\u2019s marketplace activity in 2025.",
+      "excerpt": "In 2025, eBay enabled nearly $80 billion of gross merchandise volume.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.7,
+      "related_topics": [
+        "marketplace_scale",
+        "gmv"
+      ],
+      "related_metrics": [
+        "2025 GMV"
+      ],
+      "evidence_tags": [
+        "company_background",
+        "gmv_scale",
+        "document_purpose:stress_test",
+        "classification_confidence:high"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is a board appointment press release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "eBay reported Q1 2026 revenue of $3.1 billion, up 19% as reported and 17% FX-neutral.",
+      "summary": "First-quarter revenue increased at a high-teens rate on both reported and currency-neutral bases.",
+      "excerpt": "Revenue of $3.1 billion, up 19% on an as-reported basis and up 17% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "financial_results",
+        "revenue_growth"
+      ],
+      "related_metrics": [
+        "Revenue",
+        "FX-neutral revenue growth"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "top_line_growth",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "Q1 2026 GMV was $22.2 billion, up 18% as reported and 14% FX-neutral.",
+      "summary": "Marketplace volume growth was strong in the first quarter, with double-digit GMV growth even excluding FX effects.",
+      "excerpt": "Gross Merchandise Volume (\"GMV\") of $22.2 billion, up 18% on an as-reported basis and up 14% on an FX-Neutral basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.93,
+      "related_topics": [
+        "gmv_growth",
+        "marketplace_activity"
+      ],
+      "related_metrics": [
+        "GMV",
+        "FX-neutral GMV growth"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "gmv",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "Q1 2026 GAAP EPS was $1.12 and non-GAAP EPS was $1.66 from continuing operations.",
+      "summary": "The company reported positive first-quarter earnings on both GAAP and non-GAAP bases.",
+      "excerpt": "GAAP and Non-GAAP earnings per diluted share of $1.12 and $1.66, respectively, on a continuing operations basis",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "earnings",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP EPS",
+        "Non-GAAP EPS"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "eps",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "Q1 2026 operating margins were 19.8% on a GAAP basis and 29.4% on a non-GAAP basis.",
+      "summary": "The quarter delivered high non-GAAP operating margin alongside double-digit revenue and GMV growth.",
+      "excerpt": "GAAP and Non-GAAP operating margins of 19.8% and 29.4%, respectively",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.89,
+      "related_topics": [
+        "margin",
+        "profitability"
+      ],
+      "related_metrics": [
+        "GAAP operating margin",
+        "Non-GAAP operating margin"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "operating_margin",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "eBay returned $639 million to stockholders in Q1 2026, including $500 million of repurchases and $139 million of dividends.",
+      "summary": "The company continued significant shareholder returns during the first quarter.",
+      "excerpt": "Returned $639 million to stockholders in Q1, including $500 million of share repurchases and $139 million paid in cash dividends",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.88,
+      "related_topics": [
+        "capital_allocation",
+        "shareholder_returns"
+      ],
+      "related_metrics": [
+        "Share repurchases",
+        "Cash dividends",
+        "Total capital returned"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "buybacks",
+        "dividends",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "stress_test",
+      "source_date": "2026-04-29",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000106508826000092/exhibit991erebayq12026.htm",
+      "accession_number": "0001065088-26-000092",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: exhibit991erebayq12026.htm",
+      "claim": "CEO commentary said Q1 performance was ahead of expectations and driven by Focus Categories, C2C, and recommerce priorities.",
+      "summary": "Management attributed growth momentum to strategic priorities and said eBay strengthened its position with enthusiasts.",
+      "excerpt": "We accelerated GMV growth and delivered performance ahead of expectations. Our Focus Categories, C2C and recommerce strategic priorities are driving broad-based momentum, and strengthening our position as the marketplace of choice for enthusiasts.",
+      "polarity": "supports",
+      "confidence": "high",
+      "relevance_score": 0.86,
+      "related_topics": [
+        "management_commentary",
+        "strategy",
+        "recommerce",
+        "c2c_marketplace",
+        "focus_categories"
+      ],
+      "related_metrics": [
+        "GMV growth"
+      ],
+      "evidence_tags": [
+        "q1_2026",
+        "strategic_priorities",
+        "management_tone",
+        "document_purpose:stress_test",
+        "classification_confidence:medium"
+      ],
+      "notes": "SourceDocument.document_purpose is stress_test, but the source text is an earnings release and contains no stress-test metrics."
+    }
+  ],
+  "bearish_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "TD Securities\u2019 financing confidence depended on investment-grade ratings, due diligence, definitive documentation, approvals, and absence of material adverse changes.",
+      "summary": "The contemplated financing was subject to numerous transaction and market conditions, limiting certainty of deal execution.",
+      "excerpt": "TD Securities\u2019 expression of confidence assumes, amongst other things, as determined in TD Securities\u2019 sole discretion: (i) expected investment grade corporate credit ratings or investment grade unsecured public debt ratings from at least two of S&P, Moody\u2019s or Fitch pro forma for the Transaction; (ii) satisfactory completion of our due diligence of the Target; (iii) receipt of satisfactory financial projections prepared by the Company; (iv) the accuracy and completeness of all information, whether oral or written, provided by the Company and/or the Target to TD Securities; (v) negotiation, execution and delivery of satisfactory definitive documentation for the Transaction and satisfactory completion of all conditions precedent therein; (vi) receipt of all necessary governmental approvals;",
+      "polarity": "challenges",
+      "confidence": "medium",
+      "relevance_score": 0.82,
+      "related_topics": [
+        "deal_risk",
+        "regulatory_approval",
+        "financing_conditions",
+        "m&a"
+      ],
+      "related_metrics": [
+        "Credit ratings"
+      ],
+      "evidence_tags": [
+        "conditional_financing",
+        "execution_risk",
+        "potential_transaction",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "TD Securities explicitly stated the letter was not a financing commitment or undertaking.",
+      "summary": "The document limits reliance on the financing letter and underscores that no underwriting, lending, or arranging commitment had been made.",
+      "excerpt": "This letter is not intended to be, and shall not constitute, a commitment or undertaking by TD Securities or any of its affiliates to underwrite, lend or arrange financing with respect to the Transaction or otherwise.",
+      "polarity": "challenges",
+      "confidence": "high",
+      "relevance_score": 0.85,
+      "related_topics": [
+        "deal_financing",
+        "execution_risk",
+        "m&a"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "non_binding",
+        "no_commitment",
+        "potential_transaction",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Classified as strategic transaction because merger/acquisition/divestiture/RMT/deal terms dominate the document."
+    }
+  ],
+  "mixed_evidence": [
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "GameStop had discussed with TD Securities that it was contemplating an acquisition of or business combination with eBay.",
+      "summary": "The document describes a potential transaction involving GameStop and eBay, but does not state that a definitive agreement existed.",
+      "excerpt": "GameStop Corp. (the \u201c Company \u201d or \u201c you \u201d) has previously discussed with TD Securities (USA) LLC (\u201c TD Securities \u201d, \u201c we \u201d or \u201c us \u201d) that it is currently contemplating the acquisition of or other business combination with eBay Inc. (the \u201c Target \u201d) (such contemplated transaction, the \u201c Transaction \u201d).",
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.9,
+      "related_topics": [
+        "strategic_transaction",
+        "potential_acquisition",
+        "m&a"
+      ],
+      "related_metrics": [],
+      "evidence_tags": [
+        "potential_transaction",
+        "non_definitive",
+        "project_sling",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Evidence supports the existence of a contemplated transaction discussion, not a signed acquisition agreement."
+    },
+    {
+      "source_type": "sec_8k_exhibit",
+      "ticker": "EBAY",
+      "document_purpose": "strategic_transaction",
+      "source_date": "2026-05-12",
+      "source_name": "SEC EDGAR",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1065088/000155278126000322/e26249_ex99-1.htm",
+      "accession_number": "0001552781-26-000322",
+      "form_type": "8-K",
+      "exhibit_type": "99.1",
+      "title": "8-K exhibit: e26249_ex99-1.htm",
+      "claim": "TD Securities said it was highly confident GameStop could raise up to $20.0 billion of funded debt to support the contemplated eBay transaction.",
+      "summary": "The financing letter indicates potential debt capacity for a portion of the contemplated transaction, subject to assumptions and conditions.",
+      "excerpt": "TD Securities is highly confident that funded debt of up to $20.0 billion could be raised by the Company in the bank and capital markets to support the effectuation of the Transaction.",
+      "polarity": "mixed",
+      "confidence": "medium",
+      "relevance_score": 0.87,
+      "related_topics": [
+        "deal_financing",
+        "m&a",
+        "capital_markets"
+      ],
+      "related_metrics": [
+        "Potential funded debt"
+      ],
+      "evidence_tags": [
+        "financing_confidence_letter",
+        "potential_transaction",
+        "debt_financing",
+        "document_purpose:strategic_transaction",
+        "classification_confidence:medium"
+      ],
+      "notes": "Financing confidence was conditional and non-binding."
+    }
+  ],
+  "unresolved_questions": [
+    "Several supplied documents are visibly truncated in the prompt; extraction was limited to the provided text.",
+    "The Q1 2026 source text appears to be an earnings release, but SourceDocument.document_purpose is stress_test; no CET1, SCB, RWA, PPNR, provisions, or stress-test metrics were present in the supplied text.",
+    "The March 2026 board appointment source text contains governance information, but SourceDocument.document_purpose is stress_test; no stress-test or regulatory-capital metrics were present in the supplied text."
+  ],
+  "data_gaps": [
+    "Peer commentary retrieval skipped or unavailable in v1.",
+    "Several supplied documents are visibly truncated in the prompt; extraction was limited to the provided text.",
+    "The Q1 2026 source text appears to be an earnings release, but SourceDocument.document_purpose is stress_test; no CET1, SCB, RWA, PPNR, provisions, or stress-test metrics were present in the supplied text.",
+    "The March 2026 board appointment source text contains governance information, but SourceDocument.document_purpose is stress_test; no stress-test or regulatory-capital metrics were present in the supplied text."
+  ],
+  "warnings": [
+    "Dropped 23 duplicate or lower-quality source documents before evidence extraction.",
+    "Evidence extractor returned no news evidence; used deterministic headline/snippet fallback.",
+    "Evidence extractor returned no estimate evidence; used deterministic estimate fallback.",
+    "Document purposes were preserved exactly as supplied, including stress_test for documents whose text did not contain stress-test disclosures.",
+    "The May 2026 strategic-transaction evidence describes a contemplated GameStop/eBay transaction and non-binding financing confidence letter; it should not be read as evidence of a definitive acquisition agreement."
+  ],
+  "raw_source_count": 47,
+  "evidence_item_count": 38
+}
