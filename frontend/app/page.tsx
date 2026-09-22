@@ -197,14 +197,6 @@ export default function HomePage() {
             </p>
             <div className="helix-hero-actions">
               <Link href="/narrative" className="helix-button-primary">Explore Helix</Link>
-              <Link href="/how-it-works" className="helix-button-secondary">
-                See How it Works
-                <span className="helix-button-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                    <path d="M8 5v14l11-7L8 5Z" />
-                  </svg>
-                </span>
-              </Link>
             </div>
             <div className="helix-trust-row">
               <div className="helix-trust-item">
@@ -261,7 +253,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="helix-feature-grid" id="pricing">
+        <section className="helix-feature-grid">
           {[
             ['Narrative Map', 'See the full landscape of market narratives and how they evolve over time.', 'book'],
             ['Price Confirmation', 'Validate narratives with real price behavior across multiple timeframes.', 'trend'],

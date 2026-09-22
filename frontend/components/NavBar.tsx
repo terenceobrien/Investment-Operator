@@ -52,13 +52,8 @@ const more: NavItem[] = [
   { href: '/narrative', label: 'Narrative engine' },
   { href: '/state', label: 'Market state' },
   { href: '/markets', label: 'Prices' },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/history', label: 'Market memory' },
-  { href: '/strategy', label: 'Custom strategy' },
   { href: '/prediction-markets', label: 'Prediction markets' },
   { href: '/agent-system', label: 'Agent system' },
-  { href: '/how-it-works', label: 'Methodology' },
-  { href: '/#pricing', label: 'Pricing' },
 ];
 
 function itemIsActive(pathname: string, href: string): boolean {
