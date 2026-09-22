@@ -183,7 +183,7 @@ function normalizeReport(raw: unknown, ticker: string): ViewReport {
 }
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: M.mono,
+  fontFamily: M.sans,
   fontSize: 10.5,
   letterSpacing: '0.18em',
   textTransform: 'uppercase',
@@ -195,8 +195,8 @@ function Panel({ label, meta, children, tone }: { label: string; meta?: string; 
   const bg = tone === 'accent' ? M.accentSoft : tone === 'risk' ? M.dangerWell : M.card;
   const border = tone === 'risk' ? `${M.neg}66` : M.line;
   return (
-    <section style={{ background: bg, border: `1px solid ${border}`, borderRadius: 5, overflow: 'hidden', boxShadow: M.shadow }}>
-      <div style={{ padding: 24 }}>
+    <section style={{ background: bg, border: `1px solid ${border}`, borderRadius: M.radius, overflow: 'hidden', boxShadow: M.shadow }}>
+      <div style={{ padding: 18 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, marginBottom: 18 }}>
           <span style={{ fontFamily: M.serif, fontSize: 19, fontWeight: 500, color: M.ink, letterSpacing: '-0.02em' }}>{label}</span>
           {meta ? <span style={{ ...labelStyle, color: M.inkFaint, letterSpacing: '0.08em' }}>{meta}</span> : null}
@@ -207,11 +207,11 @@ function Panel({ label, meta, children, tone }: { label: string; meta?: string; 
   );
 }
 function Chip({ children, color = M.accentBright }: { children: React.ReactNode; color?: string }) {
-  return <span style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.06em', textTransform: 'uppercase', color, background: color === M.accentBright ? M.accentSoft : `${color}22`, border: `1px solid ${color}55`, borderRadius: 999, padding: '5px 10px', fontWeight: 600 }}>{children}</span>;
+  return <span style={{ fontFamily: M.sans, fontSize: 10.5, letterSpacing: '0.06em', textTransform: 'uppercase', color, background: color === M.accentBright ? M.accentSoft : `${color}22`, border: `1px solid ${color}55`, borderRadius: M.controlRadius, padding: '3px 7px', fontWeight: 600 }}>{children}</span>;
 }
 function Meter({ value, color = M.accent }: { value: number | null; color?: string }) {
   const width = value === null ? 0 : Math.max(0, Math.min(100, value));
-  return <div style={{ height: 7, background: M.well, borderRadius: 999, overflow: 'hidden' }}><div style={{ height: '100%', width: `${width}%`, background: color, borderRadius: 999 }} /></div>;
+  return <div style={{ height: 3, background: M.well, borderRadius: M.controlRadius, overflow: 'hidden' }}><div style={{ height: '100%', width: `${width}%`, background: color, borderRadius: M.controlRadius }} /></div>;
 }
 
 export default function CompanyPage() {
@@ -270,12 +270,12 @@ export default function CompanyPage() {
 
   return (
     <main className="helix-research-workspace" style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1440px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 48px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ width: 'min(1440px, calc(100% - 40px))', margin: '0 auto', padding: '18px 0 40px', display: 'flex', flexDirection: 'column', gap: 14 }}>
         <header style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(330px, 0.34fr)', gap: 28, alignItems: 'start' }} className="research-header-grid">
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 12 }}>COMPANY RESEARCH &gt; {report.ticker}</div>
+            <div style={{ fontFamily: M.sans, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 12 }}>COMPANY RESEARCH &gt; {report.ticker}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 13, flexWrap: 'wrap' }}>
-              <h1 style={{ fontFamily: M.serif, fontSize: 42, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>{report.name}</h1>
+              <h1 style={{ fontFamily: M.serif, fontSize: 36, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>{report.name}</h1>
               <Chip>{report.ticker}</Chip>
             </div>
             <div style={{ marginTop: 16, display: 'flex', gap: 14, flexWrap: 'wrap', color: M.canvasInkDim, fontSize: 14 }}>
@@ -285,7 +285,7 @@ export default function CompanyPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 20, alignItems: 'end' }}>
             <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <span style={{ ...labelStyle, color: M.canvasInkFaint }}>Coverage</span>
-              <select value={ticker} onChange={(event) => setTicker(event.target.value)} style={{ width: '100%', background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 5, color: M.ink, padding: '12px 14px', fontFamily: M.sans, fontSize: 14, outline: 'none', boxShadow: M.shadow }}>
+              <select value={ticker} onChange={(event) => setTicker(event.target.value)} style={{ width: '100%', background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: M.radius, color: M.ink, padding: '12px 14px', fontFamily: M.sans, fontSize: 14, outline: 'none', boxShadow: M.shadow }}>
                 {coverage.map((entry) => (
                   <option key={entry.ticker} value={entry.ticker}>{entry.ticker} — {entry.name || entry.ticker}</option>
                 ))}
@@ -293,7 +293,7 @@ export default function CompanyPage() {
             </label>
             <div style={{ borderLeft: `1px solid ${M.line}`, paddingLeft: 20, minWidth: 116 }}>
               <div style={{ ...labelStyle, color: M.canvasInkFaint }}>Last updated</div>
-              <div style={{ marginTop: 10, fontFamily: M.mono, fontSize: 12, color: M.canvasInkDim }}>{report.asOf}</div>
+              <div style={{ marginTop: 10, fontFamily: M.sans, fontSize: 12, color: M.canvasInkDim }}>{report.asOf}</div>
             </div>
           </div>
         </header>
@@ -306,7 +306,7 @@ export default function CompanyPage() {
             <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 9 }}>
               {(report.monitoring.length ? report.monitoring : report.keyRisks).slice(0, 3).map((item, index) => (
                 <div key={`${item}-${index}`} style={{ display: 'flex', gap: 9, color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>
-                  <span style={{ color: M.accentBright, fontFamily: M.mono }}>◎</span>
+                  <span style={{ color: M.accentBright, fontFamily: M.sans }}>◎</span>
                   <span>{item}</span>
                 </div>
               ))}
@@ -369,16 +369,16 @@ function Meta({ label, value }: { label: string; value: string }) {
   return <div style={{ padding: '12px 18px', borderRight: `1px solid ${M.line}` }}><div style={labelStyle}>{label}</div><div style={{ marginTop: 6, color: M.ink, fontSize: 13, fontWeight: 600 }}>{value}</div></div>;
 }
 function TextCallout({ children }: { children: React.ReactNode }) {
-  return <div style={{ minHeight: 116, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16, color: M.ink, fontFamily: M.serif, fontSize: 20, lineHeight: 1.25 }}>{children}</div>;
+  return <div style={{ minHeight: 116, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 16, color: M.ink, fontFamily: M.serif, fontSize: 20, lineHeight: 1.25 }}>{children}</div>;
 }
 function FactorRow({ label, value }: { label: string; value: number | null }) {
-  return <div><div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, color: M.inkDim, fontSize: 12 }}><span>{label}</span><span style={{ fontFamily: M.mono }}>{value === null ? '—' : value.toFixed(0)}</span></div><Meter value={value} color={(value ?? 0) >= 70 ? M.accentBright : M.warn} /></div>;
+  return <div><div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, color: M.inkDim, fontSize: 12 }}><span>{label}</span><span style={{ fontFamily: M.sans }}>{value === null ? '—' : value.toFixed(0)}</span></div><Meter value={value} color={(value ?? 0) >= 70 ? M.accentBright : M.warn} /></div>;
 }
 function BulletList({ items }: { items: string[] }) {
   return <ul style={{ margin: 0, paddingLeft: 18, color: M.inkDim, lineHeight: 1.5, fontSize: 13 }}>{items.map((item, idx) => <li key={`${item}-${idx}`} style={{ marginBottom: 8 }}>{item}</li>)}</ul>;
 }
 function VariantBox({ title, text, color }: { title: string; text: string; color: string }) {
-  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 10 }}>{title}</div><p style={{ margin: 0, color: M.inkDim, lineHeight: 1.5, fontSize: 13.5 }}>{text}</p></div>;
+  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 10 }}>{title}</div><p style={{ margin: 0, color: M.inkDim, lineHeight: 1.5, fontSize: 13.5 }}>{text}</p></div>;
 }
 
 function ScoreSummary({ report }: { report: ViewReport }) {
@@ -386,22 +386,22 @@ function ScoreSummary({ report }: { report: ViewReport }) {
   const confidenceLevel = report.confidence.toLowerCase();
   const confidenceBlocks = confidenceLevel.includes('high') ? 4 : confidenceLevel.includes('medium') ? 3 : confidenceLevel.includes('low') ? 2 : 1;
   return (
-    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: M.shadow, overflow: 'hidden', marginTop: 10 }}>
+    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: M.radius, boxShadow: M.shadow, overflow: 'hidden', marginTop: 10 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr 1fr 0.68fr' }} className="score-strip">
-        <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
+        <div style={{ padding: '17px 20px', borderRight: `1px solid ${M.line}` }}>
           <div style={labelStyle}>Helix research score</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, margin: '10px 0 8px' }}>
             <span style={{ fontFamily: M.serif, fontSize: 48, lineHeight: 1, color: M.ink }}>{report.score === null ? '—' : report.score.toFixed(1)}</span>
-            <span style={{ fontFamily: M.mono, fontSize: 13, color: M.inkFaint }}>/ 100</span>
+            <span style={{ fontFamily: M.sans, fontSize: 13, color: M.inkFaint }}>/ 100</span>
           </div>
           <Meter value={report.score} color={M.accentBright} />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, color: M.inkFaint, fontSize: 12 }}>
             <span>Underwriting score</span>
-            <span style={{ fontFamily: M.mono }}>{Math.max(0, Math.min(100, score)).toFixed(0)}/100</span>
+            <span style={{ fontFamily: M.sans }}>{Math.max(0, Math.min(100, score)).toFixed(0)}/100</span>
           </div>
         </div>
         <SummaryCell label="Verdict" title={report.verdict} sub={report.score !== null ? 'Reassess if score ≥ 80' : 'Latest report verdict'} accent={M.pos} />
-        <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
+        <div style={{ padding: '17px 20px', borderRight: `1px solid ${M.line}` }}>
           <div style={labelStyle}>Confidence</div>
           <div style={{ marginTop: 12, fontFamily: M.serif, fontSize: 25, color: M.ink, lineHeight: 1.05 }}>{titleCase(report.confidence)}</div>
           <div style={{ color: M.inkFaint, fontSize: 12, marginTop: 8 }}>Conviction in thesis</div>
@@ -409,10 +409,10 @@ function ScoreSummary({ report }: { report: ViewReport }) {
             {[0, 1, 2, 3].map((idx) => <span key={idx} style={{ width: 14, height: 8, borderRadius: 2, background: idx < confidenceBlocks ? M.pos : M.line2 }} />)}
           </div>
         </div>
-        <div style={{ padding: '22px 28px' }}>
+        <div style={{ padding: '17px 20px' }}>
           <div style={labelStyle}>As of</div>
-          <div style={{ marginTop: 15, color: M.pos, fontFamily: M.mono, fontSize: 14 }}>{report.asOf}</div>
-          <div style={{ color: M.inkFaint, fontFamily: M.mono, fontSize: 11, marginTop: 18 }}>{report.horizon} horizon</div>
+          <div style={{ marginTop: 15, color: M.pos, fontFamily: M.sans, fontSize: 14 }}>{report.asOf}</div>
+          <div style={{ color: M.inkFaint, fontFamily: M.sans, fontSize: 11, marginTop: 18 }}>{report.horizon} horizon</div>
         </div>
       </div>
       <style>{`
@@ -425,11 +425,11 @@ function ScoreSummary({ report }: { report: ViewReport }) {
 
 function SummaryCell({ label, title, sub, accent }: { label: string; title: string; sub: string; accent: string }) {
   return (
-    <div style={{ padding: '22px 28px', borderRight: `1px solid ${M.line}` }}>
+    <div style={{ padding: '17px 20px', borderRight: `1px solid ${M.line}` }}>
       <div style={labelStyle}>{label}</div>
       <div style={{ marginTop: 12, fontFamily: M.serif, fontSize: 25, color: M.ink, lineHeight: 1.05 }}>{title}</div>
       <div style={{ color: M.inkFaint, fontSize: 12, marginTop: 8 }}>{sub}</div>
-      <div style={{ width: 38, height: 3, borderRadius: 999, background: accent, marginTop: 20 }} />
+      <div style={{ width: 38, height: 3, borderRadius: M.controlRadius, background: accent, marginTop: 20 }} />
     </div>
   );
 }
@@ -438,16 +438,16 @@ function TrendCard({ kpi, index }: { kpi: ViewReport['kpis'][number]; index: num
   const lower = kpi.value.toLowerCase();
   const color = lower.includes('improv') || lower.includes('positive') || lower.includes('favorable') ? M.pos : lower.includes('deterior') || lower.includes('negative') || lower.includes('pressure') ? M.neg : M.accentBright;
   return (
-    <div style={{ minHeight: 182, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <div style={{ minHeight: 148, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'center' }}>
-          <div style={{ width: 42, height: 42, borderRadius: '50%', background: M.accentSoft, color: M.accentBright, display: 'grid', placeItems: 'center', fontFamily: M.mono, fontSize: 14 }}>{String(index + 1).padStart(2, '0')}</div>
+          <div style={{ width: 42, height: 42, borderRadius: '50%', background: M.accentSoft, color: M.accentBright, display: 'grid', placeItems: 'center', fontFamily: M.sans, fontSize: 14 }}>{String(index + 1).padStart(2, '0')}</div>
           <div style={{ color: M.inkDim, fontSize: 12, textAlign: 'right' }}>{kpi.label}</div>
         </div>
         <div style={{ fontFamily: M.serif, fontSize: 23, color: M.ink, marginTop: 14, lineHeight: 1.05 }}>{kpi.value}</div>
       </div>
       <div>
-        <div style={{ width: 42, height: 3, borderRadius: 999, background: color, marginTop: 14 }} />
+        <div style={{ width: 42, height: 3, borderRadius: M.controlRadius, background: color, marginTop: 14 }} />
         <div style={{ fontSize: 12, color: M.inkFaint, lineHeight: 1.35, marginTop: 11 }}>{kpi.sub}</div>
       </div>
     </div>
@@ -459,7 +459,7 @@ function MetricWatchlist({ items }: { items: string[] }) {
     <div style={{ margin: '0 -24px -24px' }}>
       {items.slice(0, 7).map((item, index) => (
         <div key={`${item}-${index}`} style={{ display: 'grid', gridTemplateColumns: '34px minmax(0, 1fr)', gap: 12, padding: '11px 24px', borderTop: index ? `1px solid ${M.line}` : 'none', alignItems: 'center' }}>
-          <span style={{ color: M.accentBright, fontFamily: M.mono, fontSize: 11 }}>{String(index + 1).padStart(2, '0')}</span>
+          <span style={{ color: M.accentBright, fontFamily: M.sans, fontSize: 11 }}>{String(index + 1).padStart(2, '0')}</span>
           <span style={{ color: M.inkDim, fontSize: 13, lineHeight: 1.35 }}>{item}</span>
         </div>
       ))}
@@ -469,8 +469,8 @@ function MetricWatchlist({ items }: { items: string[] }) {
 
 function RiskItem({ text, index }: { text: string; index: number }) {
   return (
-    <div style={{ background: 'rgba(241, 109, 100, 0.08)', border: `1px solid ${M.neg}22`, borderRadius: 5, padding: '15px 16px', display: 'grid', gridTemplateColumns: '38px minmax(0, 1fr) auto', gap: 12, alignItems: 'center' }}>
-      <div style={{ width: 32, height: 32, borderRadius: '50%', border: `1px solid ${M.neg}88`, color: M.neg, display: 'grid', placeItems: 'center', fontFamily: M.mono, fontSize: 12 }}>!</div>
+    <div style={{ background: 'rgba(241, 109, 100, 0.08)', border: `1px solid ${M.neg}22`, borderRadius: M.radius, padding: '15px 16px', display: 'grid', gridTemplateColumns: '38px minmax(0, 1fr) auto', gap: 12, alignItems: 'center' }}>
+      <div style={{ width: 32, height: 32, borderRadius: '50%', border: `1px solid ${M.neg}88`, color: M.neg, display: 'grid', placeItems: 'center', fontFamily: M.sans, fontSize: 12 }}>!</div>
       <div style={{ color: M.ink, fontSize: 13, lineHeight: 1.42 }}>{text}</div>
       <Chip color={index === 0 ? M.neg : M.warn}>{index === 0 ? 'Active falsifier' : 'Risk'}</Chip>
     </div>

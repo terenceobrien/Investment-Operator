@@ -313,11 +313,11 @@ export default function ResearchCyclePage() {
 
   return (
     <main className="helix-research-workspace" style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1180px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 48px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <div style={{ width: 'min(1180px, calc(100% - 40px))', margin: '0 auto', padding: '18px 0 40px', display: 'flex', flexDirection: 'column', gap: M.sectionGap }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; MANUAL THESIS</div>
-            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Current manual thesis</h1>
+            <div style={{ fontFamily: M.sans, fontSize: '12px', letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: '10px' }}>RESEARCH CYCLE &gt; MANUAL THESIS</div>
+            <h1 style={{ fontFamily: M.serif, fontSize: '36px', fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Current manual thesis</h1>
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <StatusPill label={phase} />
@@ -336,7 +336,7 @@ export default function ResearchCyclePage() {
             <button onClick={generate} disabled={!canGenerate} style={btnPrimary(!canGenerate)}>
               {busyAction === 'generate' ? 'Generating paid LLM call...' : 'Generate Priority'}
             </button>
-            <span style={{ fontFamily: M.mono, fontSize: '11px', letterSpacing: '0.1em', color: busyAction === 'generate' ? M.warn : M.inkFaint }}>
+            <span style={{ fontFamily: M.sans, fontSize: '11px', letterSpacing: '0.1em', color: busyAction === 'generate' ? M.warn : M.inkFaint }}>
               explicit action only; nothing runs while typing
             </span>
           </div>
@@ -385,7 +385,7 @@ export default function ResearchCyclePage() {
                 <textarea value={questionsText} onChange={(event) => setQuestionsText(event.target.value)} style={textareaStyle(110)} />
               </Field>
               <Field label="Supporting evidence">
-                <textarea value={evidenceText} onChange={(event) => setEvidenceText(event.target.value)} style={{ ...textareaStyle(150), fontFamily: M.mono, fontSize: 12 }} />
+                <textarea value={evidenceText} onChange={(event) => setEvidenceText(event.target.value)} style={{ ...textareaStyle(150), fontFamily: M.sans, fontSize: 12 }} />
               </Field>
               {approvalError ? <div style={warnBanner()}>{approvalError}</div> : null}
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -433,7 +433,7 @@ export default function ResearchCyclePage() {
                 <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderTop: i ? `1px solid ${M.line}` : 'none' }}>
                   <StageIcon state={stageState[i]} />
                   <span style={{ fontFamily: M.sans, fontSize: '13.5px', fontWeight: 600, color: M.ink }}>{name}</span>
-                  <span style={{ marginLeft: 'auto', fontFamily: M.mono, fontSize: 12, color: M.inkFaint }}>
+                  <span style={{ marginLeft: 'auto', fontFamily: M.sans, fontSize: 12, color: M.inkFaint }}>
                     {stageState[i] === 'done' ? detail : stageState[i] === 'running' ? 'running...' : 'queued'}
                   </span>
                 </div>
@@ -456,10 +456,10 @@ function ManualQueue({ priorities }: { priorities: ResearchPriority[] }) {
   return (
     <div style={{ display: 'grid', gap: 10 }}>
       {priorities.map((priority) => (
-        <div key={`${priority.priority_rank}-${priority.theme}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 14 }}>
+        <div key={`${priority.priority_rank}-${priority.theme}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 14 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'baseline' }}>
             <div style={{ fontFamily: M.serif, fontSize: 18, color: M.ink }}>{priority.theme}</div>
-            <div style={{ fontFamily: M.mono, fontSize: 11, color: M.inkFaint }}>rank {priority.priority_rank}</div>
+            <div style={{ fontFamily: M.sans, fontSize: 11, color: M.inkFaint }}>rank {priority.priority_rank}</div>
           </div>
           <div style={{ marginTop: 6, fontFamily: M.sans, fontSize: 12.5, color: M.inkDim }}>
             approved {priority.approved_at ? new Date(priority.approved_at).toLocaleString() : 'date unavailable'}
@@ -473,7 +473,7 @@ function ManualQueue({ priorities }: { priorities: ResearchPriority[] }) {
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label style={{ display: 'grid', gap: 7 }}>
-      <span style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 700 }}>{label}</span>
+      <span style={{ fontFamily: M.sans, fontSize: 10.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 700 }}>{label}</span>
       {children}
     </label>
   );
@@ -481,13 +481,13 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 
 function StepShell({ n, title, active, status, children }: { n: number; title: string; active: boolean; status?: string; children?: ReactNode }) {
   return (
-    <section style={{ background: M.card, border: `1px solid ${active ? M.line2 : M.line}`, borderRadius: 5, overflow: 'hidden', boxShadow: M.shadow, opacity: active ? 1 : 0.48, transition: 'opacity 0.3s, border-color 0.3s' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '17px 22px', borderBottom: `1px solid ${M.line}`, background: 'linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0))' }}>
+    <section style={{ background: M.card, border: `1px solid ${active ? M.line2 : M.line}`, borderRadius: M.radius, overflow: 'hidden', boxShadow: M.shadow, opacity: active ? 1 : 0.48, transition: 'opacity 0.3s, border-color 0.3s' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '13px 18px', borderBottom: `1px solid ${M.line}`, background: 'linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0))' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <span style={{ width: 30, height: 30, borderRadius: '50%', background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: M.mono, fontSize: 12, fontWeight: 600, color: active ? M.accentBright : M.inkFaint }}>{String(n).padStart(2, '0')}</span>
+          <span style={{ width: 30, height: 30, borderRadius: '50%', background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: M.sans, fontSize: 12, fontWeight: 600, color: active ? M.accentBright : M.inkFaint }}>{String(n).padStart(2, '0')}</span>
           <span style={{ fontFamily: M.serif, fontSize: 20, fontWeight: 500, color: M.ink }}>{title}</span>
         </span>
-        {status ? <span style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.1em', color: M.inkFaint, textTransform: 'uppercase' }}>{status}</span> : null}
+        {status ? <span style={{ fontFamily: M.sans, fontSize: 10.5, letterSpacing: '0.1em', color: M.inkFaint, textTransform: 'uppercase' }}>{status}</span> : null}
       </div>
       {children ? <div style={{ padding: 22 }}>{children}</div> : null}
     </section>
@@ -501,31 +501,31 @@ function StageIcon({ state }: { state: 'queued' | 'running' | 'done' }) {
 }
 
 function btnPrimary(disabled: boolean): CSSProperties {
-  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkDim : '#FFFFFF', border: 'none', borderRadius: 5, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
+  return { background: disabled ? M.line2 : M.accent, color: disabled ? M.inkDim : '#FFFFFF', border: 'none', borderRadius: M.radius, padding: '10px 18px', fontFamily: M.sans, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 700, cursor: disabled ? 'default' : 'pointer' };
 }
 
 function btnGhost(): CSSProperties {
-  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: 5, padding: '10px 18px', fontFamily: M.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
+  return { background: M.well, color: M.inkDim, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: '10px 18px', fontFamily: M.sans, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, cursor: 'pointer' };
 }
 
 function inputStyle(): CSSProperties {
-  return { width: '100%', background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '11px 13px', fontFamily: M.sans, fontSize: 14, color: M.ink, outline: 'none' };
+  return { width: '100%', background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: '11px 13px', fontFamily: M.sans, fontSize: 14, color: M.ink, outline: 'none' };
 }
 
 function textareaStyle(minHeight: number): CSSProperties {
-  return { width: '100%', minHeight, resize: 'vertical', background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 14, fontFamily: M.sans, fontSize: 14, color: M.ink, lineHeight: 1.55, outline: 'none' };
+  return { width: '100%', minHeight, resize: 'vertical', background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 14, fontFamily: M.sans, fontSize: 14, color: M.ink, lineHeight: 1.55, outline: 'none' };
 }
 
 function warnBanner(): CSSProperties {
-  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: 5, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.warn };
+  return { background: `${M.warn}18`, border: `1px solid ${M.warn}55`, borderRadius: M.radius, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.warn };
 }
 
 function successBanner(): CSSProperties {
-  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: 5, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.pos };
+  return { background: `${M.pos}18`, border: `1px solid ${M.pos}55`, borderRadius: M.radius, padding: '12px 16px', fontFamily: M.sans, fontSize: 13, color: M.pos };
 }
 
 function yamlBox(): CSSProperties {
-  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16, fontFamily: M.mono, fontSize: 12.5, lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
+  return { background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 16, fontFamily: M.sans, fontSize: 12.5, lineHeight: 1.7, color: M.inkDim, margin: 0, whiteSpace: 'pre-wrap' };
 }
 
 function errorPre(): CSSProperties {
@@ -539,14 +539,14 @@ function mutedText(): CSSProperties {
 function StatusPill({ label }: { label: string }) {
   return (
     <span style={{
-      fontFamily: M.mono,
+      fontFamily: M.sans,
       fontSize: 10.5,
       letterSpacing: '0.12em',
       textTransform: 'uppercase',
       color: M.accentBright,
       background: M.accentSoft,
       border: `1px solid ${M.line2}`,
-      borderRadius: 999,
+      borderRadius: M.controlRadius,
       padding: '7px 11px',
       fontWeight: 600,
     }}>{label}</span>

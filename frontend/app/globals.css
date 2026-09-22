@@ -1123,7 +1123,7 @@ textarea {
   letter-spacing: normal !important;
 }
 .helix-research-workspace :is(button, a, input, select, textarea):focus-visible {
-  outline: 2px solid #164FC4 !important;
+  outline: 2px solid #365D82 !important;
   outline-offset: 3px;
 }
 .helix-research-workspace button:not(:disabled):hover {
@@ -1135,3 +1135,25 @@ textarea {
   outline: 2px solid #C3CBD4;
   outline-offset: 2px;
 }
+
+/* Shared analytical treatments: flat statistics, quiet controls, ruled data. */
+.helix-segmented-control {
+  display: inline-flex;
+  border: 1px solid #C4CBD3;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.helix-segmented-control button { border-radius: 0 !important; }
+.helix-segmented-control button + button { border-left: 1px solid #D5DAE0 !important; }
+.helix-factor-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.helix-factor-table th {
+  font-size: 10px; font-weight: 500; color: #5F6B7A;
+  text-align: left; padding: 0 0 7px;
+}
+.helix-factor-table td { padding: 9px 0; border-top: 1px solid #D5DAE0; }
+.helix-factor-table th:nth-child(2), .helix-factor-table td:nth-child(2) {
+  text-align: right; padding-left: 12px; padding-right: 12px;
+}
+.helix-factor-table th:last-child, .helix-factor-table td:last-child { text-align: right; }
+.macro-stat-list > :last-child, .scenario-card-grid > :last-child { border-right: 0 !important; }
+.scenario-card-grid > * { border-bottom: 1px solid #D5DAE0; }

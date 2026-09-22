@@ -238,13 +238,13 @@ function railItemStyle(active: boolean): React.CSSProperties {
     alignItems: 'center',
     gap: '14px',
     padding: '10px 12px',
-    borderRadius: '5px',
+    borderRadius: 3,
     fontSize: '13px',
     fontWeight: 500,
     textDecoration: 'none',
     color: active ? M.ink : M.inkDim,
     background: active ? '#27313A' : 'transparent',
-    border: `1px solid ${active ? M.line : 'transparent'}`,
+    border: '1px solid transparent',
     boxShadow: undefined,
   };
 }
@@ -253,7 +253,7 @@ function railSubItemStyle(active: boolean): React.CSSProperties {
   return {
     display: 'block',
     padding: '9px 14px',
-    borderRadius: '5px',
+    borderRadius: 3,
     fontSize: '12.5px',
     fontWeight: 500,
     textDecoration: 'none',
@@ -267,7 +267,7 @@ const signInStyle: React.CSSProperties = {
   background: M.accent,
   color: '#06172A',
   border: 'none',
-  borderRadius: '5px',
+  borderRadius: 3,
   padding: '10px 0',
   fontFamily: M.sans,
   fontSize: '13px',

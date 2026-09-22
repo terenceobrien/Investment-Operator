@@ -149,7 +149,7 @@ function normalizeHedge(raw: unknown): HedgeTriggerState {
 }
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: M.mono,
+  fontFamily: M.sans,
   fontSize: 10.5,
   letterSpacing: '0.18em',
   textTransform: 'uppercase',
@@ -159,8 +159,8 @@ const labelStyle: React.CSSProperties = {
 
 function Panel({ label, meta, children, elevated }: { label: string; meta?: string; children: React.ReactNode; elevated?: boolean }) {
   return (
-    <section style={{ background: elevated ? M.cardElev : M.card, border: `1px solid ${M.line}`, borderRadius: 5, overflow: 'hidden', boxShadow: M.shadow }}>
-      <div style={{ padding: 24 }}>
+    <section style={{ background: elevated ? M.cardElev : M.card, border: `1px solid ${M.line}`, borderRadius: M.radius, overflow: 'hidden', boxShadow: M.shadow }}>
+      <div style={{ padding: 18 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, marginBottom: 18 }}>
           <span style={{ fontFamily: M.serif, fontSize: 19, fontWeight: 500, color: M.ink, letterSpacing: '-0.02em' }}>{label}</span>
           {meta ? <span style={{ ...labelStyle, letterSpacing: '0.08em' }}>{meta}</span> : null}
@@ -171,10 +171,10 @@ function Panel({ label, meta, children, elevated }: { label: string; meta?: stri
   );
 }
 function Chip({ text, color = M.accentBright }: { text: string; color?: string }) {
-  return <span style={{ display: 'inline-block', fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.05em', textTransform: 'uppercase', fontWeight: 600, color, background: `${color}20`, border: `1px solid ${color}55`, borderRadius: 999, padding: '5px 10px' }}>{text}</span>;
+  return <span style={{ display: 'inline-block', fontFamily: M.sans, fontSize: 10.5, letterSpacing: '0.05em', textTransform: 'uppercase', fontWeight: 600, color, background: `${color}20`, border: `1px solid ${color}55`, borderRadius: M.controlRadius, padding: '3px 7px' }}>{text}</span>;
 }
 function Kpi({ label, value, sub }: { label: string; value: string; sub: string }) {
-  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 13 }}><div style={labelStyle}>{label}</div><div style={{ fontFamily: M.serif, fontSize: 24, color: M.ink, marginTop: 6, lineHeight: 1 }}>{value}</div><div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 7 }}>{sub}</div></div>;
+  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 13 }}><div style={labelStyle}>{label}</div><div style={{ fontFamily: M.serif, fontSize: 24, color: M.ink, marginTop: 6, lineHeight: 1 }}>{value}</div><div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 7 }}>{sub}</div></div>;
 }
 function statusColor(active?: boolean | null, status?: string, stale?: boolean): string {
   if (active === null || status === 'unavailable') return M.inkFaint;
@@ -212,7 +212,7 @@ function HedgeMonitor({ hedge }: { hedge: HedgeTriggerState }) {
   return (
     <Panel label="Hedge monitor" meta={hedge.as_of || 'latest'} elevated={combined === true}>
       <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18 }} className="portfolio-grid">
-        <div style={{ background: M.well, border: `1px solid ${combinedColor}66`, borderRadius: 5, padding: 16 }}>
+        <div style={{ background: M.well, border: `1px solid ${combinedColor}66`, borderRadius: M.radius, padding: 16 }}>
           <div style={labelStyle}>Combined trigger</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginTop: 9 }}>
             <span style={{ fontFamily: M.serif, fontSize: 42, color: combinedColor, lineHeight: 1 }}>{stateText(combined)}</span>
@@ -285,7 +285,7 @@ function HedgeFamilyDetails({ title, family, active, summary, rows }: { title: s
   const isLiveBreadth = title === 'Breadth' && family?.data_source === 'yfinance_live';
   const observationDate = family?.as_of || family?.latest_observation_date;
   return (
-    <details open style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '12px 14px' }}>
+    <details open style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: '12px 14px' }}>
       <summary style={{ cursor: 'pointer', listStyle: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <span style={{ ...labelStyle, color }}>{title}</span>
@@ -308,9 +308,9 @@ function HedgeMetricRow({ metric, fallback }: { metric: HedgeMetric; fallback: s
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(160px, 1fr) 86px 120px 72px', gap: 10, alignItems: 'center', color: M.inkDim, fontSize: 12.5 }} className="hedge-metric-row">
       <span>{metric.label || fallback}</span>
-      <span style={{ fontFamily: M.mono, color: M.ink }}>{metric.display_value || '—'}</span>
-      <span style={{ fontFamily: M.mono, color: M.inkFaint }}>{metric.display_threshold || '—'}</span>
-      <span style={{ fontFamily: M.mono, color }}>{metricStatusText(metric)}</span>
+      <span style={{ fontFamily: M.sans, color: M.ink }}>{metric.display_value || '—'}</span>
+      <span style={{ fontFamily: M.sans, color: M.inkFaint }}>{metric.display_threshold || '—'}</span>
+      <span style={{ fontFamily: M.sans, color }}>{metricStatusText(metric)}</span>
     </div>
   );
 }
@@ -370,13 +370,13 @@ export default function PortfolioMonitorPage() {
 
   return (
     <main className="helix-research-workspace" style={{ minHeight: '100vh', background: M.canvas, color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1440px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 48px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <div style={{ width: 'min(1440px, calc(100% - 40px))', margin: '0 auto', padding: '18px 0 40px', display: 'flex', flexDirection: 'column', gap: M.sectionGap }}>
         <header style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'end', flexWrap: 'wrap' }}>
           <div>
-            <div style={{ fontFamily: M.mono, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 10 }}>PORTFOLIO MONITOR &gt; RISK STACK</div>
-            <h1 style={{ fontFamily: M.serif, fontSize: 42, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Risk, alignment, and breadth</h1>
+            <div style={{ fontFamily: M.sans, fontSize: 12, letterSpacing: '0.22em', color: M.canvasInkFaint, marginBottom: 10 }}>PORTFOLIO MONITOR &gt; RISK STACK</div>
+            <h1 style={{ fontFamily: M.serif, fontSize: 36, fontWeight: 500, color: M.canvasInk, margin: 0, lineHeight: 1.02 }}>Risk, alignment, and breadth</h1>
           </div>
-          <button type="button" onClick={handleExport} style={{ border: `1px solid ${M.canvasInkFaint}77`, background: 'transparent', color: M.canvasInkDim, borderRadius: 999, padding: '9px 14px', fontFamily: M.mono, fontSize: 11.5, cursor: 'pointer' }}>Export to Excel</button>
+          <button type="button" onClick={handleExport} style={{ border: `1px solid ${M.canvasInkFaint}77`, background: 'transparent', color: M.canvasInkDim, borderRadius: M.controlRadius, padding: '9px 14px', fontFamily: M.sans, fontSize: 11.5, cursor: 'pointer' }}>Export to Excel</button>
         </header>
 
         <HedgeMonitor hedge={hedge} />
@@ -386,7 +386,7 @@ export default function PortfolioMonitorPage() {
             <h2 style={{ fontFamily: M.serif, fontSize: 26, fontWeight: 500, color: M.ink, margin: 0 }}>Total account value</h2>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '13px 0 20px' }}>
               <span style={{ fontFamily: M.serif, fontSize: 56, color: M.ink, lineHeight: 1 }}>{money(risk.total_account_value)}</span>
-              <span style={{ fontFamily: M.mono, fontSize: 13, color: M.inkFaint }}>{money(risk.invested_value)} invested · {money(risk.cash_value)} cash</span>
+              <span style={{ fontFamily: M.sans, fontSize: 13, color: M.inkFaint }}>{money(risk.invested_value)} invested · {money(risk.cash_value)} cash</span>
               {/* TODO: returns source. Workbook does not include YTD returns. */}
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }} className="snapshot-kpis">
@@ -403,10 +403,10 @@ export default function PortfolioMonitorPage() {
                 <div key={bucket.factor}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7, color: M.inkDim, fontSize: 13 }}>
                     <span>{bucket.factor}</span>
-                    <span style={{ fontFamily: M.mono }}>{pct(bucket.pct_of_total_var, 1)}</span>
+                    <span style={{ fontFamily: M.sans }}>{pct(bucket.pct_of_total_var, 1)}</span>
                   </div>
-                  <div style={{ height: 8, background: M.well, borderRadius: 999, overflow: 'hidden' }}>
-                    <div style={{ height: '100%', width: `${Math.max(0, Math.min(100, (bucket.pct_of_total_var ?? 0) * 100))}%`, background: factorColor(bucket.factor, bucket.exposure), borderRadius: 999 }} />
+                  <div style={{ height: 8, background: M.well, borderRadius: M.controlRadius, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${Math.max(0, Math.min(100, (bucket.pct_of_total_var ?? 0) * 100))}%`, background: factorColor(bucket.factor, bucket.exposure), borderRadius: M.controlRadius }} />
                   </div>
                 </div>
               ))}
@@ -427,7 +427,7 @@ export default function PortfolioMonitorPage() {
 
         <Panel label="Stress test" meta="MKT -10% shock">
           <div style={{ display: 'grid', gridTemplateColumns: '0.7fr 1.3fr', gap: 18 }} className="portfolio-grid">
-            <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16 }}>
+            <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 16 }}>
               <div style={labelStyle}>Stressed total vol</div>
               <div style={{ fontFamily: M.serif, fontSize: 42, color: M.ink, marginTop: 8 }}>{pct(risk.stress?.stressed_total_vol, 1)}</div>
               <div style={{ color: M.inkFaint, marginTop: 10, fontSize: 13 }}>Sleeve drawdown {pct(risk.stress?.sleeve_drawdown, 1, true)} · whole book {pct(risk.stress?.whole_book_drawdown, 1, true)}</div>
@@ -523,7 +523,7 @@ function deriveRegimeAlignment(risk: PortfolioRisk, macro: ForecastAlignment) {
   return { aligned, conflicts };
 }
 function AlignmentColumn({ title, items, color }: { title: string; items: string[]; color: string }) {
-  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 12 }}>{title}</div><div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{items.map((item) => <Chip key={item} text={item} color={color} />)}</div></div>;
+  return <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 16 }}><div style={{ ...labelStyle, color, marginBottom: 12 }}>{title}</div><div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{items.map((item) => <Chip key={item} text={item} color={color} />)}</div></div>;
 }
 function DivergingBar({ label, beta }: { label: string; beta?: number | null }) {
   const value = beta ?? 0;
@@ -531,10 +531,10 @@ function DivergingBar({ label, beta }: { label: string; beta?: number | null }) 
   const width = Math.min(50, Math.abs(value) / max * 50);
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', color: M.inkDim, fontSize: 13, marginBottom: 7 }}><span>{label}</span><span style={{ fontFamily: M.mono }}>{beta === null || beta === undefined ? '—' : value.toFixed(2)}</span></div>
-      <div style={{ position: 'relative', height: 10, background: M.well, borderRadius: 999, overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', color: M.inkDim, fontSize: 13, marginBottom: 7 }}><span>{label}</span><span style={{ fontFamily: M.sans }}>{beta === null || beta === undefined ? '—' : value.toFixed(2)}</span></div>
+      <div style={{ position: 'relative', height: 10, background: M.well, borderRadius: M.controlRadius, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1, background: M.line2 }} />
-        <div style={{ position: 'absolute', top: 0, bottom: 0, left: value >= 0 ? '50%' : `${50 - width}%`, width: `${width}%`, background: value >= 0 ? M.accent : M.neg, borderRadius: 999 }} />
+        <div style={{ position: 'absolute', top: 0, bottom: 0, left: value >= 0 ? '50%' : `${50 - width}%`, width: `${width}%`, background: value >= 0 ? M.accent : M.neg, borderRadius: M.controlRadius }} />
       </div>
     </div>
   );
@@ -542,7 +542,7 @@ function DivergingBar({ label, beta }: { label: string; beta?: number | null }) 
 function StressBar({ factor, value }: { factor: string; value?: number | null }) {
   const v = value ?? 0;
   const width = Math.min(100, Math.abs(v) / 0.1 * 100);
-  return <div><div style={{ display: 'flex', justifyContent: 'space-between', color: M.inkDim, fontSize: 13, marginBottom: 7 }}><span>{factor}</span><span style={{ fontFamily: M.mono, color: v < 0 ? M.neg : M.pos }}>{pct(v, 1, true)}</span></div><div style={{ height: 8, background: M.well, borderRadius: 999, overflow: 'hidden' }}><div style={{ height: '100%', width: `${width}%`, background: v < 0 ? M.neg : M.pos, borderRadius: 999 }} /></div></div>;
+  return <div><div style={{ display: 'flex', justifyContent: 'space-between', color: M.inkDim, fontSize: 13, marginBottom: 7 }}><span>{factor}</span><span style={{ fontFamily: M.sans, color: v < 0 ? M.neg : M.pos }}>{pct(v, 1, true)}</span></div><div style={{ height: 8, background: M.well, borderRadius: M.controlRadius, overflow: 'hidden' }}><div style={{ height: '100%', width: `${width}%`, background: v < 0 ? M.neg : M.pos, borderRadius: M.controlRadius }} /></div></div>;
 }
 function Concentration({ positions, breadth, concentration, avgCorr }: { positions: PortfolioRisk['positions']; breadth?: number | null; concentration?: number | null; avgCorr?: number | null }) {
   const top = [...(positions ?? [])].filter((p) => !p.is_cash).sort((a, b) => (b.weight ?? 0) - (a.weight ?? 0)).slice(0, 6);
@@ -565,7 +565,7 @@ function Concentration({ positions, breadth, concentration, avgCorr }: { positio
         <text x="60" y="73" textAnchor="middle" fill={M.inkFaint} fontFamily={M.mono} fontSize="7">EFF BREADTH</text>
       </svg>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-        {top.map((p) => <div key={p.ticker} style={{ display: 'flex', alignItems: 'center', gap: 8, color: M.inkDim, fontSize: 12.5 }}><span style={{ width: 10, height: 10, borderRadius: 3, background: M.accentBright }} />{p.ticker} <span style={{ marginLeft: 'auto', fontFamily: M.mono }}>{pct(p.weight, 1)}</span></div>)}
+        {top.map((p) => <div key={p.ticker} style={{ display: 'flex', alignItems: 'center', gap: 8, color: M.inkDim, fontSize: 12.5 }}><span style={{ width: 10, height: 10, borderRadius: 3, background: M.accentBright }} />{p.ticker} <span style={{ marginLeft: 'auto', fontFamily: M.sans }}>{pct(p.weight, 1)}</span></div>)}
         <div style={{ color: M.inkFaint, fontSize: 12, marginTop: 6 }}>Concentration {pct(concentration, 1)} · avg corr {pct(avgCorr, 1)}</div>
       </div>
     </div>

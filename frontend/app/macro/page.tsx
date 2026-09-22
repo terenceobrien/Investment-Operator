@@ -746,15 +746,15 @@ function Panel({ title, meta, children, prominent }: { title?: string; meta?: st
     <section style={{
       background: prominent ? M.cardElev : M.card,
       border: `1px solid ${prominent ? M.line2 : M.line}`,
-      borderRadius: '5px',
+      borderRadius: M.radius,
       overflow: 'hidden',
       boxShadow: M.shadow,
     }}>
-      <div style={{ padding: '18px' }}>
+      <div style={{ padding: M.panelPadding }}>
         {title ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginBottom: '12px' }}>
             <span style={{ fontFamily: M.serif, fontSize: 19, letterSpacing: '-0.02em', color: M.ink, fontWeight: 500 }}>{title}</span>
-            {meta ? <span style={{ fontFamily: M.mono, fontSize: '10.5px', letterSpacing: '0.08em', color: M.inkFaint }}>{meta}</span> : null}
+            {meta ? <span style={{ fontFamily: M.sans, fontSize: '10.5px', letterSpacing: '0.08em', color: M.inkFaint }}>{meta}</span> : null}
           </div>
         ) : null}
         {children}
@@ -767,9 +767,9 @@ function Chip({ label, color }: { label: string; color?: string }) {
   return (
     <span style={{
       display: 'inline-block',
-      padding: '4px 10px',
-      borderRadius: '999px',
-      fontFamily: M.mono,
+      padding: '2px 6px',
+      borderRadius: M.controlRadius,
+      fontFamily: M.sans,
       fontSize: '10.5px',
       fontWeight: 600,
       letterSpacing: '0.04em',
@@ -781,13 +781,13 @@ function Chip({ label, color }: { label: string; color?: string }) {
   );
 }
 function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <div style={{ fontFamily: M.mono, fontSize: '12px', letterSpacing: '0.2em', color: M.canvasInkFaint, marginBottom: '10px' }}>{children}</div>;
+  return <div style={{ fontFamily: M.sans, fontSize: '12px', letterSpacing: '0.2em', color: M.canvasInkFaint, marginBottom: '10px' }}>{children}</div>;
 }
 function MutedLabel({ children }: { children: React.ReactNode }) {
-  return <div style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.14em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 600, marginBottom: '10px' }}>{children}</div>;
+  return <div style={{ fontFamily: M.sans, fontSize: '10px', letterSpacing: '0.14em', textTransform: 'uppercase', color: M.inkFaint, fontWeight: 600, marginBottom: '10px' }}>{children}</div>;
 }
 const labelStyleSmall: React.CSSProperties = {
-  fontFamily: M.mono,
+  fontFamily: M.sans,
   fontSize: 10,
   letterSpacing: '0.12em',
   textTransform: 'uppercase',
@@ -795,7 +795,7 @@ const labelStyleSmall: React.CSSProperties = {
   fontWeight: 600,
 };
 function ValueText({ value, size = 32, color = M.ink }: { value: string; size?: number; color?: string }) {
-  return <span style={{ fontFamily: M.mono, fontSize: `${size}px`, fontWeight: 500, letterSpacing: '0', color }}>{value}</span>;
+  return <span style={{ fontFamily: M.sans, fontSize: `${size}px`, fontWeight: 500, letterSpacing: '0', color }}>{value}</span>;
 }
 function SignalDot({ signal }: { signal: string }) {
   return <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: signalColor(signal), boxShadow: `0 0 0 3px ${signalColor(signal)}24`, flexShrink: 0 }} />;
@@ -897,8 +897,8 @@ function MarketRegimePanel({
       }));
   return (
     <Panel title="Market pulse" meta={`${pulseMeta} · ${heading}`} prominent>
-      <div className="macro-merged-pulse-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.9fr) 1px minmax(330px, 0.82fr)', gap: 18, alignItems: 'stretch' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '230px minmax(0, 1fr)', gap: 24, alignItems: 'start' }} className="macro-top-card-grid">
+      <div className="macro-merged-pulse-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2.35fr) 1px minmax(280px, 0.85fr)', gap: 14, alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(150px, 0.55fr) minmax(0, 1.8fr)', gap: 16, alignItems: 'start' }} className="macro-top-card-grid">
           <div>
             <h2 style={{ fontFamily: M.serif, fontSize: '27px', fontWeight: 500, color: M.ink, margin: 0, lineHeight: 1.03 }}>
               {pulseLabel}
@@ -907,12 +907,12 @@ function MarketRegimePanel({
               <Chip label={forecastUnavailable ? unavailableLabel : `${pct1(f.dominantProb)} probability`} color={forecastUnavailable ? M.inkFaint : M.accent} />
             </div>
             {composite !== null ? (
-              <div style={{ margin: '13px 0 2px' }}>
-                <ValueText value={composite.toFixed(1)} size={38} />
-                <div style={{ fontFamily: M.mono, fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase', marginTop: 2 }}>composite regime score</div>
+              <div style={{ margin: '9px 0 2px' }}>
+                <ValueText value={composite.toFixed(1)} size={32} />
+                <div style={{ fontFamily: M.sans, fontSize: '10px', fontWeight: 600, letterSpacing: '0.14em', color: M.inkFaint, textTransform: 'uppercase', marginTop: 2 }}>composite regime score</div>
               </div>
             ) : null}
-            <div style={{ color: M.pos, fontFamily: M.mono, fontSize: 12, marginTop: 10 }}>
+            <div style={{ color: M.pos, fontFamily: M.sans, fontSize: 12, marginTop: 10 }}>
               {regime?.confidence !== null && regime?.confidence !== undefined ? `${regime.confidence.toFixed(2)} confidence` : regime?.vixLevel !== null && regime?.vixLevel !== undefined ? `VIX ${regime.vixLevel.toFixed(1)}` : f.confLevel || '—'}
             </div>
             <div style={{ color: M.inkFaint, fontSize: 11.5, marginTop: 3 }}>current read</div>
@@ -921,24 +921,25 @@ function MarketRegimePanel({
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', marginBottom: 5 }}>
               <div>
-                <div style={{ fontFamily: M.mono, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint }}>Regime score ({activeWindowLabel})</div>
-                <div style={{ fontFamily: M.mono, fontSize: 9.5, color: M.inkFaint, marginTop: 3 }}>
+                <div style={{ fontFamily: M.sans, fontSize: 10.5, letterSpacing: '0.12em', color: M.inkFaint }}>Regime score ({activeWindowLabel})</div>
+                <div style={{ fontFamily: M.sans, fontSize: 9.5, color: M.inkFaint, marginTop: 3 }}>
                   {scoreHistoryLoading ? 'loading history' : `${scoreHistoryMeta.n || chartPoints.length} records · ${historyRangeLabel}`}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              <div className="helix-segmented-control" role="group" aria-label="Regime score history range">
                 {REGIME_SCORE_WINDOW_OPTIONS.map((option) => (
                   <button
                     key={option.key}
                     type="button"
+                    aria-pressed={scoreHistoryWindow === option.key}
                     onClick={() => onScoreHistoryWindowChange(option.key)}
                     style={{
                       background: scoreHistoryWindow === option.key ? M.accentSoft : M.cardElev,
                       color: scoreHistoryWindow === option.key ? M.accentBright : M.inkDim,
-                      border: `1px solid ${scoreHistoryWindow === option.key ? M.accent : M.line2}`,
-                      borderRadius: 5,
+                      border: 0,
+                      borderRadius: M.radius,
                       padding: '5px 8px',
-                      fontFamily: M.mono,
+                      fontFamily: M.sans,
                       fontSize: 10,
                       cursor: 'pointer',
                     }}
@@ -956,11 +957,11 @@ function MarketRegimePanel({
               <HistoryLineChart
                 points={chartPoints}
                 color={M.accentBright}
-                height={205}
+                height={164}
                 yLabel="score"
               />
             )}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 10 }} className="macro-stat-list">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 0, marginTop: 8, borderTop: `1px solid ${M.line}` }} className="macro-stat-list">
               <MiniStat label="Dominant" value={forecastUnavailable ? 'forecast unavailable' : f.dominantLabel || '—'} sub={forecastUnavailable ? 'unavailable' : pct1(f.dominantProb)} color={forecastUnavailable ? M.inkFaint : M.accentBright} />
               <MiniStat label="Runner-up" value={runnerUp?.label ?? '—'} sub={runnerUp ? pct1(runnerUp.blended) : '—'} />
               <MiniStat label="Gap" value={probabilityGap === null ? '—' : pct1(probabilityGap)} sub="dominant spread" color={probabilityGap !== null && probabilityGap > 0.08 ? M.pos : M.warn} />
@@ -997,33 +998,35 @@ function MarketRegimePanel({
 
 function MiniStat({ label, value, sub, color = M.ink }: { label: string; value: string; sub: string; color?: string }) {
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '9px 10px', minWidth: 0 }}>
+    <div style={{ borderRight: `1px solid ${M.line}`, padding: '8px 10px 2px', minWidth: 0 }}>
       <div style={{ ...labelStyleSmall, marginBottom: 5 }}>{label}</div>
-      <div style={{ color, fontFamily: M.serif, fontSize: 15.5, lineHeight: 1.05, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</div>
-      <div style={{ color: M.inkFaint, fontFamily: M.mono, fontSize: 10.5, marginTop: 5 }}>{sub}</div>
+      <div style={{ color, fontFamily: M.sans, fontSize: 12, fontWeight: 500, lineHeight: 1.35, overflowWrap: 'anywhere' }}>{value}</div>
+      <div style={{ color: M.inkFaint, fontFamily: M.sans, fontSize: 10.5, marginTop: 5 }}>{sub}</div>
     </div>
   );
 }
 
 function RegimeLayerRows({ layers }: { layers: LiveRegimeLayer[] }) {
   return (
-    <>
-      {layers.map((l) => {
+    <table className="helix-factor-table" aria-label="Current regime factors">
+      <thead><tr><th>Factor</th><th>Score</th><th>Classification</th></tr></thead>
+      <tbody>{layers.map((l) => {
         const score = l.score;
         const status = l.status || 'neutral';
         return (
-        <div key={l.key} style={{ marginBottom: '14px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginBottom: '7px' }}>
-            <span style={{ fontFamily: M.sans, fontSize: '13px', fontWeight: 600, color: M.ink }}>{l.name}</span>
-            <span style={{ fontFamily: M.mono, fontSize: '11.5px', color: signalColor(status) }}>{score === null ? '—' : score.toFixed(1)}&nbsp;&nbsp;{titleCase(status)}</span>
-          </div>
-          <div style={{ height: '5px', background: M.well, borderRadius: '999px', overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${score === null ? 0 : Math.min(100, score * 10)}%`, background: signalColor(status), borderRadius: '999px' }} />
-          </div>
-        </div>
+          <tr key={l.key}>
+            <td>
+              {l.name}
+              <div style={{ height: 2, background: M.line, marginTop: 6, width: '100%' }}>
+                <div style={{ height: '100%', width: `${score === null ? 0 : Math.min(100, score * 10)}%`, background: signalColor(status), opacity: 0.75 }} />
+              </div>
+            </td>
+            <td>{score === null ? '—' : score.toFixed(1)}</td>
+            <td style={{ color: signalColor(status) }}>{titleCase(status)}</td>
+          </tr>
         );
-      })}
-    </>
+      })}</tbody>
+    </table>
   );
 }
 
@@ -1112,7 +1115,7 @@ function ComponentHistoryTooltip({ active, payload, label }: { active?: boolean;
   const row = payload?.find((item) => item.payload)?.payload;
   if (!active || !row) return null;
   return (
-    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 5, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
+    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: M.radius, padding: '9px 10px', color: M.ink, fontFamily: M.sans, fontSize: 10.5 }}>
       <div style={{ color: M.inkFaint, marginBottom: 5 }}>{label}</div>
       <div>value {formatAxisNumber(row.value)}</div>
       <div>score {scoreNumber(row.componentScore)}</div>
@@ -1148,7 +1151,7 @@ function ComponentHistoryChart({
   const valueDomain = computeYDomain(rows.map((row) => row.value));
   const layerDomain = computeYDomain(rows.map((row) => row.layerScore));
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 12 }}>
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap', marginBottom: 10 }}>
         <div>
           <div style={labelStyleSmall}>Component history</div>
@@ -1160,9 +1163,9 @@ function ComponentHistoryChart({
               background: windowValue === item ? M.accentSoft : M.cardElev,
               color: windowValue === item ? M.accentBright : M.inkDim,
               border: `1px solid ${windowValue === item ? M.accent : M.line2}`,
-              borderRadius: 5,
+              borderRadius: M.radius,
               padding: '6px 9px',
-              fontFamily: M.mono,
+              fontFamily: M.sans,
               fontSize: 10,
               cursor: 'pointer',
             }}>{item}</button>
@@ -1177,9 +1180,9 @@ function ComponentHistoryChart({
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={rows} margin={{ top: 8, right: showLayer ? 34 : 12, bottom: 6, left: 0 }}>
             <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
-            <XAxis dataKey="date" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
-            <YAxis yAxisId="left" domain={valueDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={48} />
-            {showLayer ? <YAxis yAxisId="right" orientation="right" domain={layerDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={34} /> : null}
+            <XAxis dataKey="date" tick={{ fill: M.inkFaint, fontFamily: M.sans, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
+            <YAxis yAxisId="left" domain={valueDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.sans, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={48} />
+            {showLayer ? <YAxis yAxisId="right" orientation="right" domain={layerDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.sans, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={34} /> : null}
             <Tooltip content={<ComponentHistoryTooltip />} />
             <Line yAxisId="left" type="monotone" dataKey="value" stroke={M.accentBright} strokeWidth={2} dot={false} isAnimationActive={false} />
             {showLayer ? <Line yAxisId="right" type="monotone" dataKey="layerScore" stroke={M.warn} strokeWidth={1.7} strokeDasharray="5 4" dot={false} connectNulls isAnimationActive={false} /> : null}
@@ -1222,12 +1225,12 @@ function FactorDetailSection({
   return (
     <div style={{ borderTop: `1px solid ${M.line}`, marginTop: 14, paddingTop: 14 }}>
       {warnings.length ? (
-        <div style={{ background: M.dangerWell, border: `1px solid ${M.warn}55`, color: M.warn, borderRadius: 5, padding: '8px 10px', fontFamily: M.sans, fontSize: 11.5, lineHeight: 1.4, marginBottom: 10 }}>
+        <div style={{ background: M.dangerWell, border: `1px solid ${M.warn}55`, color: M.warn, borderRadius: M.radius, padding: '8px 10px', fontFamily: M.sans, fontSize: 11.5, lineHeight: 1.4, marginBottom: 10 }}>
           History source warning: {truncate(warnings.join(' · '), 240)}
         </div>
       ) : null}
       <div className="macro-factor-grid" style={{ display: 'grid', gridTemplateColumns: '260px minmax(0, 1fr)', gap: 14, alignItems: 'start' }}>
-        <div style={{ background: M.cardElev, border: `1px solid ${M.line}`, borderRadius: 5, padding: 10 }}>
+        <div style={{ background: M.cardElev, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 10 }}>
           <div style={{ ...labelStyleSmall, padding: '2px 4px 9px' }}>Layer selector</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {layers.map((layer) => {
@@ -1236,9 +1239,9 @@ function FactorDetailSection({
                 <button key={layer.layer_id} type="button" onClick={() => { setSelectedLayerId(layer.layer_id); setSelectedComponentId(null); }} style={railRowStyle(active)}>
                   <span style={{ minWidth: 0 }}>
                     <span style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{layer.display_name}</span>
-                    <span style={{ display: 'block', marginTop: 4, color: deltaColor(layer.delta_1m), fontFamily: M.mono, fontSize: 10 }}>1M {signedScore(layer.delta_1m)}</span>
+                    <span style={{ display: 'block', marginTop: 4, color: deltaColor(layer.delta_1m), fontFamily: M.sans, fontSize: 10 }}>1M {signedScore(layer.delta_1m)}</span>
                   </span>
-                  <span style={{ fontFamily: M.mono, color: signalColor(layer.status || 'neutral') }}>{scoreNumber(layer.score, 1)}</span>
+                  <span style={{ fontFamily: M.sans, color: signalColor(layer.status || 'neutral') }}>{scoreNumber(layer.score, 1)}</span>
                 </button>
               );
             })}
@@ -1250,9 +1253,9 @@ function FactorDetailSection({
               <div style={labelStyleSmall}>Component attribution</div>
               <h3 style={{ margin: '6px 0 0', fontFamily: M.serif, fontSize: 21, fontWeight: 500, color: M.ink }}>{activeLayer.display_name}</h3>
             </div>
-            <div style={{ fontFamily: M.mono, color: deltaColor(activeLayer.delta_1m), fontSize: 12 }}>1M layer {signedScore(activeLayer.delta_1m)}</div>
+            <div style={{ fontFamily: M.sans, color: deltaColor(activeLayer.delta_1m), fontSize: 12 }}>1M layer {signedScore(activeLayer.delta_1m)}</div>
           </div>
-          <div style={{ overflowX: 'auto', border: `1px solid ${M.line}`, borderRadius: 5 }}>
+          <div style={{ overflowX: 'auto', border: `1px solid ${M.line}`, borderRadius: M.radius }}>
             <div style={{ minWidth: 900 }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'minmax(190px, 1.45fr) 105px 72px 72px 92px 82px 116px 132px', gap: 8, padding: '9px 10px', background: M.cardElev, borderBottom: `1px solid ${M.line}`, ...labelStyleSmall }}>
                 <span>component</span><span>value</span><span>score</span><span>weight</span><span>contrib</span><span>1M delta</span><span>1M attribution</span><span>history</span>
@@ -1285,13 +1288,13 @@ function FactorDetailSection({
                       {driver ? <span style={{ marginLeft: 7 }}><Chip label="primary driver" color={M.accentBright} /></span> : null}
                       {!component.scored && component.unscored_reason ? <span style={{ display: 'block', color: M.inkFaint, fontSize: 10.5, fontWeight: 400, marginTop: 3 }}>{component.unscored_reason}</span> : null}
                     </span>
-                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{valueWithUnits(component.current_value, component.units_note)}</span>
-                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{scoreNumber(component.component_score)}</span>
-                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{component.weight === null ? '—' : `${(component.weight * 100).toFixed(0)}%`}</span>
-                    <span style={{ fontFamily: M.mono, fontSize: 11.5 }}>{scoreNumber(component.contribution)}</span>
-                    <span style={{ fontFamily: M.mono, fontSize: 11.5, color: deltaColor(component.delta_1m) }}>{signedScore(component.delta_1m)}</span>
-                    <span style={{ fontFamily: M.mono, fontSize: 11.5, color: deltaColor(component.change_contribution_1m) }}>{signedScore(component.change_contribution_1m)}</span>
-                    <span style={{ fontFamily: M.mono, fontSize: 10.5 }}>
+                    <span style={{ fontFamily: M.sans, fontSize: 11.5 }}>{valueWithUnits(component.current_value, component.units_note)}</span>
+                    <span style={{ fontFamily: M.sans, fontSize: 11.5 }}>{scoreNumber(component.component_score)}</span>
+                    <span style={{ fontFamily: M.sans, fontSize: 11.5 }}>{component.weight === null ? '—' : `${(component.weight * 100).toFixed(0)}%`}</span>
+                    <span style={{ fontFamily: M.sans, fontSize: 11.5 }}>{scoreNumber(component.contribution)}</span>
+                    <span style={{ fontFamily: M.sans, fontSize: 11.5, color: deltaColor(component.delta_1m) }}>{signedScore(component.delta_1m)}</span>
+                    <span style={{ fontFamily: M.sans, fontSize: 11.5, color: deltaColor(component.change_contribution_1m) }}>{signedScore(component.change_contribution_1m)}</span>
+                    <span style={{ fontFamily: M.sans, fontSize: 10.5 }}>
                       <ComponentSparkline layerId={activeLayer.layer_id} component={component} fetcher={fetcher} />
                     </span>
                   </button>
@@ -1324,25 +1327,25 @@ function ScenarioCards({ f }: { f: Forecast }) {
   return (
     <Panel title="Scenario explorer" meta="Behavioral two-source posterior">
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'center', flexWrap: 'wrap', marginBottom: 12 }}>
-        <div style={{ fontFamily: M.mono, fontSize: 11, letterSpacing: '0.08em', color: M.inkDim }}>
+        <div style={{ fontFamily: M.sans, fontSize: 11, letterSpacing: '0.08em', color: M.inkDim }}>
           Two-source blend ({pct1(bvarWeight)} BVAR / {pct1(analogueWeight)} analogue)
           <span style={{ color: M.inkFaint }}> · s_used {pct1(sUsed)} · binding {bindingQuarter || '—'}</span>
         </div>
         {f.mixture.stress_advisory ? <Chip label="Stress advisory" color={M.warn} /> : null}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(150px, 1fr))', gap: '10px' }} className="scenario-card-grid">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(150px, 1fr))', gap: 0, borderTop: `1px solid ${M.line}` }} className="scenario-card-grid">
         {f.scenarios.map((s, i) => {
           const top = s.isRecession ? M.warn : i === 0 ? M.accentBright : s.blended !== null && s.blended >= 0.15 ? M.pos : M.inkFaint;
           const deltaColor = s.delta === null || s.delta === undefined ? M.inkFaint : s.delta >= 0 ? M.pos : M.neg;
           return (
-            <div key={s.id} style={{ background: M.well, border: `1px solid ${M.line}`, borderTop: `3px solid ${top}`, borderRadius: '5px', padding: '13px 12px', minWidth: 0 }}>
-              <ValueText value={pct1(s.blended)} size={20} color={top} />
-              <h3 style={{ fontFamily: M.serif, fontSize: '16px', fontWeight: 500, color: M.ink, margin: '8px 0 7px', lineHeight: 1.12 }}>{s.label}</h3>
-              <p style={{ margin: '0 0 12px', fontFamily: M.sans, fontSize: '11px', color: M.inkDim, lineHeight: 1.42, minHeight: '64px' }}>{s.desc}</p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap', fontFamily: M.mono, fontSize: '10px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '8px' }}>
+            <div key={s.id} style={{ borderRight: `1px solid ${M.line}`, padding: '10px 12px', minWidth: 0, display: 'grid', gridTemplateRows: 'subgrid', gridRow: 'span 5', rowGap: 7 }}>
+              <div style={{ fontFamily: M.sans, fontSize: 16, fontWeight: 600, color: top }}><span style={{ fontSize: 10, fontWeight: 400, color: M.inkFaint, marginRight: 6 }}>Probability</span>{pct1(s.blended)}</div>
+              <h3 style={{ fontFamily: M.sans, fontSize: '13px', fontWeight: 600, color: M.ink, margin: 0, lineHeight: 1.12 }}>{s.label}</h3>
+              <p style={{ margin: 0, fontFamily: M.sans, fontSize: '11.5px', color: M.inkDim, lineHeight: 1.45 }}>{s.desc}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap', fontFamily: M.sans, fontSize: '10px', color: M.inkFaint, borderTop: `1px solid ${M.line}`, paddingTop: '8px' }}>
                 <span>bvar {pct1(s.bvar)}</span><span>analogue {pct1(s.analogue)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.mono, fontSize: '10px', color: M.inkFaint, paddingTop: '5px', gap: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: M.sans, fontSize: '10px', color: M.inkFaint, paddingTop: '5px', gap: 8 }}>
                 <span>delta</span><span style={{ color: deltaColor }}>{signedPct1(s.delta)}</span>
               </div>
             </div>
@@ -1422,7 +1425,7 @@ function FanTooltip({ active, payload, label }: { active?: boolean; payload?: Ar
   const point = payload?.find((item) => item.payload)?.payload;
   if (!active || !point) return null;
   return (
-    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: 5, padding: '9px 10px', color: M.ink, fontFamily: M.mono, fontSize: 10.5 }}>
+    <div style={{ background: M.cardElev, border: `1px solid ${M.line2}`, borderRadius: M.radius, padding: '9px 10px', color: M.ink, fontFamily: M.sans, fontSize: 10.5 }}>
       <div style={{ color: M.inkFaint, marginBottom: 5 }}>{label}</div>
       <div>p10 {formatAxisNumber(point.p10)} · p50 {formatAxisNumber(point.p50)} · p90 {formatAxisNumber(point.p90)}</div>
       <div>p25 {formatAxisNumber(point.p25)} · p75 {formatAxisNumber(point.p75)}</div>
@@ -1470,9 +1473,9 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
               background: selected === key ? M.accentSoft : M.well,
               color: selected === key ? M.accentBright : M.inkDim,
               border: `1px solid ${selected === key ? M.accent : M.line}`,
-              borderRadius: 5,
+              borderRadius: M.radius,
               padding: '5px 8px',
-              fontFamily: M.mono,
+              fontFamily: M.sans,
               fontSize: 10,
               cursor: 'pointer',
               flexShrink: 0,
@@ -1482,12 +1485,12 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
           </button>
         ))}
       </div>
-      <div style={{ height: 320, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: '8px 4px 2px' }}>
+      <div style={{ height: 320, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: '8px 4px 2px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={rows} margin={{ top: 10, right: 14, bottom: 8, left: 0 }}>
             <CartesianGrid stroke={M.line2} strokeDasharray="3 3" opacity={0.55} />
-            <XAxis dataKey="quarter" tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
-            <YAxis domain={fanDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.mono, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={42} />
+            <XAxis dataKey="quarter" tick={{ fill: M.inkFaint, fontFamily: M.sans, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} />
+            <YAxis domain={fanDomain} tickFormatter={(value) => formatAxisNumber(Number(value))} tick={{ fill: M.inkFaint, fontFamily: M.sans, fontSize: 10 }} axisLine={{ stroke: M.line2 }} tickLine={{ stroke: M.line2 }} width={42} />
             <Tooltip content={<FanTooltip />} />
             <Area type="monotone" dataKey="p10p90" stroke="none" fill={M.accent} fillOpacity={0.18} isAnimationActive={false} />
             <Area type="monotone" dataKey="p25p75" stroke="none" fill={M.accent} fillOpacity={0.34} isAnimationActive={false} />
@@ -1510,7 +1513,7 @@ function AnalogueFanPanel({ fan, error, isLoading }: { fan?: AnalogueFanPayload;
 }
 
 function ErrorMini({ message }: { message: string }) {
-  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.neg, fontSize: 12, lineHeight: 1.45, background: M.dangerWell, border: `1px solid ${M.neg}55`, borderRadius: 5, padding: 14, textAlign: 'center' }}>{message}</div>;
+  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.neg, fontSize: 12, lineHeight: 1.45, background: M.dangerWell, border: `1px solid ${M.neg}55`, borderRadius: M.radius, padding: 14, textAlign: 'center' }}>{message}</div>;
 }
 
 function matchTag(match: TopMatch): { label: string; color: string } {
@@ -1535,10 +1538,10 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
   return (
     <Panel title="Analogue evidence" meta="survival-conditioned">
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 9 }}>
-        <div style={{ gridColumn: '1 / -1', background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 12 }}>
+        <div style={{ gridColumn: '1 / -1', background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 12 }}>
           <div style={{ ...labelStyleSmall, marginBottom: 4 }}>analogue recession evidence</div>
           <ValueText value={pct1(evidence.s_used ?? evidence.trailing_max)} size={30} color={M.warn} />
-          <div style={{ fontFamily: M.mono, fontSize: 10.5, color: M.inkFaint, marginTop: 6 }}>
+          <div style={{ fontFamily: M.sans, fontSize: 10.5, color: M.inkFaint, marginTop: 6 }}>
             binding {evidence.binding_quarter || '—'} · spot {pct1(evidence.spot_share)} · unconditioned max {pct1(evidence.trailing_max_unconditioned)}
           </div>
         </div>
@@ -1548,19 +1551,19 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
           const active = state.quarter === evidence.binding_quarter;
           const color = state.state === 'scored' ? M.pos : state.state === 'unprecedented_state' ? M.warn : M.inkFaint;
           return (
-            <div key={state.quarter} style={{ background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, borderRadius: 5, padding: '7px 6px', minWidth: 0 }}>
-              <div style={{ fontFamily: M.mono, fontSize: 9.5, color: M.inkFaint }}>{state.quarter}</div>
-              <div style={{ fontFamily: M.mono, fontSize: 12, color, marginTop: 3 }}>● {pct1(state.conditioned_share ?? state.share)}</div>
+            <div key={state.quarter} style={{ background: active ? M.accentSoft : M.well, border: `1px solid ${active ? M.accent : M.line}`, borderRadius: M.radius, padding: '7px 6px', minWidth: 0 }}>
+              <div style={{ fontFamily: M.sans, fontSize: 9.5, color: M.inkFaint }}>{state.quarter}</div>
+              <div style={{ fontFamily: M.sans, fontSize: 12, color, marginTop: 3 }}>● {pct1(state.conditioned_share ?? state.share)}</div>
             </div>
           );
         })}
       </div>
-      <div style={{ marginTop: 10, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 11 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontFamily: M.mono, fontSize: 10.5, color: M.inkFaint, marginBottom: 8 }}>
+      <div style={{ marginTop: 10, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 11 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontFamily: M.sans, fontSize: 10.5, color: M.inkFaint, marginBottom: 8 }}>
           <span>timing · elapsed {timing?.elapsed_quarters ?? binding?.elapsed_quarters ?? '—'}Q</span>
           <span>conditional {pct1(conditionalShare)}</span>
         </div>
-        <div style={{ height: 10, display: 'flex', overflow: 'hidden', borderRadius: 999, border: `1px solid ${M.line2}`, background: M.cardElev }}>
+        <div style={{ height: 10, display: 'flex', overflow: 'hidden', borderRadius: M.controlRadius, border: `1px solid ${M.line2}`, background: M.cardElev }}>
           <div style={{ width: `${Math.max(0, Math.min(1, spent)) * 100}%`, background: M.warn }} />
           <div style={{ width: `${Math.max(0, Math.min(1, remaining)) * 100}%`, background: M.accentBright }} />
         </div>
@@ -1571,7 +1574,7 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
           {topMatches.map((match) => {
             const tag = matchTag(match);
             return (
-              <div key={`${match.neighbor_quarter}-${match.kernel_weight}`} style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'center', fontFamily: M.mono, fontSize: 10.5, color: M.inkDim }}>
+              <div key={`${match.neighbor_quarter}-${match.kernel_weight}`} style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'center', fontFamily: M.sans, fontSize: 10.5, color: M.inkDim }}>
                 <span>{match.neighbor_quarter}</span>
                 <span style={{ color: M.inkFaint }}>w={match.kernel_weight.toFixed(2)}</span>
                 <span style={{ color: tag.color }}>{tag.label}</span>
@@ -1585,7 +1588,7 @@ function AnalogueEvidencePanel({ f, error, isLoading }: { f: Forecast; error?: E
 }
 
 function EmptyMini({ message }: { message: string }) {
-  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.inkFaint, fontSize: 12, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5 }}>{message}</div>;
+  return <div style={{ minHeight: 130, display: 'grid', placeItems: 'center', color: M.inkFaint, fontSize: 12, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius }}>{message}</div>;
 }
 function LegendSwatch({ color, label }: { color: string; label: string }) {
   return <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ width: '12px', height: '12px', borderRadius: '3px', background: color, border: `1px solid ${M.line2}` }} />{label}</span>;
@@ -1632,7 +1635,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
   };
 
   return (
-    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: M.shadow, overflow: 'hidden' }}>
+    <section style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: M.radius, boxShadow: M.shadow, overflow: 'hidden' }}>
       <div className="macro-indicator-shell" style={{ display: 'grid', gridTemplateColumns: '250px minmax(0, 1fr) 380px', minHeight: 342 }}>
         <div className="macro-indicator-rail" style={{ borderRight: `1px solid ${M.line}`, background: M.cardElev, padding: '14px 10px' }}>
           <div style={{ ...labelStyleSmall, padding: '0 10px 10px' }}>Macro indicators explorer</div>
@@ -1645,7 +1648,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
                     <SignalDot signal={cat.signal} />
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cat.name}</span>
                   </span>
-                  <span style={{ fontFamily: M.mono, color: M.inkDim }}>{cat.count}</span>
+                  <span style={{ fontFamily: M.sans, color: M.inkDim }}>{cat.count}</span>
                 </button>
               );
             })}
@@ -1662,7 +1665,7 @@ function IndicatorExplorer({ f }: { f: Forecast }) {
                 <select
                   value={indicatorKey(selectedIndicator)}
                   onChange={(event) => setSelectedIndicatorKey(event.target.value)}
-                  style={{ maxWidth: 230, background: M.well, border: `1px solid ${M.line2}`, color: M.inkDim, borderRadius: 5, padding: '7px 9px', fontSize: 11.5, outline: 'none' }}
+                  style={{ maxWidth: 230, background: M.well, border: `1px solid ${M.line2}`, color: M.inkDim, borderRadius: M.radius, padding: '7px 9px', fontSize: 11.5, outline: 'none' }}
                 >
                   {categoryItems.map((ind) => <option key={indicatorKey(ind)} value={indicatorKey(ind)}>{ind.label}</option>)}
                 </select>
@@ -1703,7 +1706,7 @@ function railRowStyle(active: boolean): React.CSSProperties {
     borderLeft: `3px solid ${active ? M.accent : 'transparent'}`,
     background: active ? M.cardElev : 'transparent',
     color: active ? M.ink : M.inkDim,
-    borderRadius: '5px',
+    borderRadius: M.radius,
     padding: '10px 10px',
     fontFamily: M.sans,
     fontSize: '12.5px',
@@ -1761,7 +1764,7 @@ function HistoryLineChart({
   const padB = 34;
   if (data.length < 2) {
     return (
-      <div style={{ height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, display: 'grid', placeItems: 'center', color: M.inkFaint, fontFamily: M.sans, fontSize: 12 }}>
+      <div style={{ height, marginTop: 14, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, display: 'grid', placeItems: 'center', color: M.inkFaint, fontFamily: M.sans, fontSize: 12 }}>
         No historical series mapped for this indicator.
       </div>
     );
@@ -1795,7 +1798,7 @@ function HistoryLineChart({
       viewBox={`0 0 ${W} ${H}`}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setHoverIndex(null)}
-      style={{ width: '100%', height, marginTop: 8, background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, cursor: 'crosshair', touchAction: 'none' }}
+      style={{ width: '100%', height, marginTop: 8, background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, cursor: 'crosshair', touchAction: 'none' }}
     >
       <rect x={0} y={0} width={W} height={H} fill="transparent" />
       {yTicks.map((tick) => (
@@ -1882,7 +1885,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
       <div>
         {narrativeRows.slice(0, 3).map((row) => (
           <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '70px minmax(0, 1fr)', gap: 12, marginBottom: 9 }}>
-            <span style={{ fontFamily: M.mono, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: row.label === 'Reality' ? M.pos : row.label === 'Story' ? M.accentBright : M.inkFaint, fontWeight: 600 }}>{row.label}</span>
+            <span style={{ fontFamily: M.sans, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: row.label === 'Reality' ? M.pos : row.label === 'Story' ? M.accentBright : M.inkFaint, fontWeight: 600 }}>{row.label}</span>
             <p style={{ margin: 0, color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{row.text}</p>
           </div>
         ))}
@@ -1896,7 +1899,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
         <MutedLabel>Key tensions</MutedLabel>
         {(f.available ? f.tensions : ['forecast unavailable']).slice(0, 4).map((item, index) => (
           <div key={`${item}-${index}`} style={{ display: 'grid', gridTemplateColumns: '24px minmax(0, 1fr)', gap: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.35, marginBottom: 6 }}>
-            <span style={{ fontFamily: M.mono, color: M.accentBright }}>0{index + 1}</span>
+            <span style={{ fontFamily: M.sans, color: M.accentBright }}>0{index + 1}</span>
             <span>{item}</span>
           </div>
         ))}
@@ -1913,7 +1916,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
   const renderInefficiencies = (all = false) => inefficiency.length ? (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
       {inefficiency.slice(0, all ? undefined : 3).map((row, index) => (
-        <div key={`${row.subject}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: 5, padding: 13 }}>
+        <div key={`${row.subject}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderLeft: `3px solid ${M.warn}`, borderRadius: M.radius, padding: 13 }}>
           <div style={{ fontFamily: M.serif, fontSize: 16, color: M.ink, lineHeight: 1.15 }}>{row.subject}</div>
           <div style={{ marginTop: 8, color: M.inkDim, fontSize: 12, lineHeight: 1.45 }}>{row.gap || row.archetype}</div>
         </div>
@@ -1924,8 +1927,8 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
   const renderTensions = (all = false) => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 10 }} className="macro-narrative-grid">
       {(f.tensions.length ? f.tensions : watch).slice(0, all ? undefined : 4).map((item, index) => (
-        <div key={`${item}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: 5, padding: 13 }}>
-          <div style={{ fontFamily: M.mono, fontSize: 10, color: M.accentBright, marginBottom: 8 }}>0{index + 1}</div>
+        <div key={`${item}-${index}`} style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: 13 }}>
+          <div style={{ fontFamily: M.sans, fontSize: 10, color: M.accentBright, marginBottom: 8 }}>0{index + 1}</div>
           <div style={{ color: M.inkDim, fontSize: 12.5, lineHeight: 1.45 }}>{item}</div>
         </div>
       ))}
@@ -1962,7 +1965,7 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
           .macro-narrative-content .macro-narrative-grid { grid-template-columns: minmax(0, 1fr) !important; }
         }
       `}</style>
-      <section className="macro-narrative-content" style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: M.shadow, overflow: 'hidden' }}>
+      <section className="macro-narrative-content" style={{ background: M.card, border: `1px solid ${M.line}`, borderRadius: M.radius, boxShadow: M.shadow, overflow: 'hidden' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, borderBottom: `1px solid ${M.line}`, padding: '0 14px' }}>
           {NARRATIVE_TABS.map((tab) => (
             <button key={tab.key} type="button" onClick={() => setActive(tab.key)} style={narrativeTabStyle(active === tab.key)}>{tab.label}</button>
@@ -1981,13 +1984,13 @@ function NarrativeSection({ result, f }: { result: AnyRecord | null; f: Forecast
           const bounds = event.currentTarget.getBoundingClientRect();
           if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setExpanded(false);
         }}
-        style={{ width: 'min(1480px, calc(100vw - 32px))', maxWidth: 'none', maxHeight: '90dvh', margin: 'auto', padding: 0, background: M.card, color: M.ink, border: `1px solid ${M.line}`, borderRadius: 5, boxShadow: '0 24px 100px rgba(0, 0, 0, 0.5)', overflowY: 'auto', overscrollBehavior: 'contain' }}
+        style={{ width: 'min(1480px, calc(100vw - 32px))', maxWidth: 'none', maxHeight: '90dvh', margin: 'auto', padding: 0, background: M.card, color: M.ink, border: `1px solid ${M.line}`, borderRadius: M.radius, boxShadow: '0 24px 100px rgba(0, 0, 0, 0.5)', overflowY: 'auto', overscrollBehavior: 'contain' }}
       >
         {expanded ? (
           <>
             <div style={{ position: 'sticky', top: 0, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '18px 24px', background: M.card, borderBottom: `1px solid ${M.line}` }}>
               <h2 id="macro-narrative-dialog-title" style={{ margin: 0, fontFamily: M.serif, fontSize: 24, fontWeight: 500 }}>Market narrative · SPY</h2>
-              <button type="button" autoFocus onClick={() => setExpanded(false)} style={{ padding: '8px 12px', border: `1px solid ${M.line}`, borderRadius: 5, background: M.well, color: M.accentBright, fontFamily: M.sans, cursor: 'pointer', flexShrink: 0 }}>Close ✕</button>
+              <button type="button" autoFocus onClick={() => setExpanded(false)} style={{ padding: '8px 12px', border: `1px solid ${M.line}`, borderRadius: M.radius, background: M.well, color: M.accentBright, fontFamily: M.sans, cursor: 'pointer', flexShrink: 0 }}>Close ✕</button>
             </div>
             <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
               {[
@@ -2036,7 +2039,7 @@ function ChipCloud({ label, color, items }: { label: string; color: string; item
 function ThemeCardRow({ label, color, value }: { label: string; color: string; value: string }) {
   return value ? (
     <div style={{ display: 'flex', gap: '10px', marginBottom: '7px' }}>
-      <span style={{ fontFamily: M.mono, fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color, fontWeight: 600, width: '70px', flexShrink: 0, paddingTop: '3px' }}>{label}</span>
+      <span style={{ fontFamily: M.sans, fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color, fontWeight: 600, width: '70px', flexShrink: 0, paddingTop: '3px' }}>{label}</span>
       <p style={{ margin: 0, fontFamily: M.sans, fontSize: '13px', color: M.inkDim, lineHeight: 1.55, flex: 1 }}>{value}</p>
     </div>
   ) : null;
@@ -2044,7 +2047,7 @@ function ThemeCardRow({ label, color, value }: { label: string; color: string; v
 function ThemeCard({ theme }: { theme: NarrTheme }) {
   const sc = STANCE_COLOR[theme.stance.toLowerCase()] ?? M.inkFaint;
   return (
-    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: '5px', padding: '16px 18px' }}>
+    <div style={{ background: M.well, border: `1px solid ${M.line}`, borderRadius: M.radius, padding: '16px 18px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '11px' }}>
         <h3 style={{ fontFamily: M.serif, fontSize: '19px', fontWeight: 500, color: M.ink, lineHeight: 1.15, margin: 0 }}>{theme.title}</h3>
         <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
@@ -2159,18 +2162,18 @@ export default function MacroPage() {
   return (
     <ForecastDataContext.Provider value={forecastState}>
     <main className="helix-research-workspace" style={{ background: M.canvas, minHeight: '100vh', color: M.canvasInk, fontFamily: M.sans }}>
-      <div style={{ width: 'min(1460px, calc(100% - 40px))', margin: '0 auto', padding: '22px 0 40px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
+      <div style={{ width: 'min(1460px, calc(100% - 40px))', margin: '0 auto', padding: '18px 0 40px', display: 'flex', flexDirection: 'column', gap: '9px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '4px' }}>
           <div>
             <Eyebrow>MACRO &amp; REGIME &gt; CURRENT READ</Eyebrow>
-            <h1 style={{ fontFamily: M.serif, fontSize: '42px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>Macro Analysis</h1>
+            <h1 style={{ fontFamily: M.serif, fontSize: '36px', fontWeight: 500, color: M.canvasInk, lineHeight: 1.02, margin: 0 }}>Macro Analysis</h1>
             <div style={{ fontFamily: M.sans, fontSize: '13px', color: M.canvasInkDim, lineHeight: 1.45, maxWidth: '960px', marginTop: 10 }}>
               {forecast.available ? forecast.regimeRead || forecast.headline : forecast.unavailableMessage}
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-            <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Regime · {regime?.asof || '—'}</div>
-            <div style={{ fontFamily: M.mono, fontSize: '11.5px', letterSpacing: '0.08em', color: M.canvasInkFaint, padding: '8px 11px', border: `1px solid ${M.line2}`, borderRadius: '999px' }}>Forecast · {forecast.available ? forecast.asof || '—' : 'unavailable'}</div>
+            <div style={{ fontFamily: M.sans, fontSize: '11.5px', color: M.canvasInkFaint, padding: '4px 0' }}>Regime · {regime?.asof || '—'}</div>
+            <div style={{ fontFamily: M.sans, fontSize: '11.5px', color: M.canvasInkFaint, padding: '4px 0' }}>Forecast · {forecast.available ? forecast.asof || '—' : 'unavailable'}</div>
           </div>
         </div>
 
